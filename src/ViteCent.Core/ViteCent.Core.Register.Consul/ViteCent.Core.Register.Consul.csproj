@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Consul" Version="1.7.14.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ViteCent.Core.Cache\ViteCent.Core.Cache.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Register\ViteCent.Core.Register.csproj" />
+	</ItemGroup>
+
+</Project>

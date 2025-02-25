@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Quartz" Version="3.13.1" />
+		<PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.13.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ViteCent.Core.Job\ViteCent.Core.Job.csproj" />
+	</ItemGroup>
+
+</Project>

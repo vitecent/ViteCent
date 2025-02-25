@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+		<PackageReference Include="Dapr.AspNetCore" Version="1.14.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.2" />
+		<PackageReference Include="Polly" Version="8.5.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ViteCent.Core.Api.Swagger\ViteCent.Core.Api.Swagger.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Authorize.Jwt\ViteCent.Core.Authorize.Jwt.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Cache.Redis\ViteCent.Core.Cache.Redis.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Job.Quartz\ViteCent.Core.Job.Quartz.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Logging.Log4Net\ViteCent.Core.Logging.Log4Net.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Orm.SqlSugar\ViteCent.Core.Orm.SqlSugar.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Register.Consul\ViteCent.Core.Register.Consul.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Trace.Zipkin\ViteCent.Core.Trace.Zipkin.csproj" />
+	</ItemGroup>
+
+</Project>
