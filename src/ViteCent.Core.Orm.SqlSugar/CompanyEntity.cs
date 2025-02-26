@@ -10,7 +10,7 @@ namespace ViteCent.Core.Orm.SqlSugar;
 public class CompanyEntity : BaseEntity
 {
     /// <summary>
-    ///     companyId
+    ///     公司标识
     /// </summary>
     [SugarColumn(ColumnName = "companyId")]
     public string CompanyId { get; set; } = string.Empty;

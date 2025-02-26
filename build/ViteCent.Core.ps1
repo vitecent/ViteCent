@@ -1,4 +1,4 @@
-$root = "E:\ViteCent\ViteCent.Core\src\ViteCent.Core"
+$root = "E:\Server\ViteCent\ViteCent.Core\src"
 
 $paths = @("/ViteCent.Core/", 
 "/ViteCent.Core.Api/", 
@@ -23,5 +23,5 @@ $paths = @("/ViteCent.Core/",
 foreach ($element in $paths) {
     $path = Join-Path -Path $root -ChildPath $element
 	cd $path
-	dotnet pack -c Release /p:Version=9.0.0
+	dotnet pack -c Release /p:Version=9.0.1
 }

@@ -6,10 +6,9 @@
 public class BaseTable
 {
     /// <summary>
-    ///     Gets or sets the DataBase identifier.
+    ///     BaseFileds
     /// </summary>
-    /// <value>The DataBase identifier.</value>
-    public string DataBaseName { get; set; } = string.Empty;
+    public List<BaseField> BaseFileds { get; set; } = [];
 
     /// <summary>
     ///     Description

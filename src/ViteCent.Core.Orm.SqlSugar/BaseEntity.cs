@@ -10,44 +10,44 @@ namespace ViteCent.Core.Orm.SqlSugar;
 public class BaseEntity : IBaseEntity
 {
     /// <summary>
-    ///     createTime
+    ///     创建时间
     /// </summary>
     [SugarColumn(ColumnName = "createTime")]
     public DateTime CreateTime { get; set; }
 
     /// <summary>
-    ///     creator
+    ///     创建人
     /// </summary>
     [SugarColumn(ColumnName = "creator")]
-    public string Creator { get; set; }
+    public string Creator { get; set; } = string.Empty;
 
     /// <summary>
-    ///     on update CURRENT_TIMESTAMP
+    ///     版本号
     /// </summary>
     [SugarColumn(ColumnName = "dataVersion", IsEnableUpdateVersionValidation = true, IsOnlyIgnoreInsert = true,
         IsOnlyIgnoreUpdate = true)]
     public DateTime DataVersion { get; set; }
 
     /// <summary>
-    ///     id
+    ///     标识
     /// </summary>
     [SugarColumn(ColumnName = "id", IsPrimaryKey = true)]
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
-    ///     status
+    ///     状态
     /// </summary>
     [SugarColumn(ColumnName = "status")]
     public int Status { get; set; }
 
     /// <summary>
-    ///     updater
+    ///     修改人
     /// </summary>
     [SugarColumn(ColumnName = "updater")]
     public string Updater { get; set; }
 
     /// <summary>
-    ///     on update CURRENT_TIMESTAMP
+    ///     修改时间
     /// </summary>
     [SugarColumn(ColumnName = "updateTime")]
     public DateTime UpdateTime { get; set; }

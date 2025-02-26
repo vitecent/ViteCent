@@ -6,20 +6,42 @@
 public class BaseField
 {
     /// <summary>
-    ///     Gets or sets the DataBase identifier.
+    ///     Default
     /// </summary>
-    /// <value>The DataBase identifier.</value>
-    public string DataBaseName { get; set; } = string.Empty;
+    public string Default { get; set; } = string.Empty;
 
     /// <summary>
-    ///     Gets or sets the name.
+    ///     Description
     /// </summary>
-    /// <value>The name.</value>
+    public string Description { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     Identity
+    /// </summary>
+    public bool Identity { get; set; }
+
+    /// <summary>
+    ///     Length
+    /// </summary>
+    public int Length { get; set; }
+
+    /// <summary>
+    ///     Name
+    /// </summary>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    ///     Gets or sets the table identifier.
+    ///     Nullable
     /// </summary>
-    /// <value>The table identifier.</value>
-    public string TableName { get; set; } = string.Empty;
+    public bool Nullable { get; set; }
+
+    /// <summary>
+    ///     Primarykey
+    /// </summary>
+    public bool Primarykey { get; set; }
+
+    /// <summary>
+    ///     Type
+    /// </summary>
+    public string Type { get; set; } = string.Empty;
 }

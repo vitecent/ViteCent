@@ -196,37 +196,26 @@ public class SqlSugarFactory : IFactory, IDisposable
     /// <summary>
     ///     GetFields
     /// </summary>
-    /// <param tableName="tableName"></param>
+    /// <param name="tableName"></param>
+    /// <param name="cache"></param>
     /// <returns></returns>
-    public async Task<List<BaseField>> GetFields(string tableName)
+    public async Task<List<BaseField>> GetFields(string tableName, bool cache = false)
     {
-        var fields = client.DbMaintenance.GetColumnInfosByTableName(tableName, false);
+        var fields = client.DbMaintenance.GetColumnInfosByTableName(tableName, cache);
 
         var config = new MapperConfiguration(configuration =>
         {
-            configuration.CreateMap<DbColumnInfo, BaseField>().ForMember(x => x.Name, y => y.MapFrom(z => z.DbColumnName));
+            configuration.CreateMap<DbColumnInfo, BaseField>()
+                .ForMember(x => x.Default, y => y.MapFrom(z => z.DefaultValue))
+                .ForMember(x => x.Description, y => y.MapFrom(z => z.ColumnDescription))
+                .ForMember(x => x.Identity, y => y.MapFrom(z => z.IsIdentity))
+                .ForMember(x => x.Primarykey, y => y.MapFrom(z => z.IsPrimarykey))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.DbColumnName))
+                .ForMember(x => x.Nullable, y => y.MapFrom(z => z.IsNullable))
+                .ForMember(x => x.Type, y => y.MapFrom(z => z.DataType));
         });
 
         var result = new Mapper(config).Map<List<BaseField>>(fields);
-
-        foreach (var item in result)
-            item.TableName = tableName;
-
-        return await Task.FromResult(result);
-    }
-
-    /// <summary>
-    ///     GetDatabases
-    /// </summary>
-    /// <returns></returns>
-    public async Task<List<BaseDataBase>> GetDatabases()
-    {
-        var databases = client.DbMaintenance.GetDataBaseList();
-
-        var result = databases.Select(x => new BaseDataBase()
-        {
-            Name = x
-        }).ToList();
 
         return await Task.FromResult(result);
     }
@@ -234,11 +223,11 @@ public class SqlSugarFactory : IFactory, IDisposable
     /// <summary>
     ///     GetTables
     /// </summary>
-    /// <param name="databaseName"></param>
+    /// <param name="cache"></param>
     /// <returns></returns>
-    public async Task<List<BaseTable>> GetTables(string databaseName)
+    public async Task<List<BaseTable>> GetTables(bool cache = false)
     {
-        var tables = client.DbMaintenance.GetTableInfoList(false);
+        var tables = client.DbMaintenance.GetTableInfoList(cache);
 
         var config = new MapperConfiguration(configuration =>
         {
@@ -246,9 +235,6 @@ public class SqlSugarFactory : IFactory, IDisposable
         });
 
         var result = new Mapper(config).Map<List<BaseTable>>(tables);
-
-        foreach (var item in result)
-            item.DataBaseName = databaseName;
 
         return await Task.FromResult(result);
     }
