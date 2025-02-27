@@ -209,7 +209,7 @@ public class SqlSugarFactory : IFactory, IDisposable
                 .ForMember(x => x.Default, y => y.MapFrom(z => z.DefaultValue))
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.ColumnDescription))
                 .ForMember(x => x.Identity, y => y.MapFrom(z => z.IsIdentity))
-                .ForMember(x => x.Primarykey, y => y.MapFrom(z => z.IsPrimarykey))
+                .ForMember(x => x.PrimaryKey, y => y.MapFrom(z => z.IsPrimarykey))
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.DbColumnName))
                 .ForMember(x => x.Nullable, y => y.MapFrom(z => z.IsNullable))
                 .ForMember(x => x.Type, y => y.MapFrom(z => z.DataType));

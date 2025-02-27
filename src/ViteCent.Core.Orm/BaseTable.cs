@@ -6,9 +6,9 @@
 public class BaseTable
 {
     /// <summary>
-    ///     BaseFileds
+    ///     BaseFields
     /// </summary>
-    public List<BaseField> BaseFileds { get; set; } = [];
+    public List<BaseField> BaseFields { get; set; } = [];
 
     /// <summary>
     ///     Description

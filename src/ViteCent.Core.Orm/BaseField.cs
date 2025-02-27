@@ -36,9 +36,9 @@ public class BaseField
     public bool Nullable { get; set; }
 
     /// <summary>
-    ///     Primarykey
+    ///     PrimaryKey
     /// </summary>
-    public bool Primarykey { get; set; }
+    public bool PrimaryKey { get; set; }
 
     /// <summary>
     ///     Type

@@ -3,6 +3,7 @@
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 
 #endregion
@@ -22,6 +23,9 @@ public static class BaseAutoFac
         builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
         builder.Host.ConfigureContainer<ContainerBuilder>((context, configuration) =>
         {
+            // 注册 MediatR 的核心服务
+            configuration.RegisterType<Mediator>().As<IMediator>().InstancePerLifetimeScope();
+
             configuration.RegisterModule(module);
         });
     }
