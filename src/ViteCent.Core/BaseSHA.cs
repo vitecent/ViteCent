@@ -8,26 +8,23 @@ using System.Text;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class SHAExtensions.
 /// </summary>
 public static class BaseSHA
 {
     /// <summary>
-    ///     Encrypts the sha.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static string EncryptSHA(this string str)
     {
         return str.EncryptSHA(Encoding.Default);
     }
 
     /// <summary>
-    ///     Encrypts the sha.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string EncryptSHA(this string str, Encoding encoding)
     {
         var buffer = str.StringToByte(encoding);

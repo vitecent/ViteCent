@@ -8,16 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ViteCent.Core.Cache.Redis;
 
 /// <summary>
-///     Class RedisLockExtensions.
 /// </summary>
 public static class RedisLockExtensions
 {
     /// <summary>
-    ///     Adds the redis lock.
     /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="configuration">The configuration.</param>
-    /// <returns>IServiceCollection.</returns>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
     public static IServiceCollection AddRedisLock(this IServiceCollection services, IConfiguration configuration)
     {
         var strConn = configuration["Cache"];

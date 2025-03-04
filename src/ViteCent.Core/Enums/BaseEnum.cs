@@ -7,15 +7,13 @@ using System.ComponentModel;
 namespace ViteCent.Core.Enums;
 
 /// <summary>
-///     EnumHelper
 /// </summary>
 public static class BaseEnum
 {
     /// <summary>
-    ///     Gets the description.
     /// </summary>
-    /// <param name="enums">The enums.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="enums"></param>
+    /// <returns></returns>
     public static string GetDescription(this Enum enums)
     {
         var strValue = enums.ToString();
@@ -33,11 +31,10 @@ public static class BaseEnum
     }
 
     /// <summary>
-    ///     Gets the description by value.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="value"></param>
+    /// <returns></returns>
     public static string GetDescriptionByValue<T>(int value)
     {
         foreach (var item in Enum.GetValues(typeof(T)))

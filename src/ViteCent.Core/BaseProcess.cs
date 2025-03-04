@@ -7,26 +7,23 @@ using System.Diagnostics;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class ProcessExtensions.
 /// </summary>
 public class BaseProcess
 {
     /// <summary>
-    ///     Executes the specified command.
     /// </summary>
-    /// <param name="cmd">The command.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="cmd"></param>
+    /// <returns></returns>
     public static string Execute(string cmd)
     {
         return Execute(cmd, default!);
     }
 
     /// <summary>
-    ///     Executes the specified command.
     /// </summary>
-    /// <param name="cmd">The command.</param>
+    /// <param name="cmd"></param>
     /// <param name="arguments"></param>
-    /// <returns>System.String.</returns>
+    /// <returns></returns>
     public static string Execute(string cmd, string arguments)
     {
         var p = new Process();

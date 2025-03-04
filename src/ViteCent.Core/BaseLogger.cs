@@ -10,12 +10,10 @@ using System.Reflection;
 namespace ViteCent.Core;
 
 /// <summary>
-///     日志记录器基类
 /// </summary>
 public static class BaseLogger
 {
     /// <summary>
-    ///     获取日志记录器
     /// </summary>
     /// <returns></returns>
     public static ILog GetLogger()

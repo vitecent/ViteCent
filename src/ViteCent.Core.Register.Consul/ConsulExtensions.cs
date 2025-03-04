@@ -10,16 +10,14 @@ using ViteCent.Core.Data;
 namespace ViteCent.Core.Register.Consul;
 
 /// <summary>
-///     Class ConsulExtensions.
 /// </summary>
 public static class ConsulExtensions
 {
     /// <summary>
-    ///     Adds the consul.
     /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="configuration">The configuration.</param>
-    /// <returns>IServiceCollection.</returns>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
     public static IServiceCollection AddConsul(this IServiceCollection services, IConfiguration configuration)
     {
         var uri = configuration["Register"] ?? default!;
@@ -32,10 +30,9 @@ public static class ConsulExtensions
     }
 
     /// <summary>
-    ///     Uses the consul.
     /// </summary>
-    /// <param name="app">The app.</param>
-    /// <returns>IApplicationBuilder.</returns>
+    /// <param name="app"></param>
+    /// <returns></returns>
     public static async Task<IApplicationBuilder> UseConsulAsync(this WebApplication app)
     {
         var logger = BaseLogger.GetLogger();

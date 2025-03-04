@@ -8,26 +8,23 @@ using System.Text;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class MD5Helper.
 /// </summary>
 public static class MD5Helper
 {
     /// <summary>
-    ///     Encrypts the m d5.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static string EncryptMD5(this string str)
     {
         return str.EncryptMD5(Encoding.Default);
     }
 
     /// <summary>
-    ///     Encrypts the m d5.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string EncryptMD5(this string str, Encoding encoding)
     {
         var buffer = str.StringToByte(encoding);

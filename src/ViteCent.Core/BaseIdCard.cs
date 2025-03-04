@@ -1,15 +1,13 @@
 ﻿namespace ViteCent.Core;
 
 /// <summary>
-///     Class IdCardHelper.
 /// </summary>
 public static class IdCardHelper
 {
     /// <summary>
-    ///     Gets the identifier card birthday.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static string GetIdCardBirthday(this string str)
     {
         if (!str.IsIdCard()) return string.Empty;
@@ -22,30 +20,27 @@ public static class IdCardHelper
     }
 
     /// <summary>
-    ///     Gets the identifier card birthday15.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static string GetIdCardBirthday15(this string str)
     {
         return str.Substring(6, 6).Insert(4, "-").Insert(2, "-");
     }
 
     /// <summary>
-    ///     Gets the identifier card birthday18.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static string GetIdCardBirthday18(this string str)
     {
         return str.Substring(6, 8).Insert(6, "-").Insert(4, "-");
     }
 
     /// <summary>
-    ///     Determines whether [is identifier card] [the specified string].
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns><c>true</c> if [is identifier card] [the specified string]; otherwise, <c>false</c>.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static bool IsIdCard(this string str)
     {
         if (string.IsNullOrWhiteSpace(str)) return false;
@@ -58,10 +53,9 @@ public static class IdCardHelper
     }
 
     /// <summary>
-    ///     Determines whether [is identifier card15] [the specified string].
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns><c>true</c> if [is identifier card15] [the specified string]; otherwise, <c>false</c>.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static bool IsIdCard15(this string str)
     {
         //数字验证
@@ -80,10 +74,9 @@ public static class IdCardHelper
     }
 
     /// <summary>
-    ///     Determines whether [is identifier card18] [the specified string].
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns><c>true</c> if [is identifier card18] [the specified string]; otherwise, <c>false</c>.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static bool IsIdCard18(this string str)
     {
         //数字验证

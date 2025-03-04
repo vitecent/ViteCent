@@ -113,8 +113,8 @@ public class BaseInvoke<Args, Result>
             }
         }
 
-        if (method == HttpMethod.Post) return await new BaseNet<Result>().PostAsync(uri, args, token);
+        if (method == HttpMethod.Post) return await new BaseHttpClient<Result>().PostAsync(uri, args, token);
 
-        return await new BaseNet<Result>().GetAsync(uri, token);
+        return await new BaseHttpClient<Result>().GetAsync(uri, token);
     }
 }

@@ -5,10 +5,9 @@
 public class BaseService
 {
     /// <summary>
-    ///     Gets the service.
     /// </summary>
-    /// <param name="list">The list.</param>
-    /// <returns>System.Nullable&lt;ServiceConfig&gt;.</returns>
+    /// <param name="list"></param>
+    /// <returns></returns>
     public static ServiceConfig? GetServiceRandom(List<ServiceConfig> list)
     {
         if (list.Count == 0) return null;

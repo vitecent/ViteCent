@@ -8,55 +8,50 @@ using System.Text;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class AESExtensions.
 /// </summary>
 public static class BaseAES
 {
     /// <summary>
-    ///     Decrypts the aes.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public static string DecryptAES(this string str, string key)
     {
         return str.DecryptAES(key, Encoding.Default, CipherMode.ECB, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Decrypts the aes.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string DecryptAES(this string str, string key, Encoding encoding)
     {
         return str.DecryptAES(key, encoding, CipherMode.ECB, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Decrypts the aes.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <param name="mode">The mode.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <param name="mode"></param>
+    /// <returns></returns>
     public static string DecryptAES(this string str, string key, Encoding encoding, CipherMode mode)
     {
         return str.DecryptAES(key, encoding, mode, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Decrypts the aes.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <param name="mode">The mode.</param>
-    /// <param name="padding">The padding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <param name="mode"></param>
+    /// <param name="padding"></param>
+    /// <returns></returns>
     public static string DecryptAES(this string str, string key, Encoding encoding, CipherMode mode,
         PaddingMode padding)
     {
@@ -75,50 +70,46 @@ public static class BaseAES
     }
 
     /// <summary>
-    ///     Encrypts the aes.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public static string EncryptAES(this string str, string key)
     {
         return str.EncryptAES(key, Encoding.Default, CipherMode.ECB, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Encrypts the aes.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string EncryptAES(this string str, string key, Encoding encoding)
     {
         return str.EncryptAES(key, encoding, CipherMode.ECB, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Encrypts the aes.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <param name="mode">The mode.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <param name="mode"></param>
+    /// <returns></returns>
     public static string EncryptAES(this string str, string key, Encoding encoding, CipherMode mode)
     {
         return str.EncryptAES(key, encoding, mode, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Encrypts the aes.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <param name="mode">The mode.</param>
-    /// <param name="padding">The padding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <param name="mode"></param>
+    /// <param name="padding"></param>
+    /// <returns></returns>
     public static string EncryptAES(this string str, string key, Encoding encoding, CipherMode mode,
         PaddingMode padding)
     {

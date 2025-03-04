@@ -8,19 +8,15 @@ using ViteCent.Core.Data;
 namespace ViteCent.Core.Orm.SqlSugar;
 
 /// <summary>
-///     Class BaseDal. Implements the <see cref="ViteCent.Core.Orm.IBaseDomain{T}" />
 /// </summary>
 /// <typeparam name="T"></typeparam>
-/// <seealso cref="ViteCent.Core.Orm.IBaseDomain{T}" />
 public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
 {
     /// <summary>
-    ///     The client
     /// </summary>
     public readonly SqlSugarFactory Client;
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="BaseDomain{T}" /> class.
     /// </summary>
     protected BaseDomain()
     {
@@ -28,16 +24,14 @@ public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
     }
 
     /// <summary>
-    ///     Gets the DataBase.
     /// </summary>
     /// <value>The DataBase.</value>
     public abstract string DataBaseName { get; }
 
     /// <summary>
-    ///     Adds the asynchronous.
     /// </summary>
-    /// <param name="entity">The Entity.</param>
-    /// <returns>A Task&lt;BaseResult&gt; representing the asynchronous operation.</returns>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     public virtual async Task<BaseResult> AddAsync(T entity)
     {
         Client.Insert(entity);
@@ -45,10 +39,19 @@ public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
     }
 
     /// <summary>
-    ///     Edits the asynchronous.
     /// </summary>
-    /// <param name="entity">The Entity.</param>
-    /// <returns>A Task&lt;BaseResult&gt; representing the asynchronous operation.</returns>
+    /// <param name="where"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> DeleteAsync(Expression<Func<T, bool>> where)
+    {
+        Client.Delete(where);
+        return await Client.CommitAsync();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     public virtual async Task<BaseResult> EditAsync(T entity)
     {
         Client.Update(entity);
@@ -56,21 +59,19 @@ public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
     }
 
     /// <summary>
-    ///     Gets the asynchronous.
     /// </summary>
-    /// <param name="where">The where.</param>
-    /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
+    /// <param name="where"></param>
+    /// <returns></returns>
     public virtual async Task<T> GetAsync(Expression<Func<T, bool>> where)
     {
-        var Entity = await Client.Query<T>().Where(where).FirstAsync();
-        return Entity ?? default!;
+        var entity = await Client.Query<T>().Where(where).FirstAsync();
+        return entity ?? default!;
     }
 
     /// <summary>
-    ///     Page as an asynchronous operation.
     /// </summary>
     /// <param name="args"></param>
-    /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
+    /// <returns></returns>
     public virtual async Task<List<T>> PageAsync(SearchArgs args)
     {
         var list = await Client.PageAsync<T>(args);

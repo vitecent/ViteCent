@@ -1,12 +1,10 @@
 ﻿namespace ViteCent.Core;
 
 /// <summary>
-///     Class PinYinHash.
 /// </summary>
-public class PinYinHash
+public class BasePinYinHash
 {
     /// <summary>
-    ///     The hashes
     /// </summary>
     private static short[][] hashes =
     [
@@ -427,7 +425,6 @@ public class PinYinHash
     ];
 
     /// <summary>
-    ///     Gets or sets the hashes.
     /// </summary>
     /// <value>The hashes.</value>
     public static short[][] Hashes

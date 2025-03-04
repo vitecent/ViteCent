@@ -7,31 +7,26 @@ using Consul;
 namespace ViteCent.Core.Register.Consul;
 
 /// <summary>
-///     Class ConsulRegister. Implements the <see cref="ViteCent.Core.Register.IRegister" />
 /// </summary>
-/// <seealso cref="ViteCent.Core.Register.IRegister" />
 /// <param name="uri"></param>
 public class ConsulRegister(string uri) : IRegister
 {
     /// <summary>
-    ///     The client
     /// </summary>
     private readonly ConsulClient client = new(x => { x.Address = new Uri(uri); });
 
     /// <summary>
-    ///     Deregisters the asynchronous.
     /// </summary>
-    /// <param name="serviceId">The service identifier.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
+    /// <param name="serviceId"></param>
+    /// <returns></returns>
     public async Task DeregisterAsync(string serviceId)
     {
         await client.Agent.ServiceDeregister(serviceId);
     }
 
     /// <summary>
-    ///     Discovers the asynchronous.
     /// </summary>
-    /// <returns>A Task&lt;Dictionary`2&gt; representing the asynchronous operation.</returns>
+    /// <returns></returns>
     public async Task<Dictionary<string, List<ServiceConfig>>> DiscoverAsync()
     {
         var result = new Dictionary<string, List<ServiceConfig>>();
@@ -73,10 +68,9 @@ public class ConsulRegister(string uri) : IRegister
     }
 
     /// <summary>
-    ///     Register as an asynchronous operation.
     /// </summary>
-    /// <param name="microService">The micro service.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
+    /// <param name="microService"></param>
+    /// <returns></returns>
     public async Task RegisterAsync(ServiceConfig microService)
     {
         var service = new AgentServiceRegistration

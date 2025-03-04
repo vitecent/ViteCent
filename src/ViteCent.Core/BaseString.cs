@@ -8,59 +8,53 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class StringExtensions.
 /// </summary>
 public static class BaseString
 {
     /// <summary>
-    ///     Bytes to stream.
     /// </summary>
-    /// <param name="buffer">The buffer.</param>
-    /// <returns>Stream.</returns>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
     public static Stream ByteToStream(this byte[] buffer)
     {
         return buffer.ByteToStream(Encoding.Default);
     }
 
     /// <summary>
-    ///     Bytes to stream.
     /// </summary>
-    /// <param name="buffer">The buffer.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>Stream.</returns>
+    /// <param name="buffer"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static Stream ByteToStream(this byte[] buffer, Encoding encoding)
     {
         return buffer.ByteToString(encoding).StringToStream(encoding);
     }
 
     /// <summary>
-    ///     Bytes to string.
     /// </summary>
-    /// <param name="buffer">The buffer.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
     public static string ByteToString(this byte[] buffer)
     {
         return buffer.ByteToString(Encoding.Default);
     }
 
     /// <summary>
-    ///     Bytes to string.
     /// </summary>
-    /// <param name="buffer">The buffer.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="buffer"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string ByteToString(this byte[] buffer, Encoding encoding)
     {
         return encoding.GetString(buffer);
     }
 
     /// <summary>
-    ///     Hides the string.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="hide">The hide.</param>
-    /// <param name="length">The length.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="hide"></param>
+    /// <param name="length"></param>
+    /// <returns></returns>
     public static string HideString(this string str, HideEnum hide, int length)
     {
         if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
@@ -95,11 +89,10 @@ public static class BaseString
     }
 
     /// <summary>
-    ///     Repeats the specified length.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="length">The length.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="length"></param>
+    /// <returns></returns>
     public static string Repeat(this string str, int length)
     {
         if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
@@ -114,12 +107,11 @@ public static class BaseString
     }
 
     /// <summary>
-    ///     Shows the string.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="hide">The hide.</param>
-    /// <param name="length">The length.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="hide"></param>
+    /// <param name="length"></param>
+    /// <returns></returns>
     public static string ShowString(this string str, HideEnum hide, int length)
     {
         if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
@@ -149,10 +141,9 @@ public static class BaseString
     }
 
     /// <summary>
-    ///     Streams to byte.
     /// </summary>
-    /// <param name="stream">The stream.</param>
-    /// <returns>System.Byte[].</returns>
+    /// <param name="stream"></param>
+    /// <returns></returns>
     public static byte[] StreamToByte(this Stream stream)
     {
         var buffer = new byte[stream.Length];
@@ -164,73 +155,66 @@ public static class BaseString
     }
 
     /// <summary>
-    ///     Streams to string.
     /// </summary>
-    /// <param name="stream">The stream.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="stream"></param>
+    /// <returns></returns>
     public static string StreamToString(this Stream stream)
     {
         return stream.StreamToString(Encoding.Default);
     }
 
     /// <summary>
-    ///     Streams to string.
     /// </summary>
-    /// <param name="stream">The stream.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="stream"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string StreamToString(this Stream stream, Encoding encoding)
     {
         return stream.StreamToByte().ByteToString(encoding);
     }
 
     /// <summary>
-    ///     Strings to byte.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns>System.Byte[].</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static byte[] StringToByte(this string str)
     {
         return str.StringToByte(Encoding.Default);
     }
 
     /// <summary>
-    ///     Strings to byte.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.Byte[].</returns>
+    /// <param name="str"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static byte[] StringToByte(this string str, Encoding encoding)
     {
         return encoding.GetBytes(str);
     }
 
     /// <summary>
-    ///     Strings to stream.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns>Stream.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static Stream StringToStream(this string str)
     {
         return str.StringToStream(Encoding.Default);
     }
 
     /// <summary>
-    ///     Strings to stream.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>Stream.</returns>
+    /// <param name="str"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static Stream StringToStream(this string str, Encoding encoding)
     {
         return str.StringToByte(encoding).ByteToStream(encoding);
     }
 
     /// <summary>
-    ///     Converts to camelcase.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <returns></returns>
     public static string ToCamelCase(this string str)
     {
         if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
@@ -239,11 +223,10 @@ public static class BaseString
     }
 
     /// <summary>
-    ///     Converts to camelcase.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="split">The split.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="split"></param>
+    /// <returns></returns>
     private static string ToCamelCase(this string str, string split)
     {
         if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");

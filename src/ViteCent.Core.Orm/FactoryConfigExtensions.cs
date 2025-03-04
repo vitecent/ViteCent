@@ -7,25 +7,21 @@ using Microsoft.Extensions.Configuration;
 namespace ViteCent.Core.Orm;
 
 /// <summary>
-///     Class FactoryConfigExtensions.
 /// </summary>
 public class FactoryConfigExtensions
 {
     /// <summary>
-    ///     The configs
     /// </summary>
     private static readonly List<FactoryConfig> configs = [];
 
     /// <summary>
-    ///     The key
     /// </summary>
     private static readonly object key = new();
 
     /// <summary>
-    ///     Gets the configuration.
     /// </summary>
-    /// <param name="key">The key.</param>
-    /// <returns>FactoryConfig.</returns>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public static FactoryConfig GetConfig(string key)
     {
         if (string.IsNullOrWhiteSpace(key)) throw new Exception("参数key不能为空");
@@ -38,9 +34,8 @@ public class FactoryConfigExtensions
     }
 
     /// <summary>
-    ///     Sets the configuration.
     /// </summary>
-    /// <param name="configuration">The configuration.</param>
+    /// <param name="configuration"></param>
     public static void SetConfig(IConfiguration configuration)
     {
         var logger = BaseLogger.GetLogger();

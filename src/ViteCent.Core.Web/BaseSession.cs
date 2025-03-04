@@ -8,7 +8,6 @@ namespace ViteCent.Core.Web;
 
 /// <summary>
 /// </summary>
-/// <remarks></remarks>
 /// <param name="context"></param>
 public class BaseSession(HttpContext context)
 {

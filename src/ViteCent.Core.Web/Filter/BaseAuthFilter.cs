@@ -2,9 +2,10 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+
+using System.Security.Claims;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
-using ViteCent.Core.Web.Api;
 
 #endregion
 
@@ -12,10 +13,10 @@ namespace ViteCent.Core.Web.Filter;
 
 /// <summary>
 /// </summary>
-/// <remarks></remarks>
 /// <param name="system"></param>
 /// <param name="resource"></param>
 /// <param name="operation"></param>
+[AttributeUsage(AttributeTargets.Method)]
 public class BaseAuthFilter(string system, string resource, string operation) : ActionFilterAttribute
 {
     /// <summary>
@@ -31,25 +32,35 @@ public class BaseAuthFilter(string system, string resource, string operation) : 
     public string System { get; set; } = system;
 
     /// <summary>
-    ///     权限过滤
     /// </summary>
     /// <param name="context"></param>
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        var controller = (BaseLoginApi<BaseArgs, BaseResult>)context.Controller;
         var logger = BaseLogger.GetLogger();
 
-        var user = controller?.User;
+        var result = new JsonResult(new BaseResult(301, "登录超时,请重新登录"));
 
-        if (user is null)
+        var httpContext = context.HttpContext;
+
+        var json = httpContext.User.FindFirstValue(ClaimTypes.UserData);
+
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            context.Result = result;
+            return;
+        }
+
+        var user = json.DeJson<BaseUserInfo>();
+
+        if (user == null)
         {
             logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} No Login");
-            context.Result = new JsonResult(new BaseResult(301, "登录超时,请重新登录"));
+            context.Result = result;
 
             return;
         }
 
-        if (user?.IsSuperAdmin == (int)YesNoEnum.No)
+        if (user?.IsSuper != (int)YesNoEnum.Yes)
             if (!IsAUth(user, System, Resource, Operation))
             {
                 logger.Info($"{user.Name} InvokeAsync {System}:{Resource}:{Operation} No AUth");
@@ -71,15 +82,16 @@ public class BaseAuthFilter(string system, string resource, string operation) : 
     private static bool IsAUth(BaseUserInfo user, string system, string resource, string operation)
     {
         var _system = user.Auth.FirstOrDefault(x => x.Code == system);
-        if (_system != null)
-        {
-            var _resource = _system.Resources.FirstOrDefault(x => x.Code == resource);
-            if (_resource != null)
-            {
-                var _operation = _resource.Operations.FirstOrDefault(x => x.Code == operation);
-                if (_operation != null) return true;
-            }
-        }
+
+        if (_system == null) return false;
+
+        var _resource = _system.Resources.FirstOrDefault(x => x.Code == resource);
+
+        if (_resource == null) return false;
+
+        var _operation = _resource.Operations.FirstOrDefault(x => x.Code == operation);
+
+        if (_operation != null) return true;
 
         return false;
     }

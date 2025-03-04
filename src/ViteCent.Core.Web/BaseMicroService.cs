@@ -13,31 +13,25 @@ using ViteCent.Core.Trace.Zipkin;
 namespace ViteCent.Core.Web;
 
 /// <summary>
-///     基础微服务类，继承自MicroService
 /// </summary>
-/// <remarks></remarks>
 public class BaseMicroService : MicroService
 {
     /// <summary>
-    ///     日志记录器实例
     /// </summary>
     private readonly ILog logger;
 
     /// <summary>
-    ///     服务标题
     /// </summary>
     private readonly string title;
 
     /// <summary>
-    ///     XML文档列表
     /// </summary>
     private readonly List<string> xmls;
 
     /// <summary>
-    ///     构造函数
     /// </summary>
-    /// <param name="title">服务标题</param>
-    /// <param name="xmls">XML文档列表</param>
+    /// <param name="title"></param>
+    /// <param name="xmls"></param>
     public BaseMicroService(string title, List<string> xmls)
     {
         this.title = title;
@@ -45,23 +39,20 @@ public class BaseMicroService : MicroService
 
         logger = BaseLogger.GetLogger();
 
-        logger.Info("开始构建基础微 服务");
+        logger.Info("开始构建基础微服务");
     }
 
     /// <summary>
-    ///     构建时的回调
     /// </summary>
     public Action<WebApplicationBuilder> OnBuild { get; set; } = default!;
 
     /// <summary>
-    ///     启动时的回调
     /// </summary>
     public Action<WebApplication> OnStart { get; set; } = default!;
 
     /// <summary>
-    ///     异步构建方法
     /// </summary>
-    /// <param name="builder">Web应用构建器</param>
+    /// <param name="builder"></param>
     /// <returns></returns>
     protected override async Task BuildAsync(WebApplicationBuilder builder)
     {
@@ -98,9 +89,8 @@ public class BaseMicroService : MicroService
     }
 
     /// <summary>
-    ///     异步启动方法
     /// </summary>
-    /// <param name="app">Web应用</param>
+    /// <param name="app"></param>
     /// <returns></returns>
     protected override async Task StartAsync(WebApplication app)
     {

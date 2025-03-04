@@ -2,8 +2,9 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+
+using System.Security.Claims;
 using ViteCent.Core.Data;
-using ViteCent.Core.Web.Api;
 
 #endregion
 
@@ -11,6 +12,7 @@ namespace ViteCent.Core.Web.Filter;
 
 /// <summary>
 /// </summary>
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class BaseLoginFilter : ActionFilterAttribute
 {
     /// <summary>
@@ -18,8 +20,21 @@ public class BaseLoginFilter : ActionFilterAttribute
     /// <param name="context"></param>
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        var controller = (BaseLoginApi<BaseArgs, BaseResult>)context.Controller;
+        var result = new JsonResult(new BaseResult(301, "登录超时,请重新登录"));
 
-        if (controller?.User == null) context.Result = new JsonResult(new BaseResult(301, "登录超时,请重新登录"));
+        var httpContext = context.HttpContext;
+
+        var json = httpContext.User.FindFirstValue(ClaimTypes.UserData);
+
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            context.Result = result;
+            return;
+        }
+
+        var user = json.DeJson<BaseUserInfo>();
+
+        if (user == null)
+            context.Result = result;
     }
 }

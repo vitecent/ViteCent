@@ -8,15 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ViteCent.Core.Web;
 
 /// <summary>
-///     Class BaseGatewayExtensions.
 /// </summary>
 public static class BaseGatewayExtensions
 {
     /// <summary>
-    ///     Adds the consul.
     /// </summary>
-    /// <param name="services">The services.</param>
-    /// <returns>IServiceCollection.</returns>
+    /// <param name="services"></param>
+    /// <returns></returns>
     public static IServiceCollection AddGateway(this IServiceCollection services)
     {
         services.AddHttpClient();
@@ -25,10 +23,9 @@ public static class BaseGatewayExtensions
     }
 
     /// <summary>
-    ///     Uses the gateway.
     /// </summary>
-    /// <param name="app">The app.</param>
-    /// <returns>IApplicationBuilder.</returns>
+    /// <param name="app"></param>
+    /// <returns></returns>
     public static void UseGateway(this WebApplication app)
     {
         app.UseMiddleware<BaseGateway>();

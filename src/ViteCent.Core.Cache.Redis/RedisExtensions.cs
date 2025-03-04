@@ -8,16 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ViteCent.Core.Cache.Redis;
 
 /// <summary>
-///     Redis扩展类。
 /// </summary>
 public static class RedisExtensions
 {
     /// <summary>
-    ///     添加Redis缓存服务。
     /// </summary>
-    /// <param name="services">服务集合。</param>
-    /// <param name="configuration">配置。</param>
-    /// <returns>服务集合。</returns>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
     public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration)
     {
         var logger = BaseLogger.GetLogger();

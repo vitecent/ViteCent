@@ -7,18 +7,16 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Core.Data;
 
 /// <summary>
-///     Class SearchArgsExtensions.
 /// </summary>
 public static class BaseSearchArgs
 {
     /// <summary>
-    ///     Adds
     /// </summary>
     /// <param name="args"></param>
-    /// <param name="field">The field.</param>
-    /// <param name="value">The value.</param>
-    /// <param name="method">The method.</param>
-    /// <param name="group">The group.</param>
+    /// <param name="field"></param>
+    /// <param name="value"></param>
+    /// <param name="method"></param>
+    /// <param name="group"></param>
     public static void AddArgs(this SearchArgs args, string field, object value, SearchEnum method = SearchEnum.Equal,
         string group = "")
     {
@@ -34,22 +32,20 @@ public static class BaseSearchArgs
     }
 
     /// <summary>
-    ///     Adds the conmpany identifier.
     /// </summary>
     /// <param name="args"></param>
-    /// <param name="user">The user.</param>
-    /// <param name="field">The field.</param>
+    /// <param name="user"></param>
+    /// <param name="field"></param>
     public static void AddConmpanyId(this SearchArgs args, BaseUserInfo user, string field = "CompanyId")
     {
-        if (user.IsSuperAdmin == (int)YesNoEnum.No) args.AddArgs(field, user?.Company?.Id ?? default!);
+        if (user.IsSuper != (int)YesNoEnum.Yes) args.AddArgs(field, user?.Company?.Id ?? default!);
     }
 
     /// <summary>
-    ///     Adds the order.
     /// </summary>
     /// <param name="args"></param>
-    /// <param name="field">The field.</param>
-    /// <param name="type">The type.</param>
+    /// <param name="field"></param>
+    /// <param name="type"></param>
     public static void AddOrder(this SearchArgs args, string field, OrderEnum type = OrderEnum.Desc)
     {
         if (args.Order.Any(x => x.Field == field)) args.Args.RemoveAll(x => x.Field == field);
@@ -62,16 +58,15 @@ public static class BaseSearchArgs
     }
 
     /// <summary>
-    ///     Check arguments company identifier as an asynchronous operation.
     /// </summary>
-    /// <param name="companyId">The company identifier.</param>
-    /// <param name="user">The user.</param>
-    /// <returns>A Task&lt;BaseResult&gt; representing the asynchronous operation.</returns>
-    public static async Task<BaseResult> CheckArgsCompanyIdAsync(string companyId, BaseUserInfo user)
+    /// <param name="companyId"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    public static async Task<BaseResult> CheckCompanyIdArgsAsync(string companyId, BaseUserInfo user)
     {
         return await Task.Run(() =>
         {
-            if (user.IsSuperAdmin == (int)YesNoEnum.No)
+            if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (companyId != user.Company.Id)
                     return new BaseResult(401, "您没有权限访问该数据");
 

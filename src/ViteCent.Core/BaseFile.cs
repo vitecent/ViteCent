@@ -8,16 +8,14 @@ using System.Text;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class FileExtensions.
 /// </summary>
 public class BaseFile
 {
     /// <summary>
-    ///     Copies the specified from.
     /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <returns>result</returns>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <returns></returns>
     public static bool Copy(string from, string to)
     {
         if (File.Exists(from) && from != to)
@@ -31,10 +29,9 @@ public class BaseFile
     }
 
     /// <summary>
-    ///     Creates the specified path.
     /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>result</returns>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static bool Create(string path)
     {
         var _path = path.Replace(@"\", @"/");
@@ -48,11 +45,10 @@ public class BaseFile
     }
 
     /// <summary>
-    ///     Cuts the specified from.
     /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <returns>result</returns>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <returns></returns>
     public static bool Cut(string from, string to)
     {
         if (Copy(from, to)) return Delete(from);
@@ -61,21 +57,19 @@ public class BaseFile
     }
 
     /// <summary>
-    ///     Deletes the specified path.
     /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>result</returns>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static bool Delete(string path)
     {
         return Delete(path, 3);
     }
 
     /// <summary>
-    ///     Deletes the specified path.
     /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="times">The times.</param>
-    /// <returns>result</returns>
+    /// <param name="path"></param>
+    /// <param name="times"></param>
+    /// <returns></returns>
     public static bool Delete(string path, int times)
     {
         DeleteMethod(path, times);
@@ -84,41 +78,37 @@ public class BaseFile
     }
 
     /// <summary>
-    ///     Gets the file byte.
     /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.Byte[].</returns>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static byte[] GetFileByte(string path)
     {
         return GetFileStream(path).StreamToByte();
     }
 
     /// <summary>
-    ///     Gets the file stream.
     /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>Stream.</returns>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static Stream GetFileStream(string path)
     {
         return Open(path).StringToStream();
     }
 
     /// <summary>
-    ///     Opens the specified path.
     /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static string Open(string path)
     {
         return Open(path, Encoding.Default);
     }
 
     /// <summary>
-    ///     Opens the specified path.
     /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="path"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string Open(string path, Encoding encoding)
     {
         if (File.Exists(path))
@@ -132,11 +122,10 @@ public class BaseFile
     }
 
     /// <summary>
-    ///     Writes the specified string.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>result</returns>
+    /// <param name="str"></param>
+    /// <param name="path"></param>
+    /// <returns></returns>
     public static bool Write(string str, string path)
     {
         Create(path);
@@ -147,10 +136,9 @@ public class BaseFile
     }
 
     /// <summary>
-    ///     Deletes the method.
     /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="times">The times.</param>
+    /// <param name="path"></param>
+    /// <param name="times"></param>
     private static void DeleteMethod(string path, int times)
     {
         if (!File.Exists(path)) throw new FileNotFoundException(path);

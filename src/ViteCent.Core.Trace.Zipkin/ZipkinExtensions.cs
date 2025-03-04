@@ -15,16 +15,14 @@ using zipkin4net.Transport.Http;
 namespace ViteCent.Core.Trace.Zipkin;
 
 /// <summary>
-///     Zipkin 扩展方法类。
 /// </summary>
 public static class ZipkinExtensions
 {
     /// <summary>
-    ///     添加 Zipkin 服务。
     /// </summary>
-    /// <param name="services">服务集合。</param>
-    /// <param name="configuration">配置。</param>
-    /// <returns>服务集合。</returns>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
     public static IServiceCollection AddZipkin(this IServiceCollection services, IConfiguration configuration)
     {
         var isDapr = configuration["Environment"] ?? default!;
@@ -58,10 +56,9 @@ public static class ZipkinExtensions
     }
 
     /// <summary>
-    ///     使用 Zipkin 中间件。
     /// </summary>
-    /// <param name="app">应用程序构建器。</param>
-    /// <returns>应用程序构建器。</returns>
+    /// <param name="app"></param>
+    /// <returns></returns>
     public static IApplicationBuilder UseZipkin(this WebApplication app)
     {
         var configuration = app.Configuration;

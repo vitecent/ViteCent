@@ -3,8 +3,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
-using Polly;
-using Polly.Timeout;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Register;
@@ -14,7 +12,6 @@ using ViteCent.Core.Register;
 namespace ViteCent.Core.Web;
 
 /// <summary>
-///     Class BaseGateway.
 /// </summary>
 /// <param name="next"></param>
 /// <param name="httpClient"></param>
@@ -27,14 +24,12 @@ public class BaseGateway(
     IBaseCache cache)
 {
     /// <summary>
-    ///     The register
     /// </summary>
     private readonly IRegister register = serviceProvider.GetService<IRegister>() ?? default!;
 
     /// <summary>
-    ///     Invokes the specified context.
     /// </summary>
-    /// <param name="context">The context.</param>
+    /// <param name="context"></param>
     public async Task Invoke(HttpContext context)
     {
         var logger = BaseLogger.GetLogger();
@@ -57,22 +52,7 @@ public class BaseGateway(
 
         if (!string.IsNullOrWhiteSpace(uri))
         {
-            var timeoutPolicy = Policy.TimeoutAsync(15);
-
-            var retryPolicy = Policy.Handle<Exception>()
-                .Or<TimeoutRejectedException>()
-                .WaitAndRetryAsync([
-                    TimeSpan.FromSeconds(5),
-                    TimeSpan.FromSeconds(10),
-                    TimeSpan.FromSeconds(20)
-                ]);
-
-            var breakerPolicy = Policy.Handle<Exception>()
-                .CircuitBreakerAsync(2, TimeSpan.FromMinutes(1));
-
-            var policyWrap = timeoutPolicy.WrapAsync(retryPolicy).WrapAsync(breakerPolicy);
-
-            await policyWrap.ExecuteAsync(async () =>
+            await BasePolicy<Task>.ExecuteAsync(async () =>
             {
                 logger.Info($"Gateway Url {uri}");
 
@@ -107,6 +87,8 @@ public class BaseGateway(
                 logger.Info($"Gateway Response {body}");
 
                 await response.Content.CopyToAsync(body);
+
+                return Task.CompletedTask;
             });
 
             return;
@@ -116,10 +98,9 @@ public class BaseGateway(
     }
 
     /// <summary>
-    ///     Gets the service URI.
     /// </summary>
-    /// <param name="context">The context.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="context"></param>
+    /// <returns></returns>
     private string GetServiceUri(HttpContext context)
     {
         var baseUri = new Uri(context.Request.GetDisplayUrl());

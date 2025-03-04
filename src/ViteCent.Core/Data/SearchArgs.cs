@@ -8,50 +8,41 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Core.Data;
 
 /// <summary>
-///     Class SearchArgs. Implements the <see cref="ViteCent.Core.Data.BaseArgs" />
 /// </summary>
-/// <seealso cref="ViteCent.Core.Data.BaseArgs" />
 public class SearchArgs : BaseArgs
 {
     /// <summary>
-    ///     The index
     /// </summary>
     private int index = 1;
 
     /// <summary>
-    ///     Gets or sets
     /// </summary>
     /// <value></value>
     public List<SearchItem> Args { get; set; } = [];
 
     /// <summary>
-    ///     Gets or sets the limit.
     /// </summary>
     /// <value>The limit.</value>
     public int Limit { get; set; }
 
     /// <summary>
-    ///     Gets or sets the offset.
     /// </summary>
     /// <value>The offset.</value>
     public int Offset { get; set; }
 
     /// <summary>
-    ///     Gets or sets the order.
     /// </summary>
     /// <value>The order.</value>
     public List<OrderField> Order { get; set; } = [];
 
     /// <summary>
-    ///     Gets or sets the total.
     /// </summary>
     /// <value>The total.</value>
     public int Total { get; set; }
 
     /// <summary>
-    ///     Converts to sql.
     /// </summary>
-    /// <returns>(string, object).</returns>
+    /// <returns></returns>
     public (string, object) ToSql()
     {
         var result = string.Empty;
@@ -73,7 +64,7 @@ public class SearchArgs : BaseArgs
 
         list.ForEach(x =>
         {
-            sql.Append($"AND {ToSQL(x, parameters)}");
+            sql.Append($"AND {ToSql(x, parameters)}");
             i++;
         });
 
@@ -92,7 +83,7 @@ public class SearchArgs : BaseArgs
                 {
                     if (i != 0) sql.Append("OR ");
 
-                    sql.Append(ToSQL(x, parameters));
+                    sql.Append(ToSql(x, parameters));
 
                     i++;
                 });
@@ -124,7 +115,7 @@ public class SearchArgs : BaseArgs
 
                         if (g.Count() == 1)
                         {
-                            sql.Append(ToSQL(g.First(), parameters));
+                            sql.Append(ToSql(g.First(), parameters));
                         }
                         else
                         {
@@ -133,7 +124,7 @@ public class SearchArgs : BaseArgs
                             g.ToList().ForEach(x =>
                             {
                                 if (j != 0) sql.Append("AND ");
-                                sql.Append(ToSQL(x, parameters));
+                                sql.Append(ToSql(x, parameters));
                                 j++;
                             });
                             sql.Append(") ");
@@ -153,12 +144,11 @@ public class SearchArgs : BaseArgs
     }
 
     /// <summary>
-    ///     Converts to sql.
     /// </summary>
-    /// <param name="item">The item.</param>
-    /// <param name="parameters">The parameters.</param>
-    /// <returns>string.</returns>
-    private string ToSQL(SearchItem item, Dictionary<string, object> parameters)
+    /// <param name="item"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    private string ToSql(SearchItem item, Dictionary<string, object> parameters)
     {
         var sql = string.Empty;
         var flag = true;

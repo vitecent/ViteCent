@@ -8,7 +8,6 @@ namespace ViteCent.Core.Web;
 
 /// <summary>
 /// </summary>
-/// <remarks></remarks>
 /// <param name="context"></param>
 public class BaseCookie(HttpContext context)
 {
@@ -28,7 +27,6 @@ public class BaseCookie(HttpContext context)
     }
 
     /// <summary>
-    ///     /
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
@@ -52,7 +50,7 @@ public class BaseCookie(HttpContext context)
     /// </summary>
     /// <param name="key"></param>
     /// <param name="vlaue"></param>
-    /// <param name="day">天数</param>
+    /// <param name="day"></param>
     public void SetCookie(string key, string vlaue, double day)
     {
         context.Response.Cookies.Append(key, vlaue, new CookieOptions { Expires = DateTime.Now.AddDays(day) });

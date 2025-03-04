@@ -8,16 +8,14 @@ using System.Xml.Serialization;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class XmlExtensions.
 /// </summary>
 public static class BaseXml
 {
     /// <summary>
-    ///     Des the XML.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="xml">The XML.</param>
-    /// <returns>T.</returns>
+    /// <param name="xml"></param>
+    /// <returns></returns>
     public static T DeXml<T>(string xml)
     {
         if (string.IsNullOrEmpty(xml)) throw new Exception("xml 不能为空");
@@ -34,10 +32,9 @@ public static class BaseXml
     }
 
     /// <summary>
-    ///     Converts to xml.
     /// </summary>
-    /// <param name="obj">The object.</param>
-    /// <returns>XmlDocument.</returns>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static XmlDocument ToXml(this object obj)
     {
         if (obj == null) throw new Exception("obj 不能为空");

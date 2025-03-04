@@ -8,28 +8,25 @@ using System.Text;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class RSAHelper.
 /// </summary>
 public static class RSAHelper
 {
     /// <summary>
-    ///     Decrypts the RSA.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public static string DecryptRSA(this string str, string key)
     {
         return str.DecryptRSA(key, Encoding.Default);
     }
 
     /// <summary>
-    ///     Decrypts the RSA.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string DecryptRSA(this string str, string key, Encoding encoding)
     {
         var strBuffer = str.DecryptBase64();
@@ -42,23 +39,21 @@ public static class RSAHelper
     }
 
     /// <summary>
-    ///     Encrypts the RSA.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public static string EncryptRSA(this string str, out string key)
     {
         return str.EncryptRSA(out key, Encoding.Default);
     }
 
     /// <summary>
-    ///     Encrypts the RSA.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string EncryptRSA(this string str, out string key, Encoding encoding)
     {
         var buffer = str.StringToByte(encoding);

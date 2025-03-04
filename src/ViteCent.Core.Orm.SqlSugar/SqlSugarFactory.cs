@@ -1,7 +1,6 @@
 ﻿#region
 
 using AutoMapper;
-
 using SqlSugar;
 using System.Linq.Expressions;
 using ViteCent.Core.Data;
@@ -12,28 +11,21 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Core.Orm.SqlSugar;
 
 /// <summary>
-///     Class SqlSugarFactory. Implements the <see cref="ViteCent.Core.Orm.IFactory" /> Implements the <see
-///     cref="System.IDisposable" />
 /// </summary>
-/// <seealso cref="ViteCent.Core.Orm.IFactory" />
-/// <seealso cref="System.IDisposable" />
 public class SqlSugarFactory : IFactory, IDisposable
 {
     /// <summary>
-    ///     The client
     /// </summary>
     private readonly SqlSugarClient client = default!;
 
     /// <summary>
-    ///     The commands
     /// </summary>
     private readonly List<Command> commands = [];
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="SqlSugarFactory" /> class.
     /// </summary>
-    /// <param name="dataBase">The DataBase.</param>
-    /// <param name="log">if set to <c>true</c> [log].</param>
+    /// <param name="dataBase"></param>
+    /// <param name="log"></param>
     public SqlSugarFactory(string dataBase, bool log = true)
     {
         var configuration = FactoryConfigExtensions.GetConfig(dataBase);
@@ -78,97 +70,91 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Commits the asynchronous.
     /// </summary>
-    /// <returns>A Task&lt;BaseResult&gt; representing the asynchronous operation.</returns>
+    /// <returns></returns>
     public async Task<BaseResult> CommitAsync()
     {
-        if (commands.Count > 0)
+        if (commands.Count <= 0) return new BaseResult();
+
+        client.BeginTran();
+        try
         {
-            client.BeginTran();
-            try
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
+                commands.ForEach(x =>
                 {
-                    commands.ForEach(x =>
-                    {
-                        if (x.DataType == DataEnum.SQL)
-                            client.Ado.ExecuteCommand(x.SQL, x.Parameters);
-                        else
-                            switch (x.CommandType)
-                            {
-                                case CommandEnum.Insert:
-                                    client.Insertable(x.Entity).ExecuteCommand();
-                                    break;
+                    if (x.DataType == DataEnum.SQL)
+                        client.Ado.ExecuteCommand(x.SQL, x.Parameters);
+                    else
+                        switch (x.CommandType)
+                        {
+                            case CommandEnum.Insert:
+                                client.Insertable(x.Entity).ExecuteCommand();
+                                break;
 
-                                case CommandEnum.Update:
-                                    if (x.DataType == DataEnum.Entity)
-                                        client.Updateable(x.Entity).IgnoreColumns(true)
-                                            .IsEnableUpdateVersionValidation().ExecuteCommand();
-                                    else
-                                        client.Updateable(x.Entity).UpdateColumns(x.Where)
-                                            .IgnoreColumns(ignoreAllNullColumns: true).IsEnableUpdateVersionValidation()
-                                            .ExecuteCommand();
-                                    break;
+                            case CommandEnum.Update:
+                                if (x.DataType == DataEnum.Entity)
+                                    client.Updateable(x.Entity).IgnoreColumns(true)
+                                        .IsEnableUpdateVersionValidation().ExecuteCommand();
+                                else
+                                    client.Updateable(x.Entity).UpdateColumns(x.Where)
+                                        .IgnoreColumns(ignoreAllNullColumns: true).IsEnableUpdateVersionValidation()
+                                        .ExecuteCommand();
+                                break;
 
-                                case CommandEnum.Delete:
-                                    if (x.DataType == DataEnum.Entity)
-                                        client.Deleteable(x.Entity).ExecuteCommand();
-                                    else
-                                        client.Deleteable(x.Where).ExecuteCommand();
-                                    break;
-                            }
-                    });
-
-                    client.CommitTran();
+                            case CommandEnum.Delete:
+                                if (x.DataType == DataEnum.Entity)
+                                    client.Deleteable(x.Entity).ExecuteCommand();
+                                else
+                                    client.Deleteable(x.Where).ExecuteCommand();
+                                break;
+                        }
                 });
-            }
-            catch (Exception e)
-            {
-                client.RollbackTran();
-                return new BaseResult(500, e.Message);
-            }
+
+                client.CommitTran();
+            });
+        }
+        catch (Exception e)
+        {
+            client.RollbackTran();
+            return new BaseResult(500, e.Message);
         }
 
         return new BaseResult();
     }
 
     /// <summary>
-    ///     Deletes the specified where.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="where">The where.</param>
+    /// <param name="where"></param>
     public void Delete<T>(Expression<Func<T, bool>> where) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Where, Where = where });
     }
 
     /// <summary>
-    ///     Deletes the specified Entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="entity">The Entity.</param>
+    /// <param name="entity"></param>
     public void Delete<T>(T entity) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Entity, Entity = entity });
     }
 
     /// <summary>
-    ///     Deletes the specified Entitys.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="entitys">The Entitys.</param>
+    /// <param name="entitys"></param>
     public void Delete<T>(List<T> entitys) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Entity, Entity = entitys });
     }
 
     /// <summary>
-    ///     Deletes the specified SQL.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="sql">The SQL.</param>
-    /// <param name="parameters">The parameters.</param>
+    /// <param name="sql"></param>
+    /// <param name="parameters"></param>
     public void Delete<T>(string sql, object parameters = default!) where T : class, new()
     {
         commands.Add(new Command
@@ -176,7 +162,6 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public void Dispose()
     {
@@ -184,17 +169,15 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Fastests this instance.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <returns>IFastest&lt;T&gt;.</returns>
+    /// <returns></returns>
     public IFastest<T> Fastest<T>() where T : class, new()
     {
         return client.Fastest<T>();
     }
 
     /// <summary>
-    ///     GetFields
     /// </summary>
     /// <param name="tableName"></param>
     /// <param name="cache"></param>
@@ -221,7 +204,6 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     GetTables
     /// </summary>
     /// <param name="cache"></param>
     /// <returns></returns>
@@ -229,10 +211,7 @@ public class SqlSugarFactory : IFactory, IDisposable
     {
         var tables = client.DbMaintenance.GetTableInfoList(cache);
 
-        var config = new MapperConfiguration(configuration =>
-        {
-            configuration.CreateMap<DbTableInfo, BaseTable>();
-        });
+        var config = new MapperConfiguration(configuration => { configuration.CreateMap<DbTableInfo, BaseTable>(); });
 
         var result = new Mapper(config).Map<List<BaseTable>>(tables);
 
@@ -240,31 +219,28 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Inserts the specified Entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="entity">The Entity.</param>
+    /// <param name="entity"></param>
     public void Insert<T>(T entity) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Insert, DataType = DataEnum.Entity, Entity = entity });
     }
 
     /// <summary>
-    ///     Inserts the specified Entitys.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="entitys">The Entitys.</param>
+    /// <param name="entitys"></param>
     public void Insert<T>(List<T> entitys) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Insert, DataType = DataEnum.Entity, Entity = entitys });
     }
 
     /// <summary>
-    ///     Inserts the specified SQL.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="sql">The SQL.</param>
-    /// <param name="parameters">The parameters.</param>
+    /// <param name="sql"></param>
+    /// <param name="parameters"></param>
     public void Insert<T>(string sql, object parameters = default!) where T : class, new()
     {
         commands.Add(new Command
@@ -272,11 +248,10 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Pages the asynchronous.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="args"></param>
-    /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
+    /// <returns></returns>
     public async Task<List<T>> PageAsync<T>(SearchArgs args) where T : class, new()
     {
         if (args.Offset < 1) args.Offset = 1;
@@ -300,31 +275,28 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Queries this instance.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <returns>ISugarQueryable&lt;T&gt;.</returns>
+    /// <returns></returns>
     public ISugarQueryable<T> Query<T>() where T : class, new()
     {
         return client.Queryable<T>();
     }
 
     /// <summary>
-    ///     Updates the specified Entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="entity">The Entity.</param>
+    /// <param name="entity"></param>
     public void Update<T>(T entity) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Update, DataType = DataEnum.Entity, Entity = entity });
     }
 
     /// <summary>
-    ///     Updates the specified Entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="entity">The Entity.</param>
-    /// <param name="columns">The columns.</param>
+    /// <param name="entity"></param>
+    /// <param name="columns"></param>
     public void Update<T>(T entity, Expression<Func<T, object>> columns) where T : class, new()
     {
         commands.Add(new Command
@@ -332,21 +304,19 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Updates the specified Entitys.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="entitys">The Entitys.</param>
+    /// <param name="entitys"></param>
     public void Update<T>(List<T> entitys) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Update, DataType = DataEnum.Entity, Entity = entitys });
     }
 
     /// <summary>
-    ///     Updates the specified Entitys.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="entitys">The Entitys.</param>
-    /// <param name="columns">The columns.</param>
+    /// <param name="entitys"></param>
+    /// <param name="columns"></param>
     public void Update<T>(List<T> entitys, Expression<Func<T, object>> columns) where T : class, new()
     {
         commands.Add(new Command
@@ -354,11 +324,10 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Updates the specified SQL.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="sql">The SQL.</param>
-    /// <param name="parameters">The parameters.</param>
+    /// <param name="sql"></param>
+    /// <param name="parameters"></param>
     public void Update<T>(string sql, object parameters = default!) where T : class, new()
     {
         commands.Add(new Command
@@ -366,10 +335,9 @@ public class SqlSugarFactory : IFactory, IDisposable
     }
 
     /// <summary>
-    ///     Gets the type of the DataBase.
     /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>DbType.</returns>
+    /// <param name="type"></param>
+    /// <returns></returns>
     private static DbType GetDbType(string type)
     {
         return type switch

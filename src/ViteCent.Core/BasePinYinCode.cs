@@ -1,12 +1,10 @@
 ﻿namespace ViteCent.Core;
 
 /// <summary>
-///     Class PinYinCode.
 /// </summary>
-public class PinYinCode
+public class BasePinYinCode
 {
     /// <summary>
-    ///     The codes
     /// </summary>
     internal static string[] Codes =
     [

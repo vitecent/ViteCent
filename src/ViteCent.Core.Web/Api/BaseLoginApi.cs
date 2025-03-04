@@ -1,7 +1,6 @@
 ﻿#region
 
 using System.Security.Claims;
-using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 
 #endregion
@@ -18,15 +17,8 @@ public abstract class BaseLoginApi<Args, Result> : BaseApi<Args, Result>
 {
     /// <summary>
     /// </summary>
-    private readonly IBaseCache cache;
-
-    /// <summary>
-    /// </summary>
     public BaseLoginApi()
     {
-        var context = BaseHttpContext.Context;
-
-        cache = context.RequestServices.GetService(typeof(IBaseCache)) as IBaseCache ?? default!;
     }
 
     /// <summary>
@@ -51,9 +43,9 @@ public abstract class BaseLoginApi<Args, Result> : BaseApi<Args, Result>
         {
             var json = base.User.FindFirstValue(ClaimTypes.UserData);
 
-            if (!string.IsNullOrWhiteSpace(json)) return json.DeJson<BaseUserInfo>();
+            if (!string.IsNullOrWhiteSpace(json)) return default!;
 
-            return default!;
+            return json.DeJson<BaseUserInfo>();
         }
     }
 }

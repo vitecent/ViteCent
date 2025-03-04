@@ -10,7 +10,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.2" />
-		<PackageReference Include="ViteCent.Core.Authorize" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ViteCent.Core.Authorize\ViteCent.Core.Authorize.csproj" />
 	</ItemGroup>
 
 </Project>

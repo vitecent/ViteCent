@@ -8,55 +8,50 @@ using System.Text;
 namespace ViteCent.Core;
 
 /// <summary>
-///     Class DESHelper.
 /// </summary>
 public static class DESHelper
 {
     /// <summary>
-    ///     Decrypts the DES.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public static string DecryptDES(this string str, string key)
     {
         return str.DecryptDES(key, Encoding.UTF8, CipherMode.ECB, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Decrypts the DES.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string DecryptDES(this string str, string key, Encoding encoding)
     {
         return str.DecryptDES(key, encoding, CipherMode.ECB, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Decrypts the DES.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <param name="mode">The mode.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <param name="mode"></param>
+    /// <returns></returns>
     public static string DecryptDES(this string str, string key, Encoding encoding, CipherMode mode)
     {
         return str.DecryptDES(key, encoding, mode, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Decrypts the DES.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <param name="mode">The mode.</param>
-    /// <param name="padding">The padding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <param name="mode"></param>
+    /// <param name="padding"></param>
+    /// <returns></returns>
     public static string DecryptDES(this string str, string key, Encoding encoding, CipherMode mode,
         PaddingMode padding)
     {
@@ -77,50 +72,46 @@ public static class DESHelper
     }
 
     /// <summary>
-    ///     Encrypts the DES.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public static string EncryptDES(this string str, string key)
     {
         return str.EncryptDES(key, Encoding.UTF8, CipherMode.ECB, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Encrypts the DES.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
     public static string EncryptDES(this string str, string key, Encoding encoding)
     {
         return str.EncryptDES(key, encoding, CipherMode.ECB, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Encrypts the DES.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <param name="mode">The mode.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <param name="mode"></param>
+    /// <returns></returns>
     public static string EncryptDES(this string str, string key, Encoding encoding, CipherMode mode)
     {
         return str.EncryptDES(key, encoding, mode, PaddingMode.PKCS7);
     }
 
     /// <summary>
-    ///     Encrypts the DES.
     /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="encoding">The encoding.</param>
-    /// <param name="mode">The mode.</param>
-    /// <param name="padding">The padding.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="str"></param>
+    /// <param name="key"></param>
+    /// <param name="encoding"></param>
+    /// <param name="mode"></param>
+    /// <param name="padding"></param>
+    /// <returns></returns>
     public static string EncryptDES(this string str, string key, Encoding encoding, CipherMode mode,
         PaddingMode padding)
     {
