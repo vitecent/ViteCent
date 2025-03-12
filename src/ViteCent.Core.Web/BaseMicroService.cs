@@ -56,35 +56,28 @@ public class BaseMicroService : MicroService
     /// <returns></returns>
     protected override async Task BuildAsync(WebApplicationBuilder builder)
     {
-        // 调用基类的 BuildAsync 方法
         await base.BuildAsync(builder);
 
         var configuration = builder.Configuration;
         var services = builder.Services;
 
-        // 添加Redis服务
         logger.Info("开始添加 Redis 服务");
         services.AddRedis(configuration);
 
-        // 添加Consul服务
         logger.Info("开始添加 Consul 服务");
         services.AddConsul(configuration);
 
-        // 添加Zipkin服务
         logger.Info("开始添加 Zipkin 服务");
         services.AddZipkin(configuration);
 
-        // 添加SqlSugar服务
         logger.Info("开始添加 SqlSugar 服务");
         services.AddSqlSugger(configuration);
 
-        // 添加Swagger服务
         logger.Info("开始添加 Swagger 服务");
         services.AddSwagger(title, xmls);
 
         logger.Info("开始执行构建回调");
 
-        // 执行构建回调
         OnBuild?.Invoke(builder);
     }
 
@@ -94,24 +87,19 @@ public class BaseMicroService : MicroService
     /// <returns></returns>
     protected override async Task StartAsync(WebApplication app)
     {
-        // 调用基类的 StartAsync 方法
         await base.StartAsync(app);
 
-        // 使用 Consul 中间件
         logger.Info("开始使用 Consul 中间件");
         await app.UseConsulAsync();
 
-        // 使用 Zipkin 中间件
         logger.Info("开始使用 Zipkin 中间件");
         app.UseZipkin();
 
-        // 使用 Swagger 仪表盘
         logger.Info("开始使用 Swagger 仪表盘");
         app.UseSwagger();
 
         logger.Info("开执行启动回调");
 
-        // 执行启动回调
         OnStart?.Invoke(app);
     }
 }

@@ -18,25 +18,25 @@ public static class BasePinYin
     {
         var key = pinyin.Trim().ToLower();
 
-        foreach (var str in BasePinYinCode.Codes)
-            if (str.StartsWith(key + " ") || str.StartsWith(key + ":"))
-                return str[7..];
+        foreach (var input in BasePinYinCode.Codes)
+            if (input.StartsWith(key + " ") || input.StartsWith(key + ":"))
+                return input[7..];
 
         return default!;
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static string GetInitials(this string str)
+    public static string GetInitials(this string input)
     {
-        str = str.Trim();
+        input = input.Trim();
         var pingyins = new StringBuilder();
 
-        for (var i = 0; i < str.Length; ++i)
+        for (var i = 0; i < input.Length; ++i)
         {
-            var pinying = str[i].GetPinYin();
+            var pinying = input[i].GetPinYin();
 
             if (pinying != "") pingyins.Append(pinying[0]);
         }
@@ -46,15 +46,15 @@ public static class BasePinYin
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static string GetPinYin(this string str)
+    public static string GetPinYin(this string input)
     {
         var pingyins = new StringBuilder();
 
-        for (var i = 0; i < str.Length; ++i)
+        for (var i = 0; i < input.Length; ++i)
         {
-            var pinying = str[i].GetPinYin();
+            var pinying = input[i].GetPinYin();
 
             if (pinying != "") pingyins.Append(pinying);
 

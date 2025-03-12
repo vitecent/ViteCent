@@ -101,7 +101,7 @@ public class BaseFile
     /// <returns></returns>
     public static string Open(string path)
     {
-        return Open(path, Encoding.Default);
+        return Open(path, Encoding.UTF8);
     }
 
     /// <summary>
@@ -123,14 +123,14 @@ public class BaseFile
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="path"></param>
     /// <returns></returns>
-    public static bool Write(string str, string path)
+    public static bool Write(string input, string path)
     {
         Create(path);
         using var sw = new StreamWriter(path);
-        sw.Write(str);
+        sw.Write(input);
 
         return true;
     }

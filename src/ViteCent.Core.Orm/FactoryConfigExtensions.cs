@@ -28,9 +28,7 @@ public class FactoryConfigExtensions
 
         var configuration = configs.FirstOrDefault(x => x.Name == key);
 
-        if (configuration == null) throw new Exception("数据库不存在");
-
-        return configuration;
+        return configuration ?? throw new Exception("数据库不存在");
     }
 
     /// <summary>
@@ -40,9 +38,7 @@ public class FactoryConfigExtensions
     {
         var logger = BaseLogger.GetLogger();
 
-        var dataBase = configuration.GetSection("DataBase");
-
-        if (dataBase == null) throw new Exception("Appsettings Must Be DataBase");
+        var dataBase = configuration.GetSection("DataBase") ?? throw new Exception("Appsettings Must Be DataBase");
 
         var dataBaseCount = dataBase.GetChildren().Count();
 
@@ -50,21 +46,24 @@ public class FactoryConfigExtensions
         {
             var name = configuration[$"DataBase:{i}:Name"];
 
-            logger.Info($"DataBase Name {i} ：{name}");
-
             if (string.IsNullOrWhiteSpace(name)) throw new Exception("DataBase.Name");
+
+            logger.Info($"DataBase Name {i} ：{name}");
 
             var type = configuration[$"DataBase:{i}:Type"];
 
-            logger.Info($"DataBase Type {i} ：{type}");
-
             if (string.IsNullOrWhiteSpace(type)) throw new Exception("DataBase.Type");
+
+            logger.Info($"DataBase Type {i} ：{type}");
 
             var master = configuration[$"DataBase:{i}:Master"];
 
+            if (string.IsNullOrWhiteSpace(master)) throw new Exception("DataBase.Master");
+
             logger.Info($"DataBase Master {i} ：{master}");
 
-            if (string.IsNullOrWhiteSpace(master)) throw new Exception("DataBase.Master");
+            if (IsEncrypt(configuration))
+                master = Encrypt(master, configuration);
 
             var factoryConfig = new FactoryConfig
             {
@@ -84,9 +83,12 @@ public class FactoryConfigExtensions
                 {
                     var value = configuration[$"DataBase:{i}:Slaves:{j}"];
 
-                    logger.Info($"DataBase Slaves {i} ：{value}");
-
                     if (string.IsNullOrWhiteSpace(value)) throw new Exception("DataBase.Slaves");
+
+                    if (IsEncrypt(configuration))
+                        value = Encrypt(value, configuration);
+
+                    logger.Info($"DataBase Slaves {i} ：{value}");
 
                     factoryConfig.Slaves.Add(value);
                 }
@@ -112,5 +114,52 @@ public class FactoryConfigExtensions
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
+    private static string Encrypt(string input, IConfiguration configuration)
+    {
+        var type = configuration["Encrypt:Type"] ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(type))
+            throw new Exception("Appsettings Must Be Encrypt:Type");
+
+        if (type == "Base64")
+        {
+            var bytes = input.StringToByte();
+            return bytes.EncryptBase64();
+        }
+
+        var key = configuration["Encrypt:Key"] ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(key))
+            throw new Exception("Appsettings Must Be Encrypt:Key");
+
+        return type switch
+        {
+            "AES" => input.EncryptAES(key),
+            "DES" => input.EncryptDES(key),
+            _ => throw new Exception($"Encrypt:Type {type} Is Not Support"),
+        };
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
+    private static bool IsEncrypt(IConfiguration configuration)
+    {
+        var _switch = configuration["Encrypt:Switch"] ?? string.Empty;
+
+        var result = bool.TryParse(_switch, out var flag);
+
+        if (!result || !flag)
+            return false;
+
+        return true;
     }
 }

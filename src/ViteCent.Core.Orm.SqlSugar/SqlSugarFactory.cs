@@ -1,6 +1,7 @@
 ﻿#region
 
 using AutoMapper;
+using log4net;
 using SqlSugar;
 using System.Linq.Expressions;
 using ViteCent.Core.Data;
@@ -12,7 +13,7 @@ namespace ViteCent.Core.Orm.SqlSugar;
 
 /// <summary>
 /// </summary>
-public class SqlSugarFactory : IFactory, IDisposable
+public class SqlSugarFactory : IFactory
 {
     /// <summary>
     /// </summary>
@@ -24,10 +25,16 @@ public class SqlSugarFactory : IFactory, IDisposable
 
     /// <summary>
     /// </summary>
+    private readonly ILog logger;
+
+    /// <summary>
+    /// </summary>
     /// <param name="dataBase"></param>
     /// <param name="log"></param>
     public SqlSugarFactory(string dataBase, bool log = true)
     {
+        logger = BaseLogger.GetLogger();
+
         var configuration = FactoryConfigExtensions.GetConfig(dataBase);
 
         var slaves = new List<SlaveConnectionConfig>();
@@ -51,21 +58,29 @@ public class SqlSugarFactory : IFactory, IDisposable
         if (log)
             client.Aop.OnLogExecuted = (text, parameter) =>
             {
+                var types = new List<System.Data.DbType>()
+                {
+                     System.Data.DbType.Int16,
+                     System.Data.DbType.Int32,
+                     System.Data.DbType.Int64,
+                     System.Data.DbType.Decimal,
+                     System.Data.DbType.Double,
+                     System.Data.DbType.Single,
+                     System.Data.DbType.UInt16,
+                     System.Data.DbType.UInt32,
+                     System.Data.DbType.UInt64,
+                     System.Data.DbType.VarNumeric
+                };
+
                 foreach (var p in parameter)
-                    if (p.DbType == System.Data.DbType.Int16 || p.DbType == System.Data.DbType.Int32
-                                                             || p.DbType == System.Data.DbType.Int64 ||
-                                                             p.DbType == System.Data.DbType.Decimal
-                                                             || p.DbType == System.Data.DbType.Double ||
-                                                             p.DbType == System.Data.DbType.Single
-                                                             || p.DbType == System.Data.DbType.UInt16 ||
-                                                             p.DbType == System.Data.DbType.UInt32
-                                                             || p.DbType == System.Data.DbType.UInt64 ||
-                                                             p.DbType == System.Data.DbType.VarNumeric)
+                    if (types.Contains(p.DbType))
                         text = text.Replace(p.ParameterName, p.Value == null ? "" : p.Value.ToString());
                     else
                         text = text.Replace(p.ParameterName, $"'{p.Value ?? default!}'");
 
                 var sql = $"Time: {client.Ado.SqlExecutionTime.TotalMilliseconds} ms, SQL:{text}";
+
+                logger.Info(sql);
             };
     }
 
@@ -117,6 +132,7 @@ public class SqlSugarFactory : IFactory, IDisposable
         catch (Exception e)
         {
             client.RollbackTran();
+            logger.Error(e.Message);
             return new BaseResult(500, e.Message);
         }
 
@@ -159,13 +175,6 @@ public class SqlSugarFactory : IFactory, IDisposable
     {
         commands.Add(new Command
         { CommandType = CommandEnum.Delete, DataType = DataEnum.SQL, SQL = sql, Parameters = parameters });
-    }
-
-    /// <summary>
-    /// </summary>
-    public void Dispose()
-    {
-        client?.Dispose();
     }
 
     /// <summary>
@@ -350,7 +359,28 @@ public class SqlSugarFactory : IFactory, IDisposable
             "Dm" => DbType.Dm,
             "Kdbndp" => DbType.Kdbndp,
             "Oscar" => DbType.Oscar,
-            _ => DbType.MySql
+            "MySqlConnector" => DbType.MySqlConnector,
+            "Access" => DbType.Access,
+            "OpenGauss" => DbType.OpenGauss,
+            "QuestDB" => DbType.QuestDB,
+            "HG" => DbType.HG,
+            "ClickHouse" => DbType.ClickHouse,
+            "GBase" => DbType.GBase,
+            "Odbc" => DbType.Odbc,
+            "OceanBaseForOracle" => DbType.OceanBaseForOracle,
+            "TDengine" => DbType.TDengine,
+            "GaussDB" => DbType.GaussDB,
+            "OceanBase" => DbType.OceanBase,
+            "Tidb" => DbType.Tidb,
+            "Vastbase" => DbType.Vastbase,
+            "PolarDB" => DbType.PolarDB,
+            "Doris" => DbType.Doris,
+            "Xugu" => DbType.Xugu,
+            "GoldenDB" => DbType.GoldenDB,
+            "TDSQLForPGODBC" => DbType.TDSQLForPGODBC,
+            "TDSQL" => DbType.TDSQL,
+            "HANA" => DbType.HANA,
+            _ => DbType.Custom
         };
     }
 }

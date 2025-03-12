@@ -7,6 +7,7 @@ $paths = @("/ViteCent.Core/",
 "/ViteCent.Core.Authorize.Jwt/",
 "/ViteCent.Core.Cache/", 
 "/ViteCent.Core.Cache.Redis/",
+"/ViteCent.Core.ElasticSearch/",
 "/ViteCent.Core.Job/",
 "/ViteCent.Core.Job.Quartz/",
 "/ViteCent.Core.Logging/",
@@ -23,5 +24,5 @@ $paths = @("/ViteCent.Core/",
 foreach ($element in $paths) {
     $path = Join-Path -Path $root -ChildPath $element
 	cd $path
-	dotnet pack -c Release /p:Version=9.0.2
+	dotnet pack -c Release /p:Version=9.0.3
 }

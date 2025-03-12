@@ -17,7 +17,7 @@ public static class BaseString
     /// <returns></returns>
     public static Stream ByteToStream(this byte[] buffer)
     {
-        return buffer.ByteToStream(Encoding.Default);
+        return buffer.ByteToStream(Encoding.UTF8);
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public static class BaseString
     /// <returns></returns>
     public static string ByteToString(this byte[] buffer)
     {
-        return buffer.ByteToString(Encoding.Default);
+        return buffer.ByteToString(Encoding.UTF8);
     }
 
     /// <summary>
@@ -51,93 +51,93 @@ public static class BaseString
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="hide"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    public static string HideString(this string str, HideEnum hide, int length)
+    public static string HideString(this string input, HideEnum hide, int length)
     {
-        if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
+        if (string.IsNullOrWhiteSpace(input)) throw new Exception("input 不能为空");
 
         if (length < 0) throw new Exception("length 格式错误");
 
         //全部隐藏
-        if (length >= str.Length)
-            str = "*".Repeat(str.Length);
+        if (length >= input.Length)
+            input = "*".Repeat(input.Length);
         else
             switch (hide)
             {
                 case HideEnum.Start:
-                    str = $"{"*".Repeat(length)}{str[length..]}";
+                    input = $"{"*".Repeat(length)}{input[length..]}";
                     break;
 
                 case HideEnum.Middle:
-                    var start = (str.Length - length) / 2;
+                    var start = (input.Length - length) / 2;
                     var sl = start + length;
-                    str = $"{str[..start]}{"*".Repeat(length)}{str[sl..]}";
+                    input = $"{input[..start]}{"*".Repeat(length)}{input[sl..]}";
                     break;
 
                 case HideEnum.End:
-                    str = $"{str[..^length]}{"*".Repeat(length)}";
+                    input = $"{input[..^length]}{"*".Repeat(length)}";
                     break;
 
                 default:
                     throw new Exception("hide 格式错误");
             }
 
-        return str;
+        return input;
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    public static string Repeat(this string str, int length)
+    public static string Repeat(this string input, int length)
     {
-        if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
+        if (string.IsNullOrWhiteSpace(input)) throw new Exception("input 不能为空");
 
         if (length < 0) throw new Exception("length 格式错误");
 
         var sb = new StringBuilder();
 
-        for (var i = 0; i < length; i++) sb.Append(str);
+        for (var i = 0; i < length; i++) sb.Append(input);
 
         return sb.ToString();
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="hide"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    public static string ShowString(this string str, HideEnum hide, int length)
+    public static string ShowString(this string input, HideEnum hide, int length)
     {
-        if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
+        if (string.IsNullOrWhiteSpace(input)) throw new Exception("input 不能为空");
 
         if (length < 0) throw new Exception("length 格式错误");
 
         switch (hide)
         {
             case HideEnum.Start:
-                str = $"{str[..length]}{"*".Repeat(str.Length - length)}";
+                input = $"{input[..length]}{"*".Repeat(input.Length - length)}";
                 break;
 
             case HideEnum.Middle:
-                var start = (str.Length - length) / 2;
-                str = $"{"*".Repeat(start)}{str.Substring(start, length)}{"*".Repeat(str.Length - length - start)}";
+                var start = (input.Length - length) / 2;
+                input = $"{"*".Repeat(start)}{input.Substring(start, length)}{"*".Repeat(input.Length - length - start)}";
                 break;
 
             case HideEnum.End:
-                str = $"{"*".Repeat(str.Length - length)}{str.Substring(str.Length - length, length)}";
+                input = $"{"*".Repeat(input.Length - length)}{input.Substring(input.Length - length, length)}";
                 break;
 
             default:
                 throw new Exception("hide 格式错误");
         }
 
-        return str;
+        return input;
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public static class BaseString
     /// <returns></returns>
     public static string StreamToString(this Stream stream)
     {
-        return stream.StreamToString(Encoding.Default);
+        return stream.StreamToString(Encoding.UTF8);
     }
 
     /// <summary>
@@ -175,65 +175,65 @@ public static class BaseString
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static byte[] StringToByte(this string str)
+    public static byte[] StringToByte(this string input)
     {
-        return str.StringToByte(Encoding.Default);
+        return input.StringToByte(Encoding.UTF8);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="encoding"></param>
     /// <returns></returns>
-    public static byte[] StringToByte(this string str, Encoding encoding)
+    public static byte[] StringToByte(this string input, Encoding encoding)
     {
-        return encoding.GetBytes(str);
+        return encoding.GetBytes(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static Stream StringToStream(this string str)
+    public static Stream StringToStream(this string input)
     {
-        return str.StringToStream(Encoding.Default);
+        return input.StringToStream(Encoding.UTF8);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="encoding"></param>
     /// <returns></returns>
-    public static Stream StringToStream(this string str, Encoding encoding)
+    public static Stream StringToStream(this string input, Encoding encoding)
     {
-        return str.StringToByte(encoding).ByteToStream(encoding);
+        return input.StringToByte(encoding).ByteToStream(encoding);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static string ToCamelCase(this string str)
+    public static string ToCamelCase(this string input)
     {
-        if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
+        if (string.IsNullOrWhiteSpace(input)) throw new Exception("input 不能为空");
 
-        return str.ToCamelCase("_").ToCamelCase("-").ToCamelCase(".");
+        return input.ToCamelCase("_").ToCamelCase("-").ToCamelCase(".");
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="split"></param>
     /// <returns></returns>
-    private static string ToCamelCase(this string str, string split)
+    private static string ToCamelCase(this string input, string split)
     {
-        if (string.IsNullOrWhiteSpace(str)) throw new Exception("str 不能为空");
+        if (string.IsNullOrWhiteSpace(input)) throw new Exception("input 不能为空");
 
         if (string.IsNullOrWhiteSpace(split)) throw new Exception("split 不能为空");
 
-        var array = str.Split(split, StringSplitOptions.RemoveEmptyEntries).ToList();
+        var array = input.Split(split, StringSplitOptions.RemoveEmptyEntries).ToList();
         var sb = new StringBuilder();
 
         array.ForEach(x =>

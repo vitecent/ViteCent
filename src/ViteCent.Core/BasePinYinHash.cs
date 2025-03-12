@@ -6,7 +6,7 @@ public class BasePinYinHash
 {
     /// <summary>
     /// </summary>
-    private static short[][] hashes =
+    private static short[][] _hashes =
     [
         [23, 70, 96, 128, 154, 165, 172, 195],
         [25, 35, 87, 108, 120, 128, 132, 137, 168, 180, 325, 334, 336, 353, 361, 380],
@@ -429,7 +429,7 @@ public class BasePinYinHash
     /// <value>The hashes.</value>
     public static short[][] Hashes
     {
-        get => hashes;
-        set => hashes = value;
+        get => _hashes;
+        set => _hashes = value;
     }
 }

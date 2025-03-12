@@ -13,21 +13,21 @@ public static class BaseSHA
 {
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static string EncryptSHA(this string str)
+    public static string EncryptSHA(this string input)
     {
-        return str.EncryptSHA(Encoding.Default);
+        return input.EncryptSHA(Encoding.UTF8);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="encoding"></param>
     /// <returns></returns>
-    public static string EncryptSHA(this string str, Encoding encoding)
+    public static string EncryptSHA(this string input, Encoding encoding)
     {
-        var buffer = str.StringToByte(encoding);
+        var buffer = input.StringToByte(encoding);
         var provider = SHA1.Create();
         buffer = provider.ComputeHash(buffer);
         var result = new StringBuilder();

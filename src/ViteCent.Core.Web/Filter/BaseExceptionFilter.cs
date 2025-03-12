@@ -24,7 +24,7 @@ public class BaseExceptionFilter : IExceptionFilter
 
         var result = new BaseResult(500, context.Exception.Message);
 
-        await context.HttpContext.Response.WriteAsJsonAsync(result, typeof(BaseResult), JsonSerializerOptions.Web);
+        await context.HttpContext.Response.WriteAsJsonAsync(result, JsonSerializerOptions.Web);
 
         context.ExceptionHandled = true;
     }

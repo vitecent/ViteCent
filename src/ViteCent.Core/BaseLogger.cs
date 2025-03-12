@@ -15,14 +15,14 @@ public static class BaseLogger
 {
     /// <summary>
     /// </summary>
+    /// <param name="type"></param>
     /// <returns></returns>
-    public static ILog GetLogger()
+    public static ILog GetLogger(Type? type = null)
     {
         var logRep = LogManager.GetRepository(Assembly.GetEntryAssembly());
         XmlConfigurator.Configure(logRep, new FileInfo("log4net.config"));
 
-        // 获取日志记录器
-        var log = LogManager.GetLogger("Log4NetExtensions");
+        var log = LogManager.GetLogger(type ?? typeof(BaseLogger));
 
         return log;
     }

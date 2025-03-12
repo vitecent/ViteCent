@@ -23,7 +23,6 @@ public static class BaseAutoFac
         builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
         builder.Host.ConfigureContainer<ContainerBuilder>((context, configuration) =>
         {
-            // 注册 MediatR 的核心服务
             configuration.RegisterType<Mediator>().As<IMediator>().InstancePerLifetimeScope();
 
             configuration.RegisterModule(module);

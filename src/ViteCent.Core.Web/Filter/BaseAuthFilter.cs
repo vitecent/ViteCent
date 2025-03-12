@@ -54,7 +54,7 @@ public class BaseAuthFilter(string system, string resource, string operation) : 
 
         if (user == null)
         {
-            logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} No Login");
+            logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Login");
             context.Result = result;
 
             return;
@@ -63,13 +63,13 @@ public class BaseAuthFilter(string system, string resource, string operation) : 
         if (user?.IsSuper != (int)YesNoEnum.Yes)
             if (!IsAUth(user, System, Resource, Operation))
             {
-                logger.Info($"{user.Name} InvokeAsync {System}:{Resource}:{Operation} No AUth");
+                logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} No Permission");
                 context.Result = new JsonResult(new BaseResult(401, "您没有权限访问该资源"));
 
                 return;
             }
 
-        logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} OK");
+        logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Success");
     }
 
     /// <summary>
@@ -79,9 +79,9 @@ public class BaseAuthFilter(string system, string resource, string operation) : 
     /// <param name="resource"></param>
     /// <param name="operation"></param>
     /// <returns></returns>
-    private static bool IsAUth(BaseUserInfo user, string system, string resource, string operation)
+    private static bool IsAUth(BaseUserInfo? user, string system, string resource, string operation)
     {
-        var _system = user.Auth.FirstOrDefault(x => x.Code == system);
+        var _system = user?.Auth?.FirstOrDefault(x => x.Code == system);
 
         if (_system == null) return false;
 

@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using ViteCent.Core.Web.Middlewar;
 
 #endregion
 
@@ -28,6 +29,6 @@ public static class BaseGatewayExtensions
     /// <returns></returns>
     public static void UseGateway(this WebApplication app)
     {
-        app.UseMiddleware<BaseGateway>();
+        app.UseMiddleware<BaseGatewayMiddlewar>();
     }
 }

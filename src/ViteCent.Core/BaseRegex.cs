@@ -13,75 +13,75 @@ public static partial class BaseRegex
 {
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsChinese(this string str)
+    public static bool IsChinese(this string input)
     {
-        return Chinese().IsMatch(str);
+        return Chinese().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsChineseEnglish(this string str)
+    public static bool IsChineseEnglish(this string input)
     {
-        return ChineseEnglish().IsMatch(str);
+        return ChineseEnglish().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsChineseUnderline(this string str)
+    public static bool IsChineseUnderline(this string input)
     {
-        return ChineseUnderline().IsMatch(str);
+        return ChineseUnderline().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    public static bool IsDecimal(this string str, int length = 2)
+    public static bool IsDecimal(this string input, int length = 2)
     {
-        return Regex.IsMatch(str, string.Format(Const.Decimal, length));
+        return Regex.IsMatch(input, string.Format(Const.Decimal, length));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsEmail(this string str)
+    public static bool IsEmail(this string input)
     {
-        return Email().IsMatch(str);
+        return Email().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsEnglish(this string str)
+    public static bool IsEnglish(this string input)
     {
-        return English().IsMatch(str);
+        return English().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    public static bool IsIdCard(this string str, int length = 18)
+    public static bool IsIdCard(this string input, int length = 18)
     {
         switch (length)
         {
             case 18:
                 {
-                    return str.IsIdCard18();
+                    return input.IsIdCard18();
                 }
             case 15:
                 {
-                    return str.IsIdCard15();
+                    return input.IsIdCard15();
                 }
             default:
                 {
@@ -92,168 +92,168 @@ public static partial class BaseRegex
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsIP(this string str)
+    public static bool IsIP(this string input)
     {
-        return IP().IsMatch(str);
+        return IP().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="regex"></param>
     /// <returns></returns>
-    public static bool IsMatch(this string str, string regex)
+    public static bool IsMatch(this string input, string regex)
     {
-        return Regex.IsMatch(str, regex);
+        return Regex.IsMatch(input, regex);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsMobile(this string str)
+    public static bool IsMobile(this string input)
     {
-        return Mobile().IsMatch(str);
+        return Mobile().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsNegative(this string str)
+    public static bool IsNegative(this string input)
     {
-        return Negative().IsMatch(str);
+        return Negative().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    public static bool IsNegativeDecimal(this string str, int length = 2)
+    public static bool IsNegativeDecimal(this string input, int length = 2)
     {
-        return Regex.IsMatch(str, string.Format(Const.NegativeDecimal, length));
+        return Regex.IsMatch(input, string.Format(Const.NegativeDecimal, length));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    public static bool IsNegativeDecimalDecimal(this string str, int length = 2)
+    public static bool IsNegativeDecimalDecimal(this string input, int length = 2)
     {
-        return Regex.IsMatch(str, string.Format(Const.NegativeDecimalDecimal, length));
+        return Regex.IsMatch(input, string.Format(Const.NegativeDecimalDecimal, length));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositive(this string str)
+    public static bool IsPositive(this string input)
     {
-        return Positive().IsMatch(str);
+        return Positive().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositiveChinese(this string str)
+    public static bool IsPositiveChinese(this string input)
     {
-        return PositiveChinese().IsMatch(str);
+        return PositiveChinese().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositiveChineseEnglish(this string str)
+    public static bool IsPositiveChineseEnglish(this string input)
     {
-        return PositiveChineseEnglish().IsMatch(str);
+        return PositiveChineseEnglish().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositiveChineseEnglishUnderline(this string str)
+    public static bool IsPositiveChineseEnglishUnderline(this string input)
     {
-        return PositiveChineseEnglishUnderline().IsMatch(str);
+        return PositiveChineseEnglishUnderline().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositiveChineseUnderline(this string str)
+    public static bool IsPositiveChineseUnderline(this string input)
     {
-        return PositiveChineseUnderline().IsMatch(str);
+        return PositiveChineseUnderline().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="length"></param>
     /// <returns></returns>
-    public static bool IsPositiveDecimal(this string str, int length = 2)
+    public static bool IsPositiveDecimal(this string input, int length = 2)
     {
-        return Regex.IsMatch(str, string.Format(Const.PositiveDecimal, length));
+        return Regex.IsMatch(input, string.Format(Const.PositiveDecimal, length));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositiveEnglish(this string str)
+    public static bool IsPositiveEnglish(this string input)
     {
-        return PositiveEnglish().IsMatch(str);
+        return PositiveEnglish().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositiveEnglishUnderline(this string str)
+    public static bool IsPositiveEnglishUnderline(this string input)
     {
-        return PositiveEnglishUnderline().IsMatch(str);
+        return PositiveEnglishUnderline().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositiveNegative(this string str)
+    public static bool IsPositiveNegative(this string input)
     {
-        return PositiveNegative().IsMatch(str);
+        return PositiveNegative().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsPositiveUnderline(this string str)
+    public static bool IsPositiveUnderline(this string input)
     {
-        return PositiveUnderline().IsMatch(str);
+        return PositiveUnderline().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool IsUrl(this string str)
+    public static bool IsUrl(this string input)
     {
-        return Url().IsMatch(str);
+        return Url().IsMatch(input);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static bool Underline(this string str)
+    public static bool Underline(this string input)
     {
-        return EnglishUnderline().IsMatch(str);
+        return EnglishUnderline().IsMatch(input);
     }
 
     /// <summary>

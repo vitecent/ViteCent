@@ -19,21 +19,21 @@ public static class DateTimeHelper
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static DateTime GetDateTime(this string str)
+    public static DateTime GetDateTime(this string input)
     {
-        return str.GetDateTime(default);
+        return input.GetDateTime(DateTime.Now);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="defaultValue"></param>
     /// <returns></returns>
-    public static DateTime GetDateTime(this string str, DateTime defaultValue)
+    public static DateTime GetDateTime(this string input, DateTime defaultValue)
     {
-        return DateTime.TryParse(str, out var value) ? value : defaultValue;
+        return DateTime.TryParse(input, out var value) ? value : defaultValue;
     }
 
     /// <summary>

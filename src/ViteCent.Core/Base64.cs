@@ -6,11 +6,11 @@ public static class Base64
 {
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static byte[] DecryptBase64(this string str)
+    public static byte[] DecryptBase64(this string input)
     {
-        return Convert.FromBase64String(str);
+        return Convert.FromBase64String(input);
     }
 
     /// <summary>

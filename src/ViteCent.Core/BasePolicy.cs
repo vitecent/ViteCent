@@ -25,7 +25,7 @@ public class BasePolicy<T>
     {
         var timeoutPolicy = Policy.TimeoutAsync(timeOut);
 
-        if (!retryTimes.Any())
+        if (retryTimes.Count == 0)
             retryTimes = [5, 10, 20];
 
         var timeSpans = retryTimes.Select(x => TimeSpan.FromSeconds(x)).ToList();

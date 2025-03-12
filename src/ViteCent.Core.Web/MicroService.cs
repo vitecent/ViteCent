@@ -2,16 +2,15 @@
 
 using log4net;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using System.IO.Compression;
 using ViteCent.Core.Authorize.Jwt;
-using ViteCent.Core.Data;
 using ViteCent.Core.Logging.Log4Net;
 using ViteCent.Core.Web.Filter;
 
@@ -51,29 +50,50 @@ public abstract class MicroService
 
         services.AddLog4Net();
 
-        services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-        BaseHttpContext.Services = services;
+        services.AddResponseCompression(options =>
+        {
+            options.EnableForHttps = true;
+            options.Providers.Add<BrotliCompressionProvider>();
+            options.Providers.Add<GzipCompressionProvider>();
+        });
 
-        services.AddResponseCompression();
-        services.Configure<GzipCompressionProviderOptions>(options => { options.Level = CompressionLevel.Fastest; });
-        services.AddEndpointsApiExplorer();
+        services.Configure<BrotliCompressionProviderOptions>(options =>
+        {
+            options.Level = CompressionLevel.Fastest;
+        });
+
+        services.Configure<GzipCompressionProviderOptions>(options =>
+        {
+            options.Level = CompressionLevel.Fastest;
+        });
 
         services.AddControllers(options => { options.Filters.Add(new BaseExceptionFilter()); }).AddNewtonsoftJson(
             options =>
             {
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.Formatting = Formatting.None;
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                options.SerializerSettings.Converters =
+                [
+                    new IsoDateTimeConverter
+                    {
+                        DateTimeFormat = "yyyy-MM-dd HH:mm:ss"
+                    }
+                ];
             }).AddDapr();
 
-        // 添加Jwt服务
         logger.Info("开始添加 Jwt 服务");
         services.AddJwt(configuration);
 
         await BuildAsync(builder);
 
-        //App
         var app = builder.Build();
+
+        app.UseResponseCompression();
 
         await StartAsync(app);
 
@@ -90,7 +110,6 @@ public abstract class MicroService
         app.UseHttpsRedirection();
         app.UseRouting();
 
-        // 使用 Jwt 中间件
         logger.Info("开始使用 Jwt 中间件");
         app.UseJwt();
 

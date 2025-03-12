@@ -6,20 +6,20 @@ public static class IntHelper
 {
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public static int GetInt(this string str)
+    public static int GetInt(this string input)
     {
-        return str.GetInt(default);
+        return input.GetInt(0);
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="str"></param>
+    /// <param name="input"></param>
     /// <param name="defaultValue"></param>
     /// <returns></returns>
-    public static int GetInt(this string str, int defaultValue)
+    public static int GetInt(this string input, int defaultValue)
     {
-        return int.TryParse(str, out var value) ? value : defaultValue;
+        return int.TryParse(input, out var value) ? value : defaultValue;
     }
 }

@@ -31,7 +31,6 @@ public static class ZipkinExtensions
         {
             var logger = BaseLogger.GetLogger();
 
-            // 设置采样率
             TraceManager.SamplingRate = 1.0f;
 
             var loggerFactory = new LoggerFactory();
@@ -43,11 +42,9 @@ public static class ZipkinExtensions
 
             if (string.IsNullOrWhiteSpace(uri)) throw new Exception("Appsettings Must Be Trace");
 
-            // 配置 Zipkin 发送器和追踪器
             var httpSender = new HttpZipkinSender(uri, "application/json");
             var tracer = new ZipkinTracer(httpSender, new JSONSpanSerializer());
 
-            // 注册追踪器并启动追踪管理器
             TraceManager.RegisterTracer(tracer);
             TraceManager.Start(log);
         }
@@ -73,12 +70,10 @@ public static class ZipkinExtensions
 
             if (string.IsNullOrWhiteSpace(check)) check = Const.Check;
 
-            // 使用 Zipkin 追踪中间件
             app.UseTracing(serviceName, null, x => { return x != check; });
 
             var lifetime = app.Lifetime;
 
-            // 注册应用程序停止事件以停止追踪管理器
             lifetime.ApplicationStopping.Register(() => { TraceManager.Stop(); });
         }
 

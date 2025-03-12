@@ -2,35 +2,28 @@
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.Extensions.DependencyInjection;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Register;
 
 #endregion
 
-namespace ViteCent.Core.Web;
+namespace ViteCent.Core.Web.Middlewar;
 
 /// <summary>
 /// </summary>
 /// <param name="next"></param>
 /// <param name="httpClient"></param>
-/// <param name="serviceProvider"></param>
 /// <param name="cache"></param>
-public class BaseGateway(
+public class BaseGatewayMiddlewar(
     RequestDelegate next,
     IHttpClientFactory httpClient,
-    IServiceProvider serviceProvider,
     IBaseCache cache)
 {
     /// <summary>
     /// </summary>
-    private readonly IRegister register = serviceProvider.GetService<IRegister>() ?? default!;
-
-    /// <summary>
-    /// </summary>
     /// <param name="context"></param>
-    public async Task Invoke(HttpContext context)
+    public async Task InvokeASync(HttpContext context)
     {
         var logger = BaseLogger.GetLogger();
         var traceingId = string.Empty;

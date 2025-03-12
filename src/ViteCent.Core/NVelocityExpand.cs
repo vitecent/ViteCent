@@ -64,8 +64,8 @@ public class NVelocityExpand
         var vm = ve.GetTemplate(path);
         using var sw = new StringWriter();
         vm.Merge(vc, sw);
-        var str = sw.ToString();
-        var flag = BaseFile.Write(str, savePath);
+        var input = sw.ToString();
+        var flag = BaseFile.Write(input, savePath);
         sw.Close();
         return flag;
     }

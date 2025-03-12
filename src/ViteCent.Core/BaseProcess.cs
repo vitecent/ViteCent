@@ -16,7 +16,7 @@ public class BaseProcess
     /// <returns></returns>
     public static string Execute(string cmd)
     {
-        return Execute(cmd, default!);
+        return Execute(cmd, string.Empty);
     }
 
     /// <summary>

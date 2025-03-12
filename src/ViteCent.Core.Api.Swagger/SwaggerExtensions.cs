@@ -20,6 +20,7 @@ public static class SwaggerExtensions
     /// <returns></returns>
     public static IServiceCollection AddSwagger(this IServiceCollection services, string title, List<string> xmls)
     {
+        services.AddEndpointsApiExplorer();
         services.AddOpenApi();
 
         return services;
