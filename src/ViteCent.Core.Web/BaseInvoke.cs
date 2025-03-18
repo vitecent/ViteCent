@@ -12,31 +12,25 @@ namespace ViteCent.Core.Web;
 
 /// <summary>
 /// </summary>
-public class BaseInvoke<Args, Result>
+/// <remarks></remarks>
+/// <param name="cache"></param>
+/// <param name="configuration"></param>
+/// <param name="dapr"></param>
+public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configuration, DaprClient dapr)
     where Args : BaseArgs
     where Result : BaseResult
 {
     /// <summary>
     /// </summary>
-    private readonly IBaseCache cache;
+    private readonly IBaseCache cache = cache;
 
     /// <summary>
     /// </summary>
-    private readonly IConfiguration configuration;
+    private readonly IConfiguration configuration = configuration;
 
     /// <summary>
     /// </summary>
-    private readonly DaprClient dapr;
-
-    /// <summary>
-    /// </summary>
-    public BaseInvoke()
-    {
-        var context = BaseHttpContext.Context;
-        cache = context.RequestServices.GetService(typeof(IBaseCache)) as IBaseCache ?? default!;
-        dapr = context.RequestServices.GetService(typeof(DaprClient)) as DaprClient ?? default!;
-        configuration = context.RequestServices.GetService(typeof(IConfiguration)) as IConfiguration ?? default!;
-    }
+    private readonly DaprClient dapr = dapr;
 
     /// <summary>
     /// </summary>

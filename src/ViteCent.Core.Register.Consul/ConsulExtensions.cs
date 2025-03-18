@@ -41,9 +41,9 @@ public static class ConsulExtensions
 
         var uri = configuration["Register"] ?? default!;
 
-        logger.Info($"Consul RegisterUri ：{uri}");
-
         if (string.IsNullOrWhiteSpace(uri)) throw new Exception("Appsettings Must Be Register");
+
+        logger.Info($"Consul RegisterUri ：{uri}");
 
         var serviceName = configuration["Service:Name"] ?? default!;
 

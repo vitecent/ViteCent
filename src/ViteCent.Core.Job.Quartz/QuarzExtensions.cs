@@ -21,8 +21,8 @@ public static class QuarzExtensions
     {
         var factory = new StdSchedulerFactory();
         var scheduler = await factory.GetScheduler();
-
-        await scheduler.Start();
+        var provider = services.BuildServiceProvider();
+        scheduler.JobFactory = new BaseJobFactory(provider);
 
         return scheduler;
     }
@@ -36,7 +36,15 @@ public static class QuarzExtensions
     {
         var lifetime = app.Lifetime;
 
-        lifetime.ApplicationStopping.Register(async () => { await scheduler.Shutdown(); });
+        lifetime.ApplicationStarted.Register(async () =>
+        {
+            await scheduler.Start();
+        });
+
+        lifetime.ApplicationStopping.Register(async () =>
+        {
+            await scheduler.Shutdown();
+        });
 
         return app;
     }

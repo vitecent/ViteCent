@@ -45,7 +45,7 @@ public abstract class BaseLoginApi<Args, Result> : BaseApi<Args, Result>
 
             if (!string.IsNullOrWhiteSpace(json)) return default!;
 
-            return json.DeJson<BaseUserInfo>();
+            return json?.DeJson<BaseUserInfo>() ?? new BaseUserInfo();
         }
     }
 }

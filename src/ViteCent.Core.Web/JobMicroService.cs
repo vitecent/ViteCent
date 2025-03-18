@@ -82,6 +82,9 @@ public class JobMicroService : MicroService
         logger.Info("开始添加  Swagger 服务");
         services.AddSwagger(title, xmls);
 
+        logger.Info("开始执行构建回调");
+        OnBuild?.Invoke(builder);
+
         logger.Info("开始初始化 Quartz 调度器");
         scheduler = await services.AddQuarzAsync();
 
@@ -94,10 +97,6 @@ public class JobMicroService : MicroService
         };
 
         job.Start();
-
-        logger.Info("开始执行构建回调");
-
-        OnBuild?.Invoke(builder);
     }
 
     /// <summary>
