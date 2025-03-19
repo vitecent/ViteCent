@@ -29,7 +29,7 @@ public abstract class MicroService
     /// </summary>
     protected MicroService()
     {
-        logger = BaseLogger.GetLogger();
+        logger = BaseLogger.GetLogger(typeof(MicroService));
 
         logger.Info("开始初始化微服务");
     }

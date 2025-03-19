@@ -29,7 +29,7 @@ public static class ZipkinExtensions
 
         if (isDapr != "Dapr")
         {
-            var logger = BaseLogger.GetLogger();
+            var logger = BaseLogger.GetLogger(typeof(ZipkinExtensions));
 
             TraceManager.SamplingRate = 1.0f;
 

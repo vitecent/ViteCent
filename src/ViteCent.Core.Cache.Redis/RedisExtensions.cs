@@ -21,14 +21,14 @@ public static class RedisExtensions
     /// <returns></returns>
     public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration)
     {
-        var logger = BaseLogger.GetLogger();
+        var logger = BaseLogger.GetLogger(typeof(RedisExtensions));
 
         var strConn = configuration["Cache"] ?? default!;
 
         if (string.IsNullOrWhiteSpace(strConn)) throw new Exception("Appsettings Must Be Cache");
 
         if (IsEncrypt(configuration))
-            strConn = Encrypt(strConn, configuration);
+            strConn = Decrypt(strConn, configuration);
 
         logger.Info($"Redis Config ：{strConn}");
 
@@ -42,7 +42,7 @@ public static class RedisExtensions
     /// <param name="input"></param>
     /// <param name="configuration"></param>
     /// <returns></returns>
-    private static string Encrypt(string input, IConfiguration configuration)
+    private static string Decrypt(string input, IConfiguration configuration)
     {
         var type = configuration["Encrypt:Type"] ?? string.Empty;
 
@@ -51,8 +51,8 @@ public static class RedisExtensions
 
         if (type == "Base64")
         {
-            var bytes = input.StringToByte();
-            return bytes.EncryptBase64();
+            var bytes = input.DecryptBase64();
+            return bytes.ByteToString();
         }
 
         var key = configuration["Encrypt:Key"] ?? string.Empty;
@@ -62,8 +62,8 @@ public static class RedisExtensions
 
         return type switch
         {
-            "AES" => input.EncryptAES(key),
-            "DES" => input.EncryptDES(key),
+            "AES" => input.DecryptAES(key),
+            "DES" => input.DecryptDES(key),
             _ => throw new Exception($"Encrypt:Type {type} Is Not Support"),
         };
     }

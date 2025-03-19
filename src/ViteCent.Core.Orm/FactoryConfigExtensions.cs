@@ -36,7 +36,7 @@ public class FactoryConfigExtensions
     /// <param name="configuration"></param>
     public static void SetConfig(IConfiguration configuration)
     {
-        var logger = BaseLogger.GetLogger();
+        var logger = BaseLogger.GetLogger(typeof(FactoryConfigExtensions));
 
         var dataBase = configuration.GetSection("DataBase") ?? throw new Exception("Appsettings Must Be DataBase");
 
@@ -63,7 +63,7 @@ public class FactoryConfigExtensions
             logger.Info($"DataBase Master {i} ：{master}");
 
             if (IsEncrypt(configuration))
-                master = Encrypt(master, configuration);
+                master = Decrypt(master, configuration);
 
             var factoryConfig = new FactoryConfig
             {
@@ -86,7 +86,7 @@ public class FactoryConfigExtensions
                     if (string.IsNullOrWhiteSpace(value)) throw new Exception("DataBase.Slaves");
 
                     if (IsEncrypt(configuration))
-                        value = Encrypt(value, configuration);
+                        value = Decrypt(value, configuration);
 
                     logger.Info($"DataBase Slaves {i} ：{value}");
 
@@ -121,7 +121,7 @@ public class FactoryConfigExtensions
     /// <param name="input"></param>
     /// <param name="configuration"></param>
     /// <returns></returns>
-    private static string Encrypt(string input, IConfiguration configuration)
+    private static string Decrypt(string input, IConfiguration configuration)
     {
         var type = configuration["Encrypt:Type"] ?? string.Empty;
 
@@ -130,8 +130,8 @@ public class FactoryConfigExtensions
 
         if (type == "Base64")
         {
-            var bytes = input.StringToByte();
-            return bytes.EncryptBase64();
+            var bytes = input.DecryptBase64();
+            return bytes.ByteToString();
         }
 
         var key = configuration["Encrypt:Key"] ?? string.Empty;
@@ -141,8 +141,8 @@ public class FactoryConfigExtensions
 
         return type switch
         {
-            "AES" => input.EncryptAES(key),
-            "DES" => input.EncryptDES(key),
+            "AES" => input.DecryptAES(key),
+            "DES" => input.DecryptDES(key),
             _ => throw new Exception($"Encrypt:Type {type} Is Not Support"),
         };
     }

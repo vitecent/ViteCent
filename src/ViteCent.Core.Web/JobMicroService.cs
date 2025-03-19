@@ -43,7 +43,7 @@ public class JobMicroService : MicroService
         this.title = title;
         this.xmls = xmls;
 
-        logger = BaseLogger.GetLogger();
+        logger = BaseLogger.GetLogger(typeof(JobMicroService));
 
         logger.Info("开始构建任务微服务");
     }

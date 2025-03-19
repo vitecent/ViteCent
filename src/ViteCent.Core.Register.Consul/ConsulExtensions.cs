@@ -35,7 +35,7 @@ public static class ConsulExtensions
     /// <returns></returns>
     public static async Task<IApplicationBuilder> UseConsulAsync(this WebApplication app)
     {
-        var logger = BaseLogger.GetLogger();
+        var logger = BaseLogger.GetLogger(typeof(ConsulExtensions));
 
         var configuration = app.Configuration;
 

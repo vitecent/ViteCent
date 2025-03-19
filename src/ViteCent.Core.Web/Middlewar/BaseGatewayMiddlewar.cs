@@ -25,7 +25,7 @@ public class BaseGatewayMiddlewar(
     /// <param name="context"></param>
     public async Task InvokeASync(HttpContext context)
     {
-        var logger = BaseLogger.GetLogger();
+        var logger = BaseLogger.GetLogger(typeof(BaseGatewayMiddlewar));
         var traceingId = string.Empty;
 
         if (context.Request.Headers.TryGetValue(Const.TraceingId, out var value)) traceingId = value.ToString();

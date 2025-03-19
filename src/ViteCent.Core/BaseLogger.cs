@@ -2,7 +2,6 @@
 
 using log4net;
 using log4net.Config;
-
 using System.Reflection;
 
 #endregion
@@ -19,8 +18,8 @@ public static class BaseLogger
     /// <returns></returns>
     public static ILog GetLogger(Type? type = null)
     {
-        var logRep = LogManager.GetRepository(Assembly.GetEntryAssembly());
-        XmlConfigurator.Configure(logRep, new FileInfo("log4net.config"));
+        var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+        XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 
         var log = LogManager.GetLogger(type ?? typeof(BaseLogger));
 

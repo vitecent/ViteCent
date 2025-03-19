@@ -36,7 +36,7 @@ public class FilesMicroService : MicroService
         this.title = title;
         this.xmls = xmls;
 
-        logger = BaseLogger.GetLogger();
+        logger = BaseLogger.GetLogger(typeof(FilesMicroService));
 
         logger.Info("开始构建文档微服务");
     }

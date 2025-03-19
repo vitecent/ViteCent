@@ -36,7 +36,7 @@ public class BaseAuthFilter(string system, string resource, string operation) : 
     /// <param name="context"></param>
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        var logger = BaseLogger.GetLogger();
+        var logger = BaseLogger.GetLogger(typeof(BaseAuthFilter));
 
         var result = new JsonResult(new BaseResult(301, "登录超时,请重新登录"));
 

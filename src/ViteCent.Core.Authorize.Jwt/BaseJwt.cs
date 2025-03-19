@@ -19,7 +19,7 @@ public class BaseJwt
     /// <returns></returns>
     public static string GenerateJwtToken(BaseUserInfo user, IConfiguration configuration)
     {
-        var logger = BaseLogger.GetLogger();
+        var logger = BaseLogger.GetLogger(typeof(BaseJwt));
 
         var key = configuration["Jwt:Key"] ?? default!;
 

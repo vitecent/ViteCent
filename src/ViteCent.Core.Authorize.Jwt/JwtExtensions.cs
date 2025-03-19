@@ -19,7 +19,7 @@ public static class JwtExtensions
     /// <returns></returns>
     public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
     {
-        var logger = BaseLogger.GetLogger();
+        var logger = BaseLogger.GetLogger(typeof(JwtExtensions));
 
         var key = configuration["Jwt:Key"] ?? default!;
 

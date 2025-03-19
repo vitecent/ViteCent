@@ -28,7 +28,7 @@ public class ElasticsearchFactory : IElasticsearch
     /// <param name="index"></param>
     public ElasticsearchFactory(string url, string index = "default_index")
     {
-        logger = BaseLogger.GetLogger();
+        logger = BaseLogger.GetLogger(typeof(ElasticsearchFactory));
 
         client = new(new ElasticsearchClientSettings(new Uri(url))
             .DefaultIndex(index)

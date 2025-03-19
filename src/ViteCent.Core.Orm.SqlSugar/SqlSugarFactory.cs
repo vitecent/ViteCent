@@ -33,7 +33,7 @@ public class SqlSugarFactory : IFactory
     /// <param name="log"></param>
     public SqlSugarFactory(string dataBase, bool log = true)
     {
-        logger = BaseLogger.GetLogger();
+        logger = BaseLogger.GetLogger(typeof(SqlSugarFactory));
 
         var configuration = FactoryConfigExtensions.GetConfig(dataBase);
 
