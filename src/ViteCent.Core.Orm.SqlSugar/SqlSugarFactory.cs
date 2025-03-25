@@ -94,40 +94,39 @@ public class SqlSugarFactory : IFactory
         client.BeginTran();
         try
         {
-            await Task.Run(() =>
+            commands.ForEach(x =>
             {
-                commands.ForEach(x =>
-                {
-                    if (x.DataType == DataEnum.SQL)
-                        client.Ado.ExecuteCommand(x.SQL, x.Parameters);
-                    else
-                        switch (x.CommandType)
-                        {
-                            case CommandEnum.Insert:
-                                client.Insertable(x.Entity).ExecuteCommand();
-                                break;
+                if (x.DataType == DataEnum.SQL)
+                    client.Ado.ExecuteCommand(x.SQL, x.Parameters);
+                else
+                    switch (x.CommandType)
+                    {
+                        case CommandEnum.Insert:
+                            client.Insertable(x.Entity).ExecuteCommand();
+                            break;
 
-                            case CommandEnum.Update:
-                                if (x.DataType == DataEnum.Entity)
-                                    client.Updateable(x.Entity).IgnoreColumns(true)
-                                        .IsEnableUpdateVersionValidation().ExecuteCommand();
-                                else
-                                    client.Updateable(x.Entity).UpdateColumns(x.Where)
-                                        .IgnoreColumns(ignoreAllNullColumns: true).IsEnableUpdateVersionValidation()
-                                        .ExecuteCommand();
-                                break;
+                        case CommandEnum.Update:
+                            if (x.DataType == DataEnum.Entity)
+                                client.Updateable(x.Entity).IgnoreColumns(true)
+                                    .IsEnableUpdateVersionValidation().ExecuteCommand();
+                            else
+                                client.Updateable(x.Entity).UpdateColumns(x.Where)
+                                    .IgnoreColumns(ignoreAllNullColumns: true).IsEnableUpdateVersionValidation()
+                                    .ExecuteCommand();
+                            break;
 
-                            case CommandEnum.Delete:
-                                if (x.DataType == DataEnum.Entity)
-                                    client.Deleteable(x.Entity).ExecuteCommand();
-                                else
-                                    client.Deleteable(x.Where).ExecuteCommand();
-                                break;
-                        }
-                });
-
-                client.CommitTran();
+                        case CommandEnum.Delete:
+                            if (x.DataType == DataEnum.Entity)
+                                client.Deleteable(x.Entity).ExecuteCommand();
+                            else
+                                client.Deleteable(x.Where).ExecuteCommand();
+                            break;
+                    }
             });
+
+            client.CommitTran();
+
+            await Task.CompletedTask;
         }
         catch (Exception e)
         {

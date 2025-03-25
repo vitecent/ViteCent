@@ -20,7 +20,6 @@ public abstract class BaseApplication<T> : IBaseApplication<T> where T : IBaseEn
 
     /// <summary>
     /// </summary>
-    /// <value>The domain.</value>
     public abstract IBaseDomain<T> Domain { get; }
 
     /// <summary>

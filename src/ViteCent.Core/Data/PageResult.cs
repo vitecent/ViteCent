@@ -39,21 +39,17 @@ public class PageResult<T> : BaseResult
 
     /// <summary>
     /// </summary>
-    /// <value>The limit.</value>
     public int Limit { get; set; } = 10;
 
     /// <summary>
     /// </summary>
-    /// <value>The offset.</value>
     public int Offset { get; set; } = 1;
 
     /// <summary>
     /// </summary>
-    /// <value>The rows.</value>
     public List<T> Rows { get; set; } = [];
 
     /// <summary>
     /// </summary>
-    /// <value>The total.</value>
     public int Total { get; set; }
 }

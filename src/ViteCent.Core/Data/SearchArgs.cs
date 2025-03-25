@@ -17,27 +17,22 @@ public class SearchArgs : BaseArgs
 
     /// <summary>
     /// </summary>
-    /// <value></value>
     public List<SearchItem> Args { get; set; } = [];
 
     /// <summary>
     /// </summary>
-    /// <value>The limit.</value>
     public int Limit { get; set; }
 
     /// <summary>
     /// </summary>
-    /// <value>The offset.</value>
     public int Offset { get; set; }
 
     /// <summary>
     /// </summary>
-    /// <value>The order.</value>
     public List<OrderField> Order { get; set; } = [];
 
     /// <summary>
     /// </summary>
-    /// <value>The total.</value>
     public int Total { get; set; }
 
     /// <summary>

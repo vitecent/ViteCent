@@ -15,32 +15,29 @@ public class BaseResult
     /// <param name="content"></param>
     public BaseResult(string content)
     {
-        Content = content;
+        Message = content;
     }
 
     /// <summary>
     /// </summary>
     /// <param name="code"></param>
-    /// <param name="content"></param>
-    public BaseResult(int code, string content)
+    /// <param name="message"></param>
+    public BaseResult(int code, string message)
     {
-        IsSuccessStatusCode = false;
-        StatusCode = code;
-        Content = content;
+        Success = false;
+        Code = code;
+        Message = message;
     }
 
     /// <summary>
     /// </summary>
-    /// <value>The content.</value>
-    public string Content { get; set; } = string.Empty;
+    public int Code { get; set; } = 200;
 
     /// <summary>
     /// </summary>
-    /// <value><c>true</c> if succeed; otherwise, <c>false</c>.</value>
-    public bool IsSuccessStatusCode { get; set; } = true;
+    public string Message { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>
-    /// <value>The code.</value>
-    public int StatusCode { get; set; } = 200;
+    public bool Success { get; set; } = true;
 }

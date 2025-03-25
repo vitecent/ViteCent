@@ -14,6 +14,5 @@ public class BaseTable
 
     /// <summary>
     /// </summary>
-    /// <value>The name.</value>
     public string Name { get; set; } = string.Empty;
 }

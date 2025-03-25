@@ -426,7 +426,6 @@ public class BasePinYinHash
 
     /// <summary>
     /// </summary>
-    /// <value>The hashes.</value>
     public static short[][] Hashes
     {
         get => _hashes;

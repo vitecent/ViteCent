@@ -2,8 +2,9 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-
+using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
+using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -13,11 +14,13 @@ namespace ViteCent.Core.Web.Filter;
 
 /// <summary>
 /// </summary>
+/// <param name="cache"></param>
+/// <param name="configuration"></param>
 /// <param name="system"></param>
 /// <param name="resource"></param>
 /// <param name="operation"></param>
 [AttributeUsage(AttributeTargets.Method)]
-public class BaseAuthFilter(string system, string resource, string operation) : ActionFilterAttribute
+public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, string system, string resource, string operation) : ActionFilterAttribute
 {
     /// <summary>
     /// </summary>
@@ -42,11 +45,22 @@ public class BaseAuthFilter(string system, string resource, string operation) : 
 
         var httpContext = context.HttpContext;
 
+        var token = httpContext.Request.Headers[Const.Token];
+
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            logger.Info($"InvokeAsync {System}:{Resource}:{Operation} Not Token");
+            context.Result = result;
+            return;
+        }
+
         var json = httpContext.User.FindFirstValue(ClaimTypes.UserData);
 
         if (string.IsNullOrWhiteSpace(json))
         {
+            logger.Info($"InvokeAsync {System}:{Resource}:{Operation} Not UserData");
             context.Result = result;
+
             return;
         }
 
@@ -59,6 +73,25 @@ public class BaseAuthFilter(string system, string resource, string operation) : 
 
             return;
         }
+
+        var cahceToken = cache.GetString<string>(user.Id);
+
+        if (string.IsNullOrWhiteSpace(cahceToken) || token != cahceToken)
+        {
+            logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Cache");
+
+            cache.DeleteKey(user.Id);
+
+            context.Result = result;
+
+            return;
+        }
+
+        var flagExpires = int.TryParse(configuration["Jwt:Expires"] ?? default!, out var expires);
+
+        if (!flagExpires || expires < 1) expires = 24;
+
+        cache.SetKeyExpire(user.Id, TimeSpan.FromHours(expires));
 
         if (user?.IsSuper != (int)YesNoEnum.Yes)
             if (!IsAUth(user, System, Resource, Operation))

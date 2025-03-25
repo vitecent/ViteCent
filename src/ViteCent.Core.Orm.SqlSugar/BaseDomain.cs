@@ -25,7 +25,6 @@ public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
 
     /// <summary>
     /// </summary>
-    /// <value>The DataBase.</value>
     public abstract string DataBaseName { get; }
 
     /// <summary>

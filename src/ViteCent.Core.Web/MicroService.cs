@@ -68,8 +68,8 @@ public abstract class MicroService
             options.Level = CompressionLevel.Fastest;
         });
 
-        services.AddControllers(options => { options.Filters.Add(new BaseExceptionFilter()); }).AddNewtonsoftJson(
-            options =>
+        services.AddControllers(options => options.Filters.Add(new BaseExceptionFilter()))
+            .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -91,6 +91,9 @@ public abstract class MicroService
         services.AddJwt(configuration);
 
         await BuildAsync(builder);
+
+        services.AddTransient<BaseLoginFilter>();
+        services.AddTransient<BaseAuthFilter>();
 
         var app = builder.Build();
 

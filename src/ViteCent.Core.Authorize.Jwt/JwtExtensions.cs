@@ -39,12 +39,6 @@ public static class JwtExtensions
 
         logger.Info($"Jwt Audience ：{audience}");
 
-        var flagExpires = int.TryParse(configuration["Jwt:Expires"] ?? default!, out var expires);
-
-        if (!flagExpires || expires < 1) expires = 24;
-
-        logger.Info($"Jwt Expires ：{expires}");
-
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {

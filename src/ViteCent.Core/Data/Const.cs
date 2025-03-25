@@ -22,7 +22,7 @@ public class Const
 
     /// <summary>
     /// </summary>
-    public const string Decimal = @"^\.\d{1,{0}}$";
+    public const string Decimal = @"^\.0-9{1,{0}}$";
 
     /// <summary>
     /// </summary>
@@ -38,51 +38,55 @@ public class Const
 
     /// <summary>
     /// </summary>
-    public const string IP = @"^\d+\.\d+\.\d+\.\d+$";
+    public const string IP = @"^0-9+\.0-9+\.0-9+\.0-9+$";
 
     /// <summary>
     /// </summary>
-    public const string Mobile = @"^1[3-8]\d{9}";
+    public const string Mobile = @"^1[3-8]0-9{9}";
 
     /// <summary>
     /// </summary>
-    public const string Negative = @"-\d+$";
+    public const string Negative = @"-0-9+$";
 
     /// <summary>
     /// </summary>
-    public const string NegativeDecimal = @"^-\d+\.\d{1,{0}}$";
+    public const string NegativeDecimal = @"^-0-9+\.0-9{1,{0}}$";
 
     /// <summary>
     /// </summary>
-    public const string NegativeDecimalDecimal = @"^-?\d+\.\d{1,{0}}$";
+    public const string NegativeDecimalDecimal = @"^-?0-9+\.0-9{1,{0}}$";
 
     /// <summary>
     /// </summary>
-    public const string Positive = @"^\d+$";
+    public const string Password = @"^[A-Za-z0-9!@#$%^&*()_+\-=<>?]+?$";
 
     /// <summary>
     /// </summary>
-    public const string PositiveChinese = @"^[\d\u4e00-\u9fa5]+$";
+    public const string Positive = @"^0-9+$";
 
     /// <summary>
     /// </summary>
-    public const string PositiveChineseEnglish = @"^[\d\u4e00-\u9fa5A-Za-z]+$";
+    public const string PositiveChinese = @"^[0-9\u4e00-\u9fa5]+$";
 
     /// <summary>
     /// </summary>
-    public const string PositiveChineseEnglishUnderline = @"^[\d\u4e00-\u9fa5A-Za-z_]+$";
+    public const string PositiveChineseEnglish = @"^[0-9\u4e00-\u9fa5A-Za-z]+$";
 
     /// <summary>
     /// </summary>
-    public const string PositiveChineseUnderline = @"^[\d\u4e00-\u9fa5_]+$";
+    public const string PositiveChineseEnglishUnderline = @"^[0-9\u4e00-\u9fa5A-Za-z_]+$";
 
     /// <summary>
     /// </summary>
-    public const string PositiveDecimal = @"^\d+\.\d{1,{0}}$";
+    public const string PositiveChineseUnderline = @"^[0-9\u4e00-\u9fa5_]+$";
 
     /// <summary>
     /// </summary>
-    public const string PositiveEnglish = @"^[\dA-Za-z]+$";
+    public const string PositiveDecimal = @"^0-9+\.0-9{1,{0}}$";
+
+    /// <summary>
+    /// </summary>
+    public const string PositiveEnglish = @"^[0-9A-Za-z]+$";
 
     /// <summary>
     /// </summary>
@@ -90,11 +94,11 @@ public class Const
 
     /// <summary>
     /// </summary>
-    public const string PositiveNegative = @"^-?\d+$";
+    public const string PositiveNegative = @"^-?0-9+$";
 
     /// <summary>
     /// </summary>
-    public const string PositiveUnderline = @"^[\d_]+$";
+    public const string PositiveUnderline = @"^[0-9_]+$";
 
     /// <summary>
     /// </summary>
@@ -115,4 +119,8 @@ public class Const
     /// <summary>
     /// </summary>
     public const string Url = @"^(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]$";
+
+    /// <summary>
+    /// </summary>
+    public const string UserName = @"^[A-Za-z][A-Za-z0-9]*$";
 }

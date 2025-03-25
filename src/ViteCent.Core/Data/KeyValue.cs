@@ -12,6 +12,5 @@ public class KeyValue<T>
 
     /// <summary>
     /// </summary>
-    /// <value>The value.</value>
     public T Value { get; set; } = default!;
 }

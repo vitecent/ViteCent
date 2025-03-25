@@ -30,6 +30,5 @@ public class DataResult<T> : BaseResult
 
     /// <summary>
     /// </summary>
-    /// <value>The data.</value>
     public T Data { get; set; } = default!;
 }

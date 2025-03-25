@@ -14,7 +14,6 @@ public interface IBaseDomain<T> where T : IBaseEntity, new()
 {
     /// <summary>
     /// </summary>
-    /// <value>The DataBase.</value>
     string DataBaseName { get; }
 
     /// <summary>

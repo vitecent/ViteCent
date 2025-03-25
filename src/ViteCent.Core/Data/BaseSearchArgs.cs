@@ -36,7 +36,7 @@ public static class BaseSearchArgs
     /// <param name="args"></param>
     /// <param name="user"></param>
     /// <param name="field"></param>
-    public static void AddConmpanyId(this SearchArgs args, BaseUserInfo user, string field = "CompanyId")
+    public static void AddCompanyId(this SearchArgs args, BaseUserInfo user, string field = "CompanyId")
     {
         if (user.IsSuper != (int)YesNoEnum.Yes) args.AddArgs(field, user?.Company?.Id ?? default!);
     }
@@ -64,13 +64,10 @@ public static class BaseSearchArgs
     /// <returns></returns>
     public static async Task<BaseResult> CheckCompanyIdArgsAsync(string companyId, BaseUserInfo user)
     {
-        return await Task.Run(() =>
-        {
-            if (user.IsSuper != (int)YesNoEnum.Yes)
-                if (companyId != user.Company.Id)
-                    return new BaseResult(401, "您没有权限访问该数据");
+        if (user.IsSuper != (int)YesNoEnum.Yes)
+            if (companyId != user.Company.Id)
+                return new BaseResult(401, "您没有权限访问该数据");
 
-            return new BaseResult();
-        });
+        return await Task.FromResult(new BaseResult());
     }
 }
