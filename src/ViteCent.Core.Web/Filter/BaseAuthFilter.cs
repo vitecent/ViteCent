@@ -80,7 +80,7 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
         {
             logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Cache");
 
-            cache.DeleteKey(user.Id);
+            cache.DeleteKey(user?.Id ?? string.Empty);
 
             context.Result = result;
 

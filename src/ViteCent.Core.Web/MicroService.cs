@@ -94,6 +94,7 @@ public abstract class MicroService
 
         services.AddTransient<BaseLoginFilter>();
         services.AddTransient<BaseAuthFilter>();
+        services.AddScoped(typeof(IBaseInvoke<,>), typeof(BaseInvoke<,>));
 
         var app = builder.Build();
 
@@ -107,7 +108,7 @@ public abstract class MicroService
 
         if (app.Environment.IsDevelopment())
         {
-            app.UseExceptionHandler("/simple/error");
+            app.UseExceptionHandler("/ViteCent.Auth/error");
             app.UseHsts();
         }
 

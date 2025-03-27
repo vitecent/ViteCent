@@ -1,0 +1,19 @@
+#region
+
+using MediatR;
+using SqlSugar;
+using ViteCent.Core.Data;
+using ViteCent.Core.Orm.SqlSugar;
+
+#endregion
+
+namespace ViteCent.Basic.Entity.ShiftSchedule;
+
+/// <summary>
+/// </summary>
+[Serializable]
+[SugarTable("shift_schedule")]
+public class AddShiftScheduleEntity : ShiftScheduleEntity
+{
+
+}

@@ -18,6 +18,10 @@ public class Const
 
     /// <summary>
     /// </summary>
+    public const string ChineseEnglishUnderline = @"^[\u4e00-\u9fa5A-Za-z_]+$";
+
+    /// <summary>
+    /// </summary>
     public const string ChineseUnderline = @"^[\u4e00-\u9fa5_]+$";
 
     /// <summary>
@@ -50,11 +54,7 @@ public class Const
 
     /// <summary>
     /// </summary>
-    public const string NegativeDecimal = @"^-0-9+\.0-9{1,{0}}$";
-
-    /// <summary>
-    /// </summary>
-    public const string NegativeDecimalDecimal = @"^-?0-9+\.0-9{1,{0}}$";
+    public const string NegativeDecimal = @"^-?0-9+\.0-9{1,{0}}$";
 
     /// <summary>
     /// </summary>

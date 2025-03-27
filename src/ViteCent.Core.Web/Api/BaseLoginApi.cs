@@ -43,7 +43,7 @@ public abstract class BaseLoginApi<Args, Result> : BaseApi<Args, Result>
         {
             var json = base.User.FindFirstValue(ClaimTypes.UserData);
 
-            if (!string.IsNullOrWhiteSpace(json)) return default!;
+            if (string.IsNullOrWhiteSpace(json)) return default!;
 
             return json?.DeJson<BaseUserInfo>() ?? new BaseUserInfo();
         }

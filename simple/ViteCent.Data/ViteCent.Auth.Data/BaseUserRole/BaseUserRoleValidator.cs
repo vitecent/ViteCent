@@ -1,0 +1,23 @@
+#region
+
+using FluentValidation;
+
+#endregion
+
+namespace ViteCent.Auth.Data.BaseUserRole;
+
+/// <summary>
+/// </summary>
+[Serializable]
+public partial class BaseUserRoleValidator : AbstractValidator<AddBaseUserRoleArgs>
+{
+    /// <summary>
+    /// </summary>
+    public BaseUserRoleValidator()
+    {
+        RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+        RuleFor(x => x.RoleId).NotNull().NotEmpty().WithMessage("角色标识不能为空");
+        RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("用户标识不能为空");
+        OverrideValidator();
+    }
+}

@@ -33,6 +33,15 @@ public static partial class BaseRegex
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    public static bool IsChineseEnglishUnderline(this string input)
+    {
+        return ChineseEnglishUnderline().IsMatch(input);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public static bool IsChineseUnderline(this string input)
     {
         return ChineseUnderline().IsMatch(input);
@@ -135,16 +144,6 @@ public static partial class BaseRegex
     public static bool IsNegativeDecimal(this string input, int length = 2)
     {
         return Regex.IsMatch(input, string.Format(Const.NegativeDecimal, length));
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="input"></param>
-    /// <param name="length"></param>
-    /// <returns></returns>
-    public static bool IsNegativeDecimalDecimal(this string input, int length = 2)
-    {
-        return Regex.IsMatch(input, string.Format(Const.NegativeDecimalDecimal, length));
     }
 
     /// <summary>
@@ -267,6 +266,12 @@ public static partial class BaseRegex
     /// <returns></returns>
     [GeneratedRegex(Const.ChineseEnglish)]
     private static partial Regex ChineseEnglish();
+
+    /// <summary>
+    /// </summary>
+    /// <returns></returns>
+    [GeneratedRegex(Const.ChineseEnglishUnderline)]
+    private static partial Regex ChineseEnglishUnderline();
 
     /// <summary>
     /// </summary>

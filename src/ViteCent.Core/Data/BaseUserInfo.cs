@@ -18,7 +18,7 @@ public class BaseUserInfo
 
     /// <summary>
     /// </summary>
-    public List<BaseDeptInfo> Depts { get; set; } = [];
+    public BaseDepartmentInfo Department { get; set; } = new();
 
     /// <summary>
     /// </summary>
@@ -31,4 +31,8 @@ public class BaseUserInfo
     /// <summary>
     /// </summary>
     public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string Token { get; set; } = string.Empty;
 }

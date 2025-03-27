@@ -16,8 +16,7 @@ namespace ViteCent.Core.Web;
 /// <param name="cache"></param>
 /// <param name="configuration"></param>
 /// <param name="dapr"></param>
-public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configuration, DaprClient dapr)
-    where Args : BaseArgs
+public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configuration, DaprClient dapr) : IBaseInvoke<Args, Result> where Args : BaseArgs
     where Result : BaseResult
 {
     /// <summary>
