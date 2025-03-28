@@ -1,7 +1,6 @@
 #region
 
 using ViteCent.Basic.Data.UserLeave;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 
 #endregion

@@ -37,10 +37,16 @@ public class HasBaseDepartment(ILogger<HasBaseDepartment> logger) : BaseDomain<B
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);
 
+        if (!string.IsNullOrWhiteSpace(request.Code))
+            query.Where(x => x.Code == request.Code);
+
+        if (!string.IsNullOrWhiteSpace(request.Name))
+            query.Where(x => x.Name == request.Name);
+
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "编码或名称重复");
 
         return new BaseResult();
     }

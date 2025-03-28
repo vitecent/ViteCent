@@ -1,6 +1,9 @@
 #region
 
 using FluentValidation;
+using ViteCent.Core;
+using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -14,5 +17,22 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
     /// </summary>
     public void OverrideValidator()
     {
+        RuleFor(x => x.Username).Length(4, 12).WithMessage("用户名4-12个字符");
+        RuleFor(x => x.Username).Matches(Const.PositiveEnglish).WithMessage("用户名只支持数字、字母");
+
+        RuleFor(x => x.Password).Length(6, 16).WithMessage("密码6-16个字符");
+        RuleFor(x => x.Password).Matches(Const.PositiveEnglishUnderline).WithMessage("密码只支持数字、字母、下划线");
+
+        RuleFor(x => x.Email).Matches(Const.Email).When(x => !string.IsNullOrWhiteSpace(x.Email)).WithMessage("邮箱格式错误");
+
+        RuleFor(x => x.IdCard).Must(x => x.IsIdCard()).When(x => !string.IsNullOrWhiteSpace(x.IdCard)).WithMessage("身份证号格式错误");
+        RuleFor(x => x.Birthday).Must(x => x < DateTime.Now && x > DateTime.MinValue).When(x => x.Birthday.HasValue).WithMessage("生日格式错误");
+        RuleFor(x => x).Must(x => x.IdCard.GetIdCardBirthday() == x.Birthday?.ToString("yyyy-MM-dd"))
+            .When(x => !string.IsNullOrWhiteSpace(x.IdCard) && x.Birthday.HasValue).WithMessage("身份证号和出生日期不匹配");
+
+        RuleFor(x => x.Phone).Matches(Const.Mobile).When(x => !string.IsNullOrWhiteSpace(x.Phone)).WithMessage("电话格式错误");
+
+        var genders = new List<int> { (int)GenderEnum.Male, (int)GenderEnum.FeMale };
+        RuleFor(x => x.Gender).Must(x => genders.Contains(x)).When(x => !string.IsNullOrWhiteSpace(x.Phone)).WithMessage("性别格式错误");
     }
 }

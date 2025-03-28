@@ -19,6 +19,7 @@ public partial class BaseOperationValidator : AbstractValidator<AddBaseOperation
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
         RuleFor(x => x.ResourceId).NotNull().NotEmpty().WithMessage("系统标识不能为空");
         RuleFor(x => x.SystemId).NotNull().NotEmpty().WithMessage("系统标识不能为空");
+
         OverrideValidator();
     }
 }

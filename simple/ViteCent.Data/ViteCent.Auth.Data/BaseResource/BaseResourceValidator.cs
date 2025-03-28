@@ -18,6 +18,7 @@ public partial class BaseResourceValidator : AbstractValidator<AddBaseResourceAr
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
         RuleFor(x => x.SystemId).NotNull().NotEmpty().WithMessage("系统标识不能为空");
+
         OverrideValidator();
     }
 }

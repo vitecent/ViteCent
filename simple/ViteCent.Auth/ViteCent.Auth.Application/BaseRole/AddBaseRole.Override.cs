@@ -1,7 +1,6 @@
 #region
 
 using ViteCent.Auth.Data.BaseRole;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -25,6 +24,8 @@ public partial class AddBaseRole
         var hasArgs = new HasBaseRoleEntityArgs
         {
             CompanyId = request.CompanyId,
+            Code = request.Code,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

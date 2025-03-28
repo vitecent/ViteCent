@@ -1,6 +1,7 @@
 #region
 
 using FluentValidation;
+using ViteCent.Core.Data;
 
 #endregion
 

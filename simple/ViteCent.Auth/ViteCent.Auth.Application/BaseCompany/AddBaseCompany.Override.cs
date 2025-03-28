@@ -1,7 +1,7 @@
 #region
 
 using ViteCent.Auth.Data.BaseCompany;
-using ViteCent.Core;
+using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -22,8 +22,31 @@ public partial class AddBaseCompany
     {
         request.Status = (int)StatusEnum.Enable;
 
+        if (string.IsNullOrWhiteSpace(request.ParentId))
+        {
+            var hasParentArgs = new GetBaseCompanyEntityArgs
+            {
+                Id = request.ParentId,
+            };
+
+            var hasParent = await mediator.Send(hasParentArgs, cancellationToken);
+
+            if (hasParent == null)
+                return new BaseResult(500, "父级公司不存在");
+
+            if (hasParent.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "父级公司已禁用");
+
+            if (string.IsNullOrWhiteSpace(hasParent.Level))
+                request.Level = hasParent.Id;
+            else
+                request.Level = $"{hasParent.Level},{hasParent.Id}";
+        }
+
         var hasArgs = new HasBaseCompanyEntityArgs
         {
+            Code = request.Code,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

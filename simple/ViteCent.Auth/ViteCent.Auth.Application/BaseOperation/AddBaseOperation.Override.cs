@@ -1,7 +1,6 @@
 #region
 
 using ViteCent.Auth.Data.BaseOperation;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -27,6 +26,8 @@ public partial class AddBaseOperation
             CompanyId = request.CompanyId,
             SystemId = request.SystemId,
             ResourceId = request.ResourceId,
+            Code = request.Code,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

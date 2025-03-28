@@ -52,7 +52,7 @@ public class HasBaseRolePermission(ILogger<HasBaseRolePermission> logger) : Base
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "编码或名称重复");
 
         return new BaseResult();
     }

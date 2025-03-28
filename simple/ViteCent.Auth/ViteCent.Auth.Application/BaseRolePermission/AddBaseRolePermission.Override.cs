@@ -1,7 +1,6 @@
 #region
 
 using ViteCent.Auth.Data.BaseRolePermission;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 

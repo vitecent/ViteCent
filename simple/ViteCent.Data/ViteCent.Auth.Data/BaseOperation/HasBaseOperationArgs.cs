@@ -14,6 +14,10 @@ public class HasBaseOperationEntityArgs : BaseArgs, IRequest<BaseResult>
 {
     /// <summary>
     /// </summary>
+    public string Code { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
@@ -22,10 +26,13 @@ public class HasBaseOperationEntityArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string ResourceId { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
-
 }

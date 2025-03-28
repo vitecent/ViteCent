@@ -17,6 +17,7 @@ public partial class BaseRoleValidator : AbstractValidator<AddBaseRoleArgs>
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
+
         OverrideValidator();
     }
 }

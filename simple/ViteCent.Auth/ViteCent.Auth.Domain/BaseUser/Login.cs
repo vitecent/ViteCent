@@ -1,7 +1,6 @@
 #region
 
 using MediatR;
-using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core.Orm.SqlSugar;
 

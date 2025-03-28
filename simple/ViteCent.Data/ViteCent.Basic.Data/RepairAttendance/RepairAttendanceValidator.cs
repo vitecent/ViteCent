@@ -20,6 +20,7 @@ public partial class RepairAttendanceValidator : AbstractValidator<AddRepairAtte
         RuleFor(x => x.RepairType).NotNull().NotEmpty().WithMessage("补卡类型不能为空");
         RuleFor(x => x.ScheduleId).NotNull().NotEmpty().WithMessage("排班标识不能为空");
         RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("用户标识不能为空");
+
         OverrideValidator();
     }
 }

@@ -1,7 +1,6 @@
 #region
 
 using ViteCent.Basic.Data.Schedule;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 
 #endregion

@@ -27,5 +27,4 @@ public class HasRepairAttendanceEntityArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

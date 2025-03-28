@@ -22,6 +22,8 @@ public partial class EditBaseRole
         {
             Id = request.Id,
             CompanyId = request.CompanyId,
+            Code = request.Code,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

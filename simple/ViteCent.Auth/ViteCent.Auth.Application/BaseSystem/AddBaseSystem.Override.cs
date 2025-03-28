@@ -1,7 +1,6 @@
 #region
 
 using ViteCent.Auth.Data.BaseSystem;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -25,6 +24,8 @@ public partial class AddBaseSystem
         var hasArgs = new HasBaseSystemEntityArgs
         {
             CompanyId = request.CompanyId,
+            Code = request.Code,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

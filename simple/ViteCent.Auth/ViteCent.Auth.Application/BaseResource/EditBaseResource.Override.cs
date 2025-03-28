@@ -23,6 +23,8 @@ public partial class EditBaseResource
             Id = request.Id,
             CompanyId = request.CompanyId,
             SystemId = request.SystemId,
+            Code = request.Code,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

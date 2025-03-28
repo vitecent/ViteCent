@@ -27,6 +27,12 @@ public partial class AddBaseUser
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
+            UserNo = request.UserNo,
+            Username = request.Username,
+            RealName = request.RealName,
+            IdCard = request.IdCard,
+            Email = request.Email,
+            Phone = request.Phone
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

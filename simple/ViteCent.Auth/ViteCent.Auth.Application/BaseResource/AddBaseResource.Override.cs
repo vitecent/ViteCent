@@ -1,7 +1,6 @@
 #region
 
 using ViteCent.Auth.Data.BaseResource;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -26,6 +25,8 @@ public partial class AddBaseResource
         {
             CompanyId = request.CompanyId,
             SystemId = request.SystemId,
+            Code = request.Code,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

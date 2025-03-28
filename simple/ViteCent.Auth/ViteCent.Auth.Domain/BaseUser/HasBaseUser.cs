@@ -40,10 +40,28 @@ public class HasBaseUser(ILogger<HasBaseUser> logger) : BaseDomain<BaseUserEntit
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
 
+        if (!string.IsNullOrWhiteSpace(request.UserNo))
+            query.Where(x => x.UserNo == request.UserNo);
+
+        if (!string.IsNullOrWhiteSpace(request.Username))
+            query.Where(x => x.Username == request.Username);
+
+        if (!string.IsNullOrWhiteSpace(request.RealName))
+            query.Where(x => x.RealName == request.RealName);
+
+        if (!string.IsNullOrWhiteSpace(request.IdCard))
+            query.Where(x => x.IdCard == request.IdCard);
+
+        if (!string.IsNullOrWhiteSpace(request.Email))
+            query.Where(x => x.Email == request.Email);
+
+        if (!string.IsNullOrWhiteSpace(request.Phone))
+            query.Where(x => x.Phone == request.Phone);
+
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "用户编号或登录名或姓名或身份证号或邮箱或电话重复");
 
         return new BaseResult();
     }
