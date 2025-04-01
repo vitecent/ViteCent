@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseResource;
 
 /// <summary>
+/// 删除资源信息接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Auth.Api.BaseResource;
 public class DeleteBaseResource(ILogger<DeleteBaseResource> logger, IMediator mediator) : BaseLoginApi<DeleteBaseResourceArgs, BaseResult>
 {
     /// <summary>
+    /// 删除资源信息
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

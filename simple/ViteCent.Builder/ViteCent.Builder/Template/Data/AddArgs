@@ -8,6 +8,7 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// 新增$!{Table.Description}参数
 /// </summary>
 [Serializable]
 public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} : BaseArgs, IRequest<BaseResult>
@@ -15,6 +16,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsS
 #set($Index = 0)
 #foreach($Field in $AddFields)
     /// <summary>
+    /// $!{Field.Description}
     /// </summary>
     public $!{Field.DataType} $!{Field.CamelCaseName} { get; set; }$!{Field.Default}
 #set($Index = $Index + 1)

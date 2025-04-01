@@ -20,6 +20,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseOperation;
 
 /// <summary>
+/// 新增操作信息仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>
@@ -29,10 +30,12 @@ namespace ViteCent.Auth.Application.BaseOperation;
 public partial class AddBaseOperation(ILogger<AddBaseOperation> logger, IBaseCache cache, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseOperationArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 新增操作信息
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -125,6 +128,7 @@ public partial class AddBaseOperation(ILogger<AddBaseOperation> logger, IBaseCac
     }
 
     /// <summary>
+    /// 获取操作信息用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

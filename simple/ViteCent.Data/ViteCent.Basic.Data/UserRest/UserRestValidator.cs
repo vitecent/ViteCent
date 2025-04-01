@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Basic.Data.UserRest;
 
 /// <summary>
+/// 调休申请验证器
 /// </summary>
 [Serializable]
 public partial class UserRestValidator : AbstractValidator<AddUserRestArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public UserRestValidator()
     {

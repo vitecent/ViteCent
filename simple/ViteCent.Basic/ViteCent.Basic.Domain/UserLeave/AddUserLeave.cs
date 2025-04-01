@@ -11,15 +11,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.UserLeave;
 
 /// <summary>
+/// 新增请假申请
 /// </summary>
 /// <param name="logger"></param>
 public class AddUserLeave(ILogger<AddUserLeave> logger) : BaseDomain<UserLeaveEntity>, IRequestHandler<AddUserLeaveEntity, BaseResult>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "ViteCent.Basic";
 
     /// <summary>
+    /// 新增请假申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

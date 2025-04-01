@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.ShiftSchedule;
 
 /// <summary>
+/// 删除换班申请仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
 public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<DeleteShiftScheduleArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 删除换班申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -53,6 +56,7 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger, IMapper ma
     }
 
     /// <summary>
+    /// 获取换班申请用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

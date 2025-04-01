@@ -20,13 +20,14 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Application.RepairSchedule;
 
 /// <summary>
+/// 编辑补卡申请仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
-    /// <param name="companyInvoke"></param>
-    /// <param name="departmentInvoke"></param>
-    /// <param name="userInvoke"></param>
+/// <param name="companyInvoke"></param>
+/// <param name="departmentInvoke"></param>
+/// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public partial class EditRepairSchedule(ILogger<EditRepairSchedule> logger,
     IMapper mapper, 
@@ -37,14 +38,17 @@ public partial class EditRepairSchedule(ILogger<EditRepairSchedule> logger,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditRepairScheduleArgs, BaseResult>
 {
     /// <summary>
+    /// 用户密钥
     /// </summary>
     private string token = string.Empty;
 
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 编辑补卡申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -156,6 +160,7 @@ public partial class EditRepairSchedule(ILogger<EditRepairSchedule> logger,
     }
 
     /// <summary>
+    /// 获取补卡申请用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

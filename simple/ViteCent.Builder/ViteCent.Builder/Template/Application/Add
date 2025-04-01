@@ -43,6 +43,7 @@ using ViteCent.Core.Enums;
 namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// 新增$!{Table.Description}仓储
 /// </summary>
 /// <param name="logger"></param>
 #if($HasId)
@@ -58,10 +59,12 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
 #end
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 新增$!{Table.Description}
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -270,6 +273,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
     }
 
     /// <summary>
+    /// 获取$!{Table.Description}用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

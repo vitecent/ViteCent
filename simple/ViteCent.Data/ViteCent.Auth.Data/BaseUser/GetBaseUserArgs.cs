@@ -8,23 +8,28 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Data.BaseUser;
 
 /// <summary>
+/// 获取用户信息参数
 /// </summary>
 [Serializable]
 public class GetBaseUserArgs : BaseArgs, IRequest<DataResult<BaseUserResult>>
 {
     /// <summary>
+    /// 公司标识
     /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 部门标识
     /// </summary>
     public string DepartmentId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 职位标识
     /// </summary>
     public string PositionId { get; set; } = string.Empty;
 }

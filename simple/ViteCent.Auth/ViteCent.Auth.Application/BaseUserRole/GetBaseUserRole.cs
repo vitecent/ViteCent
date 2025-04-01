@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseUserRole;
 
 /// <summary>
+/// 获取用户角色仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Auth.Application.BaseUserRole;
 public class GetBaseUserRole(ILogger<GetBaseUserRole> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseUserRoleArgs, DataResult<BaseUserRoleResult>>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 获取用户角色
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -60,6 +63,7 @@ public class GetBaseUserRole(ILogger<GetBaseUserRole> logger, IMapper mapper, IM
     }
 
     /// <summary>
+    /// 获取用户角色用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

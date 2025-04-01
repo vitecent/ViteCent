@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.Schedule;
 
 /// <summary>
+/// 获取排班信息仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Basic.Application.Schedule;
 public class GetSchedule(ILogger<GetSchedule> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetScheduleArgs, DataResult<ScheduleResult>>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 获取排班信息
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -60,6 +63,7 @@ public class GetSchedule(ILogger<GetSchedule> logger, IMapper mapper, IMediator 
     }
 
     /// <summary>
+    /// 获取排班信息用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

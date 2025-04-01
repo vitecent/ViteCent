@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Basic.Data.RepairSchedule;
 
 /// <summary>
+/// 补卡申请验证器
 /// </summary>
 [Serializable]
 public partial class RepairScheduleValidator : AbstractValidator<AddRepairScheduleArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public RepairScheduleValidator()
     {

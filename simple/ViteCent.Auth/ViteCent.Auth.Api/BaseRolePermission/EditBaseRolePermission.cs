@@ -13,6 +13,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseRolePermission;
 
 /// <summary>
+/// 编辑角色权限接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -22,6 +23,7 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 public class EditBaseRolePermission(ILogger<EditBaseRolePermission> logger, IMediator mediator) : BaseLoginApi<EditBaseRolePermissionArgs, BaseResult>
 {
     /// <summary>
+    /// 编辑角色权限
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.ScheduleType;
 
 /// <summary>
+/// 获取基础排班仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Basic.Application.ScheduleType;
 public class GetScheduleType(ILogger<GetScheduleType> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetScheduleTypeArgs, DataResult<ScheduleTypeResult>>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 获取基础排班
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -60,6 +63,7 @@ public class GetScheduleType(ILogger<GetScheduleType> logger, IMapper mapper, IM
     }
 
     /// <summary>
+    /// 获取基础排班用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

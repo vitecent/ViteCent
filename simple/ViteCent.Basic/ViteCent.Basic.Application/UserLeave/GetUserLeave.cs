@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.UserLeave;
 
 /// <summary>
+/// 获取请假申请仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Basic.Application.UserLeave;
 public class GetUserLeave(ILogger<GetUserLeave> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserLeaveArgs, DataResult<UserLeaveResult>>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 获取请假申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -60,6 +63,7 @@ public class GetUserLeave(ILogger<GetUserLeave> logger, IMapper mapper, IMediato
     }
 
     /// <summary>
+    /// 获取请假申请用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

@@ -17,6 +17,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BasePosition;
 
 /// <summary>
+/// 编辑职位信息仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -25,10 +26,12 @@ namespace ViteCent.Auth.Application.BasePosition;
 public partial class EditBasePosition(ILogger<EditBasePosition> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditBasePositionArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 编辑职位信息
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -92,6 +95,7 @@ public partial class EditBasePosition(ILogger<EditBasePosition> logger, IMapper 
     }
 
     /// <summary>
+    /// 获取职位信息用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

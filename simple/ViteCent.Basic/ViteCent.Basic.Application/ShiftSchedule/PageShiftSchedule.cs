@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.ShiftSchedule;
 
 /// <summary>
+/// 换班申请分页仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
 public class PageShiftSchedule(ILogger<PageShiftSchedule> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<SearchShiftScheduleArgs, PageResult<ShiftScheduleResult>>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 换班申请分页
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -57,6 +60,7 @@ public class PageShiftSchedule(ILogger<PageShiftSchedule> logger, IMapper mapper
     }
 
     /// <summary>
+    /// 获取换班申请用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

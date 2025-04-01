@@ -8,35 +8,43 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Data.UserRest;
 
 /// <summary>
+/// 新增调休申请参数
 /// </summary>
 [Serializable]
 public class AddUserRestArgs : BaseArgs, IRequest<BaseResult>
 {
     /// <summary>
+    /// 公司标识
     /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 部门标识
     /// </summary>
     public string DepartmentId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 结束时间
     /// </summary>
     public DateTime EndTime { get; set; }
 
     /// <summary>
+    /// 描述
     /// </summary>
     public string Remark { get; set; } = string.Empty;
 
     /// <summary>
+    /// 开始时间
     /// </summary>
     public DateTime StartTime { get; set; }
 
     /// <summary>
+    /// 状态
     /// </summary>
     public int Status { get; set; }
 
     /// <summary>
+    /// 用户标识
     /// </summary>
     public string UserId { get; set; } = string.Empty;
 }

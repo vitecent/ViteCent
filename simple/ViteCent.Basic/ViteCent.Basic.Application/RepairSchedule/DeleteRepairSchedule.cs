@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.RepairSchedule;
 
 /// <summary>
+/// 删除补卡申请仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Basic.Application.RepairSchedule;
 public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<DeleteRepairScheduleArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 删除补卡申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -53,6 +56,7 @@ public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger, IMapper 
     }
 
     /// <summary>
+    /// 获取补卡申请用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

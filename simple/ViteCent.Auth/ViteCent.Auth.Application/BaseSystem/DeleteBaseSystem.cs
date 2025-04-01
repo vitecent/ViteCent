@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseSystem;
 
 /// <summary>
+/// 删除系统信息仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Auth.Application.BaseSystem;
 public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<DeleteBaseSystemArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 删除系统信息
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -48,6 +51,7 @@ public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger, IMapper mapper, 
     }
 
     /// <summary>
+    /// 获取系统信息用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

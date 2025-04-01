@@ -8,23 +8,28 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Data.BaseOperation;
 
 /// <summary>
+/// 获取操作信息参数
 /// </summary>
 [Serializable]
 public class GetBaseOperationArgs : BaseArgs, IRequest<DataResult<BaseOperationResult>>
 {
     /// <summary>
+    /// 公司标识
     /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 资源标识
     /// </summary>
     public string ResourceId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 系统标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
 }

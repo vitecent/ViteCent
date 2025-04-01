@@ -7,10 +7,12 @@ using ViteCent.Core.Web;
 namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
 
 /// <summary>
+/// 程序入口
 /// </summary>
 public class Program
 {
     /// <summary>
+    /// 主方法
     /// </summary>
     /// <param name="args"></param>
     public static async Task Main(string[] args)

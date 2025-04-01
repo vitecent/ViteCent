@@ -11,15 +11,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.ShiftSchedule;
 
 /// <summary>
+/// 删除换班申请
 /// </summary>
 /// <param name="logger"></param>
 public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDomain<ShiftScheduleEntity>, IRequestHandler<DeleteShiftScheduleEntityArgs, BaseResult>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "ViteCent.Basic";
 
     /// <summary>
+    /// 删除换班申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

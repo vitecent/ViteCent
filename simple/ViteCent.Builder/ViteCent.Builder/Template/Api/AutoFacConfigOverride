@@ -8,10 +8,12 @@ using Module = Autofac.Module;
 namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
 
 /// <summary>
+/// $!{Table.Description}注入拓展
 /// </summary>
 public partial class $!{Setting.Api.FacName} : Module
 {
     /// <summary>
+    /// 注入
     /// </summary>
     /// <param name="builder"></param>
     private void OverrideLoad(ContainerBuilder builder)

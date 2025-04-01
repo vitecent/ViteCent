@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseOperation;
 
 /// <summary>
+/// 删除操作信息接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Auth.Api.BaseOperation;
 public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger, IMediator mediator) : BaseLoginApi<DeleteBaseOperationArgs, BaseResult>
 {
     /// <summary>
+    /// 删除操作信息
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

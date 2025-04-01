@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseRolePermission;
 
 /// <summary>
+/// 删除角色权限仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<DeleteBaseRolePermissionArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 删除角色权限
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -48,6 +51,7 @@ public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger, 
     }
 
     /// <summary>
+    /// 获取角色权限用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

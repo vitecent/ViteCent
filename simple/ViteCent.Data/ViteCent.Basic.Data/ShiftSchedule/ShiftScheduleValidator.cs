@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Basic.Data.ShiftSchedule;
 
 /// <summary>
+/// 换班申请验证器
 /// </summary>
 [Serializable]
 public partial class ShiftScheduleValidator : AbstractValidator<AddShiftScheduleArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public ShiftScheduleValidator()
     {

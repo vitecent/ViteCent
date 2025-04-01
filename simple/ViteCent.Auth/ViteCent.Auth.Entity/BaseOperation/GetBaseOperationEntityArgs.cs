@@ -7,23 +7,28 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseOperation;
 
 /// <summary>
+/// 获取操作信息数据参数
 /// </summary>
 [Serializable]
 public class GetBaseOperationEntityArgs : IRequest<BaseOperationEntity>
 {
     /// <summary>
+    /// 公司标识
     /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 资源标识
     /// </summary>
     public string ResourceId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 系统标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
 }

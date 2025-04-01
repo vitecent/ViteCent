@@ -10,15 +10,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.RepairSchedule;
 
 /// <summary>
+/// 获取补卡申请
 /// </summary>
 /// <param name="logger"></param>
 public class GetRepairSchedule(ILogger<GetRepairSchedule> logger) : BaseDomain<RepairScheduleEntity>, IRequestHandler<GetRepairScheduleEntityArgs, RepairScheduleEntity>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "ViteCent.Basic";
 
     /// <summary>
+    /// 获取补卡申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

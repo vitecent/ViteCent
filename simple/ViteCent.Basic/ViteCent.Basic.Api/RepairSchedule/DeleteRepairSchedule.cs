@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.RepairSchedule;
 
 /// <summary>
+/// 删除补卡申请接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Basic.Api.RepairSchedule;
 public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger, IMediator mediator) : BaseLoginApi<DeleteRepairScheduleArgs, BaseResult>
 {
     /// <summary>
+    /// 删除补卡申请
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

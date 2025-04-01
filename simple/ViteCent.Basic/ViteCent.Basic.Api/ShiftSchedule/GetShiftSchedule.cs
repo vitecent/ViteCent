@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.ShiftSchedule;
 
 /// <summary>
+/// 获取换班申请接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Basic.Api.ShiftSchedule;
 public class GetShiftSchedule(ILogger<GetShiftSchedule> logger, IMediator mediator) : BaseLoginApi<GetShiftScheduleArgs, DataResult<ShiftScheduleResult>>
 {
     /// <summary>
+    /// 获取换班申请
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

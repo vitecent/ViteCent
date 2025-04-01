@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.UserRest;
 
 /// <summary>
+/// 删除调休申请接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Basic.Api.UserRest;
 public class DeleteUserRest(ILogger<DeleteUserRest> logger, IMediator mediator) : BaseLoginApi<DeleteUserRestArgs, BaseResult>
 {
     /// <summary>
+    /// 删除调休申请
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

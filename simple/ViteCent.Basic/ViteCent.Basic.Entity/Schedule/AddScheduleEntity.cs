@@ -7,6 +7,7 @@ using SqlSugar;
 namespace ViteCent.Basic.Entity.Schedule;
 
 /// <summary>
+/// 新增排班信息数据参数
 /// </summary>
 [Serializable]
 [SugarTable("schedule")]

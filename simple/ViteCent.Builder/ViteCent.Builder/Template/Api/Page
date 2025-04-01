@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// $!{Table.Description}分页接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger, IMediator mediator) : BaseLoginApi<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
 {
     /// <summary>
+    /// $!{Table.Description}分页
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

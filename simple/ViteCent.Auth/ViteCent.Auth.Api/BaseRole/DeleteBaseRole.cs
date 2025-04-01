@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseRole;
 
 /// <summary>
+/// 删除角色信息接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Auth.Api.BaseRole;
 public class DeleteBaseRole(ILogger<DeleteBaseRole> logger, IMediator mediator) : BaseLoginApi<DeleteBaseRoleArgs, BaseResult>
 {
     /// <summary>
+    /// 删除角色信息
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

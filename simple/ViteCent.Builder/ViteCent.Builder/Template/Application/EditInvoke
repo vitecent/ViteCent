@@ -41,33 +41,34 @@ using ViteCent.Core.Web;
 namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// 编辑$!{Table.Description}仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 #if($HasCompanyId)
-    /// <param name="companyInvoke"></param>
+/// <param name="companyInvoke"></param>
 #end
 #if($HasDepartmentId)
-    /// <param name="departmentInvoke"></param>
+/// <param name="departmentInvoke"></param>
 #end
 #if($HasOperationId)
-    /// <param name="operationInvoke"></param>
+/// <param name="operationInvoke"></param>
 #end
 #if($HasPositionId)
-    /// <param name="positionInvoke"></param>
+/// <param name="positionInvoke"></param>
 #end
 #if($HasResourceId)
-    /// <param name="resourceInvoke"></param>
+/// <param name="resourceInvoke"></param>
 #end
 #if($HasRoleId)
-    /// <param name="roleInvoke"></param>
+/// <param name="roleInvoke"></param>
 #end
 #if($HasUserId)
-    /// <param name="userInvoke"></param>
+/// <param name="userInvoke"></param>
 #end
 #if($HasSystemId)
-    /// <param name="systemInvoke"></param>
+/// <param name="systemInvoke"></param>
 #end
 /// <param name="httpContextAccessor"></param>
 public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.EditName}$!{Table.CamelCaseName}> logger,
@@ -100,14 +101,17 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
 {
     /// <summary>
+    /// 用户密钥
     /// </summary>
     private string token = string.Empty;
 
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 编辑$!{Table.Description}
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -340,6 +344,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
     }
 
     /// <summary>
+    /// 获取$!{Table.Description}用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

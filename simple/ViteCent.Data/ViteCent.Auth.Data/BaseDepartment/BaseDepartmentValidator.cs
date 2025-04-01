@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Auth.Data.BaseDepartment;
 
 /// <summary>
+/// 部门信息验证器
 /// </summary>
 [Serializable]
 public partial class BaseDepartmentValidator : AbstractValidator<AddBaseDepartmentArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public BaseDepartmentValidator()
     {

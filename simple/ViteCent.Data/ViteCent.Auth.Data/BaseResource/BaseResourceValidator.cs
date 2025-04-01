@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Auth.Data.BaseResource;
 
 /// <summary>
+/// 资源信息验证器
 /// </summary>
 [Serializable]
 public partial class BaseResourceValidator : AbstractValidator<AddBaseResourceArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public BaseResourceValidator()
     {

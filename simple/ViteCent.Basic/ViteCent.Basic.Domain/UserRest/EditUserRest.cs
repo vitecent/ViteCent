@@ -11,15 +11,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.UserRest;
 
 /// <summary>
+/// 编辑调休申请
 /// </summary>
 /// <param name="logger"></param>
 public class EditUserRest(ILogger<EditUserRest> logger) : BaseDomain<UserRestEntity>, IRequestHandler<UserRestEntity, BaseResult>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "ViteCent.Basic";
 
     /// <summary>
+    /// 编辑调休申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

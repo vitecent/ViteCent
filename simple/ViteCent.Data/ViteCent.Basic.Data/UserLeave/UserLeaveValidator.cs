@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Basic.Data.UserLeave;
 
 /// <summary>
+/// 请假申请验证器
 /// </summary>
 [Serializable]
 public partial class UserLeaveValidator : AbstractValidator<AddUserLeaveArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public UserLeaveValidator()
     {

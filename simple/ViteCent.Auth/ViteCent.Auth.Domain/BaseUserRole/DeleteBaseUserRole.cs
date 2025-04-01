@@ -11,15 +11,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseUserRole;
 
 /// <summary>
+/// 删除用户角色
 /// </summary>
 /// <param name="logger"></param>
 public class DeleteBaseUserRole(ILogger<DeleteBaseUserRole> logger) : BaseDomain<BaseUserRoleEntity>, IRequestHandler<DeleteBaseUserRoleEntityArgs, BaseResult>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "ViteCent.Auth";
 
     /// <summary>
+    /// 删除用户角色
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

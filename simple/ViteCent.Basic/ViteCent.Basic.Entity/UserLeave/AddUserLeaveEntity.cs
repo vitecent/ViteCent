@@ -7,6 +7,7 @@ using SqlSugar;
 namespace ViteCent.Basic.Entity.UserLeave;
 
 /// <summary>
+/// 新增请假申请数据参数
 /// </summary>
 [Serializable]
 [SugarTable("user_leave")]

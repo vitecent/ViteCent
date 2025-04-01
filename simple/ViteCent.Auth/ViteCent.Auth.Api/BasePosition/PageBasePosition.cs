@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BasePosition;
 
 /// <summary>
+/// 职位信息分页接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Auth.Api.BasePosition;
 public class PageBasePosition(ILogger<PageBasePosition> logger, IMediator mediator) : BaseLoginApi<SearchBasePositionArgs, PageResult<BasePositionResult>>
 {
     /// <summary>
+    /// 职位信息分页
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

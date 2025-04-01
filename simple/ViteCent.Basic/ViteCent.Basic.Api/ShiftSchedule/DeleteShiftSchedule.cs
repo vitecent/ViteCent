@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.ShiftSchedule;
 
 /// <summary>
+/// 删除换班申请接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Basic.Api.ShiftSchedule;
 public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger, IMediator mediator) : BaseLoginApi<DeleteShiftScheduleArgs, BaseResult>
 {
     /// <summary>
+    /// 删除换班申请
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

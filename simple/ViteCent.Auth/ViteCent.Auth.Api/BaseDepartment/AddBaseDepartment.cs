@@ -13,6 +13,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseDepartment;
 
 /// <summary>
+/// 新增部门信息接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -22,6 +23,7 @@ namespace ViteCent.Auth.Api.BaseDepartment;
 public partial class AddBaseDepartment(ILogger<AddBaseDepartment> logger, IMediator mediator) : BaseLoginApi<AddBaseDepartmentArgs, BaseResult>
 {
     /// <summary>
+    /// 新增部门信息
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

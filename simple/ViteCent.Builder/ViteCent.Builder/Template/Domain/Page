@@ -10,15 +10,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// $!{Table.Description}分页
 /// </summary>
 /// <param name="logger"></param>
 public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>, IRequestHandler<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}, List<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "$!{DataBase.Name}";
 
     /// <summary>
+    /// $!{Table.Description}分页
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

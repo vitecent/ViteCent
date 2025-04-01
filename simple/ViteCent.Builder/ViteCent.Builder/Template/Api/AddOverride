@@ -10,10 +10,12 @@ using ViteCent.Core.Enums;
 namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// 新增$!{Table.Description}接口拓展
 /// </summary>
 public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

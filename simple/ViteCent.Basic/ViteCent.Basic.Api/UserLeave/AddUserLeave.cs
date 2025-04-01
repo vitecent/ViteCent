@@ -13,6 +13,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.UserLeave;
 
 /// <summary>
+/// 新增请假申请接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -22,6 +23,7 @@ namespace ViteCent.Basic.Api.UserLeave;
 public partial class AddUserLeave(ILogger<AddUserLeave> logger, IMediator mediator) : BaseLoginApi<AddUserLeaveArgs, BaseResult>
 {
     /// <summary>
+    /// 新增请假申请
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

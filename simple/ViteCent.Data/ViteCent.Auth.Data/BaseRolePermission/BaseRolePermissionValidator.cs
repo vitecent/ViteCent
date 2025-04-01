@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Auth.Data.BaseRolePermission;
 
 /// <summary>
+/// 角色权限验证器
 /// </summary>
 [Serializable]
 public partial class BaseRolePermissionValidator : AbstractValidator<AddBaseRolePermissionArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public BaseRolePermissionValidator()
     {

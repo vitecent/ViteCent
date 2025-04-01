@@ -13,6 +13,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseResource;
 
 /// <summary>
+/// 编辑资源信息接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -22,6 +23,7 @@ namespace ViteCent.Auth.Api.BaseResource;
 public class EditBaseResource(ILogger<EditBaseResource> logger, IMediator mediator) : BaseLoginApi<EditBaseResourceArgs, BaseResult>
 {
     /// <summary>
+    /// 编辑资源信息
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

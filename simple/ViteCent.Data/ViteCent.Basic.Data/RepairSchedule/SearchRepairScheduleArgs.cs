@@ -8,6 +8,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Data.RepairSchedule;
 
 /// <summary>
+/// 搜索补卡申请参数
 /// </summary>
 [Serializable]
 public class SearchRepairScheduleArgs : SearchArgs, IRequest<PageResult<RepairScheduleResult>>

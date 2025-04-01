@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.Schedule;
 
 /// <summary>
+/// 排班信息分页接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Basic.Api.Schedule;
 public class PageSchedule(ILogger<PageSchedule> logger, IMediator mediator) : BaseLoginApi<SearchScheduleArgs, PageResult<ScheduleResult>>
 {
     /// <summary>
+    /// 排班信息分页
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

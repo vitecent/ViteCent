@@ -9,10 +9,12 @@ using Module = Autofac.Module;
 namespace ViteCent.Basic.Api;
 
 /// <summary>
+/// 调休申请注入
 /// </summary>
 public partial class AutoFacConfig : Module
 {
     /// <summary>
+    /// 注入
     /// </summary>
     /// <param name="builder"></param>
     protected override void Load(ContainerBuilder builder)

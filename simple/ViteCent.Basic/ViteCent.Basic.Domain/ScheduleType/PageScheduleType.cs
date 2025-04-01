@@ -10,15 +10,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.ScheduleType;
 
 /// <summary>
+/// 基础排班分页
 /// </summary>
 /// <param name="logger"></param>
 public class PageScheduleType(ILogger<PageScheduleType> logger) : BaseDomain<ScheduleTypeEntity>, IRequestHandler<SearchScheduleTypeEntityArgs, List<ScheduleTypeEntity>>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "ViteCent.Basic";
 
     /// <summary>
+    /// 基础排班分页
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

@@ -27,10 +27,12 @@ using ViteCent.Core.Web;
 namespace ViteCent.Auth.Api;
 
 /// <summary>
+/// 用户角色映射
 /// </summary>
 public partial class AutoMapperConfig : BaseMapperConfig
 {
     /// <summary>
+    /// 映射
     /// </summary>
     public override void Map()
     {

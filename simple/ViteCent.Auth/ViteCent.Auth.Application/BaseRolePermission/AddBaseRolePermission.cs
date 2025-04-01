@@ -22,6 +22,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseRolePermission;
 
 /// <summary>
+/// 新增角色权限仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>
@@ -31,10 +32,12 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 public partial class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger, IBaseCache cache, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseRolePermissionArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 新增角色权限
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -163,6 +166,7 @@ public partial class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger
     }
 
     /// <summary>
+    /// 获取角色权限用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

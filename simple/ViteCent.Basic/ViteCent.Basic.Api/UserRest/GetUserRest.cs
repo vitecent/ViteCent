@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.UserRest;
 
 /// <summary>
+/// 获取调休申请接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Basic.Api.UserRest;
 public class GetUserRest(ILogger<GetUserRest> logger, IMediator mediator) : BaseLoginApi<GetUserRestArgs, DataResult<UserRestResult>>
 {
     /// <summary>
+    /// 获取调休申请
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

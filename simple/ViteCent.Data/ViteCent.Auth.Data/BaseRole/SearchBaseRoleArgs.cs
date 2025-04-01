@@ -8,6 +8,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Data.BaseRole;
 
 /// <summary>
+/// 搜索角色信息参数
 /// </summary>
 [Serializable]
 public class SearchBaseRoleArgs : SearchArgs, IRequest<PageResult<BaseRoleResult>>

@@ -13,10 +13,12 @@ using ViteCent.Core.Web;
 namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
 
 /// <summary>
+/// $!{Table.Description}映射
 /// </summary>
 public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
 {
     /// <summary>
+    /// 映射
     /// </summary>
     public override void Map()
     {

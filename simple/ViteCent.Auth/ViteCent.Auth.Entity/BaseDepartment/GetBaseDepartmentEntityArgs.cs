@@ -7,15 +7,18 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseDepartment;
 
 /// <summary>
+/// 获取部门信息数据参数
 /// </summary>
 [Serializable]
 public class GetBaseDepartmentEntityArgs : IRequest<BaseDepartmentEntity>
 {
     /// <summary>
+    /// 公司标识
     /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
 }

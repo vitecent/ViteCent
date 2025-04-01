@@ -19,10 +19,12 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Api;
 
 /// <summary>
+/// 调休申请映射
 /// </summary>
 public partial class AutoMapperConfig : BaseMapperConfig
 {
     /// <summary>
+    /// 映射
     /// </summary>
     public override void Map()
     {

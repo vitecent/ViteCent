@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Auth.Data.BaseCompany;
 
 /// <summary>
+/// 公司信息验证器
 /// </summary>
 [Serializable]
 public partial class BaseCompanyValidator : AbstractValidator<AddBaseCompanyArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public BaseCompanyValidator()
     {

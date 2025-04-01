@@ -7,10 +7,12 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Api;
 
 /// <summary>
+/// �������
 /// </summary>
 public class Program
 {
     /// <summary>
+    /// ������
     /// </summary>
     /// <param name="args"></param>
     public static async Task Main(string[] args)

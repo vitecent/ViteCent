@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseRolePermission;
 
 /// <summary>
+/// 角色权限分页接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 public class PageBaseRolePermission(ILogger<PageBaseRolePermission> logger, IMediator mediator) : BaseLoginApi<SearchBaseRolePermissionArgs, PageResult<BaseRolePermissionResult>>
 {
     /// <summary>
+    /// 角色权限分页
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

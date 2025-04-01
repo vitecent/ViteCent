@@ -12,6 +12,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseCompany;
 
 /// <summary>
+/// 删除公司信息仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -19,6 +20,7 @@ namespace ViteCent.Auth.Application.BaseCompany;
 public class DeleteBaseCompany(ILogger<DeleteBaseCompany> logger, IMapper mapper, IMediator mediator) : IRequestHandler<DeleteBaseCompanyArgs, BaseResult>
 {
     /// <summary>
+    /// 删除公司信息
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

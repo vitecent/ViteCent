@@ -15,6 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.ScheduleType;
 
 /// <summary>
+/// 删除基础排班仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -23,10 +24,12 @@ namespace ViteCent.Basic.Application.ScheduleType;
 public class DeleteScheduleType(ILogger<DeleteScheduleType> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<DeleteScheduleTypeArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 删除基础排班
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -53,6 +56,7 @@ public class DeleteScheduleType(ILogger<DeleteScheduleType> logger, IMapper mapp
     }
 
     /// <summary>
+    /// 获取基础排班用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

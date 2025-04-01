@@ -13,6 +13,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseRole;
 
 /// <summary>
+/// 新增角色信息接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -22,6 +23,7 @@ namespace ViteCent.Auth.Api.BaseRole;
 public partial class AddBaseRole(ILogger<AddBaseRole> logger, IMediator mediator) : BaseLoginApi<AddBaseRoleArgs, BaseResult>
 {
     /// <summary>
+    /// 新增角色信息
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

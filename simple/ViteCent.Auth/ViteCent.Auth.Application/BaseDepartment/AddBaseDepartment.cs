@@ -18,6 +18,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseDepartment;
 
 /// <summary>
+/// 新增部门信息仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>
@@ -27,10 +28,12 @@ namespace ViteCent.Auth.Application.BaseDepartment;
 public partial class AddBaseDepartment(ILogger<AddBaseDepartment> logger, IBaseCache cache, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseDepartmentArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 新增部门信息
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -88,6 +91,7 @@ public partial class AddBaseDepartment(ILogger<AddBaseDepartment> logger, IBaseC
     }
 
     /// <summary>
+    /// 获取部门信息用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

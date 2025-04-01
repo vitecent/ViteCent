@@ -9,10 +9,12 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// 新增$!{Table.Description}仓储拓展
 /// </summary>
 public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

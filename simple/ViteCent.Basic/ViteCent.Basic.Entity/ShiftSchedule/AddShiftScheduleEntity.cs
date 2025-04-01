@@ -7,6 +7,7 @@ using SqlSugar;
 namespace ViteCent.Basic.Entity.ShiftSchedule;
 
 /// <summary>
+/// 新增换班申请数据参数
 /// </summary>
 [Serializable]
 [SugarTable("shift_schedule")]

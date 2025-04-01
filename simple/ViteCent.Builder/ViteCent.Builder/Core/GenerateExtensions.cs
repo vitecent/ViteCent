@@ -486,7 +486,7 @@ public class GenerateExtensions
                 Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Entity.EntitySuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
-                nh.Save(@"Template\Entity\Add",
+                nh.Save(@"Template\Entity\AddEntity",
                 Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Entity.EntitySuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))

@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.ScheduleType;
 
 /// <summary>
+/// 删除基础排班接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Basic.Api.ScheduleType;
 public class DeleteScheduleType(ILogger<DeleteScheduleType> logger, IMediator mediator) : BaseLoginApi<DeleteScheduleTypeArgs, BaseResult>
 {
     /// <summary>
+    /// 删除基础排班
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

@@ -10,15 +10,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseRolePermission;
 
 /// <summary>
+/// 角色权限分页
 /// </summary>
 /// <param name="logger"></param>
 public class PageBaseRolePermission(ILogger<PageBaseRolePermission> logger) : BaseDomain<BaseRolePermissionEntity>, IRequestHandler<SearchBaseRolePermissionEntityArgs, List<BaseRolePermissionEntity>>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "ViteCent.Auth";
 
     /// <summary>
+    /// 角色权限分页
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

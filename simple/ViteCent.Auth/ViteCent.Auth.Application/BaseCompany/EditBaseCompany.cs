@@ -16,6 +16,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseCompany;
 
 /// <summary>
+/// 编辑公司信息仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -24,10 +25,12 @@ namespace ViteCent.Auth.Application.BaseCompany;
 public partial class EditBaseCompany(ILogger<EditBaseCompany> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditBaseCompanyArgs, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 编辑公司信息
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -83,6 +86,7 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger, IMapper ma
     }
 
     /// <summary>
+    /// 获取公司信息用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

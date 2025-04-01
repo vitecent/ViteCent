@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Auth.Data.BaseUser;
 
 /// <summary>
+/// 用户信息验证器
 /// </summary>
 [Serializable]
 public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public BaseUserValidator()
     {

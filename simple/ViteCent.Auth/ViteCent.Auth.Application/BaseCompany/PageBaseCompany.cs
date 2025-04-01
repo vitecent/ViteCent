@@ -12,6 +12,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseCompany;
 
 /// <summary>
+/// 公司信息分页仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -19,6 +20,7 @@ namespace ViteCent.Auth.Application.BaseCompany;
 public class PageBaseCompany(ILogger<PageBaseCompany> logger, IMapper mapper, IMediator mediator) : IRequestHandler<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>>
 {
     /// <summary>
+    /// 公司信息分页
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

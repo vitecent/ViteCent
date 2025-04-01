@@ -15,6 +15,7 @@ using ViteCent.Core.Web.Filter;
 namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// 新增$!{Table.Description}接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -24,6 +25,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger, IMediator mediator) : BaseLoginApi<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
 {
     /// <summary>
+    /// 新增$!{Table.Description}
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

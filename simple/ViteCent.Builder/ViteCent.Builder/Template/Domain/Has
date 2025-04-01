@@ -12,15 +12,18 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// $!{Table.Description}判重
 /// </summary>
 /// <param name="logger"></param>
 public class $!{Setting.HasName}$!{Table.CamelCaseName}(ILogger<$!{Setting.HasName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>, IRequestHandler<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
 {
     /// <summary>
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "$!{DataBase.Name}";
 
     /// <summary>
+    /// $!{Table.Description}判重
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

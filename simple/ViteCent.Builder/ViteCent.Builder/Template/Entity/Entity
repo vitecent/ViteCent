@@ -10,6 +10,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// $!{Table.Description}
 /// </summary>
 [Serializable]
 [SugarTable("$!{Table.Name}")]
@@ -18,6 +19,7 @@ public class $!{Table.CamelCaseName}$!{Setting.Entity.EntityName} : $!{BaseName}
 #set($Index = 0)
 #foreach($Field in $Fields)
     /// <summary>
+    /// $!{Field.Description}
     /// </summary>
     [SugarColumn(ColumnName = "$!{Field.Name}"$!{Field.ColumnNullable}$!{Field.ColumnType}$!{Field.ColumnLength}$!{Field.ColumnDescription}$!{Field.ColumnIdentity}$!{Field.ColumnPrimaryKey})]
     public $!{Field.DataType} $!{Field.CamelCaseName} { get; set; }$!{Field.Default}

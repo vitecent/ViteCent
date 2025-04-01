@@ -21,14 +21,15 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Application.UserLeave;
 
 /// <summary>
+/// 新增请假申请仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
-    /// <param name="companyInvoke"></param>
-    /// <param name="departmentInvoke"></param>
-    /// <param name="userInvoke"></param>
+/// <param name="companyInvoke"></param>
+   /// <param name="departmentInvoke"></param>
+/// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public partial class AddUserLeave(ILogger<AddUserLeave> logger,
     IBaseCache cache,
@@ -40,14 +41,17 @@ public partial class AddUserLeave(ILogger<AddUserLeave> logger,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddUserLeaveArgs, BaseResult>
 {
     /// <summary>
+    /// 用户密钥
     /// </summary>
     private string token = string.Empty;
 
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 新增请假申请
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -149,6 +153,7 @@ public partial class AddUserLeave(ILogger<AddUserLeave> logger,
     }
 
     /// <summary>
+    /// 获取请假申请用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

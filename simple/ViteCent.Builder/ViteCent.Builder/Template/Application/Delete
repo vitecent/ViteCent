@@ -21,6 +21,7 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
 
 /// <summary>
+/// 删除$!{Table.Description}仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -30,6 +31,7 @@ namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.Cam
 public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
@@ -38,6 +40,7 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
 {
 #end
     /// <summary>
+    /// 删除$!{Table.Description}
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -78,6 +81,7 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 
     /// <summary>
+    /// 获取$!{Table.Description}用户信息
     /// </summary>
     /// <param name="httpContextAccessor"></param>
     private void InitUser(IHttpContextAccessor httpContextAccessor)

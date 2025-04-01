@@ -7,11 +7,13 @@ using FluentValidation;
 namespace ViteCent.Basic.Data.ScheduleType;
 
 /// <summary>
+/// 基础排班验证器
 /// </summary>
 [Serializable]
 public partial class ScheduleTypeValidator : AbstractValidator<AddScheduleTypeArgs>
 {
     /// <summary>
+    /// 验证参数
     /// </summary>
     public ScheduleTypeValidator()
     {

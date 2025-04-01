@@ -176,7 +176,7 @@
         <None Update="Template\Entity\Entity">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="Template\Entity\Add">
+        <None Update="Template\Entity\AddEntity">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Template\Entity\Csproj">

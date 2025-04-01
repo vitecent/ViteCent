@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseUser;
 
 /// <summary>
+/// 获取用户信息接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +22,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 public class GetBaseUser(ILogger<GetBaseUser> logger, IMediator mediator) : BaseLoginApi<GetBaseUserArgs, DataResult<BaseUserResult>>
 {
     /// <summary>
+    /// 获取用户信息
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
