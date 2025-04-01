@@ -13,7 +13,7 @@ public partial class BaseRoleValidator : AbstractValidator<AddBaseRoleArgs>
 {
     /// <summary>
     /// </summary>
-    public void OverrideValidator()
+    private void OverrideValidator()
     {
         RuleFor(x => x.Code).NotNull().NotEmpty().WithMessage("编码不能为空");
         RuleFor(x => x.Code).Length(1, 50).WithMessage("编码1-50个字符");

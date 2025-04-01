@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\\${Setting.Data.DataProjrectName}\\$!{DataBase.Name}.${Setting.Data.DataName}\\$!{DataBase.Name}.${Setting.Data.DataName}.csproj" />
+		<ProjectReference Include="..\\$!{DataBase.Name}.${Setting.Entity.EntityName}\\$!{DataBase.Name}.${Setting.Entity.EntityName}.csproj" />
+	</ItemGroup>
+</Project>

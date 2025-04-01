@@ -1,12 +1,14 @@
 ﻿#region
 
-using log4net;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using ViteCent.Core.Api.Swagger;
+using ViteCent.Core.Authorize.Jwt;
 using ViteCent.Core.Cache.Redis;
 using ViteCent.Core.Orm.SqlSugar;
 using ViteCent.Core.Register.Consul;
 using ViteCent.Core.Trace.Zipkin;
+using ViteCent.Core.Web.Filter;
 
 #endregion
 
@@ -18,7 +20,7 @@ public class BaseMicroService : MicroService
 {
     /// <summary>
     /// </summary>
-    private readonly ILog logger;
+    private readonly BaseLogger logger;
 
     /// <summary>
     /// </summary>
@@ -37,9 +39,9 @@ public class BaseMicroService : MicroService
         this.title = title;
         this.xmls = xmls;
 
-        logger = BaseLogger.GetLogger(typeof(BaseMicroService));
+        logger = new BaseLogger(typeof(BaseMicroService));
 
-        logger.Info("开始构建基础微服务");
+        logger.LogInformation("开始构建基础微服务");
     }
 
     /// <summary>
@@ -58,26 +60,33 @@ public class BaseMicroService : MicroService
     {
         await base.BuildAsync(builder);
 
+        builder.Services.AddTransient<BaseLoginFilter>();
+        builder.Services.AddTransient<BaseAuthFilter>();
+
+        builder.Services.AddTransient(typeof(IBaseInvoke<,>), typeof(BaseInvoke<,>));
+
         var configuration = builder.Configuration;
         var services = builder.Services;
 
-        logger.Info("开始添加 Redis 服务");
+        logger.LogInformation("开始添加 Redis 服务");
         services.AddRedis(configuration);
 
-        logger.Info("开始添加 Consul 服务");
+        logger.LogInformation("开始添加 Consul 服务");
         services.AddConsul(configuration);
 
-        logger.Info("开始添加 Zipkin 服务");
+        logger.LogInformation("开始添加 Zipkin 服务");
         services.AddZipkin(configuration);
 
-        logger.Info("开始添加 SqlSugar 服务");
+        logger.LogInformation("开始添加 SqlSugar 服务");
         services.AddSqlSugger(configuration);
 
-        logger.Info("开始添加 Swagger 服务");
+        logger.LogInformation("开始添加 Swagger 服务");
         services.AddSwagger(title, xmls);
 
-        logger.Info("开始执行构建回调");
+        logger.LogInformation("开始添加 Jwt 服务");
+        services.AddJwt(configuration);
 
+        logger.LogInformation("开始执行构建回调");
         OnBuild?.Invoke(builder);
     }
 
@@ -89,17 +98,19 @@ public class BaseMicroService : MicroService
     {
         await base.StartAsync(app);
 
-        logger.Info("开始使用 Consul 中间件");
+        logger.LogInformation("开始使用 Consul 中间件");
         await app.UseConsulAsync();
 
-        logger.Info("开始使用 Zipkin 中间件");
+        logger.LogInformation("开始使用 Zipkin 中间件");
         app.UseZipkin();
 
-        logger.Info("开始使用 Swagger 仪表盘");
+        logger.LogInformation("开始使用 Swagger 仪表盘");
         app.UseSwagger();
 
-        logger.Info("开执行启动回调");
+        logger.LogInformation("开始使用 Jwt 中间件");
+        app.UseJwt();
 
+        logger.LogInformation("开执行启动回调");
         OnStart?.Invoke(app);
     }
 }

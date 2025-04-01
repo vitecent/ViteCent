@@ -39,11 +39,11 @@ public class EditScheduleType(ILogger<EditScheduleType> logger, IMediator mediat
         if (!result.IsValid)
             return new BaseResult(500, string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
 
-        if (User.IsSuper == (int)YesNoEnum.No)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "CompanyId 不能为空");
 
-        if (User.IsSuper == (int)YesNoEnum.No)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "DepartmentId 不能为空");
 

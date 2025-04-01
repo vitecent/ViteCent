@@ -23,5 +23,4 @@ public class GetBaseResourceArgs : BaseArgs, IRequest<DataResult<BaseResourceRes
     /// <summary>
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
-
 }

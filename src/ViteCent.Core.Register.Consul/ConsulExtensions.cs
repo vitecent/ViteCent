@@ -35,7 +35,7 @@ public static class ConsulExtensions
     /// <returns></returns>
     public static async Task<IApplicationBuilder> UseConsulAsync(this WebApplication app)
     {
-        var logger = BaseLogger.GetLogger(typeof(ConsulExtensions));
+        var logger = new BaseLogger(typeof(ConsulExtensions));
 
         var configuration = app.Configuration;
 
@@ -43,23 +43,23 @@ public static class ConsulExtensions
 
         if (string.IsNullOrWhiteSpace(uri)) throw new Exception("Appsettings Must Be Register");
 
-        logger.Info($"Consul RegisterUri ：{uri}");
+        logger.LogInformation($"Consul RegisterUri ：{uri}");
 
         var serviceName = configuration["Service:Name"] ?? default!;
 
-        logger.Info($"Consul ServiceName ：{serviceName}");
+        logger.LogInformation($"Consul ServiceName ：{serviceName}");
 
         if (string.IsNullOrWhiteSpace(serviceName)) throw new Exception("Appsettings Must Be ServiceConfig.Name");
 
         var isDapr = configuration["Environment"] ?? default!;
 
-        logger.Info($"Consul IsDapr ：{isDapr}");
+        logger.LogInformation($"Consul IsDapr ：{isDapr}");
 
         var configPoint = configuration["Port"] ?? default!;
 
         if (isDapr != "Dapr") configPoint = configuration["Service:Port"] ?? default!;
 
-        logger.Info($"Consul ServicePoint ：{configPoint}");
+        logger.LogInformation($"Consul ServicePoint ：{configPoint}");
 
         var flagServicePort = int.TryParse(configPoint, out var servicePort);
 
@@ -69,11 +69,11 @@ public static class ConsulExtensions
 
         if (string.IsNullOrWhiteSpace(serviceId)) serviceId = $"{serviceName}:{servicePort}";
 
-        logger.Info($"Consul ServiceId ：{serviceId}");
+        logger.LogInformation($"Consul ServiceId ：{serviceId}");
 
         var address = configuration["Service:Address"] ?? default!;
 
-        logger.Info($"Consul ServiceAddress ：{address}");
+        logger.LogInformation($"Consul ServiceAddress ：{address}");
 
         if (string.IsNullOrWhiteSpace(address)) throw new Exception("Appsettings Must Be ServiceConfig.Address");
 
@@ -81,23 +81,23 @@ public static class ConsulExtensions
 
         if (!flagTimeout || timeout < 1) timeout = 5;
 
-        logger.Info($"Consul ServiceTimeout ：{timeout}");
+        logger.LogInformation($"Consul ServiceTimeout ：{timeout}");
 
         var flagDeregister = int.TryParse(configuration["Service:Deregister"] ?? default!, out var deregister);
 
         if (!flagDeregister || deregister < 1) deregister = 30;
 
-        logger.Info($"Consul ServiceDeregister ：{deregister}");
+        logger.LogInformation($"Consul ServiceDeregister ：{deregister}");
 
         var isHttps = bool.TryParse(configuration["Service:Https"] ?? default!, out var iShttps);
 
-        logger.Info($"Consul ServiceHttps ：{isHttps}");
+        logger.LogInformation($"Consul ServiceHttps ：{isHttps}");
 
         var check = configuration["Service:Check"] ?? default!;
 
         if (string.IsNullOrWhiteSpace(check)) check = Const.Check;
 
-        logger.Info($"Consul ServiceCheck ：{check}");
+        logger.LogInformation($"Consul ServiceCheck ：{check}");
 
         var service = new ServiceConfig
         {
@@ -113,7 +113,7 @@ public static class ConsulExtensions
 
         await new ConsulRegister(uri).RegisterAsync(service);
 
-        if (check == Const.Check) app.MapGet(check, () => new BaseResult());
+        if (check == Const.Check) app.MapGet(check, () => new BaseResult(string.Empty));
 
         var lifetime = app.Lifetime;
 

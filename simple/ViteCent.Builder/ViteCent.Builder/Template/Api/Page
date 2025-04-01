@@ -1,0 +1,39 @@
+﻿#region
+
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using ViteCent.Core.Data;
+using ViteCent.Core.Web.Api;
+using ViteCent.Core.Web.Filter;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="mediator"></param>
+[ApiController]
+[ServiceFilter(typeof(BaseLoginFilter))]
+[Route("$!{Table.CamelCaseName}")]
+public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger, IMediator mediator) : BaseLoginApi<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "$!{DataBase.ServiceName}", "$!{Table.CamelCaseName}", "$!{Setting.GetName}" })]
+    [Route("$!{Setting.PageName}")]
+    public override async Task<PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>> InvokeAsync($!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} args)
+    {
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
+
+        if (args == null)
+            return new PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>(500, "参数不能为空");
+
+        return await mediator.Send(args);
+    }
+}

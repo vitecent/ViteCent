@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="11.11.0" />
+		<PackageReference Include="ViteCent.Core" Version="$!{Version}" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\\$!{DataBase.Name}\\$!{DataBase.Name}.${Setting.Entity.EntityName}\\$!{DataBase.Name}.${Setting.Entity.EntityName}.csproj" />
+	</ItemGroup>
+</Project>

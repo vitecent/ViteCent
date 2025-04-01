@@ -15,6 +15,10 @@ public class BaseUserResult
 
     /// <summary>
     /// </summary>
+    public string Color { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
@@ -64,6 +68,10 @@ public class BaseUserResult
     /// <summary>
     /// </summary>
     public string Phone { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

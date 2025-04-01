@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DocumentationFile></DocumentationFile>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <DocumentationFile></DocumentationFile>
         <ApplicationIcon>favicon.ico</ApplicationIcon>
         <Title>ViteCent</Title>
         <Description>ViteCent</Description>
@@ -21,7 +21,7 @@
         <FileVersion>9.0.4</FileVersion>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	</PropertyGroup>
+    </PropertyGroup>
 
     <ItemGroup>
         <Content Include="favicon.ico" />
@@ -42,13 +42,13 @@
         </None>
     </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Consul" Version="1.7.14.7" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Consul" Version="1.7.14.7" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\ViteCent.Core.Cache\ViteCent.Core.Cache.csproj" />
-		<ProjectReference Include="..\ViteCent.Core.Register\ViteCent.Core.Register.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\ViteCent.Core.Cache\ViteCent.Core.Cache.csproj" />
+        <ProjectReference Include="..\ViteCent.Core.Register\ViteCent.Core.Register.csproj" />
+    </ItemGroup>
 
 </Project>

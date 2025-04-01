@@ -1,17 +1,17 @@
 #region
 
-using ViteCent.Basic.Data.Attendance;
-using ViteCent.Basic.Data.RepairAttendance;
+using ViteCent.Basic.Data.RepairSchedule;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Basic.Data.UserLeave;
-using ViteCent.Basic.Entity.Attendance;
-using ViteCent.Basic.Entity.RepairAttendance;
+using ViteCent.Basic.Data.UserRest;
+using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Basic.Entity.UserLeave;
+using ViteCent.Basic.Entity.UserRest;
 using ViteCent.Core.Web;
 
 #endregion
@@ -26,25 +26,14 @@ public partial class AutoMapperConfig : BaseMapperConfig
     /// </summary>
     public override void Map()
     {
-        #region Attendance
+        #region RepairSchedule
 
-        CreateMap<AddAttendanceArgs, AddAttendanceEntity>();
-        CreateMap<EditAttendanceArgs, GetAttendanceEntityArgs>();
-        CreateMap<GetAttendanceArgs, GetAttendanceEntityArgs>();
-        CreateMap<SearchAttendanceArgs, SearchAttendanceEntityArgs>();
-        CreateMap<AttendanceEntity, AttendanceResult>();
-        CreateMap<DeleteAttendanceArgs, DeleteAttendanceEntityArgs>();
-
-        #endregion
-
-        #region RepairAttendance
-
-        CreateMap<AddRepairAttendanceArgs, AddRepairAttendanceEntity>();
-        CreateMap<EditRepairAttendanceArgs, GetRepairAttendanceEntityArgs>();
-        CreateMap<GetRepairAttendanceArgs, GetRepairAttendanceEntityArgs>();
-        CreateMap<SearchRepairAttendanceArgs, SearchRepairAttendanceEntityArgs>();
-        CreateMap<RepairAttendanceEntity, RepairAttendanceResult>();
-        CreateMap<DeleteRepairAttendanceArgs, DeleteRepairAttendanceEntityArgs>();
+        CreateMap<AddRepairScheduleArgs, AddRepairScheduleEntity>();
+        CreateMap<EditRepairScheduleArgs, GetRepairScheduleEntityArgs>();
+        CreateMap<GetRepairScheduleArgs, GetRepairScheduleEntityArgs>();
+        CreateMap<SearchRepairScheduleArgs, SearchRepairScheduleEntityArgs>();
+        CreateMap<RepairScheduleEntity, RepairScheduleResult>();
+        CreateMap<DeleteRepairScheduleArgs, DeleteRepairScheduleEntityArgs>();
 
         #endregion
 
@@ -89,6 +78,17 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<SearchUserLeaveArgs, SearchUserLeaveEntityArgs>();
         CreateMap<UserLeaveEntity, UserLeaveResult>();
         CreateMap<DeleteUserLeaveArgs, DeleteUserLeaveEntityArgs>();
+
+        #endregion
+
+        #region UserRest
+
+        CreateMap<AddUserRestArgs, AddUserRestEntity>();
+        CreateMap<EditUserRestArgs, GetUserRestEntityArgs>();
+        CreateMap<GetUserRestArgs, GetUserRestEntityArgs>();
+        CreateMap<SearchUserRestArgs, SearchUserRestEntityArgs>();
+        CreateMap<UserRestEntity, UserRestResult>();
+        CreateMap<DeleteUserRestArgs, DeleteUserRestEntityArgs>();
 
         #endregion
 

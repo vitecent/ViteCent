@@ -1,0 +1,63 @@
+﻿#region
+
+using MediatR;
+using ViteCent.Core.Data;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+[Serializable]
+public class $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} : BaseArgs, IRequest<DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+{
+#if($HasCompanyId)
+    /// <summary>
+    /// </summary>
+    public string CompanyId { get; set; } = string.Empty;
+
+#end
+#if($HasDepartmentId)
+    /// <summary>
+    /// </summary>
+    public string DepartmentId { get; set; } = string.Empty;
+
+#end
+#if($HasId)
+    /// <summary>
+    /// </summary>
+    public string Id { get; set; } = string.Empty;
+
+#end
+#if($HasOperationId)
+    /// <summary>
+    /// </summary>
+    public string OperationId { get; set; } = string.Empty;
+
+#end
+#if($HasResourceId)
+    /// <summary>
+    /// </summary>
+    public string ResourceId { get; set; } = string.Empty;
+
+#end
+#if($HasRoleId)
+    /// <summary>
+    /// </summary>
+    public string RoleId { get; set; } = string.Empty;
+
+#end
+#if($HasUserId)
+    /// <summary>
+    /// </summary>
+    public string UserId { get; set; } = string.Empty;
+
+#end
+#if($HasSystemId)
+    /// <summary>
+    /// </summary>
+    public string SystemId { get; set; } = string.Empty;
+
+#end
+}

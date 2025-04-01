@@ -27,5 +27,4 @@ public class GetShiftScheduleEntityArgs : IRequest<ShiftScheduleEntity>
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

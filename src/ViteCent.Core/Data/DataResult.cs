@@ -15,7 +15,9 @@ public class DataResult<T> : BaseResult
     /// <summary>
     /// </summary>
     /// <param name="data"></param>
-    public DataResult(T data)
+    /// <param name="message"></param>
+    public DataResult(T data, string message = "")
+        : base(message)
     {
         Data = data;
     }

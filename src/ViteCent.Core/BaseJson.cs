@@ -1,6 +1,8 @@
 ﻿#region
 
-using System.Text.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 #endregion
 
@@ -12,16 +14,47 @@ public static class BaseJson
 {
     /// <summary>
     /// </summary>
+    private static readonly JsonSerializerSettings settings;
+
+    /// <summary>
+    /// </summary>
+    static BaseJson()
+    {
+        settings = new JsonSerializerSettings
+        {
+            DefaultValueHandling = DefaultValueHandling.Ignore,
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            NullValueHandling = NullValueHandling.Ignore,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            Formatting = Formatting.None,
+            DateFormatString = "yyyy-MM-dd HH:mm:ss",
+            Converters =
+            [
+                new IsoDateTimeConverter
+                {
+                    DateTimeFormat = "yyyy-MM-dd HH:mm:ss"
+                }
+            ],
+        };
+    }
+
+    /// <summary>
+    /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="json"></param>
     /// <returns></returns>
     public static T DeJson<T>(this string json)
     {
-        if (string.IsNullOrEmpty(json)) throw new Exception("json 不能为空");
+        if (string.IsNullOrWhiteSpace(json))
+            return default!;
 
-        var result = JsonSerializer.Deserialize<T>(json, JsonSerializerOptions.Web);
+        var result = JsonConvert.DeserializeObject<T>(json, settings);
 
-        return result ?? default!;
+        if (result == null)
+            return default!;
+
+        return result;
     }
 
     /// <summary>
@@ -30,8 +63,9 @@ public static class BaseJson
     /// <returns></returns>
     public static string ToJson(this object obj)
     {
-        if (obj == null) throw new Exception("obj 不能为空");
+        if (obj == null)
+            return default!;
 
-        return JsonSerializer.Serialize(obj);
+        return JsonConvert.SerializeObject(obj, settings);
     }
 }

@@ -1,0 +1,33 @@
+﻿#region
+
+using MediatR;
+using Microsoft.Extensions.Logging;
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using ViteCent.Core.Data;
+using ViteCent.Core.Orm.SqlSugar;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+/// <param name="logger"></param>
+public class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.EditName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>, IRequestHandler<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}, BaseResult>
+{
+    /// <summary>
+    /// </summary>
+    public override string DataBaseName => "$!{DataBase.Name}";
+
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> Handle($!{Table.CamelCaseName}$!{Setting.Entity.EntityName} request, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
+
+        return await base.EditAsync(request);
+    }
+}

@@ -15,6 +15,7 @@ public class BaseResult
     /// <param name="content"></param>
     public BaseResult(string content)
     {
+        Success = true;
         Message = content;
     }
 
@@ -39,5 +40,5 @@ public class BaseResult
 
     /// <summary>
     /// </summary>
-    public bool Success { get; set; } = true;
+    public bool Success { get; set; }
 }

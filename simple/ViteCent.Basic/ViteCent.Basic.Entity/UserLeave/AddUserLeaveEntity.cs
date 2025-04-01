@@ -15,5 +15,4 @@ namespace ViteCent.Basic.Entity.UserLeave;
 [SugarTable("user_leave")]
 public class AddUserLeaveEntity : UserLeaveEntity
 {
-
 }

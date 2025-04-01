@@ -18,7 +18,9 @@ public class PageResult<T> : BaseResult
     /// <param name="limit"></param>
     /// <param name="total"></param>
     /// <param name="rows"></param>
-    public PageResult(int offset, int limit, int total, List<T> rows)
+    /// <param name="message"></param>
+    public PageResult(int offset, int limit, int total, List<T> rows, string message = "")
+         : base(message)
     {
         Offset = offset;
         Limit = limit;

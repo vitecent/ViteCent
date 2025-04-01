@@ -72,6 +72,11 @@ public class ScheduleTypeEntity : BaseEntity, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    [SugarColumn(ColumnName = "scheduleType", IsNullable = true, ColumnDataType = "int", Length = 11, ColumnDescription = "类型")]
+    public int ScheduleType { get; set; }
+
+    /// <summary>
+    /// </summary>
     [SugarColumn(ColumnName = "startTime", ColumnDataType = "datetime", ColumnDescription = "开始时间")]
     public DateTime StartTime { get; set; }
 

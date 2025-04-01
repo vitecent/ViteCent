@@ -39,7 +39,7 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
     /// <param name="context"></param>
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        var logger = BaseLogger.GetLogger(typeof(BaseAuthFilter));
+        var logger = new BaseLogger(typeof(BaseAuthFilter));
 
         var result = new JsonResult(new BaseResult(301, "登录超时,请重新登录"));
 
@@ -49,7 +49,7 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
 
         if (string.IsNullOrWhiteSpace(token))
         {
-            logger.Info($"InvokeAsync {System}:{Resource}:{Operation} Not Token");
+            logger.LogInformation($"InvokeAsync {System}:{Resource}:{Operation} Not Token");
             context.Result = result;
             return;
         }
@@ -58,7 +58,7 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
 
         if (string.IsNullOrWhiteSpace(json))
         {
-            logger.Info($"InvokeAsync {System}:{Resource}:{Operation} Not UserData");
+            logger.LogInformation($"InvokeAsync {System}:{Resource}:{Operation} Not UserData");
             context.Result = result;
 
             return;
@@ -68,7 +68,7 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
 
         if (user == null)
         {
-            logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Login");
+            logger.LogInformation($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Login");
             context.Result = result;
 
             return;
@@ -78,7 +78,7 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
 
         if (string.IsNullOrWhiteSpace(cahceToken) || token != cahceToken)
         {
-            logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Cache");
+            logger.LogInformation($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Cache");
 
             cache.DeleteKey(user?.Id ?? string.Empty);
 
@@ -96,13 +96,13 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
         if (user?.IsSuper != (int)YesNoEnum.Yes)
             if (!IsAUth(user, System, Resource, Operation))
             {
-                logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} No Permission");
+                logger.LogInformation($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} No Permission");
                 context.Result = new JsonResult(new BaseResult(401, "您没有权限访问该资源"));
 
                 return;
             }
 
-        logger.Info($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Success");
+        logger.LogInformation($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Success");
     }
 
     /// <summary>

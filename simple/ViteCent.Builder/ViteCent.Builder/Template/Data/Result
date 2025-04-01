@@ -1,0 +1,18 @@
+﻿namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+[Serializable]
+public class $!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}
+{
+#set($Index = 0)
+#foreach($Field in $Fields)
+    /// <summary>
+    /// </summary>
+    public $!{Field.DataType} $!{Field.CamelCaseName} { get; set; }$!{Field.Default}
+#set($Index = $Index + 1)
+#if($Index < $Fields.Count)
+
+#end
+#end
+}

@@ -1,0 +1,55 @@
+﻿#region
+
+#foreach($Table in $Tables)
+using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+#end
+#foreach($Table in $Tables)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+#end
+using ViteCent.Core.Web;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
+
+/// <summary>
+/// </summary>
+public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
+{
+    /// <summary>
+    /// </summary>
+    public override void Map()
+    {
+#set($Index = 0)
+#foreach($Table in $Tables)
+        #region $!{Table.CamelCaseName}
+
+#if($Setting.AddName != "")
+        CreateMap<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>();
+#end
+#if($Setting.EditName != "")
+        CreateMap<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>();
+#end
+#if($Setting.GetName != "")
+        CreateMap<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>();
+#end
+#if($Setting.PageName != "")
+        CreateMap<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>();
+#end
+#if($Setting.GetName != ""||$Setting.PageName != "")
+        CreateMap<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}, $!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>();
+#end
+#if($Setting.DeleteName != "")
+        CreateMap<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>();
+#end
+
+        #endregion
+#set($Index = $Index + 1)
+#if($Index < $Tables.Count)
+
+#end
+#end
+
+        OverrideMap();
+    }
+}

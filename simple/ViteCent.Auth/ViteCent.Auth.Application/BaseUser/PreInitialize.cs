@@ -34,20 +34,14 @@ public class PreInitialize(ILogger<AddBaseUser> logger, IMediator mediator) : IR
         var result = await mediator.Send(input, cancellationToken);
 
         if (result.Rows.Count == 0)
-            return new DataResult<PreInitializeResult>()
+            return new DataResult<PreInitializeResult>(new PreInitializeResult()
             {
-                Data = new PreInitializeResult()
-                {
-                    Flag = true
-                }
-            };
+                Flag = true
+            });
         else
-            return new DataResult<PreInitializeResult>()
+            return new DataResult<PreInitializeResult>(new PreInitializeResult()
             {
-                Data = new PreInitializeResult()
-                {
-                    Flag = false
-                }
-            };
+                Flag = false
+            });
     }
 }

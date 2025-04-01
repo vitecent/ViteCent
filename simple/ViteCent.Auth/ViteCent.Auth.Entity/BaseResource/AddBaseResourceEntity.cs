@@ -15,5 +15,4 @@ namespace ViteCent.Auth.Entity.BaseResource;
 [SugarTable("base_resource")]
 public class AddBaseResourceEntity : BaseResourceEntity
 {
-
 }

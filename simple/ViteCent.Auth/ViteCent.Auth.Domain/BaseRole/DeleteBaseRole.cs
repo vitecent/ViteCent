@@ -30,6 +30,7 @@ public class DeleteBaseRole(ILogger<DeleteBaseRole> logger) : BaseDomain<BaseRol
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRole.DeleteBaseRole");
 
          var query = Client.Query<BaseRoleEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

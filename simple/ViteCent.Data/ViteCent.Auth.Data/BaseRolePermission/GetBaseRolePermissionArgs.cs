@@ -35,5 +35,4 @@ public class GetBaseRolePermissionArgs : BaseArgs, IRequest<DataResult<BaseRoleP
     /// <summary>
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
-
 }

@@ -27,5 +27,4 @@ public class GetShiftScheduleArgs : BaseArgs, IRequest<DataResult<ShiftScheduleR
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

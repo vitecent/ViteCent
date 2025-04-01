@@ -30,6 +30,7 @@ public class DeleteBaseCompany(ILogger<DeleteBaseCompany> logger) : BaseDomain<B
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseCompany.DeleteBaseCompany");
 
          var query = Client.Query<BaseCompanyEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

@@ -19,5 +19,4 @@ public class GetBaseRoleEntityArgs : IRequest<BaseRoleEntity>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

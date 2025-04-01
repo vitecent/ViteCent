@@ -1,0 +1,33 @@
+﻿#region
+
+using MediatR;
+using Microsoft.Extensions.Logging;
+using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using ViteCent.Core.Orm.SqlSugar;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+/// <param name="logger"></param>
+public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>, IRequestHandler<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}, List<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>>
+{
+    /// <summary>
+    /// </summary>
+    public override string DataBaseName => "$!{DataBase.Name}";
+
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<List<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>> Handle($!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
+
+        return await base.PageAsync(request);
+    }
+}

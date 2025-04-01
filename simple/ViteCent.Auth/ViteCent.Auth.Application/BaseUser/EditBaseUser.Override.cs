@@ -1,6 +1,8 @@
 #region
 
 using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Auth.Entity.BaseUser;
+using ViteCent.Auth.Entity.BaseUserRole;
 using ViteCent.Core;
 using ViteCent.Core.Data;
 
@@ -14,12 +16,22 @@ public partial class EditBaseUser
 {
     /// <summary>
     /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    private async Task<BaseResult> OverrideHandle(BaseUserEntity entity, CancellationToken cancellationToken)
+    {
+        return await Task.FromResult(new BaseResult(string.Empty));
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> OverrideHandle(EditBaseUserArgs request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle(EditBaseUserArgs request, CancellationToken cancellationToken)
     {
-        if (!string.IsNullOrWhiteSpace(request.Password))
+        if (!string.IsNullOrWhiteSpace(request.Username) && !string.IsNullOrWhiteSpace(request.Password))
             request.Password = $"{request.Username}{request.Password}{Const.Salf}".EncryptMD5();
 
         var hasArgs = new HasBaseUserEntityArgs

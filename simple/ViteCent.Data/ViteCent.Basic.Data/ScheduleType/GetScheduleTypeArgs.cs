@@ -23,5 +23,4 @@ public class GetScheduleTypeArgs : BaseArgs, IRequest<DataResult<ScheduleTypeRes
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

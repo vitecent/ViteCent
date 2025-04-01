@@ -18,10 +18,12 @@ public partial class AddBaseUser
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> OverrideHandle(AddBaseUserArgs request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle(AddBaseUserArgs request, CancellationToken cancellationToken)
     {
         request.Status = (int)StatusEnum.Enable;
-        request.Password = $"{request.Username}{request.Password}{Const.Salf}".EncryptMD5();
+
+        if (!string.IsNullOrWhiteSpace(request.Username) && !string.IsNullOrWhiteSpace(request.Password))
+            request.Password = $"{request.Username}{request.Password}{Const.Salf}".EncryptMD5();
 
         var hasArgs = new HasBaseUserEntityArgs
         {

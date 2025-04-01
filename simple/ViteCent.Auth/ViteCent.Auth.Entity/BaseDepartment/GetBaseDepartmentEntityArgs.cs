@@ -19,5 +19,4 @@ public class GetBaseDepartmentEntityArgs : IRequest<BaseDepartmentEntity>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

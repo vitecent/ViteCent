@@ -59,7 +59,12 @@ public partial class AddBaseCompany(ILogger<AddBaseCompany> logger, IBaseCache c
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var addResult = await mediator.Send(entity, cancellationToken);
+
+        if (!addResult.Success)
+            return addResult;
+
+        return new BaseResult(entity.Id);
     }
 
     /// <summary>

@@ -1,6 +1,5 @@
 ﻿#region
 
-using log4net;
 using Microsoft.AspNetCore.Builder;
 using Quartz;
 using ViteCent.Core.Api.Swagger;
@@ -20,7 +19,7 @@ public class JobMicroService : MicroService
 {
     /// <summary>
     /// </summary>
-    private readonly ILog logger;
+    private readonly BaseLogger logger;
 
     /// <summary>
     /// </summary>
@@ -43,9 +42,9 @@ public class JobMicroService : MicroService
         this.title = title;
         this.xmls = xmls;
 
-        logger = BaseLogger.GetLogger(typeof(JobMicroService));
+        logger = new BaseLogger(typeof(JobMicroService));
 
-        logger.Info("开始构建任务微服务");
+        logger.LogInformation("开始构建任务微服务");
     }
 
     /// <summary>
@@ -67,28 +66,25 @@ public class JobMicroService : MicroService
         var configuration = builder.Configuration;
         var services = builder.Services;
 
-        logger.Info("开始添加  Redis 服务");
+        logger.LogInformation("开始添加  Redis 服务");
         services.AddRedis(configuration);
 
-        logger.Info("开始添加  Consul 服务");
+        logger.LogInformation("开始添加  Consul 服务");
         services.AddConsul(configuration);
 
-        logger.Info("开始 添加 Zipkin 服务");
+        logger.LogInformation("开始 添加 Zipkin 服务");
         services.AddZipkin(configuration);
 
-        logger.Info("开始添加  SqlSugar ORM 服务");
-        services.AddSqlSugger(configuration);
-
-        logger.Info("开始添加  Swagger 服务");
+        logger.LogInformation("开始添加  Swagger 服务");
         services.AddSwagger(title, xmls);
 
-        logger.Info("开始执行构建回调");
+        logger.LogInformation("开始执行构建回调");
         OnBuild?.Invoke(builder);
 
-        logger.Info("开始初始化 Quartz 调度器");
+        logger.LogInformation("开始初始化 Quartz 调度器");
         scheduler = await services.AddQuarzAsync();
 
-        logger.Info("开始注册 Quartz 调度器");
+        logger.LogInformation("开始注册 Quartz 调度器");
         var job = new Thread(() => OnRegist?.Invoke(scheduler))
         {
             IsBackground = true,
@@ -109,17 +105,17 @@ public class JobMicroService : MicroService
 
         if (scheduler != null)
         {
-            logger.Info("开始使用 Quartz 调度器");
+            logger.LogInformation("开始使用 Quartz 调度器");
             app.UseQuarz(scheduler);
         }
 
-        logger.Info("开始使用 Consul 中间件");
+        logger.LogInformation("开始使用 Consul 中间件");
         await app.UseConsulAsync();
 
-        logger.Info("开始使用 Zipkin 中间件");
+        logger.LogInformation("开始使用 Zipkin 中间件");
         app.UseZipkin();
 
-        logger.Info("开始使用 Swagger 仪表板");
+        logger.LogInformation("开始使用 Swagger 仪表板");
         app.UseSwagger();
     }
 }

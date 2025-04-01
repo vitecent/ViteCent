@@ -19,5 +19,4 @@ public class GetBaseSystemArgs : BaseArgs, IRequest<DataResult<BaseSystemResult>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

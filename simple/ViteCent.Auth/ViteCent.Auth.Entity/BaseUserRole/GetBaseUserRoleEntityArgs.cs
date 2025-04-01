@@ -31,5 +31,4 @@ public class GetBaseUserRoleEntityArgs : IRequest<BaseUserRoleEntity>
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

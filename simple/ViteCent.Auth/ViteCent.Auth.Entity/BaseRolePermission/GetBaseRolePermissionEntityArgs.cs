@@ -35,5 +35,4 @@ public class GetBaseRolePermissionEntityArgs : IRequest<BaseRolePermissionEntity
     /// <summary>
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
-
 }

@@ -15,5 +15,4 @@ namespace ViteCent.Basic.Entity.ScheduleType;
 [SugarTable("schedule_type")]
 public class AddScheduleTypeEntity : ScheduleTypeEntity
 {
-
 }

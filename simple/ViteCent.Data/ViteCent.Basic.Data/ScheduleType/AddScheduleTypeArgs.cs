@@ -42,6 +42,10 @@ public class AddScheduleTypeArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    public int ScheduleType { get; set; }
+
+    /// <summary>
+    /// </summary>
     public DateTime StartTime { get; set; }
 
     /// <summary>

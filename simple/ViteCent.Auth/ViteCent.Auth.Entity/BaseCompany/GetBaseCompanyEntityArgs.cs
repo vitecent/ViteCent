@@ -15,5 +15,4 @@ public class GetBaseCompanyEntityArgs : IRequest<BaseCompanyEntity>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

@@ -19,8 +19,8 @@ public class BaseExceptionFilter : IExceptionFilter
     /// <param name="context"></param>
     public async void OnException(ExceptionContext context)
     {
-        var logger = BaseLogger.GetLogger(typeof(BaseExceptionFilter));
-        logger.Error(context.Exception.Message);
+        var logger = new BaseLogger(typeof(BaseExceptionFilter));
+        logger.LogError(context.Exception, context.Exception.Message);
 
         var result = new BaseResult(500, context.Exception.Message);
 

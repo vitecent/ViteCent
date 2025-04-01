@@ -15,5 +15,4 @@ namespace ViteCent.Basic.Entity.ShiftSchedule;
 [SugarTable("shift_schedule")]
 public class AddShiftScheduleEntity : ShiftScheduleEntity
 {
-
 }

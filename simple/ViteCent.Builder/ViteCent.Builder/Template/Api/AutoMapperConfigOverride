@@ -1,0 +1,18 @@
+﻿#region
+
+using ViteCent.Core.Web;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
+
+/// <summary>
+/// </summary>
+public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
+{
+    /// <summary>
+    /// </summary>
+    private void OverrideMap()
+    {
+    }
+}

@@ -22,6 +22,10 @@ public class AddBaseResourceArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    public string Color { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
@@ -35,10 +39,6 @@ public class AddBaseResourceArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string Name { get; set; } = string.Empty;
-
-    /// <summary>
-    /// </summary>
-    public string ParentId { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

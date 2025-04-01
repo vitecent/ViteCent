@@ -30,6 +30,7 @@ public class DeleteBaseResource(ILogger<DeleteBaseResource> logger) : BaseDomain
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseResource.DeleteBaseResource");
 
          var query = Client.Query<BaseResourceEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

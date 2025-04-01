@@ -12,7 +12,7 @@ public partial class ScheduleTypeValidator : AbstractValidator<AddScheduleTypeAr
 {
     /// <summary>
     /// </summary>
-    public void OverrideValidator()
+    private void OverrideValidator()
     {
     }
 }

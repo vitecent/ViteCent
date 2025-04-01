@@ -51,6 +51,10 @@ public class ScheduleTypeResult
 
     /// <summary>
     /// </summary>
+    public int ScheduleType { get; set; }
+
+    /// <summary>
+    /// </summary>
     public DateTime StartTime { get; set; }
 
     /// <summary>

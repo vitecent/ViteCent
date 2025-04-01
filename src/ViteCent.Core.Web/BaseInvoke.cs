@@ -12,7 +12,6 @@ namespace ViteCent.Core.Web;
 
 /// <summary>
 /// </summary>
-/// <remarks></remarks>
 /// <param name="cache"></param>
 /// <param name="configuration"></param>
 /// <param name="dapr"></param>
@@ -92,7 +91,10 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
     {
         var uri = string.Empty;
 
-        var services = cache.GetString<Dictionary<string, List<ServiceConfig>>>(Const.RegistServices);
+        var services = new Dictionary<string, List<ServiceConfig>>();
+
+        if (cache.HasKey(Const.RegistServices))
+            services = cache.GetString<Dictionary<string, List<ServiceConfig>>>(Const.RegistServices);
 
         if (services.TryGetValue(service.ToLower(), out var list))
         {
@@ -106,7 +108,11 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
             }
         }
 
-        if (method == HttpMethod.Post) return await new BaseHttpClient<Result>().PostAsync(uri, args, token);
+        if (list?.Count == 0)
+            return (Result)new BaseResult(500, $"服务{service}不存在");
+
+        if (method == HttpMethod.Post)
+            return await new BaseHttpClient<Result>().PostAsync(uri, args, token);
 
         return await new BaseHttpClient<Result>().GetAsync(uri, token);
     }

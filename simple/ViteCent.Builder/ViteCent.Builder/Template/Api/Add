@@ -1,0 +1,60 @@
+﻿#region
+
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using ViteCent.Core.Data;
+#if($HasCompanyId||$HasDepartmentId)
+using ViteCent.Core.Enums;
+#end
+using ViteCent.Core.Web.Api;
+using ViteCent.Core.Web.Filter;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="mediator"></param>
+[ApiController]
+[ServiceFilter(typeof(BaseLoginFilter))]
+[Route("$!{Table.CamelCaseName}")]
+public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger, IMediator mediator) : BaseLoginApi<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "$!{DataBase.ServiceName}", "$!{Table.CamelCaseName}", "$!{Setting.AddName}" })]
+    [Route("$!{Setting.AddName}")]
+    public override async Task<BaseResult> InvokeAsync($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} args)
+    {
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}");
+
+         OverrideInvoke(args);
+
+        var cancellationToken = new CancellationToken();
+        var validator = new $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}();
+        var result = await validator.ValidateAsync(args, cancellationToken);
+
+        if (!result.IsValid)
+            return new BaseResult(500, string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
+#if($HasCompanyId)
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                return new BaseResult(500, "CompanyId 不能为空");
+#end
+#if($HasDepartmentId)
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.DepartmentId))
+                return new BaseResult(500, "DepartmentId 不能为空");
+#end
+
+        return await mediator.Send(args, cancellationToken);
+    }
+}

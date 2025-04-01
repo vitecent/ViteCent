@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+#if($Setting.Api.ApiName != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.$!{Setting.Api.ApiName}", "$!{DataBase.Name}.$!{Setting.Api.ApiName}\\$!{DataBase.Name}.$!{Setting.Api.ApiName}.csproj", "{$!{Setting.Api.Guid}}"
+EndProject
+#end
+#if($Setting.Application.ApplicationName != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.$!{Setting.Application.ApplicationName}", "$!{DataBase.Name}.$!{Setting.Application.ApplicationName}\\$!{DataBase.Name}.$!{Setting.Application.ApplicationName}.csproj", "{$!{Setting.Application.Guid}}"
+EndProject
+#end
+#if($Setting.Domain.DomainName != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Domain.DomainName}", "$!{DataBase.Name}.${Setting.Domain.DomainName}\\$!{DataBase.Name}.${Setting.Domain.DomainName}.csproj", "{$!{Setting.Domain.Guid}}"
+EndProject
+#end
+#if($Setting.Entity.EntityName != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Entity.EntityName}", "$!{DataBase.Name}.${Setting.Entity.EntityName}\\$!{DataBase.Name}.${Setting.Entity.EntityName}.csproj", "{$!{Setting.Entity.Guid}}"
+EndProject
+#end
+#if($Setting.Data.DataName != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Data.DataName}", "..\\${Setting.Data.DataProjrectName}\\$!{DataBase.Name}.${Setting.Data.DataName}\\$!{DataBase.Name}.${Setting.Data.DataName}.csproj", "{$!{Setting.Data.Guid}}"
+EndProject
+#end
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+#if($Setting.Api.ApiName != "")
+		{$!{Setting.Api.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{$!{Setting.Api.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{$!{Setting.Api.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{$!{Setting.Api.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
+#end
+#if($Setting.Application.ApplicationName != "")
+		{$!{Setting.Application.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{$!{Setting.Application.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{$!{Setting.Application.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{$!{Setting.Application.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
+#end
+#if($Setting.Domain.DomainName != "")
+		{$!{Setting.Domain.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{$!{Setting.Domain.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{$!{Setting.Domain.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{$!{Setting.Domain.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
+#end
+#if($Setting.Entity.EntityName != "")
+		{$!{Setting.Entity.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{$!{Setting.Entity.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{$!{Setting.Entity.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{$!{Setting.Entity.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
+#end
+#if($Setting.Data.DataName != "")
+		{$!{Setting.Data.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{$!{Setting.Data.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{$!{Setting.Data.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{$!{Setting.Data.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
+#end
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {{$!{Setting.Guid}}}
+	EndGlobalSection
+EndGlobal

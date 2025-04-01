@@ -38,6 +38,10 @@ public partial class EditSchedule(ILogger<EditSchedule> logger,
 {
     /// <summary>
     /// </summary>
+    private string token = string.Empty;
+
+    /// <summary>
+    /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
@@ -56,74 +60,92 @@ public partial class EditSchedule(ILogger<EditSchedule> logger,
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var hasCompanyArgs = new GetBaseCompanyArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId))
         {
-            Id = request.CompanyId,
-        };
+            var hasCompanyArgs = new GetBaseCompanyArgs
+            {
+                Id = request.CompanyId,
+            };
 
-        var hasCompany = await companyInvoke.InvokePostAsync("Auth", "BaseCompany/Get", hasCompanyArgs, user?.Token ?? string.Empty);
+            var hasCompany = await companyInvoke.InvokePostAsync("Auth", "/BaseCompany/Get", hasCompanyArgs, token);
 
-        if (!hasCompany.Success)
-            return hasCompany;
+            if (!hasCompany.Success)
+                return hasCompany;
 
-        if (hasCompany.Data == null)
-            return new BaseResult(500, "公司不存在");
+            if (hasCompany.Data == null)
+                return new BaseResult(500, "公司不存在");
 
-        if (hasCompany.Data.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "公司已禁用");
+            if (hasCompany.Data.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "公司已禁用");
+        }
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartmentArgs = new GetBaseDepartmentArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId))
         {
-            CompanyId = request.CompanyId,
-            Id = request.DepartmentId,
-        };
+            var hasDepartmentArgs = new GetBaseDepartmentArgs
+            {
+                CompanyId = request.CompanyId,
+                Id = request.DepartmentId,
+            };
 
-        var hasDepartment = await departmentInvoke.InvokePostAsync("Auth", "BaseDepartment/Get", hasDepartmentArgs, user?.Token ?? string.Empty);
+            var hasDepartment = await departmentInvoke.InvokePostAsync("Auth", "/BaseDepartment/Get", hasDepartmentArgs, token);
 
-        if (!hasDepartment.Success)
-            return hasDepartment;
+            if (!hasDepartment.Success)
+                return hasDepartment;
 
-        if (hasDepartment.Data == null)
-            return new BaseResult(500, "部门不存在");
+            if (hasDepartment.Data == null)
+                return new BaseResult(500, "部门不存在");
 
-        if (hasDepartment.Data.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "部门已禁用");
+            if (hasDepartment.Data.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "部门已禁用");
+        }
 
-        var hasUserArgs = new GetBaseUserArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId) && !string.IsNullOrWhiteSpace(request.UserId))
         {
-            CompanyId = request.CompanyId,
-            DepartmentId = request.DepartmentId,
-            Id = request.UserId,
-        };
+            var hasUserArgs = new GetBaseUserArgs
+            {
+                CompanyId = request.CompanyId,
+                DepartmentId = request.DepartmentId,
+                Id = request.UserId,
+            };
 
-        var hasUser = await userInvoke.InvokePostAsync("Auth", "BaseUser/Get", hasUserArgs, user?.Token ?? string.Empty);
+            var hasUser = await userInvoke.InvokePostAsync("Auth", "/BaseUser/Get", hasUserArgs, token);
 
-        if (!hasUser.Success)
-            return hasUser;
+            if (!hasUser.Success)
+                return hasUser;
 
-        if (hasUser.Data == null)
-            return new BaseResult(500, "用户不存在");
+            if (hasUser.Data == null)
+                return new BaseResult(500, "用户不存在");
 
-        if (hasUser.Data.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "用户已禁用");
+            if (hasUser.Data.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "用户已禁用");
+        }
 
-        var result = await OverrideHandle(request, cancellationToken);
+        var preResult = await OverrideHandle(request, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!preResult.Success)
+            return preResult;
 
         var args = mapper.Map<GetScheduleEntityArgs>(request);
 
         var entity = await mediator.Send(args, cancellationToken);
 
+        if (entity == null)
+            return new BaseResult(500, "数据不存在或无权限");
+
+        var result = await OverrideHandle(entity, cancellationToken);
+
+        if (!result.Success)
+            return result;
+
         entity.EndTime = request.EndTime;
+        entity.FirstTime = request.FirstTime;
+        entity.LastTime = request.LastTime;
         entity.Name = request.Name;
-        entity.Overnight = request.Overnight;
         entity.StartTime = request.StartTime;
         entity.Status = request.Status;
         entity.UserId = request.UserId;
@@ -140,6 +162,8 @@ public partial class EditSchedule(ILogger<EditSchedule> logger,
     private void InitUser(IHttpContextAccessor httpContextAccessor)
     {
         var context = httpContextAccessor.HttpContext;
+
+        token = context?.Request?.Headers[Const.Token].ToString() ?? string.Empty;
 
         var json = context?.User.FindFirstValue(ClaimTypes.UserData);
 

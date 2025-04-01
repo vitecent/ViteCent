@@ -1,0 +1,20 @@
+﻿#region
+
+using Autofac;
+using Module = Autofac.Module;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
+
+/// <summary>
+/// </summary>
+public partial class $!{Setting.Api.FacName} : Module
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="builder"></param>
+    private void OverrideLoad(ContainerBuilder builder)
+    {
+    }
+}

@@ -13,7 +13,7 @@ namespace ViteCent.Auth.Domain.BaseSystem;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class GetBaseSystem(ILogger< GetBaseSystem> logger) : BaseDomain<BaseSystemEntity>, IRequestHandler<GetBaseSystemEntityArgs, BaseSystemEntity>
+public class GetBaseSystem(ILogger<GetBaseSystem> logger) : BaseDomain<BaseSystemEntity>, IRequestHandler<GetBaseSystemEntityArgs, BaseSystemEntity>
 {
     /// <summary>
     /// </summary>
@@ -29,6 +29,7 @@ public class GetBaseSystem(ILogger< GetBaseSystem> logger) : BaseDomain<BaseSyst
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseSystem.GetBaseSystem");
 
         var query = Client.Query<BaseSystemEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

@@ -1,0 +1,247 @@
+﻿#region
+
+using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+#if($HasCompanyId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseCompany;
+#end
+#if($HasDepartmentId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseDepartment;
+#end
+#if($HasOperationId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseOperation;
+#end
+#if($HasResourceId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseResource;
+#end
+#if($HasRoleId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseRole;
+#end
+#if($HasUserId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseUser;
+#end
+#if($HasSystemId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseSystem;
+#end
+using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using ViteCent.Core;
+using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="mapper"></param>
+/// <param name="mediator"></param>
+/// <param name="httpContextAccessor"></param>
+public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.EditName}$!{Table.CamelCaseName}> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+{
+    /// <summary>
+    /// </summary>
+    private BaseUserInfo user = new();
+
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> Handle($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
+
+        InitUser(httpContextAccessor);
+
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+#if($HasCompanyId)
+        if (!string.IsNullOrWhiteSpace(companyId))
+            request.CompanyId = companyId;
+
+        if (!string.IsNullOrWhiteSpace(request.CompanyId))
+        {
+            var hasCompanyArgs = new $!{Setting.GetName}BaseCompany$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+            {
+                Id = request.CompanyId,
+            };
+
+            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+
+            if (hasCompany == null)
+                return new BaseResult(500, "公司不存在");
+
+            if (hasCompany.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "公司已禁用");
+        }
+
+#end
+#if($HasDepartmentId)
+        var departmentId = user?.Department?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(departmentId))
+            request.DepartmentId = departmentId;
+
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId))
+        {
+            var hasDepartmentArgs = new $!{Setting.GetName}BaseDepartment$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+            {
+                CompanyId = request.CompanyId,
+                Id = request.DepartmentId,
+            };
+
+            var hasDepartment = await mediator.Send(hasDepartmentArgs, cancellationToken);
+
+            if (hasDepartment == null)
+                return new BaseResult(500, "部门不存在");
+
+            if (hasDepartment.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "部门已禁用");
+        }
+
+#end
+#if($HasUserId)
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId) && !string.IsNullOrWhiteSpace(request.UserId))
+        {
+            var hasUserArgs = new $!{Setting.GetName}BaseUser$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+            {
+                CompanyId = request.CompanyId,
+                DepartmentId = request.DepartmentId,
+                Id = request.UserId,
+            };
+
+            var hasUser = await mediator.Send(hasUserArgs, cancellationToken);
+
+            if (hasUser == null)
+                return new BaseResult(500, "用户不存在");
+
+            if (hasUser.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "用户已禁用");
+        }
+
+#end
+#if($HasRoleId)
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.RoleId))
+        {
+            var hasRoleArgs = new $!{Setting.GetName}BaseRole$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+            {
+                CompanyId = request.CompanyId,
+                Id = request.RoleId,
+            };
+
+            var hasRole = await mediator.Send(hasRoleArgs, cancellationToken);
+
+            if (hasRole == null)
+                return new BaseResult(500, "角色不存在");
+
+            if (hasRole.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "角色已禁用");
+        }
+
+#end
+#if($HasSystemId)
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId))
+        {
+            var hasSystemArgs = new $!{Setting.GetName}BaseSystem$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+            {
+                CompanyId = request.CompanyId,
+                Id = request.SystemId,
+            };
+
+            var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
+
+            if (hasSystem == null)
+                return new BaseResult(500, "系统不存在");
+
+            if (hasSystem.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "系统已禁用");
+        }
+
+#end
+#if($HasResourceId)
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId))
+        {
+            var hasResourceArgs = new $!{Setting.GetName}BaseResource$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+            {
+                CompanyId = request.CompanyId,
+                SystemId = request.SystemId,
+                Id = request.ResourceId,
+            };
+
+            var hasResource = await mediator.Send(hasResourceArgs, cancellationToken);
+
+            if (hasResource == null)
+                return new BaseResult(500, "资源不存在");
+
+            if (hasResource.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "资源已禁用");
+        }
+
+#end
+#if($HasOperationId)
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId) && !string.IsNullOrWhiteSpace(request.OperationId))
+        {
+            var hasOperationArgs = new $!{Setting.GetName}BaseOperation$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+            {
+                CompanyId = request.CompanyId,
+                SystemId = request.SystemId,
+                ResourceId = request.ResourceId,
+                Id = request.OperationId,
+            };
+
+            var hasOperation = await mediator.Send(hasOperationArgs, cancellationToken);
+
+            if (hasOperation == null)
+                return new BaseResult(500, "操作不存在");
+
+            if (hasOperation.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "操作已禁用");
+        }
+
+#end
+        var preResult = await OverrideHandle(request, cancellationToken);
+
+        if (!preResult.Success)
+            return preResult;
+
+        var args = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>(request);
+
+        var entity = await mediator.Send(args, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "数据不存在或无权限");
+
+        var result = await OverrideHandle(entity, cancellationToken);
+
+        if (!result.Success)
+            return result;
+
+#foreach($Field in $EditFields)
+        entity.$!{Field.CamelCaseName} = request.$!{Field.CamelCaseName};
+#end
+        entity.Updater = user?.Name ?? string.Empty;
+        entity.UpdateTime = DateTime.Now;
+        entity.DataVersion = DateTime.Now;
+
+        return await mediator.Send(entity, cancellationToken);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="httpContextAccessor"></param>
+    private void InitUser(IHttpContextAccessor httpContextAccessor)
+    {
+        var context = httpContextAccessor.HttpContext;
+
+        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
+
+        if (!string.IsNullOrWhiteSpace(json))
+            user = json.DeJson<BaseUserInfo>();
+    }
+}

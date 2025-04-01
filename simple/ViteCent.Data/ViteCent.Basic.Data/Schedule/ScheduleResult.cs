@@ -31,15 +31,19 @@ public class ScheduleResult
 
     /// <summary>
     /// </summary>
+    public DateTime FirstTime { get; set; }
+
+    /// <summary>
+    /// </summary>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public DateTime LastTime { get; set; }
 
     /// <summary>
     /// </summary>
-    public bool Overnight { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

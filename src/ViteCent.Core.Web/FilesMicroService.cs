@@ -1,6 +1,5 @@
 ﻿#region
 
-using log4net;
 using Microsoft.AspNetCore.Builder;
 using ViteCent.Core.Api.Swagger;
 using ViteCent.Core.Cache.Redis;
@@ -17,7 +16,7 @@ public class FilesMicroService : MicroService
 {
     /// <summary>
     /// </summary>
-    private readonly ILog logger;
+    private readonly BaseLogger logger;
 
     /// <summary>
     /// </summary>
@@ -36,9 +35,9 @@ public class FilesMicroService : MicroService
         this.title = title;
         this.xmls = xmls;
 
-        logger = BaseLogger.GetLogger(typeof(FilesMicroService));
+        logger = new BaseLogger(typeof(FilesMicroService));
 
-        logger.Info("开始构建文档微服务");
+        logger.LogInformation("开始构建文档微服务");
     }
 
     /// <summary>
@@ -52,16 +51,13 @@ public class FilesMicroService : MicroService
         var configuration = builder.Configuration;
         var services = builder.Services;
 
-        logger.Info("开始添加  Redis 缓存服务");
-        services.AddRedis(configuration);
-
-        logger.Info("开始添加  Consul 注册服务");
+        logger.LogInformation("开始添加  Consul 注册服务");
         services.AddConsul(configuration);
 
-        logger.Info("开始添加  Zipkin 链路追踪服务");
+        logger.LogInformation("开始添加  Zipkin 链路追踪服务");
         services.AddZipkin(configuration);
 
-        logger.Info("开始添加  Swagger 文档服务");
+        logger.LogInformation("开始添加  Swagger 文档服务");
         services.AddSwagger(title, xmls);
     }
 
@@ -73,16 +69,16 @@ public class FilesMicroService : MicroService
     {
         await base.StartAsync(app);
 
-        logger.Info("开始使用 Consul 中间件");
+        logger.LogInformation("开始使用 Consul 中间件");
         await app.UseConsulAsync();
 
-        logger.Info("开始使用 Zipkin 中间件");
+        logger.LogInformation("开始使用 Zipkin 中间件");
         app.UseZipkin();
 
-        logger.Info("开始映射静态资源");
+        logger.LogInformation("开始映射静态资源");
         app.MapStaticAssets();
 
-        logger.Info("开始使用 Swagger 仪表板");
+        logger.LogInformation("开始使用 Swagger 仪表板");
         app.UseSwagger();
     }
 }

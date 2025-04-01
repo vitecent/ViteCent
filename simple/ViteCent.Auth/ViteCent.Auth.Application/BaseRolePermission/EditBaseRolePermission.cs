@@ -48,86 +48,109 @@ public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logg
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var hasCompanyArgs = new GetBaseCompanyEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId))
         {
-            Id = request.CompanyId,
-        };
+            var hasCompanyArgs = new GetBaseCompanyEntityArgs
+            {
+                Id = request.CompanyId,
+            };
 
-        var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
 
-        if (hasCompany == null)
-            return new BaseResult(500, "公司不存在");
+            if (hasCompany == null)
+                return new BaseResult(500, "公司不存在");
 
-        if (hasCompany.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "公司已禁用");
+            if (hasCompany.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "公司已禁用");
+        }
 
-        var hasRoleArgs = new GetBaseRoleEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.RoleId))
         {
-            CompanyId = request.CompanyId,
-            Id = request.RoleId,
-        };
+            var hasRoleArgs = new GetBaseRoleEntityArgs
+            {
+                CompanyId = request.CompanyId,
+                Id = request.RoleId,
+            };
 
-        var hasRole = await mediator.Send(hasRoleArgs, cancellationToken);
+            var hasRole = await mediator.Send(hasRoleArgs, cancellationToken);
 
-        if (hasRole == null)
-            return new BaseResult(500, "角色不存在");
+            if (hasRole == null)
+                return new BaseResult(500, "角色不存在");
 
-        if (hasRole.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "角色已禁用");
+            if (hasRole.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "角色已禁用");
+        }
 
-        var hasSystemArgs = new GetBaseSystemEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId))
         {
-            CompanyId = request.CompanyId,
-            Id = request.SystemId,
-        };
+            var hasSystemArgs = new GetBaseSystemEntityArgs
+            {
+                CompanyId = request.CompanyId,
+                Id = request.SystemId,
+            };
 
-        var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
+            var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
 
-        if (hasSystem == null)
-            return new BaseResult(500, "系统不存在");
+            if (hasSystem == null)
+                return new BaseResult(500, "系统不存在");
 
-        if (hasSystem.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "系统已禁用");
+            if (hasSystem.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "系统已禁用");
+        }
 
-        var hasResourceArgs = new GetBaseResourceEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId))
         {
-            CompanyId = request.CompanyId,
-            SystemId = request.SystemId,
-            Id = request.ResourceId,
-        };
+            var hasResourceArgs = new GetBaseResourceEntityArgs
+            {
+                CompanyId = request.CompanyId,
+                SystemId = request.SystemId,
+                Id = request.ResourceId,
+            };
 
-        var hasResource = await mediator.Send(hasResourceArgs, cancellationToken);
+            var hasResource = await mediator.Send(hasResourceArgs, cancellationToken);
 
-        if (hasResource == null)
-            return new BaseResult(500, "资源不存在");
+            if (hasResource == null)
+                return new BaseResult(500, "资源不存在");
 
-        if (hasResource.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "资源已禁用");
+            if (hasResource.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "资源已禁用");
+        }
 
-        var hasOperationArgs = new GetBaseOperationEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId) && !string.IsNullOrWhiteSpace(request.OperationId))
         {
-            CompanyId = request.CompanyId,
-            SystemId = request.SystemId,
-            ResourceId = request.ResourceId,
-            Id = request.OperationId,
-        };
+            var hasOperationArgs = new GetBaseOperationEntityArgs
+            {
+                CompanyId = request.CompanyId,
+                SystemId = request.SystemId,
+                ResourceId = request.ResourceId,
+                Id = request.OperationId,
+            };
 
-        var hasOperation = await mediator.Send(hasOperationArgs, cancellationToken);
+            var hasOperation = await mediator.Send(hasOperationArgs, cancellationToken);
 
-        if (hasOperation == null)
-            return new BaseResult(500, "操作不存在");
+            if (hasOperation == null)
+                return new BaseResult(500, "操作不存在");
 
-        if (hasOperation.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "操作已禁用");
+            if (hasOperation.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "操作已禁用");
+        }
 
-        var result = await OverrideHandle(request, cancellationToken);
+        var preResult = await OverrideHandle(request, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!preResult.Success)
+            return preResult;
 
         var args = mapper.Map<GetBaseRolePermissionEntityArgs>(request);
 
         var entity = await mediator.Send(args, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "数据不存在或无权限");
+
+        var result = await OverrideHandle(entity, cancellationToken);
+
+        if (!result.Success)
+            return result;
 
         entity.OperationId = request.OperationId;
         entity.ResourceId = request.ResourceId;

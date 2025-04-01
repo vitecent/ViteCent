@@ -27,5 +27,4 @@ public class GetScheduleArgs : BaseArgs, IRequest<DataResult<ScheduleResult>>
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

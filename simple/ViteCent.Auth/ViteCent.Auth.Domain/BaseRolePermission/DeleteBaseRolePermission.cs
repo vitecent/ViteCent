@@ -30,6 +30,7 @@ public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger) 
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRolePermission.DeleteBaseRolePermission");
 
          var query = Client.Query<BaseRolePermissionEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

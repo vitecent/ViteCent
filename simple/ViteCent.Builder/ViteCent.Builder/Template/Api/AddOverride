@@ -1,0 +1,20 @@
+﻿#region
+
+using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    private void OverrideInvoke($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} args)
+    {
+    }
+}

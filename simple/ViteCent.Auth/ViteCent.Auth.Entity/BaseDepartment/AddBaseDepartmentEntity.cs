@@ -15,5 +15,4 @@ namespace ViteCent.Auth.Entity.BaseDepartment;
 [SugarTable("base_department")]
 public class AddBaseDepartmentEntity : BaseDepartmentEntity
 {
-
 }

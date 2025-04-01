@@ -15,5 +15,4 @@ namespace ViteCent.Auth.Entity.BaseUserRole;
 [SugarTable("base_user_role")]
 public class AddBaseUserRoleEntity : BaseUserRoleEntity
 {
-
 }

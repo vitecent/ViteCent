@@ -1,0 +1,19 @@
+﻿#region
+
+using MediatR;
+using SqlSugar;
+using ViteCent.Core.Data;
+using ViteCent.Core.Orm.SqlSugar;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+[Serializable]
+[SugarTable("$!{Table.Name}")]
+public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName} : $!{Table.CamelCaseName}$!{Setting.Entity.EntityName}
+{
+
+}

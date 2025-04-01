@@ -30,6 +30,7 @@ public class DeleteSchedule(ILogger<DeleteSchedule> logger) : BaseDomain<Schedul
         logger.LogInformation("Invoke ViteCent.Basic.Domain.Schedule.DeleteSchedule");
 
          var query = Client.Query<ScheduleEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

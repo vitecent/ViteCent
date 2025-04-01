@@ -27,5 +27,4 @@ public class GetUserLeaveEntityArgs : IRequest<UserLeaveEntity>
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

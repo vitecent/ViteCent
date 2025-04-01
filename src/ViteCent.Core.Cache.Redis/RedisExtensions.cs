@@ -21,7 +21,7 @@ public static class RedisExtensions
     /// <returns></returns>
     public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration)
     {
-        var logger = BaseLogger.GetLogger(typeof(RedisExtensions));
+        var logger = new BaseLogger(typeof(RedisExtensions));
 
         var strConn = configuration["Cache"] ?? default!;
 
@@ -30,7 +30,7 @@ public static class RedisExtensions
         if (IsEncrypt(configuration))
             strConn = Decrypt(strConn, configuration);
 
-        logger.Info($"Redis Config ：{strConn}");
+        logger.LogInformation($"Redis Config ：{strConn}");
 
         services.AddTransient<IBaseCache>(x => new RedisCache(strConn));
 

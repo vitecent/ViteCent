@@ -19,31 +19,31 @@ public class BaseJwt
     /// <returns></returns>
     public static string GenerateJwtToken(BaseUserInfo user, IConfiguration configuration)
     {
-        var logger = BaseLogger.GetLogger(typeof(BaseJwt));
+        var logger = new BaseLogger(typeof(BaseJwt));
 
         var key = configuration["Jwt:Key"] ?? default!;
 
         if (string.IsNullOrWhiteSpace(key)) throw new Exception("Appsettings Must Be Jwt:Key");
 
-        logger.Info($"Jwt Key ：{key}");
+        logger.LogInformation($"Jwt Key ：{key}");
 
         var issuer = configuration["Jwt:Issuer"] ?? default!;
 
         if (string.IsNullOrWhiteSpace(issuer)) throw new Exception("Appsettings Must Be Jwt:Issuer");
 
-        logger.Info($"Jwt Issuer ：{issuer}");
+        logger.LogInformation($"Jwt Issuer ：{issuer}");
 
         var audience = configuration["Jwt:Audience"] ?? default!;
 
         if (string.IsNullOrWhiteSpace(audience)) throw new Exception("Appsettings Must Be Jwt:Audience");
 
-        logger.Info($"Jwt Audience ：{audience}");
+        logger.LogInformation($"Jwt Audience ：{audience}");
 
         var flagExpires = int.TryParse(configuration["Jwt:Expires"] ?? default!, out var expires);
 
         if (!flagExpires || expires < 1) expires = 24;
 
-        logger.Info($"Jwt Expires ：{expires}");
+        logger.LogInformation($"Jwt Expires ：{expires}");
 
         var claims = new[]
         {

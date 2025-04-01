@@ -4,9 +4,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseUser;
-using ViteCent.Core;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -39,9 +37,6 @@ public class Initialize(ILogger<AddBaseUser> logger, IMediator mediator, IMapper
 
             return new BaseResult(500, message);
         }
-
-        args.Password = $"{args.Username}{args.Password}{Const.Salf}".EncryptMD5();
-        args.Status = (int)StatusEnum.Enable;
 
         var chackArgs = new PreInitializeArgs();
 

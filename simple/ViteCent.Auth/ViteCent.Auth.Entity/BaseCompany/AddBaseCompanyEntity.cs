@@ -15,5 +15,4 @@ namespace ViteCent.Auth.Entity.BaseCompany;
 [SugarTable("base_company")]
 public class AddBaseCompanyEntity : BaseCompanyEntity
 {
-
 }

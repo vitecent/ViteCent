@@ -1,0 +1,16 @@
+﻿#region
+
+using MediatR;
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using ViteCent.Core.Data;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+[Serializable]
+public class $!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix} : SearchArgs, IRequest<List<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>>
+{
+}

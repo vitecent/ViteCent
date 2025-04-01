@@ -31,6 +31,9 @@ public class HasUserLeave(ILogger<HasUserLeave> logger) : BaseDomain<UserLeaveEn
 
         var query = Client.Query<UserLeaveEntity>();
 
+        if (request.Status != default)
+            query.Where(x => x.Status == (int)request.Status);
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 
@@ -43,11 +46,15 @@ public class HasUserLeave(ILogger<HasUserLeave> logger) : BaseDomain<UserLeaveEn
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
+        query.Where(x => ((x.StartTime <= request.StartTime && x.EndTime >= request.StartTime) ||
+          (x.StartTime <= request.EndTime && x.EndTime >= request.EndTime) ||
+          (x.EndTime >= request.EndTime && x.EndTime <= request.EndTime)));
+
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "请假重复");
 
-        return new BaseResult();
+        return new BaseResult(string.Empty);
     }
 }

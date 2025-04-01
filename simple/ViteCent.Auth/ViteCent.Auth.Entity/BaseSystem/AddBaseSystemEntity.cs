@@ -15,5 +15,4 @@ namespace ViteCent.Auth.Entity.BaseSystem;
 [SugarTable("base_system")]
 public class AddBaseSystemEntity : BaseSystemEntity
 {
-
 }

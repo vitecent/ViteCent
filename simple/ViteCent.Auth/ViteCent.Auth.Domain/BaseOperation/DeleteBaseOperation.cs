@@ -30,6 +30,7 @@ public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger) : BaseDoma
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseOperation.DeleteBaseOperation");
 
          var query = Client.Query<BaseOperationEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

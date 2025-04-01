@@ -40,19 +40,28 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger, IMapper ma
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
-        var result = await OverrideHandle(request, cancellationToken);
+        var preResult = await OverrideHandle(request, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!preResult.Success)
+            return preResult;
 
         var args = mapper.Map<GetBaseCompanyEntityArgs>(request);
 
         var entity = await mediator.Send(args, cancellationToken);
 
+        if (entity == null)
+            return new BaseResult(500, "数据不存在或无权限");
+
+        var result = await OverrideHandle(entity, cancellationToken);
+
+        if (!result.Success)
+            return result;
+
         entity.Abbreviation = request.Abbreviation;
         entity.Address = request.Address;
         entity.City = request.City;
         entity.Code = request.Code;
+        entity.Color = request.Color;
         entity.Country = request.Country;
         entity.Description = request.Description;
         entity.Email = request.Email;

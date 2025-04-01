@@ -26,5 +26,21 @@ public class HasShiftScheduleEntityArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    public string ScheduleId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string ShiftDepartmentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string ShiftScheduleId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string ShiftUserId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string UserId { get; set; } = string.Empty;
 }

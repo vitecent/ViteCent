@@ -36,7 +36,7 @@ public partial class AutoFacConfig : Module
             }
         }
 
-        builder.RegisterAssemblyTypes(assemblies.ToArray())
+        builder.RegisterAssemblyTypes([.. assemblies])
             .Where(t => t.IsClass && !t.IsAbstract).AsImplementedInterfaces().InstancePerLifetimeScope();
 
         OverrideLoad(builder);

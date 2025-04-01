@@ -20,7 +20,7 @@ public class ElasticsearchFactory : IElasticsearch
 
     /// <summary>
     /// </summary>
-    private readonly ILog logger;
+    private readonly BaseLogger logger;
 
     /// <summary>
     /// </summary>
@@ -28,7 +28,7 @@ public class ElasticsearchFactory : IElasticsearch
     /// <param name="index"></param>
     public ElasticsearchFactory(string url, string index = "default_index")
     {
-        logger = BaseLogger.GetLogger(typeof(ElasticsearchFactory));
+        logger = new BaseLogger(typeof(ElasticsearchFactory));
 
         client = new(new ElasticsearchClientSettings(new Uri(url))
             .DefaultIndex(index)
@@ -36,8 +36,8 @@ public class ElasticsearchFactory : IElasticsearch
             .DisableDirectStreaming()
             .OnRequestCompleted(details =>
             {
-                logger.Info($"Request {details.RequestBodyInBytes?.ByteToString()}");
-                logger.Info($"Response {details.ResponseBodyInBytes?.ByteToString()}");
+                logger.LogInformation($"Request {details.RequestBodyInBytes?.ByteToString()}");
+                logger.LogInformation($"Response {details.ResponseBodyInBytes?.ByteToString()}");
             }));
     }
 

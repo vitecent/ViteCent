@@ -27,5 +27,4 @@ public class DeleteBaseOperationEntityArgs : IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
-
 }

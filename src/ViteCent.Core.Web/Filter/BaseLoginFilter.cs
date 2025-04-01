@@ -13,7 +13,7 @@ namespace ViteCent.Core.Web.Filter;
 
 /// <summary>
 /// </summary>
-/// <remarks></remarks>
+
 /// <param name="cache"></param>
 /// <param name="configuration"></param>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]

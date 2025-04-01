@@ -19,7 +19,7 @@ namespace ViteCent.Auth.Api.BaseDepartment;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDepartment")]
-public class AddBaseDepartment(ILogger<AddBaseDepartment> logger, IMediator mediator) : BaseLoginApi<AddBaseDepartmentArgs, BaseResult>
+public partial class AddBaseDepartment(ILogger<AddBaseDepartment> logger, IMediator mediator) : BaseLoginApi<AddBaseDepartmentArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -32,6 +32,8 @@ public class AddBaseDepartment(ILogger<AddBaseDepartment> logger, IMediator medi
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseDepartment.AddBaseDepartment");
 
+         OverrideInvoke(args);
+
         var cancellationToken = new CancellationToken();
         var validator = new BaseDepartmentValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
@@ -39,7 +41,7 @@ public class AddBaseDepartment(ILogger<AddBaseDepartment> logger, IMediator medi
         if (!result.IsValid)
             return new BaseResult(500, string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
 
-        if (User.IsSuper == (int)YesNoEnum.No)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "CompanyId 不能为空");
 

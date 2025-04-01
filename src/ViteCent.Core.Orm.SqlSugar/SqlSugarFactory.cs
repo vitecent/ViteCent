@@ -25,7 +25,7 @@ public class SqlSugarFactory : IFactory
 
     /// <summary>
     /// </summary>
-    private readonly ILog logger;
+    private readonly BaseLogger logger;
 
     /// <summary>
     /// </summary>
@@ -33,7 +33,7 @@ public class SqlSugarFactory : IFactory
     /// <param name="log"></param>
     public SqlSugarFactory(string dataBase, bool log = true)
     {
-        logger = BaseLogger.GetLogger(typeof(SqlSugarFactory));
+        logger = new BaseLogger(typeof(SqlSugarFactory));
 
         var configuration = FactoryConfigExtensions.GetConfig(dataBase);
 
@@ -80,7 +80,7 @@ public class SqlSugarFactory : IFactory
 
                 var sql = $"Time: {client.Ado.SqlExecutionTime.TotalMilliseconds} ms, SQL:{text}";
 
-                logger.Info(sql);
+                logger.LogInformation(sql);
             };
     }
 
@@ -89,7 +89,7 @@ public class SqlSugarFactory : IFactory
     /// <returns></returns>
     public async Task<BaseResult> CommitAsync()
     {
-        if (commands.Count <= 0) return new BaseResult();
+        if (commands.Count <= 0) return new BaseResult(string.Empty);
 
         client.BeginTran();
         try
@@ -131,11 +131,11 @@ public class SqlSugarFactory : IFactory
         catch (Exception e)
         {
             client.RollbackTran();
-            logger.Error(e.Message);
+            logger.LogError(e, e.Message);
             return new BaseResult(500, e.Message);
         }
 
-        return new BaseResult();
+        return new BaseResult(string.Empty);
     }
 
     /// <summary>

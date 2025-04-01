@@ -15,6 +15,10 @@ public class BaseRoleResult
 
     /// <summary>
     /// </summary>
+    public string Color { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>

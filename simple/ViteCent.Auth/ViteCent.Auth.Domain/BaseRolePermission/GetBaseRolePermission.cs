@@ -13,7 +13,7 @@ namespace ViteCent.Auth.Domain.BaseRolePermission;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class GetBaseRolePermission(ILogger< GetBaseRolePermission> logger) : BaseDomain<BaseRolePermissionEntity>, IRequestHandler<GetBaseRolePermissionEntityArgs, BaseRolePermissionEntity>
+public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger) : BaseDomain<BaseRolePermissionEntity>, IRequestHandler<GetBaseRolePermissionEntityArgs, BaseRolePermissionEntity>
 {
     /// <summary>
     /// </summary>
@@ -29,6 +29,7 @@ public class GetBaseRolePermission(ILogger< GetBaseRolePermission> logger) : Bas
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRolePermission.GetBaseRolePermission");
 
         var query = Client.Query<BaseRolePermissionEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

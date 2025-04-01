@@ -27,5 +27,4 @@ public class DeleteScheduleEntityArgs : IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

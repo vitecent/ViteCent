@@ -46,40 +46,44 @@ public partial class AddBaseUser(ILogger<AddBaseUser> logger, IBaseCache cache, 
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
-        else
-            companyId = request.CompanyId;
 
-        var hasCompanyArgs = new GetBaseCompanyEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId))
         {
-            Id = request.CompanyId,
-        };
+            var hasCompanyArgs = new GetBaseCompanyEntityArgs
+            {
+                Id = request.CompanyId,
+            };
 
-        var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
 
-        if (hasCompany == null)
-            return new BaseResult(500, "公司不存在");
+            if (hasCompany == null)
+                return new BaseResult(500, "公司不存在");
 
-        if (hasCompany.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "公司已禁用");
+            if (hasCompany.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "公司已禁用");
+        }
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartmentArgs = new GetBaseDepartmentEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId))
         {
-            CompanyId = request.CompanyId,
-            Id = request.DepartmentId,
-        };
+            var hasDepartmentArgs = new GetBaseDepartmentEntityArgs
+            {
+                CompanyId = request.CompanyId,
+                Id = request.DepartmentId,
+            };
 
-        var hasDepartment = await mediator.Send(hasDepartmentArgs, cancellationToken);
+            var hasDepartment = await mediator.Send(hasDepartmentArgs, cancellationToken);
 
-        if (hasDepartment == null)
-            return new BaseResult(500, "部门不存在");
+            if (hasDepartment == null)
+                return new BaseResult(500, "部门不存在");
 
-        if (hasDepartment.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "部门已禁用");
+            if (hasDepartment.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "部门已禁用");
+        }
 
         var result = await OverrideHandle(request, cancellationToken);
 
@@ -98,7 +102,12 @@ public partial class AddBaseUser(ILogger<AddBaseUser> logger, IBaseCache cache, 
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var addResult = await mediator.Send(entity, cancellationToken);
+
+        if (!addResult.Success)
+            return addResult;
+
+        return new BaseResult(entity.Id);
     }
 
     /// <summary>

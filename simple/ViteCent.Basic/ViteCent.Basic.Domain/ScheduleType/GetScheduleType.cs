@@ -13,7 +13,7 @@ namespace ViteCent.Basic.Domain.ScheduleType;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class GetScheduleType(ILogger< GetScheduleType> logger) : BaseDomain<ScheduleTypeEntity>, IRequestHandler<GetScheduleTypeEntityArgs, ScheduleTypeEntity>
+public class GetScheduleType(ILogger<GetScheduleType> logger) : BaseDomain<ScheduleTypeEntity>, IRequestHandler<GetScheduleTypeEntityArgs, ScheduleTypeEntity>
 {
     /// <summary>
     /// </summary>
@@ -29,6 +29,7 @@ public class GetScheduleType(ILogger< GetScheduleType> logger) : BaseDomain<Sche
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ScheduleType.GetScheduleType");
 
         var query = Client.Query<ScheduleTypeEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

@@ -1,0 +1,35 @@
+#region
+
+using ViteCent.Core.Web;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
+
+/// <summary>
+/// </summary>
+public class Program
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="args"></param>
+    public static async Task Main(string[] args)
+    {
+        var xmls = new List<string>
+        {
+            "ViteCent.Core.*.xml",
+            "$!{DataBase.Name}.*.xml"
+        };
+
+        var microService = new BaseMicroService("$!{DataBase.Name}.$!{Setting.Api.ApiName}", xmls)
+        {
+            OnBuild = builder =>
+            {
+                builder.UseAutoMapper(typeof($!{Setting.Api.MapperName}));
+                builder.UseAutoFac(new $!{Setting.Api.FacName}());
+            }
+        };
+
+        await microService.RunAsync(args);
+    }
+}

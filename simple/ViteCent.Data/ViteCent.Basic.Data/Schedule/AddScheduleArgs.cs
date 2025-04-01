@@ -26,11 +26,15 @@ public class AddScheduleArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public DateTime FirstTime { get; set; }
 
     /// <summary>
     /// </summary>
-    public bool Overnight { get; set; }
+    public DateTime LastTime { get; set; }
+
+    /// <summary>
+    /// </summary>
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

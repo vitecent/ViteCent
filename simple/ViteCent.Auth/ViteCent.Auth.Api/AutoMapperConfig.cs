@@ -3,6 +3,7 @@
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BaseOperation;
+using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Data.BaseResource;
 using ViteCent.Auth.Data.BaseRole;
 using ViteCent.Auth.Data.BaseRolePermission;
@@ -12,6 +13,7 @@ using ViteCent.Auth.Data.BaseUserRole;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseDepartment;
 using ViteCent.Auth.Entity.BaseOperation;
+using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Auth.Entity.BaseResource;
 using ViteCent.Auth.Entity.BaseRole;
 using ViteCent.Auth.Entity.BaseRolePermission;
@@ -62,6 +64,17 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<SearchBaseOperationArgs, SearchBaseOperationEntityArgs>();
         CreateMap<BaseOperationEntity, BaseOperationResult>();
         CreateMap<DeleteBaseOperationArgs, DeleteBaseOperationEntityArgs>();
+
+        #endregion
+
+        #region BasePosition
+
+        CreateMap<AddBasePositionArgs, AddBasePositionEntity>();
+        CreateMap<EditBasePositionArgs, GetBasePositionEntityArgs>();
+        CreateMap<GetBasePositionArgs, GetBasePositionEntityArgs>();
+        CreateMap<SearchBasePositionArgs, SearchBasePositionEntityArgs>();
+        CreateMap<BasePositionEntity, BasePositionResult>();
+        CreateMap<DeleteBasePositionArgs, DeleteBasePositionEntityArgs>();
 
         #endregion
 

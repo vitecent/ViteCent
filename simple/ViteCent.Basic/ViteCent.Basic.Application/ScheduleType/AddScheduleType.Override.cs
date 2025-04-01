@@ -16,12 +16,13 @@ public partial class AddScheduleType
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> OverrideHandle(AddScheduleTypeArgs request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle(AddScheduleTypeArgs request, CancellationToken cancellationToken)
     {
         var hasArgs = new HasScheduleTypeEntityArgs
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

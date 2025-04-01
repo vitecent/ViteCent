@@ -27,5 +27,4 @@ public class GetBaseOperationArgs : BaseArgs, IRequest<DataResult<BaseOperationR
     /// <summary>
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
-
 }

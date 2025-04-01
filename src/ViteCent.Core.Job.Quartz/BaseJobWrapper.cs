@@ -9,7 +9,7 @@ namespace ViteCent.Core.Job.Quartz
 {
     /// <summary>
     /// </summary>
-    /// <remarks></remarks>
+    
     /// <param name="job"></param>
     /// <param name="scope"></param>
     public class BaseJobWrapper(IJob job, IServiceScope scope) : IJob, IDisposable

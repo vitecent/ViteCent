@@ -219,7 +219,7 @@ public static class BaseString
     {
         if (string.IsNullOrWhiteSpace(input)) throw new Exception("input 不能为空");
 
-        return input.ToCamelCase("_").ToCamelCase("-").ToCamelCase(".");
+        return input.ToCamelCase("_").ToCamelCase("-").ToCamelCase(".").ToCamelCase(" ");
     }
 
     /// <summary>
@@ -230,8 +230,6 @@ public static class BaseString
     private static string ToCamelCase(this string input, string split)
     {
         if (string.IsNullOrWhiteSpace(input)) throw new Exception("input 不能为空");
-
-        if (string.IsNullOrWhiteSpace(split)) throw new Exception("split 不能为空");
 
         var array = input.Split(split, StringSplitOptions.RemoveEmptyEntries).ToList();
         var sb = new StringBuilder();

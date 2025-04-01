@@ -13,7 +13,7 @@ public partial class BaseRolePermissionValidator : AbstractValidator<AddBaseRole
 {
     /// <summary>
     /// </summary>
-    public void OverrideValidator()
+    private void OverrideValidator()
     {
     }
 }

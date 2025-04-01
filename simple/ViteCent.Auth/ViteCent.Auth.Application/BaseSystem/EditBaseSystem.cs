@@ -44,30 +44,42 @@ public partial class EditBaseSystem(ILogger<EditBaseSystem> logger, IMapper mapp
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var hasCompanyArgs = new GetBaseCompanyEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId))
         {
-            Id = request.CompanyId,
-        };
+            var hasCompanyArgs = new GetBaseCompanyEntityArgs
+            {
+                Id = request.CompanyId,
+            };
 
-        var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
 
-        if (hasCompany == null)
-            return new BaseResult(500, "公司不存在");
+            if (hasCompany == null)
+                return new BaseResult(500, "公司不存在");
 
-        if (hasCompany.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "公司已禁用");
+            if (hasCompany.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "公司已禁用");
+        }
 
-        var result = await OverrideHandle(request, cancellationToken);
+        var preResult = await OverrideHandle(request, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!preResult.Success)
+            return preResult;
 
         var args = mapper.Map<GetBaseSystemEntityArgs>(request);
 
         var entity = await mediator.Send(args, cancellationToken);
 
+        if (entity == null)
+            return new BaseResult(500, "数据不存在或无权限");
+
+        var result = await OverrideHandle(entity, cancellationToken);
+
+        if (!result.Success)
+            return result;
+
         entity.Abbreviation = request.Abbreviation;
         entity.Code = request.Code;
+        entity.Color = request.Color;
         entity.Description = request.Description;
         entity.Name = request.Name;
         entity.Status = request.Status;

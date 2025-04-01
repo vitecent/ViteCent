@@ -10,7 +10,7 @@ namespace ViteCent.Core.Job.Quartz;
 
 /// <summary>
 /// </summary>
-/// <remarks></remarks>
+
 /// <param name="provider"></param>
 public partial class BaseJobFactory(IServiceProvider provider) : IJobFactory
 {

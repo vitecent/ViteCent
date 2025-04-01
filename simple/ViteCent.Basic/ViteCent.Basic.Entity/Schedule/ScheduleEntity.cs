@@ -47,18 +47,23 @@ public class ScheduleEntity : BaseEntity, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    [SugarColumn(ColumnName = "firstTime", ColumnDataType = "datetime", ColumnDescription = "上班时间")]
+    public DateTime FirstTime { get; set; }
+
+    /// <summary>
+    /// </summary>
     [SugarColumn(ColumnName = "id", ColumnDataType = "varchar", Length = 50, ColumnDescription = "标识", IsPrimaryKey = true)]
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>
-    [SugarColumn(ColumnName = "name", ColumnDataType = "varchar", Length = 100, ColumnDescription = "名称")]
-    public string Name { get; set; } = string.Empty;
+    [SugarColumn(ColumnName = "lastTime", ColumnDataType = "datetime", ColumnDescription = "下班时间")]
+    public DateTime LastTime { get; set; }
 
     /// <summary>
     /// </summary>
-    [SugarColumn(ColumnName = "overnight", ColumnDataType = "bit", Length = 1, ColumnDescription = "是否跨天")]
-    public bool Overnight { get; set; }
+    [SugarColumn(ColumnName = "name", ColumnDataType = "varchar", Length = 100, ColumnDescription = "名称")]
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

@@ -45,21 +45,22 @@ public partial class AddBaseSystem(ILogger<AddBaseSystem> logger, IBaseCache cac
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
-        else
-            companyId = request.CompanyId;
 
-        var hasCompanyArgs = new GetBaseCompanyEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId))
         {
-            Id = request.CompanyId,
-        };
+            var hasCompanyArgs = new GetBaseCompanyEntityArgs
+            {
+                Id = request.CompanyId,
+            };
 
-        var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
 
-        if (hasCompany == null)
-            return new BaseResult(500, "公司不存在");
+            if (hasCompany == null)
+                return new BaseResult(500, "公司不存在");
 
-        if (hasCompany.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "公司已禁用");
+            if (hasCompany.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "公司已禁用");
+        }
 
         var result = await OverrideHandle(request, cancellationToken);
 
@@ -78,7 +79,12 @@ public partial class AddBaseSystem(ILogger<AddBaseSystem> logger, IBaseCache cac
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var addResult = await mediator.Send(entity, cancellationToken);
+
+        if (!addResult.Success)
+            return addResult;
+
+        return new BaseResult(entity.Id);
     }
 
     /// <summary>

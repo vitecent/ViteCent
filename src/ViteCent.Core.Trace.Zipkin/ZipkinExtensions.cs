@@ -4,11 +4,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using ViteCent.Core.Data;
-using zipkin4net;
-using zipkin4net.Middleware;
-using zipkin4net.Tracers.Zipkin;
-using zipkin4net.Transport.Http;
 
 #endregion
 
@@ -29,24 +27,39 @@ public static class ZipkinExtensions
 
         if (isDapr != "Dapr")
         {
-            var logger = BaseLogger.GetLogger(typeof(ZipkinExtensions));
+            var logger = new BaseLogger(typeof(ZipkinExtensions));
 
-            TraceManager.SamplingRate = 1.0f;
+            var serviceName = configuration["Service:Name"] ?? default!;
 
-            var loggerFactory = new LoggerFactory();
-            var log = new TracingLogger(loggerFactory, "ZipkinExtensions");
+            logger.LogInformation($"Consul ServiceName ：{serviceName}");
+
+            if (string.IsNullOrWhiteSpace(serviceName)) throw new Exception("Appsettings Must Be ServiceConfig.Name");
 
             var uri = configuration["Trace"];
 
-            logger.Info($"Zipkin RegisterUri ：{uri}");
-
             if (string.IsNullOrWhiteSpace(uri)) throw new Exception("Appsettings Must Be Trace");
 
-            var httpSender = new HttpZipkinSender(uri, "application/json");
-            var tracer = new ZipkinTracer(httpSender, new JSONSpanSerializer());
+            logger.LogInformation($"Zipkin RegisterUri ：{uri}");
 
-            TraceManager.RegisterTracer(tracer);
-            TraceManager.Start(log);
+            var check = configuration["Service:Check"];
+
+            if (string.IsNullOrWhiteSpace(check)) check = Const.Check;
+
+            services.AddOpenTelemetry()
+                .WithTracing(builder =>
+                {
+                    builder.AddSource(serviceName)
+                        .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName))
+                        .AddAspNetCoreInstrumentation(option =>
+                        {
+                            option.Filter = (httpContext) => !httpContext.Request.Path.StartsWithSegments(check);
+                        })
+                        .AddHttpClientInstrumentation()
+                        .AddZipkinExporter(zipkin =>
+                        {
+                            zipkin.Endpoint = new Uri(uri);
+                        });
+                });
         }
 
         return services;
@@ -58,25 +71,6 @@ public static class ZipkinExtensions
     /// <returns></returns>
     public static IApplicationBuilder UseZipkin(this WebApplication app)
     {
-        var configuration = app.Configuration;
-
-        var isDapr = configuration["Environment"] ?? default!;
-
-        if (isDapr != "Dapr")
-        {
-            var serviceName = configuration["Service:Name"];
-
-            var check = configuration["Service:Check"];
-
-            if (string.IsNullOrWhiteSpace(check)) check = Const.Check;
-
-            app.UseTracing(serviceName, null, x => { return x != check; });
-
-            var lifetime = app.Lifetime;
-
-            lifetime.ApplicationStopping.Register(() => { TraceManager.Stop(); });
-        }
-
         return app;
     }
 }

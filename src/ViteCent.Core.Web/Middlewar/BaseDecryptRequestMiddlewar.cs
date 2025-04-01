@@ -20,7 +20,7 @@ public class BaseDecryptRequestMiddlewar(RequestDelegate next, IConfiguration co
     /// <returns></returns>
     public async Task InvokeAsync(HttpContext context)
     {
-        if (!IsEncrypt(context))
+        if (IsEncrypt(context))
         {
             context.Request.EnableBuffering();
 

@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DocumentationFile></DocumentationFile>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <DocumentationFile></DocumentationFile>
         <ApplicationIcon>favicon.ico</ApplicationIcon>
         <Title>ViteCent</Title>
         <Description>ViteCent</Description>
@@ -21,7 +21,7 @@
         <FileVersion>9.0.4</FileVersion>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	</PropertyGroup>
+    </PropertyGroup>
 
     <ItemGroup>
         <Content Include="favicon.ico" />
@@ -42,21 +42,21 @@
         </None>
     </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
-		<PackageReference Include="Dapr.AspNetCore" Version="1.15.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.3" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+        <PackageReference Include="Dapr.AspNetCore" Version="1.15.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.3" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\ViteCent.Core.Api.Swagger\ViteCent.Core.Api.Swagger.csproj" />
-		<ProjectReference Include="..\ViteCent.Core.Authorize.Jwt\ViteCent.Core.Authorize.Jwt.csproj" />
-		<ProjectReference Include="..\ViteCent.Core.Cache.Redis\ViteCent.Core.Cache.Redis.csproj" />
-		<ProjectReference Include="..\ViteCent.Core.Job.Quartz\ViteCent.Core.Job.Quartz.csproj" />
-		<ProjectReference Include="..\ViteCent.Core.Logging.Log4Net\ViteCent.Core.Logging.Log4Net.csproj" />
-		<ProjectReference Include="..\ViteCent.Core.Orm.SqlSugar\ViteCent.Core.Orm.SqlSugar.csproj" />
-		<ProjectReference Include="..\ViteCent.Core.Register.Consul\ViteCent.Core.Register.Consul.csproj" />
-		<ProjectReference Include="..\ViteCent.Core.Trace.Zipkin\ViteCent.Core.Trace.Zipkin.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\ViteCent.Core.Api.Swagger\ViteCent.Core.Api.Swagger.csproj" />
+        <ProjectReference Include="..\ViteCent.Core.Authorize.Jwt\ViteCent.Core.Authorize.Jwt.csproj" />
+        <ProjectReference Include="..\ViteCent.Core.Cache.Redis\ViteCent.Core.Cache.Redis.csproj" />
+        <ProjectReference Include="..\ViteCent.Core.Job.Quartz\ViteCent.Core.Job.Quartz.csproj" />
+        <ProjectReference Include="..\ViteCent.Core.Logging.Log4Net\ViteCent.Core.Logging.Log4Net.csproj" />
+        <ProjectReference Include="..\ViteCent.Core.Orm.SqlSugar\ViteCent.Core.Orm.SqlSugar.csproj" />
+        <ProjectReference Include="..\ViteCent.Core.Register.Consul\ViteCent.Core.Register.Consul.csproj" />
+        <ProjectReference Include="..\ViteCent.Core.Trace.Zipkin\ViteCent.Core.Trace.Zipkin.csproj" />
+    </ItemGroup>
 
 </Project>

@@ -18,7 +18,7 @@ namespace ViteCent.Auth.Api.BaseCompany;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseCompany")]
-public class AddBaseCompany(ILogger<AddBaseCompany> logger, IMediator mediator) : BaseLoginApi<AddBaseCompanyArgs, BaseResult>
+public partial class AddBaseCompany(ILogger<AddBaseCompany> logger, IMediator mediator) : BaseLoginApi<AddBaseCompanyArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -30,6 +30,8 @@ public class AddBaseCompany(ILogger<AddBaseCompany> logger, IMediator mediator) 
     public override async Task<BaseResult> InvokeAsync(AddBaseCompanyArgs args)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseCompany.AddBaseCompany");
+
+         OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseCompanyValidator();

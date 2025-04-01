@@ -1,7 +1,5 @@
 ﻿#region
 
-using Replicant;
-
 using System.Text;
 using ViteCent.Core.Data;
 
@@ -11,8 +9,7 @@ namespace ViteCent.Core;
 
 /// <summary>
 /// </summary>
-public class BaseHttpClient<T>
-    where T : class
+public class BaseHttpClient<T> where T : BaseResult
 {
     /// <summary>
     /// </summary>
@@ -23,15 +20,14 @@ public class BaseHttpClient<T>
     {
         return await BasePolicy<T>.ExecuteAsync(async () =>
         {
-            var client = HttpCache.Default;
+            var client = new HttpClient();
 
-            var response = await client.ResponseAsync(uri, false, x =>
-            {
-                if (!string.IsNullOrWhiteSpace(token))
-                    x.Headers.Add(Const.Token, token);
+            if (!string.IsNullOrWhiteSpace(token))
+                client.DefaultRequestHeaders.Add(Const.Token, token);
 
-                x.Method = HttpMethod.Get;
-            });
+            var response = await client.GetAsync(uri);
+
+            response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
@@ -54,22 +50,23 @@ public class BaseHttpClient<T>
     {
         return await BasePolicy<T>.ExecuteAsync(async () =>
         {
-            var client = HttpCache.Default;
+            var client = new HttpClient();
 
-            var response = await client.ResponseAsync(uri, false, x =>
-            {
-                if (!string.IsNullOrWhiteSpace(token))
-                    x.Headers.Add(Const.Token, token);
+            if (!string.IsNullOrWhiteSpace(token))
+                client.DefaultRequestHeaders.Add(Const.Token, token);
 
-                x.Method = HttpMethod.Post;
-                x.Content = new StringContent(args.ToJson(), Encoding.UTF8, "application/json");
-            });
+            var content = new StringContent(args.ToJson(), Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(uri, content);
+
+            response.EnsureSuccessStatusCode();
 
             if (response.IsSuccessStatusCode)
             {
                 var data = await response.Content.ReadAsStringAsync();
 
-                if (!string.IsNullOrWhiteSpace(data)) return data.DeJson<T>();
+                if (!string.IsNullOrWhiteSpace(data))
+                    return data.DeJson<T>();
             }
 
             return default!;

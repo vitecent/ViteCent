@@ -19,5 +19,4 @@ public class GetBaseRoleArgs : BaseArgs, IRequest<DataResult<BaseRoleResult>>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

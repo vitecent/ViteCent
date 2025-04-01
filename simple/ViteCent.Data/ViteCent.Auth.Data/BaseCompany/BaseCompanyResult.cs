@@ -23,6 +23,10 @@ public class BaseCompanyResult
 
     /// <summary>
     /// </summary>
+    public string Color { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string Country { get; set; } = string.Empty;
 
     /// <summary>

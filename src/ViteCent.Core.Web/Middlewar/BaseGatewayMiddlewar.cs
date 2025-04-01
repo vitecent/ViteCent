@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Extensions.Configuration;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Register;
@@ -15,17 +16,19 @@ namespace ViteCent.Core.Web.Middlewar;
 /// <param name="next"></param>
 /// <param name="httpClient"></param>
 /// <param name="cache"></param>
+/// <param name="configuration"></param>
 public class BaseGatewayMiddlewar(
     RequestDelegate next,
     IHttpClientFactory httpClient,
-    IBaseCache cache)
+    IBaseCache cache,
+    IConfiguration configuration)
 {
     /// <summary>
     /// </summary>
     /// <param name="context"></param>
-    public async Task InvokeASync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context)
     {
-        var logger = BaseLogger.GetLogger(typeof(BaseGatewayMiddlewar));
+        var logger = new BaseLogger(typeof(BaseGatewayMiddlewar));
         var traceingId = string.Empty;
 
         if (context.Request.Headers.TryGetValue(Const.TraceingId, out var value)) traceingId = value.ToString();
@@ -37,7 +40,7 @@ public class BaseGatewayMiddlewar(
             context.Request.Headers.TryAdd(Const.TraceingId, traceingId);
         }
 
-        logger.Info($"Gateway TraceingId {traceingId}");
+        logger.LogInformation($"Gateway TraceingId {traceingId}");
 
         context.Response.Headers.TryAdd(Const.TraceingId, traceingId);
 
@@ -47,7 +50,7 @@ public class BaseGatewayMiddlewar(
         {
             await BasePolicy<Task>.ExecuteAsync(async () =>
             {
-                logger.Info($"Gateway Url {uri}");
+                logger.LogInformation($"Gateway Url {uri}");
 
                 var request = new HttpRequestMessage
                 {
@@ -66,7 +69,7 @@ public class BaseGatewayMiddlewar(
 
                 context.Response.StatusCode = statusCode;
 
-                logger.Info($"Gateway StatusCode {statusCode}");
+                logger.LogInformation($"Gateway StatusCode {statusCode}");
 
                 foreach (var header in response.Headers) context.Response.Headers[header.Key] = header.Value.ToArray();
 
@@ -77,7 +80,7 @@ public class BaseGatewayMiddlewar(
 
                 var body = context.Response.Body;
 
-                logger.Info($"Gateway Response {body}");
+                logger.LogInformation($"Gateway Response {body}");
 
                 await response.Content.CopyToAsync(body);
 
@@ -109,7 +112,9 @@ public class BaseGatewayMiddlewar(
         if (string.IsNullOrWhiteSpace(key))
             return default!;
 
-        if (key == "check" && key == "gateway") return default!;
+        var ignores = configuration["Ignores"]?.Split(",", StringSplitOptions.RemoveEmptyEntries)?.ToList() ?? [];
+
+        if (ignores.Any(x => x.Equals(key))) return default!;
 
         var services = new Dictionary<string, List<ServiceConfig>>();
 

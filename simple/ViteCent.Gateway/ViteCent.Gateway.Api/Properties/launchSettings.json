@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "ViteCent.Gateway": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "openapi/v1.json",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://192.168.0.53:7000",
+      "dotnetRunMessages": true
+    }
+  }
+}

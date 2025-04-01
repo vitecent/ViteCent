@@ -1,0 +1,13 @@
+﻿namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+[Serializable]
+public class $!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} : $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}
+{
+#if($HasId)
+    /// <summary>
+    /// </summary>
+    public string Id { get; set; } = string.Empty;
+#end
+}

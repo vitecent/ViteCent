@@ -1,6 +1,5 @@
 ﻿#region
 
-using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +9,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.IO.Compression;
-using ViteCent.Core.Authorize.Jwt;
 using ViteCent.Core.Logging.Log4Net;
 using ViteCent.Core.Web.Filter;
 
@@ -22,15 +20,15 @@ namespace ViteCent.Core.Web;
 /// </summary>
 public abstract class MicroService
 {
-    private readonly ILog logger;
+    private readonly BaseLogger logger;
 
     /// <summary>
     /// </summary>
     protected MicroService()
     {
-        logger = BaseLogger.GetLogger(typeof(MicroService));
+        logger = new BaseLogger(typeof(MicroService));
 
-        logger.Info("开始初始化微服务");
+        logger.LogInformation("开始初始化微服务");
     }
 
     /// <summary>
@@ -86,14 +84,7 @@ public abstract class MicroService
                 ];
             }).AddDapr();
 
-        logger.Info("开始添加 Jwt 服务");
-        services.AddJwt(configuration);
-
         await BuildAsync(builder);
-
-        services.AddTransient<BaseLoginFilter>();
-        services.AddTransient<BaseAuthFilter>();
-        services.AddScoped(typeof(IBaseInvoke<,>), typeof(BaseInvoke<,>));
 
         var app = builder.Build();
 
@@ -107,15 +98,12 @@ public abstract class MicroService
 
         if (app.Environment.IsDevelopment())
         {
-            app.UseExceptionHandler("/ViteCent.Auth/error");
+            app.UseExceptionHandler("/Home/Error");
             app.UseHsts();
         }
 
         app.UseHttpsRedirection();
         app.UseRouting();
-
-        logger.Info("开始使用 Jwt 中间件");
-        app.UseJwt();
 
         app.MapControllers();
 
@@ -128,7 +116,7 @@ public abstract class MicroService
     /// <returns></returns>
     protected virtual async Task BuildAsync(WebApplicationBuilder builder)
     {
-        logger.Info("开始构建微服务");
+        logger.LogInformation("开始构建微服务");
         await Task.CompletedTask;
     }
 
@@ -138,7 +126,7 @@ public abstract class MicroService
     /// <returns></returns>
     protected virtual async Task ConfigAsync(IConfiguration configuration)
     {
-        logger.Info("开始配置微服务");
+        logger.LogInformation("开始配置微服务");
         await Task.CompletedTask;
     }
 
@@ -148,7 +136,7 @@ public abstract class MicroService
     /// <returns></returns>
     protected virtual async Task StartAsync(WebApplication app)
     {
-        logger.Info("开始启动微服务");
+        logger.LogInformation("开始启动微服务");
         await Task.CompletedTask;
     }
 
@@ -157,7 +145,7 @@ public abstract class MicroService
     /// <returns></returns>
     protected virtual async Task StopAsync()
     {
-        logger.Info("开始停止微服务");
+        logger.LogInformation("开始停止微服务");
         await Task.CompletedTask;
     }
 }

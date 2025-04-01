@@ -22,7 +22,15 @@ public class HasScheduleEntityArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    public DateTime EndTime { get; set; }
+
+    /// <summary>
+    /// </summary>
     public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public DateTime StartTime { get; set; }
 
     /// <summary>
     /// </summary>

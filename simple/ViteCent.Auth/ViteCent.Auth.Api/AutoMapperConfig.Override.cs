@@ -1,5 +1,7 @@
 #region
 
+using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Auth.Domain.BaseUser;
 using ViteCent.Core.Web;
 
 #endregion
@@ -12,7 +14,9 @@ public partial class AutoMapperConfig : BaseMapperConfig
 {
     /// <summary>
     /// </summary>
-    public void OverrideMap()
+    private void OverrideMap()
     {
+        CreateMap<InitializeArgs, AddBaseUserArgs>();
+        CreateMap<LoginArgs, LoginEntityArgs>();
     }
 }

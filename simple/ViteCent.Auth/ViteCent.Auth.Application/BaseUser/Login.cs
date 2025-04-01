@@ -13,6 +13,7 @@ using ViteCent.Auth.Data.BaseRole;
 using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Auth.Data.BaseSystem;
 using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Auth.Data.BaseUserRole;
 using ViteCent.Auth.Domain.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core;
@@ -49,7 +50,7 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<LoginResult>(500, "用户名或者密码错误");
+            return new DataResult<LoginResult>(500, "用户名或密码错误");
 
         if (entity.Status == (int)StatusEnum.Disable)
             return new DataResult<LoginResult>(500, "用户已被禁用");
@@ -104,39 +105,36 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
             };
         }
 
-        if (userInfo.IsSuper == (int)YesNoEnum.No)
-            await GetRole(entity, userInfo, cancellationToken);
+        if (userInfo.IsSuper != (int)YesNoEnum.Yes)
+            await GetUserRole(userInfo, cancellationToken);
 
         var token = BaseJwt.GenerateJwtToken(userInfo, configuration);
 
         token = $"Bearer {token}";
 
-        userInfo.Token = token;
-
         cache.SetString(entity.Id, token, TimeSpan.FromHours(24));
 
-        var result = new DataResult<LoginResult>()
+        var result = new DataResult<LoginResult>(new LoginResult()
         {
-            Data = new LoginResult()
-            {
-                Token = token,
-                ExpireTime = DateTime.Now.AddHours(24),
-            }
-        };
+            Token = token,
+            ExpireTime = DateTime.Now.AddHours(24),
+        });
 
         return result;
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="operationIds"></param>
+    /// <param name="ids"></param>
     /// <param name="userInfo"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task GetOperation(List<string> operationIds, BaseUserInfo userInfo, CancellationToken cancellationToken)
+    private async Task GetOperation(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
-        var rolepermissionArgs = new SearchBaseOperationArgs()
+        var args = new SearchBaseOperationArgs()
         {
+            Offset = 0,
+            Limit = int.MaxValue,
             Args =
             [
                 new()
@@ -147,33 +145,42 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
                 new()
                 {
                     Field = "Id",
-                    Value = operationIds,
+                    Value = ids,
                     Method = SearchEnum.In
                 }
             ]
         };
 
-        var operations = await mediator.Send(rolepermissionArgs, cancellationToken);
+        if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
+            args.Args.Add(new()
+            {
+                Field = "CompanyId",
+                Value = userInfo.Company.Id,
+            });
 
-        if (operations.Total > 0)
+        var data = await mediator.Send(args, cancellationToken);
+
+        if (data.Total > 0)
         {
-            var resourceIds = operations.Rows.Select(x => x.ResourceId).ToList();
+            var _ids = data.Rows.Select(x => x.ResourceId).ToList();
 
-            await GetResource(resourceIds, userInfo, operations.Rows, cancellationToken);
+            await GetResource(_ids, userInfo, data.Rows, cancellationToken);
         }
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="resourceIds"></param>
+    /// <param name="ids"></param>
     /// <param name="userInfo"></param>
     /// <param name="operations"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task GetResource(List<string> resourceIds, BaseUserInfo userInfo, List<BaseOperationResult> operations, CancellationToken cancellationToken)
+    private async Task GetResource(List<string> ids, BaseUserInfo userInfo, List<BaseOperationResult> operations, CancellationToken cancellationToken)
     {
-        var rolepermissionArgs = new SearchBaseResourceArgs()
+        var args = new SearchBaseResourceArgs()
         {
+            Offset = 0,
+            Limit = int.MaxValue,
             Args =
             [
                 new()
@@ -184,32 +191,41 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
                 new()
                 {
                     Field = "Id",
-                    Value = resourceIds,
+                    Value = ids,
                     Method = SearchEnum.In
                 }
             ]
         };
 
-        var resources = await mediator.Send(rolepermissionArgs, cancellationToken);
+        if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
+            args.Args.Add(new()
+            {
+                Field = "CompanyId",
+                Value = userInfo.Company.Id,
+            });
 
-        if (resources.Total > 0)
+        var data = await mediator.Send(args, cancellationToken);
+
+        if (data.Total > 0)
         {
-            var systemIds = resources.Rows.Select(x => x.SystemId).ToList();
+            var _ids = data.Rows.Select(x => x.SystemId).ToList();
 
-            await GetSystem(resourceIds, userInfo, operations, resources.Rows, cancellationToken);
+            await GetSystem(ids, userInfo, operations, data.Rows, cancellationToken);
         }
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="entity"></param>
+    /// <param name="ids"></param>
     /// <param name="userInfo"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task GetRole(BaseUserEntity entity, BaseUserInfo userInfo, CancellationToken cancellationToken)
+    private async Task GetRole(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
-        var roleArgs = new SearchBaseRoleArgs()
+        var args = new SearchBaseRoleArgs()
         {
+            Offset = 0,
+            Limit = int.MaxValue,
             Args =
             [
                 new ()
@@ -219,41 +235,42 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
                 },
                 new()
                 {
-                    Field = "UserId",
-                    Value = entity.Id,
-                    Group = "Role",
+                    Field = "Id",
+                    Value = ids,
+                    Method = SearchEnum.In
                 }
             ]
         };
 
-        if (!string.IsNullOrWhiteSpace(entity.DepartmentId))
-            roleArgs.Args.Add(new()
+        if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
+            args.Args.Add(new()
             {
-                Field = "DepartmentId",
-                Value = entity.DepartmentId,
-                Group = "Role",
+                Field = "CompanyId",
+                Value = userInfo.Company.Id,
             });
 
-        var roles = await mediator.Send(roleArgs, cancellationToken);
+        var data = await mediator.Send(args, cancellationToken);
 
-        if (roles.Total > 0)
+        if (data.Total > 0)
         {
-            var roleIds = roles.Rows.Select(x => x.Id).ToList();
+            var _ids = data.Rows.Select(x => x.Id).ToList();
 
-            await GetRolePermission(roleIds, userInfo, cancellationToken);
+            await GetRolePermission(_ids, userInfo, cancellationToken);
         }
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="roleIds"></param>
+    /// <param name="ids"></param>
     /// <param name="userInfo"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task GetRolePermission(List<string> roleIds, BaseUserInfo userInfo, CancellationToken cancellationToken)
+    private async Task GetRolePermission(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
-        var rolepermissionArgs = new SearchBaseRolePermissionArgs()
+        var args = new SearchBaseRolePermissionArgs()
         {
+            Offset = 0,
+            Limit = int.MaxValue,
             Args =
             [
                 new()
@@ -263,35 +280,44 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
                 },
                 new()
                 {
-                    Field = "Id",
-                    Value = roleIds,
+                    Field = "RoleId",
+                    Value = ids,
                     Method = SearchEnum.In
                 }
             ]
         };
 
-        var rolePermissions = await mediator.Send(rolepermissionArgs, cancellationToken);
+        if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
+            args.Args.Add(new()
+            {
+                Field = "CompanyId",
+                Value = userInfo.Company.Id,
+            });
 
-        if (rolePermissions.Total > 0)
+        var data = await mediator.Send(args, cancellationToken);
+
+        if (data.Total > 0)
         {
-            var operationIds = rolePermissions.Rows.Select(x => x.OperationId).ToList();
+            var _ids = data.Rows.Select(x => x.OperationId).ToList();
 
-            await GetOperation(operationIds, userInfo, cancellationToken);
+            await GetOperation(_ids, userInfo, cancellationToken);
         }
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="resourceIds"></param>
+    /// <param name="ids"></param>
     /// <param name="userInfo"></param>
     /// <param name="operations"></param>
     /// <param name="resources"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task GetSystem(List<string> resourceIds, BaseUserInfo userInfo, List<BaseOperationResult> operations, List<BaseResourceResult> resources, CancellationToken cancellationToken)
+    private async Task GetSystem(List<string> ids, BaseUserInfo userInfo, List<BaseOperationResult> operations, List<BaseResourceResult> resources, CancellationToken cancellationToken)
     {
-        var rolepermissionArgs = new SearchBaseSystemArgs()
+        var args = new SearchBaseSystemArgs()
         {
+            Offset = 0,
+            Limit = int.MaxValue,
             Args =
             [
                 new()
@@ -302,13 +328,20 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
                 new()
                 {
                     Field = "Id",
-                    Value = resourceIds,
+                    Value = ids,
                     Method = SearchEnum.In
                 }
             ]
         };
 
-        var systems = await mediator.Send(rolepermissionArgs, cancellationToken);
+        if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
+            args.Args.Add(new()
+            {
+                Field = "CompanyId",
+                Value = userInfo.Company.Id,
+            });
+
+        var systems = await mediator.Send(args, cancellationToken);
 
         var auths = new List<BaseSystemInfo>();
 
@@ -356,5 +389,58 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
         }
 
         userInfo.Auth = auths;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="userInfo"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    private async Task GetUserRole(BaseUserInfo userInfo, CancellationToken cancellationToken)
+    {
+        var args = new SearchBaseUserRoleArgs()
+        {
+            Offset = 0,
+            Limit = int.MaxValue,
+            Args =
+            [
+                new ()
+                {
+                    Field = "Status",
+                    Value = StatusEnum.Enable,
+                },
+                new()
+                {
+                    Field = "UserId",
+                    Value = userInfo.Id,
+                    Group = "Role",
+                }
+            ]
+        };
+
+        if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
+            args.Args.Add(new()
+            {
+                Field = "CompanyId",
+                Value = userInfo.Company.Id,
+                Group = "Role",
+            });
+
+        if (!string.IsNullOrWhiteSpace(userInfo?.Department?.Id))
+            args.Args.Add(new()
+            {
+                Field = "DepartmentId",
+                Value = userInfo.Department.Id,
+                Group = "Role",
+            });
+
+        var data = await mediator.Send(args, cancellationToken);
+
+        if (data.Total > 0)
+        {
+            var _ids = data.Rows.Select(x => x.RoleId).ToList();
+
+            await GetRole(_ids, userInfo, cancellationToken);
+        }
     }
 }

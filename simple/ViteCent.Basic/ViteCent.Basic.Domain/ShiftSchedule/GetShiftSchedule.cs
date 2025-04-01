@@ -13,7 +13,7 @@ namespace ViteCent.Basic.Domain.ShiftSchedule;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class GetShiftSchedule(ILogger< GetShiftSchedule> logger) : BaseDomain<ShiftScheduleEntity>, IRequestHandler<GetShiftScheduleEntityArgs, ShiftScheduleEntity>
+public class GetShiftSchedule(ILogger<GetShiftSchedule> logger) : BaseDomain<ShiftScheduleEntity>, IRequestHandler<GetShiftScheduleEntityArgs, ShiftScheduleEntity>
 {
     /// <summary>
     /// </summary>
@@ -29,6 +29,7 @@ public class GetShiftSchedule(ILogger< GetShiftSchedule> logger) : BaseDomain<Sh
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ShiftSchedule.GetShiftSchedule");
 
         var query = Client.Query<ShiftScheduleEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

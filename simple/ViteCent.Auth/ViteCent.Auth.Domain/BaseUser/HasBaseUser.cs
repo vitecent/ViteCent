@@ -63,6 +63,6 @@ public class HasBaseUser(ILogger<HasBaseUser> logger) : BaseDomain<BaseUserEntit
         if (entity > 0)
             return new BaseResult(500, "用户编号或登录名或姓名或身份证号或邮箱或电话重复");
 
-        return new BaseResult();
+        return new BaseResult(string.Empty);
     }
 }

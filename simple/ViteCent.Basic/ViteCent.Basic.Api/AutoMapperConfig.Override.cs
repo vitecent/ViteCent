@@ -12,7 +12,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
 {
     /// <summary>
     /// </summary>
-    public void OverrideMap()
+    private void OverrideMap()
     {
     }
 }

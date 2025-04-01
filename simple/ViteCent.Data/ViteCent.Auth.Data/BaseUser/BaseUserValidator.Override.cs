@@ -15,7 +15,7 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
 {
     /// <summary>
     /// </summary>
-    public void OverrideValidator()
+    private void OverrideValidator()
     {
         RuleFor(x => x.Username).Length(4, 12).WithMessage("用户名4-12个字符");
         RuleFor(x => x.Username).Matches(Const.PositiveEnglish).WithMessage("用户名只支持数字、字母");

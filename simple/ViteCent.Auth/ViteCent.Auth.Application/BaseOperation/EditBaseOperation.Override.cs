@@ -1,6 +1,8 @@
 #region
 
 using ViteCent.Auth.Data.BaseOperation;
+using ViteCent.Auth.Entity.BaseOperation;
+using ViteCent.Auth.Entity.BaseUserRole;
 using ViteCent.Core.Data;
 
 #endregion
@@ -13,10 +15,20 @@ public partial class EditBaseOperation
 {
     /// <summary>
     /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    private async Task<BaseResult> OverrideHandle(BaseOperationEntity entity, CancellationToken cancellationToken)
+    {
+        return await Task.FromResult(new BaseResult(string.Empty));
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> OverrideHandle(EditBaseOperationArgs request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle(EditBaseOperationArgs request, CancellationToken cancellationToken)
     {
         var hasArgs = new HasBaseOperationEntityArgs
         {

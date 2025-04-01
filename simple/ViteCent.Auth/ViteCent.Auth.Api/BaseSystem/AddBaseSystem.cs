@@ -19,7 +19,7 @@ namespace ViteCent.Auth.Api.BaseSystem;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseSystem")]
-public class AddBaseSystem(ILogger<AddBaseSystem> logger, IMediator mediator) : BaseLoginApi<AddBaseSystemArgs, BaseResult>
+public partial class AddBaseSystem(ILogger<AddBaseSystem> logger, IMediator mediator) : BaseLoginApi<AddBaseSystemArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -32,6 +32,8 @@ public class AddBaseSystem(ILogger<AddBaseSystem> logger, IMediator mediator) : 
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseSystem.AddBaseSystem");
 
+         OverrideInvoke(args);
+
         var cancellationToken = new CancellationToken();
         var validator = new BaseSystemValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
@@ -39,7 +41,7 @@ public class AddBaseSystem(ILogger<AddBaseSystem> logger, IMediator mediator) : 
         if (!result.IsValid)
             return new BaseResult(500, string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
 
-        if (User.IsSuper == (int)YesNoEnum.No)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "CompanyId 不能为空");
 

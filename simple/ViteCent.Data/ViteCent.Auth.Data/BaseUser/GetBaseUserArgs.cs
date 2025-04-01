@@ -23,5 +23,4 @@ public class GetBaseUserArgs : BaseArgs, IRequest<DataResult<BaseUserResult>>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

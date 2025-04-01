@@ -30,6 +30,7 @@ public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger) : BaseDomain<Bas
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseSystem.DeleteBaseSystem");
 
          var query = Client.Query<BaseSystemEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

@@ -31,5 +31,4 @@ public class GetBaseUserRoleArgs : BaseArgs, IRequest<DataResult<BaseUserRoleRes
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

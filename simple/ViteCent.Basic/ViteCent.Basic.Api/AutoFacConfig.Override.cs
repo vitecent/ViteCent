@@ -14,7 +14,7 @@ public partial class AutoFacConfig : Module
     /// <summary>
     /// </summary>
     /// <param name="builder"></param>
-    protected void OverrideLoad(ContainerBuilder builder)
+    private void OverrideLoad(ContainerBuilder builder)
     {
     }
 }

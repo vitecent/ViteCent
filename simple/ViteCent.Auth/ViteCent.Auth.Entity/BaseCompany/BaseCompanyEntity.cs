@@ -37,6 +37,11 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    [SugarColumn(ColumnName = "color", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "颜色")]
+    public string Color { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     [SugarColumn(ColumnName = "country", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "国家")]
     public string Country { get; set; } = string.Empty;
 

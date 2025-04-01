@@ -27,5 +27,4 @@ public class GetUserLeaveArgs : BaseArgs, IRequest<DataResult<UserLeaveResult>>
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

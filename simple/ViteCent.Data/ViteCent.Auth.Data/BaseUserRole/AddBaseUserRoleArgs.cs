@@ -14,6 +14,10 @@ public class AddBaseUserRoleArgs : BaseArgs, IRequest<BaseResult>
 {
     /// <summary>
     /// </summary>
+    public string Color { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>

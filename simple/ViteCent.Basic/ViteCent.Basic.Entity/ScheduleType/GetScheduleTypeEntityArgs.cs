@@ -23,5 +23,4 @@ public class GetScheduleTypeEntityArgs : IRequest<ScheduleTypeEntity>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

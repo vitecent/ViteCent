@@ -27,6 +27,11 @@ public class BaseResourceEntity : BaseEntity, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    [SugarColumn(ColumnName = "color", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "颜色")]
+    public string Color { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     [SugarColumn(ColumnName = "companyId", ColumnDataType = "varchar", Length = 50, ColumnDescription = "公司标识")]
     public string CompanyId { get; set; } = string.Empty;
 
@@ -64,11 +69,6 @@ public class BaseResourceEntity : BaseEntity, IRequest<BaseResult>
     /// </summary>
     [SugarColumn(ColumnName = "name", ColumnDataType = "varchar", Length = 100, ColumnDescription = "名称")]
     public string Name { get; set; } = string.Empty;
-
-    /// <summary>
-    /// </summary>
-    [SugarColumn(ColumnName = "parentId", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "父级标识")]
-    public string ParentId { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

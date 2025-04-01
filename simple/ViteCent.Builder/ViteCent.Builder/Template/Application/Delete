@@ -1,0 +1,86 @@
+﻿#region
+
+using AutoMapper;
+using MediatR;
+#if($HasCompanyId||$HasDepartmentId)
+using Microsoft.AspNetCore.Http;
+#end
+using Microsoft.Extensions.Logging;
+#if($HasCompanyId||$HasDepartmentId)
+using System.Security.Claims;
+#end
+using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+#if($HasCompanyId||$HasDepartmentId)
+using ViteCent.Core;
+#end
+using ViteCent.Core.Data;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="mapper"></param>
+/// <param name="mediator"></param>
+#if($HasCompanyId||$HasDepartmentId)
+/// <param name="httpContextAccessor"></param>
+public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+{
+    /// <summary>
+    /// </summary>
+    private BaseUserInfo user = new();
+
+#else
+public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger, IMapper mapper, IMediator mediator) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+{
+#end
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
+
+#if($HasCompanyId||$HasDepartmentId)
+        InitUser(httpContextAccessor);
+
+#end
+#if($HasCompanyId)
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(companyId))
+            request.CompanyId = companyId;
+
+#end
+#if($HasDepartmentId)
+        var departmentId = user?.Department?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(departmentId))
+            request.DepartmentId = departmentId;
+
+#end
+        var args = mapper.Map<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>(request);
+
+        return await mediator.Send(args, cancellationToken);
+    }
+#if($HasCompanyId||$HasDepartmentId)
+
+    /// <summary>
+    /// </summary>
+    /// <param name="httpContextAccessor"></param>
+    private void InitUser(IHttpContextAccessor httpContextAccessor)
+    {
+        var context = httpContextAccessor.HttpContext;
+
+        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
+
+        if (!string.IsNullOrWhiteSpace(json))
+            user = json.DeJson<BaseUserInfo>();
+    }
+#end
+}

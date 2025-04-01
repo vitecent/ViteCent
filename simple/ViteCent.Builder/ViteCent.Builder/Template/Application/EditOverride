@@ -1,0 +1,62 @@
+﻿#region
+
+using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using ViteCent.Core.Data;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    private async Task<BaseResult> OverrideHandle($!{Table.CamelCaseName}$!{Setting.Entity.EntityName} entity, CancellationToken cancellationToken)
+    {
+        return await Task.FromResult(new BaseResult(string.Empty));
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    private async Task<BaseResult> OverrideHandle($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    {
+        var hasArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+        {
+#if($HasId)
+            Id = request.Id,
+#end
+#if($HasCompanyId)
+            CompanyId = request.CompanyId,
+#end
+#if($HasDepartmentId)
+            DepartmentId = request.DepartmentId,
+#end
+#if($HasRoleId)
+            RoleId = request.RoleId,
+#end
+#if($HasUserId)
+            UserId = request.UserId,
+#end
+#if($HasSystemId)
+            SystemId = request.SystemId,
+#end
+#if($HasResourceId)
+            ResourceId = request.ResourceId,
+#end
+#if($HasOperationId)
+            OperationId = request.OperationId,
+#end
+        };
+
+        return await mediator.Send(hasArgs, cancellationToken);
+    }
+}

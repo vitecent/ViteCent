@@ -48,6 +48,6 @@ public class HasBaseSystem(ILogger<HasBaseSystem> logger) : BaseDomain<BaseSyste
         if (entity > 0)
             return new BaseResult(500, "编码或名称重复");
 
-        return new BaseResult();
+        return new BaseResult(string.Empty);
     }
 }

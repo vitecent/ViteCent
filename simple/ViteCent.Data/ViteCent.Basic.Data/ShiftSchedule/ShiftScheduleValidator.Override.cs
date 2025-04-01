@@ -12,7 +12,7 @@ public partial class ShiftScheduleValidator : AbstractValidator<AddShiftSchedule
 {
     /// <summary>
     /// </summary>
-    public void OverrideValidator()
+    private void OverrideValidator()
     {
     }
 }

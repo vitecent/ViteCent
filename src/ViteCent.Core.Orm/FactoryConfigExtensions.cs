@@ -36,7 +36,7 @@ public class FactoryConfigExtensions
     /// <param name="configuration"></param>
     public static void SetConfig(IConfiguration configuration)
     {
-        var logger = BaseLogger.GetLogger(typeof(FactoryConfigExtensions));
+        var logger = new BaseLogger(typeof(FactoryConfigExtensions));
 
         var dataBase = configuration.GetSection("DataBase") ?? throw new Exception("Appsettings Must Be DataBase");
 
@@ -48,19 +48,19 @@ public class FactoryConfigExtensions
 
             if (string.IsNullOrWhiteSpace(name)) throw new Exception("DataBase.Name");
 
-            logger.Info($"DataBase Name {i} ：{name}");
+            logger.LogInformation($"DataBase Name {i} ：{name}");
 
             var type = configuration[$"DataBase:{i}:Type"];
 
             if (string.IsNullOrWhiteSpace(type)) throw new Exception("DataBase.Type");
 
-            logger.Info($"DataBase Type {i} ：{type}");
+            logger.LogInformation($"DataBase Type {i} ：{type}");
 
             var master = configuration[$"DataBase:{i}:Master"];
 
             if (string.IsNullOrWhiteSpace(master)) throw new Exception("DataBase.Master");
 
-            logger.Info($"DataBase Master {i} ：{master}");
+            logger.LogInformation($"DataBase Master {i} ：{master}");
 
             if (IsEncrypt(configuration))
                 master = Decrypt(master, configuration);
@@ -88,7 +88,7 @@ public class FactoryConfigExtensions
                     if (IsEncrypt(configuration))
                         value = Decrypt(value, configuration);
 
-                    logger.Info($"DataBase Slaves {i} ：{value}");
+                    logger.LogInformation($"DataBase Slaves {i} ：{value}");
 
                     factoryConfig.Slaves.Add(value);
                 }

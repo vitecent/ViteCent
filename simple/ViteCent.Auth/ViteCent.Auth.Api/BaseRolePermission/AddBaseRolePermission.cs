@@ -19,7 +19,7 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
-public class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger, IMediator mediator) : BaseLoginApi<AddBaseRolePermissionArgs, BaseResult>
+public partial class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger, IMediator mediator) : BaseLoginApi<AddBaseRolePermissionArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -32,6 +32,8 @@ public class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger, IMedia
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseRolePermission.AddBaseRolePermission");
 
+         OverrideInvoke(args);
+
         var cancellationToken = new CancellationToken();
         var validator = new BaseRolePermissionValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
@@ -39,7 +41,7 @@ public class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger, IMedia
         if (!result.IsValid)
             return new BaseResult(500, string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
 
-        if (User.IsSuper == (int)YesNoEnum.No)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "CompanyId 不能为空");
 

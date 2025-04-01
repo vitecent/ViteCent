@@ -30,6 +30,7 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDoma
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ShiftSchedule.DeleteShiftSchedule");
 
          var query = Client.Query<ShiftScheduleEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

@@ -19,5 +19,4 @@ public class DeleteBaseDepartmentEntityArgs : IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
 }

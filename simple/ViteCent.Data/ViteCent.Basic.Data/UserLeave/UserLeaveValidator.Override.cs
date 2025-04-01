@@ -12,7 +12,7 @@ public partial class UserLeaveValidator : AbstractValidator<AddUserLeaveArgs>
 {
     /// <summary>
     /// </summary>
-    public void OverrideValidator()
+    private void OverrideValidator()
     {
     }
 }

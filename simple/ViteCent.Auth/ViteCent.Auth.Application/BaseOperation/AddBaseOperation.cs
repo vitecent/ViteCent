@@ -47,50 +47,57 @@ public partial class AddBaseOperation(ILogger<AddBaseOperation> logger, IBaseCac
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
-        else
-            companyId = request.CompanyId;
 
-        var hasCompanyArgs = new GetBaseCompanyEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId))
         {
-            Id = request.CompanyId,
-        };
+            var hasCompanyArgs = new GetBaseCompanyEntityArgs
+            {
+                Id = request.CompanyId,
+            };
 
-        var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
 
-        if (hasCompany == null)
-            return new BaseResult(500, "公司不存在");
+            if (hasCompany == null)
+                return new BaseResult(500, "公司不存在");
 
-        if (hasCompany.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "公司已禁用");
+            if (hasCompany.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "公司已禁用");
+        }
 
-        var hasSystemArgs = new GetBaseSystemEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId))
         {
-            CompanyId = request.CompanyId,
-            Id = request.SystemId,
-        };
+            var hasSystemArgs = new GetBaseSystemEntityArgs
+            {
+                CompanyId = request.CompanyId,
+                Id = request.SystemId,
+            };
 
-        var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
+            var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
 
-        if (hasSystem == null)
-            return new BaseResult(500, "系统不存在");
+            if (hasSystem == null)
+                return new BaseResult(500, "系统不存在");
 
-        if (hasSystem.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "系统已禁用");
+            if (hasSystem.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "系统已禁用");
+        }
 
-        var hasResourceArgs = new GetBaseResourceEntityArgs
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId))
         {
-            CompanyId = request.CompanyId,
-            SystemId = request.SystemId,
-            Id = request.ResourceId,
-        };
+            var hasResourceArgs = new GetBaseResourceEntityArgs
+            {
+                CompanyId = request.CompanyId,
+                SystemId = request.SystemId,
+                Id = request.ResourceId,
+            };
 
-        var hasResource = await mediator.Send(hasResourceArgs, cancellationToken);
+            var hasResource = await mediator.Send(hasResourceArgs, cancellationToken);
 
-        if (hasResource == null)
-            return new BaseResult(500, "资源不存在");
+            if (hasResource == null)
+                return new BaseResult(500, "资源不存在");
 
-        if (hasResource.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "资源已禁用");
+            if (hasResource.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "资源已禁用");
+        }
 
         var result = await OverrideHandle(request, cancellationToken);
 
@@ -109,7 +116,12 @@ public partial class AddBaseOperation(ILogger<AddBaseOperation> logger, IBaseCac
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var addResult = await mediator.Send(entity, cancellationToken);
+
+        if (!addResult.Success)
+            return addResult;
+
+        return new BaseResult(entity.Id);
     }
 
     /// <summary>

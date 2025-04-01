@@ -13,7 +13,7 @@ namespace ViteCent.Basic.Domain.Schedule;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class GetSchedule(ILogger< GetSchedule> logger) : BaseDomain<ScheduleEntity>, IRequestHandler<GetScheduleEntityArgs, ScheduleEntity>
+public class GetSchedule(ILogger<GetSchedule> logger) : BaseDomain<ScheduleEntity>, IRequestHandler<GetScheduleEntityArgs, ScheduleEntity>
 {
     /// <summary>
     /// </summary>
@@ -29,6 +29,7 @@ public class GetSchedule(ILogger< GetSchedule> logger) : BaseDomain<ScheduleEnti
         logger.LogInformation("Invoke ViteCent.Basic.Domain.Schedule.GetSchedule");
 
         var query = Client.Query<ScheduleEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

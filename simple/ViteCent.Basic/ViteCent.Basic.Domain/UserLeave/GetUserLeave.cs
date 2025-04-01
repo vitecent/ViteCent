@@ -13,7 +13,7 @@ namespace ViteCent.Basic.Domain.UserLeave;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class GetUserLeave(ILogger< GetUserLeave> logger) : BaseDomain<UserLeaveEntity>, IRequestHandler<GetUserLeaveEntityArgs, UserLeaveEntity>
+public class GetUserLeave(ILogger<GetUserLeave> logger) : BaseDomain<UserLeaveEntity>, IRequestHandler<GetUserLeaveEntityArgs, UserLeaveEntity>
 {
     /// <summary>
     /// </summary>
@@ -29,6 +29,7 @@ public class GetUserLeave(ILogger< GetUserLeave> logger) : BaseDomain<UserLeaveE
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserLeave.GetUserLeave");
 
         var query = Client.Query<UserLeaveEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

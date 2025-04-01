@@ -1,6 +1,8 @@
 #region
 
 using ViteCent.Auth.Data.BaseResource;
+using ViteCent.Auth.Entity.BaseCompany;
+using ViteCent.Auth.Entity.BaseResource;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -17,7 +19,7 @@ public partial class AddBaseResource
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> OverrideHandle(AddBaseResourceArgs request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle(AddBaseResourceArgs request, CancellationToken cancellationToken)
     {
         request.Status = (int)StatusEnum.Enable;
 

@@ -15,12 +15,23 @@ public partial class EditBaseCompany
 {
     /// <summary>
     /// </summary>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    private async Task<BaseResult> OverrideHandle(BaseCompanyEntity entity, CancellationToken cancellationToken)
+    {
+        return await Task.FromResult(new BaseResult(string.Empty));
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> OverrideHandle(EditBaseCompanyArgs request, CancellationToken cancellationToken)
+    /// <exception cref="NotImplementedException"></exception>
+    private async Task<BaseResult> OverrideHandle(EditBaseCompanyArgs request, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(request.ParentId))
+        if (!string.IsNullOrWhiteSpace(request.ParentId))
         {
             var hasParentArgs = new GetBaseCompanyEntityArgs
             {

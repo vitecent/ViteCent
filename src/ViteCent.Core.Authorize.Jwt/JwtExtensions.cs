@@ -19,25 +19,25 @@ public static class JwtExtensions
     /// <returns></returns>
     public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
     {
-        var logger = BaseLogger.GetLogger(typeof(JwtExtensions));
+        var logger = new BaseLogger(typeof(JwtExtensions));
 
         var key = configuration["Jwt:Key"] ?? default!;
 
         if (string.IsNullOrWhiteSpace(key)) throw new Exception("Appsettings Must Be Jwt:Key");
 
-        logger.Info($"Jwt Key ：{key}");
+        logger.LogInformation($"Jwt Key ：{key}");
 
         var issuer = configuration["Jwt:Issuer"] ?? default!;
 
         if (string.IsNullOrWhiteSpace(issuer)) throw new Exception("Appsettings Must Be Jwt:Issuer");
 
-        logger.Info($"Jwt Issuer ：{issuer}");
+        logger.LogInformation($"Jwt Issuer ：{issuer}");
 
         var audience = configuration["Jwt:Audience"] ?? default!;
 
         if (string.IsNullOrWhiteSpace(audience)) throw new Exception("Appsettings Must Be Jwt:Audience");
 
-        logger.Info($"Jwt Audience ：{audience}");
+        logger.LogInformation($"Jwt Audience ：{audience}");
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

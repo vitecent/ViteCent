@@ -65,7 +65,7 @@ public class NVelocityExpand
         using var sw = new StringWriter();
         vm.Merge(vc, sw);
         var input = sw.ToString();
-        input = input.Replace("\r\n\r\n", "\r\n");
+        input = input.Replace("\r\n\r\n}", "\r\n}");
         var flag = BaseFile.Write(input, savePath);
         sw.Close();
         return flag;

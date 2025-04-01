@@ -31,5 +31,4 @@ public class DeleteBaseUserRoleArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string UserId { get; set; } = string.Empty;
-
 }

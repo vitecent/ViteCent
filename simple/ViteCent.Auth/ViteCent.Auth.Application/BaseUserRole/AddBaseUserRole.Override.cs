@@ -17,7 +17,7 @@ public partial class AddBaseUserRole
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> OverrideHandle(AddBaseUserRoleArgs request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle(AddBaseUserRoleArgs request, CancellationToken cancellationToken)
     {
         request.Status = (int)StatusEnum.Enable;
 

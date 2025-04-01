@@ -30,6 +30,7 @@ public class DeleteUserLeave(ILogger<DeleteUserLeave> logger) : BaseDomain<UserL
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserLeave.DeleteUserLeave");
 
          var query = Client.Query<UserLeaveEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

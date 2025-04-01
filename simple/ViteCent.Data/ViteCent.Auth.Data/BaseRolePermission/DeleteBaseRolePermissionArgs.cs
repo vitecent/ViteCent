@@ -35,5 +35,4 @@ public class DeleteBaseRolePermissionArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
-
 }

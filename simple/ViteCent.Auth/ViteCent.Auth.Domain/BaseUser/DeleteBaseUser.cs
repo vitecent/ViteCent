@@ -30,6 +30,7 @@ public class DeleteBaseUser(ILogger<DeleteBaseUser> logger) : BaseDomain<BaseUse
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseUser.DeleteBaseUser");
 
          var query = Client.Query<BaseUserEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

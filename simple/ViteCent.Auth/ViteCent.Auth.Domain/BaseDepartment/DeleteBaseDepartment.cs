@@ -30,6 +30,7 @@ public class DeleteBaseDepartment(ILogger<DeleteBaseDepartment> logger) : BaseDo
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseDepartment.DeleteBaseDepartment");
 
          var query = Client.Query<BaseDepartmentEntity>();
+
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 

@@ -1,0 +1,25 @@
+﻿#region
+
+using FluentValidation;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+[Serializable]
+public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : AbstractValidator<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}>
+{
+    /// <summary>
+    /// </summary>
+    public $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}()
+    {
+        RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+#foreach($Field in $ValidatorFields)
+        RuleFor(x => x.$!{Field.CamelCaseName}).NotNull().NotEmpty().WithMessage("$!{Field.Description}不能为空");
+#end
+
+        OverrideValidator();
+    }
+}

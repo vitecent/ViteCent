@@ -15,5 +15,4 @@ namespace ViteCent.Auth.Entity.BaseOperation;
 [SugarTable("base_operation")]
 public class AddBaseOperationEntity : BaseOperationEntity
 {
-
 }

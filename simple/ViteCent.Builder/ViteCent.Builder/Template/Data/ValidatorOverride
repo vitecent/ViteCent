@@ -1,0 +1,18 @@
+﻿#region
+
+using FluentValidation;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// </summary>
+public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : AbstractValidator<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}>
+{
+    /// <summary>
+    /// </summary>
+    private void OverrideValidator()
+    {
+    }
+}

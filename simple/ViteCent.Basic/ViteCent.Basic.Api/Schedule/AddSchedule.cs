@@ -19,7 +19,7 @@ namespace ViteCent.Basic.Api.Schedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class AddSchedule(ILogger<AddSchedule> logger, IMediator mediator) : BaseLoginApi<AddScheduleArgs, BaseResult>
+public partial class AddSchedule(ILogger<AddSchedule> logger, IMediator mediator) : BaseLoginApi<AddScheduleArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -32,6 +32,8 @@ public class AddSchedule(ILogger<AddSchedule> logger, IMediator mediator) : Base
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.AddSchedule");
 
+         OverrideInvoke(args);
+
         var cancellationToken = new CancellationToken();
         var validator = new ScheduleValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
@@ -39,11 +41,11 @@ public class AddSchedule(ILogger<AddSchedule> logger, IMediator mediator) : Base
         if (!result.IsValid)
             return new BaseResult(500, string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
 
-        if (User.IsSuper == (int)YesNoEnum.No)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "CompanyId 不能为空");
 
-        if (User.IsSuper == (int)YesNoEnum.No)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "DepartmentId 不能为空");
 
