@@ -32,7 +32,7 @@ public partial class AddBaseUser(ILogger<AddBaseUser> logger, IMediator mediator
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.AddBaseUser");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseUserValidator();
@@ -48,6 +48,10 @@ public partial class AddBaseUser(ILogger<AddBaseUser> logger, IMediator mediator
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "DepartmentId 不能为空");
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.PositionId))
+                return new BaseResult(500, "PositionId 不能为空");
 
         return await mediator.Send(args, cancellationToken);
     }

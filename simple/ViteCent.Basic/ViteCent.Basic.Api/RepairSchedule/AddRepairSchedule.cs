@@ -32,7 +32,7 @@ public partial class AddRepairSchedule(ILogger<AddRepairSchedule> logger, IMedia
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.RepairSchedule.AddRepairSchedule");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new RepairScheduleValidator();

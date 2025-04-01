@@ -27,6 +27,9 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 #if($HasDepartmentId)
             DepartmentId = request.DepartmentId,
 #end
+#if($HasPositionId)
+            PositionId = request.PositionId,
+#end
 #if($HasRoleId)
             RoleId = request.RoleId,
 #end

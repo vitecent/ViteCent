@@ -2,6 +2,7 @@
 
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Core;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -15,8 +16,12 @@ public partial class AddBaseDepartment
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    private static void OverrideInvoke(AddBaseDepartmentArgs args)
+    private void OverrideInvoke(AddBaseDepartmentArgs args)
     {
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                args.CompanyId = User.Company.Id;
+
         if (string.IsNullOrWhiteSpace(args.Code) && !string.IsNullOrWhiteSpace(args.Name))
             args.Code = args.Name.GetPinYin().ToCamelCase();
     }

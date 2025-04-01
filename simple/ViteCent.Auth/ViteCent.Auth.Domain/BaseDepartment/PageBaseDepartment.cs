@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Entity.BaseDepartment;
 using ViteCent.Core.Orm.SqlSugar;
 

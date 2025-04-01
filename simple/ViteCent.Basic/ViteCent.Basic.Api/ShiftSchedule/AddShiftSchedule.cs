@@ -32,7 +32,7 @@ public partial class AddShiftSchedule(ILogger<AddShiftSchedule> logger, IMediato
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.ShiftSchedule.AddShiftSchedule");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new ShiftScheduleValidator();

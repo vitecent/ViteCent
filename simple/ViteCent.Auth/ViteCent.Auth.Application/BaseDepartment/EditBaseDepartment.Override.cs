@@ -2,7 +2,6 @@
 
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Entity.BaseDepartment;
-using ViteCent.Auth.Entity.BaseUserRole;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 

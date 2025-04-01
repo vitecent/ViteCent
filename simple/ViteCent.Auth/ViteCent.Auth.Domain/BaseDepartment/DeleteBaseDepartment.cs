@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Entity.BaseDepartment;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteBaseDepartment(ILogger<DeleteBaseDepartment> logger) : BaseDo
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseDepartment.DeleteBaseDepartment");
 
-         var query = Client.Query<BaseDepartmentEntity>();
+        var query = Client.Query<BaseDepartmentEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

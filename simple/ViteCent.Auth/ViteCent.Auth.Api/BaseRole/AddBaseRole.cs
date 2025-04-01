@@ -32,7 +32,7 @@ public partial class AddBaseRole(ILogger<AddBaseRole> logger, IMediator mediator
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseRole.AddBaseRole");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseRoleValidator();

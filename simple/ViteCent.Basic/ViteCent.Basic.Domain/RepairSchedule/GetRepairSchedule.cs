@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.RepairSchedule;
 using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Core.Orm.SqlSugar;
 

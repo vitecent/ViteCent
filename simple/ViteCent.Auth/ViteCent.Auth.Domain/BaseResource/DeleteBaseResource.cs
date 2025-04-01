@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BaseResource;
 using ViteCent.Auth.Entity.BaseResource;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteBaseResource(ILogger<DeleteBaseResource> logger) : BaseDomain
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseResource.DeleteBaseResource");
 
-         var query = Client.Query<BaseResourceEntity>();
+        var query = Client.Query<BaseResourceEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

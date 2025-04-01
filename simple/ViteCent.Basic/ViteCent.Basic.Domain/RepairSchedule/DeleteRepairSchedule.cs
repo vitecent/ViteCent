@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.RepairSchedule;
 using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger) : BaseDo
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.RepairSchedule.DeleteRepairSchedule");
 
-         var query = Client.Query<RepairScheduleEntity>();
+        var query = Client.Query<RepairScheduleEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

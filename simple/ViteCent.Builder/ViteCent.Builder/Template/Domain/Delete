@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
-         var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>();
+        var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>();
 
 #if($HasId)
         if (!string.IsNullOrWhiteSpace(request.Id))
@@ -44,6 +43,11 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
 #if($HasDepartmentId)
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
+
+#end
+#if($HasPositionId)
+        if (!string.IsNullOrWhiteSpace(request.PositionId))
+            query.Where(x => x.PositionId == request.PositionId);
 
 #end
 #if($HasRoleId)

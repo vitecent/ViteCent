@@ -32,7 +32,7 @@ public partial class AddSchedule(ILogger<AddSchedule> logger, IMediator mediator
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.AddSchedule");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new ScheduleValidator();

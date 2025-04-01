@@ -28,7 +28,7 @@ namespace ViteCent.Basic.Application.ScheduleType;
     /// <param name="companyInvoke"></param>
     /// <param name="departmentInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class AddScheduleType(ILogger<AddScheduleType> logger, 
+public partial class AddScheduleType(ILogger<AddScheduleType> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,

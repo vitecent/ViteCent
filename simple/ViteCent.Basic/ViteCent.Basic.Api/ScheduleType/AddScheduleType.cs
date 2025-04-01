@@ -32,7 +32,7 @@ public partial class AddScheduleType(ILogger<AddScheduleType> logger, IMediator 
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.ScheduleType.AddScheduleType");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new ScheduleTypeValidator();

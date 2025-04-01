@@ -8,6 +8,7 @@ using SqlSugar;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BaseOperation;
+using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Data.BaseResource;
 using ViteCent.Auth.Data.BaseRole;
 using ViteCent.Auth.Data.BaseRolePermission;
@@ -15,7 +16,6 @@ using ViteCent.Auth.Data.BaseSystem;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Data.BaseUserRole;
 using ViteCent.Auth.Domain.BaseUser;
-using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core;
 using ViteCent.Core.Authorize.Jwt;
 using ViteCent.Core.Cache;
@@ -47,29 +47,29 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
         var args = mapper.Map<LoginEntityArgs>(request);
         args.Password = $"{args.Username}{args.Password}{Const.Salf}".EncryptMD5();
 
-        var entity = await mediator.Send(args, cancellationToken);
+        var user = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (user == null)
             return new DataResult<LoginResult>(500, "用户名或密码错误");
 
-        if (entity.Status == (int)StatusEnum.Disable)
+        if (user.Status == (int)StatusEnum.Disable)
             return new DataResult<LoginResult>(500, "用户已被禁用");
 
         var userInfo = new BaseUserInfo()
         {
-            Id = entity.Id,
-            Name = entity.Username,
-            Code = entity.UserNo,
+            Id = user.Id,
+            Name = user.Username,
+            Code = user.UserNo,
         };
 
-        if (string.IsNullOrWhiteSpace(entity.CompanyId))
+        if (string.IsNullOrWhiteSpace(user.CompanyId))
             userInfo.IsSuper = (int)YesNoEnum.Yes;
 
-        if (!string.IsNullOrWhiteSpace(entity.CompanyId))
+        if (!string.IsNullOrWhiteSpace(user.CompanyId))
         {
             var companyArgs = new GetBaseCompanyArgs()
             {
-                Id = entity.CompanyId,
+                Id = user.CompanyId,
             };
 
             var baseCompany = await mediator.Send(companyArgs, cancellationToken);
@@ -85,14 +85,17 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
             };
         }
 
-        if (!string.IsNullOrWhiteSpace(entity.DepartmentId))
+        if (!string.IsNullOrWhiteSpace(user.DepartmentId))
         {
-            var departmenArgs = new GetBaseDepartmentArgs()
+            var departmentArgs = new GetBaseDepartmentArgs()
             {
-                Id = entity.DepartmentId,
+                Id = user.DepartmentId,
             };
 
-            var baseDepartment = await mediator.Send(departmenArgs, cancellationToken);
+            if (!string.IsNullOrWhiteSpace(user.CompanyId))
+                departmentArgs.CompanyId = user.CompanyId;
+
+            var baseDepartment = await mediator.Send(departmentArgs, cancellationToken);
 
             if (baseDepartment.Data == null)
                 return new DataResult<LoginResult>(500, "部门信息不存在");
@@ -105,14 +108,45 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
             };
         }
 
+        if (!string.IsNullOrWhiteSpace(user.PositionId))
+        {
+            var positionArgs = new GetBasePositionArgs()
+            {
+                Id = user.PositionId,
+            };
+
+            if (!string.IsNullOrWhiteSpace(user.CompanyId))
+                positionArgs.CompanyId = user.CompanyId;
+
+            var basePosition = await mediator.Send(positionArgs, cancellationToken);
+
+            if (basePosition.Data == null)
+                return new DataResult<LoginResult>(500, "职位信息不存在");
+
+            userInfo.Position = new BasePositionInfo()
+            {
+                Id = basePosition.Data.Id,
+                Name = basePosition.Data.Name,
+                Code = basePosition.Data.Code,
+            };
+        }
+
         if (userInfo.IsSuper != (int)YesNoEnum.Yes)
             await GetUserRole(userInfo, cancellationToken);
+
+        var authInfo = userInfo.AuthInfo;
+        userInfo.AuthInfo = [];
 
         var token = BaseJwt.GenerateJwtToken(userInfo, configuration);
 
         token = $"Bearer {token}";
 
-        cache.SetString(entity.Id, token, TimeSpan.FromHours(24));
+        var flagExpires = int.TryParse(configuration["Jwt:Expires"] ?? default!, out var expires);
+
+        if (!flagExpires || expires < 1) expires = 24;
+
+        cache.SetString($"User{user.Id}", token, TimeSpan.FromHours(expires));
+        cache.SetString($"UserInfo{user.Id}", authInfo, TimeSpan.FromHours(expires));
 
         var result = new DataResult<LoginResult>(new LoginResult()
         {
@@ -343,7 +377,8 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
 
         var systems = await mediator.Send(args, cancellationToken);
 
-        var auths = new List<BaseSystemInfo>();
+        var authInfo = new List<BaseSystemInfo>();
+        var auth = new List<string>();
 
         if (systems.Total > 0)
         {
@@ -378,17 +413,20 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
                             Code = operation.Code,
                         };
 
+                        auth.Add($"{system.Code}.{resource.Code}.{operation.Code}");
+
                         _resource.Operations.Add(_operation);
                     }
 
                     _system.Resources.Add(_resource);
                 }
 
-                auths.Add(_system);
+                authInfo.Add(_system);
             }
         }
 
-        userInfo.Auth = auths;
+        userInfo.AuthInfo = authInfo;
+        userInfo.Auth = auth;
     }
 
     /// <summary>

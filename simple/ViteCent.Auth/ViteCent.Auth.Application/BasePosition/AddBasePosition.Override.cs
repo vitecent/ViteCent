@@ -1,8 +1,8 @@
 #region
 
 using ViteCent.Auth.Data.BasePosition;
-using ViteCent.Core;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -19,9 +19,13 @@ public partial class AddBasePosition
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(AddBasePositionArgs request, CancellationToken cancellationToken)
     {
+        request.Status = (int)StatusEnum.Enable;
+
         var hasArgs = new HasBasePositionEntityArgs
         {
             CompanyId = request.CompanyId,
+            Code = request.Code,
+            Name = request.Name,
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

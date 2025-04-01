@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteBasePosition(ILogger<DeleteBasePosition> logger) : BaseDomain
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BasePosition.DeleteBasePosition");
 
-         var query = Client.Query<BasePositionEntity>();
+        var query = Client.Query<BasePositionEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

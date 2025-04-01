@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BaseUserRole;
 using ViteCent.Auth.Entity.BaseUserRole;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteBaseUserRole(ILogger<DeleteBaseUserRole> logger) : BaseDomain
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseUserRole.DeleteBaseUserRole");
 
-         var query = Client.Query<BaseUserRoleEntity>();
+        var query = Client.Query<BaseUserRoleEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

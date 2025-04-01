@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Core;
+using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 
 #endregion
@@ -15,8 +16,9 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
+/// <param name="cache"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetUserInfo(ILogger<AddBaseUser> logger, IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserInfoArgs, DataResult<BaseUserInfo>>
+public class GetUserInfo(ILogger<AddBaseUser> logger, IBaseCache cache, IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserInfoArgs, DataResult<BaseUserInfo>>
 {
     /// <summary>
     /// </summary>
@@ -34,6 +36,13 @@ public class GetUserInfo(ILogger<AddBaseUser> logger, IHttpContextAccessor httpC
         InitUser(httpContextAccessor);
 
         var result = new DataResult<BaseUserInfo>(user);
+
+        var authInfo = new List<BaseSystemInfo>();
+
+        if (cache.HasKey($"UserInfo{user?.Id}"))
+            authInfo = cache.GetString<List<BaseSystemInfo>>($"UserInfo{user?.Id}");
+
+        result.Data.AuthInfo = authInfo;
 
         return await Task.FromResult(result);
     }

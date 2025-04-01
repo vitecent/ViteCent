@@ -30,7 +30,7 @@ namespace ViteCent.Basic.Application.Schedule;
     /// <param name="departmentInvoke"></param>
     /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class AddSchedule(ILogger<AddSchedule> logger, 
+public partial class AddSchedule(ILogger<AddSchedule> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,

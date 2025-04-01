@@ -3,7 +3,6 @@
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Basic.Entity.Schedule;
-using ViteCent.Basic.Entity.UserLeave;
 using ViteCent.Core.Data;
 
 #endregion

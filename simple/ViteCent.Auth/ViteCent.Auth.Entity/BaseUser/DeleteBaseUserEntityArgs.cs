@@ -23,4 +23,8 @@ public class DeleteBaseUserEntityArgs : IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
 }

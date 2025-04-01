@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Core.Orm.SqlSugar;
 

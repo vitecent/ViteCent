@@ -30,7 +30,7 @@ public class AddScheduleTypeArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
-    public DateTime EndTime { get; set; }
+    public string EndTime { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>
@@ -38,7 +38,7 @@ public class AddScheduleTypeArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
-    public bool Overnight { get; set; }
+    public int Overnight { get; set; }
 
     /// <summary>
     /// </summary>
@@ -46,7 +46,7 @@ public class AddScheduleTypeArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
-    public DateTime StartTime { get; set; }
+    public string StartTime { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

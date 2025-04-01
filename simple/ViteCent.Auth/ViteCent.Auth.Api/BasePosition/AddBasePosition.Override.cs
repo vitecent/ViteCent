@@ -1,6 +1,8 @@
 #region
 
 using ViteCent.Auth.Data.BasePosition;
+using ViteCent.Core;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -16,5 +18,11 @@ public partial class AddBasePosition
     /// <returns></returns>
     private void OverrideInvoke(AddBasePositionArgs args)
     {
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                args.CompanyId = User.Company.Id;
+
+        if (string.IsNullOrWhiteSpace(args.Code) && !string.IsNullOrWhiteSpace(args.Name))
+            args.Code = args.Name.GetPinYin().ToCamelCase();
     }
 }

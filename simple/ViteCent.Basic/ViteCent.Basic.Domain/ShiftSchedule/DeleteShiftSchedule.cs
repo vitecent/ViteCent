@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDoma
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ShiftSchedule.DeleteShiftSchedule");
 
-         var query = Client.Query<ShiftScheduleEntity>();
+        var query = Client.Query<ShiftScheduleEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

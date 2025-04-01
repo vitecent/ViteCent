@@ -330,10 +330,10 @@ public class RedisCache : IBaseCache
     {
         return args.Type switch
         {
-            IdentifyEnum.Year => $"{args.CompanyId}:{args.Name}:{now:yyyy}",
-            IdentifyEnum.Month => $"{args.CompanyId}:{args.Name}:{now:yyyyMM}",
-            IdentifyEnum.Day => $"{args.CompanyId}:{args.Name}:{now:yyyyMMdd}",
-            _ => $"{args.CompanyId}:{args.Name}:{now:yyyyMMdd}"
+            IdentifyEnum.Year => $"{args.CompanyId}{args.Name}{now:yyyy}",
+            IdentifyEnum.Month => $"{args.CompanyId}{args.Name}{now:yyyyMM}",
+            IdentifyEnum.Day => $"{args.CompanyId}{args.Name}{now:yyyyMMdd}",
+            _ => $"{args.CompanyId}{args.Name}{now:yyyyMMdd}"
         };
     }
 }

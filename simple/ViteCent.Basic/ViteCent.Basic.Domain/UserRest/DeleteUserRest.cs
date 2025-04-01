@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.UserRest;
 using ViteCent.Basic.Entity.UserRest;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteUserRest(ILogger<DeleteUserRest> logger) : BaseDomain<UserRes
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserRest.DeleteUserRest");
 
-         var query = Client.Query<UserRestEntity>();
+        var query = Client.Query<UserRestEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

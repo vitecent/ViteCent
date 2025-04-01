@@ -36,7 +36,7 @@ public class Loginout(ILogger<AddBaseUser> logger, IBaseCache cache, IHttpContex
         InitUser(httpContextAccessor);
 
         if (user != null)
-            cache.DeleteKey(user.Id);
+            cache.DeleteKey($"User{user.Id}");
 
         return await Task.FromResult(new BaseResult(string.Empty));
     }

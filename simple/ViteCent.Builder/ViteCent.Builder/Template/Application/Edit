@@ -14,6 +14,9 @@ using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseDepartment;
 #if($HasOperationId)
 using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseOperation;
 #end
+#if($HasPositionId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BasePosition;
+#end
 #if($HasResourceId)
 using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BaseResource;
 #end
@@ -103,6 +106,30 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
 
             if (hasDepartment.Status == (int)StatusEnum.Disable)
                 return new BaseResult(500, "部门已禁用");
+        }
+
+#end
+#if($HasPositionId)
+        var positionId = user?.Position?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(positionId))
+            request.PositionId = positionId;
+
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.PositionId))
+        {
+            var hasPositionArgs = new $!{Setting.GetName}BasePosition$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+            {
+                CompanyId = request.CompanyId,
+                Id = request.PositionId,
+            };
+
+            var hasPosition = await mediator.Send(hasPositionArgs, cancellationToken);
+
+            if (hasPosition == null)
+                return new BaseResult(500, "职位不存在");
+
+            if (hasPosition.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "职位已禁用");
         }
 
 #end

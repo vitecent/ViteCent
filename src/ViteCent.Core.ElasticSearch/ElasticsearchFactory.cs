@@ -3,7 +3,6 @@
 using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.Core.Bulk;
 using Elastic.Clients.Elasticsearch.QueryDsl;
-using log4net;
 using ViteCent.Core.Data;
 
 #endregion

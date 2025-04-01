@@ -1,7 +1,6 @@
 ﻿#region
 
 using MediatR;
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 
 #endregion

@@ -47,6 +47,10 @@ public class EditBaseUser(ILogger<EditBaseUser> logger, IMediator mediator) : Ba
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "DepartmentId 不能为空");
 
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.PositionId))
+                return new BaseResult(500, "PositionId 不能为空");
+
         return await mediator.Send(args, cancellationToken);
     }
 }

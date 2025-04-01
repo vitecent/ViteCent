@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Basic.Entity.UserLeave;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteUserLeave(ILogger<DeleteUserLeave> logger) : BaseDomain<UserL
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserLeave.DeleteUserLeave");
 
-         var query = Client.Query<UserLeaveEntity>();
+        var query = Client.Query<UserLeaveEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

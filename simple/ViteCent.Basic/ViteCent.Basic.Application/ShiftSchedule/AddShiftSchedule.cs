@@ -30,7 +30,7 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
     /// <param name="departmentInvoke"></param>
     /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class AddShiftSchedule(ILogger<AddShiftSchedule> logger, 
+public partial class AddShiftSchedule(ILogger<AddShiftSchedule> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,

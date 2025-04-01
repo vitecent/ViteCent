@@ -1,8 +1,6 @@
 #region
 
 using ViteCent.Auth.Data.BaseResource;
-using ViteCent.Auth.Entity.BaseCompany;
-using ViteCent.Auth.Entity.BaseResource;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 

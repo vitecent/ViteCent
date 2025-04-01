@@ -1,7 +1,6 @@
 #region
 
 using MediatR;
-using ViteCent.Auth.Entity.BaseOperation;
 using ViteCent.Core.Data;
 
 #endregion

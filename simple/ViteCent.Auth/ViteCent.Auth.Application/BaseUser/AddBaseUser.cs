@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseDepartment;
+using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core;
@@ -83,6 +84,28 @@ public partial class AddBaseUser(ILogger<AddBaseUser> logger, IBaseCache cache, 
 
             if (hasDepartment.Status == (int)StatusEnum.Disable)
                 return new BaseResult(500, "部门已禁用");
+        }
+
+        var positionId = user?.Position?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(positionId))
+            request.PositionId = positionId;
+
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.PositionId))
+        {
+            var hasPositionIdArgs = new GetBasePositionEntityArgs
+            {
+                CompanyId = request.CompanyId,
+                Id = request.PositionId,
+            };
+
+            var hasPositionId = await mediator.Send(hasPositionIdArgs, cancellationToken);
+
+            if (hasPositionId == null)
+                return new BaseResult(500, "职位不存在");
+
+            if (hasPositionId.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "职位已禁用");
         }
 
         var result = await OverrideHandle(request, cancellationToken);

@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BaseOperation;
 using ViteCent.Auth.Entity.BaseOperation;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger) : BaseDoma
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseOperation.DeleteBaseOperation");
 
-         var query = Client.Query<BaseOperationEntity>();
+        var query = Client.Query<BaseOperationEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

@@ -28,7 +28,7 @@ namespace ViteCent.Basic.Application.UserLeave;
     /// <param name="departmentInvoke"></param>
     /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class EditUserLeave(ILogger<EditUserLeave> logger, 
+public partial class EditUserLeave(ILogger<EditUserLeave> logger,
     IMapper mapper, 
     IMediator mediator, 
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,

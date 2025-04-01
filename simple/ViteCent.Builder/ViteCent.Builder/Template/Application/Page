@@ -2,16 +2,16 @@
 
 using AutoMapper;
 using MediatR;
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using Microsoft.AspNetCore.Http;
 #end
 using Microsoft.Extensions.Logging;
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using System.Security.Claims;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using ViteCent.Core;
 #end
 using ViteCent.Core.Data;
@@ -25,7 +25,7 @@ namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.Cam
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 /// <param name="httpContextAccessor"></param>
 public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
 {
@@ -47,12 +47,12 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.Page
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
 
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
         InitUser(httpContextAccessor);
 
 #end
         var args = mapper.Map<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>(request);
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 
         args.Args.RemoveAll(x => x.Field == "CompanyId");
         args.Args.Add(new SearchItem()
@@ -70,7 +70,7 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.Page
 
         return result;
     }
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 
     /// <summary>
     /// </summary>

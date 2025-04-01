@@ -1,6 +1,7 @@
 #region
 
 using ViteCent.Basic.Data.RepairSchedule;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -16,5 +17,12 @@ public partial class AddRepairSchedule
     /// <returns></returns>
     private void OverrideInvoke(AddRepairScheduleArgs args)
     {
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                args.CompanyId = User.Company.Id;
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.DepartmentId))
+                args.DepartmentId = User.Department.Id;
     }
 }

@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Builder;
 using ViteCent.Core.Api.Swagger;
-using ViteCent.Core.Cache.Redis;
 using ViteCent.Core.Register.Consul;
 using ViteCent.Core.Trace.Zipkin;
 

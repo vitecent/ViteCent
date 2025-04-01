@@ -11,6 +11,9 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseCompany;
 #if($HasDepartmentId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseDepartment;
 #end
+#if($HasPositionId)
+using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BasePosition;
+#end
 #if($HasOperationId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseOperation;
 #end
@@ -54,6 +57,9 @@ namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.Cam
 #if($HasDepartmentId)
     /// <param name="departmentInvoke"></param>
 #end
+#if($HasPositionId)
+    /// <param name="positionInvoke"></param>
+#end
 #if($HasOperationId)
     /// <param name="operationInvoke"></param>
 #end
@@ -70,7 +76,7 @@ namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.Cam
     /// <param name="systemInvoke"></param>
 #end
 /// <param name="httpContextAccessor"></param>
-public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger, 
+public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger,
 #if($HasId)
     IBaseCache cache,
 #end
@@ -81,6 +87,9 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
 #end
 #if($HasDepartmentId)
     IBaseInvoke<$!{Setting.GetName}BaseDepartment$!{Setting.Data.DataArgsSuffix}, DataResult<BaseDepartment$!{Setting.Data.DataResultSuffix}>> departmentInvoke,
+#end
+#if($HasPositionId)
+    IBaseInvoke<$!{Setting.GetName}BasePosition$!{Setting.Data.DataArgsSuffix}, DataResult<BasePosition$!{Setting.Data.DataResultSuffix}>> positionInvoke,
 #end
 #if($HasOperationId)
     IBaseInvoke<$!{Setting.GetName}BaseOperation$!{Setting.Data.DataArgsSuffix}, DataResult<BaseOperation$!{Setting.Data.DataResultSuffix}>> operationInvoke,
@@ -168,6 +177,33 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
 
             if (hasDepartment.Data.Status == (int)StatusEnum.Disable)
                 return new BaseResult(500, "部门已禁用");
+        }
+
+#end
+#if($HasPositionId)
+        var positionId = user?.Position?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(positionId))
+            request.PositionId = positionId;
+
+        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.PositionId))
+        {
+            var hasPositionArgs = new $!{Setting.GetName}BasePosition$!{Setting.Data.DataArgsSuffix}
+            {
+                CompanyId = request.CompanyId,
+                Id = request.PositionId,
+            };
+
+            var hasPosition = await positionInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BasePosition/$!{Setting.GetName}", hasPositionArgs, token);
+
+            if (!hasPosition.Success)
+                return hasPosition;
+
+            if (hasPosition.Data == null)
+                return new BaseResult(500, "职位不存在");
+
+            if (hasPosition.Data.Status == (int)StatusEnum.Disable)
+                return new BaseResult(500, "职位已禁用");
         }
 
 #end

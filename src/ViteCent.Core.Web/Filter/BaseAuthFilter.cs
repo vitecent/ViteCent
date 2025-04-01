@@ -74,13 +74,14 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
             return;
         }
 
-        var cahceToken = cache.GetString<string>(user.Id);
+        var cahceToken = string.Empty;
+
+        if (cache.HasKey($"User{user.Id}"))
+            cache.GetString<string>($"User{user.Id}");
 
         if (string.IsNullOrWhiteSpace(cahceToken) || token != cahceToken)
         {
-            logger.LogInformation($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Cache");
-
-            cache.DeleteKey(user?.Id ?? string.Empty);
+            logger.LogInformation($"{user.Name} InvokeAsync {System}:{Resource}:{Operation} Not Cache");
 
             context.Result = result;
 
@@ -91,7 +92,8 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
 
         if (!flagExpires || expires < 1) expires = 24;
 
-        cache.SetKeyExpire(user.Id, TimeSpan.FromHours(expires));
+        cache.SetKeyExpire($"User{user.Id}", TimeSpan.FromHours(expires));
+        cache.SetKeyExpire($"UserInfo{user.Id}", TimeSpan.FromHours(expires));
 
         if (user?.IsSuper != (int)YesNoEnum.Yes)
             if (!IsAUth(user, System, Resource, Operation))
@@ -112,9 +114,16 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
     /// <param name="resource"></param>
     /// <param name="operation"></param>
     /// <returns></returns>
-    private static bool IsAUth(BaseUserInfo? user, string system, string resource, string operation)
+    private bool IsAUth(BaseUserInfo? user, string system, string resource, string operation)
     {
-        var _system = user?.Auth?.FirstOrDefault(x => x.Code == system);
+        var auth = new List<BaseSystemInfo>();
+
+        if (cache.HasKey($"UserInfo{user?.Id}"))
+            auth = cache.GetString<List<BaseSystemInfo>>($"UserInfo{user?.Id}");
+
+        if (auth == null) return false;
+
+        var _system = auth?.FirstOrDefault(x => x.Code == system);
 
         if (_system == null) return false;
 

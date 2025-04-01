@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Auth.Entity.BaseRolePermission;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger) 
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRolePermission.DeleteBaseRolePermission");
 
-         var query = Client.Query<BaseRolePermissionEntity>();
+        var query = Client.Query<BaseRolePermissionEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

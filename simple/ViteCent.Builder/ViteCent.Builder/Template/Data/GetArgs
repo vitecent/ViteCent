@@ -30,6 +30,12 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsS
     public string Id { get; set; } = string.Empty;
 
 #end
+#if($HasPositionId)
+    /// <summary>
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
+
+#end
 #if($HasOperationId)
     /// <summary>
     /// </summary>

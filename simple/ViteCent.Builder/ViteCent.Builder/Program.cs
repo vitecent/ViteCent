@@ -2,6 +2,9 @@
 using ViteCent.Builder.Core;
 using ViteCent.Core.Orm;
 
+Console.ForegroundColor = ConsoleColor.Green;
+Console.BackgroundColor = ConsoleColor.Black;
+
 var builder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", false, true);

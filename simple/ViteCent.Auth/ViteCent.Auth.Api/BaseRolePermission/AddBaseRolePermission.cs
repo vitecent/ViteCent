@@ -32,7 +32,7 @@ public partial class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseRolePermission.AddBaseRolePermission");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseRolePermissionValidator();

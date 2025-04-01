@@ -32,7 +32,7 @@ public partial class AddBasePosition(ILogger<AddBasePosition> logger, IMediator 
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BasePosition.AddBasePosition");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new BasePositionValidator();

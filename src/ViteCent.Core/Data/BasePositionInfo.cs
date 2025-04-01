@@ -1,24 +1,12 @@
-#region
-
-using MediatR;
-using ViteCent.Core.Data;
-
-#endregion
-
-namespace ViteCent.Auth.Data.BasePosition;
+﻿namespace ViteCent.Core.Data;
 
 /// <summary>
 /// </summary>
-[Serializable]
-public class HasBasePositionEntityArgs : BaseArgs, IRequest<BaseResult>
+public class BasePositionInfo
 {
     /// <summary>
     /// </summary>
     public string Code { get; set; } = string.Empty;
-
-    /// <summary>
-    /// </summary>
-    public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

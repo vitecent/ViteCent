@@ -1,7 +1,6 @@
 #region
 
 using MediatR;
-using ViteCent.Auth.Entity.BaseUser;
 
 #endregion
 
@@ -23,4 +22,8 @@ public class GetBaseUserEntityArgs : IRequest<BaseUserEntity>
     /// <summary>
     /// </summary>
     public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
 }

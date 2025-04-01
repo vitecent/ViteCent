@@ -32,7 +32,7 @@ public partial class AddBaseSystem(ILogger<AddBaseSystem> logger, IMediator medi
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseSystem.AddBaseSystem");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseSystemValidator();

@@ -32,7 +32,7 @@ public partial class AddBaseOperation(ILogger<AddBaseOperation> logger, IMediato
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseOperation.AddBaseOperation");
 
-         OverrideInvoke(args);
+        OverrideInvoke(args);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseOperationValidator();

@@ -1,9 +1,6 @@
 #region
 
-using MediatR;
 using SqlSugar;
-using ViteCent.Core.Data;
-using ViteCent.Core.Orm.SqlSugar;
 
 #endregion
 

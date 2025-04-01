@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using ViteCent.Core.Enums;
 #end
 using ViteCent.Core.Web.Api;
@@ -51,6 +51,12 @@ public class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.Edit
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "DepartmentId 不能为空");
+#end
+#if($HasPositionId)
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.PositionId))
+                return new BaseResult(500, "PositionId 不能为空");
 #end
 
         return await mediator.Send(args, cancellationToken);

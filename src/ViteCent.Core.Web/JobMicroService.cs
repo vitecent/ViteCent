@@ -5,7 +5,6 @@ using Quartz;
 using ViteCent.Core.Api.Swagger;
 using ViteCent.Core.Cache.Redis;
 using ViteCent.Core.Job.Quartz;
-using ViteCent.Core.Orm.SqlSugar;
 using ViteCent.Core.Register.Consul;
 using ViteCent.Core.Trace.Zipkin;
 

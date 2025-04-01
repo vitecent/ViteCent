@@ -30,7 +30,7 @@ namespace ViteCent.Basic.Application.UserRest;
     /// <param name="departmentInvoke"></param>
     /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class AddUserRest(ILogger<AddUserRest> logger, 
+public partial class AddUserRest(ILogger<AddUserRest> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,

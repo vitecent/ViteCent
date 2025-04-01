@@ -26,7 +26,7 @@ namespace ViteCent.Basic.Application.ScheduleType;
     /// <param name="companyInvoke"></param>
     /// <param name="departmentInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class EditScheduleType(ILogger<EditScheduleType> logger, 
+public partial class EditScheduleType(ILogger<EditScheduleType> logger,
     IMapper mapper, 
     IMediator mediator, 
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,

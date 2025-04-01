@@ -1,7 +1,6 @@
 ﻿#region
 
 using AutoMapper;
-using log4net;
 using SqlSugar;
 using System.Linq.Expressions;
 using ViteCent.Core.Data;

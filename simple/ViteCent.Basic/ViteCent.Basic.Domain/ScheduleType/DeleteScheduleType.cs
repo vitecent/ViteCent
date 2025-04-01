@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,7 +28,7 @@ public class DeleteScheduleType(ILogger<DeleteScheduleType> logger) : BaseDomain
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ScheduleType.DeleteScheduleType");
 
-         var query = Client.Query<ScheduleTypeEntity>();
+        var query = Client.Query<ScheduleTypeEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);

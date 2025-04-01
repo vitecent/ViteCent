@@ -2,6 +2,7 @@
 
 using ViteCent.Auth.Data.BaseOperation;
 using ViteCent.Core;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -15,8 +16,12 @@ public partial class AddBaseOperation
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    private static void OverrideInvoke(AddBaseOperationArgs args)
+    private void OverrideInvoke(AddBaseOperationArgs args)
     {
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                args.CompanyId = User.Company.Id;
+
         if (string.IsNullOrWhiteSpace(args.Code) && !string.IsNullOrWhiteSpace(args.Name))
             args.Code = args.Name.GetPinYin().ToCamelCase();
     }

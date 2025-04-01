@@ -6,7 +6,11 @@ public class BaseUserInfo
 {
     /// <summary>
     /// </summary>
-    public List<BaseSystemInfo> Auth { get; set; } = [];
+    public List<string> Auth { get; set; } = [];
+
+    /// <summary>
+    /// </summary>
+    public List<BaseSystemInfo> AuthInfo { get; set; } = [];
 
     /// <summary>
     /// </summary>
@@ -31,4 +35,8 @@ public class BaseUserInfo
     /// <summary>
     /// </summary>
     public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public BasePositionInfo Position { get; set; } = new();
 }

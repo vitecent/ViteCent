@@ -82,6 +82,7 @@ public class GenerateExtensions
 
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
             var hasDepartmentId = table.Fields.Any(x => x.Name.ToCamelCase() == "DepartmentId");
+            var hasPositionId = table.Fields.Any(x => x.Name.ToCamelCase() == "PositionId");
             var hasUserId = table.Fields.Any(x => x.Name.ToCamelCase() == "UserId");
             var hasRoleId = table.Fields.Any(x => x.Name.ToCamelCase() == "RoleId");
             var hasSystemId = table.Fields.Any(x => x.Name.ToCamelCase() == "SystemId");
@@ -92,6 +93,7 @@ public class GenerateExtensions
             nh.Put("Table", table);
             nh.Put("HasCompanyId", hasCompanyId);
             nh.Put("HasDepartmentId", hasDepartmentId);
+            nh.Put("HasPositionId", hasPositionId);
             nh.Put("HasUserId", hasUserId);
             nh.Put("HasRoleId", hasRoleId);
             nh.Put("HasSystemId", hasSystemId);
@@ -183,6 +185,7 @@ public class GenerateExtensions
             var editField = table.Fields.Where(x => !removeField.Contains(x.Name.ToCamelCase())).ToList();
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
             var hasDepartmentId = table.Fields.Any(x => x.Name.ToCamelCase() == "DepartmentId");
+            var hasPositionId = table.Fields.Any(x => x.Name.ToCamelCase() == "PositionId");
             var hasUserId = table.Fields.Any(x => x.Name.ToCamelCase() == "UserId");
             var hasRoleId = table.Fields.Any(x => x.Name.ToCamelCase() == "RoleId");
             var hasSystemId = table.Fields.Any(x => x.Name.ToCamelCase() == "SystemId");
@@ -194,6 +197,7 @@ public class GenerateExtensions
             nh.Put("EditFields", editField);
             nh.Put("HasCompanyId", hasCompanyId);
             nh.Put("HasDepartmentId", hasDepartmentId);
+            nh.Put("HasPositionId", hasPositionId);
             nh.Put("HasUserId", hasUserId);
             nh.Put("HasRoleId", hasRoleId);
             nh.Put("HasSystemId", hasSystemId);
@@ -282,6 +286,7 @@ public class GenerateExtensions
 
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
             var hasDepartmentId = table.Fields.Any(x => x.Name.ToCamelCase() == "DepartmentId");
+            var hasPositionId = table.Fields.Any(x => x.Name.ToCamelCase() == "PositionId");
             var hasUserId = table.Fields.Any(x => x.Name.ToCamelCase() == "UserId");
             var hasRoleId = table.Fields.Any(x => x.Name.ToCamelCase() == "RoleId");
             var hasSystemId = table.Fields.Any(x => x.Name.ToCamelCase() == "SystemId");
@@ -295,6 +300,7 @@ public class GenerateExtensions
             nh.Put("Fields", table.Fields);
             nh.Put("HasCompanyId", hasCompanyId);
             nh.Put("HasDepartmentId", hasDepartmentId);
+            nh.Put("HasPositionId", hasPositionId);
             nh.Put("HasUserId", hasUserId);
             nh.Put("HasRoleId", hasRoleId);
             nh.Put("HasSystemId", hasSystemId);
@@ -381,6 +387,7 @@ public class GenerateExtensions
 
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
             var hasDepartmentId = table.Fields.Any(x => x.Name.ToCamelCase() == "DepartmentId");
+            var hasPositionId = table.Fields.Any(x => x.Name.ToCamelCase() == "PositionId");
             var hasUserId = table.Fields.Any(x => x.Name.ToCamelCase() == "UserId");
             var hasRoleId = table.Fields.Any(x => x.Name.ToCamelCase() == "RoleId");
             var hasSystemId = table.Fields.Any(x => x.Name.ToCamelCase() == "SystemId");
@@ -391,6 +398,7 @@ public class GenerateExtensions
             nh.Put("Table", table);
             nh.Put("HasCompanyId", hasCompanyId);
             nh.Put("HasDepartmentId", hasDepartmentId);
+            nh.Put("HasPositionId", hasPositionId);
             nh.Put("HasUserId", hasUserId);
             nh.Put("HasRoleId", hasRoleId);
             nh.Put("HasSystemId", hasSystemId);
@@ -453,6 +461,7 @@ public class GenerateExtensions
 
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
             var hasDepartmentId = table.Fields.Any(x => x.Name.ToCamelCase() == "DepartmentId");
+            var hasPositionId = table.Fields.Any(x => x.Name.ToCamelCase() == "PositionId");
             var hasUserId = table.Fields.Any(x => x.Name.ToCamelCase() == "UserId");
             var hasRoleId = table.Fields.Any(x => x.Name.ToCamelCase() == "RoleId");
             var hasSystemId = table.Fields.Any(x => x.Name.ToCamelCase() == "SystemId");
@@ -465,6 +474,7 @@ public class GenerateExtensions
             nh.Put("Fields", table.Fields);
             nh.Put("HasCompanyId", hasCompanyId);
             nh.Put("HasDepartmentId", hasDepartmentId);
+            nh.Put("HasPositionId", hasPositionId);
             nh.Put("HasUserId", hasUserId);
             nh.Put("HasRoleId", hasRoleId);
             nh.Put("HasSystemId", hasSystemId);

@@ -1,6 +1,7 @@
 #region
 
 using ViteCent.Auth.Data.BaseUserRole;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -14,7 +15,14 @@ public partial class AddBaseUserRole
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    private static void OverrideInvoke(AddBaseUserRoleArgs args)
+    private void OverrideInvoke(AddBaseUserRoleArgs args)
     {
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                args.CompanyId = User.Company.Id;
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.DepartmentId))
+                args.DepartmentId = User.Department.Id;
     }
 }

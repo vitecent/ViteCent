@@ -52,21 +52,21 @@ public class BaseLoginFilter(IBaseCache cache, IConfiguration configuration) : A
             return;
         }
 
-        var cahceToken = cache.GetString<string>(user.Id);
+        var cahceToken = string.Empty;
+
+        if (cache.HasKey($"User{user.Id}"))
+            cahceToken = cache.GetString<string>($"User{user.Id}");
 
         if (string.IsNullOrWhiteSpace(cahceToken) || token != cahceToken)
-        {
-            cache.DeleteKey(user.Id);
-
             context.Result = result;
-        }
         else
         {
             var flagExpires = int.TryParse(configuration["Jwt:Expires"] ?? default!, out var expires);
 
             if (!flagExpires || expires < 1) expires = 24;
 
-            cache.SetKeyExpire(user.Id, TimeSpan.FromHours(expires));
+            cache.SetKeyExpire($"User{user.Id}", TimeSpan.FromHours(expires));
+            cache.SetKeyExpire($"UserInfo{user.Id}", TimeSpan.FromHours(expires));
         }
     }
 }

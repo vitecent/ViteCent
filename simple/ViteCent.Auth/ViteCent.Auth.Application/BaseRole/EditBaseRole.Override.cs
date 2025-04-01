@@ -2,7 +2,6 @@
 
 using ViteCent.Auth.Data.BaseRole;
 using ViteCent.Auth.Entity.BaseRole;
-using ViteCent.Auth.Entity.BaseUserRole;
 using ViteCent.Core.Data;
 
 #endregion

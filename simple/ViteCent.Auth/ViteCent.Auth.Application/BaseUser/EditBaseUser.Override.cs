@@ -2,7 +2,6 @@
 
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
-using ViteCent.Auth.Entity.BaseUserRole;
 using ViteCent.Core;
 using ViteCent.Core.Data;
 

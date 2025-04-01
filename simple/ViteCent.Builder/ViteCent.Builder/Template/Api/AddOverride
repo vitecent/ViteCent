@@ -1,7 +1,10 @@
 ﻿#region
 
 using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
-
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
+using ViteCent.Core;
+using ViteCent.Core.Enums;
+#end
 #endregion
 
 namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
@@ -16,5 +19,23 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// <returns></returns>
     private void OverrideInvoke($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} args)
     {
+#if($HasCompanyId)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                args.CompanyId = User.Company.Id;
+
+#end
+#if($HasDepartmentId)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.DepartmentId))
+                args.DepartmentId = User.Department.Id;
+
+#end
+#if($HasPositionId)
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.PositionId))
+                args.PositionId = User.Position.Id;
+
+#end
     }
 }

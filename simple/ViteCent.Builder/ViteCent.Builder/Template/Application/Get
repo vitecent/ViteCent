@@ -2,16 +2,16 @@
 
 using AutoMapper;
 using MediatR;
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using Microsoft.AspNetCore.Http;
 #end
 using Microsoft.Extensions.Logging;
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using System.Security.Claims;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using ViteCent.Core;
 #end
 using ViteCent.Core.Data;
@@ -25,7 +25,7 @@ namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.Cam
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 /// <param name="httpContextAccessor"></param>
 public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
 {
@@ -46,7 +46,7 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetNa
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
 
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
         InitUser(httpContextAccessor);
 
 #end
@@ -64,6 +64,13 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetNa
             request.DepartmentId = departmentId;
 
 #end
+#if($HasPositionId)
+        var positionId = user?.Position?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(positionId))
+            request.PositionId = positionId;
+
+#end
         var args = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>(request);
 
         var entity = await mediator.Send(args, cancellationToken);
@@ -75,7 +82,7 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetNa
 
         return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>(dto);
     }
-#if($HasCompanyId||$HasDepartmentId)
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 
     /// <summary>
     /// </summary>

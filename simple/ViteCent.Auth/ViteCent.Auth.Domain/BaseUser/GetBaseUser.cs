@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core.Orm.SqlSugar;
 
@@ -38,6 +37,9 @@ public class GetBaseUser(ILogger<GetBaseUser> logger) : BaseDomain<BaseUserEntit
 
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
+
+        if (!string.IsNullOrWhiteSpace(request.PositionId))
+            query.Where(x => x.PositionId == request.PositionId);
 
         return await query.FirstAsync();
     }

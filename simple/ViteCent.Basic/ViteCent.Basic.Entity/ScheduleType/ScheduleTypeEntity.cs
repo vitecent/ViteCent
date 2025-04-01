@@ -52,8 +52,8 @@ public class ScheduleTypeEntity : BaseEntity, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
-    [SugarColumn(ColumnName = "endTime", ColumnDataType = "datetime", ColumnDescription = "结束时间")]
-    public DateTime EndTime { get; set; }
+    [SugarColumn(ColumnName = "endTime", ColumnDataType = "varchar", Length = 50, ColumnDescription = "结束时间")]
+    public string EndTime { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>
@@ -67,8 +67,8 @@ public class ScheduleTypeEntity : BaseEntity, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
-    [SugarColumn(ColumnName = "overnight", ColumnDataType = "bit", Length = 1, ColumnDescription = "是否跨天")]
-    public bool Overnight { get; set; }
+    [SugarColumn(ColumnName = "overnight", ColumnDataType = "int", Length = 11, ColumnDescription = "是否跨天")]
+    public int Overnight { get; set; }
 
     /// <summary>
     /// </summary>
@@ -77,8 +77,8 @@ public class ScheduleTypeEntity : BaseEntity, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
-    [SugarColumn(ColumnName = "startTime", ColumnDataType = "datetime", ColumnDescription = "开始时间")]
-    public DateTime StartTime { get; set; }
+    [SugarColumn(ColumnName = "startTime", ColumnDataType = "varchar", Length = 50, ColumnDescription = "开始时间")]
+    public string StartTime { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>
