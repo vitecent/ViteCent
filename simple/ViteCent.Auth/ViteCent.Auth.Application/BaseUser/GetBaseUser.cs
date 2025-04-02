@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -26,7 +28,10 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetBaseUser(ILogger<GetBaseUser> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseUserArgs, DataResult<BaseUserResult>>
+public class GetBaseUser(ILogger<GetBaseUser> logger,
+    IMapper mapper,
+    IMediator mediator,
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseUserArgs, DataResult<BaseUserResult>>
 {
     /// <summary>
     /// 用户信息

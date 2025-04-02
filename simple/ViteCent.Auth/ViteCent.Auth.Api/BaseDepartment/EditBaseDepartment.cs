@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -25,7 +27,8 @@ namespace ViteCent.Auth.Api.BaseDepartment;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDepartment")]
-public class EditBaseDepartment(ILogger<EditBaseDepartment> logger, IMediator mediator) : BaseLoginApi<EditBaseDepartmentArgs, BaseResult>
+public class EditBaseDepartment(ILogger<EditBaseDepartment> logger,
+    IMediator mediator) : BaseLoginApi<EditBaseDepartmentArgs, BaseResult>
 {
     /// <summary>
     /// 编辑部门信息

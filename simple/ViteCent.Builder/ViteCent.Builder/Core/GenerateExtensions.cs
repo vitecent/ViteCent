@@ -150,7 +150,6 @@ public class GenerateExtensions
                 nh.Save(@"Template\Api\AutoMapperConfigOverride", Path.Combine(apiPth, $"{setting.Api.MapperName}.Override.cs"));
         }
 
-        nh.Save(@"Template\Api\Log4net", Path.Combine(apiPth, "log4net.config"));
         nh.Save(@"Template\Api\Dockerfile", Path.Combine(apiPth, "Dockerfile"));
         nh.Save(@"Template\Api\Program", Path.Combine(apiPth, "Program.cs"));
 

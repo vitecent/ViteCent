@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -25,7 +27,8 @@ namespace ViteCent.Auth.Api.BasePosition;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BasePosition")]
-public class EditBasePosition(ILogger<EditBasePosition> logger, IMediator mediator) : BaseLoginApi<EditBasePositionArgs, BaseResult>
+public class EditBasePosition(ILogger<EditBasePosition> logger,
+    IMediator mediator) : BaseLoginApi<EditBasePositionArgs, BaseResult>
 {
     /// <summary>
     /// 编辑职位信息

@@ -1,6 +1,8 @@
 ﻿/*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("$!{Table.CamelCaseName}")]
-public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger, IMediator mediator) : BaseLoginApi<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger,
+    IMediator mediator) : BaseLoginApi<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
 {
     /// <summary>
     /// $!{Table.Description}分页

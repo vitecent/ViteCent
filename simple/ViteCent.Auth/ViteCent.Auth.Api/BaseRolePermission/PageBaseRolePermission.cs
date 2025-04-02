@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
-public class PageBaseRolePermission(ILogger<PageBaseRolePermission> logger, IMediator mediator) : BaseLoginApi<SearchBaseRolePermissionArgs, PageResult<BaseRolePermissionResult>>
+public class PageBaseRolePermission(ILogger<PageBaseRolePermission> logger,
+    IMediator mediator) : BaseLoginApi<SearchBaseRolePermissionArgs, PageResult<BaseRolePermissionResult>>
 {
     /// <summary>
     /// 角色权限分页

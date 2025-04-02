@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace ViteCent.Auth.Api.BaseOperation;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseOperation")]
-public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger, IMediator mediator) : BaseLoginApi<DeleteBaseOperationArgs, BaseResult>
+public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger,
+    IMediator mediator) : BaseLoginApi<DeleteBaseOperationArgs, BaseResult>
 {
     /// <summary>
     /// 删除操作信息

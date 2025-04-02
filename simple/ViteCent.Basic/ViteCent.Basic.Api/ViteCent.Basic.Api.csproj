@@ -14,10 +14,4 @@
         <ProjectReference Include="..\..\..\src\ViteCent.Core.Web\ViteCent.Core.Web.csproj" />
         <ProjectReference Include="..\ViteCent.Basic.Application\ViteCent.Basic.Application.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <None Update="log4net.config">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
 </Project>

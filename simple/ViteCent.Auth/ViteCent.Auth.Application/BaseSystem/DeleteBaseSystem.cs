@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -26,7 +28,10 @@ namespace ViteCent.Auth.Application.BaseSystem;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<DeleteBaseSystemArgs, BaseResult>
+public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger,
+    IMapper mapper,
+    IMediator mediator,
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<DeleteBaseSystemArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

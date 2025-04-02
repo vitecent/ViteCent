@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace ViteCent.Auth.Api.BaseUserRole;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUserRole")]
-public class PageBaseUserRole(ILogger<PageBaseUserRole> logger, IMediator mediator) : BaseLoginApi<SearchBaseUserRoleArgs, PageResult<BaseUserRoleResult>>
+public class PageBaseUserRole(ILogger<PageBaseUserRole> logger,
+    IMediator mediator) : BaseLoginApi<SearchBaseUserRoleArgs, PageResult<BaseUserRoleResult>>
 {
     /// <summary>
     /// 用户角色分页

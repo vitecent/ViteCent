@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace ViteCent.Basic.Api.RepairSchedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("RepairSchedule")]
-public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger, IMediator mediator) : BaseLoginApi<DeleteRepairScheduleArgs, BaseResult>
+public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger,
+    IMediator mediator) : BaseLoginApi<DeleteRepairScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 删除补卡申请

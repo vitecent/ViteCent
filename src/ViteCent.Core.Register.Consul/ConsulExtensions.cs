@@ -65,17 +65,17 @@ public static class ConsulExtensions
 
         if (!flagServicePort || servicePort < 1) throw new Exception("Appsettings Must Be ServiceConfig.Port");
 
-        var serviceId = configuration["Service:Id"] ?? default!;
-
-        if (string.IsNullOrWhiteSpace(serviceId)) serviceId = $"{serviceName}:{servicePort}";
-
-        logger.LogInformation($"Consul ServiceId ：{serviceId}");
-
         var address = configuration["Service:Address"] ?? default!;
 
         logger.LogInformation($"Consul ServiceAddress ：{address}");
 
         if (string.IsNullOrWhiteSpace(address)) throw new Exception("Appsettings Must Be ServiceConfig.Address");
+
+        var serviceId = configuration["Service:Id"] ?? default!;
+
+        if (string.IsNullOrWhiteSpace(serviceId)) serviceId = $"{serviceName}:{address}:{servicePort}";
+
+        logger.LogInformation($"Consul ServiceId ：{serviceId}");
 
         var flagTimeout = int.TryParse(configuration["Service:Timeout"] ?? default!, out var timeout);
 

@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -25,7 +27,8 @@ namespace ViteCent.Auth.Api.BaseSystem;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseSystem")]
-public class EditBaseSystem(ILogger<EditBaseSystem> logger, IMediator mediator) : BaseLoginApi<EditBaseSystemArgs, BaseResult>
+public class EditBaseSystem(ILogger<EditBaseSystem> logger,
+    IMediator mediator) : BaseLoginApi<EditBaseSystemArgs, BaseResult>
 {
     /// <summary>
     /// 编辑系统信息

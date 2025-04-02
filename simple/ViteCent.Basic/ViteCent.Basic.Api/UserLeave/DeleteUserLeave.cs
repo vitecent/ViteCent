@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace ViteCent.Basic.Api.UserLeave;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserLeave")]
-public class DeleteUserLeave(ILogger<DeleteUserLeave> logger, IMediator mediator) : BaseLoginApi<DeleteUserLeaveArgs, BaseResult>
+public class DeleteUserLeave(ILogger<DeleteUserLeave> logger,
+    IMediator mediator) : BaseLoginApi<DeleteUserLeaveArgs, BaseResult>
 {
     /// <summary>
     /// 删除请假申请

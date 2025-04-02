@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace ViteCent.Basic.Api.Schedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class GetSchedule(ILogger<GetSchedule> logger, IMediator mediator) : BaseLoginApi<GetScheduleArgs, DataResult<ScheduleResult>>
+public class GetSchedule(ILogger<GetSchedule> logger,
+    IMediator mediator) : BaseLoginApi<GetScheduleArgs, DataResult<ScheduleResult>>
 {
     /// <summary>
     /// 获取排班信息

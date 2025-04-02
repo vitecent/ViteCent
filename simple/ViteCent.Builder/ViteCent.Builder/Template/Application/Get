@@ -1,6 +1,8 @@
 ﻿/*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -33,16 +35,22 @@ namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.Cam
 /// <param name="mediator"></param>
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 /// <param name="httpContextAccessor"></param>
-public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+#end
+public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger,
+    IMapper mapper,
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
+    IMediator mediator,
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+#else
+    IMediator mediator) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+#end
 {
+#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     /// <summary>
     /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
-#else
-public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger, IMapper mapper, IMediator mediator) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
-{
 #end
     /// <summary>
     /// 获取$!{Table.Description}

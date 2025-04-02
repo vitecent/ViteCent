@@ -6,4 +6,5 @@ Upload/
 *.user
 *.exe
 *.jar
+PublishProfiles/
 packages/

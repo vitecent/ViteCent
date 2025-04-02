@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -25,7 +27,8 @@ namespace ViteCent.Auth.Api.BaseRole;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRole")]
-public class EditBaseRole(ILogger<EditBaseRole> logger, IMediator mediator) : BaseLoginApi<EditBaseRoleArgs, BaseResult>
+public class EditBaseRole(ILogger<EditBaseRole> logger,
+    IMediator mediator) : BaseLoginApi<EditBaseRoleArgs, BaseResult>
 {
     /// <summary>
     /// 编辑角色信息

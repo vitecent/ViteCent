@@ -22,6 +22,7 @@ public class Program
         };
 
         var microService = new FilesMicroService("ViteCent.Files.Service", xmls);
+
         await microService.RunAsync(args);
     }
 }

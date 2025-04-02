@@ -17,10 +17,4 @@
 	<ItemGroup>
 		<ProjectReference Include="..\\$!{DataBase.Name}.$!{Setting.Application.ApplicationName}\\$!{DataBase.Name}.$!{Setting.Application.ApplicationName}.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="log4net.config">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
 </Project>

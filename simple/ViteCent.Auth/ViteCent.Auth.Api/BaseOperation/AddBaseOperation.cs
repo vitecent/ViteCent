@@ -1,7 +1,9 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
  * 如需扩展该类，请在partial类中实现
+ * **********************************
  */
 
 #region
@@ -26,7 +28,8 @@ namespace ViteCent.Auth.Api.BaseOperation;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseOperation")]
-public partial class AddBaseOperation(ILogger<AddBaseOperation> logger, IMediator mediator) : BaseLoginApi<AddBaseOperationArgs, BaseResult>
+public partial class AddBaseOperation(ILogger<AddBaseOperation> logger,
+    IMediator mediator) : BaseLoginApi<AddBaseOperationArgs, BaseResult>
 {
     /// <summary>
     /// 新增操作信息

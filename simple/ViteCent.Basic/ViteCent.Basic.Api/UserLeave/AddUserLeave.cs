@@ -1,7 +1,9 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
  * 如需扩展该类，请在partial类中实现
+ * **********************************
  */
 
 #region
@@ -26,7 +28,8 @@ namespace ViteCent.Basic.Api.UserLeave;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserLeave")]
-public partial class AddUserLeave(ILogger<AddUserLeave> logger, IMediator mediator) : BaseLoginApi<AddUserLeaveArgs, BaseResult>
+public partial class AddUserLeave(ILogger<AddUserLeave> logger,
+    IMediator mediator) : BaseLoginApi<AddUserLeaveArgs, BaseResult>
 {
     /// <summary>
     /// 新增请假申请

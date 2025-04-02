@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace ViteCent.Basic.Api.UserRest;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserRest")]
-public class PageUserRest(ILogger<PageUserRest> logger, IMediator mediator) : BaseLoginApi<SearchUserRestArgs, PageResult<UserRestResult>>
+public class PageUserRest(ILogger<PageUserRest> logger,
+    IMediator mediator) : BaseLoginApi<SearchUserRestArgs, PageResult<UserRestResult>>
 {
     /// <summary>
     /// 调休申请分页

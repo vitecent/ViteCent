@@ -1,6 +1,8 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * **********************************
  */
 
 #region
@@ -24,7 +26,8 @@ namespace ViteCent.Basic.Api.ShiftSchedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("ShiftSchedule")]
-public class GetShiftSchedule(ILogger<GetShiftSchedule> logger, IMediator mediator) : BaseLoginApi<GetShiftScheduleArgs, DataResult<ShiftScheduleResult>>
+public class GetShiftSchedule(ILogger<GetShiftSchedule> logger,
+    IMediator mediator) : BaseLoginApi<GetShiftScheduleArgs, DataResult<ShiftScheduleResult>>
 {
     /// <summary>
     /// 获取换班申请

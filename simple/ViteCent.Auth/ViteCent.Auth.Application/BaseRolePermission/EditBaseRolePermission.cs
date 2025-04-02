@@ -1,7 +1,9 @@
 /*
+ * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
  * 如需扩展该类，请在partial类中实现
+ * **********************************
  */
 
 #region
@@ -33,7 +35,10 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logger, IMapper mapper, IMediator mediator, IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditBaseRolePermissionArgs, BaseResult>
+public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logger,
+    IMapper mapper,
+    IMediator mediator,
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditBaseRolePermissionArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
