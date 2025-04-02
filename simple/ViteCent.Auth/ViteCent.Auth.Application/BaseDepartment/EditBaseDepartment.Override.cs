@@ -1,3 +1,8 @@
+ï»¿/*
+ * ä»£ç ç”±å·¥å…·è‡ªåŠ¨ç”Ÿæˆ
+ * é‡æ–°ç”Ÿæˆæ—¶ï¼Œä¸ä¼šè¦†ç›–åŸæœ‰ä»£ç 
+ */
+ 
 #region
 
 using ViteCent.Auth.Data.BaseDepartment;
@@ -41,10 +46,10 @@ public partial class EditBaseDepartment
             var hasParent = await mediator.Send(hasParentArgs, cancellationToken);
 
             if (hasParent == null)
-                return new BaseResult(500, "¸¸¼¶²¿ÃÅ²»´æÔÚ");
+                return new BaseResult(500, "çˆ¶çº§éƒ¨é—¨ä¸å­˜åœ¨");
 
             if (hasParent.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "¸¸¼¶²¿ÃÅÒÑ½ûÓÃ");
+                return new BaseResult(500, "çˆ¶çº§éƒ¨é—¨å·²ç¦ç”¨");
 
             if (string.IsNullOrWhiteSpace(hasParent.Level))
                 request.Level = hasParent.Id;

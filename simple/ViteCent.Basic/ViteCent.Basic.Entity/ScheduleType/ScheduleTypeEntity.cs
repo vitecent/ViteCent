@@ -1,3 +1,8 @@
+/*
+ * 代码由工具自动生成，请勿人工修改
+ * 重新生成时，将覆盖原有代码
+ */
+
 #region
 
 using MediatR;
@@ -93,12 +98,6 @@ public class ScheduleTypeEntity : BaseEntity, IRequest<BaseResult>
     /// </summary>
     [SugarColumn(ColumnName = "startTime", ColumnDataType = "varchar", Length = 50, ColumnDescription = "开始时间")]
     public string StartTime { get; set; } = string.Empty;
-
-    /// <summary>
-    /// 状态
-    /// </summary>
-    [SugarColumn(ColumnName = "status", IsNullable = true, ColumnDataType = "int", Length = 11, ColumnDescription = "状态")]
-    public int Status { get; set; }
 
     /// <summary>
     /// 修改人

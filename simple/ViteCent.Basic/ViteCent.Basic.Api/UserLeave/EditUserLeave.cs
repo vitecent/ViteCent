@@ -1,3 +1,8 @@
+/*
+ * 代码由工具自动生成，请勿人工修改
+ * 重新生成时，将覆盖原有代码
+ */
+
 #region
 
 using MediatR;
@@ -43,11 +48,11 @@ public class EditUserLeave(ILogger<EditUserLeave> logger, IMediator mediator) : 
 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                return new BaseResult(500, "CompanyId 不能为空");
+                return new BaseResult(500, "公司标识不能为空");
 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
-                return new BaseResult(500, "DepartmentId 不能为空");
+                return new BaseResult(500, "部门标识不能为空");
 
         return await mediator.Send(args, cancellationToken);
     }

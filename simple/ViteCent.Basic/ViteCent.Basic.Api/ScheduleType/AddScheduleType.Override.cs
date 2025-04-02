@@ -1,6 +1,12 @@
+/*
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ */
+ 
 #region
 
 using ViteCent.Basic.Data.ScheduleType;
+using ViteCent.Core;
 using ViteCent.Core.Enums;
 
 #endregion
@@ -24,5 +30,8 @@ public partial class AddScheduleType
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 args.DepartmentId = User.Department.Id;
+
+        if (string.IsNullOrWhiteSpace(args.Code) && !string.IsNullOrWhiteSpace(args.Name))
+            args.Code = args.Name.GetPinYin().ToCamelCase();
     }
 }

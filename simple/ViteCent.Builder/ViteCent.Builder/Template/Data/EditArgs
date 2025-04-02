@@ -1,4 +1,9 @@
-﻿namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+﻿/*
+ * 代码由工具自动生成，请勿人工修改
+ * 重新生成时，将覆盖原有代码
+ */
+
+namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 编辑$!{Table.Description}参数

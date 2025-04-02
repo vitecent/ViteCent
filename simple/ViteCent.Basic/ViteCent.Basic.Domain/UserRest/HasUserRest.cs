@@ -43,10 +43,14 @@ public class HasUserRest(ILogger<HasUserRest> logger) : BaseDomain<UserRestEntit
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
+        query.Where(x => ((x.StartTime <= request.StartTime && x.EndTime >= request.StartTime) ||
+          (x.StartTime <= request.EndTime && x.EndTime >= request.EndTime) ||
+          (x.EndTime >= request.EndTime && x.EndTime <= request.EndTime)));
+
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "调休重复");
 
         return new BaseResult(string.Empty);
     }

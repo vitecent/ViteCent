@@ -14,6 +14,10 @@ public class HasScheduleTypeEntityArgs : BaseArgs, IRequest<BaseResult>
 {
     /// <summary>
     /// </summary>
+    public string Code { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>

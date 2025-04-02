@@ -43,6 +43,12 @@ public class HasRepairSchedule(ILogger<HasRepairSchedule> logger) : BaseDomain<R
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
+        if (!string.IsNullOrWhiteSpace(request.ScheduleId))
+            query.Where(x => x.ScheduleId == request.ScheduleId);
+
+        if (request.RepairType != default)
+            query.Where(x => x.RepairType == (int)request.RepairType);
+
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)

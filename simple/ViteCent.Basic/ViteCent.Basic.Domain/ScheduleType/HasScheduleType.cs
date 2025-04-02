@@ -40,13 +40,16 @@ public class HasScheduleType(ILogger<HasScheduleType> logger) : BaseDomain<Sched
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
 
+        if (!string.IsNullOrWhiteSpace(request.Code))
+            query.Where(x => x.Code == request.Code);
+
         if (!string.IsNullOrWhiteSpace(request.Name))
             query.Where(x => x.Name == request.Name);
 
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "名称重复");
+            return new BaseResult(500, "编码或名称重复");
 
         return new BaseResult(string.Empty);
     }

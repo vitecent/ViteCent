@@ -1,7 +1,13 @@
+ï»¿/*
+ * ä»£ç ç”±å·¥å…·è‡ªåŠ¨ç”Ÿæˆ
+ * é‡æ–°ç”Ÿæˆæ—¶ï¼Œä¸ä¼šè¦†ç›–åŸæœ‰ä»£ç 
+ */
+ 
 #region
 
 using FluentValidation;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -15,13 +21,17 @@ public partial class BaseDepartmentValidator : AbstractValidator<AddBaseDepartme
     /// </summary>
     private void OverrideValidator()
     {
-        RuleFor(x => x.Code).NotNull().NotEmpty().WithMessage("±àÂë²»ÄÜÎª¿Õ");
-        RuleFor(x => x.Code).Length(1, 50).WithMessage("±àÂë1-50¸ö×Ö·û");
-        RuleFor(x => x.Code).Matches(Const.PositiveEnglishUnderline).WithMessage("±àÂëÖ»Ö§³ÖÊı×Ö¡¢×ÖÄ¸¡¢ÏÂ»®Ïß");
+        RuleFor(x => x.Code).NotNull().NotEmpty().WithMessage("ç¼–ç ä¸èƒ½ä¸ºç©º");
+        RuleFor(x => x.Code).Length(1, 50).WithMessage("ç¼–ç 1-50ä¸ªå­—ç¬¦");
+        RuleFor(x => x.Code).Matches(Const.PositiveEnglishUnderline).WithMessage("ç¼–ç åªæ”¯æŒæ•°å­—ã€å­—æ¯ã€ä¸‹åˆ’çº¿");
 
-        RuleFor(x => x.Name).Length(1, 50).WithMessage("Ãû³Æ1-50¸ö×Ö·û");
-        RuleFor(x => x.Name).Matches(Const.PositiveChineseEnglishUnderline).WithMessage("Ãû³ÆÖ»Ö§³ÖÊı×Ö¡¢×ÖÄ¸¡¢ÖĞÎÄ¡¢ÏÂ»®Ïß");
+        RuleFor(x => x.Name).Length(1, 50).WithMessage("åç§°1-50ä¸ªå­—ç¬¦");
+        RuleFor(x => x.Name).Matches(Const.PositiveChineseEnglishUnderline).WithMessage("åç§°åªæ”¯æŒæ•°å­—ã€å­—æ¯ã€ä¸­æ–‡ã€ä¸‹åˆ’çº¿");
 
-        RuleFor(x => x.ManagerPhone).Matches(Const.Mobile).When(x => !string.IsNullOrWhiteSpace(x.ManagerPhone)).WithMessage("µç»°¸ñÊ½´íÎó");
+        RuleFor(x => x.ManagerPhone).Matches(Const.Mobile).When(x => !string.IsNullOrWhiteSpace(x.ManagerPhone)).WithMessage("ç”µè¯æ ¼å¼é”™è¯¯");
+
+        var status = new List<int>() { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
+
+        RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("çŠ¶æ€ä¸å­˜åœ¨");
     }
 }

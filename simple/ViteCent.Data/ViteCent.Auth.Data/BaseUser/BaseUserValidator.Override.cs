@@ -1,3 +1,8 @@
+ï»¿/*
+ * ä»£ç ç”±å·¥å…·è‡ªåŠ¨ç”Ÿæˆ
+ * é‡æ–°ç”Ÿæˆæ—¶ï¼Œä¸ä¼šè¦†ç›–åŸæœ‰ä»£ç 
+ */
+ 
 #region
 
 using FluentValidation;
@@ -17,22 +22,26 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
     /// </summary>
     private void OverrideValidator()
     {
-        RuleFor(x => x.Username).Length(4, 12).WithMessage("ÓÃ»§Ãû4-12¸ö×Ö·û");
-        RuleFor(x => x.Username).Matches(Const.PositiveEnglish).WithMessage("ÓÃ»§ÃûÖ»Ö§³ÖÊı×Ö¡¢×ÖÄ¸");
+        RuleFor(x => x.Username).Length(4, 12).WithMessage("ç”¨æˆ·å4-12ä¸ªå­—ç¬¦");
+        RuleFor(x => x.Username).Matches(Const.PositiveEnglish).WithMessage("ç”¨æˆ·ååªæ”¯æŒæ•°å­—ã€å­—æ¯");
 
-        RuleFor(x => x.Password).Length(6, 16).WithMessage("ÃÜÂë6-16¸ö×Ö·û");
-        RuleFor(x => x.Password).Matches(Const.PositiveEnglishUnderline).WithMessage("ÃÜÂëÖ»Ö§³ÖÊı×Ö¡¢×ÖÄ¸¡¢ÏÂ»®Ïß");
+        RuleFor(x => x.Password).Length(6, 16).WithMessage("å¯†ç 6-16ä¸ªå­—ç¬¦");
+        RuleFor(x => x.Password).Matches(Const.PositiveEnglishUnderline).WithMessage("å¯†ç åªæ”¯æŒæ•°å­—ã€å­—æ¯ã€ä¸‹åˆ’çº¿");
 
-        RuleFor(x => x.Email).Matches(Const.Email).When(x => !string.IsNullOrWhiteSpace(x.Email)).WithMessage("ÓÊÏä¸ñÊ½´íÎó");
+        RuleFor(x => x.Email).Matches(Const.Email).When(x => !string.IsNullOrWhiteSpace(x.Email)).WithMessage("é‚®ç®±æ ¼å¼é”™è¯¯");
 
-        RuleFor(x => x.IdCard).Must(x => x.IsIdCard()).When(x => !string.IsNullOrWhiteSpace(x.IdCard)).WithMessage("Éí·İÖ¤ºÅ¸ñÊ½´íÎó");
-        RuleFor(x => x.Birthday).Must(x => x < DateTime.Now && x > DateTime.MinValue).When(x => x.Birthday.HasValue).WithMessage("ÉúÈÕ¸ñÊ½´íÎó");
+        RuleFor(x => x.IdCard).Must(x => x.IsIdCard()).When(x => !string.IsNullOrWhiteSpace(x.IdCard)).WithMessage("èº«ä»½è¯å·æ ¼å¼é”™è¯¯");
+        RuleFor(x => x.Birthday).Must(x => x < DateTime.Now && x > DateTime.MinValue).When(x => x.Birthday.HasValue).WithMessage("ç”Ÿæ—¥æ ¼å¼é”™è¯¯");
         RuleFor(x => x).Must(x => x.IdCard.GetIdCardBirthday() == x.Birthday?.ToString("yyyy-MM-dd"))
-            .When(x => !string.IsNullOrWhiteSpace(x.IdCard) && x.Birthday.HasValue).WithMessage("Éí·İÖ¤ºÅºÍ³öÉúÈÕÆÚ²»Æ¥Åä");
+            .When(x => !string.IsNullOrWhiteSpace(x.IdCard) && x.Birthday.HasValue).WithMessage("èº«ä»½è¯å·å’Œå‡ºç”Ÿæ—¥æœŸä¸åŒ¹é…");
 
-        RuleFor(x => x.Phone).Matches(Const.Mobile).When(x => !string.IsNullOrWhiteSpace(x.Phone)).WithMessage("µç»°¸ñÊ½´íÎó");
+        RuleFor(x => x.Phone).Matches(Const.Mobile).When(x => !string.IsNullOrWhiteSpace(x.Phone)).WithMessage("ç”µè¯æ ¼å¼é”™è¯¯");
 
         var genders = new List<int> { (int)GenderEnum.Male, (int)GenderEnum.FeMale };
-        RuleFor(x => x.Gender).Must(x => genders.Contains(x)).When(x => !string.IsNullOrWhiteSpace(x.Phone)).WithMessage("ĞÔ±ğ¸ñÊ½´íÎó");
+        RuleFor(x => x.Gender).Must(x => genders.Contains(x)).When(x => !string.IsNullOrWhiteSpace(x.Phone)).WithMessage("æ€§åˆ«æ ¼å¼é”™è¯¯");
+
+        var status = new List<int>() { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
+
+        RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("çŠ¶æ€ä¸å­˜åœ¨");
     }
 }

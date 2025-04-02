@@ -1,4 +1,4 @@
-#region
+ï»¿#region
 
 using AutoMapper;
 using MediatR;
@@ -50,10 +50,10 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
         var user = await mediator.Send(args, cancellationToken);
 
         if (user == null)
-            return new DataResult<LoginResult>(500, "ÓÃ»§Ãû»òÃÜÂë´íÎó");
+            return new DataResult<LoginResult>(500, "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯");
 
         if (user.Status == (int)StatusEnum.Disable)
-            return new DataResult<LoginResult>(500, "ÓÃ»§ÒÑ±»½ûÓÃ");
+            return new DataResult<LoginResult>(500, "ç”¨æˆ·å·²è¢«ç¦ç”¨");
 
         var userInfo = new BaseUserInfo()
         {
@@ -75,7 +75,7 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
             var baseCompany = await mediator.Send(companyArgs, cancellationToken);
 
             if (baseCompany.Data == null)
-                return new DataResult<LoginResult>(500, "¹«Ë¾ĞÅÏ¢²»´æÔÚ");
+                return new DataResult<LoginResult>(500, "å…¬å¸ä¿¡æ¯ä¸å­˜åœ¨");
 
             userInfo.Company = new BaseCompanyInfo()
             {
@@ -98,7 +98,7 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
             var baseDepartment = await mediator.Send(departmentArgs, cancellationToken);
 
             if (baseDepartment.Data == null)
-                return new DataResult<LoginResult>(500, "²¿ÃÅĞÅÏ¢²»´æÔÚ");
+                return new DataResult<LoginResult>(500, "éƒ¨é—¨ä¿¡æ¯ä¸å­˜åœ¨");
 
             userInfo.Department = new BaseDepartmentInfo()
             {
@@ -121,7 +121,7 @@ public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper
             var basePosition = await mediator.Send(positionArgs, cancellationToken);
 
             if (basePosition.Data == null)
-                return new DataResult<LoginResult>(500, "Ö°Î»ĞÅÏ¢²»´æÔÚ");
+                return new DataResult<LoginResult>(500, "èŒä½ä¿¡æ¯ä¸å­˜åœ¨");
 
             userInfo.Position = new BasePositionInfo()
             {

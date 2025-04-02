@@ -1,3 +1,8 @@
+/*
+ * 代码由工具自动生成，请勿人工修改
+ * 重新生成时，将覆盖原有代码
+ */
+
 #region
 
 using MediatR;
@@ -57,9 +62,4 @@ public class AddScheduleTypeArgs : BaseArgs, IRequest<BaseResult>
     /// 开始时间
     /// </summary>
     public string StartTime { get; set; } = string.Empty;
-
-    /// <summary>
-    /// 状态
-    /// </summary>
-    public int Status { get; set; }
 }

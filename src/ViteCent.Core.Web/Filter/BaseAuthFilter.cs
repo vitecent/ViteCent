@@ -77,7 +77,7 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
         var cahceToken = string.Empty;
 
         if (cache.HasKey($"User{user.Id}"))
-            cache.GetString<string>($"User{user.Id}");
+            cahceToken = cache.GetString<string>($"User{user.Id}");
 
         if (string.IsNullOrWhiteSpace(cahceToken) || token != cahceToken)
         {

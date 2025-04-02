@@ -26,5 +26,13 @@ public class HasRepairScheduleEntityArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
+    public RepairTypeEnum RepairType { get; set; }
+
+    /// <summary>
+    /// </summary>
+    public string ScheduleId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
     public string UserId { get; set; } = string.Empty;
 }

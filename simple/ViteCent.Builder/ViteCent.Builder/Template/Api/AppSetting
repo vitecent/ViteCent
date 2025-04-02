@@ -1,4 +1,4 @@
-{
+﻿{
   "Logging": {
     "LogLevel": {
       "Default": "Information",
@@ -20,7 +20,9 @@
       "Type": "$!{DataBase.Type}",
       "Name": "$!{DataBase.Name}",
       "Master": "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;",
-      "Slaves": [ "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;" ]
+      "Slaves": [
+        "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;"
+      ]
     }
   ],
   "Jwt": {

@@ -110,6 +110,10 @@ public class Const
 
     /// <summary>
     /// </summary>
+    public const string Time = @"^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$";
+
+    /// <summary>
+    /// </summary>
     public const string Token = "Authorization";
 
     /// <summary>

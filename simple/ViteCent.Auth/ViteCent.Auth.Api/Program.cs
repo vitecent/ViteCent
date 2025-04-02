@@ -1,3 +1,8 @@
+/*
+ * 代码由工具自动生成，请勿人工修改
+ * 重新生成时，将覆盖原有代码
+ */
+
 #region
 
 using ViteCent.Core.Web;
@@ -7,12 +12,12 @@ using ViteCent.Core.Web;
 namespace ViteCent.Auth.Api;
 
 /// <summary>
-/// �������
+/// 程序入口
 /// </summary>
 public class Program
 {
     /// <summary>
-    /// ������
+    /// 主方法
     /// </summary>
     /// <param name="args"></param>
     public static async Task Main(string[] args)

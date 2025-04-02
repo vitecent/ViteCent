@@ -1,3 +1,8 @@
+ï»¿/*
+ * ä»£ç ç”±å·¥å…·è‡ªåŠ¨ç”Ÿæˆ
+ * é‡æ–°ç”Ÿæˆæ—¶ï¼Œä¸ä¼šè¦†ç›–åŸæœ‰ä»£ç 
+ */
+ 
 #region
 
 using ViteCent.Auth.Data.BaseCompany;
@@ -32,10 +37,10 @@ public partial class AddBaseCompany
             var hasParent = await mediator.Send(hasParentArgs, cancellationToken);
 
             if (hasParent == null)
-                return new BaseResult(500, "¸¸¼¶¹«Ë¾²»´æÔÚ");
+                return new BaseResult(500, "çˆ¶çº§å…¬å¸ä¸å­˜åœ¨");
 
             if (hasParent.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "¸¸¼¶¹«Ë¾ÒÑ½ûÓÃ");
+                return new BaseResult(500, "çˆ¶çº§å…¬å¸å·²ç¦ç”¨");
 
             if (string.IsNullOrWhiteSpace(hasParent.Level))
                 request.Level = hasParent.Id;

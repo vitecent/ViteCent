@@ -1,3 +1,8 @@
+/*
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ */
+ 
 #region
 
 using ViteCent.Basic.Data.ScheduleType;
@@ -34,6 +39,7 @@ public partial class EditScheduleType
             Id = request.Id,
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
+            Code = request.Code,
             Name = request.Name,
         };
 

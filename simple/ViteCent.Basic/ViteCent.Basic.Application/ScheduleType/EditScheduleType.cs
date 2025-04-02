@@ -1,3 +1,9 @@
+/*
+ * 代码由工具自动生成，请勿人工修改
+ * 重新生成时，将覆盖原有代码
+ * 如需扩展该类，请在partial类中实现
+ */
+
 #region
 
 using AutoMapper;
@@ -129,7 +135,6 @@ public partial class EditScheduleType(ILogger<EditScheduleType> logger,
         entity.Overnight = request.Overnight;
         entity.ScheduleType = request.ScheduleType;
         entity.StartTime = request.StartTime;
-        entity.Status = request.Status;
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

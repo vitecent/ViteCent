@@ -1,7 +1,13 @@
+﻿/*
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ */
+ 
 #region
 
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Core;
+using ViteCent.Core.Enums;
 
 #endregion
 

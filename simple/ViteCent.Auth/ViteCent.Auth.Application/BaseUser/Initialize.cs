@@ -1,4 +1,4 @@
-#region
+﻿#region
 
 using AutoMapper;
 using MediatR;
@@ -43,7 +43,7 @@ public class Initialize(ILogger<AddBaseUser> logger, IMediator mediator, IMapper
         var check = await mediator.Send(chackArgs, cancellationToken);
 
         if (!check.Data.Flag)
-            return new BaseResult(500, "ϵͳ�ѳ�ʼ��");
+            return new BaseResult(500, "系统已初始化");
 
         return await mediator.Send(args, cancellationToken);
     }
