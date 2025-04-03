@@ -56,7 +56,10 @@ public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await AddBaseSystem.OverrideHandle(request, user);
+
+        if (!check.Success)
+            return check;
 
         var entitys = new AddBaseSystemEntityListArgs()
         {
@@ -65,6 +68,11 @@ public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
 
         foreach (var item in request.Items)
         {
+            var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = item.CompanyId;
+
             var entity = mapper.Map<AddBaseSystemEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "BaseSystem");

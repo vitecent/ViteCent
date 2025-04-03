@@ -6,6 +6,7 @@
 #region
 
 using ViteCent.Basic.Data.UserLeave;
+using ViteCent.Basic.Data.UserRest;
 using ViteCent.Core.Enums;
 
 #endregion
@@ -23,6 +24,8 @@ public partial class AddUserLeave
     /// <returns></returns>
     internal static void OverrideInvoke(AddUserLeaveArgs args, Core.Data.BaseUserInfo user)
     {
+        args.Status = (int)UserLeaveEnum.Apply;
+
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 args.CompanyId = user.Company.Id;

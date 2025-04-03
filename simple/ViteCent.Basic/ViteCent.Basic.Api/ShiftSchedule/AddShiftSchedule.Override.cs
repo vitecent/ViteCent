@@ -6,6 +6,7 @@
 #region
 
 using ViteCent.Basic.Data.ShiftSchedule;
+using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Core.Enums;
 
 #endregion
@@ -23,6 +24,8 @@ public partial class AddShiftSchedule
     /// <returns></returns>
     internal static void OverrideInvoke(AddShiftScheduleArgs args, Core.Data.BaseUserInfo user)
     {
+        args.Status = (int)ShiftScheduleEnum.Apply;
+
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 args.CompanyId = user.Company.Id;

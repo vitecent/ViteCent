@@ -25,6 +25,8 @@ public partial class AddBaseDepartment
     /// <returns></returns>
     internal static void OverrideInvoke(AddBaseDepartmentArgs args, BaseUserInfo user)
     {
+        args.Status = (int)StatusEnum.Enable;
+
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 args.CompanyId = user.Company.Id;

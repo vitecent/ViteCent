@@ -25,6 +25,8 @@ public partial class AddBasePosition
     /// <returns></returns>
     internal static void OverrideInvoke(AddBasePositionArgs args, BaseUserInfo user)
     {
+        args.Status = (int)StatusEnum.Enable;
+
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 args.CompanyId = user.Company.Id;

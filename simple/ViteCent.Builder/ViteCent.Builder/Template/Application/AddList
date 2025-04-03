@@ -85,7 +85,10 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideHandle(request, user);
+
+        if (!check.Success)
+            return check;
 
         var entitys = new $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}()
         {
@@ -94,6 +97,13 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 
         foreach (var item in request.Items)
         {
+            var companyId = user?.Company?.Id ?? string.Empty;
+
+#if($HasCompanyId)
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = item.CompanyId;
+
+#end
             var entity = mapper.Map<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>(item);
 #if($HasId)
 

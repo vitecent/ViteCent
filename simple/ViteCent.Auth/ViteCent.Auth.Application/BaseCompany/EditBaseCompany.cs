@@ -12,12 +12,9 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Entity.BaseCompany;
-using ViteCent.Core;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -52,12 +49,10 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await OverrideHandle(request, cancellationToken);
 
-        var preResult = await OverrideHandle(request, cancellationToken);
-
-        if (!preResult.Success)
-            return preResult;
+        if (!check.Success)
+            return check;
 
         var args = mapper.Map<GetBaseCompanyEntityArgs>(request);
 

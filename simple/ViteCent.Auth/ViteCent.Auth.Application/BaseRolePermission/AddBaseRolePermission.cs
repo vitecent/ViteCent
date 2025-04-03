@@ -12,18 +12,10 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using ViteCent.Auth.Entity.BaseCompany;
-using ViteCent.Auth.Entity.BaseOperation;
-using ViteCent.Auth.Entity.BaseResource;
-using ViteCent.Auth.Entity.BaseRole;
-using ViteCent.Auth.Entity.BaseSystem;
 using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Auth.Entity.BaseRolePermission;
-using ViteCent.Core;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -62,33 +54,8 @@ public partial class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var hasCompany = await mediator.CheckCompany(request.CompanyId);
-
-        if (hasCompany.Success)
-            return hasCompany;
-
-        var hasRole = await mediator.CheckRole(request.CompanyId, request.RoleId);
-
-        if (hasRole.Success)
-            return hasRole;
-
-        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
-
-        if (hasSystem.Success)
-            return hasSystem;
-
-        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);;
-
-        if (hasResource.Success)
-            return hasResource;
-
-        var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
-
-        if (hasOperation.Success)
-            return hasOperation;
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = request.CompanyId;
 
         var check = await OverrideHandle(request, cancellationToken);
 

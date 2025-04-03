@@ -38,6 +38,36 @@ public partial class EditBaseUser
         if (!string.IsNullOrWhiteSpace(request.Username) && !string.IsNullOrWhiteSpace(request.Password))
             request.Password = $"{request.Username}{request.Password}{Const.Salf}".EncryptMD5();
 
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.CompanyId))
+            request.CompanyId = companyId;
+
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
+
+        if (hasCompany.Success)
+            return hasCompany;
+
+        var departmentId = user?.Department?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.DepartmentId))
+            request.DepartmentId = departmentId;
+
+        var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
+
+        if (hasDepartment.Success)
+            return hasDepartment;
+
+        var positionId = user?.Position?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.PositionId))
+            request.PositionId = positionId;
+
+        var hasPosition = await mediator.CheckPosition(request.CompanyId, request.PositionId);
+
+        if (hasPosition.Success)
+            return hasPosition;
+
         var hasArgs = new HasBaseUserEntityArgs
         {
             Id = request.Id,

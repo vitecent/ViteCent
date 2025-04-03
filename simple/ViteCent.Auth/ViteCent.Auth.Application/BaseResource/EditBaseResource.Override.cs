@@ -2,7 +2,7 @@
  * 代码由工具自动生成
  * 重新生成时，不会覆盖原有代码
  */
- 
+
 #region
 
 using ViteCent.Auth.Data.BaseResource;
@@ -37,6 +37,21 @@ public partial class EditBaseResource
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(EditBaseResourceArgs request, CancellationToken cancellationToken)
     {
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.CompanyId))
+            request.CompanyId = companyId;
+
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
+
+        if (hasCompany.Success)
+            return hasCompany;
+
+        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
+
+        if (hasSystem.Success)
+            return hasSystem;
+
         var hasArgs = new HasBaseResourceEntityArgs
         {
             Id = request.Id,

@@ -46,7 +46,7 @@ public class EditBaseCompany(ILogger<EditBaseCompany> logger,
         var result = await validator.ValidateAsync(args, cancellationToken);
 
         if (!result.IsValid)
-            return new BaseResult(500, string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
+            return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         return await mediator.Send(args, cancellationToken);
     }

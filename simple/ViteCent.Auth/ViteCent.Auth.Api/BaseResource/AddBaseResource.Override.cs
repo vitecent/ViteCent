@@ -25,6 +25,8 @@ public partial class AddBaseResource
     /// <returns></returns>
     internal static void OverrideInvoke(AddBaseResourceArgs args, BaseUserInfo user)
     {
+        args.Status = (int)StatusEnum.Enable;
+
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 args.CompanyId = user.Company.Id;

@@ -24,6 +24,8 @@ public partial class AddBaseUserRole
     /// <returns></returns>
     internal static void OverrideInvoke(AddBaseUserRoleArgs args, BaseUserInfo user)
     {
+        args.Status = (int)StatusEnum.Enable;
+
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 args.CompanyId = user.Company.Id;

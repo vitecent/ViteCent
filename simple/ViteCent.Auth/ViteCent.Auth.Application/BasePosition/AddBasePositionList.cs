@@ -56,7 +56,10 @@ public class AddBasePositionList(ILogger<AddBasePositionList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await AddBasePosition.OverrideHandle(request, user);
+
+        if (!check.Success)
+            return check;
 
         var entitys = new AddBasePositionEntityListArgs()
         {
@@ -65,6 +68,11 @@ public class AddBasePositionList(ILogger<AddBasePositionList> logger,
 
         foreach (var item in request.Items)
         {
+            var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = item.CompanyId;
+
             var entity = mapper.Map<AddBasePositionEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "BasePosition");

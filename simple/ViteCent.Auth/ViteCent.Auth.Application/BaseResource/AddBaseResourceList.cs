@@ -57,7 +57,10 @@ public class AddBaseResourceList(ILogger<AddBaseResourceList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await AddBaseResource.OverrideHandle(request, user);
+
+        if (!check.Success)
+            return check;
 
         var entitys = new AddBaseResourceEntityListArgs()
         {
@@ -66,6 +69,11 @@ public class AddBaseResourceList(ILogger<AddBaseResourceList> logger,
 
         foreach (var item in request.Items)
         {
+            var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = item.CompanyId;
+
             var entity = mapper.Map<AddBaseResourceEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "BaseResource");

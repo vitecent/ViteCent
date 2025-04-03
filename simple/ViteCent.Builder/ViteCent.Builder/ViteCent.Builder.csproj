@@ -104,6 +104,10 @@
         <None Update="Template\Application\AddOverride">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+
+        <None Update="Template\Application\AddInvokeOverride">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Template\Application\Edit">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
@@ -112,6 +116,9 @@
         </None>
         <None Update="Template\Application\EditOverride">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Template\Application\EditInvokeOverride">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Template\Application\Get">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

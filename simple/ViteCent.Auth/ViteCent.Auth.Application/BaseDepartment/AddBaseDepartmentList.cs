@@ -56,7 +56,10 @@ public class AddBaseDepartmentList(ILogger<AddBaseDepartmentList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await AddBaseDepartment.OverrideHandle(request, user);
+
+        if (!check.Success)
+            return check;
 
         var entitys = new AddBaseDepartmentEntityListArgs()
         {
@@ -65,6 +68,11 @@ public class AddBaseDepartmentList(ILogger<AddBaseDepartmentList> logger,
 
         foreach (var item in request.Items)
         {
+            var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = item.CompanyId;
+
             var entity = mapper.Map<AddBaseDepartmentEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "BaseDepartment");

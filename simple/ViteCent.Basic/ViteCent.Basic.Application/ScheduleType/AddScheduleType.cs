@@ -12,15 +12,12 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.ScheduleType;
-using ViteCent.Core;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -64,23 +61,8 @@ public partial class AddScheduleType(ILogger<AddScheduleType> logger,
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);;
-
-        if (hasCompany.Success)
-            return hasCompany;
-
-        var departmentId = user?.Department?.Id ?? string.Empty;
-
-        if (!string.IsNullOrWhiteSpace(departmentId))
-            request.DepartmentId = departmentId;
-
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
-
-        if (hasDepartment.Success)
-            return hasDepartment;
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = request.CompanyId;
 
         var check = await OverrideHandle(request, cancellationToken);
 

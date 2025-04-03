@@ -2,7 +2,7 @@
  * 代码由工具自动生成
  * 重新生成时，不会覆盖原有代码
  */
- 
+
 #region
 
 using ViteCent.Auth.Data.BaseDepartment;
@@ -56,6 +56,16 @@ public partial class EditBaseDepartment
             else
                 request.Level = $"{hasParent.Level},{hasParent.Id}";
         }
+
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.CompanyId))
+            request.CompanyId = companyId;
+
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
+
+        if (hasCompany.Success)
+            return hasCompany;
 
         var hasArgs = new HasBaseDepartmentEntityArgs
         {

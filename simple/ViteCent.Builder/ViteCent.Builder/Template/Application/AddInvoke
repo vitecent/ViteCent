@@ -12,7 +12,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 #if($HasCompanyId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
@@ -24,12 +23,10 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
-using ViteCent.Core;
 #if($HasId)
 using ViteCent.Core.Cache;
 #end
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -92,32 +89,8 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
         var companyId = user?.Company?.Id ?? string.Empty;
 
 #if($HasCompanyId)
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);;
-
-        if (hasCompany.Success)
-            return hasCompany;
-
-#end
-#if($HasDepartmentId)
-        var departmentId = user?.Department?.Id ?? string.Empty;
-
-        if (!string.IsNullOrWhiteSpace(departmentId))
-            request.DepartmentId = departmentId;
-
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
-
-        if (hasDepartment.Success)
-            return hasDepartment;
-
-#end
-#if($HasUserId)
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
-
-        if (hasUser.Success)
-            return hasUser;
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = request.CompanyId;
 
 #end
         var check = await OverrideHandle(request, cancellationToken);

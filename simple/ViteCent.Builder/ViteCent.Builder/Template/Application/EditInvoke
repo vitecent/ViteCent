@@ -12,7 +12,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 #if($HasCompanyId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
@@ -39,9 +38,7 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseSystem;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
-using ViteCent.Core;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -125,81 +122,10 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await OverrideHandle(request, cancellationToken);
 
-#if($HasCompanyId)
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);;
-
-        if (hasCompany.Success)
-            return hasCompany;
-
-#end
-#if($HasDepartmentId)
-        var departmentId = user?.Department?.Id ?? string.Empty;
-
-        if (!string.IsNullOrWhiteSpace(departmentId))
-            request.DepartmentId = departmentId;
-
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
-
-        if (hasDepartment.Success)
-            return hasDepartment;
-
-#end
-#if($HasPositionId)
-        var positionId = user?.Position?.Id ?? string.Empty;
-
-        if (!string.IsNullOrWhiteSpace(positionId))
-            request.PositionId = positionId;
-
-        var hasPosition = await positionInvoke.CheckPosition(request.PositionId);
-
-        if (hasPosition.Success)
-            return hasPosition;
-
-#end
-#if($HasUserId)
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
-
-        if (hasUser.Success)
-            return hasUser;
-
-#end
-#if($HasRoleId)
-        var hasRole = await roleInvoke.CheckRole(request.RoleId);
-
-        if (hasRole.Success)
-            return hasRole;
-
-#end
-#if($HasSystemId)
-        var hasSystem = await systemInvoke.CheckSystem(request.SystemId);
-
-        if (hasSystem.Success)
-            return hasSystem;
-
-#end
-#if($HasResourceId)
-        var hasResource = await resourceInvoke.CheckResource(request.ResourceId);
-
-        if (hasResource.Success)
-            return hasResource;
-
-#end
-#if($HasOperationId)
-        var hasOperation = await operationInvoke.CheckOperation(request.OperationId);
-
-        if (hasOperation.Success)
-            return hasOperation;
-
-#end
-        var preResult = await OverrideHandle(request, cancellationToken);
-
-        if (!preResult.Success)
-            return preResult;
+        if (!check.Success)
+            return check;
 
         var args = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
 

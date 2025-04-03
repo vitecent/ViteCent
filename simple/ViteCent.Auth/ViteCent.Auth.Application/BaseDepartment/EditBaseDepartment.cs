@@ -12,13 +12,9 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Entity.BaseDepartment;
-using ViteCent.Core;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -53,20 +49,10 @@ public partial class EditBaseDepartment(ILogger<EditBaseDepartment> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await OverrideHandle(request, cancellationToken);
 
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var hasCompany = await mediator.CheckCompany(request.CompanyId);
-
-        if (hasCompany.Success)
-            return hasCompany;
-
-        var preResult = await OverrideHandle(request, cancellationToken);
-
-        if (!preResult.Success)
-            return preResult;
+        if (!check.Success)
+            return check;
 
         var args = mapper.Map<GetBaseDepartmentEntityArgs>(request);
 

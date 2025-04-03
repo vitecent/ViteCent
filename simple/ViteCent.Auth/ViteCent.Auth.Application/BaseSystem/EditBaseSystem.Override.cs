@@ -34,6 +34,16 @@ public partial class EditBaseSystem
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(EditBaseSystemArgs request, CancellationToken cancellationToken)
     {
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.CompanyId))
+            request.CompanyId = companyId;
+
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
+
+        if (hasCompany.Success)
+            return hasCompany;
+
         var hasArgs = new HasBaseSystemEntityArgs
         {
             Id = request.Id,

@@ -12,16 +12,10 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using ViteCent.Auth.Entity.BaseCompany;
-using ViteCent.Auth.Entity.BaseDepartment;
-using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
-using ViteCent.Core;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -60,33 +54,8 @@ public partial class AddBaseUser(ILogger<AddBaseUser> logger,
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var hasCompany = await mediator.CheckCompany(request.CompanyId);
-
-        if (hasCompany.Success)
-            return hasCompany;
-
-        var departmentId = user?.Department?.Id ?? string.Empty;
-
-        if (!string.IsNullOrWhiteSpace(departmentId))
-            request.DepartmentId = departmentId;
-
-        var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
-
-        if (hasDepartment.Success)
-            return hasDepartment;
-
-        var positionId = user?.Position?.Id ?? string.Empty;
-
-        if (!string.IsNullOrWhiteSpace(positionId))
-            request.PositionId = positionId;
-
-        var hasPosition = await mediator.CheckPosition(request.CompanyId, request.PositionId);
-
-        if (hasPosition.Success)
-            return hasPosition;
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = request.CompanyId;
 
         var check = await OverrideHandle(request, cancellationToken);
 

@@ -62,7 +62,10 @@ public class AddScheduleTypeList(ILogger<AddScheduleTypeList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await AddScheduleType.OverrideHandle(request, user);
+
+        if (!check.Success)
+            return check;
 
         var entitys = new AddScheduleTypeEntityListArgs()
         {
@@ -71,6 +74,11 @@ public class AddScheduleTypeList(ILogger<AddScheduleTypeList> logger,
 
         foreach (var item in request.Items)
         {
+            var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = item.CompanyId;
+
             var entity = mapper.Map<AddScheduleTypeEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "ScheduleType");

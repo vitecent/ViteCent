@@ -65,7 +65,10 @@ public class AddUserRestList(ILogger<AddUserRestList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await AddUserRest.OverrideHandle(request, user);
+
+        if (!check.Success)
+            return check;
 
         var entitys = new AddUserRestEntityListArgs()
         {
@@ -74,6 +77,11 @@ public class AddUserRestList(ILogger<AddUserRestList> logger,
 
         foreach (var item in request.Items)
         {
+            var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = item.CompanyId;
+
             var entity = mapper.Map<AddUserRestEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "UserRest");

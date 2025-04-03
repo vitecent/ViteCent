@@ -12,14 +12,10 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Entity.BaseDepartment;
-using ViteCent.Core;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -58,13 +54,8 @@ public partial class AddBaseDepartment(ILogger<AddBaseDepartment> logger,
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var hasCompany = await mediator.CheckCompany(request.CompanyId);
-
-        if (hasCompany.Success)
-            return hasCompany;
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = request.CompanyId;
 
         var check = await OverrideHandle(request, cancellationToken);
 

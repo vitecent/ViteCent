@@ -55,7 +55,10 @@ public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var companyId = user?.Company?.Id ?? string.Empty;
+        var check = await AddBaseCompany.OverrideHandle(request, user);
+
+        if (!check.Success)
+            return check;
 
         var entitys = new AddBaseCompanyEntityListArgs()
         {
@@ -64,6 +67,8 @@ public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger,
 
         foreach (var item in request.Items)
         {
+            var companyId = user?.Company?.Id ?? string.Empty;
+
             var entity = mapper.Map<AddBaseCompanyEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "BaseCompany");

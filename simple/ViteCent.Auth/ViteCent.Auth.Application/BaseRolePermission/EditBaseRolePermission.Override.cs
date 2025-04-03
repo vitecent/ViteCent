@@ -34,6 +34,36 @@ public partial class EditBaseRolePermission
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(EditBaseRolePermissionArgs request, CancellationToken cancellationToken)
     {
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.CompanyId))
+            request.CompanyId = companyId;
+
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
+
+        if (hasCompany.Success)
+            return hasCompany;
+
+        var hasRole = await mediator.CheckRole(request.CompanyId, request.RoleId);
+
+        if (hasRole.Success)
+            return hasRole;
+
+        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
+
+        if (hasSystem.Success)
+            return hasSystem;
+
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId); ;
+
+        if (hasResource.Success)
+            return hasResource;
+
+        var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
+
+        if (hasOperation.Success)
+            return hasOperation;
+
         var hasArgs = new HasBaseRolePermissionEntityArgs
         {
             Id = request.Id,

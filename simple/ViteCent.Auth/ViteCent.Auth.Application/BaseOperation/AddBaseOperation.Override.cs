@@ -2,7 +2,7 @@
  * 代码由工具自动生成
  * 重新生成时，不会覆盖原有代码
  */
- 
+
 #region
 
 using ViteCent.Auth.Data.BaseOperation;
@@ -20,11 +20,39 @@ public partial class AddBaseOperation
     /// <summary>
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    internal static async Task<BaseResult> OverrideHandle(AddBaseOperationListArgs request, BaseUserInfo user)
+    {
+        return await Task.FromResult(new BaseResult("ok"));
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(AddBaseOperationArgs request, CancellationToken cancellationToken)
     {
-        request.Status = (int)StatusEnum.Enable;
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.CompanyId))
+            request.CompanyId = companyId;
+
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
+
+        if (hasCompany.Success)
+            return hasCompany;
+
+        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
+
+        if (hasSystem.Success)
+            return hasSystem;
+
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId); ;
+
+        if (hasResource.Success)
+            return hasResource;
 
         var hasArgs = new HasBaseOperationEntityArgs
         {

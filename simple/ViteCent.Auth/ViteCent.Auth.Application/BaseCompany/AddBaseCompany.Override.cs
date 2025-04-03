@@ -2,7 +2,7 @@
  * 代码由工具自动生成
  * 重新生成时，不会覆盖原有代码
  */
- 
+
 #region
 
 using ViteCent.Auth.Data.BaseCompany;
@@ -21,12 +21,20 @@ public partial class AddBaseCompany
     /// <summary>
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    internal static async Task<BaseResult> OverrideHandle(AddBaseCompanyListArgs request, BaseUserInfo user)
+    {
+        return await Task.FromResult(new BaseResult("ok"));
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(AddBaseCompanyArgs request, CancellationToken cancellationToken)
     {
-        request.Status = (int)StatusEnum.Enable;
-
         if (!string.IsNullOrWhiteSpace(request.ParentId))
         {
             var hasParentArgs = new GetBaseCompanyEntityArgs

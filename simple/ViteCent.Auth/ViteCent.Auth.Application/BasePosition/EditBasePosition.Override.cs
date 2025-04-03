@@ -2,7 +2,7 @@
  * 代码由工具自动生成
  * 重新生成时，不会覆盖原有代码
  */
- 
+
 #region
 
 using ViteCent.Auth.Data.BasePosition;
@@ -34,6 +34,16 @@ public partial class EditBasePosition
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(EditBasePositionArgs request, CancellationToken cancellationToken)
     {
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(request.CompanyId))
+            request.CompanyId = companyId;
+
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
+
+        if (hasCompany.Success)
+            return hasCompany;
+
         var hasArgs = new HasBasePositionEntityArgs
         {
             Id = request.Id,

@@ -12,17 +12,10 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using ViteCent.Auth.Entity.BaseCompany;
-using ViteCent.Auth.Entity.BaseDepartment;
-using ViteCent.Auth.Entity.BaseRole;
-using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Auth.Data.BaseUserRole;
 using ViteCent.Auth.Entity.BaseUserRole;
-using ViteCent.Core;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -61,33 +54,8 @@ public partial class AddBaseUserRole(ILogger<AddBaseUserRole> logger,
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var hasCompany = await mediator.CheckCompany(request.CompanyId);
-
-        if (hasCompany.Success)
-            return hasCompany;
-
-        var departmentId = user?.Department?.Id ?? string.Empty;
-
-        if (!string.IsNullOrWhiteSpace(departmentId))
-            request.DepartmentId = departmentId;
-
-        var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
-
-        if (hasDepartment.Success)
-            return hasDepartment;
-
-        var hasUser = await mediator.CheckUser(request.CompanyId, request.DepartmentId, request.UserId);
-
-        if (hasUser.Success)
-            return hasUser;
-
-        var hasRole = await mediator.CheckRole(request.CompanyId, request.RoleId);
-
-        if (hasRole.Success)
-            return hasRole;
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = request.CompanyId;
 
         var check = await OverrideHandle(request, cancellationToken);
 

@@ -33,7 +33,7 @@ using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using ViteCent.Core;
 using ViteCent.Core.Data;
 
 #endregion
@@ -41,28 +41,17 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 删除$!{Table.Description}仓储拓展
+/// 新增$!{Table.Description}仓储拓展
 /// </summary>
-public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
+public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 {
-    /// <summary>
-    /// 验证数据
-    /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    private async Task<BaseResult> OverrideHandle($!{Table.CamelCaseName}$!{Setting.Entity.Name} entity, CancellationToken cancellationToken)
-    {
-        return await Task.FromResult(new BaseResult(string.Empty));
-    }
-
     /// <summary>
     /// 验证参数
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task<BaseResult> OverrideHandle($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -70,7 +59,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (string.IsNullOrWhiteSpace(request.CompanyId))
             request.CompanyId = companyId;
 
-        var hasCompany = await mediator.CheckCompany(request.CompanyId);
+        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);;
 
         if (hasCompany.Success)
             return hasCompany;
@@ -82,69 +71,29 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
+        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
 
         if (hasDepartment.Success)
             return hasDepartment;
 
 #end
-#if($HasPositionId)
-        var positionId = user?.Position?.Id ?? string.Empty;
-
-        if (string.IsNullOrWhiteSpace(request.PositionId))
-            request.PositionId = positionId;
-
-        var hasPosition = await mediator.CheckPosition(request.CompanyId, request.PositionId);
-
-        if (hasPosition.Success)
-            return hasPosition;
-
-#end
 #if($HasUserId)
-        var hasUser = await mediator.CheckUser(request.CompanyId, request.DepartmentId, request.UserId);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 
         if (hasUser.Success)
             return hasUser;
 
 #end
-#if($HasRoleId)
-        var hasRole = await mediator.CheckRole(request.CompanyId, request.RoleId);
-
-        if (hasRole.Success)
-            return hasRole;
-
-#end
-#if($HasSystemId)
-        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
-
-        if (hasSystem.Success)
-            return hasSystem;
-
-#end
-#if($HasResourceId)
-        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);;
-
-        if (hasResource.Success)
-            return hasResource;
-
-#end
-#if($HasOperationId)
-        var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
-
-        if (hasOperation.Success)
-            return hasOperation;
-
-#end
         var hasArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
         {
-#if($HasId)
-            Id = request.Id,
-#end
 #if($HasCompanyId)
             CompanyId = request.CompanyId,
 #end
 #if($HasDepartmentId)
             DepartmentId = request.DepartmentId,
+#end
+#if($HasPositionId)
+            PositionId = request.PositionId,
 #end
 #if($HasRoleId)
             RoleId = request.RoleId,

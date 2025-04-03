@@ -8,6 +8,7 @@
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Core;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -24,6 +25,8 @@ public partial class AddBaseCompany
     /// <returns></returns>
     internal static void OverrideInvoke(AddBaseCompanyArgs args, BaseUserInfo user)
     {
+        args.Status = (int)StatusEnum.Enable;
+
         if (string.IsNullOrWhiteSpace(args.Code) && !string.IsNullOrWhiteSpace(args.Name))
             args.Code = args.Name.GetPinYin().ToCamelCase();
     }

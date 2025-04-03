@@ -64,7 +64,7 @@ public class AddScheduleTypeList(ILogger<AddScheduleTypeList> logger,
             var result = await validator.ValidateAsync(item, cancellationToken);
 
             if (!result.IsValid)
-                return new BaseResult(500, string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
+                return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
