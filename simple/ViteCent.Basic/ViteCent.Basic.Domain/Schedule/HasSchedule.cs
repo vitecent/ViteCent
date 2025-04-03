@@ -52,6 +52,6 @@ public class HasSchedule(ILogger<HasSchedule> logger) : BaseDomain<ScheduleEntit
         if (entity > 0)
             return new BaseResult(500, "排班重复");
 
-        return new BaseResult(string.Empty);
+        return new BaseResult();
     }
 }

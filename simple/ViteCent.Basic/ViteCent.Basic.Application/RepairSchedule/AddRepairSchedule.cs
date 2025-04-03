@@ -33,7 +33,7 @@ namespace ViteCent.Basic.Application.RepairSchedule;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="companyInvoke"></param>
-   /// <param name="departmentInvoke"></param>
+/// <param name="departmentInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public partial class AddRepairSchedule(ILogger<AddRepairSchedule> logger,

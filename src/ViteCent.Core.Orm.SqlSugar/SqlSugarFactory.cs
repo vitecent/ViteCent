@@ -88,7 +88,7 @@ public class SqlSugarFactory : IFactory
     /// <returns></returns>
     public async Task<BaseResult> CommitAsync()
     {
-        if (commands.Count <= 0) return new BaseResult(string.Empty);
+        if (commands.Count <= 0) return new BaseResult();
 
         client.BeginTran();
         try
@@ -134,7 +134,7 @@ public class SqlSugarFactory : IFactory
             return new BaseResult(500, e.Message);
         }
 
-        return new BaseResult(string.Empty);
+        return new BaseResult();
     }
 
     /// <summary>

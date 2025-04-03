@@ -20,12 +20,12 @@ public partial class EditBaseUserRole
 {
     /// <summary>
     /// </summary>
-    /// <param name="request"></param>
+    /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(BaseUserRoleEntity entity, CancellationToken cancellationToken)
     {
-        return await Task.FromResult(new BaseResult(string.Empty));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

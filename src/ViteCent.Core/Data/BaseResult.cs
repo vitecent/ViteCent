@@ -8,6 +8,7 @@ public class BaseResult
     /// </summary>
     public BaseResult()
     {
+        Success = true;
     }
 
     /// <summary>

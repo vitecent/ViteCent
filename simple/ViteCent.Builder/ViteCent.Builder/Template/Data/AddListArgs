@@ -22,6 +22,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}> Items = [];
 }

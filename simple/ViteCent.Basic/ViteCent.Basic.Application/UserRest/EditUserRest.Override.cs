@@ -24,7 +24,7 @@ public partial class EditUserRest
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(UserRestEntity entity, CancellationToken cancellationToken)
     {
-        return await Task.FromResult(new BaseResult(string.Empty));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

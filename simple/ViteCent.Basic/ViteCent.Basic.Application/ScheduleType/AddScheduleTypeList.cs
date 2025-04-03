@@ -12,15 +12,12 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.ScheduleType;
-using ViteCent.Core;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -35,7 +32,7 @@ namespace ViteCent.Basic.Application.ScheduleType;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="companyInvoke"></param>
-   /// <param name="departmentInvoke"></param>
+/// <param name="departmentInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public class AddScheduleTypeList(ILogger<AddScheduleTypeList> logger,
     IBaseCache cache,
@@ -76,8 +73,8 @@ public class AddScheduleTypeList(ILogger<AddScheduleTypeList> logger,
         {
             var companyId = user?.Company?.Id ?? string.Empty;
 
-        if (string.IsNullOrWhiteSpace(companyId))
-            companyId = item.CompanyId;
+            if (string.IsNullOrWhiteSpace(companyId))
+                companyId = item.CompanyId;
 
             var entity = mapper.Map<AddScheduleTypeEntity>(item);
 

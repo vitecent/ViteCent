@@ -20,6 +20,16 @@ public partial class AddUserLeave
     /// <summary>
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    internal static async Task<BaseResult> OverrideHandle(AddUserLeaveListArgs request, BaseUserInfo user)
+    {
+        return await Task.FromResult(new BaseResult());
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(AddUserLeaveArgs request, CancellationToken cancellationToken)

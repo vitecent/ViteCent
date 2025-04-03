@@ -26,7 +26,7 @@ public partial class EditSchedule
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(ScheduleEntity entity, CancellationToken cancellationToken)
     {
-        return await Task.FromResult(new BaseResult(string.Empty));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

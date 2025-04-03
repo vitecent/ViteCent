@@ -51,6 +51,6 @@ public class HasBaseResource(ILogger<HasBaseResource> logger) : BaseDomain<BaseR
         if (entity > 0)
             return new BaseResult(500, "编码或名称重复");
 
-        return new BaseResult(string.Empty);
+        return new BaseResult();
     }
 }

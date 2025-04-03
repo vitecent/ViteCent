@@ -11,10 +11,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Entity.Schedule;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 
 #endregion
@@ -53,7 +51,7 @@ public class PageSchedule(ILogger<PageSchedule> logger,
 
         var args = mapper.Map<SearchScheduleEntityArgs>(request);
 
-         args.AddCompanyId(user);
+        args.AddCompanyId(user);
 
         var list = await mediator.Send(args, cancellationToken);
 

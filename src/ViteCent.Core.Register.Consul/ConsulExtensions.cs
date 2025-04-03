@@ -113,7 +113,7 @@ public static class ConsulExtensions
 
         await new ConsulRegister(uri).RegisterAsync(service);
 
-        if (check == Const.Check) app.MapGet(check, () => new BaseResult(string.Empty));
+        if (check == Const.Check) app.MapGet(check, () => new BaseResult());
 
         var lifetime = app.Lifetime;
 

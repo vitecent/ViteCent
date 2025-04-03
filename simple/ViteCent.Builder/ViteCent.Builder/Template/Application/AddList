@@ -12,39 +12,12 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-#if($HasCompanyId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseCompany;
-#end
-#if($HasDepartmentId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseDepartment;
-#end
-#if($HasOperationId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseOperation;
-#end
-#if($HasPositionId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BasePosition;
-#end
-#if($HasResourceId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseResource;
-#end
-#if($HasRoleId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseRole;
-#end
-#if($HasUserId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
-#end
-#if($HasSystemId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
-#end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
-using ViteCent.Core;
 #if($HasId)
 using ViteCent.Core.Cache;
 #end
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -100,8 +73,8 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             var companyId = user?.Company?.Id ?? string.Empty;
 
 #if($HasCompanyId)
-        if (string.IsNullOrWhiteSpace(companyId))
-            companyId = item.CompanyId;
+            if (string.IsNullOrWhiteSpace(companyId))
+                companyId = item.CompanyId;
 
 #end
             var entity = mapper.Map<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>(item);

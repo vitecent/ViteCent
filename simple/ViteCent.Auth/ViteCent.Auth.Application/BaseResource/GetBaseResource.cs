@@ -11,10 +11,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 using ViteCent.Auth.Data.BaseResource;
 using ViteCent.Auth.Entity.BaseResource;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 
 #endregion

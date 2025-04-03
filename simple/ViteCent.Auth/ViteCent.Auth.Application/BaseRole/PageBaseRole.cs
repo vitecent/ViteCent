@@ -11,10 +11,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 using ViteCent.Auth.Data.BaseRole;
 using ViteCent.Auth.Entity.BaseRole;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 
 #endregion
@@ -53,7 +51,7 @@ public class PageBaseRole(ILogger<PageBaseRole> logger,
 
         var args = mapper.Map<SearchBaseRoleEntityArgs>(request);
 
-         args.AddCompanyId(user);
+        args.AddCompanyId(user);
 
         var list = await mediator.Send(args, cancellationToken);
 

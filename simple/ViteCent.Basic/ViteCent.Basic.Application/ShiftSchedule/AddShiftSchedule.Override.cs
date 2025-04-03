@@ -16,9 +16,14 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
 /// </summary>
 public partial class AddShiftSchedule
 {
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
     internal static async Task<BaseResult> OverrideHandle(AddShiftScheduleListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

@@ -22,6 +22,6 @@ public class AddShiftScheduleEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddShiftScheduleEntity> Items = [];
 }

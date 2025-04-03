@@ -22,6 +22,6 @@ public class AddBaseUserRoleEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddBaseUserRoleEntity> Items = [];
 }

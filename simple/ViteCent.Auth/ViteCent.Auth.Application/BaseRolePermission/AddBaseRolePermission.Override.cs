@@ -5,6 +5,8 @@
 
 #region
 
+using MediatR;
+using System.ComponentModel.Design;
 using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -19,12 +21,52 @@ public partial class AddBaseRolePermission
 {
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(AddBaseRolePermissionListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseRolePermissionListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        foreach (var item in request.Items)
+        {
+            if (string.IsNullOrWhiteSpace(item.CompanyId))
+                item.CompanyId = companyId;
+        }
+
+        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
+        var roleIds = request.Items.Select(x => x.RoleId).Distinct().ToList();
+        var systemIds = request.Items.Select(x => x.SystemId).Distinct().ToList();
+        var resourceIds = request.Items.Select(x => x.ResourceId).Distinct().ToList();
+        var operationIds = request.Items.Select(x => x.OperationId).Distinct().ToList();
+
+        var companys = await mediator.CheckCompany(companyIds);
+
+        if (!companys.Success)
+            return companys;
+
+        var roles = await mediator.CheckRole(companyIds, roleIds);
+
+        if (!roles.Success)
+            return roles;
+
+        var systems = await mediator.CheckSystem(companyIds, systemIds);
+
+        if (!systems.Success)
+            return systems;
+
+        var resources = await mediator.CheckResource(companyIds, systemIds, resourceIds);
+
+        if (!resources.Success)
+            return resources;
+
+        var operations = await mediator.CheckOperation(companyIds, systemIds, resourceIds, operationIds);
+
+        if (!operations.Success)
+            return operations;
+
+        return new BaseResult();
     }
 
     /// <summary>

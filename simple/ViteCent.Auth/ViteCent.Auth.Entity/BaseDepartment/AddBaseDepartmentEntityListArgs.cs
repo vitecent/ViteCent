@@ -22,6 +22,6 @@ public class AddBaseDepartmentEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddBaseDepartmentEntity> Items = [];
 }

@@ -5,6 +5,7 @@
 
 #region
 
+using MediatR;
 using ViteCent.Auth.Data.BaseRole;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -19,12 +20,28 @@ public partial class AddBaseRole
 {
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(AddBaseRoleListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseRoleListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        foreach (var item in request.Items)
+        {
+            if (string.IsNullOrWhiteSpace(item.CompanyId))
+                item.CompanyId = companyId;
+        }
+
+        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
+
+        var companys = await mediator.CheckCompany(companyIds);
+
+        if (!companys.Success)
+            return companys;
+
+        return new BaseResult();
     }
 
     /// <summary>

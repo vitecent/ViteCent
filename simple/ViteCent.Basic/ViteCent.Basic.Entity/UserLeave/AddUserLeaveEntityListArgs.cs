@@ -22,6 +22,6 @@ public class AddUserLeaveEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddUserLeaveEntity> Items = [];
 }

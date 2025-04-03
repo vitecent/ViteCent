@@ -17,7 +17,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// <param name="mediator"></param>
 [ApiController]
 [Route("BaseUser")]
-public class Login(ILogger<Login> logger, IMediator mediator) : BaseApi<LoginArgs, DataResult<LoginResult>>
+public class Login(ILogger<Login> logger,
+    IMediator mediator) : BaseApi<LoginArgs, DataResult<LoginResult>>
 {
     /// <summary>
     /// </summary>
@@ -33,11 +34,9 @@ public class Login(ILogger<Login> logger, IMediator mediator) : BaseApi<LoginArg
         var validator = new LoginArgsValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
 
-        if (result.IsValid)
-            return await mediator.Send(args, cancellationToken);
+        if (!result.IsValid)
+            return new DataResult<LoginResult>(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
-        var message = string.Join(",", result.Errors.Select(x => x.ErrorMessage));
-
-        return new DataResult<LoginResult>(500, message);
+        return await mediator.Send(args, cancellationToken);
     }
 }

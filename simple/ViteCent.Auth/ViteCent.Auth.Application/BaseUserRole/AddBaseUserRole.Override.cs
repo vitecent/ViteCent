@@ -5,9 +5,9 @@
 
 #region
 
+using MediatR;
 using ViteCent.Auth.Data.BaseUserRole;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -19,12 +19,50 @@ public partial class AddBaseUserRole
 {
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(AddBaseUserRoleListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseUserRoleListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        var companyId = user?.Company?.Id ?? string.Empty;
+        var departmentId = user?.Department?.Id ?? string.Empty;
+
+        foreach (var item in request.Items)
+        {
+            if (string.IsNullOrWhiteSpace(item.CompanyId))
+                item.CompanyId = companyId;
+
+            if (string.IsNullOrWhiteSpace(item.DepartmentId))
+                item.DepartmentId = departmentId;
+        }
+
+        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
+        var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
+        var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
+        var roleIds = request.Items.Select(x => x.RoleId).Distinct().ToList();
+
+        var companys = await mediator.CheckCompany(companyIds);
+
+        if (!companys.Success)
+            return companys;
+
+        var departments = await mediator.CheckDepartment(companyIds, departmentIds);
+
+        if (!departments.Success)
+            return departments;
+
+        var users = await mediator.CheckUser(companyIds, departmentIds, userIds);
+
+        if (!users.Success)
+            return users;
+
+        var roles = await mediator.CheckRole(companyIds, roleIds);
+
+        if (!roles.Success)
+            return roles;
+
+        return new BaseResult();
     }
 
     /// <summary>

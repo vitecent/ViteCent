@@ -22,6 +22,6 @@ public class AddBasePositionListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddBasePositionArgs> Items = [];
 }

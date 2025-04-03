@@ -22,6 +22,6 @@ public class AddBaseResourceListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddBaseResourceArgs> Items = [];
 }

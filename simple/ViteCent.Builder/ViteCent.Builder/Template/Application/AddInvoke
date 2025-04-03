@@ -46,7 +46,7 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 /// <param name="companyInvoke"></param>
 #end
 #if($HasDepartmentId)
-   /// <param name="departmentInvoke"></param>
+/// <param name="departmentInvoke"></param>
 #end
 #if($HasUserId)
 /// <param name="userInvoke"></param>

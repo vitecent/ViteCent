@@ -18,7 +18,9 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="logger"></param>
 /// <param name="cache"></param>
 /// <param name="httpContextAccessor"></param>
-public class Loginout(ILogger<AddBaseUser> logger, IBaseCache cache, IHttpContextAccessor httpContextAccessor) : IRequestHandler<LoginoutArgs, BaseResult>
+public class Loginout(ILogger<AddBaseUser> logger,
+    IBaseCache cache,
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<LoginoutArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -33,24 +35,11 @@ public class Loginout(ILogger<AddBaseUser> logger, IBaseCache cache, IHttpContex
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.Loginout");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         if (user != null)
             cache.DeleteKey($"User{user.Id}");
 
-        return await Task.FromResult(new BaseResult(string.Empty));
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
+        return await Task.FromResult(new BaseResult());
     }
 }

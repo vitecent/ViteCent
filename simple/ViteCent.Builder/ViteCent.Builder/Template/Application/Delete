@@ -13,14 +13,8 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 #end
 using Microsoft.Extensions.Logging;
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
-using System.Security.Claims;
-#end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
-using ViteCent.Core;
-#end
 using ViteCent.Core.Data;
 
 #endregion

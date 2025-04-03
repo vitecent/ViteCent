@@ -11,10 +11,8 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 using ViteCent.Auth.Data.BaseOperation;
 using ViteCent.Auth.Entity.BaseOperation;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 
 #endregion
@@ -53,7 +51,7 @@ public class PageBaseOperation(ILogger<PageBaseOperation> logger,
 
         var args = mapper.Map<SearchBaseOperationEntityArgs>(request);
 
-         args.AddCompanyId(user);
+        args.AddCompanyId(user);
 
         var list = await mediator.Send(args, cancellationToken);
 

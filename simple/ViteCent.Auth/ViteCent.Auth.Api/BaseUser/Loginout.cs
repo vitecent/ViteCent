@@ -18,7 +18,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class Loginout(ILogger<Loginout> logger, IMediator mediator) : BaseLoginApi<LoginoutArgs, BaseResult>
+public class Loginout(ILogger<Loginout> logger,
+    IMediator mediator) : BaseLoginApi<LoginoutArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

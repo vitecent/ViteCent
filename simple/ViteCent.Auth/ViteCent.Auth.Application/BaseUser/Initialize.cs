@@ -15,7 +15,9 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
 /// <param name="mapper"></param>
-public class Initialize(ILogger<AddBaseUser> logger, IMediator mediator, IMapper mapper) : IRequestHandler<InitializeArgs, BaseResult>
+public class Initialize(ILogger<AddBaseUser> logger,
+    IMediator mediator,
+    IMapper mapper) : IRequestHandler<InitializeArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

@@ -25,7 +25,7 @@ public partial class EditBaseDepartment
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(BaseDepartmentEntity entity, CancellationToken cancellationToken)
     {
-        return await Task.FromResult(new BaseResult(string.Empty));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

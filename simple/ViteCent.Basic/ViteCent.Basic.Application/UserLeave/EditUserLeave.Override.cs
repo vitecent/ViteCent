@@ -28,7 +28,7 @@ public partial class EditUserLeave
         if (entity.Status != (int)UserLeaveEnum.Apply)
             return new BaseResult(500, "只能修改申请中的数据");
 
-        return await Task.FromResult(new BaseResult(string.Empty));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

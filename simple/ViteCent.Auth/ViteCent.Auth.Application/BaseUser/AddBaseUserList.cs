@@ -12,16 +12,10 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using ViteCent.Auth.Entity.BaseCompany;
-using ViteCent.Auth.Entity.BaseDepartment;
-using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
-using ViteCent.Core;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -58,7 +52,7 @@ public class AddBaseUserList(ILogger<AddBaseUserList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBaseUser.OverrideHandle(request, user);
+        var check = await AddBaseUser.OverrideHandle(mediator, request, user);
 
         if (!check.Success)
             return check;
@@ -72,8 +66,8 @@ public class AddBaseUserList(ILogger<AddBaseUserList> logger,
         {
             var companyId = user?.Company?.Id ?? string.Empty;
 
-        if (string.IsNullOrWhiteSpace(companyId))
-            companyId = item.CompanyId;
+            if (string.IsNullOrWhiteSpace(companyId))
+                companyId = item.CompanyId;
 
             var entity = mapper.Map<AddBaseUserEntity>(item);
 

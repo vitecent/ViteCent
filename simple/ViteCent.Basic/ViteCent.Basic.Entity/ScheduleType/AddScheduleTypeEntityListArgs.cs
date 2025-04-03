@@ -22,6 +22,6 @@ public class AddScheduleTypeEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddScheduleTypeEntity> Items = [];
 }

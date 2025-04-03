@@ -27,7 +27,7 @@ public partial class EditShiftSchedule
         if (entity.Status != (int)ShiftScheduleEnum.Apply)
             return new BaseResult(500, "只能修改申请中的数据");
 
-        return await Task.FromResult(new BaseResult(string.Empty));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

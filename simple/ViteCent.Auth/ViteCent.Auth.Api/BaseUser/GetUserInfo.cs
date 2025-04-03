@@ -18,7 +18,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class GetUserInfo(ILogger<GetUserInfo> logger, IMediator mediator) : BaseLoginApi<GetUserInfoArgs, DataResult<BaseUserInfo>>
+public class GetUserInfo(ILogger<GetUserInfo> logger,
+    IMediator mediator) : BaseLoginApi<GetUserInfoArgs, DataResult<BaseUserInfo>>
 {
     /// <summary>
     /// </summary>

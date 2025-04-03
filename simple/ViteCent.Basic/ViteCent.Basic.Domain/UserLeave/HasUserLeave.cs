@@ -55,6 +55,6 @@ public class HasUserLeave(ILogger<HasUserLeave> logger) : BaseDomain<UserLeaveEn
         if (entity > 0)
             return new BaseResult(500, "请假重复");
 
-        return new BaseResult(string.Empty);
+        return new BaseResult();
     }
 }

@@ -18,7 +18,9 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="logger"></param>
 /// <param name="cache"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetUserInfo(ILogger<AddBaseUser> logger, IBaseCache cache, IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserInfoArgs, DataResult<BaseUserInfo>>
+public class GetUserInfo(ILogger<AddBaseUser> logger,
+    IBaseCache cache,
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserInfoArgs, DataResult<BaseUserInfo>>
 {
     /// <summary>
     /// </summary>
@@ -33,7 +35,7 @@ public class GetUserInfo(ILogger<AddBaseUser> logger, IBaseCache cache, IHttpCon
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.GetUserInfo");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var result = new DataResult<BaseUserInfo>(user);
 
@@ -45,18 +47,5 @@ public class GetUserInfo(ILogger<AddBaseUser> logger, IBaseCache cache, IHttpCon
         result.Data.AuthInfo = authInfo;
 
         return await Task.FromResult(result);
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

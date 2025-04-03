@@ -54,6 +54,6 @@ public class HasRepairSchedule(ILogger<HasRepairSchedule> logger) : BaseDomain<R
         if (entity > 0)
             return new BaseResult(500, "数据重复");
 
-        return new BaseResult(string.Empty);
+        return new BaseResult();
     }
 }

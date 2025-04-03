@@ -22,6 +22,6 @@ public class AddBaseRolePermissionEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddBaseRolePermissionEntity> Items = [];
 }

@@ -68,6 +68,6 @@ public static class BaseSearchArgs
             if (companyId != user.Company.Id)
                 return new BaseResult(401, "您没有权限访问该数据");
 
-        return await Task.FromResult(new BaseResult(string.Empty));
+        return await Task.FromResult(new BaseResult());
     }
 }

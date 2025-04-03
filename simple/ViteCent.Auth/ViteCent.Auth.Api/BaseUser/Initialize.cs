@@ -16,7 +16,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// <param name="mediator"></param>
 [ApiController]
 [Route("BaseUser")]
-public class Initialize(ILogger<Initialize> logger, IMediator mediator) : BaseApi<InitializeArgs, BaseResult>
+public class Initialize(ILogger<Initialize> logger,
+    IMediator mediator) : BaseApi<InitializeArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

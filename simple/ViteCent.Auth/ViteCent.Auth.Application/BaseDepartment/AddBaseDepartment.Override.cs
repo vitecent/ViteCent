@@ -5,6 +5,7 @@
 
 #region
 
+using MediatR;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Entity.BaseDepartment;
 using ViteCent.Core.Data;
@@ -20,12 +21,28 @@ public partial class AddBaseDepartment
 {
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(AddBaseDepartmentListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseDepartmentListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        foreach (var item in request.Items)
+        {
+            if (string.IsNullOrWhiteSpace(item.CompanyId))
+                item.CompanyId = companyId;
+        }
+
+        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
+
+        var companys = await mediator.CheckCompany(companyIds);
+
+        if (!companys.Success)
+            return companys;
+
+        return new BaseResult();
     }
 
     /// <summary>

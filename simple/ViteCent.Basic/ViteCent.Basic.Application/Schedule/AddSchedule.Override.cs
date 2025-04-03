@@ -21,6 +21,16 @@ public partial class AddSchedule
     /// <summary>
     /// </summary>
     /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    internal static async Task<BaseResult> OverrideHandle(AddScheduleListArgs request, BaseUserInfo user)
+    {
+        return await Task.FromResult(new BaseResult());
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     private async Task<BaseResult> OverrideHandle(AddScheduleArgs request, CancellationToken cancellationToken)

@@ -22,6 +22,6 @@ public class AddBaseUserRoleListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddBaseUserRoleArgs> Items = [];
 }

@@ -12,7 +12,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 #if($HasCompanyId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
@@ -24,12 +23,10 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
-using ViteCent.Core;
 #if($HasId)
 using ViteCent.Core.Cache;
 #end
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -49,7 +46,7 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 /// <param name="companyInvoke"></param>
 #end
 #if($HasDepartmentId)
-   /// <param name="departmentInvoke"></param>
+/// <param name="departmentInvoke"></param>
 #end
 #if($HasUserId)
 /// <param name="userInvoke"></param>
@@ -104,8 +101,8 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             var companyId = user?.Company?.Id ?? string.Empty;
 
 #if($HasCompanyId)
-        if (string.IsNullOrWhiteSpace(companyId))
-            companyId = item.CompanyId;
+            if (string.IsNullOrWhiteSpace(companyId))
+                companyId = item.CompanyId;
 
 #end
             var entity = mapper.Map<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>(item);

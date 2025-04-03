@@ -22,6 +22,6 @@ public class AddBaseSystemEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
 	/// 数据
-    /// </summary>
+	/// </summary>
 	public List<AddBaseSystemEntity> Items = [];
 }

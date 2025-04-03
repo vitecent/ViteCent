@@ -5,10 +5,10 @@
 
 #region
 
+using MediatR;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Core;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -20,12 +20,48 @@ public partial class AddBaseUser
 {
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(AddBaseUserListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseUserListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        var companyId = user?.Company?.Id ?? string.Empty;
+        var departmentId = user?.Department?.Id ?? string.Empty;
+        var position = user?.Position?.Id ?? string.Empty;
+
+        foreach (var item in request.Items)
+        {
+            if (string.IsNullOrWhiteSpace(item.CompanyId))
+                item.CompanyId = companyId;
+
+            if (string.IsNullOrWhiteSpace(item.DepartmentId))
+                item.DepartmentId = departmentId;
+
+            if (string.IsNullOrWhiteSpace(item.PositionId))
+                item.PositionId = position;
+        }
+
+        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
+        var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
+        var positionIds = request.Items.Select(x => x.PositionId).Distinct().ToList();
+
+        var companys = await mediator.CheckCompany(companyIds);
+
+        if (!companys.Success)
+            return companys;
+
+        var departments = await mediator.CheckDepartment(companyIds, departmentIds);
+
+        if (!departments.Success)
+            return departments;
+
+        var positions = await mediator.CheckPosition(companyIds, positionIds);
+
+        if (!positions.Success)
+            return positions;
+
+        return new BaseResult();
     }
 
     /// <summary>

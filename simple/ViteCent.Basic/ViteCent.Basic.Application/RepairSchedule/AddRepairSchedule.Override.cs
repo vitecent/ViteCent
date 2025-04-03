@@ -6,6 +6,7 @@
 #region
 
 using ViteCent.Basic.Data.RepairSchedule;
+using ViteCent.Basic.Data.Schedule;
 using ViteCent.Core.Data;
 
 #endregion
@@ -16,6 +17,16 @@ namespace ViteCent.Basic.Application.RepairSchedule;
 /// </summary>
 public partial class AddRepairSchedule
 {
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    internal static async Task<BaseResult> OverrideHandle(AddRepairScheduleListArgs request, BaseUserInfo user)
+    {
+        return await Task.FromResult(new BaseResult());
+    }
+
     /// <summary>
     /// </summary>
     /// <param name="request"></param>

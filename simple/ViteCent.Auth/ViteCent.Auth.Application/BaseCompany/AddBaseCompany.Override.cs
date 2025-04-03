@@ -5,6 +5,7 @@
 
 #region
 
+using MediatR;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Core.Data;
@@ -20,12 +21,13 @@ public partial class AddBaseCompany
 {
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(AddBaseCompanyListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseCompanyListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

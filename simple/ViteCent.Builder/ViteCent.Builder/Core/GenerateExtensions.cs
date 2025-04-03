@@ -58,7 +58,7 @@ public class GenerateExtensions
 
             GenerateDomain(setting, root, database, nh);
 
-            GenerateSolution(setting, root, database, nh);
+            //GenerateSolution(setting, root, database, nh);
         }
     }
 

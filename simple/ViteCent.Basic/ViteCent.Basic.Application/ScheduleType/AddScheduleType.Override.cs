@@ -16,9 +16,14 @@ namespace ViteCent.Basic.Application.ScheduleType;
 /// </summary>
 public partial class AddScheduleType
 {
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
     internal static async Task<BaseResult> OverrideHandle(AddScheduleTypeListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        return await Task.FromResult(new BaseResult());
     }
 
     /// <summary>

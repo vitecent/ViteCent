@@ -5,6 +5,7 @@
 
 #region
 
+using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Basic.Data.UserRest;
 using ViteCent.Core.Data;
 
@@ -16,6 +17,16 @@ namespace ViteCent.Basic.Application.UserRest;
 /// </summary>
 public partial class AddUserRest
 {
+    /// <summary>
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    internal static async Task<BaseResult> OverrideHandle(AddUserRestListArgs request, BaseUserInfo user)
+    {
+        return await Task.FromResult(new BaseResult());
+    }
+
     /// <summary>
     /// </summary>
     /// <param name="request"></param>

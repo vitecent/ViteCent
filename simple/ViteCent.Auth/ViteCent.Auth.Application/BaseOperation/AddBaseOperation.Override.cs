@@ -5,6 +5,7 @@
 
 #region
 
+using MediatR;
 using ViteCent.Auth.Data.BaseOperation;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -19,12 +20,40 @@ public partial class AddBaseOperation
 {
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(AddBaseOperationListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseOperationListArgs request, BaseUserInfo user)
     {
-        return await Task.FromResult(new BaseResult("ok"));
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        foreach (var item in request.Items)
+        {
+            if (string.IsNullOrWhiteSpace(item.CompanyId))
+                item.CompanyId = companyId;
+        }
+
+        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
+        var systemIds = request.Items.Select(x => x.SystemId).Distinct().ToList();
+        var resourceIds = request.Items.Select(x => x.ResourceId).Distinct().ToList();
+
+        var companys = await mediator.CheckCompany(companyIds);
+
+        if (!companys.Success)
+            return companys;
+
+        var systems = await mediator.CheckSystem(companyIds, systemIds);
+
+        if (!systems.Success)
+            return systems;
+
+        var resources = await mediator.CheckResource(companyIds, systemIds, resourceIds);
+
+        if (!resources.Success)
+            return resources;
+
+        return new BaseResult();
     }
 
     /// <summary>

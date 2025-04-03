@@ -33,7 +33,10 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="configuration"></param>
-public class Login(ILogger<AddBaseUser> logger, IBaseCache cache, IMapper mapper, IMediator mediator, IConfiguration configuration) : IRequestHandler<LoginArgs, DataResult<LoginResult>>
+public class Login(ILogger<AddBaseUser> logger,
+    IBaseCache cache, IMapper mapper,
+    IMediator mediator,
+    IConfiguration configuration) : IRequestHandler<LoginArgs, DataResult<LoginResult>>
 {
     /// <summary>
     /// </summary>
