@@ -49,7 +49,7 @@ public class DeleteBaseResource(ILogger<DeleteBaseResource> logger) : BaseDomain
         if (!string.IsNullOrWhiteSpace(request.SystemId))
             query.Where(x => x.SystemId == request.SystemId);
 
-        var entity = await query.FirstAsync();
+        var entity = await query.FirstAsync(cancellationToken);
 
         return await base.DeleteAsync(entity);
     }

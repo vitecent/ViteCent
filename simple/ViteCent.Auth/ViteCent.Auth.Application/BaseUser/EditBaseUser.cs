@@ -53,72 +53,37 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.EditBaseUser");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-        {
-            var hasCompanyArgs = new GetBaseCompanyEntityArgs
-            {
-                Id = request.CompanyId,
-            };
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
-
-            if (hasCompany == null)
-                return new BaseResult(500, "公司不存在");
-
-            if (hasCompany.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "公司已禁用");
-        }
+        if (hasCompany.Success)
+            return hasCompany;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId))
-        {
-            var hasDepartmentArgs = new GetBaseDepartmentEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.DepartmentId,
-            };
+        var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
 
-            var hasDepartment = await mediator.Send(hasDepartmentArgs, cancellationToken);
-
-            if (hasDepartment == null)
-                return new BaseResult(500, "部门不存在");
-
-            if (hasDepartment.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "部门已禁用");
-        }
+        if (hasDepartment.Success)
+            return hasDepartment;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(positionId))
             request.PositionId = positionId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.PositionId))
-        {
-            var hasPositionArgs = new GetBasePositionEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.PositionId,
-            };
+        var hasPosition = await mediator.CheckPosition(request.CompanyId, request.PositionId);
 
-            var hasPosition = await mediator.Send(hasPositionArgs, cancellationToken);
-
-            if (hasPosition == null)
-                return new BaseResult(500, "职位不存在");
-
-            if (hasPosition.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "职位已禁用");
-        }
+        if (hasPosition.Success)
+            return hasPosition;
 
         var preResult = await OverrideHandle(request, cancellationToken);
 
@@ -130,7 +95,7 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在或无权限");
+            return new BaseResult(500, "数据不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -157,19 +122,5 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         entity.DataVersion = DateTime.Now;
 
         return await mediator.Send(entity, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取用户信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

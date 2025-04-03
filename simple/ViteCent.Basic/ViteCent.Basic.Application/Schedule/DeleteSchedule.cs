@@ -48,7 +48,7 @@ public class DeleteSchedule(ILogger<DeleteSchedule> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.DeleteSchedule");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -63,19 +63,5 @@ public class DeleteSchedule(ILogger<DeleteSchedule> logger,
         var args = mapper.Map<DeleteScheduleEntityArgs>(request);
 
         return await mediator.Send(args, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取排班信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

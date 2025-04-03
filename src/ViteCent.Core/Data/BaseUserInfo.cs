@@ -39,4 +39,8 @@ public class BaseUserInfo
     /// <summary>
     /// </summary>
     public BasePositionInfo Position { get; set; } = new();
+
+    /// <summary>
+    /// </summary>
+    public string Token { get; set; } = string.Empty;
 }

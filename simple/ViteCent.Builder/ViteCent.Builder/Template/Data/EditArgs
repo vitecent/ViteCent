@@ -5,13 +5,13 @@
  * **********************************
  */
 
-namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 编辑$!{Table.Description}参数
 /// </summary>
 [Serializable]
-public class $!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} : $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}
+public class $!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} : $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}
 {
 #if($HasId)
     /// <summary>

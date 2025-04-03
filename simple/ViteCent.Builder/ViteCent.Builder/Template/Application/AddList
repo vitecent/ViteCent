@@ -1,0 +1,112 @@
+﻿/*
+ * **********************************
+ * 代码由工具自动生成，请勿人工修改
+ * 重新生成时，将覆盖原有代码
+ * 如需扩展该类，请在partial类中实现
+ * **********************************
+ */
+
+#region
+
+using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+#if($HasCompanyId)
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseCompany;
+#end
+#if($HasDepartmentId)
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseDepartment;
+#end
+#if($HasOperationId)
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseOperation;
+#end
+#if($HasPositionId)
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BasePosition;
+#end
+#if($HasResourceId)
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseResource;
+#end
+#if($HasRoleId)
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseRole;
+#end
+#if($HasUserId)
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
+#end
+#if($HasSystemId)
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
+#end
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using ViteCent.Core;
+#if($HasId)
+using ViteCent.Core.Cache;
+#end
+using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// 新增$!{Table.Description}仓储
+/// </summary>
+/// <param name="logger"></param>
+#if($HasId)
+/// <param name="cache"></param>
+#end
+/// <param name="mapper"></param>
+/// <param name="mediator"></param>
+/// <param name="httpContextAccessor"></param>
+public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger,
+#if($HasId)
+    IBaseCache cache,
+#end
+    IMapper mapper,
+    IMediator mediator,
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
+{
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private BaseUserInfo user = new();
+
+    /// <summary>
+    /// 新增$!{Table.Description}
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> Handle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}");
+
+        user = httpContextAccessor.InitUser();
+
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        var entitys = new $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}()
+        {
+            Items = []
+        };
+
+        foreach (var item in request.Items)
+        {
+            var entity = mapper.Map<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>(item);
+#if($HasId)
+
+            entity.Id = await cache.GetIdAsync(companyId, "$!{Table.CamelCaseName}");
+#end
+
+            entity.Creator = user?.Name ?? string.Empty;
+            entity.CreateTime = DateTime.Now;
+            entity.DataVersion = DateTime.Now;
+
+            entitys.Items.Add(entity);
+        }
+
+        return await mediator.Send(entitys, cancellationToken);
+    }
+}

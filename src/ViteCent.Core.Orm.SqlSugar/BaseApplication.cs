@@ -33,6 +33,15 @@ public abstract class BaseApplication<T> : IBaseApplication<T> where T : IBaseEn
 
     /// <summary>
     /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    public virtual async Task<BaseResult> AddAsync(List<T> entitys)
+    {
+        return await Domain.AddAsync(entitys);
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="where"></param>
     /// <returns></returns>
     public async Task<BaseResult> DeleteAsync(Expression<Func<T, bool>> where)

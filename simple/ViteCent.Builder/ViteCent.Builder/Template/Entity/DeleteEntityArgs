@@ -12,13 +12,13 @@ using ViteCent.Core.Data;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}数据参数
 /// </summary>
 [Serializable]
-public class $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix} : IRequest<BaseResult>
+public class $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} : IRequest<BaseResult>
 {
 #if($HasCompanyId)
     /// <summary>

@@ -48,7 +48,7 @@ public class DeleteBaseRole(ILogger<DeleteBaseRole> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseRole.DeleteBaseRole");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -58,19 +58,5 @@ public class DeleteBaseRole(ILogger<DeleteBaseRole> logger,
         var args = mapper.Map<DeleteBaseRoleEntityArgs>(request);
 
         return await mediator.Send(args, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取角色信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

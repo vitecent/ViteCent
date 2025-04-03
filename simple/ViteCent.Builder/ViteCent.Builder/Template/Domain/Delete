@@ -9,19 +9,19 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>, IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,11 +34,11 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
-        var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>();
+        var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
 
 #if($HasId)
         if (!string.IsNullOrWhiteSpace(request.Id))
@@ -85,7 +85,7 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
             query.Where(x => x.OperationId == request.OperationId);
 
 #end
-        var entity = await query.FirstAsync();
+        var entity = await query.FirstAsync(cancellationToken);
 
         return await base.DeleteAsync(entity);
     }

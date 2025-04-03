@@ -53,46 +53,28 @@ public partial class AddBaseCompany(ILogger<AddBaseCompany> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseCompany.AddBaseCompany");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
-        var result = await OverrideHandle(request, cancellationToken);
+        var check = await OverrideHandle(request, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         var entity = mapper.Map<AddBaseCompanyEntity>(request);
 
-        entity.Id = await cache.NextIdentity(new NextIdentifyArg()
-        {
-            CompanyId = companyId,
-            Name = "BaseCompany",
-        });
+        entity.Id = await cache.GetIdAsync(companyId, "BaseCompany");
 
         entity.Creator = user?.Name ?? string.Empty;
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        var addResult = await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
 
-        if (!addResult.Success)
-            return addResult;
+        if (!result.Success)
+            return result;
 
         return new BaseResult(entity.Id);
-    }
-
-    /// <summary>
-    /// 获取公司信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

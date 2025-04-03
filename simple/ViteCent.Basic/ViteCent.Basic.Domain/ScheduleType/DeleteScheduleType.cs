@@ -49,7 +49,7 @@ public class DeleteScheduleType(ILogger<DeleteScheduleType> logger) : BaseDomain
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
 
-        var entity = await query.FirstAsync();
+        var entity = await query.FirstAsync(cancellationToken);
 
         return await base.DeleteAsync(entity);
     }

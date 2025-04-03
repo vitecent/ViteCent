@@ -8,14 +8,14 @@ public static class IdCardHelper
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static string GetIdCardBirthday(this string input)
+    public static string GetIdAsyncCardBirthday(this string input)
     {
         if (!input.IsIdCard()) return string.Empty;
 
         if (input.Length == 18)
-            return input.GetIdCardBirthday18();
+            return input.GetIdAsyncCardBirthday18();
         if (input.Length == 15)
-            return input.GetIdCardBirthday15();
+            return input.GetIdAsyncCardBirthday15();
         throw new Exception("身份证号格式错误");
     }
 
@@ -23,7 +23,7 @@ public static class IdCardHelper
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static string GetIdCardBirthday15(this string input)
+    public static string GetIdAsyncCardBirthday15(this string input)
     {
         return input.Substring(6, 6).Insert(4, "-").Insert(2, "-");
     }
@@ -32,7 +32,7 @@ public static class IdCardHelper
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static string GetIdCardBirthday18(this string input)
+    public static string GetIdAsyncCardBirthday18(this string input)
     {
         return input.Substring(6, 8).Insert(6, "-").Insert(4, "-");
     }

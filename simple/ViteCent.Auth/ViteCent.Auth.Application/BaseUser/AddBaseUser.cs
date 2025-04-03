@@ -56,109 +56,56 @@ public partial class AddBaseUser(ILogger<AddBaseUser> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.AddBaseUser");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-        {
-            var hasCompanyArgs = new GetBaseCompanyEntityArgs
-            {
-                Id = request.CompanyId,
-            };
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
-
-            if (hasCompany == null)
-                return new BaseResult(500, "公司不存在");
-
-            if (hasCompany.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "公司已禁用");
-        }
+        if (hasCompany.Success)
+            return hasCompany;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId))
-        {
-            var hasDepartmentArgs = new GetBaseDepartmentEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.DepartmentId,
-            };
+        var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
 
-            var hasDepartment = await mediator.Send(hasDepartmentArgs, cancellationToken);
-
-            if (hasDepartment == null)
-                return new BaseResult(500, "部门不存在");
-
-            if (hasDepartment.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "部门已禁用");
-        }
+        if (hasDepartment.Success)
+            return hasDepartment;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(positionId))
             request.PositionId = positionId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.PositionId))
-        {
-            var hasPositionIdArgs = new GetBasePositionEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.PositionId,
-            };
+        var hasPosition = await mediator.CheckPosition(request.CompanyId, request.PositionId);
 
-            var hasPositionId = await mediator.Send(hasPositionIdArgs, cancellationToken);
+        if (hasPosition.Success)
+            return hasPosition;
 
-            if (hasPositionId == null)
-                return new BaseResult(500, "职位不存在");
+        var check = await OverrideHandle(request, cancellationToken);
 
-            if (hasPositionId.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "职位已禁用");
-        }
-
-        var result = await OverrideHandle(request, cancellationToken);
-
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         var entity = mapper.Map<AddBaseUserEntity>(request);
 
-        entity.Id = await cache.NextIdentity(new NextIdentifyArg()
-        {
-            CompanyId = companyId,
-            Name = "BaseUser",
-        });
+        entity.Id = await cache.GetIdAsync(companyId, "BaseUser");
 
         entity.Creator = user?.Name ?? string.Empty;
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        var addResult = await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
 
-        if (!addResult.Success)
-            return addResult;
+        if (!result.Success)
+            return result;
 
         return new BaseResult(entity.Id);
-    }
-
-    /// <summary>
-    /// 获取用户信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

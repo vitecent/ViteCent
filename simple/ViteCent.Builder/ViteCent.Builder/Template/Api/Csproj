@@ -15,6 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\\$!{DataBase.Name}.$!{Setting.Application.ApplicationName}\\$!{DataBase.Name}.$!{Setting.Application.ApplicationName}.csproj" />
+		<ProjectReference Include="..\\$!{DataBase.Name}.$!{Setting.Application.Name}\\$!{DataBase.Name}.$!{Setting.Application.Name}.csproj" />
 	</ItemGroup>
 </Project>

@@ -11,14 +11,14 @@ using SqlSugar;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 新增$!{Table.Description}数据参数
 /// </summary>
 [Serializable]
 [SugarTable("$!{Table.Name}")]
-public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName} : $!{Table.CamelCaseName}$!{Setting.Entity.EntityName}
+public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name} : $!{Table.CamelCaseName}$!{Setting.Entity.Name}
 {
 
 }

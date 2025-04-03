@@ -48,7 +48,7 @@ public class DeleteBaseResource(ILogger<DeleteBaseResource> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseResource.DeleteBaseResource");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -58,19 +58,5 @@ public class DeleteBaseResource(ILogger<DeleteBaseResource> logger,
         var args = mapper.Map<DeleteBaseResourceEntityArgs>(request);
 
         return await mediator.Send(args, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取资源信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

@@ -43,7 +43,7 @@ public partial class AddUserRest(ILogger<AddUserRest> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.UserRest.AddUserRest");
 
-        OverrideInvoke(args);
+        OverrideInvoke(args, User);
 
         var cancellationToken = new CancellationToken();
         var validator = new UserRestValidator();

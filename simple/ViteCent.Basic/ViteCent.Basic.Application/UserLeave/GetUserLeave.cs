@@ -48,7 +48,7 @@ public class GetUserLeave(ILogger<GetUserLeave> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserLeave.GetUserLeave");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -65,24 +65,10 @@ public class GetUserLeave(ILogger<GetUserLeave> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<UserLeaveResult>(500, "数据不存在或无权限");
+            return new DataResult<UserLeaveResult>(500, "数据不存在");
 
         var dto = mapper.Map<UserLeaveResult>(entity);
 
         return new DataResult<UserLeaveResult>(dto);
-    }
-
-    /// <summary>
-    /// 获取请假申请用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

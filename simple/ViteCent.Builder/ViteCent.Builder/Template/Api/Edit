@@ -9,7 +9,7 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using ViteCent.Core.Enums;
@@ -19,7 +19,7 @@ using ViteCent.Core.Web.Filter;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 编辑$!{Table.Description}接口
@@ -30,7 +30,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("$!{Table.CamelCaseName}")]
 public class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.EditName}$!{Table.CamelCaseName}> logger,
-    IMediator mediator) : BaseLoginApi<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+    IMediator mediator) : BaseLoginApi<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 编辑$!{Table.Description}
@@ -40,9 +40,9 @@ public class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.Edit
     [HttpPost]
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "$!{DataBase.ServiceName}", "$!{Table.CamelCaseName}", "$!{Setting.EditName}" })]
     [Route("$!{Setting.EditName}")]
-    public override async Task<BaseResult> InvokeAsync($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} args)
+    public override async Task<BaseResult> InvokeAsync($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
 
         var cancellationToken = new CancellationToken();
         var validator = new $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}();

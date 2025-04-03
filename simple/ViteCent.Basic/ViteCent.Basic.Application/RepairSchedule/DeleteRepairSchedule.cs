@@ -48,7 +48,7 @@ public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.RepairSchedule.DeleteRepairSchedule");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -63,19 +63,5 @@ public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger,
         var args = mapper.Map<DeleteRepairScheduleEntityArgs>(request);
 
         return await mediator.Send(args, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取补卡申请用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

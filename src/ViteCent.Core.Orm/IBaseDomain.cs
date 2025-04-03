@@ -24,6 +24,12 @@ public interface IBaseDomain<T> where T : IBaseEntity, new()
 
     /// <summary>
     /// </summary>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    Task<BaseResult> AddAsync(List<T> entitys);
+
+    /// <summary>
+    /// </summary>
     /// <param name="where"></param>
     /// <returns></returns>
     Task<BaseResult> DeleteAsync(Expression<Func<T, bool>> where);

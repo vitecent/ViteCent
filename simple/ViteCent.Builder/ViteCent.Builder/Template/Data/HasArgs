@@ -12,13 +12,13 @@ using ViteCent.Core.Data;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// $!{Table.Description}判重参数
 /// </summary>
 [Serializable]
-public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix} : BaseArgs, IRequest<BaseResult>
+public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} : BaseArgs, IRequest<BaseResult>
 {
 #if($HasCompanyId)
     /// <summary>

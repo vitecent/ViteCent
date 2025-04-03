@@ -42,7 +42,7 @@ public partial class AddBaseCompany(ILogger<AddBaseCompany> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseCompany.AddBaseCompany");
 
-        OverrideInvoke(args);
+        OverrideInvoke(args, User);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseCompanyValidator();

@@ -19,15 +19,16 @@ public partial class AddUserRest
     /// <summary>
     /// </summary>
     /// <param name="args"></param>
+    /// <param name="user"></param>
     /// <returns></returns>
-    private void OverrideInvoke(AddUserRestArgs args)
+    internal static void OverrideInvoke(AddUserRestArgs args, Core.Data.BaseUserInfo user)
     {
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = User.Company.Id;
+                args.CompanyId = user.Company.Id;
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = User.Department.Id;
+                args.DepartmentId = user.Department.Id;
     }
 }

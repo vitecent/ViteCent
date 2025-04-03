@@ -49,16 +49,11 @@ public class PageUserRest(ILogger<PageUserRest> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserRest.PageUserRest");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var args = mapper.Map<SearchUserRestEntityArgs>(request);
 
-        args.Args.RemoveAll(x => x.Field == "CompanyId");
-        args.Args.Add(new SearchItem()
-        {
-            Field = "CompanyId",
-            Value = user?.Company?.Id ?? string.Empty,
-        });
+         args.AddCompanyId(user);
 
         var list = await mediator.Send(args, cancellationToken);
 
@@ -67,19 +62,5 @@ public class PageUserRest(ILogger<PageUserRest> logger,
         var result = new PageResult<UserRestResult>(args.Offset, args.Limit, args.Total, rows);
 
         return result;
-    }
-
-    /// <summary>
-    /// 获取调休申请用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

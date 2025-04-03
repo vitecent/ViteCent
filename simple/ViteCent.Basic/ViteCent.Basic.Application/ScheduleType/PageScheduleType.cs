@@ -49,16 +49,11 @@ public class PageScheduleType(ILogger<PageScheduleType> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.ScheduleType.PageScheduleType");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var args = mapper.Map<SearchScheduleTypeEntityArgs>(request);
 
-        args.Args.RemoveAll(x => x.Field == "CompanyId");
-        args.Args.Add(new SearchItem()
-        {
-            Field = "CompanyId",
-            Value = user?.Company?.Id ?? string.Empty,
-        });
+         args.AddCompanyId(user);
 
         var list = await mediator.Send(args, cancellationToken);
 
@@ -67,19 +62,5 @@ public class PageScheduleType(ILogger<PageScheduleType> logger,
         var result = new PageResult<ScheduleTypeResult>(args.Offset, args.Limit, args.Total, rows);
 
         return result;
-    }
-
-    /// <summary>
-    /// 获取基础排班用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

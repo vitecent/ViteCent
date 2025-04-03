@@ -43,7 +43,7 @@ public partial class AddBaseOperation(ILogger<AddBaseOperation> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseOperation.AddBaseOperation");
 
-        OverrideInvoke(args);
+        OverrideInvoke(args, User);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseOperationValidator();

@@ -51,28 +51,17 @@ public partial class EditBaseDepartment(ILogger<EditBaseDepartment> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseDepartment.EditBaseDepartment");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-        {
-            var hasCompanyArgs = new GetBaseCompanyEntityArgs
-            {
-                Id = request.CompanyId,
-            };
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
-
-            if (hasCompany == null)
-                return new BaseResult(500, "公司不存在");
-
-            if (hasCompany.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "公司已禁用");
-        }
+        if (hasCompany.Success)
+            return hasCompany;
 
         var preResult = await OverrideHandle(request, cancellationToken);
 
@@ -84,7 +73,7 @@ public partial class EditBaseDepartment(ILogger<EditBaseDepartment> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在或无权限");
+            return new BaseResult(500, "数据不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -106,19 +95,5 @@ public partial class EditBaseDepartment(ILogger<EditBaseDepartment> logger,
         entity.DataVersion = DateTime.Now;
 
         return await mediator.Send(entity, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取部门信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

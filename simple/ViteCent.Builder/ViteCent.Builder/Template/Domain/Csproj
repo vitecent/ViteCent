@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\\${Setting.Data.DataProjrectName}\\$!{DataBase.Name}.${Setting.Data.DataName}\\$!{DataBase.Name}.${Setting.Data.DataName}.csproj" />
-		<ProjectReference Include="..\\$!{DataBase.Name}.${Setting.Entity.EntityName}\\$!{DataBase.Name}.${Setting.Entity.EntityName}.csproj" />
+		<ProjectReference Include="..\..\\${Setting.Data.Projrect}\\$!{DataBase.Name}.${Setting.Data.Name}\\$!{DataBase.Name}.${Setting.Data.Name}.csproj" />
+		<ProjectReference Include="..\\$!{DataBase.Name}.${Setting.Entity.Name}\\$!{DataBase.Name}.${Setting.Entity.Name}.csproj" />
 	</ItemGroup>
 </Project>

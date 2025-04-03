@@ -9,14 +9,14 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 using ViteCent.Core.Web.Api;
 using ViteCent.Core.Web.Filter;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// $!{Table.Description}分页接口
@@ -27,7 +27,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("$!{Table.CamelCaseName}")]
 public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger,
-    IMediator mediator) : BaseLoginApi<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+    IMediator mediator) : BaseLoginApi<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 {
     /// <summary>
     /// $!{Table.Description}分页
@@ -37,12 +37,12 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.Page
     [HttpPost]
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "$!{DataBase.ServiceName}", "$!{Table.CamelCaseName}", "$!{Setting.GetName}" })]
     [Route("$!{Setting.PageName}")]
-    public override async Task<PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>> InvokeAsync($!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} args)
+    public override async Task<PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>> InvokeAsync($!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
 
         if (args == null)
-            return new PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>(500, "参数不能为空");
+            return new PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "参数不能为空");
 
         return await mediator.Send(args);
     }

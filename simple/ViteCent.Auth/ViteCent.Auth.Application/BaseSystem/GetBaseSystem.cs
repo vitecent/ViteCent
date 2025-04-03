@@ -48,7 +48,7 @@ public class GetBaseSystem(ILogger<GetBaseSystem> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseSystem.GetBaseSystem");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -60,24 +60,10 @@ public class GetBaseSystem(ILogger<GetBaseSystem> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseSystemResult>(500, "数据不存在或无权限");
+            return new DataResult<BaseSystemResult>(500, "数据不存在");
 
         var dto = mapper.Map<BaseSystemResult>(entity);
 
         return new DataResult<BaseSystemResult>(dto);
-    }
-
-    /// <summary>
-    /// 获取系统信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

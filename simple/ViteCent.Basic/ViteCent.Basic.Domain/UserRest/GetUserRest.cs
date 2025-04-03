@@ -51,6 +51,6 @@ public class GetUserRest(ILogger<GetUserRest> logger) : BaseDomain<UserRestEntit
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }

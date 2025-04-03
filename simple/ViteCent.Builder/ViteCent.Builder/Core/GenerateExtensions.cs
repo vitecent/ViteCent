@@ -70,9 +70,9 @@ public class GenerateExtensions
     /// <param name="nh"></param>
     private void GenerateApi(Setting setting, string root, DataBase database, NVelocityExpand nh)
     {
-        if (string.IsNullOrWhiteSpace(setting.Api.ApiName)) return;
+        if (string.IsNullOrWhiteSpace(setting.Api.Name)) return;
 
-        var apiPth = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Api.ApiName}");
+        var apiPth = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Api.Name}");
 
         foreach (var table in database.Tables)
         {
@@ -104,6 +104,8 @@ public class GenerateExtensions
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
                 nh.Save(@"Template\Api\Add", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
+
+                nh.Save(@"Template\Api\AddList", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
 
                 var hasOverride = File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
 
@@ -153,10 +155,10 @@ public class GenerateExtensions
         nh.Save(@"Template\Api\Dockerfile", Path.Combine(apiPth, "Dockerfile"));
         nh.Save(@"Template\Api\Program", Path.Combine(apiPth, "Program.cs"));
 
-        var hasCsproj = File.Exists(Path.Combine(apiPth, $"{database.Name}.{setting.Api.ApiName}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(apiPth, $"{database.Name}.{setting.Api.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Api\Csproj", Path.Combine(apiPth, $"{database.Name}.{setting.Api.ApiName}.csproj"));
+            nh.Save(@"Template\Api\Csproj", Path.Combine(apiPth, $"{database.Name}.{setting.Api.Name}.csproj"));
     }
 
     /// <summary>
@@ -167,10 +169,10 @@ public class GenerateExtensions
     /// <param name="nh"></param>
     private void GenerateApplication(Setting setting, string root, DataBase database, NVelocityExpand nh)
     {
-        if (string.IsNullOrWhiteSpace(setting.Application.ApplicationName)) return;
+        if (string.IsNullOrWhiteSpace(setting.Application.Name)) return;
 
         var applicatioPath = Path.Combine(root, setting.ProjrectName,
-            $"{setting.ProjrectName}.{setting.Application.ApplicationName}");
+            $"{setting.ProjrectName}.{setting.Application.Name}");
 
         foreach (var table in database.Tables)
         {
@@ -207,11 +209,21 @@ public class GenerateExtensions
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
                 if (database.Invoke)
+                {
                     nh.Save(@"Template\Application\AddInvoke",
-                           Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
+                               Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
+
+                    nh.Save(@"Template\Application\AddListInvoke",
+                              Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+                }
                 else
+                {
                     nh.Save(@"Template\Application\Add",
-                   Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
+                       Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
+
+                    nh.Save(@"Template\Application\AddList",
+                      Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+                }
 
                 var hasOverride = File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
 
@@ -249,11 +261,11 @@ public class GenerateExtensions
                        Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
         }
 
-        var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.ApplicationName}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
 
         if (!hasCsproj)
             nh.Save(@"Template\Application\Csproj",
-            Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.ApplicationName}.csproj"));
+            Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
     }
 
     /// <summary>
@@ -264,10 +276,10 @@ public class GenerateExtensions
     /// <param name="nh"></param>
     private void GenerateData(Setting setting, string root, DataBase database, NVelocityExpand nh)
     {
-        if (string.IsNullOrWhiteSpace(setting.Data.DataName)) return;
+        if (string.IsNullOrWhiteSpace(setting.Data.Name)) return;
 
-        var dataPath = Path.Combine(root, setting.Data.DataProjrectName,
-            $"{setting.ProjrectName}.{setting.Data.DataName}");
+        var dataPath = Path.Combine(root, setting.Data.Projrect,
+            $"{setting.ProjrectName}.{setting.Data.Name}");
 
         foreach (var table in database.Tables)
         {
@@ -308,14 +320,20 @@ public class GenerateExtensions
             nh.Put("HasId", hasId);
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
+            {
                 nh.Save(@"Template\Data\AddArgs",
+                        Path.Combine(path,
+                            $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+
+                nh.Save(@"Template\Data\AddListArgs",
                     Path.Combine(path,
-                        $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.DataArgsSuffix}.cs"));
+                        $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+            }
 
             if (!string.IsNullOrWhiteSpace(setting.EditName))
                 nh.Save(@"Template\Data\EditArgs",
                     Path.Combine(path,
-                        $"{setting.EditName}{table.Name.ToCamelCase()}{setting.Data.DataArgsSuffix}.cs"));
+                        $"{setting.EditName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.AddName) | !string.IsNullOrWhiteSpace(setting.EditName))
             {
@@ -333,36 +351,36 @@ public class GenerateExtensions
             if (!string.IsNullOrWhiteSpace(setting.GetName))
                 nh.Save(@"Template\Data\GetArgs",
                         Path.Combine(path,
-                            $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Data.DataArgsSuffix}.cs"));
+                            $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
                 nh.Save(@"Template\Data\SearchArgs",
                     Path.Combine(path,
-                        $"{setting.Data.DataSearchPrefix}{table.Name.ToCamelCase()}{setting.Data.DataArgsSuffix}.cs"));
+                        $"{setting.Data.SearchPrefix}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.GetName) || !string.IsNullOrWhiteSpace(setting.PageName))
                 nh.Save(@"Template\Data\Result",
-                    Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.DataResultSuffix}.cs"));
+                    Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ResultSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Data\DeleteArgs",
                         Path.Combine(path,
-                            $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Data.DataArgsSuffix}.cs"));
+                            $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.HasName))
             {
-                var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.DataArgsSuffix}.cs"));
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
                 if (!hasOverride)
                     nh.Save(@"Template\Data\HasArgs",
-                        Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.DataArgsSuffix}.cs"));
+                        Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
             }
         }
 
-        var hasCsproj = File.Exists(Path.Combine(dataPath, $"{database.Name}.{setting.Data.DataName}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(dataPath, $"{database.Name}.{setting.Data.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Data\Csproj", Path.Combine(dataPath, $"{database.Name}.{setting.Data.DataName}.csproj"));
+            nh.Save(@"Template\Data\Csproj", Path.Combine(dataPath, $"{database.Name}.{setting.Data.Name}.csproj"));
     }
 
     /// <summary>
@@ -373,10 +391,10 @@ public class GenerateExtensions
     /// <param name="nh"></param>
     private void GenerateDomain(Setting setting, string root, DataBase database, NVelocityExpand nh)
     {
-        if (string.IsNullOrWhiteSpace(setting.Domain.DomainName)) return;
+        if (string.IsNullOrWhiteSpace(setting.Domain.Name)) return;
 
         var domainPath = Path.Combine(root, setting.ProjrectName,
-            $"{setting.ProjrectName}.{setting.Domain.DomainName}");
+            $"{setting.ProjrectName}.{setting.Domain.Name}");
 
         foreach (var table in database.Tables)
         {
@@ -406,7 +424,10 @@ public class GenerateExtensions
             nh.Put("HasId", hasId);
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
+            {
                 nh.Save(@"Template\Domain\Add", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
+                nh.Save(@"Template\Domain\AddList", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix} .cs"));
+            }
 
             if (!string.IsNullOrWhiteSpace(setting.EditName))
                 nh.Save(@"Template\Domain\Edit",
@@ -433,11 +454,11 @@ public class GenerateExtensions
             }
         }
 
-        var hasCsproj = File.Exists(Path.Combine(domainPath, $"{database.Name}.{setting.Domain.DomainName}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
 
         if (!hasCsproj)
             nh.Save(@"Template\Domain\Csproj",
-            Path.Combine(domainPath, $"{database.Name}.{setting.Domain.DomainName}.csproj"));
+            Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
     }
 
     /// <summary>
@@ -448,9 +469,9 @@ public class GenerateExtensions
     /// <param name="nh"></param>
     private void GenerateEntity(Setting setting, string root, DataBase database, NVelocityExpand nh)
     {
-        if (string.IsNullOrWhiteSpace(setting.Entity.EntityName)) return;
+        if (string.IsNullOrWhiteSpace(setting.Entity.Name)) return;
 
-        var entifyPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Entity.EntityName}");
+        var entifyPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Entity.Name}");
 
         logger.LogInformation($"Generate Entity {entifyPath}");
 
@@ -482,29 +503,34 @@ public class GenerateExtensions
             nh.Put("HasId", hasId);
 
             nh.Save(@"Template\Entity\Entity",
-                Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Entity.EntitySuffix}.cs"));
+                Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Entity.Suffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
+            {
                 nh.Save(@"Template\Entity\AddEntity",
-                Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Entity.EntitySuffix}.cs"));
+                    Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Entity.Suffix}.cs"));
+
+                nh.Save(@"Template\Entity\AddEntityListArgs",
+                Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Entity.Suffix}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+            }
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Entity\DeleteEntityArgs",
-                     Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Entity.EntityName}{setting.Data.DataArgsSuffix}.cs"));
+                     Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
                 nh.Save(@"Template\Entity\SearchEntityArgs",
-                      Path.Combine(path, $"{setting.Data.DataSearchPrefix}{table.Name.ToCamelCase()}{setting.Entity.EntityName}{setting.Data.DataArgsSuffix}.cs"));
+                      Path.Combine(path, $"{setting.Data.SearchPrefix}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.GetName))
                 nh.Save(@"Template\Entity\GetEntityArgs",
-                      Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Entity.EntityName}{setting.Data.DataArgsSuffix}.cs"));
+                      Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
         }
 
-        var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.EntityName}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.EntityName}.csproj"));
+            nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
     }
 
     /// <summary>

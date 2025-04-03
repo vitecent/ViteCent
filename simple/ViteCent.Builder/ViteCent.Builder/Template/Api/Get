@@ -9,14 +9,14 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 using ViteCent.Core.Web.Api;
 using ViteCent.Core.Web.Filter;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 获取$!{Table.Description}接口
@@ -27,7 +27,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("$!{Table.CamelCaseName}")]
 public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger,
-    IMediator mediator) : BaseLoginApi<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+    IMediator mediator) : BaseLoginApi<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 {
     /// <summary>
     /// 获取$!{Table.Description}
@@ -37,12 +37,12 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetNa
     [HttpPost]
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "$!{DataBase.ServiceName}", "$!{Table.CamelCaseName}", "$!{Setting.GetName}" })]
     [Route("$!{Setting.GetName}")]
-    public override async Task<DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>> InvokeAsync($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} args)
+    public override async Task<DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>> InvokeAsync($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
 
         if (args == null)
-            return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>(500, "参数不能为空");
+            return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "参数不能为空");
 
         return await mediator.Send(args, new CancellationToken());
     }

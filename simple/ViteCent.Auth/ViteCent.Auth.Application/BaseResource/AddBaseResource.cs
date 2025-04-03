@@ -55,82 +55,41 @@ public partial class AddBaseResource(ILogger<AddBaseResource> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseResource.AddBaseResource");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-        {
-            var hasCompanyArgs = new GetBaseCompanyEntityArgs
-            {
-                Id = request.CompanyId,
-            };
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+        if (hasCompany.Success)
+            return hasCompany;
 
-            if (hasCompany == null)
-                return new BaseResult(500, "公司不存在");
+        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
-            if (hasCompany.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "公司已禁用");
-        }
+        if (hasSystem.Success)
+            return hasSystem;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId))
-        {
-            var hasSystemArgs = new GetBaseSystemEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.SystemId,
-            };
+        var check = await OverrideHandle(request, cancellationToken);
 
-            var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
-
-            if (hasSystem == null)
-                return new BaseResult(500, "系统不存在");
-
-            if (hasSystem.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "系统已禁用");
-        }
-
-        var result = await OverrideHandle(request, cancellationToken);
-
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         var entity = mapper.Map<AddBaseResourceEntity>(request);
 
-        entity.Id = await cache.NextIdentity(new NextIdentifyArg()
-        {
-            CompanyId = companyId,
-            Name = "BaseResource",
-        });
+        entity.Id = await cache.GetIdAsync(companyId, "BaseResource");
 
         entity.Creator = user?.Name ?? string.Empty;
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        var addResult = await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
 
-        if (!addResult.Success)
-            return addResult;
+        if (!result.Success)
+            return result;
 
         return new BaseResult(entity.Id);
-    }
-
-    /// <summary>
-    /// 获取资源信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

@@ -49,16 +49,11 @@ public class PageBaseUserRole(ILogger<PageBaseUserRole> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUserRole.PageBaseUserRole");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var args = mapper.Map<SearchBaseUserRoleEntityArgs>(request);
 
-        args.Args.RemoveAll(x => x.Field == "CompanyId");
-        args.Args.Add(new SearchItem()
-        {
-            Field = "CompanyId",
-            Value = user?.Company?.Id ?? string.Empty,
-        });
+         args.AddCompanyId(user);
 
         var list = await mediator.Send(args, cancellationToken);
 
@@ -67,19 +62,5 @@ public class PageBaseUserRole(ILogger<PageBaseUserRole> logger,
         var result = new PageResult<BaseUserRoleResult>(args.Offset, args.Limit, args.Total, rows);
 
         return result;
-    }
-
-    /// <summary>
-    /// 获取用户角色用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

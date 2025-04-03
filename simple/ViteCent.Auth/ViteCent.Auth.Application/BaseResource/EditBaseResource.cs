@@ -52,45 +52,22 @@ public partial class EditBaseResource(ILogger<EditBaseResource> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseResource.EditBaseResource");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-        {
-            var hasCompanyArgs = new GetBaseCompanyEntityArgs
-            {
-                Id = request.CompanyId,
-            };
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+        if (hasCompany.Success)
+            return hasCompany;
 
-            if (hasCompany == null)
-                return new BaseResult(500, "公司不存在");
+        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
-            if (hasCompany.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "公司已禁用");
-        }
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId))
-        {
-            var hasSystemArgs = new GetBaseSystemEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.SystemId,
-            };
-
-            var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
-
-            if (hasSystem == null)
-                return new BaseResult(500, "系统不存在");
-
-            if (hasSystem.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "系统已禁用");
-        }
+        if (hasSystem.Success)
+            return hasSystem;
 
         var preResult = await OverrideHandle(request, cancellationToken);
 
@@ -102,7 +79,7 @@ public partial class EditBaseResource(ILogger<EditBaseResource> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在或无权限");
+            return new BaseResult(500, "数据不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -122,19 +99,5 @@ public partial class EditBaseResource(ILogger<EditBaseResource> logger,
         entity.DataVersion = DateTime.Now;
 
         return await mediator.Send(entity, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取资源信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

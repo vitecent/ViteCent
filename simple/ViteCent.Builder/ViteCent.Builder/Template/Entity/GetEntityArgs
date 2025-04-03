@@ -11,13 +11,13 @@ using MediatR;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 获取$!{Table.Description}数据参数
 /// </summary>
 [Serializable]
-public class $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix} : IRequest<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>
+public class $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} : IRequest<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>
 {
 #if($HasCompanyId)
     /// <summary>

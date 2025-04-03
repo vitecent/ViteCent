@@ -48,7 +48,7 @@ public class DeleteBaseUser(ILogger<DeleteBaseUser> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.DeleteBaseUser");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -68,19 +68,5 @@ public class DeleteBaseUser(ILogger<DeleteBaseUser> logger,
         var args = mapper.Map<DeleteBaseUserEntityArgs>(request);
 
         return await mediator.Send(args, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取用户信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

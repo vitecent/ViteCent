@@ -39,6 +39,16 @@ public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
 
     /// <summary>
     /// </summary>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    public virtual async Task<BaseResult> AddAsync(List<T> entitys)
+    {
+        Client.Insert(entitys);
+        return await Client.CommitAsync();
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="where"></param>
     /// <returns></returns>
     public async Task<BaseResult> DeleteAsync(Expression<Func<T, bool>> where)

@@ -9,19 +9,19 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 新增$!{Table.Description}
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>, IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}, BaseResult>
+public class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,9 +34,9 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddNa
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName} request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name} request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}");
 
         return await base.AddAsync(request);
     }

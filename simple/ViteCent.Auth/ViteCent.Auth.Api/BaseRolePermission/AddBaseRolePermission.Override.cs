@@ -2,10 +2,11 @@
  * 代码由工具自动生成
  * 重新生成时，不会覆盖原有代码
  */
- 
+
 #region
 
 using ViteCent.Auth.Data.BaseRolePermission;
+using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
 #endregion
@@ -19,11 +20,12 @@ public partial class AddBaseRolePermission
     /// <summary>
     /// </summary>
     /// <param name="args"></param>
+    /// <param name="user"></param>
     /// <returns></returns>
-    private void OverrideInvoke(AddBaseRolePermissionArgs args)
+    internal static void OverrideInvoke(AddBaseRolePermissionArgs args, BaseUserInfo user)
     {
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = User.Company.Id;
+                args.CompanyId = user.Company.Id;
     }
 }

@@ -11,23 +11,23 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Api.ApiName}/$!{DataBase.Name}.$!{Setting.Api.ApiName}.csproj", "src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Api.ApiName}/"]
-COPY ["src/${Setting.Data.DataProjrectName}/$!{DataBase.Name}.${Setting.Data.DataName}/$!{DataBase.Name}.${Setting.Data.DataName}.csproj", "src/${Setting.Data.DataProjrectName}/$!{DataBase.Name}.${Setting.Data.DataName}/"]
-COPY ["src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Application.ApplicationName}/$!{DataBase.Name}.$!{Setting.Application.ApplicationName}.csproj", "src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Application.ApplicationName}/"]
-COPY ["src/$!{DataBase.Name}/$!{DataBase.Name}.${Setting.Domain.DomainName}/$!{DataBase.Name}.${Setting.Domain.DomainName}.csproj", "src/$!{DataBase.Name}/$!{DataBase.Name}.${Setting.Domain.DomainName}/"]
-COPY ["src/$!{DataBase.Name}/$!{DataBase.Name}.${Setting.Entity.EntityName}/$!{DataBase.Name}.${Setting.Entity.EntityName}.csproj", "src/$!{DataBase.Name}/$!{DataBase.Name}.${Setting.Entity.EntityName}/"]
-RUN dotnet restore "./src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Api.ApiName}/$!{DataBase.Name}.$!{Setting.Api.ApiName}.csproj"
+COPY ["src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Api.Name}/$!{DataBase.Name}.$!{Setting.Api.Name}.csproj", "src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Api.Name}/"]
+COPY ["src/${Setting.Data.Projrect}/$!{DataBase.Name}.${Setting.Data.Name}/$!{DataBase.Name}.${Setting.Data.Name}.csproj", "src/${Setting.Data.Projrect}/$!{DataBase.Name}.${Setting.Data.Name}/"]
+COPY ["src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Application.Name}/$!{DataBase.Name}.$!{Setting.Application.Name}.csproj", "src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Application.Name}/"]
+COPY ["src/$!{DataBase.Name}/$!{DataBase.Name}.${Setting.Domain.Name}/$!{DataBase.Name}.${Setting.Domain.Name}.csproj", "src/$!{DataBase.Name}/$!{DataBase.Name}.${Setting.Domain.Name}/"]
+COPY ["src/$!{DataBase.Name}/$!{DataBase.Name}.${Setting.Entity.Name}/$!{DataBase.Name}.${Setting.Entity.Name}.csproj", "src/$!{DataBase.Name}/$!{DataBase.Name}.${Setting.Entity.Name}/"]
+RUN dotnet restore "./src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Api.Name}/$!{DataBase.Name}.$!{Setting.Api.Name}.csproj"
 COPY . .
-WORKDIR "/src/src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Api.ApiName}"
-RUN dotnet build "./$!{DataBase.Name}.$!{Setting.Api.ApiName}.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/$!{DataBase.Name}/$!{DataBase.Name}.$!{Setting.Api.Name}"
+RUN dotnet build "./$!{DataBase.Name}.$!{Setting.Api.Name}.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # 此阶段用于发布要复制到最终阶段的服务项目
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./$!{DataBase.Name}.$!{Setting.Api.ApiName}.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./$!{DataBase.Name}.$!{Setting.Api.Name}.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # 此阶段在生产中使用，或在常规模式下从 VS 运行时使用(在不使用调试配置时为默认值)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "$!{DataBase.Name}.$!{Setting.Api.ApiName}.dll"]
+ENTRYPOINT ["dotnet", "$!{DataBase.Name}.$!{Setting.Api.Name}.dll"]

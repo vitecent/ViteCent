@@ -46,7 +46,7 @@ public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger) : BaseDomain<Bas
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);
 
-        var entity = await query.FirstAsync();
+        var entity = await query.FirstAsync(cancellationToken);
 
         return await base.DeleteAsync(entity);
     }

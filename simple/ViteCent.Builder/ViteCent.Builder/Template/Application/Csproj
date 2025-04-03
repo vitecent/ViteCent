@@ -14,6 +14,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\\$!{DataBase.Name}\\$!{DataBase.Name}.${Setting.Domain.DomainName}\\$!{DataBase.Name}.${Setting.Domain.DomainName}.csproj" />
+		<ProjectReference Include="..\..\\$!{DataBase.Name}\\$!{DataBase.Name}.${Setting.Domain.Name}\\$!{DataBase.Name}.${Setting.Domain.Name}.csproj" />
 	</ItemGroup>
 </Project>

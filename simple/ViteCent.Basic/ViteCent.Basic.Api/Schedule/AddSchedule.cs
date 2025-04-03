@@ -43,7 +43,7 @@ public partial class AddSchedule(ILogger<AddSchedule> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.AddSchedule");
 
-        OverrideInvoke(args);
+        OverrideInvoke(args, User);
 
         var cancellationToken = new CancellationToken();
         var validator = new ScheduleValidator();

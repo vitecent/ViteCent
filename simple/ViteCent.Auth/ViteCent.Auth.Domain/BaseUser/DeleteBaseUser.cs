@@ -52,7 +52,7 @@ public class DeleteBaseUser(ILogger<DeleteBaseUser> logger) : BaseDomain<BaseUse
         if (!string.IsNullOrWhiteSpace(request.PositionId))
             query.Where(x => x.PositionId == request.PositionId);
 
-        var entity = await query.FirstAsync();
+        var entity = await query.FirstAsync(cancellationToken);
 
         return await base.DeleteAsync(entity);
     }

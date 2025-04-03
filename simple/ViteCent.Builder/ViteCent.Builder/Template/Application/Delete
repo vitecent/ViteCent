@@ -16,8 +16,8 @@ using Microsoft.Extensions.Logging;
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using System.Security.Claims;
 #end
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using ViteCent.Core;
 #end
@@ -25,7 +25,7 @@ using ViteCent.Core.Data;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}仓储
@@ -40,9 +40,9 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
     IMapper mapper,
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 #else
-    IMediator mediator) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+    IMediator mediator) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 #end
 {
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
@@ -58,12 +58,12 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
 #end
 #if($HasCompanyId)
@@ -87,24 +87,8 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
             request.PositionId = positionId;
 
 #end
-        var args = mapper.Map<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>(request);
+        var args = mapper.Map<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
 
         return await mediator.Send(args, cancellationToken);
     }
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
-
-    /// <summary>
-    /// 获取$!{Table.Description}用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
-    }
-#end
 }

@@ -9,18 +9,18 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Orm.SqlSugar;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// $!{Table.Description}分页
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>, IRequestHandler<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}, List<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>>
+public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}, List<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>>
 {
     /// <summary>
     /// 数据库名称
@@ -33,9 +33,9 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.Page
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>> Handle($!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<List<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>> Handle($!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
 
         return await base.PageAsync(request);
     }

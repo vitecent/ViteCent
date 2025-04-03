@@ -14,31 +14,31 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 #if($HasCompanyId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseCompany;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseDepartment;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.BasePosition;
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.BasePosition;
 #end
 #if($HasOperationId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseOperation;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseOperation;
 #end
 #if($HasResourceId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseResource;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseResource;
 #end
 #if($HasRoleId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseRole;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseRole;
 #end
 #if($HasUserId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseUser;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 #if($HasSystemId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.DataName}.BaseSystem;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseSystem;
 #end
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -46,7 +46,7 @@ using ViteCent.Core.Web;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 编辑$!{Table.Description}仓储
@@ -83,36 +83,31 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
     IMapper mapper, 
     IMediator mediator, 
 #if($HasCompanyId)
-    IBaseInvoke<$!{Setting.GetName}BaseCompany$!{Setting.Data.DataArgsSuffix}, DataResult<BaseCompany$!{Setting.Data.DataResultSuffix}>> companyInvoke,
+    IBaseInvoke<$!{Setting.GetName}BaseCompany$!{Setting.Data.ArgsSuffix}, DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
 #end
 #if($HasDepartmentId)
-    IBaseInvoke<$!{Setting.GetName}BaseDepartment$!{Setting.Data.DataArgsSuffix}, DataResult<BaseDepartment$!{Setting.Data.DataResultSuffix}>> departmentInvoke,
+    IBaseInvoke<$!{Setting.GetName}BaseDepartment$!{Setting.Data.ArgsSuffix}, DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
 #end
 #if($HasOperationId)
-    IBaseInvoke<$!{Setting.GetName}BaseOperation$!{Setting.Data.DataArgsSuffix}, DataResult<BaseOperation$!{Setting.Data.DataResultSuffix}>> operationInvoke,
+    IBaseInvoke<$!{Setting.GetName}BaseOperation$!{Setting.Data.ArgsSuffix}, DataResult<BaseOperation$!{Setting.Data.ResultSuffix}>> operationInvoke,
 #end
 #if($HasPositionId)
-    IBaseInvoke<$!{Setting.GetName}BasePosition$!{Setting.Data.DataArgsSuffix}, DataResult<BasePosition$!{Setting.Data.DataResultSuffix}>> positionInvoke,
+    IBaseInvoke<$!{Setting.GetName}BasePosition$!{Setting.Data.ArgsSuffix}, DataResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
 #end
 #if($HasResourceId)
-    IBaseInvoke<$!{Setting.GetName}BaseResource$!{Setting.Data.DataArgsSuffix}, DataResult<BaseResource$!{Setting.Data.DataResultSuffix}>> resourceInvoke,
+    IBaseInvoke<$!{Setting.GetName}BaseResource$!{Setting.Data.ArgsSuffix}, DataResult<BaseResource$!{Setting.Data.ResultSuffix}>> resourceInvoke,
 #end
 #if($HasRoleId)
-    IBaseInvoke<$!{Setting.GetName}BaseRole$!{Setting.Data.DataArgsSuffix}, DataResult<BaseCompany$!{Setting.Data.DataResultSuffix}>> roleInvoke,
+    IBaseInvoke<$!{Setting.GetName}BaseRole$!{Setting.Data.ArgsSuffix}, DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>> roleInvoke,
 #end
 #if($HasUserId)
-    IBaseInvoke<$!{Setting.GetName}BaseUser$!{Setting.Data.DataArgsSuffix}, DataResult<BaseUser$!{Setting.Data.DataResultSuffix}>> userInvoke,
+    IBaseInvoke<$!{Setting.GetName}BaseUser$!{Setting.Data.ArgsSuffix}, DataResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
 #end
 #if($HasSystemId)
-    IBaseInvoke<$!{Setting.GetName}BaseSystemy$!{Setting.Data.DataArgsSuffix}, DataResult<BaseSystem$!{Setting.Data.DataResultSuffix}>> systemInvoke,
+    IBaseInvoke<$!{Setting.GetName}BaseSystemy$!{Setting.Data.ArgsSuffix}, DataResult<BaseSystem$!{Setting.Data.ResultSuffix}>> systemInvoke,
 #end
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
-    /// <summary>
-    /// 用户密钥
-    /// </summary>
-    private string token = string.Empty;
-
     /// <summary>
     /// 用户信息
     /// </summary>
@@ -124,11 +119,11 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -136,24 +131,10 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-        {
-            var hasCompanyArgs = new $!{Setting.GetName}BaseCompany$!{Setting.Data.DataArgsSuffix}
-            {
-                Id = request.CompanyId,
-            };
+        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);;
 
-            var hasCompany = await companyInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BaseCompany/$!{Setting.GetName}", hasCompanyArgs, token);
-
-            if (!hasCompany.Success)
-                return hasCompany;
-
-            if (hasCompany.Data == null)
-                return new BaseResult(500, "公司不存在");
-
-            if (hasCompany.Data.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "公司已禁用");
-        }
+        if (hasCompany.Success)
+            return hasCompany;
 
 #end
 #if($HasDepartmentId)
@@ -162,25 +143,10 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId))
-        {
-            var hasDepartmentArgs = new $!{Setting.GetName}BaseDepartment$!{Setting.Data.DataArgsSuffix}
-            {
-                CompanyId = request.CompanyId,
-                Id = request.DepartmentId,
-            };
+        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
 
-            var hasDepartment = await departmentInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BaseDepartment/$!{Setting.GetName}", hasDepartmentArgs, token);
-
-            if (!hasDepartment.Success)
-                return hasDepartment;
-
-            if (hasDepartment.Data == null)
-                return new BaseResult(500, "部门不存在");
-
-            if (hasDepartment.Data.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "部门已禁用");
-        }
+        if (hasDepartment.Success)
+            return hasDepartment;
 
 #end
 #if($HasPositionId)
@@ -189,139 +155,45 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
         if (!string.IsNullOrWhiteSpace(positionId))
             request.PositionId = positionId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.PositionId))
-        {
-            var hasPositionArgs = new $!{Setting.GetName}BasePosition$!{Setting.Data.DataArgsSuffix}
-            {
-                CompanyId = request.CompanyId,
-                Id = request.PositionId,
-            };
+        var hasPosition = await positionInvoke.CheckPosition(request.PositionId);
 
-            var hasPosition = await positionInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BasePosition/$!{Setting.GetName}", hasPositionArgs, token);
-
-            if (!hasPosition.Success)
-                return hasPosition;
-
-            if (hasPosition.Data == null)
-                return new BaseResult(500, "职位不存在");
-
-            if (hasPosition.Data.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "职位已禁用");
-        }
+        if (hasPosition.Success)
+            return hasPosition;
 
 #end
 #if($HasUserId)
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.DepartmentId) && !string.IsNullOrWhiteSpace(request.UserId))
-        {
-            var hasUserArgs = new $!{Setting.GetName}BaseUser$!{Setting.Data.DataArgsSuffix}
-            {
-                CompanyId = request.CompanyId,
-                DepartmentId = request.DepartmentId,
-                Id = request.UserId,
-            };
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 
-            var hasUser = await userInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BaseUser/$!{Setting.GetName}", hasUserArgs, token);
-
-            if (!hasUser.Success)
-                return hasUser;
-
-            if (hasUser.Data == null)
-                return new BaseResult(500, "用户不存在");
-
-            if (hasUser.Data.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "用户已禁用");
-        }
+        if (hasUser.Success)
+            return hasUser;
 
 #end
 #if($HasRoleId)
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.RoleId))
-        {
-            var hasRoleArgs = new $!{Setting.GetName}BaseRole$!{Setting.Data.DataArgsSuffix}
-            {
-                CompanyId = request.CompanyId,
-                Id = request.RoleId,
-            };
+        var hasRole = await roleInvoke.CheckRole(request.RoleId);
 
-            var hasRole = await roleInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BaseRole/$!{Setting.GetName}", hasRoleArgs, token);
-
-            if (!hasRole.Success)
-                return hasRole;
-
-            if (hasRole.Data == null)
-                return new BaseResult(500, "角色不存在");
-
-            if (hasRole.Data.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "角色已禁用");
-        }
+        if (hasRole.Success)
+            return hasRole;
 
 #end
 #if($HasSystemId)
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId))
-        {
-            var hasSystemArgs = new $!{Setting.GetName}BaseSystem$!{Setting.Data.DataArgsSuffix}
-            {
-                CompanyId = request.CompanyId,
-                Id = request.SystemId,
-            };
+        var hasSystem = await systemInvoke.CheckSystem(request.SystemId);
 
-            var hasSystem = await systemInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BaseSystem/$!{Setting.GetName}", hasSystemArgs, token);
-
-            if (!hasSystem.Success)
-                return hasSystem;
-
-            if (hasSystem.Data == null)
-                return new BaseResult(500, "系统不存在");
-
-            if (hasSystem.Data.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "系统已禁用");
-        }
+        if (hasSystem.Success)
+            return hasSystem;
 
 #end
 #if($HasResourceId)
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId))
-        {
-            var hasResourceArgs = new $!{Setting.GetName}BaseResource$!{Setting.Data.DataArgsSuffix}
-            {
-                CompanyId = request.CompanyId,
-                SystemId = request.SystemId,
-                Id = request.ResourceId,
-            };
+        var hasResource = await resourceInvoke.CheckResource(request.ResourceId);
 
-            var hasResource = await resourceInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BaseResource/$!{Setting.GetName}", hasResourceArgs, token);
-
-            if (!hasResource.Success)
-                return hasResource;
-
-            if (hasResource.Data == null)
-                return new BaseResult(500, "资源不存在");
-
-            if (hasResource.Data.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "资源已禁用");
-        }
+        if (hasResource.Success)
+            return hasResource;
 
 #end
 #if($HasOperationId)
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId) && !string.IsNullOrWhiteSpace(request.OperationId))
-        {
-            var hasOperationArgs = new $!{Setting.GetName}BaseOperation$!{Setting.Data.DataArgsSuffix}
-            {
-                CompanyId = request.CompanyId,
-                SystemId = request.SystemId,
-                ResourceId = request.ResourceId,
-                Id = request.OperationId,
-            };
+        var hasOperation = await operationInvoke.CheckOperation(request.OperationId);
 
-            var hasOperation = await operationInvoke.InvokePostAsync("$!{DataBase.InvokeService}", "/BaseOperation/$!{Setting.GetName}", hasOperationArgs, token);
-
-            if (!hasOperation.Success)
-                return hasOperation;
-
-            if (hasOperation.Data == null)
-                return new BaseResult(500, "操作不存在");
-
-            if (hasOperation.Data.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "操作已禁用");
-        }
+        if (hasOperation.Success)
+            return hasOperation;
 
 #end
         var preResult = await OverrideHandle(request, cancellationToken);
@@ -329,12 +201,12 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
         if (!preResult.Success)
             return preResult;
 
-        var args = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>(request);
+        var args = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
 
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在或无权限");
+            return new BaseResult(500, "数据不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -349,21 +221,5 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
         entity.DataVersion = DateTime.Now;
 
         return await mediator.Send(entity, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取$!{Table.Description}用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        token = context?.Request?.Headers[Const.Token].ToString() ?? string.Empty;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

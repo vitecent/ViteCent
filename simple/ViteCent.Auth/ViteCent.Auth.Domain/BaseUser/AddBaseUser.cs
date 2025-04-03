@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Domain.BaseUser;
 /// 新增用户信息
 /// </summary>
 /// <param name="logger"></param>
-public class AddBaseUser(ILogger<AddBaseUser> logger) : BaseDomain<BaseUserEntity>, IRequestHandler<AddBaseUserEntity, BaseResult>
+public class AddBaseUser(ILogger<AddBaseUser> logger) : BaseDomain<AddBaseUserEntity>, IRequestHandler<AddBaseUserEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

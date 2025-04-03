@@ -50,7 +50,7 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseCompany.EditBaseCompany");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -64,7 +64,7 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在或无权限");
+            return new BaseResult(500, "数据不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -94,19 +94,5 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger,
         entity.DataVersion = DateTime.Now;
 
         return await mediator.Send(entity, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取公司信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

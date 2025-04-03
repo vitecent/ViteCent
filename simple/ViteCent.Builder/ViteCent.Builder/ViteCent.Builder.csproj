@@ -25,6 +25,12 @@
         <None Update="Template\Api\Add">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Template\Api\AddList">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Template\Api\AddList">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Template\Api\AddOverride">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
@@ -75,8 +81,24 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
-        <None Update="Template\Application\AddInvoke">
+        <None Update="Template\Application\AddList">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <None Update="Template\Application\AddListInvoke">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <None Update="Template\Application\AddList">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <None Update="Template\Application\AddListInvoke">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <None Update="Template\Application\AddInvoke">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
 
         <None Update="Template\Application\AddOverride">
@@ -107,6 +129,14 @@
         <None Update="Template\Data\AddArgs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+
+        <None Update="Template\Data\AddListArgs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <None Update="Template\Data\AddListArgs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         <None Update="Template\Data\EditArgs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
@@ -115,6 +145,15 @@
         </None>
         <None Update="Template\Data\HasArgs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Template\Domain\AddList">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Template\Domain\AddList">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Template\Entity\AddListEntity">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Template\Entity\GetEntityArgs">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -175,6 +214,9 @@
         </None>
         <None Update="Template\Entity\Csproj">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Template\Entity\AddEntityListArgs">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="Template\Sln">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>

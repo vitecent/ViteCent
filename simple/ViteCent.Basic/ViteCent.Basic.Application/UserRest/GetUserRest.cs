@@ -48,7 +48,7 @@ public class GetUserRest(ILogger<GetUserRest> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserRest.GetUserRest");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -65,24 +65,10 @@ public class GetUserRest(ILogger<GetUserRest> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<UserRestResult>(500, "数据不存在或无权限");
+            return new DataResult<UserRestResult>(500, "数据不存在");
 
         var dto = mapper.Map<UserRestResult>(entity);
 
         return new DataResult<UserRestResult>(dto);
-    }
-
-    /// <summary>
-    /// 获取调休申请用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

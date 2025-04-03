@@ -6,10 +6,6 @@ public class ApiSetting
 {
     /// <summary>
     /// </summary>
-    public string ApiName { get; set; } = "Api";
-
-    /// <summary>
-    /// </summary>
     public string Cache { get; set; } = "192.168.0.115:6379,password=123456,defaultDatabase=1";
 
     /// <summary>
@@ -39,6 +35,10 @@ public class ApiSetting
     /// <summary>
     /// </summary>
     public string MapperName { get; set; } = "AutoMapperConfig";
+
+    /// <summary>
+    /// </summary>
+    public string Name { get; set; } = "Api";
 
     /// <summary>
     /// </summary>

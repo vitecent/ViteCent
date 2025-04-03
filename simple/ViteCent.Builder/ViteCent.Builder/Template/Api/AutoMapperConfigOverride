@@ -11,7 +11,7 @@ using ViteCent.Core.Web;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
+namespace $!{DataBase.Name}.$!{Setting.Api.Name};
 
 /// <summary>
 /// $!{Table.Description}映射拓展 

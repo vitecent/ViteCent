@@ -16,8 +16,8 @@ using Microsoft.Extensions.Logging;
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using System.Security.Claims;
 #end
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using ViteCent.Core;
 #end
@@ -25,7 +25,7 @@ using ViteCent.Core.Data;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 获取$!{Table.Description}仓储
@@ -40,9 +40,9 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetNa
     IMapper mapper,
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 #else
-    IMediator mediator) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+    IMediator mediator) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 #end
 {
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
@@ -58,12 +58,12 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetNa
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>> Handle($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>> Handle($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
 
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
 #end
 #if($HasCompanyId)
@@ -87,31 +87,15 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetNa
             request.PositionId = positionId;
 
 #end
-        var args = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>(request);
+        var args = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
 
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>(500, "数据不存在或无权限");
+            return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "数据不存在");
 
-        var dto = mapper.Map<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>(entity);
+        var dto = mapper.Map<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(entity);
 
-        return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>(dto);
+        return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(dto);
     }
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
-
-    /// <summary>
-    /// 获取$!{Table.Description}用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
-    }
-#end
 }

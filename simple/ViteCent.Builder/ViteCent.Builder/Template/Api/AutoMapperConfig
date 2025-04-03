@@ -9,16 +9,16 @@
 #region
 
 #foreach($Table in $Tables)
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 #end
 #foreach($Table in $Tables)
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 #end
 using ViteCent.Core.Web;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
+namespace $!{DataBase.Name}.$!{Setting.Api.Name};
 
 /// <summary>
 /// $!{Table.Description}映射
@@ -35,22 +35,22 @@ public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
         #region $!{Table.CamelCaseName}
 
 #if($Setting.AddName != "")
-        CreateMap<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>();
+        CreateMap<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
 #end
 #if($Setting.EditName != "")
-        CreateMap<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>();
+        CreateMap<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 #end
 #if($Setting.GetName != "")
-        CreateMap<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>();
+        CreateMap<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 #end
 #if($Setting.PageName != "")
-        CreateMap<$!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>();
+        CreateMap<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 #end
 #if($Setting.GetName != ""||$Setting.PageName != "")
-        CreateMap<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}, $!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>();
+        CreateMap<$!{Table.CamelCaseName}$!{Setting.Entity.Name}, $!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>();
 #end
 #if($Setting.DeleteName != "")
-        CreateMap<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}>();
+        CreateMap<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 #end
 
         #endregion

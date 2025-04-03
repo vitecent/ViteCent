@@ -43,7 +43,7 @@ public partial class AddBaseResource(ILogger<AddBaseResource> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseResource.AddBaseResource");
 
-        OverrideInvoke(args);
+        OverrideInvoke(args, User);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseResourceValidator();

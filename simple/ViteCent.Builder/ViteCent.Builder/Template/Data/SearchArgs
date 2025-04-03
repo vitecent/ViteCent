@@ -12,12 +12,12 @@ using ViteCent.Core.Data;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 搜索$!{Table.Description}参数
 /// </summary>
 [Serializable]
-public class $!{Setting.Data.DataSearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} : SearchArgs, IRequest<PageResult<$!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}>>
+public class $!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} : SearchArgs, IRequest<PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 {
 }

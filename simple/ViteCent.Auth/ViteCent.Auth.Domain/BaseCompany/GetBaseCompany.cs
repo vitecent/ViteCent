@@ -42,6 +42,6 @@ public class GetBaseCompany(ILogger<GetBaseCompany> logger) : BaseDomain<BaseCom
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }

@@ -45,6 +45,6 @@ public class GetBaseDepartment(ILogger<GetBaseDepartment> logger) : BaseDomain<B
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }

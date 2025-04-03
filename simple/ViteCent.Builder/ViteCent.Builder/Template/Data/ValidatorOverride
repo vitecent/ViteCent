@@ -11,12 +11,12 @@ using FluentValidation;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 验证$!{Table.Description}拓展
 /// </summary>
-public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : AbstractValidator<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}>
+public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : AbstractValidator<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}>
 {
     /// <summary>
     /// 验证参数

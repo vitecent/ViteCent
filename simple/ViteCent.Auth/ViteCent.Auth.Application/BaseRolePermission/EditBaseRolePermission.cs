@@ -55,99 +55,37 @@ public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logg
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseRolePermission.EditBaseRolePermission");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-        {
-            var hasCompanyArgs = new GetBaseCompanyEntityArgs
-            {
-                Id = request.CompanyId,
-            };
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+        if (hasCompany.Success)
+            return hasCompany;
 
-            if (hasCompany == null)
-                return new BaseResult(500, "公司不存在");
+        var hasRole = await mediator.CheckRole(request.CompanyId, request.RoleId);
 
-            if (hasCompany.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "公司已禁用");
-        }
+        if (hasRole.Success)
+            return hasRole;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.RoleId))
-        {
-            var hasRoleArgs = new GetBaseRoleEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.RoleId,
-            };
+        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
-            var hasRole = await mediator.Send(hasRoleArgs, cancellationToken);
+        if (hasSystem.Success)
+            return hasSystem;
 
-            if (hasRole == null)
-                return new BaseResult(500, "角色不存在");
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);;
 
-            if (hasRole.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "角色已禁用");
-        }
+        if (hasResource.Success)
+            return hasResource;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId))
-        {
-            var hasSystemArgs = new GetBaseSystemEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.SystemId,
-            };
+        var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
 
-            var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
-
-            if (hasSystem == null)
-                return new BaseResult(500, "系统不存在");
-
-            if (hasSystem.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "系统已禁用");
-        }
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId))
-        {
-            var hasResourceArgs = new GetBaseResourceEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                SystemId = request.SystemId,
-                Id = request.ResourceId,
-            };
-
-            var hasResource = await mediator.Send(hasResourceArgs, cancellationToken);
-
-            if (hasResource == null)
-                return new BaseResult(500, "资源不存在");
-
-            if (hasResource.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "资源已禁用");
-        }
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId) && !string.IsNullOrWhiteSpace(request.OperationId))
-        {
-            var hasOperationArgs = new GetBaseOperationEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                SystemId = request.SystemId,
-                ResourceId = request.ResourceId,
-                Id = request.OperationId,
-            };
-
-            var hasOperation = await mediator.Send(hasOperationArgs, cancellationToken);
-
-            if (hasOperation == null)
-                return new BaseResult(500, "操作不存在");
-
-            if (hasOperation.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "操作已禁用");
-        }
+        if (hasOperation.Success)
+            return hasOperation;
 
         var preResult = await OverrideHandle(request, cancellationToken);
 
@@ -159,7 +97,7 @@ public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logg
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在或无权限");
+            return new BaseResult(500, "数据不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -176,19 +114,5 @@ public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logg
         entity.DataVersion = DateTime.Now;
 
         return await mediator.Send(entity, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取角色权限用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

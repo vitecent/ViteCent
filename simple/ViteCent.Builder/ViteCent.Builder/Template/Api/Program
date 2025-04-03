@@ -11,7 +11,7 @@ using ViteCent.Core.Web;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Api.ApiName};
+namespace $!{DataBase.Name}.$!{Setting.Api.Name};
 
 /// <summary>
 /// 程序入口
@@ -30,7 +30,7 @@ public class Program
             "$!{DataBase.Name}.*.xml"
         };
 
-        var microService = new BaseMicroService("$!{DataBase.Name}.$!{Setting.Api.ApiName}", xmls)
+        var microService = new BaseMicroService("$!{DataBase.Name}.$!{Setting.Api.Name}", xmls)
         {
             OnBuild = builder =>
             {

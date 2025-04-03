@@ -9,14 +9,14 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 using ViteCent.Core.Web.Api;
 using ViteCent.Core.Web.Filter;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}接口
@@ -27,7 +27,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName};
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("$!{Table.CamelCaseName}")]
 public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger,
-    IMediator mediator) : BaseLoginApi<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+    IMediator mediator) : BaseLoginApi<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 删除$!{Table.Description}
@@ -37,9 +37,9 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
     [HttpPost]
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "$!{DataBase.ServiceName}", "$!{Table.CamelCaseName}", "$!{Setting.DeleteName}" })]
     [Route("$!{Setting.DeleteName}")]
-    public override async Task<BaseResult> InvokeAsync($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} args)
+    public override async Task<BaseResult> InvokeAsync($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.ApiName}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
         if (args == null)
             return new BaseResult(500, "参数不能为空");

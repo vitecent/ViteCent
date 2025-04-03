@@ -43,7 +43,7 @@ public partial class AddUserLeave(ILogger<AddUserLeave> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.UserLeave.AddUserLeave");
 
-        OverrideInvoke(args);
+        OverrideInvoke(args, User);
 
         var cancellationToken = new CancellationToken();
         var validator = new UserLeaveValidator();

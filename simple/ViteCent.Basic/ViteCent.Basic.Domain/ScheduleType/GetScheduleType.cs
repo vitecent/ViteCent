@@ -48,6 +48,6 @@ public class GetScheduleType(ILogger<GetScheduleType> logger) : BaseDomain<Sched
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }

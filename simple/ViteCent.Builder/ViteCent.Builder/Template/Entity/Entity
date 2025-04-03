@@ -14,14 +14,14 @@ using ViteCent.Core.Orm.SqlSugar;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// $!{Table.Description}
 /// </summary>
 [Serializable]
 [SugarTable("$!{Table.Name}")]
-public class $!{Table.CamelCaseName}$!{Setting.Entity.EntityName} : $!{BaseName}, IRequest<BaseResult>
+public class $!{Table.CamelCaseName}$!{Setting.Entity.Name} : $!{BaseName}, IRequest<BaseResult>
 {
 #set($Index = 0)
 #foreach($Field in $Fields)

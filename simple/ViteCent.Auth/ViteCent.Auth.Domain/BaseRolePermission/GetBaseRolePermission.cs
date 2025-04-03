@@ -57,6 +57,6 @@ public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger) : Base
         if (!string.IsNullOrWhiteSpace(request.OperationId))
             query.Where(x => x.OperationId == request.OperationId);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }

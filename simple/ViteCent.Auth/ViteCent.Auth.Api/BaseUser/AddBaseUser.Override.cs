@@ -2,10 +2,11 @@
  * 代码由工具自动生成
  * 重新生成时，不会覆盖原有代码
  */
- 
+
 #region
 
 using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
 #endregion
@@ -19,19 +20,20 @@ public partial class AddBaseUser
     /// <summary>
     /// </summary>
     /// <param name="args"></param>
+    /// <param name="user"></param>
     /// <returns></returns>
-    private void OverrideInvoke(AddBaseUserArgs args)
+    internal static void OverrideInvoke(AddBaseUserArgs args, BaseUserInfo user)
     {
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = User.Company.Id;
+                args.CompanyId = user.Company.Id;
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = User.Department.Id;
+                args.DepartmentId = user.Department.Id;
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
-                args.PositionId = User.Position.Id;
+                args.PositionId = user.Position.Id;
     }
 }

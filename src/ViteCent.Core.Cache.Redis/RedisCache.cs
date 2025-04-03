@@ -176,9 +176,9 @@ public class RedisCache : IBaseCache
     {
         var now = DateTime.Now.Date;
 
-        var key = GetIdentityKey(args, now);
-        var value = GetIdentifyValue(args, now);
-        var time = GetIdentifyTimespan(args, now);
+        var key = GetIdAsyncentityKey(args, now);
+        var value = GetIdAsyncentifyValue(args, now);
+        var time = GetIdAsyncentifyTimespan(args, now);
 
         if (HasKey(key))
         {
@@ -294,7 +294,7 @@ public class RedisCache : IBaseCache
     /// <param name="args"></param>
     /// <param name="now"></param>
     /// <returns></returns>
-    private static TimeSpan GetIdentifyTimespan(NextIdentifyArg args, DateTime now)
+    private static TimeSpan GetIdAsyncentifyTimespan(NextIdentifyArg args, DateTime now)
     {
         return args.Type switch
         {
@@ -310,7 +310,7 @@ public class RedisCache : IBaseCache
     /// <param name="args"></param>
     /// <param name="now"></param>
     /// <returns></returns>
-    private static long GetIdentifyValue(NextIdentifyArg args, DateTime now)
+    private static long GetIdAsyncentifyValue(NextIdentifyArg args, DateTime now)
     {
         return args.Type switch
         {
@@ -326,7 +326,7 @@ public class RedisCache : IBaseCache
     /// <param name="args"></param>
     /// <param name="now"></param>
     /// <returns></returns>
-    private static string GetIdentityKey(NextIdentifyArg args, DateTime now)
+    private static string GetIdAsyncentityKey(NextIdentifyArg args, DateTime now)
     {
         return args.Type switch
         {

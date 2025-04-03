@@ -43,7 +43,7 @@ public partial class AddBaseDepartment(ILogger<AddBaseDepartment> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseDepartment.AddBaseDepartment");
 
-        OverrideInvoke(args);
+        OverrideInvoke(args, User);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseDepartmentValidator();

@@ -48,7 +48,7 @@ public class GetBaseRole(ILogger<GetBaseRole> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseRole.GetBaseRole");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -60,24 +60,10 @@ public class GetBaseRole(ILogger<GetBaseRole> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseRoleResult>(500, "数据不存在或无权限");
+            return new DataResult<BaseRoleResult>(500, "数据不存在");
 
         var dto = mapper.Map<BaseRoleResult>(entity);
 
         return new DataResult<BaseRoleResult>(dto);
-    }
-
-    /// <summary>
-    /// 获取角色信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

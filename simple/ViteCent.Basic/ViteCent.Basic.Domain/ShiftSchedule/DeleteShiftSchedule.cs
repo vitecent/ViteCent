@@ -52,7 +52,7 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDoma
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
-        var entity = await query.FirstAsync();
+        var entity = await query.FirstAsync(cancellationToken);
 
         return await base.DeleteAsync(entity);
     }

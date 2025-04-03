@@ -3,24 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-#if($Setting.Api.ApiName != "")
-Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.$!{Setting.Api.ApiName}", "$!{DataBase.Name}.$!{Setting.Api.ApiName}\\$!{DataBase.Name}.$!{Setting.Api.ApiName}.csproj", "{$!{Setting.Api.Guid}}"
+#if($Setting.Api.Name != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.$!{Setting.Api.Name}", "$!{DataBase.Name}.$!{Setting.Api.Name}\\$!{DataBase.Name}.$!{Setting.Api.Name}.csproj", "{$!{Setting.Api.Guid}}"
 EndProject
 #end
-#if($Setting.Application.ApplicationName != "")
-Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.$!{Setting.Application.ApplicationName}", "$!{DataBase.Name}.$!{Setting.Application.ApplicationName}\\$!{DataBase.Name}.$!{Setting.Application.ApplicationName}.csproj", "{$!{Setting.Application.Guid}}"
+#if($Setting.Application.Name != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.$!{Setting.Application.Name}", "$!{DataBase.Name}.$!{Setting.Application.Name}\\$!{DataBase.Name}.$!{Setting.Application.Name}.csproj", "{$!{Setting.Application.Guid}}"
 EndProject
 #end
-#if($Setting.Domain.DomainName != "")
-Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Domain.DomainName}", "$!{DataBase.Name}.${Setting.Domain.DomainName}\\$!{DataBase.Name}.${Setting.Domain.DomainName}.csproj", "{$!{Setting.Domain.Guid}}"
+#if($Setting.Domain.Name != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Domain.Name}", "$!{DataBase.Name}.${Setting.Domain.Name}\\$!{DataBase.Name}.${Setting.Domain.Name}.csproj", "{$!{Setting.Domain.Guid}}"
 EndProject
 #end
-#if($Setting.Entity.EntityName != "")
-Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Entity.EntityName}", "$!{DataBase.Name}.${Setting.Entity.EntityName}\\$!{DataBase.Name}.${Setting.Entity.EntityName}.csproj", "{$!{Setting.Entity.Guid}}"
+#if($Setting.Entity.Name != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Entity.Name}", "$!{DataBase.Name}.${Setting.Entity.Name}\\$!{DataBase.Name}.${Setting.Entity.Name}.csproj", "{$!{Setting.Entity.Guid}}"
 EndProject
 #end
-#if($Setting.Data.DataName != "")
-Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Data.DataName}", "..\\${Setting.Data.DataProjrectName}\\$!{DataBase.Name}.${Setting.Data.DataName}\\$!{DataBase.Name}.${Setting.Data.DataName}.csproj", "{$!{Setting.Data.Guid}}"
+#if($Setting.Data.Name != "")
+Project("{$!{Setting.Guid}}") = "$!{DataBase.Name}.${Setting.Data.Name}", "..\\${Setting.Data.Projrect}\\$!{DataBase.Name}.${Setting.Data.Name}\\$!{DataBase.Name}.${Setting.Data.Name}.csproj", "{$!{Setting.Data.Guid}}"
 EndProject
 #end
 Global
@@ -29,31 +29,31 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-#if($Setting.Api.ApiName != "")
+#if($Setting.Api.Name != "")
 		{$!{Setting.Api.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{$!{Setting.Api.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{$!{Setting.Api.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{$!{Setting.Api.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
 #end
-#if($Setting.Application.ApplicationName != "")
+#if($Setting.Application.Name != "")
 		{$!{Setting.Application.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{$!{Setting.Application.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{$!{Setting.Application.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{$!{Setting.Application.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
 #end
-#if($Setting.Domain.DomainName != "")
+#if($Setting.Domain.Name != "")
 		{$!{Setting.Domain.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{$!{Setting.Domain.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{$!{Setting.Domain.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{$!{Setting.Domain.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
 #end
-#if($Setting.Entity.EntityName != "")
+#if($Setting.Entity.Name != "")
 		{$!{Setting.Entity.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{$!{Setting.Entity.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{$!{Setting.Entity.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{$!{Setting.Entity.Guid}}.Release|Any CPU.Build.0 = Release|Any CPU
 #end
-#if($Setting.Data.DataName != "")
+#if($Setting.Data.Name != "")
 		{$!{Setting.Data.Guid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{$!{Setting.Data.Guid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{$!{Setting.Data.Guid}}.Release|Any CPU.ActiveCfg = Release|Any CPU

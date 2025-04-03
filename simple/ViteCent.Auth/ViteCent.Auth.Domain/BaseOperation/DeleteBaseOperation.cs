@@ -52,7 +52,7 @@ public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger) : BaseDoma
         if (!string.IsNullOrWhiteSpace(request.ResourceId))
             query.Where(x => x.ResourceId == request.ResourceId);
 
-        var entity = await query.FirstAsync();
+        var entity = await query.FirstAsync(cancellationToken);
 
         return await base.DeleteAsync(entity);
     }

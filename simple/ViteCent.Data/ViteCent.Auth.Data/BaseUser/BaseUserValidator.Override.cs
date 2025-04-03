@@ -32,7 +32,7 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
 
         RuleFor(x => x.IdCard).Must(x => x.IsIdCard()).When(x => !string.IsNullOrWhiteSpace(x.IdCard)).WithMessage("身份证号格式错误");
         RuleFor(x => x.Birthday).Must(x => x < DateTime.Now && x > DateTime.MinValue).When(x => x.Birthday.HasValue).WithMessage("生日格式错误");
-        RuleFor(x => x).Must(x => x.IdCard.GetIdCardBirthday() == x.Birthday?.ToString("yyyy-MM-dd"))
+        RuleFor(x => x).Must(x => x.IdCard.GetIdAsyncCardBirthday() == x.Birthday?.ToString("yyyy-MM-dd"))
             .When(x => !string.IsNullOrWhiteSpace(x.IdCard) && x.Birthday.HasValue).WithMessage("身份证号和出生日期不匹配");
 
         RuleFor(x => x.Phone).Matches(Const.Mobile).When(x => !string.IsNullOrWhiteSpace(x.Phone)).WithMessage("电话格式错误");

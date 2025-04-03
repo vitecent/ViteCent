@@ -48,7 +48,7 @@ public class GetBaseDepartment(ILogger<GetBaseDepartment> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseDepartment.GetBaseDepartment");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -60,24 +60,10 @@ public class GetBaseDepartment(ILogger<GetBaseDepartment> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseDepartmentResult>(500, "数据不存在或无权限");
+            return new DataResult<BaseDepartmentResult>(500, "数据不存在");
 
         var dto = mapper.Map<BaseDepartmentResult>(entity);
 
         return new DataResult<BaseDepartmentResult>(dto);
-    }
-
-    /// <summary>
-    /// 获取部门信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

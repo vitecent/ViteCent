@@ -51,6 +51,6 @@ public class GetBaseOperation(ILogger<GetBaseOperation> logger) : BaseDomain<Bas
         if (!string.IsNullOrWhiteSpace(request.ResourceId))
             query.Where(x => x.ResourceId == request.ResourceId);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }

@@ -8,13 +8,13 @@
 
 #region
 
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core;
 using ViteCent.Core.Data;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Application.ApplicationName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 新增$!{Table.Description}仓储拓展
@@ -27,9 +27,9 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
-        var hasArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}
+        var hasArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
         {
 #if($HasCompanyId)
             CompanyId = request.CompanyId,

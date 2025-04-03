@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Domain.BaseResource;
 /// 新增资源信息
 /// </summary>
 /// <param name="logger"></param>
-public class AddBaseResource(ILogger<AddBaseResource> logger) : BaseDomain<BaseResourceEntity>, IRequestHandler<AddBaseResourceEntity, BaseResult>
+public class AddBaseResource(ILogger<AddBaseResource> logger) : BaseDomain<AddBaseResourceEntity>, IRequestHandler<AddBaseResourceEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

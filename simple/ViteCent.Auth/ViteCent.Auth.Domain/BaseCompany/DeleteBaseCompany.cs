@@ -43,7 +43,7 @@ public class DeleteBaseCompany(ILogger<DeleteBaseCompany> logger) : BaseDomain<B
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 
-        var entity = await query.FirstAsync();
+        var entity = await query.FirstAsync(cancellationToken);
 
         return await base.DeleteAsync(entity);
     }

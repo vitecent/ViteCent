@@ -48,6 +48,6 @@ public class GetBaseResource(ILogger<GetBaseResource> logger) : BaseDomain<BaseR
         if (!string.IsNullOrWhiteSpace(request.SystemId))
             query.Where(x => x.SystemId == request.SystemId);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }

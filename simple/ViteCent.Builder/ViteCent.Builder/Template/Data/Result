@@ -5,13 +5,13 @@
  * **********************************
  */
 
-namespace $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// $!{Table.Description}
 /// </summary>
 [Serializable]
-public class $!{Table.CamelCaseName}$!{Setting.Data.DataResultSuffix}
+public class $!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}
 {
 #set($Index = 0)
 #foreach($Field in $Fields)

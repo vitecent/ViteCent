@@ -6,9 +6,9 @@ public class DomainSetting
 {
     /// <summary>
     /// </summary>
-    public string DomainName { get; set; } = "Domain";
+    public string Guid { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>
-    public string Guid { get; set; } = string.Empty;
+    public string Name { get; set; } = "Domain";
 }

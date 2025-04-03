@@ -48,7 +48,7 @@ public class DeleteUserLeave(ILogger<DeleteUserLeave> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserLeave.DeleteUserLeave");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -63,19 +63,5 @@ public class DeleteUserLeave(ILogger<DeleteUserLeave> logger,
         var args = mapper.Map<DeleteUserLeaveEntityArgs>(request);
 
         return await mediator.Send(args, cancellationToken);
-    }
-
-    /// <summary>
-    /// 获取请假申请用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

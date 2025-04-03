@@ -43,7 +43,7 @@ public partial class AddBaseUserRole(ILogger<AddBaseUserRole> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUserRole.AddBaseUserRole");
 
-        OverrideInvoke(args);
+        OverrideInvoke(args, User);
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseUserRoleValidator();

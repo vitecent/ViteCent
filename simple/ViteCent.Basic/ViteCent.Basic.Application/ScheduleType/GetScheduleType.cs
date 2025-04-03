@@ -48,7 +48,7 @@ public class GetScheduleType(ILogger<GetScheduleType> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.ScheduleType.GetScheduleType");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -65,24 +65,10 @@ public class GetScheduleType(ILogger<GetScheduleType> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<ScheduleTypeResult>(500, "数据不存在或无权限");
+            return new DataResult<ScheduleTypeResult>(500, "数据不存在");
 
         var dto = mapper.Map<ScheduleTypeResult>(entity);
 
         return new DataResult<ScheduleTypeResult>(dto);
-    }
-
-    /// <summary>
-    /// 获取基础排班用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

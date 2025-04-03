@@ -9,20 +9,20 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using $!{DataBase.Name}.$!{Setting.Data.DataName}.$!{Table.CamelCaseName};
-using $!{DataBase.Name}.$!{Setting.Entity.EntityName}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
 
 #endregion
 
-namespace $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName};
+namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// $!{Table.Description}判重
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.HasName}$!{Table.CamelCaseName}(ILogger<$!{Setting.HasName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>, IRequestHandler<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix}, BaseResult>
+public class $!{Setting.HasName}$!{Table.CamelCaseName}(ILogger<$!{Setting.HasName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -35,11 +35,11 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}(ILogger<$!{Setting.HasNa
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle($!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}$!{Setting.Data.DataArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle($!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.DomainName}.$!{Table.CamelCaseName}.$!{Setting.HasName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.HasName}$!{Table.CamelCaseName}");
 
-        var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.EntityName}>();
+        var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
 
 #if($HasId)
         if (!string.IsNullOrWhiteSpace(request.Id))

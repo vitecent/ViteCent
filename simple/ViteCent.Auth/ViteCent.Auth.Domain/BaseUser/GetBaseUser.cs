@@ -51,6 +51,6 @@ public class GetBaseUser(ILogger<GetBaseUser> logger) : BaseDomain<BaseUserEntit
         if (!string.IsNullOrWhiteSpace(request.PositionId))
             query.Where(x => x.PositionId == request.PositionId);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }

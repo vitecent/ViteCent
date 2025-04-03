@@ -56,100 +56,46 @@ public partial class AddBaseOperation(ILogger<AddBaseOperation> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseOperation.AddBaseOperation");
 
-        InitUser(httpContextAccessor);
+        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-        {
-            var hasCompanyArgs = new GetBaseCompanyEntityArgs
-            {
-                Id = request.CompanyId,
-            };
+        var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-            var hasCompany = await mediator.Send(hasCompanyArgs, cancellationToken);
+        if (hasCompany.Success)
+            return hasCompany;
 
-            if (hasCompany == null)
-                return new BaseResult(500, "公司不存在");
+        var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
-            if (hasCompany.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "公司已禁用");
-        }
+        if (hasSystem.Success)
+            return hasSystem;
 
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId))
-        {
-            var hasSystemArgs = new GetBaseSystemEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                Id = request.SystemId,
-            };
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);;
 
-            var hasSystem = await mediator.Send(hasSystemArgs, cancellationToken);
+        if (hasResource.Success)
+            return hasResource;
 
-            if (hasSystem == null)
-                return new BaseResult(500, "系统不存在");
+        var check = await OverrideHandle(request, cancellationToken);
 
-            if (hasSystem.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "系统已禁用");
-        }
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId) && !string.IsNullOrWhiteSpace(request.SystemId) && !string.IsNullOrWhiteSpace(request.ResourceId))
-        {
-            var hasResourceArgs = new GetBaseResourceEntityArgs
-            {
-                CompanyId = request.CompanyId,
-                SystemId = request.SystemId,
-                Id = request.ResourceId,
-            };
-
-            var hasResource = await mediator.Send(hasResourceArgs, cancellationToken);
-
-            if (hasResource == null)
-                return new BaseResult(500, "资源不存在");
-
-            if (hasResource.Status == (int)StatusEnum.Disable)
-                return new BaseResult(500, "资源已禁用");
-        }
-
-        var result = await OverrideHandle(request, cancellationToken);
-
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         var entity = mapper.Map<AddBaseOperationEntity>(request);
 
-        entity.Id = await cache.NextIdentity(new NextIdentifyArg()
-        {
-            CompanyId = companyId,
-            Name = "BaseOperation",
-        });
+        entity.Id = await cache.GetIdAsync(companyId, "BaseOperation");
 
         entity.Creator = user?.Name ?? string.Empty;
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        var addResult = await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
 
-        if (!addResult.Success)
-            return addResult;
+        if (!result.Success)
+            return result;
 
         return new BaseResult(entity.Id);
-    }
-
-    /// <summary>
-    /// 获取操作信息用户信息
-    /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    private void InitUser(IHttpContextAccessor httpContextAccessor)
-    {
-        var context = httpContextAccessor.HttpContext;
-
-        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
-
-        if (!string.IsNullOrWhiteSpace(json))
-            user = json.DeJson<BaseUserInfo>();
     }
 }

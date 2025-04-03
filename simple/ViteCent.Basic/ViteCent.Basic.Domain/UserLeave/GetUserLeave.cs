@@ -51,6 +51,6 @@ public class GetUserLeave(ILogger<GetUserLeave> logger) : BaseDomain<UserLeaveEn
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
-        return await query.FirstAsync();
+        return await query.FirstAsync(cancellationToken);
     }
 }
