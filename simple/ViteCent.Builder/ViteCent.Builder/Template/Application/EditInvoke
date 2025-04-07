@@ -77,8 +77,8 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 #end
 /// <param name="httpContextAccessor"></param>
 public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.EditName}$!{Table.CamelCaseName}> logger,
-    IMapper mapper, 
-    IMediator mediator, 
+    IMapper mapper,
+    IMediator mediator,
 #if($HasCompanyId)
     IBaseInvoke<$!{Setting.GetName}BaseCompany$!{Setting.Data.ArgsSuffix}, DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
 #end

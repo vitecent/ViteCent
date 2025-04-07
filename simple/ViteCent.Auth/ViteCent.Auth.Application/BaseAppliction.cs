@@ -1,11 +1,8 @@
 ﻿#region
 
-using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using SqlSugar.DistributedSystem.Snowflake;
 using System.Security.Claims;
-using System.Threading;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseDepartment;
 using ViteCent.Auth.Entity.BaseOperation;

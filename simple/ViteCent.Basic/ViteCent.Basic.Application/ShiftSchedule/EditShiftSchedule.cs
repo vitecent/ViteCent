@@ -35,8 +35,8 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public partial class EditShiftSchedule(ILogger<EditShiftSchedule> logger,
-    IMapper mapper, 
-    IMediator mediator, 
+    IMapper mapper,
+    IMediator mediator,
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,

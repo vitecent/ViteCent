@@ -62,7 +62,7 @@ public class AddShiftScheduleList(ILogger<AddShiftScheduleList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddShiftSchedule.OverrideHandle(request, user);
+        var check = await AddShiftSchedule.OverrideHandle(request, user, companyInvoke, departmentInvoke, userInvoke);
 
         if (!check.Success)
             return check;

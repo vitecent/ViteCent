@@ -6,7 +6,6 @@
 #region
 
 using ViteCent.Basic.Data.UserLeave;
-using ViteCent.Basic.Data.UserRest;
 using ViteCent.Core.Enums;
 
 #endregion

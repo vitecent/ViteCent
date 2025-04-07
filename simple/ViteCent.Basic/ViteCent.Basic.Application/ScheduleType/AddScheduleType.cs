@@ -77,7 +77,7 @@ public partial class AddScheduleType(ILogger<AddScheduleType> logger,
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-         var result = await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
 
         if (!result.Success)
             return result;

@@ -86,7 +86,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 
         user = httpContextAccessor.InitUser();
 
-        var check = await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideHandle(request, user);
+        var check = await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideHandle(request, user$!{CompanyInvoke}$!{DepartmentInvoke}$!{UserInvoke});
 
         if (!check.Success)
             return check;

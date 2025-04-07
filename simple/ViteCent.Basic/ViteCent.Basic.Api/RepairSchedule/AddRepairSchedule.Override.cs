@@ -6,7 +6,6 @@
 #region
 
 using ViteCent.Basic.Data.RepairSchedule;
-using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Core.Enums;
 
 #endregion

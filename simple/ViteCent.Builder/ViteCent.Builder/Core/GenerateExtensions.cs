@@ -197,9 +197,12 @@ public class GenerateExtensions
             nh.Put("Table", table);
             nh.Put("EditFields", editField);
             nh.Put("HasCompanyId", hasCompanyId);
+            nh.Put("CompanyInvoke", hasCompanyId ? ", companyInvoke" : "");
             nh.Put("HasDepartmentId", hasDepartmentId);
+            nh.Put("DepartmentInvoke", hasDepartmentId ? ", departmentInvoke" : "");
             nh.Put("HasPositionId", hasPositionId);
             nh.Put("HasUserId", hasUserId);
+            nh.Put("UserInvoke", hasUserId ? ", userInvoke" : "");
             nh.Put("HasRoleId", hasRoleId);
             nh.Put("HasSystemId", hasSystemId);
             nh.Put("HasResourceId", hasResourceId);

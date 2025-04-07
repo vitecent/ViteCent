@@ -59,7 +59,7 @@ public class AddScheduleTypeList(ILogger<AddScheduleTypeList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddScheduleType.OverrideHandle(request, user);
+        var check = await AddScheduleType.OverrideHandle(request, user, companyInvoke, departmentInvoke);
 
         if (!check.Success)
             return check;

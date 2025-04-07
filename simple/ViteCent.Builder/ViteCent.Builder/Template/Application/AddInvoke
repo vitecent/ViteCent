@@ -108,7 +108,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
- #if($HasId)
+#if($HasId)
         var result = await mediator.Send(entity, cancellationToken);
 
         if (!result.Success)

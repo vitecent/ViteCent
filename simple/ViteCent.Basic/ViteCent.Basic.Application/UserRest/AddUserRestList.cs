@@ -62,7 +62,7 @@ public class AddUserRestList(ILogger<AddUserRestList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddUserRest.OverrideHandle(request, user);
+        var check = await AddUserRest.OverrideHandle(request, user, companyInvoke, departmentInvoke, userInvoke);
 
         if (!check.Success)
             return check;

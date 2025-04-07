@@ -6,7 +6,6 @@
 #region
 
 using ViteCent.Basic.Data.ScheduleType;
-using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Core;
 using ViteCent.Core.Enums;
 

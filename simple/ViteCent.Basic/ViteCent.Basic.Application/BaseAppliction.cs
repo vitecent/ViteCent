@@ -292,7 +292,7 @@ public static class BaseAppliction
     /// <returns></returns>
     public static async Task<string> GetIdAsync(this IBaseCache cache, string companyId, string table)
     {
-        return await cache.NextId(new NextIdentifyArg()
+        return await cache.NextIdentity(new NextIdentifyArg()
         {
             CompanyId = companyId,
             Name = table,
