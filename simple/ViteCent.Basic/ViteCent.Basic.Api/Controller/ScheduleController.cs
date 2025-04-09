@@ -56,9 +56,9 @@ public class ScheduleController(ILogger<ScheduleController> logger,
             {
                 CompanyId = item.CompanyId,
                 DepartmentId = item.DepartmentId,
-                PositionId = item.PositionId,
                 UserId = item.UserId,
-                Name = item.Shift,
+                Shift = item.Shift,
+                Job = item.Job,
                 StartTime = DateTime.Parse($"{item.Date} 00:00:00"),
                 EndTime = DateTime.Parse($"{item.Date} 23:59:59"),
                 Status = (int)ScheduleEnum.None,
@@ -227,14 +227,14 @@ public class ScheduleController(ILogger<ScheduleController> logger,
 
         foreach (var row in rows.Rows)
         {
-            var item = items.FirstOrDefault(x => x.CompanyId == row.CompanyId && x.DepartmentId == row.DepartmentId && x.PositionId == row.PositionId && x.UserId == row.UserId
+            var item = items.FirstOrDefault(x => x.CompanyId == row.CompanyId && x.DepartmentId == row.DepartmentId && x.UserId == row.UserId
                 && x.Date == row.StartTime.ToString("yyyy-MM-dd"));
 
             if (item != null)
             {
                 item.Name = row.UserName;
-                item.Shift = row.Name;
-                item.Job = row.PositionName;
+                item.Shift = row.Shift;
+                item.Job = row.Job;
             }
         }
 

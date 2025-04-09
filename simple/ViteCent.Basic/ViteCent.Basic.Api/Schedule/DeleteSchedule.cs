@@ -57,10 +57,6 @@ public class DeleteSchedule(ILogger<DeleteSchedule> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
-
-        if (User.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.PositionId))
-                return new BaseResult(500, "职位标识不能为空");
  
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))

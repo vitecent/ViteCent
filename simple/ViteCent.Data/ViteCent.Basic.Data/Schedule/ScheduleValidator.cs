@@ -28,8 +28,7 @@ public partial class ScheduleValidator : AbstractValidator<AddScheduleArgs>
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.EndTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("结束时间不能为空");
-        RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
-        RuleFor(x => x.PositionId).NotNull().NotEmpty().WithMessage("职位标识不能为空");
+        RuleFor(x => x.Shift).NotNull().NotEmpty().WithMessage("名称不能为空");
         RuleFor(x => x.StartTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("开始时间不能为空");
         RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("用户标识不能为空");
 

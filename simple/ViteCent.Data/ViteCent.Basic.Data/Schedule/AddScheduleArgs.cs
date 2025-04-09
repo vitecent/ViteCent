@@ -51,24 +51,24 @@ public class AddScheduleArgs : BaseArgs, IRequest<BaseResult>
     public DateTime? FirstTime { get; set; }
 
     /// <summary>
+    /// 岗位名称
+    /// </summary>
+    public string Job { get; set; } = string.Empty;
+
+    /// <summary>
     /// 下班时间
     /// </summary>
     public DateTime? LastTime { get; set; }
 
     /// <summary>
-    /// 名称
-    /// </summary>
-    public string Name { get; set; } = string.Empty;
-
-    /// <summary>
-    /// 职位标识
-    /// </summary>
-    public string PositionId { get; set; } = string.Empty;
-
-    /// <summary>
     /// 职位名称
     /// </summary>
     public string PositionName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 名称
+    /// </summary>
+    public string Shift { get; set; } = string.Empty;
 
     /// <summary>
     /// 开始时间

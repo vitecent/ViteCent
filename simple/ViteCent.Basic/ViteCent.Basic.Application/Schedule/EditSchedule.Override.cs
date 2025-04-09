@@ -62,16 +62,6 @@ public partial class EditSchedule
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        if (string.IsNullOrWhiteSpace(request.PositionId))
-            request.PositionId = positionId;
-
-        var hasPosition = await positionInvoke.CheckPosition(request.CompanyId, request.PositionId, user?.Token ?? string.Empty);
-
-        if (hasPosition.Success)
-            return hasPosition;
-
-        request.PositionName = hasPosition.Data.Name;
-
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 
         if (hasUser.Success)

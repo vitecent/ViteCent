@@ -32,14 +32,12 @@ public partial class AddSchedule
     /// <param name="user"></param>
     /// <param name="companyInvoke"></param>
     /// <param name="departmentInvoke"></param>
-    /// <param name="positionInvoke"></param>
     /// <param name="userInvoke"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     internal static async Task<BaseResult> OverrideHandle(MediatR.IMediator mediator, AddScheduleListArgs request, BaseUserInfo user,
         IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
         IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
-        IBaseInvoke<SearchBasePositionArgs, PageResult<BasePositionResult>> positionInvoke,
         IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
@@ -56,7 +54,6 @@ public partial class AddSchedule
 
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
         var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
-        var positionIds = request.Items.Select(x => x.PositionId).Distinct().ToList();
         var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
 
         var companys = await companyInvoke.CheckCompany(companyIds, user?.Token ?? string.Empty);
@@ -85,19 +82,6 @@ public partial class AddSchedule
                 data.DepartmentName = item.Name;
         }
 
-        var positions = await positionInvoke.CheckPosition(companyIds, positionIds, user?.Token ?? string.Empty);
-
-        if (!positions.Success)
-            return positions;
-
-        foreach (var item in positions.Rows)
-        {
-            var items = request.Items.Where(x => x.PositionId == item.Id).ToList();
-
-            foreach (var data in items)
-                data.PositionName = item.Name;
-        }
-
         var users = await userInvoke.CheckUser(companyIds, departmentIds, userIds, user?.Token ?? string.Empty);
 
         if (!users.Success)
@@ -108,7 +92,10 @@ public partial class AddSchedule
             var items = request.Items.Where(x => x.UserId == item.Id).ToList();
 
             foreach (var data in items)
+            {
                 data.UserName = item.RealName;
+                data.PositionName = item.PositionName;
+            }
         }
 
         var hasListArgs = new HasScheduleEntityListArgs
@@ -151,16 +138,6 @@ public partial class AddSchedule
             return hasDepartment;
 
         var positionId = user?.Position?.Id ?? string.Empty;
-
-        if (string.IsNullOrWhiteSpace(request.PositionId))
-            request.PositionId = positionId;
-
-        var hasPosition = await positionInvoke.CheckPosition(request.CompanyId, request.PositionId, user?.Token ?? string.Empty);
-
-        if (hasPosition.Success)
-            return hasPosition;
-
-        request.PositionName = hasPosition.Data.Name;
 
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 

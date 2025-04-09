@@ -58,11 +58,6 @@ public class GetSchedule(ILogger<GetSchedule> logger,
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        var positionId = user?.Position?.Id ?? string.Empty;
-
-        if (!string.IsNullOrWhiteSpace(positionId))
-            request.PositionId = positionId;
-
         var args = mapper.Map<GetScheduleEntityArgs>(request);
 
         var entity = await mediator.Send(args, cancellationToken);

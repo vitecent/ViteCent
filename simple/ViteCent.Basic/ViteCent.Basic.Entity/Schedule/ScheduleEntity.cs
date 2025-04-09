@@ -84,28 +84,28 @@ public class ScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 岗位名称
+    /// </summary>
+    [SugarColumn(ColumnName = "job")]
+    public string Job { get; set; } = string.Empty;
+
+    /// <summary>
     /// 下班时间
     /// </summary>
     [SugarColumn(ColumnName = "lastTime")]
     public DateTime? LastTime { get; set; }
 
     /// <summary>
-    /// 名称
-    /// </summary>
-    [SugarColumn(ColumnName = "name")]
-    public string Name { get; set; } = string.Empty;
-
-    /// <summary>
-    /// 职位标识
-    /// </summary>
-    [SugarColumn(ColumnName = "positionId")]
-    public string PositionId { get; set; } = string.Empty;
-
-    /// <summary>
     /// 职位名称
     /// </summary>
     [SugarColumn(ColumnName = "positionName")]
     public string PositionName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 名称
+    /// </summary>
+    [SugarColumn(ColumnName = "shift")]
+    public string Shift { get; set; } = string.Empty;
 
     /// <summary>
     /// 开始时间

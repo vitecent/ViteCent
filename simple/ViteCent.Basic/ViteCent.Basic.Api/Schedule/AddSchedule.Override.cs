@@ -33,9 +33,5 @@ public partial class AddSchedule
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 args.DepartmentId = user.Department.Id;
-
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.PositionId))
-                args.PositionId = user.Position.Id;
     }
 }

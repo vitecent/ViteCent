@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
-using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Entity.Schedule;
@@ -33,7 +32,6 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="mediator"></param>
 /// <param name="companyInvoke"></param>
 /// <param name="departmentInvoke"></param>
-/// <param name="positionInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public partial class EditSchedule(ILogger<EditSchedule> logger,
@@ -41,7 +39,6 @@ public partial class EditSchedule(ILogger<EditSchedule> logger,
     IMediator mediator,
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
-    IBaseInvoke<GetBasePositionArgs, DataResult<BasePositionResult>> positionInvoke,
     IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditScheduleArgs, BaseResult>
 {
@@ -83,10 +80,10 @@ public partial class EditSchedule(ILogger<EditSchedule> logger,
         entity.DepartmentName = request.DepartmentName;
         entity.EndTime = request.EndTime;
         entity.FirstTime = request.FirstTime;
+        entity.Job = request.Job;
         entity.LastTime = request.LastTime;
-        entity.Name = request.Name;
-        entity.PositionId = request.PositionId;
         entity.PositionName = request.PositionName;
+        entity.Shift = request.Shift;
         entity.StartTime = request.StartTime;
         entity.Status = request.Status;
         entity.UserId = request.UserId;

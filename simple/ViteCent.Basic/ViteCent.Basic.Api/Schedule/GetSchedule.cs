@@ -57,10 +57,6 @@ public class GetSchedule(ILogger<GetSchedule> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<ScheduleResult>(500, "部门标识不能为空");
-
-        if (User.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.PositionId))
-                return new DataResult<ScheduleResult>(500, "职位标识不能为空");
  
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
