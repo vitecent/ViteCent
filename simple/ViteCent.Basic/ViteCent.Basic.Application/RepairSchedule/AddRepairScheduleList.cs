@@ -62,7 +62,7 @@ public class AddRepairScheduleList(ILogger<AddRepairScheduleList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddRepairSchedule.OverrideHandle(request, user, companyInvoke, departmentInvoke, userInvoke);
+        var check = await AddRepairSchedule.OverrideHandle(mediator, request, user, companyInvoke, departmentInvoke, userInvoke, cancellationToken);
 
         if (!check.Success)
             return check;

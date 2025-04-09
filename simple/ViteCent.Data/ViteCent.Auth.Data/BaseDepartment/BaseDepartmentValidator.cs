@@ -23,11 +23,12 @@ public partial class BaseDepartmentValidator : AbstractValidator<AddBaseDepartme
     /// <summary>
     /// 验证参数
     /// </summary>
-    public BaseDepartmentValidator()
+    /// <param name="validate"></param>
+    public BaseDepartmentValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

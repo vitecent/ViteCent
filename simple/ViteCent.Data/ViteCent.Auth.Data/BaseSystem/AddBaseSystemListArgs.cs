@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Data.BaseSystem;
 public class AddBaseSystemListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 系统信息
 	/// </summary>
 	public List<AddBaseSystemArgs> Items = [];
 }

@@ -32,7 +32,7 @@ public class BasePolicy<T>
 
         //var retryPolicy = Policy.Handle<Exception>()
         //    .Or<TimeoutRejectedException>()
-        //    .WaitAndRetryAsync( );
+        //    .WaitAndRetryAsync(timeSpans);
 
         //var breakerPolicy = Policy.Handle<Exception>()
         //    .CircuitBreakerAsync(breaker, TimeSpan.FromSeconds(breakTimes));

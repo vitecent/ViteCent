@@ -46,7 +46,7 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
 {
     /// <summary>
-    /// 验证数据
+    /// 验证$!{Table.Description}
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>

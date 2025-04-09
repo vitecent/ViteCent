@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Data.BaseUserRole;
 public class AddBaseUserRoleListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 用户角色
 	/// </summary>
 	public List<AddBaseUserRoleArgs> Items = [];
 }

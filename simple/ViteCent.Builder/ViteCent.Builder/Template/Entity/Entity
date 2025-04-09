@@ -28,7 +28,7 @@ public class $!{Table.CamelCaseName}$!{Setting.Entity.Name} : $!{BaseName}, IReq
     /// <summary>
     /// $!{Field.Description}
     /// </summary>
-    [SugarColumn(ColumnName = "$!{Field.Name}"$!{Field.ColumnNullable}$!{Field.ColumnType}$!{Field.ColumnLength}$!{Field.ColumnDescription}$!{Field.ColumnIdentity}$!{Field.ColumnPrimaryKey})]
+    [SugarColumn(ColumnName = "$!{Field.Name}"$!{Field.ColumnPrimaryKey})]
     public $!{Field.DataType} $!{Field.CamelCaseName} { get; set; }$!{Field.Default}
 #set($Index = $Index + 1)
 #if($Index < $Fields.Count)

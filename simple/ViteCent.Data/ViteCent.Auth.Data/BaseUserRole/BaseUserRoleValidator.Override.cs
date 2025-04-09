@@ -18,7 +18,8 @@ public partial class BaseUserRoleValidator : AbstractValidator<AddBaseUserRoleAr
 {
     /// <summary>
     /// </summary>
-    private void OverrideValidator()
+    /// <param name="validate"></param>
+    private void OverrideValidator(bool validate = false)
     {
         var status = new List<int>() { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
 

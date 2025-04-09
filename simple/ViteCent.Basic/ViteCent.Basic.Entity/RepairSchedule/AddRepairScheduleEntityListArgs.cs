@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.RepairSchedule;
 
 /// <summary>
-/// 批量新增补卡申请数据参数
+/// 批量新增补卡申请参数
 /// </summary>
 [Serializable]
 public class AddRepairScheduleEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 补卡申请
 	/// </summary>
 	public List<AddRepairScheduleEntity> Items = [];
 }

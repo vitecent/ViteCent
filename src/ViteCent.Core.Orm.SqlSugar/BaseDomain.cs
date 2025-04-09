@@ -69,6 +69,16 @@ public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
 
     /// <summary>
     /// </summary>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> DeleteAsync(List<T> entitys)
+    {
+        Client.Delete(entitys);
+        return await Client.CommitAsync();
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
     public virtual async Task<BaseResult> EditAsync(T entity)

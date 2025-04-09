@@ -47,14 +47,23 @@ public partial class AddBaseOperation(ILogger<AddBaseOperation> logger,
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseOperationValidator();
-        var result = await validator.ValidateAsync(args, cancellationToken);
 
-        if (!result.IsValid)
-            return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+        var check = await validator.ValidateAsync(args, cancellationToken);
+
+        if (!check.IsValid)
+            return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
+ 
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.SystemId))
+                return new BaseResult(500, "系统标识不能为空");
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.ResourceId))
+                return new BaseResult(500, "资源标识不能为空");
 
         return await mediator.Send(args, cancellationToken);
     }

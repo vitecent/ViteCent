@@ -6,6 +6,7 @@
 #region
 
 using MediatR;
+using System.Threading;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Core.Data;
@@ -24,10 +25,27 @@ public partial class AddBaseCompany
     /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseCompanyListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseCompanyListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
     {
-        return await Task.FromResult(new BaseResult());
+        var companyIds = request.Items.Select(x => x.ParentId).Distinct().ToList();
+
+        if (companyIds.Count > 0)
+        {
+            var companys = await mediator.CheckCompany(companyIds);
+
+            if (!companys.Success)
+                return companys;
+        }
+
+        var hasListArgs = new HasBaseCompanyEntityListArgs
+        {
+            Codes = [.. request.Items.Select(x => x.Code).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>

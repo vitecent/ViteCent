@@ -1,3 +1,10 @@
+﻿/*
+ * **********************************
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ * **********************************
+ */
+
 #region
 
 using MediatR;
@@ -35,6 +42,11 @@ public class HasBaseUserEntityArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// </summary>
     public string Phone { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 职位标识
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

@@ -46,10 +46,11 @@ public partial class AddBaseCompany(ILogger<AddBaseCompany> logger,
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseCompanyValidator();
-        var result = await validator.ValidateAsync(args, cancellationToken);
 
-        if (!result.IsValid)
-            return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+        var check = await validator.ValidateAsync(args, cancellationToken);
+
+        if (!check.IsValid)
+            return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         return await mediator.Send(args, cancellationToken);
     }

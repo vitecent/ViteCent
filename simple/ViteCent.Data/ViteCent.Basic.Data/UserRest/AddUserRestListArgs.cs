@@ -21,7 +21,7 @@ namespace ViteCent.Basic.Data.UserRest;
 public class AddUserRestListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 调休申请
 	/// </summary>
 	public List<AddUserRestArgs> Items = [];
 }

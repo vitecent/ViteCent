@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseUserRole;
 
 /// <summary>
-/// 批量新增用户角色数据参数
+/// 批量新增用户角色参数
 /// </summary>
 [Serializable]
 public class AddBaseUserRoleEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 用户角色
 	/// </summary>
 	public List<AddBaseUserRoleEntity> Items = [];
 }

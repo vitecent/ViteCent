@@ -14,7 +14,7 @@ using SqlSugar;
 namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 新增$!{Table.Description}数据参数
+/// 新增$!{Table.Description}参数
 /// </summary>
 [Serializable]
 [SugarTable("$!{Table.Name}")]

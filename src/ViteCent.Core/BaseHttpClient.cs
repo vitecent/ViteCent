@@ -23,7 +23,7 @@ public class BaseHttpClient<T> where T : BaseResult
             var client = new HttpClient();
 
             if (!string.IsNullOrWhiteSpace(token))
-                client.DefaultRequestHeaders.Add(Const.Token, token);
+                client.DefaultRequestHeaders.Add(BaseConst.Token, token);
 
             var response = await client.GetAsync(uri);
 
@@ -53,7 +53,7 @@ public class BaseHttpClient<T> where T : BaseResult
             var client = new HttpClient();
 
             if (!string.IsNullOrWhiteSpace(token))
-                client.DefaultRequestHeaders.Add(Const.Token, token);
+                client.DefaultRequestHeaders.Add(BaseConst.Token, token);
 
             var content = new StringContent(args.ToJson(), Encoding.UTF8, "application/json");
 

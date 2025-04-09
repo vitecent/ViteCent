@@ -58,7 +58,7 @@ public class GetBaseOperation(ILogger<GetBaseOperation> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseOperationResult>(500, "数据不存在");
+            return new DataResult<BaseOperationResult>(500, "操作信息不存在");
 
         var dto = mapper.Map<BaseOperationResult>(entity);
 

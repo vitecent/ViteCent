@@ -52,7 +52,7 @@ public class AddBaseUserList(ILogger<AddBaseUserList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBaseUser.OverrideHandle(mediator, request, user);
+        var check = await AddBaseUser.OverrideHandle(mediator, request, user, cancellationToken);
 
         if (!check.Success)
             return check;

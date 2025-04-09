@@ -78,7 +78,7 @@ public class BaseDecryptRequestMiddlewar(RequestDelegate next, IConfiguration co
 
         var check = configuration["Service:Check"];
 
-        if (string.IsNullOrWhiteSpace(check)) check = Const.Check;
+        if (string.IsNullOrWhiteSpace(check)) check = BaseConst.Check;
 
         return context.Request.Path.StartsWithSegments("/openapi") || context.Request.Path.StartsWithSegments(check);
     }

@@ -21,7 +21,7 @@ namespace ViteCent.Basic.Data.UserLeave;
 public class AddUserLeaveListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 请假申请
 	/// </summary>
 	public List<AddUserLeaveArgs> Items = [];
 }

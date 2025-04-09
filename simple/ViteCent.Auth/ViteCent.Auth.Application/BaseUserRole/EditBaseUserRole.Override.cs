@@ -33,7 +33,6 @@ public partial class EditBaseUserRole
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     private async Task<BaseResult> OverrideHandle(EditBaseUserRoleArgs request, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;

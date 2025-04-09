@@ -58,7 +58,7 @@ public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseRolePermissionResult>(500, "数据不存在");
+            return new DataResult<BaseRolePermissionResult>(500, "角色权限不存在");
 
         var dto = mapper.Map<BaseRolePermissionResult>(entity);
 

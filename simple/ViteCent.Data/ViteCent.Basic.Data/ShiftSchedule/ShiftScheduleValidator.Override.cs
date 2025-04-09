@@ -17,7 +17,8 @@ public partial class ShiftScheduleValidator : AbstractValidator<AddShiftSchedule
 {
     /// <summary>
     /// </summary>
-    private void OverrideValidator()
+    /// <param name="validate"></param>
+    private void OverrideValidator(bool validate)
     {
         var status = new List<int>() { (int)ShiftScheduleEnum.Apply, (int)ShiftScheduleEnum.Pass, (int)ShiftScheduleEnum.NoPass };
 

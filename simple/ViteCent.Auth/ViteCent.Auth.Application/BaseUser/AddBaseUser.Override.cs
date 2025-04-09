@@ -7,6 +7,8 @@
 
 using MediatR;
 using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Auth.Entity.BaseCompany;
+using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core;
 using ViteCent.Core.Data;
 
@@ -23,8 +25,9 @@ public partial class AddBaseUser
     /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseUserListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseUserListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -51,17 +54,54 @@ public partial class AddBaseUser
         if (!companys.Success)
             return companys;
 
+        foreach (var item in companys.Rows)
+        {
+            var items = request.Items.Where(x => x.CompanyId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.CompanyName = item.Name;
+        }
+
         var departments = await mediator.CheckDepartment(companyIds, departmentIds);
 
         if (!departments.Success)
             return departments;
+
+        foreach (var item in departments.Rows)
+        {
+            var items = request.Items.Where(x => x.DepartmentId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.DepartmentId = item.Name;
+        }
 
         var positions = await mediator.CheckPosition(companyIds, positionIds);
 
         if (!positions.Success)
             return positions;
 
-        return new BaseResult();
+        foreach (var item in positions.Rows)
+        {
+            var items = request.Items.Where(x => x.PositionId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.PositionName = item.Name;
+        }
+
+        var hasListArgs = new HasBaseUserEntityListArgs
+        {
+            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
+            DepartmentIds = [.. request.Items.Select(x => x.DepartmentId).Distinct()],
+            PositionIds = [.. request.Items.Select(x => x.PositionId).Distinct()],
+            UserNos = [.. request.Items.Select(x => x.UserNo).Distinct()],
+            Usernames = [.. request.Items.Select(x => x.Username).Distinct()],
+            RealNames = [.. request.Items.Select(x => x.RealName).Distinct()],
+            IdCards = [.. request.Items.Select(x => x.IdCard).Distinct()],
+            Emails = [.. request.Items.Select(x => x.Email).Distinct()],
+            Phones = [.. request.Items.Select(x => x.Phone).Distinct()],
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>
@@ -72,7 +112,7 @@ public partial class AddBaseUser
     private async Task<BaseResult> OverrideHandle(AddBaseUserArgs request, CancellationToken cancellationToken)
     {
         if (!string.IsNullOrWhiteSpace(request.Username) && !string.IsNullOrWhiteSpace(request.Password))
-            request.Password = $"{request.Username}{request.Password}{Const.Salf}".EncryptMD5();
+            request.Password = $"{request.Username}{request.Password}{BaseConst.Salf}".EncryptMD5();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -84,6 +124,8 @@ public partial class AddBaseUser
         if (hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany.Data.Name;
+
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
@@ -93,6 +135,8 @@ public partial class AddBaseUser
 
         if (hasDepartment.Success)
             return hasDepartment;
+
+        request.DepartmentName = hasDepartment.Data.Name;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
@@ -104,10 +148,13 @@ public partial class AddBaseUser
         if (hasPosition.Success)
             return hasPosition;
 
+        request.PositionName = hasPosition.Data.Name;
+
         var hasArgs = new HasBaseUserEntityArgs
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
+            PositionId = request.PositionId,
             UserNo = request.UserNo,
             Username = request.Username,
             RealName = request.RealName,

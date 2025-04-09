@@ -2,6 +2,7 @@
 
 using Dapr.Client;
 using Microsoft.Extensions.Configuration;
+using System.Security.Policy;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Register;
@@ -72,7 +73,7 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
     {
         var request = dapr.CreateInvokeMethodRequest<Args>(method, service, api, null, args);
 
-        if (!string.IsNullOrWhiteSpace(token)) request.Headers.Add(Const.Token, token);
+        if (!string.IsNullOrWhiteSpace(token)) request.Headers.Add(BaseConst.Token, token);
 
         var result = await dapr.InvokeMethodAsync<Result>(request);
 
@@ -93,8 +94,8 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
 
         var services = new Dictionary<string, List<ServiceConfig>>();
 
-        if (cache.HasKey(Const.RegistServices))
-            services = cache.GetString<Dictionary<string, List<ServiceConfig>>>(Const.RegistServices);
+        if (cache.HasKey(BaseConst.RegistServices))
+            services = cache.GetString<Dictionary<string, List<ServiceConfig>>>(BaseConst.RegistServices);
 
         if (services.TryGetValue(service.ToLower(), out var list))
         {
@@ -109,6 +110,9 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
         }
 
         if (list?.Count == 0)
+            return (Result)new BaseResult(500, $"服务{service}不存在");
+
+        if (string.IsNullOrWhiteSpace(uri))
             return (Result)new BaseResult(500, $"服务{service}不存在");
 
         if (method == HttpMethod.Post)

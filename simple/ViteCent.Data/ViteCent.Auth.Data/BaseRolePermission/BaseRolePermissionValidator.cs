@@ -23,7 +23,8 @@ public partial class BaseRolePermissionValidator : AbstractValidator<AddBaseRole
     /// <summary>
     /// 验证参数
     /// </summary>
-    public BaseRolePermissionValidator()
+    /// <param name="validate"></param>
+    public BaseRolePermissionValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.OperationId).NotNull().NotEmpty().WithMessage("操作标识不能为空");
@@ -31,6 +32,6 @@ public partial class BaseRolePermissionValidator : AbstractValidator<AddBaseRole
         RuleFor(x => x.RoleId).NotNull().NotEmpty().WithMessage("角色标识不能为空");
         RuleFor(x => x.SystemId).NotNull().NotEmpty().WithMessage("系统标识不能为空");
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

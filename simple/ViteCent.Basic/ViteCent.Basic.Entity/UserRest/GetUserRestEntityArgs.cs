@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Basic.Entity.UserRest;
 
 /// <summary>
-/// 获取调休申请数据参数
+/// 获取调休申请参数
 /// </summary>
 [Serializable]
 public class GetUserRestEntityArgs : IRequest<UserRestEntity>

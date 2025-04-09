@@ -52,7 +52,7 @@ public class AddBaseOperationList(ILogger<AddBaseOperationList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBaseOperation.OverrideHandle(mediator, request, user);
+        var check = await AddBaseOperation.OverrideHandle(mediator, request, user, cancellationToken);
 
         if (!check.Success)
             return check;

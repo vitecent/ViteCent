@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseRole;
 
 /// <summary>
-/// 获取角色信息数据参数
+/// 获取角色信息参数
 /// </summary>
 [Serializable]
 public class GetBaseRoleEntityArgs : IRequest<BaseRoleEntity>

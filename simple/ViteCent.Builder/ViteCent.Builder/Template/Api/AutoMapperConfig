@@ -43,6 +43,12 @@ public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
 #if($Setting.GetName != "")
         CreateMap<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 #end
+#if($DataBase.Invoke == false && $HasStatus && $Setting.DisableName != "")
+        CreateMap<$!{Setting.DisableName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+#end
+#if($DataBase.Invoke == false && $HasStatus && $Setting.EnableName != "")
+        CreateMap<$!{Setting.EnableName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+#end
 #if($Setting.PageName != "")
         CreateMap<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 #end

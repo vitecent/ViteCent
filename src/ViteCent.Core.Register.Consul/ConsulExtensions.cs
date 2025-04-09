@@ -95,7 +95,7 @@ public static class ConsulExtensions
 
         var check = configuration["Service:Check"] ?? default!;
 
-        if (string.IsNullOrWhiteSpace(check)) check = Const.Check;
+        if (string.IsNullOrWhiteSpace(check)) check = BaseConst.Check;
 
         logger.LogInformation($"Consul ServiceCheck ：{check}");
 
@@ -113,7 +113,7 @@ public static class ConsulExtensions
 
         await new ConsulRegister(uri).RegisterAsync(service);
 
-        if (check == Const.Check) app.MapGet(check, () => new BaseResult());
+        if (check == BaseConst.Check) app.MapGet(check, () => new BaseResult());
 
         var lifetime = app.Lifetime;
 

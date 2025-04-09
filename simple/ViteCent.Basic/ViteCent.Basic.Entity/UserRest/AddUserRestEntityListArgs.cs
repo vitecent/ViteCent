@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.UserRest;
 
 /// <summary>
-/// 批量新增调休申请数据参数
+/// 批量新增调休申请参数
 /// </summary>
 [Serializable]
 public class AddUserRestEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 调休申请
 	/// </summary>
 	public List<AddUserRestEntity> Items = [];
 }

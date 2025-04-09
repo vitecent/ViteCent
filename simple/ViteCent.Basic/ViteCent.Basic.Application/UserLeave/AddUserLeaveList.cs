@@ -62,7 +62,7 @@ public class AddUserLeaveList(ILogger<AddUserLeaveList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddUserLeave.OverrideHandle(request, user, companyInvoke, departmentInvoke, userInvoke);
+        var check = await AddUserLeave.OverrideHandle(mediator, request, user, companyInvoke, departmentInvoke, userInvoke, cancellationToken);
 
         if (!check.Success)
             return check;

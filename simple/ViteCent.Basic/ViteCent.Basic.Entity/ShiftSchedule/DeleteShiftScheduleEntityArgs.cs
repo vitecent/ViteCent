@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.ShiftSchedule;
 
 /// <summary>
-/// 删除换班申请数据参数
+/// 删除换班申请参数
 /// </summary>
 [Serializable]
 public class DeleteShiftScheduleEntityArgs : IRequest<BaseResult>

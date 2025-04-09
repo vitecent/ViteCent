@@ -41,6 +41,11 @@ public class AddBaseResourceArgs : BaseArgs, IRequest<BaseResult>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 简介
     /// </summary>
     public string Description { get; set; } = string.Empty;
@@ -64,4 +69,9 @@ public class AddBaseResourceArgs : BaseArgs, IRequest<BaseResult>
     /// 系统标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 系统名称
+    /// </summary>
+    public string SystemName { get; set; } = string.Empty;
 }

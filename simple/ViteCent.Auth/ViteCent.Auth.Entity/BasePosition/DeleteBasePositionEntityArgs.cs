@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BasePosition;
 
 /// <summary>
-/// 删除职位信息数据参数
+/// 删除职位信息参数
 /// </summary>
 [Serializable]
 public class DeleteBasePositionEntityArgs : IRequest<BaseResult>

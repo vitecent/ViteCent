@@ -59,7 +59,7 @@ public partial class EditBaseUserRole(ILogger<EditBaseUserRole> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "用户角色不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 

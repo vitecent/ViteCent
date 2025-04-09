@@ -69,18 +69,21 @@ public partial class EditUserLeave(ILogger<EditUserLeave> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "请假申请不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
         if (!result.Success)
             return result;
 
+        entity.CompanyName = request.CompanyName;
+        entity.DepartmentName = request.DepartmentName;
         entity.EndTime = request.EndTime;
         entity.Remark = request.Remark;
         entity.StartTime = request.StartTime;
         entity.Status = request.Status;
         entity.UserId = request.UserId;
+        entity.UserName = request.UserName;
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseCompany;
 
 /// <summary>
-/// 批量新增公司信息数据参数
+/// 批量新增公司信息参数
 /// </summary>
 [Serializable]
 public class AddBaseCompanyEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 公司信息
 	/// </summary>
 	public List<AddBaseCompanyEntity> Items = [];
 }

@@ -63,7 +63,7 @@ public class GetUserRest(ILogger<GetUserRest> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<UserRestResult>(500, "数据不存在");
+            return new DataResult<UserRestResult>(500, "调休申请不存在");
 
         var dto = mapper.Map<UserRestResult>(entity);
 

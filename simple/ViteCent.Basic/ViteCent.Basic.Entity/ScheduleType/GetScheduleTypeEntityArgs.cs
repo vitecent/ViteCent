@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Basic.Entity.ScheduleType;
 
 /// <summary>
-/// 获取基础排班数据参数
+/// 获取基础排班参数
 /// </summary>
 [Serializable]
 public class GetScheduleTypeEntityArgs : IRequest<ScheduleTypeEntity>

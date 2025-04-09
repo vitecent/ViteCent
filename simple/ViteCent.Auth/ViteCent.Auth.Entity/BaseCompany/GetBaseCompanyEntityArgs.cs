@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseCompany;
 
 /// <summary>
-/// 获取公司信息数据参数
+/// 获取公司信息参数
 /// </summary>
 [Serializable]
 public class GetBaseCompanyEntityArgs : IRequest<BaseCompanyEntity>

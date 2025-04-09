@@ -1,0 +1,86 @@
+﻿/*
+ * **********************************
+ * 代码由工具自动生成，请勿人工修改
+ * 重新生成时，将覆盖原有代码
+ * **********************************
+ */
+
+#region
+
+using MediatR;
+using ViteCent.Core.Data;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// 禁用$!{Table.Description}参数
+/// </summary>
+[Serializable]
+public class $!{Setting.EnableName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} : BaseArgs, IRequest<BaseResult>
+{
+#if($HasCompanyId)
+    /// <summary>
+    /// 公司标识
+    /// </summary>
+    public string CompanyId { get; set; } = string.Empty;
+
+#end
+#if($HasDepartmentId)
+    /// <summary>
+    /// 部门标识
+    /// </summary>
+    public string DepartmentId { get; set; } = string.Empty;
+
+#end
+#if($HasId)
+    /// <summary>
+    /// 标识
+    /// </summary>
+    public string Id { get; set; } = string.Empty;
+
+#end
+#if($HasPositionId)
+    /// <summary>
+    /// 职位标识
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
+
+#end
+#if($HasOperationId)
+    /// <summary>
+    /// 操作标识
+    /// </summary>
+    public string OperationId { get; set; } = string.Empty;
+
+#end
+#if($HasResourceId)
+    /// <summary>
+    /// 资源标识
+    /// </summary>
+    public string ResourceId { get; set; } = string.Empty;
+
+#end
+#if($HasRoleId)
+    /// <summary>
+    /// 角色标识
+    /// </summary>
+    public string RoleId { get; set; } = string.Empty;
+
+#end
+#if($HasUserId)
+    /// <summary>
+    /// 用户标识
+    /// </summary>
+    public string UserId { get; set; } = string.Empty;
+
+#end
+#if($HasSystemId)
+    /// <summary>
+    /// 系统标识
+    /// </summary>
+    public string SystemId { get; set; } = string.Empty;
+
+#end
+}

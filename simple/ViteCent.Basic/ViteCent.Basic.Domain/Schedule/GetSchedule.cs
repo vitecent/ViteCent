@@ -48,6 +48,9 @@ public class GetSchedule(ILogger<GetSchedule> logger) : BaseDomain<ScheduleEntit
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
 
+        if (!string.IsNullOrWhiteSpace(request.PositionId))
+            query.Where(x => x.PositionId == request.PositionId);
+
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 

@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseUser;
 
 /// <summary>
-/// 删除用户信息数据参数
+/// 删除用户信息参数
 /// </summary>
 [Serializable]
 public class DeleteBaseUserEntityArgs : IRequest<BaseResult>

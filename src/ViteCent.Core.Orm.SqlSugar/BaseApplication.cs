@@ -33,7 +33,7 @@ public abstract class BaseApplication<T> : IBaseApplication<T> where T : IBaseEn
 
     /// <summary>
     /// </summary>
-    /// <param name="entity"></param>
+    /// <param name="entitys"></param>
     /// <returns></returns>
     public virtual async Task<BaseResult> AddAsync(List<T> entitys)
     {
@@ -47,6 +47,24 @@ public abstract class BaseApplication<T> : IBaseApplication<T> where T : IBaseEn
     public async Task<BaseResult> DeleteAsync(Expression<Func<T, bool>> where)
     {
         return await Domain.DeleteAsync(where);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> DeleteAsync(T entity)
+    {
+        return await Domain.DeleteAsync(entity);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> DeleteAsync(List<T> entitys)
+    {
+        return await Domain.DeleteAsync(entitys);
     }
 
     /// <summary>

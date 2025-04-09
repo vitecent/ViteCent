@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Data.BasePosition;
 public class AddBasePositionListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 职位信息
 	/// </summary>
 	public List<AddBasePositionArgs> Items = [];
 }

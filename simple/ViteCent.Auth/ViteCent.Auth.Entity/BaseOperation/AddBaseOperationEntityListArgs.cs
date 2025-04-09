@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseOperation;
 
 /// <summary>
-/// 批量新增操作信息数据参数
+/// 批量新增操作信息参数
 /// </summary>
 [Serializable]
 public class AddBaseOperationEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 操作信息
 	/// </summary>
 	public List<AddBaseOperationEntity> Items = [];
 }

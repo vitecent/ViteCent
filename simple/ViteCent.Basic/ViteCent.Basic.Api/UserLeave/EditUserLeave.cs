@@ -42,12 +42,13 @@ public class EditUserLeave(ILogger<EditUserLeave> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.UserLeave.EditUserLeave");
 
-        var cancellationToken = new CancellationToken();
+        var cancellationToken = new CancellationToken(true);
         var validator = new UserLeaveValidator();
-        var result = await validator.ValidateAsync(args, cancellationToken);
 
-        if (!result.IsValid)
-            return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+        var check = await validator.ValidateAsync(args, cancellationToken);
+
+        if (!check.IsValid)
+            return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
@@ -56,6 +57,10 @@ public class EditUserLeave(ILogger<EditUserLeave> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
+ 
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.UserId))
+                return new BaseResult(500, "用户标识不能为空");
 
         return await mediator.Send(args, cancellationToken);
     }

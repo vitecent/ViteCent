@@ -36,6 +36,11 @@ public class DeleteScheduleArgs : BaseArgs, IRequest<BaseResult>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 职位标识
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
+
+    /// <summary>
     /// 用户标识
     /// </summary>
     public string UserId { get; set; } = string.Empty;

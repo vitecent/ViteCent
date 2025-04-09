@@ -24,5 +24,5 @@ public class SearchItem
 
     /// <summary>
     /// </summary>
-    public object Value { get; set; } = string.Empty;
+    public string Value { get; set; } = string.Empty;
 }

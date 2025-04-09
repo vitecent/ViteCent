@@ -8,6 +8,9 @@
 using MediatR;
 using System.ComponentModel.Design;
 using ViteCent.Auth.Data.BaseRolePermission;
+using ViteCent.Auth.Entity.BaseCompany;
+using ViteCent.Auth.Entity.BaseRole;
+using ViteCent.Auth.Entity.BaseRolePermission;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -24,8 +27,9 @@ public partial class AddBaseRolePermission
     /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseRolePermissionListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseRolePermissionListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -66,7 +70,16 @@ public partial class AddBaseRolePermission
         if (!operations.Success)
             return operations;
 
-        return new BaseResult();
+        var hasListArgs = new HasBaseRolePermissionEntityListArgs
+        {
+            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
+            RoleIds = [.. request.Items.Select(x => x.RoleId).Distinct()],
+            SystemIds = [.. request.Items.Select(x => x.SystemId).Distinct()],
+            ResourceIds = [.. request.Items.Select(x => x.ResourceId).Distinct()],
+            OperationIds = [.. request.Items.Select(x => x.OperationId).Distinct()],
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>

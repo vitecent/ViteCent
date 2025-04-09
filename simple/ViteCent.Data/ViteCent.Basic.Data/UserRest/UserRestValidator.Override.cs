@@ -17,7 +17,8 @@ public partial class UserRestValidator : AbstractValidator<AddUserRestArgs>
 {
     /// <summary>
     /// </summary>
-    private void OverrideValidator()
+    /// <param name="validate"></param>
+    private void OverrideValidator(bool validate)
     {
         var status = new List<int>() { (int)UserRestEnum.Apply, (int)UserRestEnum.Pass, (int)UserRestEnum.NoPass };
 

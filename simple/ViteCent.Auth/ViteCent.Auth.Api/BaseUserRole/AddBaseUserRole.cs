@@ -47,10 +47,11 @@ public partial class AddBaseUserRole(ILogger<AddBaseUserRole> logger,
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseUserRoleValidator();
-        var result = await validator.ValidateAsync(args, cancellationToken);
 
-        if (!result.IsValid)
-            return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+        var check = await validator.ValidateAsync(args, cancellationToken);
+
+        if (!check.IsValid)
+            return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
@@ -59,6 +60,14 @@ public partial class AddBaseUserRole(ILogger<AddBaseUserRole> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.RoleId))
+                return new BaseResult(500, "角色标识不能为空");
+ 
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.UserId))
+                return new BaseResult(500, "用户标识不能为空");
 
         return await mediator.Send(args, cancellationToken);
     }

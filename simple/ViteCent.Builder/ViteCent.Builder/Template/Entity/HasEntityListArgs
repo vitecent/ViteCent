@@ -1,0 +1,79 @@
+﻿/*
+ * **********************************
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ * **********************************
+ */
+
+#region
+
+using MediatR;
+using ViteCent.Core.Data;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// 批量$!{Table.Description}判重参数
+/// </summary>
+[Serializable]
+public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} : BaseArgs, IRequest<BaseResult>
+{
+#if($HasCompanyId)
+    /// <summary>
+    /// 公司标识
+    /// </summary>
+    public List<string> CompanyIds { get; set; } = [];
+
+#end
+#if($HasDepartmentId)
+    /// <summary>
+    /// 部门标识
+    /// </summary>
+    public List<string> DepartmentIds { get; set; } = [];
+
+#end
+#if($HasPositionId)
+    /// <summary>
+    /// 职位标识
+    /// </summary>
+    public List<string> PositionIds { get; set; } = [];
+
+#end
+#if($HasOperationId)
+    /// <summary>
+    /// 操作标识
+    /// </summary>
+    public List<string> OperationIds { get; set; } = [];
+
+#end
+#if($HasResourceId)
+    /// <summary>
+    /// 资源标识
+    /// </summary>
+    public List<string> ResourceIds { get; set; } = [];
+
+#end
+#if($HasRoleId)
+    /// <summary>
+    /// 角色标识
+    /// </summary>
+    public List<string> RoleIds { get; set; } = [];
+
+#end
+#if($HasUserId)
+    /// <summary>
+    /// 用户标识
+    /// </summary>
+    public List<string> UserIds { get; set; } = [];
+
+#end
+#if($HasSystemId)
+    /// <summary>
+    /// 系统标识
+    /// </summary>
+    public List<string> SystemIds { get; set; } = [];
+
+#end
+}

@@ -26,9 +26,19 @@ public class AddUserRestArgs : BaseArgs, IRequest<BaseResult>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 部门标识
     /// </summary>
     public string DepartmentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 部门名称
+    /// </summary>
+    public string DepartmentName { get; set; } = string.Empty;
 
     /// <summary>
     /// 结束时间
@@ -54,4 +64,9 @@ public class AddUserRestArgs : BaseArgs, IRequest<BaseResult>
     /// 用户标识
     /// </summary>
     public string UserId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 用户名称
+    /// </summary>
+    public string UserName { get; set; } = string.Empty;
 }

@@ -31,18 +31,18 @@ public class BaseGatewayMiddlewar(
         var logger = new BaseLogger(typeof(BaseGatewayMiddlewar));
         var traceingId = string.Empty;
 
-        if (context.Request.Headers.TryGetValue(Const.TraceingId, out var value)) traceingId = value.ToString();
+        if (context.Request.Headers.TryGetValue(BaseConst.TraceingId, out var value)) traceingId = value.ToString();
 
         if (string.IsNullOrWhiteSpace(traceingId))
         {
             traceingId = Guid.NewGuid().ToString("N");
-            context.Request.Headers.Remove(Const.TraceingId);
-            context.Request.Headers.TryAdd(Const.TraceingId, traceingId);
+            context.Request.Headers.Remove(BaseConst.TraceingId);
+            context.Request.Headers.TryAdd(BaseConst.TraceingId, traceingId);
         }
 
         logger.LogInformation($"Gateway TraceingId {traceingId}");
 
-        context.Response.Headers.TryAdd(Const.TraceingId, traceingId);
+        context.Response.Headers.TryAdd(BaseConst.TraceingId, traceingId);
 
         var uri = GetServiceUri(context);
 
@@ -118,8 +118,8 @@ public class BaseGatewayMiddlewar(
 
         var services = new Dictionary<string, List<ServiceConfig>>();
 
-        if (cache.HasKey(Const.RegistServices))
-            services = cache.GetString<Dictionary<string, List<ServiceConfig>>>(Const.RegistServices);
+        if (cache.HasKey(BaseConst.RegistServices))
+            services = cache.GetString<Dictionary<string, List<ServiceConfig>>>(BaseConst.RegistServices);
 
         if (services.TryGetValue(key, out var list))
         {

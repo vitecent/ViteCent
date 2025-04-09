@@ -42,12 +42,13 @@ public class EditBaseRole(ILogger<EditBaseRole> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseRole.EditBaseRole");
 
-        var cancellationToken = new CancellationToken();
+        var cancellationToken = new CancellationToken(true);
         var validator = new BaseRoleValidator();
-        var result = await validator.ValidateAsync(args, cancellationToken);
 
-        if (!result.IsValid)
-            return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+        var check = await validator.ValidateAsync(args, cancellationToken);
+
+        if (!check.IsValid)
+            return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))

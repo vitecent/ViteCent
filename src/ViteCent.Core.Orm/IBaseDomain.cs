@@ -36,6 +36,18 @@ public interface IBaseDomain<T> where T : IBaseEntity, new()
 
     /// <summary>
     /// </summary>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    Task<BaseResult> DeleteAsync(List<T> entitys);
+
+    /// <summary>
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<BaseResult> DeleteAsync(T entity);
+
+    /// <summary>
+    /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
     Task<BaseResult> EditAsync(T entity);

@@ -52,7 +52,7 @@ public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBaseCompany.OverrideHandle(mediator, request, user);
+        var check = await AddBaseCompany.OverrideHandle(mediator, request, user, cancellationToken);
 
         if (!check.Success)
             return check;

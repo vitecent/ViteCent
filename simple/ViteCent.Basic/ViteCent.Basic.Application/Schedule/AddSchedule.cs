@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
+using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Entity.Schedule;
@@ -34,6 +35,7 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="mediator"></param>
 /// <param name="companyInvoke"></param>
 /// <param name="departmentInvoke"></param>
+/// <param name="positionInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public partial class AddSchedule(ILogger<AddSchedule> logger,
@@ -42,6 +44,7 @@ public partial class AddSchedule(ILogger<AddSchedule> logger,
     IMediator mediator,
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
+    IBaseInvoke<GetBasePositionArgs, DataResult<BasePositionResult>> positionInvoke,
     IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddScheduleArgs, BaseResult>
 {

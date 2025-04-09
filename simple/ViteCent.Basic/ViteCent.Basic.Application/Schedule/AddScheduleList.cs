@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
+using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Entity.Schedule;
@@ -34,6 +35,7 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="mediator"></param>
 /// <param name="companyInvoke"></param>
 /// <param name="departmentInvoke"></param>
+/// <param name="positionInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public class AddScheduleList(ILogger<AddScheduleList> logger,
@@ -42,6 +44,7 @@ public class AddScheduleList(ILogger<AddScheduleList> logger,
     IMediator mediator,
     IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
+    IBaseInvoke<SearchBasePositionArgs, PageResult<BasePositionResult>> positionInvoke,
     IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddScheduleListArgs, BaseResult>
 {
@@ -62,7 +65,7 @@ public class AddScheduleList(ILogger<AddScheduleList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddSchedule.OverrideHandle(request, user, companyInvoke, departmentInvoke, userInvoke);
+        var check = await AddSchedule.OverrideHandle(mediator, request, user, companyInvoke, departmentInvoke, positionInvoke, userInvoke, cancellationToken);
 
         if (!check.Success)
             return check;

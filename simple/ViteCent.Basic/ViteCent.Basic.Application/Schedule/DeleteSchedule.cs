@@ -58,6 +58,11 @@ public class DeleteSchedule(ILogger<DeleteSchedule> logger,
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
+        var positionId = user?.Position?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(positionId))
+            request.PositionId = positionId;
+
         var args = mapper.Map<DeleteScheduleEntityArgs>(request);
 
         return await mediator.Send(args, cancellationToken);

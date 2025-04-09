@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.UserLeave;
 
 /// <summary>
-/// 删除请假申请数据参数
+/// 删除请假申请参数
 /// </summary>
 [Serializable]
 public class DeleteUserLeaveEntityArgs : IRequest<BaseResult>

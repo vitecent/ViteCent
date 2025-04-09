@@ -23,14 +23,15 @@ public partial class ScheduleTypeValidator : AbstractValidator<AddScheduleTypeAr
     /// <summary>
     /// 验证参数
     /// </summary>
-    public ScheduleTypeValidator()
+    /// <param name="validate"></param>
+    public ScheduleTypeValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.EndTime).NotNull().NotEmpty().WithMessage("结束时间不能为空");
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
-        RuleFor(x => x.Overnight).NotNull().NotEmpty().WithMessage("是否跨天不能为空");
+        RuleFor(x => x.Overnight).GreaterThan(0).WithMessage("是否跨天不能为空");
         RuleFor(x => x.StartTime).NotNull().NotEmpty().WithMessage("开始时间不能为空");
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

@@ -1,4 +1,4 @@
-#region
+﻿#region
 
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +12,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseUser;
 
 /// <summary>
+/// 获取用户信息仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>
@@ -21,10 +22,12 @@ public class GetUserInfo(ILogger<AddBaseUser> logger,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserInfoArgs, DataResult<BaseUserInfo>>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
     /// <summary>
+    /// 获取用户信息
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

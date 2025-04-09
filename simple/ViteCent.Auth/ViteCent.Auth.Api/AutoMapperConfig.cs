@@ -49,6 +49,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseCompanyArgs, AddBaseCompanyEntity>();
         CreateMap<EditBaseCompanyArgs, GetBaseCompanyEntityArgs>();
         CreateMap<GetBaseCompanyArgs, GetBaseCompanyEntityArgs>();
+        CreateMap<DisableBaseCompanyArgs, GetBaseCompanyEntityArgs>();
+        CreateMap<EnableBaseCompanyArgs, GetBaseCompanyEntityArgs>();
         CreateMap<SearchBaseCompanyArgs, SearchBaseCompanyEntityArgs>();
         CreateMap<BaseCompanyEntity, BaseCompanyResult>();
         CreateMap<DeleteBaseCompanyArgs, DeleteBaseCompanyEntityArgs>();
@@ -60,6 +62,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseDepartmentArgs, AddBaseDepartmentEntity>();
         CreateMap<EditBaseDepartmentArgs, GetBaseDepartmentEntityArgs>();
         CreateMap<GetBaseDepartmentArgs, GetBaseDepartmentEntityArgs>();
+        CreateMap<DisableBaseDepartmentArgs, GetBaseDepartmentEntityArgs>();
+        CreateMap<EnableBaseDepartmentArgs, GetBaseDepartmentEntityArgs>();
         CreateMap<SearchBaseDepartmentArgs, SearchBaseDepartmentEntityArgs>();
         CreateMap<BaseDepartmentEntity, BaseDepartmentResult>();
         CreateMap<DeleteBaseDepartmentArgs, DeleteBaseDepartmentEntityArgs>();
@@ -71,6 +75,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseOperationArgs, AddBaseOperationEntity>();
         CreateMap<EditBaseOperationArgs, GetBaseOperationEntityArgs>();
         CreateMap<GetBaseOperationArgs, GetBaseOperationEntityArgs>();
+        CreateMap<DisableBaseOperationArgs, GetBaseOperationEntityArgs>();
+        CreateMap<EnableBaseOperationArgs, GetBaseOperationEntityArgs>();
         CreateMap<SearchBaseOperationArgs, SearchBaseOperationEntityArgs>();
         CreateMap<BaseOperationEntity, BaseOperationResult>();
         CreateMap<DeleteBaseOperationArgs, DeleteBaseOperationEntityArgs>();
@@ -82,6 +88,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBasePositionArgs, AddBasePositionEntity>();
         CreateMap<EditBasePositionArgs, GetBasePositionEntityArgs>();
         CreateMap<GetBasePositionArgs, GetBasePositionEntityArgs>();
+        CreateMap<DisableBasePositionArgs, GetBasePositionEntityArgs>();
+        CreateMap<EnableBasePositionArgs, GetBasePositionEntityArgs>();
         CreateMap<SearchBasePositionArgs, SearchBasePositionEntityArgs>();
         CreateMap<BasePositionEntity, BasePositionResult>();
         CreateMap<DeleteBasePositionArgs, DeleteBasePositionEntityArgs>();
@@ -93,6 +101,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseResourceArgs, AddBaseResourceEntity>();
         CreateMap<EditBaseResourceArgs, GetBaseResourceEntityArgs>();
         CreateMap<GetBaseResourceArgs, GetBaseResourceEntityArgs>();
+        CreateMap<DisableBaseResourceArgs, GetBaseResourceEntityArgs>();
+        CreateMap<EnableBaseResourceArgs, GetBaseResourceEntityArgs>();
         CreateMap<SearchBaseResourceArgs, SearchBaseResourceEntityArgs>();
         CreateMap<BaseResourceEntity, BaseResourceResult>();
         CreateMap<DeleteBaseResourceArgs, DeleteBaseResourceEntityArgs>();
@@ -104,6 +114,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseRoleArgs, AddBaseRoleEntity>();
         CreateMap<EditBaseRoleArgs, GetBaseRoleEntityArgs>();
         CreateMap<GetBaseRoleArgs, GetBaseRoleEntityArgs>();
+        CreateMap<DisableBaseRoleArgs, GetBaseRoleEntityArgs>();
+        CreateMap<EnableBaseRoleArgs, GetBaseRoleEntityArgs>();
         CreateMap<SearchBaseRoleArgs, SearchBaseRoleEntityArgs>();
         CreateMap<BaseRoleEntity, BaseRoleResult>();
         CreateMap<DeleteBaseRoleArgs, DeleteBaseRoleEntityArgs>();
@@ -115,6 +127,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseRolePermissionArgs, AddBaseRolePermissionEntity>();
         CreateMap<EditBaseRolePermissionArgs, GetBaseRolePermissionEntityArgs>();
         CreateMap<GetBaseRolePermissionArgs, GetBaseRolePermissionEntityArgs>();
+        CreateMap<DisableBaseRolePermissionArgs, GetBaseRolePermissionEntityArgs>();
+        CreateMap<EnableBaseRolePermissionArgs, GetBaseRolePermissionEntityArgs>();
         CreateMap<SearchBaseRolePermissionArgs, SearchBaseRolePermissionEntityArgs>();
         CreateMap<BaseRolePermissionEntity, BaseRolePermissionResult>();
         CreateMap<DeleteBaseRolePermissionArgs, DeleteBaseRolePermissionEntityArgs>();
@@ -126,6 +140,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseSystemArgs, AddBaseSystemEntity>();
         CreateMap<EditBaseSystemArgs, GetBaseSystemEntityArgs>();
         CreateMap<GetBaseSystemArgs, GetBaseSystemEntityArgs>();
+        CreateMap<DisableBaseSystemArgs, GetBaseSystemEntityArgs>();
+        CreateMap<EnableBaseSystemArgs, GetBaseSystemEntityArgs>();
         CreateMap<SearchBaseSystemArgs, SearchBaseSystemEntityArgs>();
         CreateMap<BaseSystemEntity, BaseSystemResult>();
         CreateMap<DeleteBaseSystemArgs, DeleteBaseSystemEntityArgs>();
@@ -137,6 +153,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseUserArgs, AddBaseUserEntity>();
         CreateMap<EditBaseUserArgs, GetBaseUserEntityArgs>();
         CreateMap<GetBaseUserArgs, GetBaseUserEntityArgs>();
+        CreateMap<DisableBaseUserArgs, GetBaseUserEntityArgs>();
+        CreateMap<EnableBaseUserArgs, GetBaseUserEntityArgs>();
         CreateMap<SearchBaseUserArgs, SearchBaseUserEntityArgs>();
         CreateMap<BaseUserEntity, BaseUserResult>();
         CreateMap<DeleteBaseUserArgs, DeleteBaseUserEntityArgs>();
@@ -148,6 +166,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddBaseUserRoleArgs, AddBaseUserRoleEntity>();
         CreateMap<EditBaseUserRoleArgs, GetBaseUserRoleEntityArgs>();
         CreateMap<GetBaseUserRoleArgs, GetBaseUserRoleEntityArgs>();
+        CreateMap<DisableBaseUserRoleArgs, GetBaseUserRoleEntityArgs>();
+        CreateMap<EnableBaseUserRoleArgs, GetBaseUserRoleEntityArgs>();
         CreateMap<SearchBaseUserRoleArgs, SearchBaseUserRoleEntityArgs>();
         CreateMap<BaseUserRoleEntity, BaseUserRoleResult>();
         CreateMap<DeleteBaseUserRoleArgs, DeleteBaseUserRoleEntityArgs>();

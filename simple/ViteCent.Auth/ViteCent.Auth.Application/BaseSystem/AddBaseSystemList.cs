@@ -52,7 +52,7 @@ public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBaseSystem.OverrideHandle(mediator, request, user);
+        var check = await AddBaseSystem.OverrideHandle(mediator, request, user, cancellationToken);
 
         if (!check.Success)
             return check;

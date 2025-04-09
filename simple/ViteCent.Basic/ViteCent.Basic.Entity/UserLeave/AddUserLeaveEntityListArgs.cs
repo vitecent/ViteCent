@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.UserLeave;
 
 /// <summary>
-/// 批量新增请假申请数据参数
+/// 批量新增请假申请参数
 /// </summary>
 [Serializable]
 public class AddUserLeaveEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 请假申请
 	/// </summary>
 	public List<AddUserLeaveEntity> Items = [];
 }

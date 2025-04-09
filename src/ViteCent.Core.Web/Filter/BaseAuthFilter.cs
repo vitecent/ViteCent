@@ -45,7 +45,7 @@ public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, stri
 
         var httpContext = context.HttpContext;
 
-        var token = httpContext.Request.Headers[Const.Token];
+        var token = httpContext.Request.Headers[BaseConst.Token];
 
         if (string.IsNullOrWhiteSpace(token))
         {

@@ -11,6 +11,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web.Api;
 using ViteCent.Core.Web.Filter;
 
@@ -43,6 +44,14 @@ public class GetScheduleType(ILogger<GetScheduleType> logger,
 
         if (args == null)
             return new DataResult<ScheduleTypeResult>(500, "参数不能为空");
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                return new DataResult<ScheduleTypeResult>(500, "公司标识不能为空");
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.DepartmentId))
+                return new DataResult<ScheduleTypeResult>(500, "部门标识不能为空");
 
         return await mediator.Send(args, new CancellationToken());
     }

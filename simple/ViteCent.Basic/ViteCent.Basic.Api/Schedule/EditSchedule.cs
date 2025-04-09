@@ -42,12 +42,13 @@ public class EditSchedule(ILogger<EditSchedule> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.EditSchedule");
 
-        var cancellationToken = new CancellationToken();
+        var cancellationToken = new CancellationToken(true);
         var validator = new ScheduleValidator();
-        var result = await validator.ValidateAsync(args, cancellationToken);
 
-        if (!result.IsValid)
-            return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+        var check = await validator.ValidateAsync(args, cancellationToken);
+
+        if (!check.IsValid)
+            return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
@@ -56,6 +57,14 @@ public class EditSchedule(ILogger<EditSchedule> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.PositionId))
+                return new BaseResult(500, "职位标识不能为空");
+ 
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.UserId))
+                return new BaseResult(500, "用户标识不能为空");
 
         return await mediator.Send(args, cancellationToken);
     }

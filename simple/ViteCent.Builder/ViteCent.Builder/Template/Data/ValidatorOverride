@@ -21,7 +21,8 @@ public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : A
     /// <summary>
     /// 验证参数
     /// </summary>
-    private void OverrideValidator()
+    /// <param name="validate"></param>
+    private void OverrideValidator(bool validate = false)
     {
     }
 }

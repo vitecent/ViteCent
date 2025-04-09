@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.ScheduleType;
 
 /// <summary>
-/// 删除基础排班数据参数
+/// 删除基础排班参数
 /// </summary>
 [Serializable]
 public class DeleteScheduleTypeEntityArgs : IRequest<BaseResult>

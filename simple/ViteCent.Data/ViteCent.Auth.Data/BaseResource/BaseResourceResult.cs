@@ -34,6 +34,11 @@ public class BaseResourceResult
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 创建时间
     /// </summary>
     public DateTime? CreateTime { get; set; }
@@ -77,6 +82,11 @@ public class BaseResourceResult
     /// 系统标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 系统名称
+    /// </summary>
+    public string SystemName { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

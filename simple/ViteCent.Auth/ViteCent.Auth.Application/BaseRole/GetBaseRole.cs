@@ -58,7 +58,7 @@ public class GetBaseRole(ILogger<GetBaseRole> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseRoleResult>(500, "数据不存在");
+            return new DataResult<BaseRoleResult>(500, "角色信息不存在");
 
         var dto = mapper.Map<BaseRoleResult>(entity);
 

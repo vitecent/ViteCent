@@ -43,18 +43,32 @@ public class SearchArgs : BaseArgs
         var result = string.Empty;
         var parameters = new Dictionary<string, object>();
 
-        if (Args.Count == 0) return (result, parameters);
-
         //删除空
-        Args.RemoveAll(x =>
-            string.IsNullOrWhiteSpace(x.Field) || string.IsNullOrWhiteSpace(x.Value?.ToString()) ||
-            x.Value?.ToString() == "[]");
+        Args.RemoveAll(x => string.IsNullOrWhiteSpace(x.Field) || string.IsNullOrWhiteSpace(x.Value) || x.Value == "[]");
+
+        if (Args.Count == 0) return (result, parameters);
 
         var sql = new StringBuilder();
         sql.Append("1 = 1 ");
 
+        foreach (var item in Args)
+        {
+            if (item.Value.StartsWith("[") && item.Value.EndsWith("]"))
+            {
+                var values = item.Value.DeJson<List<string>>();
+
+                if (values.Count > 0)
+                {
+                    var value = string.Join(",", values.Select(x => $"'{x}'").ToArray());
+
+                    item.Value = value;
+                }
+            }
+        }
+
         //处理普通
         var list = Args.Where(x => string.IsNullOrWhiteSpace(x.Group)).ToList();
+
         var i = 0;
 
         list.ForEach(x =>
@@ -114,7 +128,8 @@ public class SearchArgs : BaseArgs
                         }
                         else
                         {
-                            sql.Append('(');
+                            sql.Append("(" +
+                                "");
                             var j = 0;
                             g.ToList().ForEach(x =>
                             {
@@ -206,6 +221,7 @@ public class SearchArgs : BaseArgs
 
             case SearchEnum.InLike:
                 var keys = item.Value?.ToString()?.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+
                 if (keys?.Count > 1)
                 {
                     var i = 0;

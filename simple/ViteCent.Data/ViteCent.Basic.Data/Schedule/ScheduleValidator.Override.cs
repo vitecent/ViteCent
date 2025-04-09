@@ -17,7 +17,8 @@ public partial class ScheduleValidator : AbstractValidator<AddScheduleArgs>
 {
     /// <summary>
     /// </summary>
-    private void OverrideValidator()
+    /// <param name="validate"></param>
+    private void OverrideValidator(bool validate)
     {
         var status = new List<int>() { (int)ScheduleEnum.Normal, (int)ScheduleEnum.Late, (int)ScheduleEnum.Early, (int)ScheduleEnum.None };
 

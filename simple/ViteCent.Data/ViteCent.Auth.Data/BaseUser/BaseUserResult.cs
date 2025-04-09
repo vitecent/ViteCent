@@ -34,6 +34,11 @@ public class BaseUserResult
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 创建时间
     /// </summary>
     public DateTime? CreateTime { get; set; }
@@ -52,6 +57,11 @@ public class BaseUserResult
     /// 部门标识
     /// </summary>
     public string DepartmentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 部门名称
+    /// </summary>
+    public string DepartmentName { get; set; } = string.Empty;
 
     /// <summary>
     /// 简介
@@ -97,6 +107,11 @@ public class BaseUserResult
     /// 职位标识
     /// </summary>
     public string PositionId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 职位名称
+    /// </summary>
+    public string PositionName { get; set; } = string.Empty;
 
     /// <summary>
     /// 真实姓名

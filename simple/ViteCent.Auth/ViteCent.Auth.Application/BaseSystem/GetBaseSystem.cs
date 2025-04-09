@@ -58,7 +58,7 @@ public class GetBaseSystem(ILogger<GetBaseSystem> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseSystemResult>(500, "数据不存在");
+            return new DataResult<BaseSystemResult>(500, "系统信息不存在");
 
         var dto = mapper.Map<BaseSystemResult>(entity);
 

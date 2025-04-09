@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Basic.Entity.Schedule;
 
 /// <summary>
-/// 获取排班信息数据参数
+/// 获取排班信息参数
 /// </summary>
 [Serializable]
 public class GetScheduleEntityArgs : IRequest<ScheduleEntity>
@@ -33,6 +33,11 @@ public class GetScheduleEntityArgs : IRequest<ScheduleEntity>
     /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 职位标识
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
 
     /// <summary>
     /// 用户标识

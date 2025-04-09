@@ -1,3 +1,10 @@
+/*
+ * **********************************
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ * **********************************
+ */
+
 #region
 
 using MediatR;
@@ -40,6 +47,9 @@ public class HasBaseUser(ILogger<HasBaseUser> logger) : BaseDomain<BaseUserEntit
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
 
+        if (!string.IsNullOrWhiteSpace(request.PositionId))
+            query.Where(x => x.PositionId == request.PositionId);
+
         if (!string.IsNullOrWhiteSpace(request.UserNo))
             query.Where(x => x.UserNo == request.UserNo);
 
@@ -61,7 +71,7 @@ public class HasBaseUser(ILogger<HasBaseUser> logger) : BaseDomain<BaseUserEntit
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "用户编号或登录名或姓名或身份证号或邮箱或电话重复");
+            return new BaseResult(500, "用户编号 或 登录名 或 姓名 或 身份证号 或 邮箱 或 电话 重复");
 
         return new BaseResult();
     }

@@ -59,7 +59,7 @@ public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logg
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "角色权限不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 

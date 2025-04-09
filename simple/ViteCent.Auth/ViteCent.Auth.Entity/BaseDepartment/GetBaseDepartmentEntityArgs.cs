@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseDepartment;
 
 /// <summary>
-/// 获取部门信息数据参数
+/// 获取部门信息参数
 /// </summary>
 [Serializable]
 public class GetBaseDepartmentEntityArgs : IRequest<BaseDepartmentEntity>

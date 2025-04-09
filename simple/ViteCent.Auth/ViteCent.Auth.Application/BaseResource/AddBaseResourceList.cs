@@ -52,7 +52,7 @@ public class AddBaseResourceList(ILogger<AddBaseResourceList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBaseResource.OverrideHandle(mediator, request, user);
+        var check = await AddBaseResource.OverrideHandle(mediator, request, user, cancellationToken);
 
         if (!check.Success)
             return check;

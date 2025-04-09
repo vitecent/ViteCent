@@ -2,6 +2,7 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Security.Claims;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseDepartment;
@@ -46,7 +47,8 @@ public static class BaseAppliction
     /// <param name="mediator"></param>
     /// <param name="companyIds"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckCompany(this IMediator mediator, List<string> companyIds)
+    public static async Task<PageResult<BaseCompanyEntity>> CheckCompany(this IMediator mediator,
+        List<string> companyIds)
     {
         var searchCompanyArgs = new SearchBaseCompanyEntityArgs()
         {
@@ -57,7 +59,7 @@ public static class BaseAppliction
                 new ()
                 {
                     Field = "Id",
-                    Value = companyIds,
+                    Value = companyIds.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -66,20 +68,23 @@ public static class BaseAppliction
         var companys = await mediator.Send(searchCompanyArgs);
 
         if (companys.Count == 0)
-            return new BaseResult(500, $"公司{companyIds.FirstOrDefault()}不存在");
+            return new PageResult<BaseCompanyEntity>(500, $"公司{companyIds.FirstOrDefault()}不存在");
 
         var _companyIds = companys.Select(y => y.Id).ToList();
         var _companyId = companyIds.FirstOrDefault(x => !_companyIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_companyId))
-            return new BaseResult(500, $"公司{_companyId}不存在");
+            return new PageResult<BaseCompanyEntity>(500, $"公司{_companyId}不存在");
 
         var company = companys.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (company != null)
-            return new BaseResult(500, $"公司{company.Name}已经禁用");
+            return new PageResult<BaseCompanyEntity>(500, $"公司{company.Name}已经禁用");
 
-        return new BaseResult();
+        return new PageResult<BaseCompanyEntity>()
+        {
+            Rows = companys,
+        };
     }
 
     /// <summary>
@@ -87,10 +92,11 @@ public static class BaseAppliction
     /// <param name="mediator"></param>
     /// <param name="companyId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckCompany(this IMediator mediator, string companyId)
+    public static async Task<DataResult<BaseCompanyEntity>> CheckCompany(this IMediator mediator,
+        string companyId)
     {
         if (string.IsNullOrWhiteSpace(companyId))
-            return new BaseResult();
+            return new DataResult<BaseCompanyEntity>(500, "参数不能为空");
 
         var getCompanyArgs = new GetBaseCompanyEntityArgs
         {
@@ -100,12 +106,15 @@ public static class BaseAppliction
         var company = await mediator.Send(getCompanyArgs);
 
         if (company == null)
-            return new BaseResult(500, "公司不存在");
+            return new DataResult<BaseCompanyEntity>(500, "公司不存在");
 
         if (company.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "公司已禁用");
+            return new DataResult<BaseCompanyEntity>(500, "公司已禁用");
 
-        return new BaseResult();
+        return new DataResult<BaseCompanyEntity>()
+        {
+            Data = company,
+        };
     }
 
     /// <summary>
@@ -114,7 +123,9 @@ public static class BaseAppliction
     /// <param name="companyIds"></param>
     /// <param name="departmentIds"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckDepartment(this IMediator mediator, List<string> companyIds, List<string> departmentIds)
+    public static async Task<PageResult<BaseDepartmentEntity>> CheckDepartment(this IMediator mediator,
+        List<string> companyIds,
+        List<string> departmentIds)
     {
         var searchDepartmentArgs = new SearchBaseDepartmentEntityArgs()
         {
@@ -125,13 +136,13 @@ public static class BaseAppliction
                 new ()
                 {
                     Field = "CompanyId",
-                    Value = companyIds,
+                    Value = companyIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "Id",
-                    Value = departmentIds,
+                    Value = departmentIds.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -140,20 +151,23 @@ public static class BaseAppliction
         var departments = await mediator.Send(searchDepartmentArgs);
 
         if (departments.Count == 0)
-            return new BaseResult(500, $"部门{departmentIds.FirstOrDefault()}不存在");
+            return new PageResult<BaseDepartmentEntity>(500, $"部门{departmentIds.FirstOrDefault()}不存在");
 
         var _departmentIds = departments.Select(y => y.Id).ToList();
         var _departmentId = departmentIds.FirstOrDefault(x => !_departmentIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_departmentId))
-            return new BaseResult(500, $"部门{_departmentId}不存在");
+            return new PageResult<BaseDepartmentEntity>(500, $"部门{_departmentId}不存在");
 
         var department = departments.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (department != null)
-            return new BaseResult(500, $"部门{department.Name}已经禁用");
+            return new PageResult<BaseDepartmentEntity>(500, $"部门{department.Name}已经禁用");
 
-        return new BaseResult();
+        return new PageResult<BaseDepartmentEntity>()
+        {
+            Rows = departments
+        };
     }
 
     /// <summary>
@@ -162,10 +176,12 @@ public static class BaseAppliction
     /// <param name="companyId"></param>
     /// <param name="departmentId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckDepartment(this IMediator mediator, string companyId, string departmentId)
+    public static async Task<DataResult<BaseDepartmentEntity>> CheckDepartment(this IMediator mediator,
+        string companyId,
+        string departmentId)
     {
         if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(departmentId))
-            return new BaseResult();
+            return new DataResult<BaseDepartmentEntity>(500, "参数不能为空");
 
         var getDepartmentArgs = new GetBaseDepartmentEntityArgs
         {
@@ -176,12 +192,15 @@ public static class BaseAppliction
         var department = await mediator.Send(getDepartmentArgs);
 
         if (department == null)
-            return new BaseResult(500, "部门不存在");
+            return new DataResult<BaseDepartmentEntity>(500, "部门不存在");
 
         if (department.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "部门已禁用");
+            return new DataResult<BaseDepartmentEntity>(500, "部门已禁用");
 
-        return new BaseResult();
+        return new DataResult<BaseDepartmentEntity>()
+        {
+            Data = department
+        };
     }
 
     /// <summary>
@@ -192,7 +211,11 @@ public static class BaseAppliction
     /// <param name="resourceIds"></param>
     /// <param name="operationIds"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckOperation(this IMediator mediator, List<string> companyIds, List<string> systemIds, List<string> resourceIds, List<string> operationIds)
+    public static async Task<PageResult<BaseOperationEntity>> CheckOperation(this IMediator mediator,
+        List<string> companyIds,
+        List<string> systemIds,
+        List<string> resourceIds,
+        List<string> operationIds)
     {
         var searchOperationArgs = new SearchBaseOperationEntityArgs()
         {
@@ -203,25 +226,25 @@ public static class BaseAppliction
                 new ()
                 {
                     Field = "CompanyId",
-                    Value = companyIds,
+                    Value = companyIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "SystemId",
-                    Value = systemIds,
+                    Value = systemIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "ResourceId",
-                    Value = resourceIds,
+                    Value = resourceIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "Id",
-                    Value = operationIds,
+                    Value = operationIds.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -230,20 +253,23 @@ public static class BaseAppliction
         var operations = await mediator.Send(searchOperationArgs);
 
         if (operations.Count == 0)
-            return new BaseResult(500, $"操作{operationIds.FirstOrDefault()}不存在");
+            return new PageResult<BaseOperationEntity>(500, $"操作{operationIds.FirstOrDefault()}不存在");
 
         var _operationIds = operations.Select(y => y.Id).ToList();
         var _operationId = operationIds.FirstOrDefault(x => !_operationIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_operationId))
-            return new BaseResult(500, $"操作{_operationId}不存在");
+            return new PageResult<BaseOperationEntity>(500, $"操作{_operationId}不存在");
 
         var operation = operations.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (operation != null)
-            return new BaseResult(500, $"操作{operation.Name}已经禁用");
+            return new PageResult<BaseOperationEntity>(500, $"操作{operation.Name}已经禁用");
 
-        return new BaseResult();
+        return new PageResult<BaseOperationEntity>()
+        {
+            Rows = operations
+        };
     }
 
     /// <summary>
@@ -254,10 +280,14 @@ public static class BaseAppliction
     /// <param name="resourceId"></param>
     /// <param name="operationId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckOperation(this IMediator mediator, string companyId, string systemId, string resourceId, string operationId)
+    public static async Task<DataResult<BaseOperationEntity>> CheckOperation(this IMediator mediator,
+        string companyId,
+        string systemId,
+        string resourceId,
+        string operationId)
     {
         if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(systemId) && !string.IsNullOrWhiteSpace(resourceId) && !string.IsNullOrWhiteSpace(operationId))
-            return new BaseResult();
+            return new DataResult<BaseOperationEntity>(500, "参数不能为空");
 
         var getOperationArgs = new GetBaseOperationEntityArgs
         {
@@ -270,12 +300,15 @@ public static class BaseAppliction
         var operation = await mediator.Send(getOperationArgs);
 
         if (operation == null)
-            return new BaseResult(500, "操作不存在");
+            return new DataResult<BaseOperationEntity>(500, "操作不存在");
 
         if (operation.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "操作已禁用");
+            return new DataResult<BaseOperationEntity>(500, "操作已禁用");
 
-        return new BaseResult();
+        return new DataResult<BaseOperationEntity>()
+        {
+            Data = operation
+        };
     }
 
     /// <summary>
@@ -284,9 +317,11 @@ public static class BaseAppliction
     /// <param name="companyIds"></param>
     /// <param name="positionIds"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckPosition(this IMediator mediator, List<string> companyIds, List<string> positionIds)
+    public static async Task<PageResult<BasePositionEntity>> CheckPosition(this IMediator mediator,
+        List<string> companyIds,
+        List<string> positionIds)
     {
-        var searchPositionArgs = new SearchBaseCompanyEntityArgs()
+        var searchPositionArgs = new SearchBasePositionEntityArgs()
         {
             Offset = 0,
             Limit = int.MaxValue,
@@ -295,13 +330,13 @@ public static class BaseAppliction
                 new ()
                 {
                     Field = "CompanyId",
-                    Value = companyIds,
+                    Value = companyIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "Id",
-                    Value = positionIds,
+                    Value = positionIds.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -310,20 +345,23 @@ public static class BaseAppliction
         var positions = await mediator.Send(searchPositionArgs);
 
         if (positions.Count == 0)
-            return new BaseResult(500, $"职位{positionIds.FirstOrDefault()}不存在");
+            return new PageResult<BasePositionEntity>(500, $"职位{positionIds.FirstOrDefault()}不存在");
 
         var _positionIds = positions.Select(y => y.Id).ToList();
         var _positionId = positionIds.FirstOrDefault(x => !_positionIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_positionId))
-            return new BaseResult(500, $"职位{_positionId}不存在");
+            return new PageResult<BasePositionEntity>(500, $"职位{_positionId}不存在");
 
         var position = positions.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (position != null)
-            return new BaseResult(500, $"职位{position.Name}已经禁用");
+            return new PageResult<BasePositionEntity>(500, $"职位{position.Name}已经禁用");
 
-        return new BaseResult();
+        return new PageResult<BasePositionEntity>()
+        {
+            Rows = positions
+        };
     }
 
     /// <summary>
@@ -332,10 +370,12 @@ public static class BaseAppliction
     /// <param name="companyId"></param>
     /// <param name="positionId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckPosition(this IMediator mediator, string companyId, string positionId)
+    public static async Task<DataResult<BasePositionEntity>> CheckPosition(this IMediator mediator,
+        string companyId,
+        string positionId)
     {
         if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(positionId))
-            return new BaseResult();
+            return new DataResult<BasePositionEntity>(500, "参数不能为空");
 
         var getPositionArgs = new GetBasePositionEntityArgs
         {
@@ -346,12 +386,15 @@ public static class BaseAppliction
         var position = await mediator.Send(getPositionArgs);
 
         if (position == null)
-            return new BaseResult(500, "职位不存在");
+            return new DataResult<BasePositionEntity>(500, "职位不存在");
 
         if (position.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "职位已禁用");
+            return new DataResult<BasePositionEntity>(500, "职位已禁用");
 
-        return new BaseResult();
+        return new DataResult<BasePositionEntity>()
+        {
+            Data = position
+        };
     }
 
     /// <summary>
@@ -361,7 +404,10 @@ public static class BaseAppliction
     /// <param name="systemIds"></param>
     /// <param name="resourceIds"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckResource(this IMediator mediator, List<string> companyIds, List<string> systemIds, List<string> resourceIds)
+    public static async Task<PageResult<BaseResourceEntity>> CheckResource(this IMediator mediator,
+        List<string> companyIds,
+        List<string> systemIds,
+        List<string> resourceIds)
     {
         var searchResourceArgs = new SearchBaseResourceEntityArgs()
         {
@@ -372,19 +418,19 @@ public static class BaseAppliction
                 new ()
                 {
                     Field = "CompanyId",
-                    Value = companyIds,
+                    Value = companyIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "SystemId",
-                    Value = systemIds,
+                    Value = systemIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "Id",
-                    Value = resourceIds,
+                    Value = resourceIds.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -393,20 +439,23 @@ public static class BaseAppliction
         var resources = await mediator.Send(searchResourceArgs);
 
         if (resources.Count == 0)
-            return new BaseResult(500, $"资源{resourceIds.FirstOrDefault()}不存在");
+            return new PageResult<BaseResourceEntity>(500, $"资源{resourceIds.FirstOrDefault()}不存在");
 
         var _resourceIds = resources.Select(y => y.Id).ToList();
         var _resourceId = resourceIds.FirstOrDefault(x => !_resourceIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_resourceId))
-            return new BaseResult(500, $"资源{_resourceId}不存在");
+            return new PageResult<BaseResourceEntity>(500, $"资源{_resourceId}不存在");
 
         var resource = resources.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (resource != null)
-            return new BaseResult(500, $"资源{resource.Name}已经禁用");
+            return new PageResult<BaseResourceEntity>(500, $"资源{resource.Name}已经禁用");
 
-        return new BaseResult();
+        return new PageResult<BaseResourceEntity>()
+        {
+            Rows = resources
+        };
     }
 
     /// <summary>
@@ -416,10 +465,13 @@ public static class BaseAppliction
     /// <param name="systemId"></param>
     /// <param name="resourceId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckResource(this IMediator mediator, string companyId, string systemId, string resourceId)
+    public static async Task<DataResult<BaseResourceEntity>> CheckResource(this IMediator mediator,
+        string companyId,
+        string systemId,
+        string resourceId)
     {
         if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(systemId) && !string.IsNullOrWhiteSpace(resourceId))
-            return new BaseResult();
+            return new DataResult<BaseResourceEntity>(500, "参数不能为空");
 
         var getResourceArgs = new GetBaseResourceEntityArgs
         {
@@ -431,12 +483,15 @@ public static class BaseAppliction
         var resource = await mediator.Send(getResourceArgs);
 
         if (resource == null)
-            return new BaseResult(500, "资源不存在");
+            return new DataResult<BaseResourceEntity>(500, "资源不存在");
 
         if (resource.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "资源已禁用");
+            return new DataResult<BaseResourceEntity>(500, "资源已禁用");
 
-        return new BaseResult();
+        return new DataResult<BaseResourceEntity>()
+        {
+            Data = resource
+        };
     }
 
     /// <summary>
@@ -445,7 +500,9 @@ public static class BaseAppliction
     /// <param name="companyIds"></param>
     /// <param name="roleIds"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckRole(this IMediator mediator, List<string> companyIds, List<string> roleIds)
+    public static async Task<PageResult<BaseRoleEntity>> CheckRole(this IMediator mediator,
+        List<string> companyIds,
+        List<string> roleIds)
     {
         var searchRoleArgs = new SearchBaseRoleEntityArgs()
         {
@@ -456,13 +513,13 @@ public static class BaseAppliction
                 new ()
                 {
                     Field = "CompanyId",
-                    Value = companyIds,
+                    Value = companyIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "Id",
-                    Value = roleIds,
+                    Value = roleIds.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -471,20 +528,23 @@ public static class BaseAppliction
         var roles = await mediator.Send(searchRoleArgs);
 
         if (roles.Count == 0)
-            return new BaseResult(500, $"角色{roleIds.FirstOrDefault()}不存在");
+            return new PageResult<BaseRoleEntity>(500, $"角色{roleIds.FirstOrDefault()}不存在");
 
         var _roleIds = roles.Select(y => y.Id).ToList();
         var _roleId = roleIds.FirstOrDefault(x => !_roleIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_roleId))
-            return new BaseResult(500, $"角色{_roleId}不存在");
+            return new PageResult<BaseRoleEntity>(500, $"角色{_roleId}不存在");
 
         var role = roles.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (role != null)
-            return new BaseResult(500, $"角色{role.Name}已经禁用");
+            return new PageResult<BaseRoleEntity>(500, $"角色{role.Name}已经禁用");
 
-        return new BaseResult();
+        return new PageResult<BaseRoleEntity>()
+        {
+            Rows = roles
+        };
     }
 
     /// <summary>
@@ -493,10 +553,12 @@ public static class BaseAppliction
     /// <param name="companyId"></param>
     /// <param name="roleId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckRole(this IMediator mediator, string companyId, string roleId)
+    public static async Task<DataResult<BaseRoleEntity>> CheckRole(this IMediator mediator,
+        string companyId,
+        string roleId)
     {
         if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(roleId))
-            return new BaseResult();
+            return new DataResult<BaseRoleEntity>();
 
         var getRoleArgs = new GetBaseRoleEntityArgs
         {
@@ -507,12 +569,15 @@ public static class BaseAppliction
         var role = await mediator.Send(getRoleArgs);
 
         if (role == null)
-            return new BaseResult(500, "角色不存在");
+            return new DataResult<BaseRoleEntity>(500, "角色不存在");
 
         if (role.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "角色已禁用");
+            return new DataResult<BaseRoleEntity>(500, "角色已禁用");
 
-        return new BaseResult();
+        return new DataResult<BaseRoleEntity>()
+        {
+            Data = role
+        };
     }
 
     /// <summary>
@@ -521,7 +586,9 @@ public static class BaseAppliction
     /// <param name="companyIds"></param>
     /// <param name="systemIds"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckSystem(this IMediator mediator, List<string> companyIds, List<string> systemIds)
+    public static async Task<PageResult<BaseSystemEntity>> CheckSystem(this IMediator mediator,
+        List<string> companyIds,
+        List<string> systemIds)
     {
         var searchSystemArgs = new SearchBaseSystemEntityArgs()
         {
@@ -532,13 +599,13 @@ public static class BaseAppliction
                 new ()
                 {
                     Field = "CompanyId",
-                    Value = companyIds,
+                    Value = companyIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "Id",
-                    Value = systemIds,
+                    Value = systemIds.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -547,20 +614,23 @@ public static class BaseAppliction
         var systems = await mediator.Send(searchSystemArgs);
 
         if (systems.Count == 0)
-            return new BaseResult(500, $"系统{systemIds.FirstOrDefault()}不存在");
+            return new PageResult<BaseSystemEntity>(500, $"系统{systemIds.FirstOrDefault()}不存在");
 
         var _systemIds = systems.Select(y => y.Id).ToList();
         var _systemId = systemIds.FirstOrDefault(x => !_systemIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_systemId))
-            return new BaseResult(500, $"系统{_systemId}不存在");
+            return new PageResult<BaseSystemEntity>(500, $"系统{_systemId}不存在");
 
         var system = systems.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (system != null)
-            return new BaseResult(500, $"系统{system.Name}已经禁用");
+            return new PageResult<BaseSystemEntity>(500, $"系统{system.Name}已经禁用");
 
-        return new BaseResult();
+        return new PageResult<BaseSystemEntity>()
+        {
+            Rows = systems
+        };
     }
 
     /// <summary>
@@ -570,10 +640,12 @@ public static class BaseAppliction
     /// <param name="companyId"></param>
     /// <param name="systemId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckSystem(this IMediator mediator, string companyId, string systemId)
+    public static async Task<DataResult<BaseSystemEntity>> CheckSystem(this IMediator mediator,
+        string companyId,
+        string systemId)
     {
         if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(systemId))
-            return new BaseResult();
+            return new DataResult<BaseSystemEntity>(500, "参数不能为空");
 
         var getSystemArgs = new GetBaseSystemEntityArgs
         {
@@ -584,12 +656,15 @@ public static class BaseAppliction
         var system = await mediator.Send(getSystemArgs);
 
         if (system == null)
-            return new BaseResult(500, "系统不存在");
+            return new DataResult<BaseSystemEntity>(500, "系统不存在");
 
         if (system.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "系统已禁用");
+            return new DataResult<BaseSystemEntity>(500, "系统已禁用");
 
-        return new BaseResult();
+        return new DataResult<BaseSystemEntity>()
+        {
+            Data = system
+        };
     }
 
     /// <summary>
@@ -599,7 +674,10 @@ public static class BaseAppliction
     /// <param name="departmentIds"></param>
     /// <param name="userIds"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckUser(this IMediator mediator, List<string> companyIds, List<string> departmentIds, List<string> userIds)
+    public static async Task<PageResult<BaseUserEntity>> CheckUser(this IMediator mediator,
+        List<string> companyIds,
+        List<string> departmentIds,
+        List<string> userIds)
     {
         var searchUserArgs = new SearchBaseUserEntityArgs()
         {
@@ -610,19 +688,19 @@ public static class BaseAppliction
                 new ()
                 {
                     Field = "CompanyId",
-                    Value = companyIds,
+                    Value = companyIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "DepartmentId",
-                    Value = departmentIds,
+                    Value = departmentIds.ToJson(),
                     Method = SearchEnum.In
                 },
                 new ()
                 {
                     Field = "Id",
-                    Value = userIds,
+                    Value = userIds.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -631,20 +709,23 @@ public static class BaseAppliction
         var users = await mediator.Send(searchUserArgs);
 
         if (users.Count == 0)
-            return new BaseResult(500, $"用户{userIds.FirstOrDefault()}不存在");
+            return new PageResult<BaseUserEntity>(500, $"用户{userIds.FirstOrDefault()}不存在");
 
         var _userIds = users.Select(y => y.Id).ToList();
         var _userId = userIds.FirstOrDefault(x => !_userIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_userId))
-            return new BaseResult(500, $"用户{_userId}不存在");
+            return new PageResult<BaseUserEntity>(500, $"用户{_userId}不存在");
 
         var user = users.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (user != null)
-            return new BaseResult(500, $"用户{user.RealName}已经禁用");
+            return new PageResult<BaseUserEntity>(500, $"用户{user.RealName}已经禁用");
 
-        return new BaseResult();
+        return new PageResult<BaseUserEntity>()
+        {
+            Rows = users
+        };
     }
 
     /// <summary>
@@ -654,10 +735,13 @@ public static class BaseAppliction
     /// <param name="departmentId"></param>
     /// <param name="userId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckUser(this IMediator mediator, string companyId, string departmentId, string userId)
+    public static async Task<DataResult<BaseUserEntity>> CheckUser(this IMediator mediator,
+        string companyId,
+        string departmentId,
+        string userId)
     {
         if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(departmentId) && !string.IsNullOrWhiteSpace(userId))
-            return new BaseResult();
+            return new DataResult<BaseUserEntity>(500, "参数不能为空");
 
         var getUserArgs = new GetBaseUserEntityArgs
         {
@@ -669,12 +753,15 @@ public static class BaseAppliction
         var user = await mediator.Send(getUserArgs);
 
         if (user == null)
-            return new BaseResult(500, "用户不存在");
+            return new DataResult<BaseUserEntity>(500, "用户不存在");
 
         if (user.Status == (int)StatusEnum.Disable)
-            return new BaseResult(500, "用户已禁用");
+            return new DataResult<BaseUserEntity>(500, "用户已禁用");
 
-        return new BaseResult();
+        return new DataResult<BaseUserEntity>()
+        {
+            Data = user
+        };
     }
 
     /// <summary>
@@ -683,7 +770,9 @@ public static class BaseAppliction
     /// <param name="companyId"></param>
     /// <param name="table"></param>
     /// <returns></returns>
-    public static async Task<string> GetIdAsync(this IBaseCache cache, string companyId, string table)
+    public static async Task<string> GetIdAsync(this IBaseCache cache,
+        string companyId,
+        string table)
     {
         return await cache.NextIdentity(new NextIdentifyArg()
         {
@@ -703,7 +792,7 @@ public static class BaseAppliction
 
         var context = httpContextAccessor.HttpContext;
 
-        var token = context?.Request.Headers[Const.Token].ToString() ?? string.Empty;
+        var token = context?.Request.Headers[BaseConst.Token].ToString() ?? string.Empty;
 
         var json = context?.User.FindFirstValue(ClaimTypes.UserData);
 

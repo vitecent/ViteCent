@@ -21,7 +21,7 @@ namespace ViteCent.Basic.Data.RepairSchedule;
 public class AddRepairScheduleListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 补卡申请
 	/// </summary>
 	public List<AddRepairScheduleArgs> Items = [];
 }

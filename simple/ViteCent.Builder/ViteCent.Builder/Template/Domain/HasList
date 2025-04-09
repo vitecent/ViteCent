@@ -1,0 +1,91 @@
+﻿/*
+ * **********************************
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ * **********************************
+ */
+
+#region
+
+using MediatR;
+using Microsoft.Extensions.Logging;
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using ViteCent.Core.Data;
+using ViteCent.Core.Orm.SqlSugar;
+
+#endregion
+
+namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// 批量$!{Table.Description}判重
+/// </summary>
+/// <param name="logger"></param>
+public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(ILogger<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
+{
+    /// <summary>
+    /// $!{Table.Description}库名称
+    /// </summary>
+    public override string DataBaseName => "$!{DataBase.Name}";
+
+    /// <summary>
+    /// 批量$!{Table.Description}判重
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<BaseResult> Handle($!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
+    {
+        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.HasName}$!{Table.CamelCaseName}");
+
+        var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
+
+#if($HasCompanyId)
+        if (request.CompanyIds.Count > 0)
+            query.Where(x => request.CompanyIds.Contains(x.Id));
+
+#end
+#if($HasDepartmentId)
+        if (request.DepartmentIds.Count > 0)
+            query.Where(x => request.DepartmentIds.Contains(x.DepartmentId));
+
+#end
+#if($HasPositionId)
+        if (request.PositionIds.Count > 0)
+            query.Where(x => request.PositionIds.Contains(x.PositionId));
+
+#end
+#if($HasRoleId)
+        if (request.RoleIds.Count > 0)
+            query.Where(x => request.RoleIds.Contains(x.RoleId));
+
+#end
+#if($HasUserId)
+        if (request.UserIds.Count > 0)
+            query.Where(x => request.UserIds.Contains(x.UserId));
+
+#end
+#if($HasSystemId)
+        if (request.SystemIds.Count > 0)
+            query.Where(x => request.SystemIds.Contains(x.SystemId));
+
+#end
+#if($HasResourceId)
+        if (request.ResourceIds.Count > 0)
+            query.Where(x => request.ResourceIds.Contains(x.ResourceId));
+
+#end
+#if($HasOperationId)
+        if (request.OperationIds.Count > 0)
+            query.Where(x => request.OperationIds.Contains(x.OperationId));
+
+#end
+        var entity = await query.CountAsync(cancellationToken);
+
+        if (entity > 0)
+            return new BaseResult(500, "$!{Table.Description}重复");
+
+        return new BaseResult();
+    }
+}

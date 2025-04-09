@@ -68,7 +68,7 @@ public class GetBaseUser(ILogger<GetBaseUser> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseUserResult>(500, "数据不存在");
+            return new DataResult<BaseUserResult>(500, "用户信息不存在");
 
         var dto = mapper.Map<BaseUserResult>(entity);
 

@@ -14,7 +14,7 @@ using SqlSugar;
 namespace ViteCent.Auth.Entity.BaseSystem;
 
 /// <summary>
-/// 新增系统信息数据参数
+/// 新增系统信息参数
 /// </summary>
 [Serializable]
 [SugarTable("base_system")]

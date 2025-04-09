@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseResource;
 
 /// <summary>
-/// 获取资源信息数据参数
+/// 获取资源信息参数
 /// </summary>
 [Serializable]
 public class GetBaseResourceEntityArgs : IRequest<BaseResourceEntity>

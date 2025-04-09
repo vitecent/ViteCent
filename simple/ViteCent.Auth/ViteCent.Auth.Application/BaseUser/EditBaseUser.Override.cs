@@ -36,7 +36,7 @@ public partial class EditBaseUser
     private async Task<BaseResult> OverrideHandle(EditBaseUserArgs request, CancellationToken cancellationToken)
     {
         if (!string.IsNullOrWhiteSpace(request.Username) && !string.IsNullOrWhiteSpace(request.Password))
-            request.Password = $"{request.Username}{request.Password}{Const.Salf}".EncryptMD5();
+            request.Password = $"{request.Username}{request.Password}{BaseConst.Salf}".EncryptMD5();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -48,6 +48,8 @@ public partial class EditBaseUser
         if (hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany.Data.Name;
+
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
@@ -58,6 +60,8 @@ public partial class EditBaseUser
         if (hasDepartment.Success)
             return hasDepartment;
 
+        request.DepartmentName = hasDepartment.Data.Name;
+
         var positionId = user?.Position?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(request.PositionId))
@@ -67,6 +71,8 @@ public partial class EditBaseUser
 
         if (hasPosition.Success)
             return hasPosition;
+
+        request.PositionName = hasPosition.Data.Name;
 
         var hasArgs = new HasBaseUserEntityArgs
         {

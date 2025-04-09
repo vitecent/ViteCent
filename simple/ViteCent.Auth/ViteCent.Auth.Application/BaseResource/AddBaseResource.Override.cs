@@ -7,6 +7,8 @@
 
 using MediatR;
 using ViteCent.Auth.Data.BaseResource;
+using ViteCent.Auth.Entity.BaseCompany;
+using ViteCent.Auth.Entity.BaseResource;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -23,8 +25,9 @@ public partial class AddBaseResource
     /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseResourceListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseResourceListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -42,12 +45,36 @@ public partial class AddBaseResource
         if (!companys.Success)
             return companys;
 
+        foreach (var item in companys.Rows)
+        {
+            var items = request.Items.Where(x => x.CompanyId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.CompanyName = item.Name;
+        }
+
         var systems = await mediator.CheckSystem(companyIds, systemIds);
 
         if (!systems.Success)
             return systems;
 
-        return new BaseResult();
+        foreach (var item in systems.Rows)
+        {
+            var items = request.Items.Where(x => x.SystemId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.SystemName = item.Name;
+        }
+
+        var hasListArgs = new HasBaseResourceEntityListArgs
+        {
+            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
+            SystemIds = [.. request.Items.Select(x => x.SystemId).Distinct()],
+            Codes = [.. request.Items.Select(x => x.Code).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>
@@ -67,10 +94,14 @@ public partial class AddBaseResource
         if (hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany.Data.Name;
+
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
         if (hasSystem.Success)
             return hasSystem;
+
+        request.SystemName = hasSystem.Data.Name;
 
         var hasArgs = new HasBaseResourceEntityArgs
         {

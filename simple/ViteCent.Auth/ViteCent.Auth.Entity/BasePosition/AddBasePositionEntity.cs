@@ -14,7 +14,7 @@ using SqlSugar;
 namespace ViteCent.Auth.Entity.BasePosition;
 
 /// <summary>
-/// 新增职位信息数据参数
+/// 新增职位信息参数
 /// </summary>
 [Serializable]
 [SugarTable("base_position")]

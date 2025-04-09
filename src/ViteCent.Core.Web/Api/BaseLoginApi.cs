@@ -27,7 +27,7 @@ public abstract class BaseLoginApi<Args, Result> : BaseApi<Args, Result>
     {
         get
         {
-            var token = HttpContext.Request.Headers[Const.Token];
+            var token = HttpContext.Request.Headers[BaseConst.Token];
 
             if (!string.IsNullOrWhiteSpace(token)) return token.ToString();
 

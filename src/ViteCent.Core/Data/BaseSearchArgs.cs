@@ -17,7 +17,7 @@ public static class BaseSearchArgs
     /// <param name="value"></param>
     /// <param name="method"></param>
     /// <param name="group"></param>
-    public static void AddArgs(this SearchArgs args, string field, object value, SearchEnum method = SearchEnum.Equal,
+    public static void AddArgs(this SearchArgs args, string field, string value, SearchEnum method = SearchEnum.Equal,
         string group = "")
     {
         if (args.Args.Any(x => x.Field == field)) args.Args.RemoveAll(x => x.Field == field);
@@ -66,7 +66,7 @@ public static class BaseSearchArgs
     {
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (companyId != user.Company.Id)
-                return new BaseResult(401, "您没有权限访问该数据");
+                return new BaseResult(401, "您没有权限访问该$!{Table.Description}");
 
         return await Task.FromResult(new BaseResult());
     }

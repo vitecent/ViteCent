@@ -58,7 +58,7 @@ public class GetBasePosition(ILogger<GetBasePosition> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BasePositionResult>(500, "数据不存在");
+            return new DataResult<BasePositionResult>(500, "职位信息不存在");
 
         var dto = mapper.Map<BasePositionResult>(entity);
 

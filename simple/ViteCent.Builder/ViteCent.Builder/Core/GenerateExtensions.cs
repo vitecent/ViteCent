@@ -89,6 +89,7 @@ public class GenerateExtensions
             var hasResourceId = table.Fields.Any(x => x.Name.ToCamelCase() == "ResourceId");
             var hasOperationId = table.Fields.Any(x => x.Name.ToCamelCase() == "OperationId");
             var hasId = table.Fields.Any(x => x.Name.ToCamelCase() == "Id");
+            var hasStatus = table.Fields.Any(x => x.Name.ToCamelCase() == "Status");
 
             nh.Put("Table", table);
             nh.Put("HasCompanyId", hasCompanyId);
@@ -100,6 +101,7 @@ public class GenerateExtensions
             nh.Put("HasResourceId", hasResourceId);
             nh.Put("HasOperationId", hasOperationId);
             nh.Put("HasId", hasId);
+            nh.Put("HasStatus", hasStatus);
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
@@ -124,6 +126,14 @@ public class GenerateExtensions
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Api\Delete",
                     Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
+
+            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+                nh.Save(@"Template\Api\Enable",
+                    Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
+
+            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+                nh.Save(@"Template\Api\Disable",
+                    Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
         }
 
         nh.Put("Tables", database.Tables);
@@ -193,6 +203,7 @@ public class GenerateExtensions
             var hasResourceId = table.Fields.Any(x => x.Name.ToCamelCase() == "ResourceId");
             var hasOperationId = table.Fields.Any(x => x.Name.ToCamelCase() == "OperationId");
             var hasId = table.Fields.Any(x => x.Name.ToCamelCase() == "Id");
+            var hasStatus = table.Fields.Any(x => x.Name.ToCamelCase() == "Status");
 
             nh.Put("Table", table);
             nh.Put("EditFields", editField);
@@ -201,6 +212,7 @@ public class GenerateExtensions
             nh.Put("HasDepartmentId", hasDepartmentId);
             nh.Put("DepartmentInvoke", hasDepartmentId ? ", departmentInvoke" : "");
             nh.Put("HasPositionId", hasPositionId);
+            nh.Put("PositionInvoke", hasPositionId ? ", positionInvoke" : "");
             nh.Put("HasUserId", hasUserId);
             nh.Put("UserInvoke", hasUserId ? ", userInvoke" : "");
             nh.Put("HasRoleId", hasRoleId);
@@ -208,6 +220,7 @@ public class GenerateExtensions
             nh.Put("HasResourceId", hasResourceId);
             nh.Put("HasOperationId", hasOperationId);
             nh.Put("HasId", hasId);
+            nh.Put("HasStatus", hasStatus);
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
@@ -278,6 +291,14 @@ public class GenerateExtensions
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Application\Delete",
                        Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
+
+            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+                nh.Save(@"Template\Application\Enable",
+                       Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
+
+            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+                nh.Save(@"Template\Application\Disable",
+                       Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
         }
 
         var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
@@ -323,6 +344,7 @@ public class GenerateExtensions
             var hasResourceId = table.Fields.Any(x => x.Name.ToCamelCase() == "ResourceId");
             var hasOperationId = table.Fields.Any(x => x.Name.ToCamelCase() == "OperationId");
             var hasId = table.Fields.Any(x => x.Name.ToCamelCase() == "Id");
+            var hasStatus = table.Fields.Any(x => x.Name.ToCamelCase() == "Status");
 
             nh.Put("Table", table);
             nh.Put("AddFields", addField);
@@ -337,6 +359,7 @@ public class GenerateExtensions
             nh.Put("HasResourceId", hasResourceId);
             nh.Put("HasOperationId", hasOperationId);
             nh.Put("HasId", hasId);
+            nh.Put("HasStatus", hasStatus);
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
@@ -386,6 +409,16 @@ public class GenerateExtensions
                         Path.Combine(path,
                             $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
+            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+                nh.Save(@"Template\Data\EnableArgs",
+                        Path.Combine(path,
+                            $"{setting.EnableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+
+            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+                nh.Save(@"Template\Data\DisableArgs",
+                        Path.Combine(path,
+                            $"{setting.DisableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+
             if (!string.IsNullOrWhiteSpace(setting.HasName))
             {
                 var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
@@ -430,6 +463,7 @@ public class GenerateExtensions
             var hasResourceId = table.Fields.Any(x => x.Name.ToCamelCase() == "ResourceId");
             var hasOperationId = table.Fields.Any(x => x.Name.ToCamelCase() == "OperationId");
             var hasId = table.Fields.Any(x => x.Name.ToCamelCase() == "Id");
+            var hasStatus = table.Fields.Any(x => x.Name.ToCamelCase() == "Status");
 
             nh.Put("Table", table);
             nh.Put("HasCompanyId", hasCompanyId);
@@ -441,6 +475,7 @@ public class GenerateExtensions
             nh.Put("HasResourceId", hasResourceId);
             nh.Put("HasOperationId", hasOperationId);
             nh.Put("HasId", hasId);
+            nh.Put("HasStatus", hasStatus);
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
@@ -470,6 +505,12 @@ public class GenerateExtensions
                 if (!hasOverride)
                     nh.Save(@"Template\Domain\Has",
                     Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}.cs"));
+
+                var hasListOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+
+                if (!hasListOverride)
+                    nh.Save(@"Template\Domain\HasList",
+                    Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
             }
         }
 
@@ -507,6 +548,7 @@ public class GenerateExtensions
             var hasResourceId = table.Fields.Any(x => x.Name.ToCamelCase() == "ResourceId");
             var hasOperationId = table.Fields.Any(x => x.Name.ToCamelCase() == "OperationId");
             var hasId = table.Fields.Any(x => x.Name.ToCamelCase() == "Id");
+            var hasStatus = table.Fields.Any(x => x.Name.ToCamelCase() == "Status");
 
             nh.Put("Table", table);
             nh.Put("BaseName", "BaseEntity");
@@ -520,6 +562,7 @@ public class GenerateExtensions
             nh.Put("HasResourceId", hasResourceId);
             nh.Put("HasOperationId", hasOperationId);
             nh.Put("HasId", hasId);
+            nh.Put("HasStatus", hasStatus);
 
             nh.Save(@"Template\Entity\Entity",
                 Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Entity.Suffix}.cs"));
@@ -544,6 +587,15 @@ public class GenerateExtensions
             if (!string.IsNullOrWhiteSpace(setting.GetName))
                 nh.Save(@"Template\Entity\GetEntityArgs",
                       Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
+
+            if (!string.IsNullOrWhiteSpace(setting.HasName))
+            {
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+
+                if (!hasOverride)
+                    nh.Save(@"Template\Entity\HasEntityListArgs",
+                        Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+            }
         }
 
         var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));

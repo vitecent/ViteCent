@@ -2,7 +2,7 @@
 
 /// <summary>
 /// </summary>
-public class Const
+public class BaseConst
 {
     /// <summary>
     /// </summary>
@@ -27,6 +27,10 @@ public class Const
     /// <summary>
     /// </summary>
     public const string Decimal = @"^\.0-9{1,{0}}$";
+
+    /// <summary>
+    /// </summary>
+    public const string DefaultPassword = "123qwe";
 
     /// <summary>
     /// </summary>

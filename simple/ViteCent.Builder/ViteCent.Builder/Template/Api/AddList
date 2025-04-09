@@ -49,12 +49,12 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             return new BaseResult(500, "参数不能为空");
 
         if (args.Items.Count == 0)
-            return new BaseResult(500, "数据不能为空");
+            return new BaseResult(500, "$!{Table.Description}不能为空");
 
         var count = args.Items.Distinct().Count();
 
         if (count != args.Items.Count)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "$!{Table.Description}重复");
 
         var cancellationToken = new CancellationToken();
         var validator = new $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}();
@@ -63,10 +63,10 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         {
             $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideInvoke(item, User);
 
-            var result = await validator.ValidateAsync(item, cancellationToken);
+            var check = await validator.ValidateAsync(item, cancellationToken);
 
-            if (!result.IsValid)
-                return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+            if (!check.IsValid)
+                return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 #if($HasCompanyId)
 
             if (User.IsSuper != (int)YesNoEnum.Yes)
@@ -84,6 +84,36 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.PositionId))
                     return new BaseResult(500, "职位标识不能为空");
+#end
+#if($HasRoleId)
+
+            if (User.IsSuper != (int)YesNoEnum.Yes)
+                if (string.IsNullOrEmpty(item.RoleId))
+                    return new BaseResult(500, "角色标识不能为空");
+#end
+#if($HasUserId)
+ 
+            if (User.IsSuper != (int)YesNoEnum.Yes)
+                if (string.IsNullOrEmpty(item.UserId))
+                    return new BaseResult(500, "用户标识不能为空");
+#end
+#if($HasSystemId)
+ 
+            if (User.IsSuper != (int)YesNoEnum.Yes)
+                if (string.IsNullOrEmpty(item.SystemId))
+                    return new BaseResult(500, "系统标识不能为空");
+#end
+#if($HasResourceId)
+
+            if (User.IsSuper != (int)YesNoEnum.Yes)
+                if (string.IsNullOrEmpty(item.ResourceId))
+                    return new BaseResult(500, "资源标识不能为空");
+#end
+#if($HasOperationId)
+
+            if (User.IsSuper != (int)YesNoEnum.Yes)
+                if (string.IsNullOrEmpty(item.OperationId))
+                    return new BaseResult(500, "操作标识不能为空");
 #end
         }
 

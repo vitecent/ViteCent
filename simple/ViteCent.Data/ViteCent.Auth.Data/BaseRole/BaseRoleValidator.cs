@@ -23,11 +23,12 @@ public partial class BaseRoleValidator : AbstractValidator<AddBaseRoleArgs>
     /// <summary>
     /// 验证参数
     /// </summary>
-    public BaseRoleValidator()
+    /// <param name="validate"></param>
+    public BaseRoleValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

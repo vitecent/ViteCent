@@ -47,12 +47,12 @@ public class AddScheduleList(ILogger<AddScheduleList> logger,
             return new BaseResult(500, "参数不能为空");
 
         if (args.Items.Count == 0)
-            return new BaseResult(500, "数据不能为空");
+            return new BaseResult(500, "排班信息不能为空");
 
         var count = args.Items.Distinct().Count();
 
         if (count != args.Items.Count)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "排班信息重复");
 
         var cancellationToken = new CancellationToken();
         var validator = new ScheduleValidator();
@@ -61,10 +61,10 @@ public class AddScheduleList(ILogger<AddScheduleList> logger,
         {
             AddSchedule.OverrideInvoke(item, User);
 
-            var result = await validator.ValidateAsync(item, cancellationToken);
+            var check = await validator.ValidateAsync(item, cancellationToken);
 
-            if (!result.IsValid)
-                return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+            if (!check.IsValid)
+                return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
@@ -73,6 +73,14 @@ public class AddScheduleList(ILogger<AddScheduleList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.DepartmentId))
                     return new BaseResult(500, "部门标识不能为空");
+
+            if (User.IsSuper != (int)YesNoEnum.Yes)
+                if (string.IsNullOrEmpty(item.PositionId))
+                    return new BaseResult(500, "职位标识不能为空");
+ 
+            if (User.IsSuper != (int)YesNoEnum.Yes)
+                if (string.IsNullOrEmpty(item.UserId))
+                    return new BaseResult(500, "用户标识不能为空");
         }
 
         return await mediator.Send(args, cancellationToken);

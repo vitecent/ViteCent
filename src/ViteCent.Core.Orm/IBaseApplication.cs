@@ -20,9 +20,27 @@ public interface IBaseApplication<T> where T : IBaseEntity, new()
 
     /// <summary>
     /// </summary>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    Task<BaseResult> AddAsync(List<T> entitys);
+
+    /// <summary>
+    /// </summary>
     /// <param name="where"></param>
     /// <returns></returns>
     Task<BaseResult> DeleteAsync(Expression<Func<T, bool>> where);
+
+    /// <summary>
+    /// </summary>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    Task<BaseResult> DeleteAsync(List<T> entitys);
+
+    /// <summary>
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<BaseResult> DeleteAsync(T entity);
 
     /// <summary>
     /// </summary>

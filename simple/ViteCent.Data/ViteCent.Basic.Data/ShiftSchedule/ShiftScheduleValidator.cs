@@ -23,7 +23,8 @@ public partial class ShiftScheduleValidator : AbstractValidator<AddShiftSchedule
     /// <summary>
     /// 验证参数
     /// </summary>
-    public ShiftScheduleValidator()
+    /// <param name="validate"></param>
+    public ShiftScheduleValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.ScheduleId).NotNull().NotEmpty().WithMessage("排班标识不能为空");
@@ -32,6 +33,6 @@ public partial class ShiftScheduleValidator : AbstractValidator<AddShiftSchedule
         RuleFor(x => x.ShiftUserId).NotNull().NotEmpty().WithMessage("换班用户标识不能为空");
         RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("用户标识不能为空");
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

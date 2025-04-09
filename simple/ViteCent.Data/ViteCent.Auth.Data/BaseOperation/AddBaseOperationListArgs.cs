@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Data.BaseOperation;
 public class AddBaseOperationListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 操作信息
 	/// </summary>
 	public List<AddBaseOperationArgs> Items = [];
 }

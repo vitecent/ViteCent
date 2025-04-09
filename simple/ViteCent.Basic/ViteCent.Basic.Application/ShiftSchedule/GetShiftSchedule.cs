@@ -63,7 +63,7 @@ public class GetShiftSchedule(ILogger<GetShiftSchedule> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<ShiftScheduleResult>(500, "数据不存在");
+            return new DataResult<ShiftScheduleResult>(500, "换班申请不存在");
 
         var dto = mapper.Map<ShiftScheduleResult>(entity);
 

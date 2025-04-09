@@ -41,6 +41,11 @@ public class AddBaseRoleArgs : BaseArgs, IRequest<BaseResult>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 简介
     /// </summary>
     public string Description { get; set; } = string.Empty;

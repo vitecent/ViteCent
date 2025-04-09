@@ -52,7 +52,7 @@ public class AddBaseDepartmentList(ILogger<AddBaseDepartmentList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBaseDepartment.OverrideHandle(mediator, request, user);
+        var check = await AddBaseDepartment.OverrideHandle(mediator, request, user, cancellationToken);
 
         if (!check.Success)
             return check;

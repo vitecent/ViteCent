@@ -56,6 +56,11 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}(ILogger<$!{Setting.HasNa
             query.Where(x => x.DepartmentId == request.DepartmentId);
 
 #end
+#if($HasPositionId)
+        if (!string.IsNullOrWhiteSpace(request.PositionId))
+            query.Where(x => x.PositionId == request.PositionId);
+
+#end
 #if($HasRoleId)
         if (!string.IsNullOrWhiteSpace(request.RoleId))
             query.Where(x => x.RoleId == request.RoleId);
@@ -84,7 +89,7 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}(ILogger<$!{Setting.HasNa
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "$!{Table.Description}重复");
 
         return new BaseResult();
     }

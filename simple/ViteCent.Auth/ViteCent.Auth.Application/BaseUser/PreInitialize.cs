@@ -1,23 +1,24 @@
-#region
+﻿#region
 
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
 namespace ViteCent.Auth.Application.BaseUser;
 
 /// <summary>
+/// 预初始化仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
-public class PreInitialize(ILogger<AddBaseUser> logger,
+public class PreInitialize(ILogger<PreInitialize> logger,
     IMediator mediator) : IRequestHandler<PreInitializeArgs, DataResult<PreInitializeResult>>
 {
     /// <summary>
+    /// 预初始化
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

@@ -67,6 +67,8 @@ public partial class EditBaseDepartment
         if (hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany.Data.Name;
+
         var hasArgs = new HasBaseDepartmentEntityArgs
         {
             Id = request.Id,

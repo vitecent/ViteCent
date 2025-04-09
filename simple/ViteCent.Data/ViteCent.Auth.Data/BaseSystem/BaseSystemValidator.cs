@@ -23,11 +23,12 @@ public partial class BaseSystemValidator : AbstractValidator<AddBaseSystemArgs>
     /// <summary>
     /// 验证参数
     /// </summary>
-    public BaseSystemValidator()
+    /// <param name="validate"></param>
+    public BaseSystemValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

@@ -1,3 +1,10 @@
+/*
+ * **********************************
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ * **********************************
+ */
+
 #region
 
 using MediatR;
@@ -43,7 +50,7 @@ public class HasBaseCompany(ILogger<HasBaseCompany> logger) : BaseDomain<BaseCom
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "编码或名称重复");
+            return new BaseResult(500, "编码 或 名称 重复");
 
         return new BaseResult();
     }

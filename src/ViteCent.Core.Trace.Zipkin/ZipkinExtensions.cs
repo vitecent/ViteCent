@@ -43,7 +43,7 @@ public static class ZipkinExtensions
 
             var check = configuration["Service:Check"];
 
-            if (string.IsNullOrWhiteSpace(check)) check = Const.Check;
+            if (string.IsNullOrWhiteSpace(check)) check = BaseConst.Check;
 
             services.AddOpenTelemetry()
                 .WithTracing(builder =>

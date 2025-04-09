@@ -58,12 +58,17 @@ public class GetSchedule(ILogger<GetSchedule> logger,
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
+        var positionId = user?.Position?.Id ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(positionId))
+            request.PositionId = positionId;
+
         var args = mapper.Map<GetScheduleEntityArgs>(request);
 
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<ScheduleResult>(500, "数据不存在");
+            return new DataResult<ScheduleResult>(500, "排班信息不存在");
 
         var dto = mapper.Map<ScheduleResult>(entity);
 

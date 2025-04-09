@@ -58,7 +58,7 @@ public class GetBaseDepartment(ILogger<GetBaseDepartment> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<BaseDepartmentResult>(500, "数据不存在");
+            return new DataResult<BaseDepartmentResult>(500, "部门信息不存在");
 
         var dto = mapper.Map<BaseDepartmentResult>(entity);
 

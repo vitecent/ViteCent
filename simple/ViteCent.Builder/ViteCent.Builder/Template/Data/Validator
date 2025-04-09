@@ -23,13 +23,20 @@ public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : A
     /// <summary>
     /// 验证参数
     /// </summary>
-    public $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}()
+    /// <param name="validate"></param>
+    public $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 #foreach($Field in $ValidatorFields)
+#if($Field.DataType == "string" || $Field.DataType == "Guid")
         RuleFor(x => x.$!{Field.CamelCaseName}).NotNull().NotEmpty().WithMessage("$!{Field.Description}不能为空");
+#elseif($Field.DataType == "DateTime")
+        RuleFor(x => x.$!{Field.CamelCaseName}).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("$!{Field.Description}不能为空");
+#else
+        RuleFor(x => x.$!{Field.CamelCaseName}).GreaterThan(0).WithMessage("$!{Field.Description}不能为空");
+#end
 #end
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

@@ -23,11 +23,12 @@ public partial class BasePositionValidator : AbstractValidator<AddBasePositionAr
     /// <summary>
     /// 验证参数
     /// </summary>
-    public BasePositionValidator()
+    /// <param name="validate"></param>
+    public BasePositionValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

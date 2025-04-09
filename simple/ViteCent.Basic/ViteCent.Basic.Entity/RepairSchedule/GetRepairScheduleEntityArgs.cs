@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Basic.Entity.RepairSchedule;
 
 /// <summary>
-/// 获取补卡申请数据参数
+/// 获取补卡申请参数
 /// </summary>
 [Serializable]
 public class GetRepairScheduleEntityArgs : IRequest<RepairScheduleEntity>

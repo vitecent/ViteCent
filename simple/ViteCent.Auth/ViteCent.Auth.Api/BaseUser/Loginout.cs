@@ -12,6 +12,7 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseUser;
 
 /// <summary>
+/// 退出登录接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -22,6 +23,7 @@ public class Loginout(ILogger<Loginout> logger,
     IMediator mediator) : BaseLoginApi<LoginoutArgs, BaseResult>
 {
     /// <summary>
+    /// 退出登录
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

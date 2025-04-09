@@ -28,7 +28,7 @@ public class BaseLoginFilter(IBaseCache cache, IConfiguration configuration) : A
 
         var httpContext = context.HttpContext;
 
-        var token = httpContext.Request.Headers[Const.Token];
+        var token = httpContext.Request.Headers[BaseConst.Token];
 
         if (string.IsNullOrWhiteSpace(token))
         {

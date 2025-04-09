@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.ShiftSchedule;
 
 /// <summary>
-/// 批量新增换班申请数据参数
+/// 批量新增换班申请参数
 /// </summary>
 [Serializable]
 public class AddShiftScheduleEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 换班申请
 	/// </summary>
 	public List<AddShiftScheduleEntity> Items = [];
 }

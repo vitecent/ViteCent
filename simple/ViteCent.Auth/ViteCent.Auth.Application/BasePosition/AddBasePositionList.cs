@@ -52,7 +52,7 @@ public class AddBasePositionList(ILogger<AddBasePositionList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBasePosition.OverrideHandle(mediator, request, user);
+        var check = await AddBasePosition.OverrideHandle(mediator, request, user, cancellationToken);
 
         if (!check.Success)
             return check;

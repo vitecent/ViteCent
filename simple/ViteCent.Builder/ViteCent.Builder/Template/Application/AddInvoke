@@ -18,6 +18,9 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #if($HasDepartmentId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
+#if($HasPositionId)
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
+#end
 #if($HasUserId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
@@ -48,6 +51,9 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 #if($HasDepartmentId)
 /// <param name="departmentInvoke"></param>
 #end
+#if($HasPositionId)
+/// <param name="positionInvoke"></param>
+#end
 #if($HasUserId)
 /// <param name="userInvoke"></param>
 #end
@@ -63,6 +69,9 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
 #end
 #if($HasDepartmentId)
     IBaseInvoke<$!{Setting.GetName}BaseDepartment$!{Setting.Data.ArgsSuffix}, DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
+#end
+#if($HasPositionId)
+    IBaseInvoke<$!{Setting.GetName}BasePosition$!{Setting.Data.ArgsSuffix}, DataResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
 #end
 #if($HasUserId)
     IBaseInvoke<$!{Setting.GetName}BaseUser$!{Setting.Data.ArgsSuffix}, DataResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,

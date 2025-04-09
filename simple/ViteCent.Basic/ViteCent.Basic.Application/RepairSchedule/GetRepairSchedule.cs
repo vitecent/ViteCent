@@ -63,7 +63,7 @@ public class GetRepairSchedule(ILogger<GetRepairSchedule> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<RepairScheduleResult>(500, "数据不存在");
+            return new DataResult<RepairScheduleResult>(500, "补卡申请不存在");
 
         var dto = mapper.Map<RepairScheduleResult>(entity);
 

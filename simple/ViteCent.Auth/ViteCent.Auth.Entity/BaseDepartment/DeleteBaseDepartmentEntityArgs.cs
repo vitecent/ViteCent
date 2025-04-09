@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseDepartment;
 
 /// <summary>
-/// 删除部门信息数据参数
+/// 删除部门信息参数
 /// </summary>
 [Serializable]
 public class DeleteBaseDepartmentEntityArgs : IRequest<BaseResult>

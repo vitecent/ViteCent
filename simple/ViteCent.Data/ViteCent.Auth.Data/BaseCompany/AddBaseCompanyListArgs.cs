@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Data.BaseCompany;
 public class AddBaseCompanyListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 公司信息
 	/// </summary>
 	public List<AddBaseCompanyArgs> Items = [];
 }

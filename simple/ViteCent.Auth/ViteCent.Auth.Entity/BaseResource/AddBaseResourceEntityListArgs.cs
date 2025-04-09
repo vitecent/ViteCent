@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseResource;
 
 /// <summary>
-/// 批量新增资源信息数据参数
+/// 批量新增资源信息参数
 /// </summary>
 [Serializable]
 public class AddBaseResourceEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 资源信息
 	/// </summary>
 	public List<AddBaseResourceEntity> Items = [];
 }

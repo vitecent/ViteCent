@@ -44,6 +44,8 @@ public partial class EditBasePosition
         if (hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany.Data.Name;
+
         var hasArgs = new HasBasePositionEntityArgs
         {
             Id = request.Id,

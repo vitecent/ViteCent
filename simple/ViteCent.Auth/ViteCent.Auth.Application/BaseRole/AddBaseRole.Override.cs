@@ -7,8 +7,8 @@
 
 using MediatR;
 using ViteCent.Auth.Data.BaseRole;
+using ViteCent.Auth.Entity.BaseRole;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -23,8 +23,9 @@ public partial class AddBaseRole
     /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseRoleListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseRoleListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -41,7 +42,22 @@ public partial class AddBaseRole
         if (!companys.Success)
             return companys;
 
-        return new BaseResult();
+        foreach (var item in companys.Rows)
+        {
+            var items = request.Items.Where(x => x.CompanyId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.CompanyName = item.Name;
+        }
+
+        var hasListArgs = new HasBaseRoleEntityListArgs
+        {
+            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
+            Codes = [.. request.Items.Select(x => x.Code).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>
@@ -60,6 +76,8 @@ public partial class AddBaseRole
 
         if (hasCompany.Success)
             return hasCompany;
+
+        request.CompanyName = hasCompany.Data.Name;
 
         var hasArgs = new HasBaseRoleEntityArgs
         {

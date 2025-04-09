@@ -26,144 +26,144 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
     /// <summary>
     /// 简称
     /// </summary>
-    [SugarColumn(ColumnName = "abbreviation", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "简称")]
+    [SugarColumn(ColumnName = "abbreviation")]
     public string Abbreviation { get; set; } = string.Empty;
 
     /// <summary>
     /// 详细地址
     /// </summary>
-    [SugarColumn(ColumnName = "address", IsNullable = true, ColumnDataType = "varchar", Length = 500, ColumnDescription = "详细地址")]
+    [SugarColumn(ColumnName = "address")]
     public string Address { get; set; } = string.Empty;
 
     /// <summary>
     /// 城市
     /// </summary>
-    [SugarColumn(ColumnName = "city", IsNullable = true, ColumnDataType = "varchar", Length = 500, ColumnDescription = "城市")]
+    [SugarColumn(ColumnName = "city")]
     public string City { get; set; } = string.Empty;
 
     /// <summary>
     /// 编码
     /// </summary>
-    [SugarColumn(ColumnName = "code", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "编码")]
+    [SugarColumn(ColumnName = "code")]
     public string Code { get; set; } = string.Empty;
 
     /// <summary>
     /// 颜色
     /// </summary>
-    [SugarColumn(ColumnName = "color", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "颜色")]
+    [SugarColumn(ColumnName = "color")]
     public string Color { get; set; } = string.Empty;
 
     /// <summary>
     /// 国家
     /// </summary>
-    [SugarColumn(ColumnName = "country", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "国家")]
+    [SugarColumn(ColumnName = "country")]
     public string Country { get; set; } = string.Empty;
 
     /// <summary>
     /// 创建时间
     /// </summary>
-    [SugarColumn(ColumnName = "createTime", IsNullable = true, ColumnDataType = "datetime", ColumnDescription = "创建时间")]
+    [SugarColumn(ColumnName = "createTime")]
     public DateTime? CreateTime { get; set; }
 
     /// <summary>
     /// 创建人
     /// </summary>
-    [SugarColumn(ColumnName = "creator", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "创建人")]
+    [SugarColumn(ColumnName = "creator")]
     public string Creator { get; set; } = string.Empty;
 
     /// <summary>
     /// 数据版本
     /// </summary>
-    [SugarColumn(ColumnName = "dataVersion", ColumnDataType = "timestamp", ColumnDescription = "数据版本")]
+    [SugarColumn(ColumnName = "dataVersion")]
     public DateTime DataVersion { get; set; }
 
     /// <summary>
     /// 简介
     /// </summary>
-    [SugarColumn(ColumnName = "description", IsNullable = true, ColumnDataType = "varchar", Length = 5000, ColumnDescription = "简介")]
+    [SugarColumn(ColumnName = "description")]
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
     /// 邮箱
     /// </summary>
-    [SugarColumn(ColumnName = "email", IsNullable = true, ColumnDataType = "varchar", Length = 100, ColumnDescription = "邮箱")]
+    [SugarColumn(ColumnName = "email")]
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
     /// 成立日期
     /// </summary>
-    [SugarColumn(ColumnName = "establishDate", IsNullable = true, ColumnDataType = "date", ColumnDescription = "成立日期")]
+    [SugarColumn(ColumnName = "establishDate")]
     public DateTime? EstablishDate { get; set; }
 
     /// <summary>
     /// 标识
     /// </summary>
-    [SugarColumn(ColumnName = "id", ColumnDataType = "varchar", Length = 50, ColumnDescription = "标识", IsPrimaryKey = true)]
+    [SugarColumn(ColumnName = "id", IsPrimaryKey = true)]
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
     /// 行业
     /// </summary>
-    [SugarColumn(ColumnName = "industry", IsNullable = true, ColumnDataType = "varchar", Length = 500, ColumnDescription = "行业")]
+    [SugarColumn(ColumnName = "industry")]
     public string Industry { get; set; } = string.Empty;
 
     /// <summary>
     /// 法人
     /// </summary>
-    [SugarColumn(ColumnName = "legalPerson", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "法人")]
+    [SugarColumn(ColumnName = "legalPerson")]
     public string LegalPerson { get; set; } = string.Empty;
 
     /// <summary>
     /// 法人电话
     /// </summary>
-    [SugarColumn(ColumnName = "legalPhone", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "法人电话")]
+    [SugarColumn(ColumnName = "legalPhone")]
     public string LegalPhone { get; set; } = string.Empty;
 
     /// <summary>
     /// 级别
     /// </summary>
-    [SugarColumn(ColumnName = "level", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "级别")]
+    [SugarColumn(ColumnName = "level")]
     public string Level { get; set; } = string.Empty;
 
     /// <summary>
     /// 商标
     /// </summary>
-    [SugarColumn(ColumnName = "logo", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "商标")]
+    [SugarColumn(ColumnName = "logo")]
     public string Logo { get; set; } = string.Empty;
 
     /// <summary>
     /// 名称
     /// </summary>
-    [SugarColumn(ColumnName = "name", ColumnDataType = "varchar", Length = 100, ColumnDescription = "名称")]
+    [SugarColumn(ColumnName = "name")]
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// 父级标识
     /// </summary>
-    [SugarColumn(ColumnName = "parentId", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "父级标识")]
+    [SugarColumn(ColumnName = "parentId")]
     public string ParentId { get; set; } = string.Empty;
 
     /// <summary>
     /// 省份
     /// </summary>
-    [SugarColumn(ColumnName = "province", IsNullable = true, ColumnDataType = "varchar", Length = 500, ColumnDescription = "省份")]
+    [SugarColumn(ColumnName = "province")]
     public string Province { get; set; } = string.Empty;
 
     /// <summary>
     /// 状态
     /// </summary>
-    [SugarColumn(ColumnName = "status", IsNullable = true, ColumnDataType = "int", Length = 11, ColumnDescription = "状态")]
+    [SugarColumn(ColumnName = "status")]
     public int Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
-    [SugarColumn(ColumnName = "updater", IsNullable = true, ColumnDataType = "varchar", Length = 50, ColumnDescription = "修改人")]
+    [SugarColumn(ColumnName = "updater")]
     public string Updater { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改时间
     /// </summary>
-    [SugarColumn(ColumnName = "updateTime", IsNullable = true, ColumnDataType = "datetime", ColumnDescription = "修改时间")]
+    [SugarColumn(ColumnName = "updateTime")]
     public DateTime? UpdateTime { get; set; }
 }

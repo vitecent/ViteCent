@@ -5,6 +5,7 @@
 
 #region
 
+using System.Collections.Generic;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Data;
@@ -44,6 +45,8 @@ public partial class EditScheduleType
         if (hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany.Data.Name;
+
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
@@ -53,6 +56,8 @@ public partial class EditScheduleType
 
         if (hasDepartment.Success)
             return hasDepartment;
+
+        request.DepartmentName = hasDepartment.Data.Name;
 
         var hasArgs = new HasScheduleTypeEntityArgs
         {

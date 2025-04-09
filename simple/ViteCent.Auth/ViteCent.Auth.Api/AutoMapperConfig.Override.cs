@@ -7,6 +7,7 @@
 
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Domain.BaseUser;
+using ViteCent.Core.Data;
 using ViteCent.Core.Web;
 
 #endregion

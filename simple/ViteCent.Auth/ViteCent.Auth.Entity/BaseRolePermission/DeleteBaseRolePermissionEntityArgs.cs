@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseRolePermission;
 
 /// <summary>
-/// 删除角色权限数据参数
+/// 删除角色权限参数
 /// </summary>
 [Serializable]
 public class DeleteBaseRolePermissionEntityArgs : IRequest<BaseResult>

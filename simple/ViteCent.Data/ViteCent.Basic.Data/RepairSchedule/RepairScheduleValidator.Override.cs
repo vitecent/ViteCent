@@ -17,7 +17,8 @@ public partial class RepairScheduleValidator : AbstractValidator<AddRepairSchedu
 {
     /// <summary>
     /// </summary>
-    private void OverrideValidator()
+    /// <param name="validate"></param>
+    private void OverrideValidator(bool validate)
     {
         var status = new List<int>() { (int)RepairScheduleEnum.Apply, (int)RepairScheduleEnum.Pass, (int)RepairScheduleEnum.NoPass };
 

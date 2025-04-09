@@ -41,6 +41,11 @@ public class AddBaseOperationArgs : BaseArgs, IRequest<BaseResult>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 简介
     /// </summary>
     public string Description { get; set; } = string.Empty;
@@ -51,9 +56,14 @@ public class AddBaseOperationArgs : BaseArgs, IRequest<BaseResult>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// 系统标识
+    /// 资源标识
     /// </summary>
     public string ResourceId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 资源名称
+    /// </summary>
+    public string ResourceName { get; set; } = string.Empty;
 
     /// <summary>
     /// 状态
@@ -64,4 +74,9 @@ public class AddBaseOperationArgs : BaseArgs, IRequest<BaseResult>
     /// 系统标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 系统名称
+    /// </summary>
+    public string SystemName { get; set; } = string.Empty;
 }

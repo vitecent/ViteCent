@@ -47,12 +47,12 @@ public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
             return new BaseResult(500, "参数不能为空");
 
         if (args.Items.Count == 0)
-            return new BaseResult(500, "数据不能为空");
+            return new BaseResult(500, "系统信息不能为空");
 
         var count = args.Items.Distinct().Count();
 
         if (count != args.Items.Count)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "系统信息重复");
 
         var cancellationToken = new CancellationToken();
         var validator = new BaseSystemValidator();
@@ -61,10 +61,10 @@ public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
         {
             AddBaseSystem.OverrideInvoke(item, User);
 
-            var result = await validator.ValidateAsync(item, cancellationToken);
+            var check = await validator.ValidateAsync(item, cancellationToken);
 
-            if (!result.IsValid)
-                return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+            if (!check.IsValid)
+                return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))

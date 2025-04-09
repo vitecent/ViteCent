@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 删除$!{Table.Description}数据参数
+/// 删除$!{Table.Description}参数
 /// </summary>
 [Serializable]
 public class $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} : IRequest<BaseResult>

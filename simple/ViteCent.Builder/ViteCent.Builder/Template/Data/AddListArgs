@@ -21,7 +21,7 @@ namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// $!{Table.Description}
 	/// </summary>
 	public List<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}> Items = [];
 }

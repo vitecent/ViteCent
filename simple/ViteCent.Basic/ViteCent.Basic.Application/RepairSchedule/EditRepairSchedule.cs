@@ -69,19 +69,23 @@ public partial class EditRepairSchedule(ILogger<EditRepairSchedule> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "补卡申请不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
         if (!result.Success)
             return result;
 
+        entity.CompanyName = request.CompanyName;
+        entity.DepartmentName = request.DepartmentName;
         entity.Remark = request.Remark;
         entity.RepairTime = request.RepairTime;
         entity.RepairType = request.RepairType;
         entity.ScheduleId = request.ScheduleId;
+        entity.ScheduleName = request.ScheduleName;
         entity.Status = request.Status;
         entity.UserId = request.UserId;
+        entity.UserName = request.UserName;
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

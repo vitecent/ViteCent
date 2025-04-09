@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Data.BaseDepartment;
 public class AddBaseDepartmentListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 部门信息
 	/// </summary>
 	public List<AddBaseDepartmentArgs> Items = [];
 }

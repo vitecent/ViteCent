@@ -59,7 +59,7 @@ public partial class EditBaseOperation(ILogger<EditBaseOperation> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "操作信息不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -69,11 +69,14 @@ public partial class EditBaseOperation(ILogger<EditBaseOperation> logger,
         entity.Abbreviation = request.Abbreviation;
         entity.Code = request.Code;
         entity.Color = request.Color;
+        entity.CompanyName = request.CompanyName;
         entity.Description = request.Description;
         entity.Name = request.Name;
         entity.ResourceId = request.ResourceId;
+        entity.ResourceName = request.ResourceName;
         entity.Status = request.Status;
         entity.SystemId = request.SystemId;
+        entity.SystemName = request.SystemName;
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

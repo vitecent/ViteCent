@@ -11,15 +11,17 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseUser;
 
 /// <summary>
+/// 初始化仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
 /// <param name="mapper"></param>
-public class Initialize(ILogger<AddBaseUser> logger,
+public class Initialize(ILogger<Initialize> logger,
     IMediator mediator,
     IMapper mapper) : IRequestHandler<InitializeArgs, BaseResult>
 {
     /// <summary>
+    /// 初始化
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>

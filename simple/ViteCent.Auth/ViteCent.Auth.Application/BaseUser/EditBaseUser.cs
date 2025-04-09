@@ -59,7 +59,7 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "用户信息不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -69,6 +69,8 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         entity.Avatar = request.Avatar;
         entity.Birthday = request.Birthday;
         entity.Color = request.Color;
+        entity.CompanyName = request.CompanyName;
+        entity.DepartmentName = request.DepartmentName;
         entity.Description = request.Description;
         entity.Email = request.Email;
         entity.Gender = request.Gender;
@@ -77,6 +79,7 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         entity.Password = request.Password;
         entity.Phone = request.Phone;
         entity.PositionId = request.PositionId;
+        entity.PositionName = request.PositionName;
         entity.RealName = request.RealName;
         entity.Status = request.Status;
         entity.Username = request.Username;

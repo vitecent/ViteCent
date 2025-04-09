@@ -19,6 +19,11 @@ public class ShiftScheduleResult
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 创建时间
     /// </summary>
     public DateTime? CreateTime { get; set; }
@@ -39,6 +44,11 @@ public class ShiftScheduleResult
     public string DepartmentId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 部门名称
+    /// </summary>
+    public string DepartmentName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
@@ -54,9 +64,19 @@ public class ShiftScheduleResult
     public string ScheduleId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 排班名称
+    /// </summary>
+    public string ScheduleName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 换班部门标识
     /// </summary>
     public string ShiftDepartmentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 换班部门名称
+    /// </summary>
+    public string ShiftDepartmentName { get; set; } = string.Empty;
 
     /// <summary>
     /// 换班排班标识
@@ -64,9 +84,19 @@ public class ShiftScheduleResult
     public string ShiftScheduleId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 换班排班名称
+    /// </summary>
+    public string ShiftScheduleName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 换班用户标识
     /// </summary>
     public string ShiftUserId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 换班用户名称
+    /// </summary>
+    public string ShiftUserName { get; set; } = string.Empty;
 
     /// <summary>
     /// 状态
@@ -87,4 +117,9 @@ public class ShiftScheduleResult
     /// 用户标识
     /// </summary>
     public string UserId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 用户名称
+    /// </summary>
+    public string UserName { get; set; } = string.Empty;
 }

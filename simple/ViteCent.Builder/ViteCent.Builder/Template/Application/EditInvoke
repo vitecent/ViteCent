@@ -19,22 +19,10 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BasePosition;
-#end
-#if($HasOperationId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseOperation;
-#end
-#if($HasResourceId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseResource;
-#end
-#if($HasRoleId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseRole;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasUserId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
-#end
-#if($HasSystemId)
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseSystem;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
@@ -57,23 +45,11 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 #if($HasDepartmentId)
 /// <param name="departmentInvoke"></param>
 #end
-#if($HasOperationId)
-/// <param name="operationInvoke"></param>
-#end
 #if($HasPositionId)
 /// <param name="positionInvoke"></param>
 #end
-#if($HasResourceId)
-/// <param name="resourceInvoke"></param>
-#end
-#if($HasRoleId)
-/// <param name="roleInvoke"></param>
-#end
 #if($HasUserId)
 /// <param name="userInvoke"></param>
-#end
-#if($HasSystemId)
-/// <param name="systemInvoke"></param>
 #end
 /// <param name="httpContextAccessor"></param>
 public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.EditName}$!{Table.CamelCaseName}> logger,
@@ -90,12 +66,6 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
 #end
 #if($HasPositionId)
     IBaseInvoke<$!{Setting.GetName}BasePosition$!{Setting.Data.ArgsSuffix}, DataResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
-#end
-#if($HasResourceId)
-    IBaseInvoke<$!{Setting.GetName}BaseResource$!{Setting.Data.ArgsSuffix}, DataResult<BaseResource$!{Setting.Data.ResultSuffix}>> resourceInvoke,
-#end
-#if($HasRoleId)
-    IBaseInvoke<$!{Setting.GetName}BaseRole$!{Setting.Data.ArgsSuffix}, DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>> roleInvoke,
 #end
 #if($HasUserId)
     IBaseInvoke<$!{Setting.GetName}BaseUser$!{Setting.Data.ArgsSuffix}, DataResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
@@ -132,7 +102,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "$!{Table.Description}不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 

@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BasePosition;
 
 /// <summary>
-/// 批量新增职位信息数据参数
+/// 批量新增职位信息参数
 /// </summary>
 [Serializable]
 public class AddBasePositionEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 职位信息
 	/// </summary>
 	public List<AddBasePositionEntity> Items = [];
 }

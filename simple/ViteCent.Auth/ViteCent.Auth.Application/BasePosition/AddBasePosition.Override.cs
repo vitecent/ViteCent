@@ -7,6 +7,8 @@
 
 using MediatR;
 using ViteCent.Auth.Data.BasePosition;
+using ViteCent.Auth.Entity.BaseCompany;
+using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -23,8 +25,9 @@ public partial class AddBasePosition
     /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBasePositionListArgs request, BaseUserInfo user)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBasePositionListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -41,7 +44,22 @@ public partial class AddBasePosition
         if (!companys.Success)
             return companys;
 
-        return new BaseResult();
+        foreach (var item in companys.Rows)
+        {
+            var items = request.Items.Where(x => x.CompanyId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.CompanyName = item.Name;
+        }
+
+        var hasListArgs = new HasBasePositionEntityListArgs
+        {
+            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
+            Codes = [.. request.Items.Select(x => x.Code).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>
@@ -60,6 +78,8 @@ public partial class AddBasePosition
 
         if (hasCompany.Success)
             return hasCompany;
+
+        request.CompanyName = hasCompany.Data.Name;
 
         var hasArgs = new HasBasePositionEntityArgs
         {

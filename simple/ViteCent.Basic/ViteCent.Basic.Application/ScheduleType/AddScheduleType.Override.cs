@@ -8,6 +8,8 @@
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Basic.Data.ScheduleType;
+using ViteCent.Basic.Entity.RepairSchedule;
+using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Data;
 using ViteCent.Core.Web;
 
@@ -21,14 +23,16 @@ public partial class AddScheduleType
 {
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
     /// <param name="request"></param>
     /// <param name="user"></param>
     /// <param name="companyInvoke"></param>
     /// <param name="departmentInvoke"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(AddScheduleTypeListArgs request, BaseUserInfo user,
+    internal static async Task<BaseResult> OverrideHandle(MediatR.IMediator mediator, AddScheduleTypeListArgs request, BaseUserInfo user,
         IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
-        IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke)
+        IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -50,12 +54,34 @@ public partial class AddScheduleType
         if (!companys.Success)
             return companys;
 
+        foreach (var item in companys.Rows)
+        {
+            var items = request.Items.Where(x => x.CompanyId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.CompanyName = item.Name;
+        }
+
         var departments = await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
 
-        return new BaseResult();
+        foreach (var item in departments.Rows)
+        {
+            var items = request.Items.Where(x => x.DepartmentId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.DepartmentName = item.Name;
+        }
+
+        var hasListArgs = new HasScheduleTypeEntityListArgs
+        {
+            CompanyIds = companyIds,
+            DepartmentIds = departmentIds,
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>
@@ -75,6 +101,8 @@ public partial class AddScheduleType
         if (hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany.Data.Name;
+
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
@@ -84,6 +112,8 @@ public partial class AddScheduleType
 
         if (hasDepartment.Success)
             return hasDepartment;
+
+        request.DepartmentName = hasDepartment.Data.Name;
 
         var hasArgs = new HasScheduleTypeEntityArgs
         {

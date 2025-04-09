@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.RepairSchedule;
 
 /// <summary>
-/// 删除补卡申请数据参数
+/// 删除补卡申请参数
 /// </summary>
 [Serializable]
 public class DeleteRepairScheduleEntityArgs : IRequest<BaseResult>

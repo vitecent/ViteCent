@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.Schedule;
 
 /// <summary>
-/// 删除排班信息数据参数
+/// 删除排班信息参数
 /// </summary>
 [Serializable]
 public class DeleteScheduleEntityArgs : IRequest<BaseResult>
@@ -34,6 +34,11 @@ public class DeleteScheduleEntityArgs : IRequest<BaseResult>
     /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 职位标识
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
 
     /// <summary>
     /// 用户标识

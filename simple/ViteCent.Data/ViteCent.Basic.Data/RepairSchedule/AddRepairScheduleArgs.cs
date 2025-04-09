@@ -26,9 +26,19 @@ public class AddRepairScheduleArgs : BaseArgs, IRequest<BaseResult>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 部门标识
     /// </summary>
     public string DepartmentId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 部门名称
+    /// </summary>
+    public string DepartmentName { get; set; } = string.Empty;
 
     /// <summary>
     /// 描述
@@ -51,6 +61,11 @@ public class AddRepairScheduleArgs : BaseArgs, IRequest<BaseResult>
     public string ScheduleId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 排班名称
+    /// </summary>
+    public string ScheduleName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 状态
     /// </summary>
     public int Status { get; set; }
@@ -59,4 +74,9 @@ public class AddRepairScheduleArgs : BaseArgs, IRequest<BaseResult>
     /// 用户标识
     /// </summary>
     public string UserId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 用户名称
+    /// </summary>
+    public string UserName { get; set; } = string.Empty;
 }

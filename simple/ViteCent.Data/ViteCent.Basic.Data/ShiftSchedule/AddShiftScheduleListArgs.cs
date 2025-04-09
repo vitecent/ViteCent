@@ -21,7 +21,7 @@ namespace ViteCent.Basic.Data.ShiftSchedule;
 public class AddShiftScheduleListArgs : BaseArgs, IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 换班申请
 	/// </summary>
 	public List<AddShiftScheduleArgs> Items = [];
 }

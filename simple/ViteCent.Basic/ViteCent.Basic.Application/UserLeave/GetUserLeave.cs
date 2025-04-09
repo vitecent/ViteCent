@@ -63,7 +63,7 @@ public class GetUserLeave(ILogger<GetUserLeave> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<UserLeaveResult>(500, "数据不存在");
+            return new DataResult<UserLeaveResult>(500, "请假申请不存在");
 
         var dto = mapper.Map<UserLeaveResult>(entity);
 

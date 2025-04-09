@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.Schedule;
 
 /// <summary>
-/// 批量新增排班信息数据参数
+/// 批量新增排班信息参数
 /// </summary>
 [Serializable]
 public class AddScheduleEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 排班信息
 	/// </summary>
 	public List<AddScheduleEntity> Items = [];
 }

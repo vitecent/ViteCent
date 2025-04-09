@@ -9,28 +9,16 @@
 #region
 
 #if($HasCompanyId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseCompany;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseDepartment;
-#end
-#if($HasOperationId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseOperation;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BasePosition;
-#end
-#if($HasResourceId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseResource;
-#end
-#if($HasRoleId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseRole;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasUserId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
-#end
-#if($HasSystemId)
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
@@ -46,7 +34,7 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
 {
     /// <summary>
-    /// 验证数据
+    /// 验证$!{Table.Description}
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
@@ -106,20 +94,8 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
 #if($HasDepartmentId)
             DepartmentId = request.DepartmentId,
 #end
-#if($HasRoleId)
-            RoleId = request.RoleId,
-#end
 #if($HasUserId)
             UserId = request.UserId,
-#end
-#if($HasSystemId)
-            SystemId = request.SystemId,
-#end
-#if($HasResourceId)
-            ResourceId = request.ResourceId,
-#end
-#if($HasOperationId)
-            OperationId = request.OperationId,
 #end
         };
 

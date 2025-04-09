@@ -19,6 +19,11 @@ public class ScheduleResult
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string CompanyName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 创建时间
     /// </summary>
     public DateTime? CreateTime { get; set; }
@@ -39,6 +44,11 @@ public class ScheduleResult
     public string DepartmentId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 部门名称
+    /// </summary>
+    public string DepartmentName { get; set; } = string.Empty;
+
+    /// <summary>
     /// 结束时间
     /// </summary>
     public DateTime EndTime { get; set; }
@@ -46,7 +56,7 @@ public class ScheduleResult
     /// <summary>
     /// 上班时间
     /// </summary>
-    public DateTime FirstTime { get; set; }
+    public DateTime? FirstTime { get; set; }
 
     /// <summary>
     /// 标识
@@ -56,12 +66,22 @@ public class ScheduleResult
     /// <summary>
     /// 下班时间
     /// </summary>
-    public DateTime LastTime { get; set; }
+    public DateTime? LastTime { get; set; }
 
     /// <summary>
     /// 名称
     /// </summary>
     public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 职位标识
+    /// </summary>
+    public string PositionId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 职位名称
+    /// </summary>
+    public string PositionName { get; set; } = string.Empty;
 
     /// <summary>
     /// 开始时间
@@ -87,4 +107,9 @@ public class ScheduleResult
     /// 用户标识
     /// </summary>
     public string UserId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 用户名称
+    /// </summary>
+    public string UserName { get; set; } = string.Empty;
 }

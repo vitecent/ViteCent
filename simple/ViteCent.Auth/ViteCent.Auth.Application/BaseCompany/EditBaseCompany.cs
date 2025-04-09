@@ -59,7 +59,7 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "公司信息不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 

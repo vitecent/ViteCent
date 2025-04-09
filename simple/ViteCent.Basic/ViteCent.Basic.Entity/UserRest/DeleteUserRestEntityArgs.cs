@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.UserRest;
 
 /// <summary>
-/// 删除调休申请数据参数
+/// 删除调休申请参数
 /// </summary>
 [Serializable]
 public class DeleteUserRestEntityArgs : IRequest<BaseResult>

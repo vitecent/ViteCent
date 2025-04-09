@@ -1,6 +1,5 @@
 ﻿#region
 
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ViteCent.Auth.Data.BaseUser;
@@ -12,6 +11,7 @@ using ViteCent.Core.Web.Api;
 namespace ViteCent.Auth.Api.BaseUser;
 
 /// <summary>
+/// 登录接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -21,6 +21,7 @@ public class Login(ILogger<Login> logger,
     IMediator mediator) : BaseApi<LoginArgs, DataResult<LoginResult>>
 {
     /// <summary>
+    /// 登录
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

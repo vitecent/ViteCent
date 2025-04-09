@@ -18,7 +18,8 @@ public partial class BasePositionValidator : AbstractValidator<AddBasePositionAr
 {
     /// <summary>
     /// </summary>
-    private void OverrideValidator()
+    /// <param name="validate"></param>
+    private void OverrideValidator(bool validate = false)
     {
         var status = new List<int>() { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
 

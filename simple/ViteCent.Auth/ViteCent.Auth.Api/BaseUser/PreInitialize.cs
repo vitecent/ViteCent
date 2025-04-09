@@ -11,6 +11,7 @@ using ViteCent.Core.Web.Api;
 namespace ViteCent.Auth.Api.BaseUser;
 
 /// <summary>
+/// 预初始化接口
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
@@ -20,6 +21,7 @@ public class PreInitialize(ILogger<PreInitialize> logger,
     IMediator mediator) : BaseApi<PreInitializeArgs, DataResult<PreInitializeResult>>
 {
     /// <summary>
+    /// 预初始化
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>

@@ -63,7 +63,7 @@ public class GetScheduleType(ILogger<GetScheduleType> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new DataResult<ScheduleTypeResult>(500, "数据不存在");
+            return new DataResult<ScheduleTypeResult>(500, "基础排班不存在");
 
         var dto = mapper.Map<ScheduleTypeResult>(entity);
 

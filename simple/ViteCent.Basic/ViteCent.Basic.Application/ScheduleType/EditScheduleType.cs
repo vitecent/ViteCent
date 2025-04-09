@@ -66,7 +66,7 @@ public partial class EditScheduleType(ILogger<EditScheduleType> logger,
         var entity = await mediator.Send(args, cancellationToken);
 
         if (entity == null)
-            return new BaseResult(500, "数据不存在");
+            return new BaseResult(500, "基础排班不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);
 
@@ -74,6 +74,8 @@ public partial class EditScheduleType(ILogger<EditScheduleType> logger,
             return result;
 
         entity.Code = request.Code;
+        entity.CompanyName = request.CompanyName;
+        entity.DepartmentName = request.DepartmentName;
         entity.Description = request.Description;
         entity.EndTime = request.EndTime;
         entity.Name = request.Name;

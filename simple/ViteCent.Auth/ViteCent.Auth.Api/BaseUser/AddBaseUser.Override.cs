@@ -37,5 +37,8 @@ public partial class AddBaseUser
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
                 args.PositionId = user.Position.Id;
+
+        if (string.IsNullOrEmpty(args.Password))
+            args.Password = BaseConst.DefaultPassword;
     }
 }

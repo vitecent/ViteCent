@@ -44,6 +44,8 @@ public partial class EditBaseSystem
         if (hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany.Data.Name;
+
         var hasArgs = new HasBaseSystemEntityArgs
         {
             Id = request.Id,

@@ -24,11 +24,19 @@ public class Setting
 
     /// <summary>
     /// </summary>
+    public string DisableName { get; set; } = "Disable";
+
+    /// <summary>
+    /// </summary>
     public DomainSetting Domain { get; set; } = new();
 
     /// <summary>
     /// </summary>
     public string EditName { get; set; } = "Edit";
+
+    /// <summary>
+    /// </summary>
+    public string EnableName { get; set; } = "Enable";
 
     /// <summary>
     /// </summary>

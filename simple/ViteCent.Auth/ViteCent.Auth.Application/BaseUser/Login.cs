@@ -27,18 +27,21 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseUser;
 
 /// <summary>
+/// 登录仓储
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="configuration"></param>
-public class Login(ILogger<AddBaseUser> logger,
-    IBaseCache cache, IMapper mapper,
+public class Login(ILogger<Login> logger,
+    IBaseCache cache,
+    IMapper mapper,
     IMediator mediator,
     IConfiguration configuration) : IRequestHandler<LoginArgs, DataResult<LoginResult>>
 {
     /// <summary>
+    /// 登录
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -48,7 +51,7 @@ public class Login(ILogger<AddBaseUser> logger,
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.Login");
 
         var args = mapper.Map<LoginEntityArgs>(request);
-        args.Password = $"{args.Username}{args.Password}{Const.Salf}".EncryptMD5();
+        args.Password = $"{args.Username}{args.Password}{BaseConst.Salf}".EncryptMD5();
 
         var user = await mediator.Send(args, cancellationToken);
 
@@ -61,8 +64,8 @@ public class Login(ILogger<AddBaseUser> logger,
         var userInfo = new BaseUserInfo()
         {
             Id = user.Id,
-            Name = user.Username,
-            Code = user.UserNo,
+            Name = user.RealName,
+            Code = user.Username,
         };
 
         if (string.IsNullOrWhiteSpace(user.CompanyId))
@@ -143,17 +146,20 @@ public class Login(ILogger<AddBaseUser> logger,
         var token = BaseJwt.GenerateJwtToken(userInfo, configuration);
 
         token = $"Bearer {token}";
+        var refreshToken = user.Id.EncryptMD5();
 
         var flagExpires = int.TryParse(configuration["Jwt:Expires"] ?? default!, out var expires);
 
         if (!flagExpires || expires < 1) expires = 24;
 
         cache.SetString($"User{user.Id}", token, TimeSpan.FromHours(expires));
+        cache.SetString($"User{refreshToken}", request, TimeSpan.FromDays(365));
         cache.SetString($"UserInfo{user.Id}", authInfo, TimeSpan.FromHours(expires));
 
         var result = new DataResult<LoginResult>(new LoginResult()
         {
             Token = token,
+            RefreshToken = refreshToken,
             ExpireTime = DateTime.Now.AddHours(24),
         });
 
@@ -177,12 +183,12 @@ public class Login(ILogger<AddBaseUser> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable,
+                    Value = StatusEnum.Enable.ToString(),
                 },
                 new()
                 {
                     Field = "Id",
-                    Value = ids,
+                    Value = ids.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -223,12 +229,12 @@ public class Login(ILogger<AddBaseUser> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable,
+                    Value = StatusEnum.Enable.ToString(),
                 },
                 new()
                 {
                     Field = "Id",
-                    Value = ids,
+                    Value = ids.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -268,12 +274,12 @@ public class Login(ILogger<AddBaseUser> logger,
                 new ()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable,
+                    Value = StatusEnum.Enable.ToString(),
                 },
                 new()
                 {
                     Field = "Id",
-                    Value = ids,
+                    Value = ids.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -313,12 +319,12 @@ public class Login(ILogger<AddBaseUser> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable,
+                    Value = StatusEnum.Enable.ToString(),
                 },
                 new()
                 {
                     Field = "RoleId",
-                    Value = ids,
+                    Value = ids.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -360,12 +366,12 @@ public class Login(ILogger<AddBaseUser> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable,
+                    Value = StatusEnum.Enable.ToString(),
                 },
                 new()
                 {
                     Field = "Id",
-                    Value = ids,
+                    Value = ids.ToJson(),
                     Method = SearchEnum.In
                 }
             ]
@@ -448,7 +454,7 @@ public class Login(ILogger<AddBaseUser> logger,
                 new ()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable,
+                    Value = StatusEnum.Enable.ToString(),
                 },
                 new()
                 {

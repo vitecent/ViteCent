@@ -23,16 +23,16 @@ public partial class ScheduleValidator : AbstractValidator<AddScheduleArgs>
     /// <summary>
     /// 验证参数
     /// </summary>
-    public ScheduleValidator()
+    /// <param name="validate"></param>
+    public ScheduleValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
-        RuleFor(x => x.EndTime).NotNull().NotEmpty().WithMessage("结束时间不能为空");
-        RuleFor(x => x.FirstTime).NotNull().NotEmpty().WithMessage("上班时间不能为空");
-        RuleFor(x => x.LastTime).NotNull().NotEmpty().WithMessage("下班时间不能为空");
+        RuleFor(x => x.EndTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("结束时间不能为空");
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
-        RuleFor(x => x.StartTime).NotNull().NotEmpty().WithMessage("开始时间不能为空");
+        RuleFor(x => x.PositionId).NotNull().NotEmpty().WithMessage("职位标识不能为空");
+        RuleFor(x => x.StartTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("开始时间不能为空");
         RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("用户标识不能为空");
 
-        OverrideValidator();
+        OverrideValidator(validate);
     }
 }

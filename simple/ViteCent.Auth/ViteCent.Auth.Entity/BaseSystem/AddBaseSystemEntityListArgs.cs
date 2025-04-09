@@ -15,13 +15,13 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseSystem;
 
 /// <summary>
-/// 批量新增系统信息数据参数
+/// 批量新增系统信息参数
 /// </summary>
 [Serializable]
 public class AddBaseSystemEntityListArgs : IRequest<BaseResult>
 {
 	/// <summary>
-	/// 数据
+	/// 系统信息
 	/// </summary>
 	public List<AddBaseSystemEntity> Items = [];
 }

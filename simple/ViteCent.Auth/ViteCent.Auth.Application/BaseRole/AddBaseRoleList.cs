@@ -52,7 +52,7 @@ public class AddBaseRoleList(ILogger<AddBaseRoleList> logger,
 
         user = httpContextAccessor.InitUser();
 
-        var check = await AddBaseRole.OverrideHandle(mediator, request, user);
+        var check = await AddBaseRole.OverrideHandle(mediator, request, user, cancellationToken);
 
         if (!check.Success)
             return check;

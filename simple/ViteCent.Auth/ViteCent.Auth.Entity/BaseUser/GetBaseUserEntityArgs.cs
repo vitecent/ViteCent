@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseUser;
 
 /// <summary>
-/// 获取用户信息数据参数
+/// 获取用户信息参数
 /// </summary>
 [Serializable]
 public class GetBaseUserEntityArgs : IRequest<BaseUserEntity>

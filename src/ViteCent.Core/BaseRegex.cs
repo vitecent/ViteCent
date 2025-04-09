@@ -54,7 +54,7 @@ public static partial class BaseRegex
     /// <returns></returns>
     public static bool IsDecimal(this string input, int length = 2)
     {
-        return Regex.IsMatch(input, string.Format(Const.Decimal, length));
+        return Regex.IsMatch(input, string.Format(BaseConst.Decimal, length));
     }
 
     /// <summary>
@@ -143,7 +143,7 @@ public static partial class BaseRegex
     /// <returns></returns>
     public static bool IsNegativeDecimal(this string input, int length = 2)
     {
-        return Regex.IsMatch(input, string.Format(Const.NegativeDecimal, length));
+        return Regex.IsMatch(input, string.Format(BaseConst.NegativeDecimal, length));
     }
 
     /// <summary>
@@ -198,7 +198,7 @@ public static partial class BaseRegex
     /// <returns></returns>
     public static bool IsPositiveDecimal(this string input, int length = 2)
     {
-        return Regex.IsMatch(input, string.Format(Const.PositiveDecimal, length));
+        return Regex.IsMatch(input, string.Format(BaseConst.PositiveDecimal, length));
     }
 
     /// <summary>
@@ -258,120 +258,120 @@ public static partial class BaseRegex
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.Chinese)]
+    [GeneratedRegex(BaseConst.Chinese)]
     private static partial Regex Chinese();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.ChineseEnglish)]
+    [GeneratedRegex(BaseConst.ChineseEnglish)]
     private static partial Regex ChineseEnglish();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.ChineseEnglishUnderline)]
+    [GeneratedRegex(BaseConst.ChineseEnglishUnderline)]
     private static partial Regex ChineseEnglishUnderline();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.ChineseUnderline)]
+    [GeneratedRegex(BaseConst.ChineseUnderline)]
     private static partial Regex ChineseUnderline();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.Email)]
+    [GeneratedRegex(BaseConst.Email)]
     private static partial Regex Email();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.English)]
+    [GeneratedRegex(BaseConst.English)]
     private static partial Regex English();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.EnglishUnderline)]
+    [GeneratedRegex(BaseConst.EnglishUnderline)]
     private static partial Regex EnglishUnderline();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.IP)]
+    [GeneratedRegex(BaseConst.IP)]
     private static partial Regex IP();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.Mobile)]
+    [GeneratedRegex(BaseConst.Mobile)]
     private static partial Regex Mobile();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.Negative)]
+    [GeneratedRegex(BaseConst.Negative)]
     private static partial Regex Negative();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.Positive)]
+    [GeneratedRegex(BaseConst.Positive)]
     private static partial Regex Positive();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.PositiveChinese)]
+    [GeneratedRegex(BaseConst.PositiveChinese)]
     private static partial Regex PositiveChinese();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.PositiveChineseEnglish)]
+    [GeneratedRegex(BaseConst.PositiveChineseEnglish)]
     private static partial Regex PositiveChineseEnglish();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.PositiveChineseEnglishUnderline)]
+    [GeneratedRegex(BaseConst.PositiveChineseEnglishUnderline)]
     private static partial Regex PositiveChineseEnglishUnderline();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.PositiveChineseUnderline)]
+    [GeneratedRegex(BaseConst.PositiveChineseUnderline)]
     private static partial Regex PositiveChineseUnderline();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.PositiveEnglish)]
+    [GeneratedRegex(BaseConst.PositiveEnglish)]
     private static partial Regex PositiveEnglish();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.PositiveEnglishUnderline)]
+    [GeneratedRegex(BaseConst.PositiveEnglishUnderline)]
     private static partial Regex PositiveEnglishUnderline();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.PositiveNegative)]
+    [GeneratedRegex(BaseConst.PositiveNegative)]
     private static partial Regex PositiveNegative();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.PositiveUnderline)]
+    [GeneratedRegex(BaseConst.PositiveUnderline)]
     private static partial Regex PositiveUnderline();
 
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    [GeneratedRegex(Const.Url)]
+    [GeneratedRegex(BaseConst.Url)]
     private static partial Regex Url();
 }
