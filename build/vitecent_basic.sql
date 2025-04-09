@@ -11,7 +11,7 @@
  Target Server Version : 50621
  File Encoding         : 65001
 
- Date: 08/04/2025 13:37:30
+ Date: 09/04/2025 14:08:31
 */
 
 SET NAMES utf8mb4;
@@ -55,11 +55,10 @@ CREATE TABLE `schedule`  (
   `companyName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公司名称',
   `departmentId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门标识',
   `departmentName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门名称',
-  `positionId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '职位标识',
-  `positionName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职位名称',
+  `job` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '岗位名称',
   `userId` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户标识',
   `userName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名称',
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
+  `shift` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
   `startTime` datetime(0) NOT NULL COMMENT '开始时间',
   `endTime` datetime(0) NOT NULL COMMENT '结束时间',
   `firstTime` datetime(0) NULL DEFAULT NULL COMMENT '上班时间',

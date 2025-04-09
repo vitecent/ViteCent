@@ -54,6 +54,11 @@ public class EditBaseRole(ILogger<EditBaseRole> logger,
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 
+        var checkCompany = User.CheckCompanyId(args.CompanyId);
+
+        if (checkCompany != null && !checkCompany.Success)
+            return checkCompany;
+
         return await mediator.Send(args, cancellationToken);
     }
 }

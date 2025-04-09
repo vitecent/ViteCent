@@ -59,15 +59,15 @@ public static class BaseSearchArgs
 
     /// <summary>
     /// </summary>
-    /// <param name="companyId"></param>
     /// <param name="user"></param>
+    /// <param name="companyId"></param>
     /// <returns></returns>
-    public static async Task<BaseResult> CheckCompanyIdArgsAsync(string companyId, BaseUserInfo user)
+    public static BaseResult CheckCompanyId(this BaseUserInfo user, string companyId)
     {
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (companyId != user.Company.Id)
                 return new BaseResult(401, "您没有权限访问该数据");
 
-        return await Task.FromResult(new BaseResult());
+        return new BaseResult();
     }
 }

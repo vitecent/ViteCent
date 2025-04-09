@@ -49,6 +49,11 @@ public class GetBaseDepartment(ILogger<GetBaseDepartment> logger,
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<BaseDepartmentResult>(500, "公司标识不能为空");
 
+        var check = User.CheckCompanyId(args.CompanyId);
+
+        if (check != null && !check.Success)
+            return new DataResult<BaseDepartmentResult>(check.Code, check.Message);
+
         return await mediator.Send(args, new CancellationToken());
     }
 }

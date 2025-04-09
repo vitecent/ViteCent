@@ -54,6 +54,11 @@ public class EditBaseRolePermission(ILogger<EditBaseRolePermission> logger,
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 
+        var checkCompany = User.CheckCompanyId(args.CompanyId);
+
+        if (checkCompany != null && !checkCompany.Success)
+            return checkCompany;
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new BaseResult(500, "角色标识不能为空");

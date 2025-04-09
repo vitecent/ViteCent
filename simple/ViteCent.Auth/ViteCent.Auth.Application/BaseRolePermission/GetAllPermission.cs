@@ -3,6 +3,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using SqlSugar.DistributedSystem.Snowflake;
 using ViteCent.Auth.Data.BaseOperation;
 using ViteCent.Auth.Data.BaseResource;
 using ViteCent.Auth.Data.BaseRolePermission;
@@ -79,22 +80,16 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 },
-                new()
-                {
-                    Field = "SystemId",
-                    Value = systemIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new()
-                {
-                    Field = "ResourceId",
-                    Value = resourceIds.ToJson(),
-                    Method = SearchEnum.In
-                }
             ]
         };
+
+        if (systemIds.Count > 0)
+            args.AddArgs("SystemId", systemIds.ToJson(), SearchEnum.In);
+
+        if (resourceIds.Count > 0)
+            args.AddArgs("ResourceId", resourceIds.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(companyId))
             args.Args.Add(new()
@@ -172,16 +167,13 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
-                },
-                new()
-                {
-                    Field = "SystemId",
-                    Value = systemIds.ToJson(),
-                    Method = SearchEnum.In
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 }
             ]
         };
+
+        if (systems.Count > 0)
+            args.AddArgs("SystemId", systemIds.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(companyId))
             args.Args.Add(new()
@@ -214,7 +206,7 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 }
             ]
         };

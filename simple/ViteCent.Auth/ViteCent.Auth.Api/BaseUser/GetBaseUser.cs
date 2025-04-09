@@ -49,6 +49,11 @@ public class GetBaseUser(ILogger<GetBaseUser> logger,
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<BaseUserResult>(500, "公司标识不能为空");
 
+        var check = User.CheckCompanyId(args.CompanyId);
+
+        if (check != null && !check.Success)
+            return new DataResult<BaseUserResult>(check.Code, check.Message);
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<BaseUserResult>(500, "部门标识不能为空");

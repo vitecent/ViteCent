@@ -48,6 +48,11 @@ public class GetBaseResource(ILogger<GetBaseResource> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<BaseResourceResult>(500, "公司标识不能为空");
+
+        var check = User.CheckCompanyId(args.CompanyId);
+
+        if (check != null && !check.Success)
+            return new DataResult<BaseResourceResult>(check.Code, check.Message);
  
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))

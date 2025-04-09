@@ -62,7 +62,7 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.Page
 
 #end
         var args = mapper.Map<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
+#if($HasCompanyId)
 
         args.AddCompanyId(user);
 #end

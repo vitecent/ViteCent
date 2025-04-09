@@ -114,7 +114,7 @@ public class ScheduleController(ILogger<ScheduleController> logger,
     [Route("PageList")]
     public async Task<PageResult<PreAddScheduleArgs>> PageList(PreSearchScheduleArgs args)
     {
-        logger.LogInformation("Invoke ViteCent.Basic.Api.Controller.PrePage");
+        logger.LogInformation("Invoke ViteCent.Basic.Api.Controller.PageList");
 
         var cancellationToken = new CancellationToken();
 
@@ -153,7 +153,7 @@ public class ScheduleController(ILogger<ScheduleController> logger,
                 new ()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 }
             ]
         };

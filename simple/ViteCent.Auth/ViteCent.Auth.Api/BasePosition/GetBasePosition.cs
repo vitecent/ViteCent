@@ -49,6 +49,11 @@ public class GetBasePosition(ILogger<GetBasePosition> logger,
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<BasePositionResult>(500, "公司标识不能为空");
 
+        var check = User.CheckCompanyId(args.CompanyId);
+
+        if (check != null && !check.Success)
+            return new DataResult<BasePositionResult>(check.Code, check.Message);
+
         return await mediator.Send(args, new CancellationToken());
     }
 }

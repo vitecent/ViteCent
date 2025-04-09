@@ -49,6 +49,11 @@ public class GetRepairSchedule(ILogger<GetRepairSchedule> logger,
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<RepairScheduleResult>(500, "公司标识不能为空");
 
+        var check = User.CheckCompanyId(args.CompanyId);
+
+        if (check != null && !check.Success)
+            return new DataResult<RepairScheduleResult>(check.Code, check.Message);
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<RepairScheduleResult>(500, "部门标识不能为空");

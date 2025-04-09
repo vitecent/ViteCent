@@ -6,6 +6,7 @@
 #region
 
 using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -37,6 +38,9 @@ public partial class AddBaseUser
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
                 args.PositionId = user.Position.Id;
+
+        if (string.IsNullOrEmpty(args.Username) && !string.IsNullOrWhiteSpace(args.RealName))
+            args.Username = args.RealName.GetPinYin().ToCamelCase();
 
         if (string.IsNullOrEmpty(args.Password))
             args.Password = BaseConst.DefaultPassword;

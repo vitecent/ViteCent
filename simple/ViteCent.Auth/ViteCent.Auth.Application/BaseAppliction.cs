@@ -27,22 +27,6 @@ namespace ViteCent.Auth.Application;
 public static class BaseAppliction
 {
     /// <summary>
-    /// /
-    /// </summary>
-    /// <param name="user"></param>
-    /// <param name="args"></param>
-    public static void AddCompanyId(this SearchArgs args, BaseUserInfo user)
-    {
-        args.Args.RemoveAll(x => x.Field == "CompanyId");
-
-        args.Args.Add(new SearchItem()
-        {
-            Field = "CompanyId",
-            Value = user.Company.Id,
-        });
-    }
-
-    /// <summary>
     /// </summary>
     /// <param name="mediator"></param>
     /// <param name="companyIds"></param>
@@ -131,22 +115,14 @@ public static class BaseAppliction
         {
             Offset = 0,
             Limit = int.MaxValue,
-            Args =
-            [
-                new ()
-                {
-                    Field = "CompanyId",
-                    Value = companyIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "Id",
-                    Value = departmentIds.ToJson(),
-                    Method = SearchEnum.In
-                }
-            ]
+            Args = []
         };
+
+        if (companyIds.Count > 0)
+            searchDepartmentArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (departmentIds.Count > 0)
+            searchDepartmentArgs.AddArgs("Id", departmentIds.ToJson(), SearchEnum.In);
 
         var departments = await mediator.Send(searchDepartmentArgs);
 
@@ -221,34 +197,20 @@ public static class BaseAppliction
         {
             Offset = 0,
             Limit = int.MaxValue,
-            Args =
-            [
-                new ()
-                {
-                    Field = "CompanyId",
-                    Value = companyIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "SystemId",
-                    Value = systemIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "ResourceId",
-                    Value = resourceIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "Id",
-                    Value = operationIds.ToJson(),
-                    Method = SearchEnum.In
-                }
-            ]
+            Args = []
         };
+
+        if (companyIds.Count > 0)
+            searchOperationArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (systemIds.Count > 0)
+            searchOperationArgs.AddArgs("SystemId", systemIds.ToJson(), SearchEnum.In);
+
+        if (resourceIds.Count > 0)
+            searchOperationArgs.AddArgs("ResourceId", resourceIds.ToJson(), SearchEnum.In);
+
+        if (operationIds.Count > 0)
+            searchOperationArgs.AddArgs("Id", operationIds.ToJson(), SearchEnum.In);
 
         var operations = await mediator.Send(searchOperationArgs);
 
@@ -325,22 +287,14 @@ public static class BaseAppliction
         {
             Offset = 0,
             Limit = int.MaxValue,
-            Args =
-            [
-                new ()
-                {
-                    Field = "CompanyId",
-                    Value = companyIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "Id",
-                    Value = positionIds.ToJson(),
-                    Method = SearchEnum.In
-                }
-            ]
+            Args = []
         };
+
+        if (companyIds.Count > 0)
+            searchPositionArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (positionIds.Count > 0)
+            searchPositionArgs.AddArgs("Id", positionIds.ToJson(), SearchEnum.In);
 
         var positions = await mediator.Send(searchPositionArgs);
 
@@ -413,28 +367,17 @@ public static class BaseAppliction
         {
             Offset = 0,
             Limit = int.MaxValue,
-            Args =
-            [
-                new ()
-                {
-                    Field = "CompanyId",
-                    Value = companyIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "SystemId",
-                    Value = systemIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "Id",
-                    Value = resourceIds.ToJson(),
-                    Method = SearchEnum.In
-                }
-            ]
+            Args = []
         };
+
+        if (companyIds.Count > 0)
+            searchResourceArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (systemIds.Count > 0)
+            searchResourceArgs.AddArgs("SystemId", systemIds.ToJson(), SearchEnum.In);
+
+        if (resourceIds.Count > 0)
+            searchResourceArgs.AddArgs("Id", resourceIds.ToJson(), SearchEnum.In);
 
         var resources = await mediator.Send(searchResourceArgs);
 
@@ -508,22 +451,14 @@ public static class BaseAppliction
         {
             Offset = 0,
             Limit = int.MaxValue,
-            Args =
-            [
-                new ()
-                {
-                    Field = "CompanyId",
-                    Value = companyIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "Id",
-                    Value = roleIds.ToJson(),
-                    Method = SearchEnum.In
-                }
-            ]
+            Args = []
         };
+
+        if (companyIds.Count > 0)
+            searchRoleArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (roleIds.Count > 0)
+            searchRoleArgs.AddArgs("Id", roleIds.ToJson(), SearchEnum.In);
 
         var roles = await mediator.Send(searchRoleArgs);
 
@@ -594,22 +529,14 @@ public static class BaseAppliction
         {
             Offset = 0,
             Limit = int.MaxValue,
-            Args =
-            [
-                new ()
-                {
-                    Field = "CompanyId",
-                    Value = companyIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "Id",
-                    Value = systemIds.ToJson(),
-                    Method = SearchEnum.In
-                }
-            ]
+            Args = []
         };
+
+        if (companyIds.Count > 0)
+            searchSystemArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (systemIds.Count > 0)
+            searchSystemArgs.AddArgs("Id", systemIds.ToJson(), SearchEnum.In);
 
         var systems = await mediator.Send(searchSystemArgs);
 
@@ -683,28 +610,17 @@ public static class BaseAppliction
         {
             Offset = 0,
             Limit = int.MaxValue,
-            Args =
-            [
-                new ()
-                {
-                    Field = "CompanyId",
-                    Value = companyIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "DepartmentId",
-                    Value = departmentIds.ToJson(),
-                    Method = SearchEnum.In
-                },
-                new ()
-                {
-                    Field = "Id",
-                    Value = userIds.ToJson(),
-                    Method = SearchEnum.In
-                }
-            ]
+            Args = []
         };
+
+        if (userIds.Count == 0)
+            searchUserArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (companyIds.Count == 0)
+            searchUserArgs.AddArgs("DepartmentId", departmentIds.ToJson(), SearchEnum.In);
+
+        if (departmentIds.Count == 0)
+            searchUserArgs.AddArgs("Id", userIds.ToJson(), SearchEnum.In);
 
         var users = await mediator.Send(searchUserArgs);
 

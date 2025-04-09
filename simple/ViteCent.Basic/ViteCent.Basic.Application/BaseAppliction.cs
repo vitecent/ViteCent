@@ -18,21 +18,6 @@ namespace ViteCent.Basic.Application;
 public static class BaseAppliction
 {
     /// <summary>
-    /// /
-    /// </summary>
-    /// <param name="user"></param>
-    /// <param name="args"></param>
-    public static void AddCompanyId(this SearchArgs args, BaseUserInfo user)
-    {
-        args.Args.RemoveAll(x => x.Field == "CompanyId");
-        args.Args.Add(new SearchItem()
-        {
-            Field = "CompanyId",
-            Value = user.Company.Id,
-        });
-    }
-
-    /// <summary>
     /// </summary>
     /// <param name="companyInvoke"></param>
     /// <param name="companyId"></param>
@@ -175,20 +160,10 @@ public static class BaseAppliction
         };
 
         if (companyIds.Count > 0)
-            searchDepartmentArgs.Args.Add(new()
-            {
-                Field = "CompanyId",
-                Value = companyIds.ToJson(),
-                Method = SearchEnum.In
-            });
+            searchDepartmentArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
         if (departmentIds.Count > 0)
-            searchDepartmentArgs.Args.Add(new()
-            {
-                Field = "Id",
-                Value = departmentIds.ToJson(),
-                Method = SearchEnum.In
-            });
+            searchDepartmentArgs.AddArgs("Id", departmentIds.ToJson(), SearchEnum.In);
 
         var departments = await departmentInvoke.InvokePostAsync("Auth", "/BaseDepartment/Page", searchDepartmentArgs, token);
 
@@ -271,20 +246,10 @@ public static class BaseAppliction
         };
 
         if (companyIds.Count > 0)
-            searchPositionArgs.Args.Add(new()
-            {
-                Field = "CompanyId",
-                Value = companyIds.ToJson(),
-                Method = SearchEnum.In
-            });
+            searchPositionArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
         if (positionIds.Count > 0)
-            searchPositionArgs.Args.Add(new()
-            {
-                Field = "Id",
-                Value = positionIds.ToJson(),
-                Method = SearchEnum.In
-            });
+            searchPositionArgs.AddArgs("Id", positionIds.ToJson(), SearchEnum.In);
 
         var positions = await positionInvoke.InvokePostAsync("Auth", "/BasePosition/Page", searchPositionArgs, token);
 
@@ -375,28 +340,13 @@ public static class BaseAppliction
         };
 
         if (companyIds.Count > 0)
-            searchUserArgs.Args.Add(new()
-            {
-                Field = "CompanyId",
-                Value = companyIds.ToJson(),
-                Method = SearchEnum.In
-            });
+            searchUserArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
         if (departmentIds.Count > 0)
-            searchUserArgs.Args.Add(new()
-            {
-                Field = "DepartmentId",
-                Value = departmentIds.ToJson(),
-                Method = SearchEnum.In
-            });
+            searchUserArgs.AddArgs("DepartmentId", departmentIds.ToJson(), SearchEnum.In);
 
         if (userIds.Count > 0)
-            searchUserArgs.Args.Add(new()
-            {
-                Field = "Id",
-                Value = userIds.ToJson(),
-                Method = SearchEnum.In
-            });
+            searchUserArgs.AddArgs("Id", userIds.ToJson(), SearchEnum.In);
 
         var users = await userInvoke.InvokePostAsync("Auth", "/BaseUser/Page", searchUserArgs, token);
 

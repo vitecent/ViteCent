@@ -183,16 +183,13 @@ public class Login(ILogger<Login> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
-                },
-                new()
-                {
-                    Field = "Id",
-                    Value = ids.ToJson(),
-                    Method = SearchEnum.In
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 }
             ]
         };
+
+        if (ids.Count > 0)
+            args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
             args.Args.Add(new()
@@ -229,16 +226,13 @@ public class Login(ILogger<Login> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
-                },
-                new()
-                {
-                    Field = "Id",
-                    Value = ids.ToJson(),
-                    Method = SearchEnum.In
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 }
             ]
         };
+
+        if (ids.Count > 0)
+            args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
             args.Args.Add(new()
@@ -274,16 +268,13 @@ public class Login(ILogger<Login> logger,
                 new ()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
-                },
-                new()
-                {
-                    Field = "Id",
-                    Value = ids.ToJson(),
-                    Method = SearchEnum.In
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 }
             ]
         };
+
+        if (ids.Count > 0)
+            args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
             args.Args.Add(new()
@@ -319,16 +310,13 @@ public class Login(ILogger<Login> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
-                },
-                new()
-                {
-                    Field = "RoleId",
-                    Value = ids.ToJson(),
-                    Method = SearchEnum.In
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 }
             ]
         };
+
+        if (ids.Count > 0)
+            args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
             args.Args.Add(new()
@@ -366,16 +354,13 @@ public class Login(ILogger<Login> logger,
                 new()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
-                },
-                new()
-                {
-                    Field = "Id",
-                    Value = ids.ToJson(),
-                    Method = SearchEnum.In
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 }
             ]
         };
+
+        if (ids.Count > 0)
+            args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
             args.Args.Add(new()
@@ -454,7 +439,7 @@ public class Login(ILogger<Login> logger,
                 new ()
                 {
                     Field = "Status",
-                    Value = StatusEnum.Enable.ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString(),
                 },
                 new()
                 {
