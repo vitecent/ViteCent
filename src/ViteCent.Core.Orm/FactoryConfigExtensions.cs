@@ -28,7 +28,7 @@ public class FactoryConfigExtensions
 
         var configuration = configs.FirstOrDefault(x => x.Name == key);
 
-        return configuration ?? throw new Exception("$!{Table.Description}库不存在");
+        return configuration ?? throw new Exception("数据库不存在");
     }
 
     /// <summary>

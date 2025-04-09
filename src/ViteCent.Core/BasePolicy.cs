@@ -23,23 +23,22 @@ public class BasePolicy<T>
     public static async Task<T> ExecuteAsync(Func<Task<T>> action, int timeOut = 15, int breaker = 2,
         int breakTimes = 30, params List<int> retryTimes)
     {
-        //var timeoutPolicy = Policy.TimeoutAsync(timeOut);
+        var timeoutPolicy = Policy.TimeoutAsync(timeOut);
 
-        //if (retryTimes.Count == 0)
-        //    retryTimes = [5, 10, 20];
+        if (retryTimes.Count == 0)
+            retryTimes = [5, 10, 20];
 
-        //var timeSpans = retryTimes.Select(x => TimeSpan.FromSeconds(x)).ToList();
+        var timeSpans = retryTimes.Select(x => TimeSpan.FromSeconds(x)).ToList();
 
-        //var retryPolicy = Policy.Handle<Exception>()
-        //    .Or<TimeoutRejectedException>()
-        //    .WaitAndRetryAsync(timeSpans);
+        var retryPolicy = Policy.Handle<Exception>()
+            .Or<TimeoutRejectedException>()
+            .WaitAndRetryAsync(timeSpans);
 
-        //var breakerPolicy = Policy.Handle<Exception>()
-        //    .CircuitBreakerAsync(breaker, TimeSpan.FromSeconds(breakTimes));
+        var breakerPolicy = Policy.Handle<Exception>()
+            .CircuitBreakerAsync(breaker, TimeSpan.FromSeconds(breakTimes));
 
-        //var policyWrap = timeoutPolicy.WrapAsync(retryPolicy).WrapAsync(breakerPolicy);
+        var policyWrap = timeoutPolicy.WrapAsync(retryPolicy).WrapAsync(breakerPolicy);
 
-        //return await policyWrap.ExecuteAsync<T>(action);
-        return await action();
+        return await policyWrap.ExecuteAsync<T>(action);
     }
 }

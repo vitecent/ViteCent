@@ -53,7 +53,7 @@ public class SearchArgs : BaseArgs
 
         foreach (var item in Args)
         {
-            if (item.Value.StartsWith("[") && item.Value.EndsWith("]"))
+            if (item.Value.StartsWith('[') && item.Value.EndsWith(']'))
             {
                 var values = item.Value.DeJson<List<string>>();
 
@@ -190,7 +190,7 @@ public class SearchArgs : BaseArgs
                 break;
 
             case SearchEnum.In:
-                sql = $"{item.Field} IN (@{item.Field}{index}) ";
+                sql = $"{item.Field} IN ({item.Value}) ";
                 break;
 
             case SearchEnum.NotIn:
@@ -263,8 +263,12 @@ public class SearchArgs : BaseArgs
                     parameters.Add($"{item.Field}{index}", $"%{item.Value}");
                 else if (item.Method == SearchEnum.LikeRight)
                     parameters.Add($"{item.Field}{index}", $"{item.Value}%");
+                else if (item.Method == SearchEnum.In)
+                {
+                }
                 else
                     parameters.Add($"{item.Field}{index}", item.Value ?? default!);
+
                 index++;
             }
         }

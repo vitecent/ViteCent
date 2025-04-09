@@ -66,7 +66,7 @@ public static class BaseSearchArgs
     {
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (companyId != user.Company.Id)
-                return new BaseResult(401, "您没有权限访问该$!{Table.Description}");
+                return new BaseResult(401, "您没有权限访问该数据");
 
         return await Task.FromResult(new BaseResult());
     }
