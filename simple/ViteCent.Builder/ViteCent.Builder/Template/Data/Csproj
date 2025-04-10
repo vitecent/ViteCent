@@ -10,10 +10,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.11.0" />
-		<PackageReference Include="ViteCent.Core" Version="$!{Version}" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\\$!{DataBase.Name}\\$!{DataBase.Name}.${Setting.Entity.Name}\\$!{DataBase.Name}.${Setting.Entity.Name}.csproj" />
+		<ProjectReference Include="..\..\..\src\ViteCent.Core\ViteCent.Core.csproj" />
 	</ItemGroup>
 </Project>

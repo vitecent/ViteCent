@@ -8,6 +8,7 @@
 
 #region
 
+using MediatR;
 #if($HasCompanyId)
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseCompany;
 #end
@@ -33,8 +34,10 @@ using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -45,6 +48,31 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 /// </summary>
 public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 {
+    /// <summary>
+    /// 验证参数
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="request"></param>
+    /// <param name="user"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request, BaseUserInfo user, CancellationToken cancellationToken)
+    {
+        return await Task.FromResult(new BaseResult());
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, $!{Table.CamelCaseName}$!{Setting.Entity.Name} entity, CancellationToken cancellationToken)
+    {
+        await Task.CompletedTask;
+    }
+
     /// <summary>
     /// 验证参数
     /// </summary>

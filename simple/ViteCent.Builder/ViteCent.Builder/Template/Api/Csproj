@@ -11,10 +11,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ViteCent.Core.Web" Version="$!{Version}" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<ProjectReference Include="..\..\..\src\ViteCent.Core.Web\ViteCent.Core.Web.csproj" />
 		<ProjectReference Include="..\\$!{DataBase.Name}.$!{Setting.Application.Name}\\$!{DataBase.Name}.$!{Setting.Application.Name}.csproj" />
 	</ItemGroup>
 </Project>

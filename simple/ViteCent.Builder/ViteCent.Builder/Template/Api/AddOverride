@@ -27,25 +27,26 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// 验证参数
     /// </summary>
     /// <param name="args"></param>
+    /// <param name="user"></param>
     /// <returns></returns>
-    private void OverrideInvoke($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} , BaseUserInfo user)
+    internal static void OverrideInvoke($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args, BaseUserInfo user)
     {
 #if($HasCompanyId)
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = User.Company.Id;
+                args.CompanyId = user.Company.Id;
 
 #end
 #if($HasDepartmentId)
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = User.Department.Id;
+                args.DepartmentId = user.Department.Id;
 
 #end
 #if($HasPositionId)
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
-                args.PositionId = User.Position.Id;
+                args.PositionId = user.Position.Id;
 
 #end
     }

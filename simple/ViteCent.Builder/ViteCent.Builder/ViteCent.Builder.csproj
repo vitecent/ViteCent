@@ -144,6 +144,9 @@
 		<None Update="Template\Application\Csproj">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Template\Application\BaseApplication">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 
 		<None Update="Template\Data\AddArgs">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>

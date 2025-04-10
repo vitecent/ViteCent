@@ -111,8 +111,8 @@ public class GenerateExtensions
 
                 var hasOverride = File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
 
-                if (!hasOverride)
-                    nh.Save(@"Template\Api\AddOverride", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                //if (!hasOverride)
+                nh.Save(@"Template\Api\AddOverride", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
             }
 
             if (!string.IsNullOrWhiteSpace(setting.EditName))
@@ -148,8 +148,8 @@ public class GenerateExtensions
 
             var hasOverride = File.Exists(Path.Combine(apiPth, $"{setting.Api.FacName}.Override.cs"));
 
-            if (!hasOverride)
-                nh.Save(@"Template\Api\AutoFacConfigOverride", Path.Combine(apiPth, $"{setting.Api.FacName}.Override.cs"));
+            //if (!hasOverride)
+            nh.Save(@"Template\Api\AutoFacConfigOverride", Path.Combine(apiPth, $"{setting.Api.FacName}.Override.cs"));
         }
 
         if (!string.IsNullOrWhiteSpace(setting.Api.MapperName))
@@ -158,8 +158,8 @@ public class GenerateExtensions
 
             var hasOverride = File.Exists(Path.Combine(apiPth, $"{setting.Api.MapperName}.Override.cs"));
 
-            if (!hasOverride)
-                nh.Save(@"Template\Api\AutoMapperConfigOverride", Path.Combine(apiPth, $"{setting.Api.MapperName}.Override.cs"));
+            //if (!hasOverride)
+            nh.Save(@"Template\Api\AutoMapperConfigOverride", Path.Combine(apiPth, $"{setting.Api.MapperName}.Override.cs"));
         }
 
         nh.Save(@"Template\Api\Dockerfile", Path.Combine(apiPth, "Dockerfile"));
@@ -167,8 +167,8 @@ public class GenerateExtensions
 
         var hasCsproj = File.Exists(Path.Combine(apiPth, $"{database.Name}.{setting.Api.Name}.csproj"));
 
-        if (!hasCsproj)
-            nh.Save(@"Template\Api\Csproj", Path.Combine(apiPth, $"{database.Name}.{setting.Api.Name}.csproj"));
+        //if (!hasCsproj)
+        nh.Save(@"Template\Api\Csproj", Path.Combine(apiPth, $"{database.Name}.{setting.Api.Name}.csproj"));
     }
 
     /// <summary>
@@ -234,9 +234,9 @@ public class GenerateExtensions
 
                     var hasOverride = File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
 
-                    if (!hasOverride)
-                        nh.Save(@"Template\Application\AddInvokeOverride",
-                       Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                    //if (!hasOverride)
+                    nh.Save(@"Template\Application\AddInvokeOverride",
+                   Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
                 }
                 else
                 {
@@ -248,9 +248,9 @@ public class GenerateExtensions
 
                     var hasOverride = File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
 
-                    if (!hasOverride)
-                        nh.Save(@"Template\Application\AddOverride",
-                       Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                    //if (!hasOverride)
+                    nh.Save(@"Template\Application\AddOverride",
+                   Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
                 }
             }
 
@@ -263,9 +263,9 @@ public class GenerateExtensions
 
                     var hasOverride = File.Exists(Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
 
-                    if (!hasOverride)
-                        nh.Save(@"Template\Application\EditInvokeOverride",
-                       Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
+                    //if (!hasOverride)
+                    nh.Save(@"Template\Application\EditInvokeOverride",
+                   Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
                 }
                 else
                 {
@@ -274,9 +274,9 @@ public class GenerateExtensions
 
                     var hasOverride = File.Exists(Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
 
-                    if (!hasOverride)
-                        nh.Save(@"Template\Application\EditOverride",
-                       Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
+                    //if (!hasOverride)
+                    nh.Save(@"Template\Application\EditOverride",
+                   Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
                 }
             }
 
@@ -301,11 +301,17 @@ public class GenerateExtensions
                        Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
         }
 
+        var hasBase = File.Exists(Path.Combine(applicatioPath, $"Base{setting.Application.Name}.cs"));
+
+        //if (!hasBase)
+        nh.Save(@"Template\Application\BaseApplication",
+        Path.Combine(applicatioPath, $"Base{setting.Application.Name}.cs"));
+
         var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
 
-        if (!hasCsproj)
-            nh.Save(@"Template\Application\Csproj",
-            Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
+        //if (!hasCsproj)
+        nh.Save(@"Template\Application\Csproj",
+        Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
     }
 
     /// <summary>
@@ -385,9 +391,9 @@ public class GenerateExtensions
 
                 var hasOverride = File.Exists(Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.Override.cs"));
 
-                if (!hasOverride)
-                    nh.Save(@"Template\Data\ValidatorOverride",
-                        Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.Override.cs"));
+                //if (!hasOverride)
+                nh.Save(@"Template\Data\ValidatorOverride",
+                    Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.Override.cs"));
             }
 
             if (!string.IsNullOrWhiteSpace(setting.GetName))
@@ -423,16 +429,16 @@ public class GenerateExtensions
             {
                 var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
-                if (!hasOverride)
-                    nh.Save(@"Template\Data\HasArgs",
-                        Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                //if (!hasOverride)
+                nh.Save(@"Template\Data\HasArgs",
+                    Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
             }
         }
 
         var hasCsproj = File.Exists(Path.Combine(dataPath, $"{database.Name}.{setting.Data.Name}.csproj"));
 
-        if (!hasCsproj)
-            nh.Save(@"Template\Data\Csproj", Path.Combine(dataPath, $"{database.Name}.{setting.Data.Name}.csproj"));
+        //if (!hasCsproj)
+        nh.Save(@"Template\Data\Csproj", Path.Combine(dataPath, $"{database.Name}.{setting.Data.Name}.csproj"));
     }
 
     /// <summary>
@@ -502,23 +508,23 @@ public class GenerateExtensions
             {
                 var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}.cs"));
 
-                if (!hasOverride)
-                    nh.Save(@"Template\Domain\Has",
-                    Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}.cs"));
+                //if (!hasOverride)
+                nh.Save(@"Template\Domain\Has",
+                Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}.cs"));
 
                 var hasListOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
 
-                if (!hasListOverride)
-                    nh.Save(@"Template\Domain\HasList",
-                    Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+                //if (!hasListOverride)
+                nh.Save(@"Template\Domain\HasList",
+                Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
             }
         }
 
         var hasCsproj = File.Exists(Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
 
-        if (!hasCsproj)
-            nh.Save(@"Template\Domain\Csproj",
-            Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
+        //if (!hasCsproj)
+        nh.Save(@"Template\Domain\Csproj",
+        Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
     }
 
     /// <summary>
@@ -592,16 +598,16 @@ public class GenerateExtensions
             {
                 var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
 
-                if (!hasOverride)
-                    nh.Save(@"Template\Entity\HasEntityListArgs",
-                        Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+                //if (!hasOverride)
+                nh.Save(@"Template\Entity\HasEntityListArgs",
+                    Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
             }
         }
 
         var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
 
-        if (!hasCsproj)
-            nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
+        //if (!hasCsproj)
+        nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
     }
 
     /// <summary>
@@ -620,7 +626,7 @@ public class GenerateExtensions
 
         var hasSolution = File.Exists(Path.Combine(path, $"{setting.ProjrectName}.sln"));
 
-        if (!hasSolution)
-            nh.Save(@"Template\Sln", Path.Combine(path, $"{database.Name}.sln"));
+        //if (!hasSolution)
+        nh.Save(@"Template\Sln", Path.Combine(path, $"{database.Name}.sln"));
     }
 }

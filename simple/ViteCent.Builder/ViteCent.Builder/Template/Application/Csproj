@@ -10,10 +10,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="14.0.0" />
-		<PackageReference Include="ViteCent.Core.Cache" Version="$!{Version}" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\src\ViteCent.Core.Authorize.Jwt\ViteCent.Core.Authorize.Jwt.csproj" />
+		<ProjectReference Include="..\..\..\src\ViteCent.Core.Cache\ViteCent.Core.Cache.csproj" />
 		<ProjectReference Include="..\..\\$!{DataBase.Name}\\$!{DataBase.Name}.${Setting.Domain.Name}\\$!{DataBase.Name}.${Setting.Domain.Name}.csproj" />
 	</ItemGroup>
 </Project>
