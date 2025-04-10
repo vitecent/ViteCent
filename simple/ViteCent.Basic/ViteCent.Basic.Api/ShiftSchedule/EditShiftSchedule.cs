@@ -42,8 +42,8 @@ public class EditShiftSchedule(ILogger<EditShiftSchedule> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.ShiftSchedule.EditShiftSchedule");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new ShiftScheduleValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new ShiftScheduleValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

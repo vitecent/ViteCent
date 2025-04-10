@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseResource;
 using ViteCent.Auth.Entity.BaseResource;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -54,17 +55,17 @@ public partial class EditBaseResource(ILogger<EditBaseResource> logger,
         if (!check.Success)
             return check;
 
-        var args = mapper.Map<GetBaseResourceEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseResourceEntityArgs>(request);
 
-        var entity = await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
 
         if (entity == null)
             return new BaseResult(500, "资源信息不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.Abbreviation = request.Abbreviation;
         entity.Code = request.Code;
@@ -80,6 +81,10 @@ public partial class EditBaseResource(ILogger<EditBaseResource> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddBaseResource.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

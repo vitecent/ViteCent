@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseResource;
 using ViteCent.Auth.Entity.BaseResource;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -53,8 +54,19 @@ public class DeleteBaseResource(ILogger<DeleteBaseResource> logger,
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var args = mapper.Map<DeleteBaseResourceEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseResourceEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "资源信息不存在");
+
+        var args = mapper.Map<DeleteBaseResourceEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddBaseResource.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

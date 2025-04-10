@@ -30,6 +30,7 @@ using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Cache;
 #end
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -117,15 +118,17 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
         entity.CreateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-#if($HasId)
         var result = await mediator.Send(entity, cancellationToken);
 
+#if($HasId)
         if (!result.Success)
             return result;
 
-        return new BaseResult(entity.Id);
-#else
-        return await await mediator.Send(entity, cancellationToken);
+        result.Message = entity.Id;
+
 #end
+        await OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

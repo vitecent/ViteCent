@@ -18,6 +18,7 @@ using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -71,20 +72,20 @@ public partial class EditShiftSchedule(ILogger<EditShiftSchedule> logger,
         if (entity == null)
             return new BaseResult(500, "换班申请不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.CompanyName = request.CompanyName;
         entity.DepartmentName = request.DepartmentName;
+        entity.Job = request.Job;
         entity.Remark = request.Remark;
         entity.ScheduleId = request.ScheduleId;
         entity.ScheduleName = request.ScheduleName;
         entity.ShiftDepartmentId = request.ShiftDepartmentId;
         entity.ShiftDepartmentName = request.ShiftDepartmentName;
-        entity.ShiftScheduleId = request.ShiftScheduleId;
-        entity.ShiftScheduleName = request.ShiftScheduleName;
+        entity.ShiftJob = request.ShiftJob;
         entity.ShiftUserId = request.ShiftUserId;
         entity.ShiftUserName = request.ShiftUserName;
         entity.Status = request.Status;
@@ -94,6 +95,10 @@ public partial class EditShiftSchedule(ILogger<EditShiftSchedule> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddShiftSchedule.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

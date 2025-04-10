@@ -3,6 +3,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ViteCent.Basic.Data.UserLeave;
+using ViteCent.Basic.Data.UserRest;
 using ViteCent.Basic.Entity.UserLeave;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
@@ -29,13 +30,10 @@ public class HasUserLeave(ILogger<HasUserLeave> logger) : BaseDomain<UserLeaveEn
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserLeave.HasUserLeave");
 
-        var query = Client.Query<UserLeaveEntity>();
-
-        if (request.Status != default)
-            query.Where(x => x.Status == (int)request.Status);
+        var query = Client.Query<UserLeaveEntity>().Where(x => x.Status != (int)UserLeaveEnum.Pass);
 
         if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
+            query.Where(x => x.Id != request.Id);
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);

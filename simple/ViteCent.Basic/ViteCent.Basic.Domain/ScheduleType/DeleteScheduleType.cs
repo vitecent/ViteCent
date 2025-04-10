@@ -21,7 +21,7 @@ namespace ViteCent.Basic.Domain.ScheduleType;
 /// 删除基础排班
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteScheduleType(ILogger<DeleteScheduleType> logger) : BaseDomain<ScheduleTypeEntity>, IRequestHandler<DeleteScheduleTypeEntityArgs, BaseResult>
+public class DeleteScheduleType(ILogger<DeleteScheduleType> logger) : BaseDomain<DeleteScheduleTypeEntity>, IRequestHandler<DeleteScheduleTypeEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,23 +34,10 @@ public class DeleteScheduleType(ILogger<DeleteScheduleType> logger) : BaseDomain
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(DeleteScheduleTypeEntityArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(DeleteScheduleTypeEntity request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ScheduleType.DeleteScheduleType");
 
-        var query = Client.Query<ScheduleTypeEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-        if (!string.IsNullOrWhiteSpace(request.DepartmentId))
-            query.Where(x => x.DepartmentId == request.DepartmentId);
-
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

@@ -29,10 +29,10 @@ public class HasUserRest(ILogger<HasUserRest> logger) : BaseDomain<UserRestEntit
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserRest.HasUserRest");
 
-        var query = Client.Query<UserRestEntity>();
+        var query = Client.Query<UserRestEntity>().Where(x => x.Status != (int)UserRestEnum.Pass);
 
         if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
+            query.Where(x => x.Id != request.Id);
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);

@@ -5,7 +5,9 @@
 
 #region
 
+using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Data.ShiftSchedule;
+using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Core.Data;
 
@@ -42,9 +44,9 @@ public partial class EditShiftSchedule
         if (string.IsNullOrWhiteSpace(request.CompanyId))
             request.CompanyId = companyId;
 
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty); ;
+        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         request.CompanyName = hasCompany.Data.Name;
@@ -56,17 +58,30 @@ public partial class EditShiftSchedule
 
         var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
 
-        if (hasDepartment.Success)
+        if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment.Data.Name;
 
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 
-        if (hasUser.Success)
+        if (!hasUser.Success)
             return hasUser;
 
         request.UserName = hasUser.Data.RealName;
+
+        var args = mapper.Map<GetScheduleEntityArgs>(request);
+        args.Id = request.ScheduleId;
+
+        var entity = await mediator.Send(args, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "排班信息不存在");
+
+        if (entity.Status != (int)ScheduleEnum.None)
+            return new BaseResult(500, "只有未打卡的班次才能换班");
+
+        request.ScheduleName = entity.Shift;
 
         var hasArgs = new HasShiftScheduleEntityArgs
         {
@@ -77,7 +92,6 @@ public partial class EditShiftSchedule
             ScheduleId = request.ScheduleId,
             ShiftDepartmentId = request.ShiftDepartmentId,
             ShiftUserId = request.ShiftUserId,
-            ShiftScheduleId = request.ShiftScheduleId
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

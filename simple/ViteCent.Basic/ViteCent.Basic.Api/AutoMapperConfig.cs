@@ -43,7 +43,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<GetRepairScheduleArgs, GetRepairScheduleEntityArgs>();
         CreateMap<SearchRepairScheduleArgs, SearchRepairScheduleEntityArgs>();
         CreateMap<RepairScheduleEntity, RepairScheduleResult>();
-        CreateMap<DeleteRepairScheduleArgs, DeleteRepairScheduleEntityArgs>();
+        CreateMap<DeleteRepairScheduleArgs, GetRepairScheduleEntityArgs>();
+        CreateMap<RepairScheduleEntity, DeleteRepairScheduleEntity>();
 
         #endregion
 
@@ -54,7 +55,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<GetScheduleArgs, GetScheduleEntityArgs>();
         CreateMap<SearchScheduleArgs, SearchScheduleEntityArgs>();
         CreateMap<ScheduleEntity, ScheduleResult>();
-        CreateMap<DeleteScheduleArgs, DeleteScheduleEntityArgs>();
+        CreateMap<DeleteScheduleArgs, GetScheduleEntityArgs>();
+        CreateMap<ScheduleEntity, DeleteScheduleEntity>();
 
         #endregion
 
@@ -65,7 +67,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<GetScheduleTypeArgs, GetScheduleTypeEntityArgs>();
         CreateMap<SearchScheduleTypeArgs, SearchScheduleTypeEntityArgs>();
         CreateMap<ScheduleTypeEntity, ScheduleTypeResult>();
-        CreateMap<DeleteScheduleTypeArgs, DeleteScheduleTypeEntityArgs>();
+        CreateMap<DeleteScheduleTypeArgs, GetScheduleTypeEntityArgs>();
+        CreateMap<ScheduleTypeEntity, DeleteScheduleTypeEntity>();
 
         #endregion
 
@@ -76,7 +79,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<GetShiftScheduleArgs, GetShiftScheduleEntityArgs>();
         CreateMap<SearchShiftScheduleArgs, SearchShiftScheduleEntityArgs>();
         CreateMap<ShiftScheduleEntity, ShiftScheduleResult>();
-        CreateMap<DeleteShiftScheduleArgs, DeleteShiftScheduleEntityArgs>();
+        CreateMap<DeleteShiftScheduleArgs, GetShiftScheduleEntityArgs>();
+        CreateMap<ShiftScheduleEntity, DeleteShiftScheduleEntity>();
 
         #endregion
 
@@ -87,7 +91,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<GetUserLeaveArgs, GetUserLeaveEntityArgs>();
         CreateMap<SearchUserLeaveArgs, SearchUserLeaveEntityArgs>();
         CreateMap<UserLeaveEntity, UserLeaveResult>();
-        CreateMap<DeleteUserLeaveArgs, DeleteUserLeaveEntityArgs>();
+        CreateMap<DeleteUserLeaveArgs, GetUserLeaveEntityArgs>();
+        CreateMap<UserLeaveEntity, DeleteUserLeaveEntity>();
 
         #endregion
 
@@ -98,7 +103,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<GetUserRestArgs, GetUserRestEntityArgs>();
         CreateMap<SearchUserRestArgs, SearchUserRestEntityArgs>();
         CreateMap<UserRestEntity, UserRestResult>();
-        CreateMap<DeleteUserRestArgs, DeleteUserRestEntityArgs>();
+        CreateMap<DeleteUserRestArgs, GetUserRestEntityArgs>();
+        CreateMap<UserRestEntity, DeleteUserRestEntity>();
 
         #endregion
 

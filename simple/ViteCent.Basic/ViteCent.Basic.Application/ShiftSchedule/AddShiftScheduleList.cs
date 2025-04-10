@@ -19,6 +19,7 @@ using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -90,6 +91,11 @@ public class AddShiftScheduleList(ILogger<AddShiftScheduleList> logger,
             entitys.Items.Add(entity);
         }
 
-        return await mediator.Send(entitys, cancellationToken);
+        var result = await mediator.Send(entitys, cancellationToken);
+
+        foreach (var entity in entitys.Items)
+            await AddShiftSchedule.OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

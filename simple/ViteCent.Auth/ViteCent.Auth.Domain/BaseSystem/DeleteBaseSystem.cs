@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Domain.BaseSystem;
 /// 删除系统信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger) : BaseDomain<BaseSystemEntity>, IRequestHandler<DeleteBaseSystemEntityArgs, BaseResult>
+public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger) : BaseDomain<DeleteBaseSystemEntity>, IRequestHandler<DeleteBaseSystemEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,20 +34,10 @@ public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger) : BaseDomain<Bas
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(DeleteBaseSystemEntityArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(DeleteBaseSystemEntity request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseSystem.DeleteBaseSystem");
 
-        var query = Client.Query<BaseSystemEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

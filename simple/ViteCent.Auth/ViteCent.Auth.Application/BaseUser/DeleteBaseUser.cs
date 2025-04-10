@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -63,8 +64,19 @@ public class DeleteBaseUser(ILogger<DeleteBaseUser> logger,
         if (!string.IsNullOrWhiteSpace(positionId))
             request.PositionId = positionId;
 
-        var args = mapper.Map<DeleteBaseUserEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseUserEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "用户信息不存在");
+
+        var args = mapper.Map<DeleteBaseUserEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddBaseUser.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

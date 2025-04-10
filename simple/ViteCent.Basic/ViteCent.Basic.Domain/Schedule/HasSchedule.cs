@@ -32,7 +32,7 @@ public class HasSchedule(ILogger<HasSchedule> logger) : BaseDomain<ScheduleEntit
         var query = Client.Query<ScheduleEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
+            query.Where(x => x.Id != request.Id);
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);

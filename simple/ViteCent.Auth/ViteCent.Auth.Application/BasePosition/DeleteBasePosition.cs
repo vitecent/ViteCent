@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -53,8 +54,19 @@ public class DeleteBasePosition(ILogger<DeleteBasePosition> logger,
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var args = mapper.Map<DeleteBasePositionEntityArgs>(request);
+        var getArgs = mapper.Map<GetBasePositionEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "职位信息不存在");
+
+        var args = mapper.Map<DeleteBasePositionEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddBasePosition.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

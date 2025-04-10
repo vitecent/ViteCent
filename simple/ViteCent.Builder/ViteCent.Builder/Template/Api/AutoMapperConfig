@@ -56,7 +56,8 @@ public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
         CreateMap<$!{Table.CamelCaseName}$!{Setting.Entity.Name}, $!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>();
 #end
 #if($Setting.DeleteName != "")
-        CreateMap<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+        CreateMap<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+        CreateMap<$!{Table.CamelCaseName}$!{Setting.Entity.Name}, $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
 #end
 
         #endregion

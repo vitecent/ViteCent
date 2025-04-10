@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Domain.BaseDepartment;
 /// 删除部门信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBaseDepartment(ILogger<DeleteBaseDepartment> logger) : BaseDomain<BaseDepartmentEntity>, IRequestHandler<DeleteBaseDepartmentEntityArgs, BaseResult>
+public class DeleteBaseDepartment(ILogger<DeleteBaseDepartment> logger) : BaseDomain<DeleteBaseDepartmentEntity>, IRequestHandler<DeleteBaseDepartmentEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,20 +34,10 @@ public class DeleteBaseDepartment(ILogger<DeleteBaseDepartment> logger) : BaseDo
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(DeleteBaseDepartmentEntityArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(DeleteBaseDepartmentEntity request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseDepartment.DeleteBaseDepartment");
 
-        var query = Client.Query<BaseDepartmentEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

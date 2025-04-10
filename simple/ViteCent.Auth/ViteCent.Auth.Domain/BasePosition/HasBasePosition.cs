@@ -39,7 +39,7 @@ public class HasBasePosition(ILogger<HasBasePosition> logger) : BaseDomain<BaseP
         var query = Client.Query<BasePositionEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
+            query.Where(x => x.Id != request.Id);
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);

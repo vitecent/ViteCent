@@ -39,7 +39,7 @@ public class HasShiftScheduleList(ILogger<HasShiftScheduleList> logger) : BaseDo
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ShiftSchedule.HasShiftSchedule");
 
-        var query = Client.Query<ShiftScheduleEntity>();
+        var query = Client.Query<ShiftScheduleEntity>().Where(x => x.Status != (int)ShiftScheduleEnum.Pass);
 
         request.CompanyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
@@ -55,6 +55,21 @@ public class HasShiftScheduleList(ILogger<HasShiftScheduleList> logger) : BaseDo
 
         if (request.UserIds.Count > 0)
             query.Where(x => request.UserIds.Contains(x.UserId));
+
+        request.ScheduleIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (request.ScheduleIds.Count > 0)
+            query.Where(x => request.ScheduleIds.Contains(x.ScheduleId));
+
+        request.ShiftDepartmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (request.ShiftDepartmentIds.Count > 0)
+            query.Where(x => request.ShiftDepartmentIds.Contains(x.ShiftDepartmentName));
+
+        request.ShiftUserIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (request.ShiftUserIds.Count > 0)
+            query.Where(x => request.ShiftUserIds.Contains(x.ShiftUserId));
 
         var entity = await query.CountAsync(cancellationToken);
 

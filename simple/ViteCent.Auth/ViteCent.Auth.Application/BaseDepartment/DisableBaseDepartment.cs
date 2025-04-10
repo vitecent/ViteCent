@@ -65,6 +65,10 @@ public partial class DisableBaseDepartment(ILogger<DisableBaseDepartment> logger
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddBaseDepartment.OverrideTopic(mediator, TopicEnum.Disable, entity, cancellationToken);
+
+        return result;
     }
 }

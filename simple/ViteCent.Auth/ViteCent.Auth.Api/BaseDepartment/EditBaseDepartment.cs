@@ -42,8 +42,8 @@ public class EditBaseDepartment(ILogger<EditBaseDepartment> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseDepartment.EditBaseDepartment");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BaseDepartmentValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BaseDepartmentValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

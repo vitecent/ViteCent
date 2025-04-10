@@ -5,6 +5,7 @@
 
 #region
 
+using MediatR;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BasePosition;
@@ -15,6 +16,7 @@ using ViteCent.Basic.Data.UserRest;
 using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -94,7 +96,6 @@ public partial class AddSchedule
             foreach (var data in items)
             {
                 data.UserName = item.RealName;
-                data.PositionName = item.PositionName;
             }
         }
 
@@ -112,6 +113,18 @@ public partial class AddSchedule
 
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ScheduleEntity entity, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(0);
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -122,9 +135,9 @@ public partial class AddSchedule
         if (string.IsNullOrWhiteSpace(request.CompanyId))
             request.CompanyId = companyId;
 
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty); ;
+        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -134,14 +147,14 @@ public partial class AddSchedule
 
         var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
 
-        if (hasDepartment.Success)
+        if (!hasDepartment.Success)
             return hasDepartment;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 
-        if (hasUser.Success)
+        if (!hasUser.Success)
             return hasUser;
 
         var hasLeaveArgs = new HasUserLeaveEntityArgs()
@@ -151,7 +164,6 @@ public partial class AddSchedule
             UserId = request.UserId,
             StartTime = request.StartTime,
             EndTime = request.EndTime,
-            Status = UserLeaveEnum.Pass
         };
 
         var hasLeave = await mediator.Send(hasLeaveArgs, cancellationToken);

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -58,8 +59,19 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger,
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        var args = mapper.Map<DeleteShiftScheduleEntityArgs>(request);
+        var getArgs = mapper.Map<GetShiftScheduleEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "换班申请不存在");
+
+        var args = mapper.Map<DeleteShiftScheduleEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddShiftSchedule.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

@@ -114,6 +114,12 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     public string IdCard { get; set; } = string.Empty;
 
     /// <summary>
+    /// 超级管理员
+    /// </summary>
+    [SugarColumn(ColumnName = "isSuper")]
+    public int IsSuper { get; set; }
+
+    /// <summary>
     /// 昵称
     /// </summary>
     [SugarColumn(ColumnName = "nickname")]

@@ -3,7 +3,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using SqlSugar.DistributedSystem.Snowflake;
 using ViteCent.Auth.Data.BaseOperation;
 using ViteCent.Auth.Data.BaseResource;
 using ViteCent.Auth.Data.BaseRolePermission;
@@ -73,7 +72,7 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
 
         var args = new SearchBaseOperationArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -160,7 +159,7 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
 
         var args = new SearchBaseResourceArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -199,7 +198,7 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
     {
         var args = new SearchBaseSystemArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [

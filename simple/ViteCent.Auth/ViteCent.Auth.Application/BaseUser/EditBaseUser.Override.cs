@@ -45,7 +45,7 @@ public partial class EditBaseUser
 
         var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         request.CompanyName = hasCompany.Data.Name;
@@ -57,7 +57,7 @@ public partial class EditBaseUser
 
         var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
 
-        if (hasDepartment.Success)
+        if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment.Data.Name;
@@ -69,7 +69,7 @@ public partial class EditBaseUser
 
         var hasPosition = await mediator.CheckPosition(request.CompanyId, request.PositionId);
 
-        if (hasPosition.Success)
+        if (!hasPosition.Success)
             return hasPosition;
 
         request.PositionName = hasPosition.Data.Name;

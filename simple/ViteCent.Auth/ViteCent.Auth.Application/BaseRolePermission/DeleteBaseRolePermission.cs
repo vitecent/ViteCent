@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Auth.Entity.BaseRolePermission;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -53,8 +54,19 @@ public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger,
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var args = mapper.Map<DeleteBaseRolePermissionEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseRolePermissionEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "角色权限不存在");
+
+        var args = mapper.Map<DeleteBaseRolePermissionEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddBaseRolePermission.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

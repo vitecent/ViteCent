@@ -17,6 +17,7 @@ using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -68,10 +69,10 @@ public partial class EditScheduleType(ILogger<EditScheduleType> logger,
         if (entity == null)
             return new BaseResult(500, "基础排班不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.Code = request.Code;
         entity.CompanyName = request.CompanyName;
@@ -86,6 +87,10 @@ public partial class EditScheduleType(ILogger<EditScheduleType> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddScheduleType.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

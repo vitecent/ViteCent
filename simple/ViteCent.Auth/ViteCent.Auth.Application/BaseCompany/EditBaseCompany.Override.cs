@@ -33,7 +33,6 @@ public partial class EditBaseCompany
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    /// 
     private async Task<BaseResult> OverrideHandle(EditBaseCompanyArgs request, CancellationToken cancellationToken)
     {
         if (!string.IsNullOrWhiteSpace(request.ParentId))

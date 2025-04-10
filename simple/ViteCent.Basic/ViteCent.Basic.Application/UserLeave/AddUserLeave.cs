@@ -19,6 +19,7 @@ using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Basic.Entity.UserLeave;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -85,6 +86,10 @@ public partial class AddUserLeave(ILogger<AddUserLeave> logger,
         if (!result.Success)
             return result;
 
-        return new BaseResult(entity.Id);
+        result.Message = entity.Id;
+
+        await OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

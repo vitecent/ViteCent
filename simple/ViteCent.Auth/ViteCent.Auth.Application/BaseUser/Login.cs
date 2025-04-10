@@ -66,10 +66,8 @@ public class Login(ILogger<Login> logger,
             Id = user.Id,
             Name = user.RealName,
             Code = user.Username,
+            IsSuper = user.IsSuper,
         };
-
-        if (string.IsNullOrWhiteSpace(user.CompanyId))
-            userInfo.IsSuper = (int)YesNoEnum.Yes;
 
         if (!string.IsNullOrWhiteSpace(user.CompanyId))
         {
@@ -176,7 +174,7 @@ public class Login(ILogger<Login> logger,
     {
         var args = new SearchBaseOperationArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -219,7 +217,7 @@ public class Login(ILogger<Login> logger,
     {
         var args = new SearchBaseResourceArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -261,7 +259,7 @@ public class Login(ILogger<Login> logger,
     {
         var args = new SearchBaseRoleArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -303,7 +301,7 @@ public class Login(ILogger<Login> logger,
     {
         var args = new SearchBaseRolePermissionArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -347,7 +345,7 @@ public class Login(ILogger<Login> logger,
     {
         var args = new SearchBaseSystemArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -432,7 +430,7 @@ public class Login(ILogger<Login> logger,
     {
         var args = new SearchBaseUserRoleArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [

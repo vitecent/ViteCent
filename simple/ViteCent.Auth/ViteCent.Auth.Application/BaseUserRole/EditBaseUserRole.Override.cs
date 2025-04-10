@@ -42,7 +42,7 @@ public partial class EditBaseUserRole
 
         var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -52,7 +52,7 @@ public partial class EditBaseUserRole
 
         var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
 
-        if (hasDepartment.Success)
+        if (!hasDepartment.Success)
             return hasDepartment;
 
         var hasUser = await mediator.CheckUser(request.CompanyId, request.DepartmentId, request.UserId);
@@ -62,7 +62,7 @@ public partial class EditBaseUserRole
 
         var hasRole = await mediator.CheckRole(request.CompanyId, request.RoleId);
 
-        if (hasRole.Success)
+        if (!hasRole.Success)
             return hasRole;
 
         var hasArgs = new HasBaseUserRoleEntityArgs

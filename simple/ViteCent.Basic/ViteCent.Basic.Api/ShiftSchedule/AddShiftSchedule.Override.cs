@@ -23,7 +23,7 @@ public partial class AddShiftSchedule
     /// <returns></returns>
     internal static void OverrideInvoke(AddShiftScheduleArgs args, Core.Data.BaseUserInfo user)
     {
-        args.Status = (int)ShiftScheduleEnum.Apply;
+        args.Status = (int)ShiftScheduleEnum.Pass;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
@@ -32,5 +32,9 @@ public partial class AddShiftSchedule
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 args.DepartmentId = user.Department.Id;
+
+        if (user.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.ShiftDepartmentId))
+                args.ShiftDepartmentId = user.Department.Id;
     }
 }

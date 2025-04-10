@@ -39,7 +39,7 @@ public class HasUserRestList(ILogger<HasUserRestList> logger) : BaseDomain<UserR
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserRest.HasUserRest");
 
-        var query = Client.Query<UserRestEntity>();
+        var query = Client.Query<UserRestEntity>().Where(x => x.Status != (int)UserRestEnum.Pass);
 
         request.CompanyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
@@ -55,6 +55,10 @@ public class HasUserRestList(ILogger<HasUserRestList> logger) : BaseDomain<UserR
 
         if (request.UserIds.Count > 0)
             query.Where(x => request.UserIds.Contains(x.UserId));
+
+        query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
+                    (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                    (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entity = await query.CountAsync(cancellationToken);
 

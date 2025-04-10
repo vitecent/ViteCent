@@ -27,7 +27,7 @@ public static class BaseAppliction
         string companyId,
         string token)
     {
-        if (!string.IsNullOrWhiteSpace(companyId))
+        if (string.IsNullOrWhiteSpace(companyId))
             return new DataResult<BaseCompanyResult>();
 
         var getCompanyArgs = new GetBaseCompanyArgs
@@ -66,7 +66,7 @@ public static class BaseAppliction
 
         var searchCompanyArgs = new SearchBaseCompanyArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -111,7 +111,7 @@ public static class BaseAppliction
     public static async Task<DataResult<BaseDepartmentResult>> CheckDepartment(this IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
         string companyId, string departmentId, string token)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(departmentId))
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId))
             return new DataResult<BaseDepartmentResult>();
 
         var getDepartmentArgs = new GetBaseDepartmentArgs
@@ -154,7 +154,7 @@ public static class BaseAppliction
 
         var searchDepartmentArgs = new SearchBaseDepartmentArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -197,7 +197,7 @@ public static class BaseAppliction
     public static async Task<DataResult<BasePositionResult>> CheckPosition(this IBaseInvoke<GetBasePositionArgs, DataResult<BasePositionResult>> positionInvoke,
         string companyId, string positionId, string token)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(positionId))
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(positionId))
             return new DataResult<BasePositionResult>();
 
         var getPositionArgs = new GetBasePositionArgs
@@ -240,7 +240,7 @@ public static class BaseAppliction
 
         var searchPositionArgs = new SearchBasePositionArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -287,7 +287,7 @@ public static class BaseAppliction
         string userId,
         string token)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(departmentId) && !string.IsNullOrWhiteSpace(userId))
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUserResult>();
 
         var getUserArgs = new GetBaseUserArgs
@@ -334,7 +334,7 @@ public static class BaseAppliction
 
         var searchUserArgs = new SearchBaseUserArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };

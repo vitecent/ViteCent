@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Basic.Entity.UserLeave;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -58,8 +59,19 @@ public class DeleteUserLeave(ILogger<DeleteUserLeave> logger,
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        var args = mapper.Map<DeleteUserLeaveEntityArgs>(request);
+        var getArgs = mapper.Map<GetUserLeaveEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "请假申请不存在");
+
+        var args = mapper.Map<DeleteUserLeaveEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddUserLeave.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

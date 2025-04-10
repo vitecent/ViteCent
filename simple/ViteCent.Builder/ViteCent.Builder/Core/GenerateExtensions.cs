@@ -577,8 +577,8 @@ public class GenerateExtensions
             }
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
-                nh.Save(@"Template\Entity\DeleteEntityArgs",
-                     Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Entity\DeleteEntity",
+                     Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Entity.Name}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
                 nh.Save(@"Template\Entity\SearchEntityArgs",

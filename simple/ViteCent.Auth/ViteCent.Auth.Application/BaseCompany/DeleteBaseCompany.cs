@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -38,8 +39,19 @@ public class DeleteBaseCompany(ILogger<DeleteBaseCompany> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseCompany.DeleteBaseCompany");
 
-        var args = mapper.Map<DeleteBaseCompanyEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseCompanyEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "公司信息不存在");
+
+        var args = mapper.Map<DeleteBaseCompanyEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddBaseCompany.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

@@ -72,6 +72,12 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 岗位名称
+    /// </summary>
+    [SugarColumn(ColumnName = "job")]
+    public string Job { get; set; } = string.Empty;
+
+    /// <summary>
     /// 描述
     /// </summary>
     [SugarColumn(ColumnName = "remark")]
@@ -102,16 +108,10 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string ShiftDepartmentName { get; set; } = string.Empty;
 
     /// <summary>
-    /// 换班排班标识
+    /// 换班岗位名称
     /// </summary>
-    [SugarColumn(ColumnName = "shiftScheduleId")]
-    public string ShiftScheduleId { get; set; } = string.Empty;
-
-    /// <summary>
-    /// 换班排班名称
-    /// </summary>
-    [SugarColumn(ColumnName = "shiftScheduleName")]
-    public string ShiftScheduleName { get; set; } = string.Empty;
+    [SugarColumn(ColumnName = "shiftJob")]
+    public string ShiftJob { get; set; } = string.Empty;
 
     /// <summary>
     /// 换班用户标识

@@ -39,7 +39,7 @@ public class HasRepairScheduleList(ILogger<HasRepairScheduleList> logger) : Base
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.RepairSchedule.HasRepairSchedule");
 
-        var query = Client.Query<RepairScheduleEntity>();
+        var query = Client.Query<RepairScheduleEntity>().Where(x => x.Status != (int)RepairScheduleEnum.Pass);
 
         request.CompanyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
@@ -55,6 +55,16 @@ public class HasRepairScheduleList(ILogger<HasRepairScheduleList> logger) : Base
 
         if (request.UserIds.Count > 0)
             query.Where(x => request.UserIds.Contains(x.UserId));
+
+        request.ScheduleIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (request.ScheduleIds.Count > 0)
+            query.Where(x => request.ScheduleIds.Contains(x.ScheduleId));
+
+        request.RepairTypes.RemoveAll(x => x < 1);
+
+        if (request.RepairTypes.Count > 0)
+            query.Where(x => request.RepairTypes.Contains(x.RepairType));
 
         var entity = await query.CountAsync(cancellationToken);
 

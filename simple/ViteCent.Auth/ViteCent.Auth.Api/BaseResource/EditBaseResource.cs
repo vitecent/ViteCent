@@ -42,8 +42,8 @@ public class EditBaseResource(ILogger<EditBaseResource> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseResource.EditBaseResource");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BaseResourceValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BaseResourceValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Domain.BaseCompany;
 /// 删除公司信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBaseCompany(ILogger<DeleteBaseCompany> logger) : BaseDomain<BaseCompanyEntity>, IRequestHandler<DeleteBaseCompanyEntityArgs, BaseResult>
+public class DeleteBaseCompany(ILogger<DeleteBaseCompany> logger) : BaseDomain<DeleteBaseCompanyEntity>, IRequestHandler<DeleteBaseCompanyEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,17 +34,10 @@ public class DeleteBaseCompany(ILogger<DeleteBaseCompany> logger) : BaseDomain<B
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(DeleteBaseCompanyEntityArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(DeleteBaseCompanyEntity request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseCompany.DeleteBaseCompany");
 
-        var query = Client.Query<BaseCompanyEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

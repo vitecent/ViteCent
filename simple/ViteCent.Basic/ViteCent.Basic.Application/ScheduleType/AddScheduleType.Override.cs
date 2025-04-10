@@ -5,12 +5,14 @@
 
 #region
 
+using MediatR;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -79,9 +81,23 @@ public partial class AddScheduleType
         {
             CompanyIds = companyIds,
             DepartmentIds = departmentIds,
+            Codes = request.Items.Select(x => x.Code).Distinct().ToList(),
+            Names = request.Items.Select(x => x.Name).Distinct().ToList(),
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ScheduleTypeEntity entity, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(0);
     }
 
     /// <summary>
@@ -96,9 +112,9 @@ public partial class AddScheduleType
         if (string.IsNullOrWhiteSpace(request.CompanyId))
             request.CompanyId = companyId;
 
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty); ;
+        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         request.CompanyName = hasCompany.Data.Name;
@@ -110,7 +126,7 @@ public partial class AddScheduleType
 
         var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
 
-        if (hasDepartment.Success)
+        if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment.Data.Name;

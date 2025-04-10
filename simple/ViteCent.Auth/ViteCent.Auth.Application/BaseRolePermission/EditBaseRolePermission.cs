@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Auth.Entity.BaseRolePermission;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -54,17 +55,17 @@ public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logg
         if (!check.Success)
             return check;
 
-        var args = mapper.Map<GetBaseRolePermissionEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseRolePermissionEntityArgs>(request);
 
-        var entity = await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
 
         if (entity == null)
             return new BaseResult(500, "角色权限不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.OperationId = request.OperationId;
         entity.ResourceId = request.ResourceId;
@@ -75,6 +76,10 @@ public partial class EditBaseRolePermission(ILogger<EditBaseRolePermission> logg
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddBaseRolePermission.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

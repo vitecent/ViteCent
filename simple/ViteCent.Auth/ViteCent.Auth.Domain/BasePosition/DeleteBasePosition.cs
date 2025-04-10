@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Domain.BasePosition;
 /// 删除职位信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBasePosition(ILogger<DeleteBasePosition> logger) : BaseDomain<BasePositionEntity>, IRequestHandler<DeleteBasePositionEntityArgs, BaseResult>
+public class DeleteBasePosition(ILogger<DeleteBasePosition> logger) : BaseDomain<DeleteBasePositionEntity>, IRequestHandler<DeleteBasePositionEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,20 +34,10 @@ public class DeleteBasePosition(ILogger<DeleteBasePosition> logger) : BaseDomain
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(DeleteBasePositionEntityArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(DeleteBasePositionEntity request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BasePosition.DeleteBasePosition");
 
-        var query = Client.Query<BasePositionEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

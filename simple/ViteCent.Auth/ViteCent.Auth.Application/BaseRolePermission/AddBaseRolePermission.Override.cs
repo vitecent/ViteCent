@@ -6,10 +6,7 @@
 #region
 
 using MediatR;
-using System.ComponentModel.Design;
 using ViteCent.Auth.Data.BaseRolePermission;
-using ViteCent.Auth.Entity.BaseCompany;
-using ViteCent.Auth.Entity.BaseRole;
 using ViteCent.Auth.Entity.BaseRolePermission;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -84,6 +81,18 @@ public partial class AddBaseRolePermission
 
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseRolePermissionEntity entity, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(0);
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -96,27 +105,27 @@ public partial class AddBaseRolePermission
 
         var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         var hasRole = await mediator.CheckRole(request.CompanyId, request.RoleId);
 
-        if (hasRole.Success)
+        if (!hasRole.Success)
             return hasRole;
 
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
-        if (hasSystem.Success)
+        if (!hasSystem.Success)
             return hasSystem;
 
-        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId); ;
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);
 
-        if (hasResource.Success)
+        if (!hasResource.Success)
             return hasResource;
 
         var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
 
-        if (hasOperation.Success)
+        if (!hasOperation.Success)
             return hasOperation;
 
         var hasArgs = new HasBaseRolePermissionEntityArgs

@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Domain.BaseRole;
 /// 删除角色信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBaseRole(ILogger<DeleteBaseRole> logger) : BaseDomain<BaseRoleEntity>, IRequestHandler<DeleteBaseRoleEntityArgs, BaseResult>
+public class DeleteBaseRole(ILogger<DeleteBaseRole> logger) : BaseDomain<DeleteBaseRoleEntity>, IRequestHandler<DeleteBaseRoleEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,20 +34,10 @@ public class DeleteBaseRole(ILogger<DeleteBaseRole> logger) : BaseDomain<BaseRol
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(DeleteBaseRoleEntityArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(DeleteBaseRoleEntity request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRole.DeleteBaseRole");
 
-        var query = Client.Query<BaseRoleEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

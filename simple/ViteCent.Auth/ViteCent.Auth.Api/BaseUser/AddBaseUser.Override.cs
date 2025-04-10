@@ -26,6 +26,7 @@ public partial class AddBaseUser
     internal static void OverrideInvoke(AddBaseUserArgs args, BaseUserInfo user)
     {
         args.Status = (int)StatusEnum.Enable;
+        args.IsSuper = (int)YesNoEnum.No;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))

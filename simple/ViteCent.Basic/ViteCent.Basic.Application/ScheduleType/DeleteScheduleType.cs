@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -58,8 +59,19 @@ public class DeleteScheduleType(ILogger<DeleteScheduleType> logger,
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        var args = mapper.Map<DeleteScheduleTypeEntityArgs>(request);
+        var getArgs = mapper.Map<GetScheduleTypeEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "基础排班不存在");
+
+        var args = mapper.Map<DeleteScheduleTypeEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddScheduleType.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

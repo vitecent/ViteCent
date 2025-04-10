@@ -65,6 +65,10 @@ public partial class DisableBaseOperation(ILogger<DisableBaseOperation> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddBaseOperation.OverrideTopic(mediator, TopicEnum.Disable, entity, cancellationToken);
+
+        return result;
     }
 }

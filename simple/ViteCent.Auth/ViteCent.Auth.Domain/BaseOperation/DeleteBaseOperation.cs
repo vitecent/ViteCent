@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Domain.BaseOperation;
 /// 删除操作信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger) : BaseDomain<BaseOperationEntity>, IRequestHandler<DeleteBaseOperationEntityArgs, BaseResult>
+public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger) : BaseDomain<DeleteBaseOperationEntity>, IRequestHandler<DeleteBaseOperationEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,26 +34,10 @@ public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger) : BaseDoma
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(DeleteBaseOperationEntityArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(DeleteBaseOperationEntity request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseOperation.DeleteBaseOperation");
 
-        var query = Client.Query<BaseOperationEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-        if (!string.IsNullOrWhiteSpace(request.SystemId))
-            query.Where(x => x.SystemId == request.SystemId);
-
-        if (!string.IsNullOrWhiteSpace(request.ResourceId))
-            query.Where(x => x.ResourceId == request.ResourceId);
-
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

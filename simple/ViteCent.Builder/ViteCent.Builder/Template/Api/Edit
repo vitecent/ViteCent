@@ -44,8 +44,8 @@ public class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Setting.Edit
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}();
+        var cancellationToken = new CancellationToken();
+        var validator = new $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

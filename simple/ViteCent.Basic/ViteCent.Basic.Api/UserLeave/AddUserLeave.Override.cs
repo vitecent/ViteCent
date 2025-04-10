@@ -23,7 +23,7 @@ public partial class AddUserLeave
     /// <returns></returns>
     internal static void OverrideInvoke(AddUserLeaveArgs args, Core.Data.BaseUserInfo user)
     {
-        args.Status = (int)UserLeaveEnum.Apply;
+        args.Status = (int)UserLeaveEnum.Pass;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))

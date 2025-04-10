@@ -27,6 +27,7 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -104,10 +105,10 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
         if (entity == null)
             return new BaseResult(500, "$!{Table.Description}不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
 #foreach($Field in $EditFields)
         entity.$!{Field.CamelCaseName} = request.$!{Field.CamelCaseName};
@@ -116,6 +117,10 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(ILogger<$!{Sett
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

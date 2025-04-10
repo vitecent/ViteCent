@@ -41,21 +41,21 @@ public partial class EditBaseOperation
 
         var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         request.CompanyName = hasCompany.Data.Name;
 
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
-        if (hasSystem.Success)
+        if (!hasSystem.Success)
             return hasSystem;
 
         request.SystemName = hasSystem.Data.Name;
 
-        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId); ;
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);
 
-        if (hasResource.Success)
+        if (!hasResource.Success)
             return hasResource;
 
         request.ResourceName = hasResource.Data.Name;

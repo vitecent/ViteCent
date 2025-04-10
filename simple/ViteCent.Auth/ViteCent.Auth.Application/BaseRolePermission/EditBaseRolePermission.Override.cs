@@ -41,27 +41,27 @@ public partial class EditBaseRolePermission
 
         var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         var hasRole = await mediator.CheckRole(request.CompanyId, request.RoleId);
 
-        if (hasRole.Success)
+        if (!hasRole.Success)
             return hasRole;
 
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
-        if (hasSystem.Success)
+        if (!hasSystem.Success)
             return hasSystem;
 
-        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId); ;
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);
 
-        if (hasResource.Success)
+        if (!hasResource.Success)
             return hasResource;
 
         var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
 
-        if (hasOperation.Success)
+        if (!hasOperation.Success)
             return hasOperation;
 
         var hasArgs = new HasBaseRolePermissionEntityArgs

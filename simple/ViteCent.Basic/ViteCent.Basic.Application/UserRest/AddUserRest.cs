@@ -19,6 +19,7 @@ using ViteCent.Basic.Data.UserRest;
 using ViteCent.Basic.Entity.UserRest;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -85,6 +86,10 @@ public partial class AddUserRest(ILogger<AddUserRest> logger,
         if (!result.Success)
             return result;
 
-        return new BaseResult(entity.Id);
+        result.Message = entity.Id;
+
+        await OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

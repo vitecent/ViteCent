@@ -13,6 +13,7 @@ using ViteCent.Basic.Data.UserRest;
 using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Basic.Entity.UserRest;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -98,9 +99,23 @@ public partial class AddUserRest
             CompanyIds = companyIds,
             DepartmentIds = departmentIds,
             UserIds = userIds,
+            StartTime = request.Items.Min(x => x.StartTime),
+            EndTime = request.Items.Max(x => x.EndTime),
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, UserRestEntity entity, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(0);
     }
 
     /// <summary>
@@ -115,9 +130,9 @@ public partial class AddUserRest
         if (string.IsNullOrWhiteSpace(request.CompanyId))
             request.CompanyId = companyId;
 
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty); ;
+        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         request.CompanyName = hasCompany.Data.Name;
@@ -129,14 +144,14 @@ public partial class AddUserRest
 
         var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
 
-        if (hasDepartment.Success)
+        if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment.Data.Name;
 
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 
-        if (hasUser.Success)
+        if (!hasUser.Success)
             return hasUser;
 
         request.UserName = hasUser.Data.RealName;

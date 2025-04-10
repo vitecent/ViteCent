@@ -18,6 +18,7 @@ using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -71,10 +72,10 @@ public partial class EditSchedule(ILogger<EditSchedule> logger,
         if (entity == null)
             return new BaseResult(500, "排班信息不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.CompanyName = request.CompanyName;
         entity.DepartmentName = request.DepartmentName;
@@ -82,7 +83,6 @@ public partial class EditSchedule(ILogger<EditSchedule> logger,
         entity.FirstTime = request.FirstTime;
         entity.Job = request.Job;
         entity.LastTime = request.LastTime;
-        entity.PositionName = request.PositionName;
         entity.Shift = request.Shift;
         entity.StartTime = request.StartTime;
         entity.Status = request.Status;
@@ -92,6 +92,10 @@ public partial class EditSchedule(ILogger<EditSchedule> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddSchedule.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

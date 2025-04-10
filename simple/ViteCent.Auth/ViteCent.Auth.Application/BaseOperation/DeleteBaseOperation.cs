@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseOperation;
 using ViteCent.Auth.Entity.BaseOperation;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -53,8 +54,19 @@ public class DeleteBaseOperation(ILogger<DeleteBaseOperation> logger,
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var args = mapper.Map<DeleteBaseOperationEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseOperationEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "操作信息不存在");
+
+        var args = mapper.Map<DeleteBaseOperationEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddBaseOperation.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

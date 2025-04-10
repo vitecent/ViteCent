@@ -42,8 +42,8 @@ public class EditBasePosition(ILogger<EditBasePosition> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BasePosition.EditBasePosition");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BasePositionValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BasePositionValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

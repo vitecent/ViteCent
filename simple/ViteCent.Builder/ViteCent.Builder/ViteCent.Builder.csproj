@@ -189,7 +189,7 @@
 		<None Update="Template\Data\DeleteArgs">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="Template\Entity\DeleteEntityArgs">
+		<None Update="Template\Entity\DeleteEntity">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Template\Data\Result">

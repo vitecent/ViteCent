@@ -29,10 +29,10 @@ public class HasRepairSchedule(ILogger<HasRepairSchedule> logger) : BaseDomain<R
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.RepairSchedule.HasRepairSchedule");
 
-        var query = Client.Query<RepairScheduleEntity>();
+        var query = Client.Query<RepairScheduleEntity>().Where(x => x.Status != (int)RepairScheduleEnum.Pass);
 
         if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
+            query.Where(x => x.Id != request.Id);
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);

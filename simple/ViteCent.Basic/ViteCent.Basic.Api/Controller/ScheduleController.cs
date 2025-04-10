@@ -131,7 +131,7 @@ public class ScheduleController(ILogger<ScheduleController> logger,
 
         var searchUserArgs = new SearchBaseUserArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -189,7 +189,7 @@ public class ScheduleController(ILogger<ScheduleController> logger,
 
         var request = new SearchScheduleArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [

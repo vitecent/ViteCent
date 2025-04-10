@@ -19,6 +19,7 @@ using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -85,6 +86,10 @@ public partial class AddShiftSchedule(ILogger<AddShiftSchedule> logger,
         if (!result.Success)
             return result;
 
-        return new BaseResult(entity.Id);
+        result.Message = entity.Id;
+
+        await OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

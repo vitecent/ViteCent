@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Basic.Data.UserRest;
 using ViteCent.Basic.Entity.UserRest;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -58,8 +59,19 @@ public class DeleteUserRest(ILogger<DeleteUserRest> logger,
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        var args = mapper.Map<DeleteUserRestEntityArgs>(request);
+        var getArgs = mapper.Map<GetUserRestEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "调休申请不存在");
+
+        var args = mapper.Map<DeleteUserRestEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddUserRest.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

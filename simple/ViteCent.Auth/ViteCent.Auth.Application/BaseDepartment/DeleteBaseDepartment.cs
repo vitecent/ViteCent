@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Entity.BaseDepartment;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -53,8 +54,19 @@ public class DeleteBaseDepartment(ILogger<DeleteBaseDepartment> logger,
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var args = mapper.Map<DeleteBaseDepartmentEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseDepartmentEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "部门信息不存在");
+
+        var args = mapper.Map<DeleteBaseDepartmentEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddBaseDepartment.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

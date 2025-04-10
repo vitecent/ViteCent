@@ -74,11 +74,6 @@ public class ScheduleResult
     public DateTime? LastTime { get; set; }
 
     /// <summary>
-    /// 职位名称
-    /// </summary>
-    public string PositionName { get; set; } = string.Empty;
-
-    /// <summary>
     /// 名称
     /// </summary>
     public string Shift { get; set; } = string.Empty;

@@ -65,6 +65,10 @@ public partial class EnableBaseSystem(ILogger<EnableBaseSystem> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddBaseSystem.OverrideTopic(mediator, TopicEnum.Enable, entity, cancellationToken);
+
+        return result;
     }
 }

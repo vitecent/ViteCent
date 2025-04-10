@@ -18,5 +18,13 @@ public enum ScheduleEnum
 
     /// <summary>
     /// </summary>
-    None = 4
+    None = 4,
+
+    /// <summary>
+    /// </summary>
+    First = 5,
+
+    /// <summary>
+    /// </summary>
+    Last = 6,
 }

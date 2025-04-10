@@ -42,8 +42,8 @@ public class EditBaseRolePermission(ILogger<EditBaseRolePermission> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseRolePermission.EditBaseRolePermission");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BaseRolePermissionValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BaseRolePermissionValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

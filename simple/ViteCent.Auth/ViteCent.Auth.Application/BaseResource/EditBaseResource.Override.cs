@@ -44,14 +44,14 @@ public partial class EditBaseResource
 
         var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         request.CompanyName = hasCompany.Data.Name;
 
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
-        if (hasSystem.Success)
+        if (!hasSystem.Success)
             return hasSystem;
 
         request.SystemName = hasSystem.Data.Name;

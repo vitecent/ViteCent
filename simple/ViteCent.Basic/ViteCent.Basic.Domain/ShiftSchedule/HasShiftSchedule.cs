@@ -29,10 +29,10 @@ public class HasShiftSchedule(ILogger<HasShiftSchedule> logger) : BaseDomain<Shi
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ShiftSchedule.HasShiftSchedule");
 
-        var query = Client.Query<ShiftScheduleEntity>().Where(x => x.Status == (int)ShiftScheduleEnum.Apply);
+        var query = Client.Query<ShiftScheduleEntity>().Where(x => x.Status != (int)ShiftScheduleEnum.Pass);
 
         if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
+            query.Where(x => x.Id != request.Id);
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);
@@ -51,9 +51,6 @@ public class HasShiftSchedule(ILogger<HasShiftSchedule> logger) : BaseDomain<Shi
 
         if (!string.IsNullOrWhiteSpace(request.ShiftUserId))
             query.Where(x => x.ShiftUserId == request.ShiftUserId);
-
-        if (!string.IsNullOrWhiteSpace(request.ScheduleId))
-            query.Where(x => x.ShiftScheduleId == request.ShiftScheduleId);
 
         var entity = await query.CountAsync(cancellationToken);
 

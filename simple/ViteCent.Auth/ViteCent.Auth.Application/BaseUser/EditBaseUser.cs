@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -54,17 +55,17 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         if (!check.Success)
             return check;
 
-        var args = mapper.Map<GetBaseUserEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseUserEntityArgs>(request);
 
-        var entity = await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
 
         if (entity == null)
             return new BaseResult(500, "用户信息不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.Avatar = request.Avatar;
         entity.Birthday = request.Birthday;
@@ -75,6 +76,7 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         entity.Email = request.Email;
         entity.Gender = request.Gender;
         entity.IdCard = request.IdCard;
+        entity.IsSuper = request.IsSuper;
         entity.Nickname = request.Nickname;
         entity.Password = request.Password;
         entity.Phone = request.Phone;
@@ -88,6 +90,10 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddBaseUser.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

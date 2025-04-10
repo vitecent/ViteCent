@@ -16,6 +16,7 @@ using ViteCent.Auth.Data.BaseSystem;
 using ViteCent.Auth.Entity.BaseSystem;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -80,6 +81,11 @@ public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
             entitys.Items.Add(entity);
         }
 
-        return await mediator.Send(entitys, cancellationToken);
+        var result = await mediator.Send(entitys, cancellationToken);
+
+        foreach (var entity in entitys.Items)
+            await AddBaseSystem.OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

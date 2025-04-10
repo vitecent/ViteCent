@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Basic.Data.RepairSchedule;
 using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -58,8 +59,19 @@ public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger,
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
-        var args = mapper.Map<DeleteRepairScheduleEntityArgs>(request);
+        var getArgs = mapper.Map<GetRepairScheduleEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "补卡申请不存在");
+
+        var args = mapper.Map<DeleteRepairScheduleEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddRepairSchedule.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

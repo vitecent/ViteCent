@@ -16,6 +16,7 @@ using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -80,6 +81,11 @@ public class AddBaseUserList(ILogger<AddBaseUserList> logger,
             entitys.Items.Add(entity);
         }
 
-        return await mediator.Send(entitys, cancellationToken);
+        var result = await mediator.Send(entitys, cancellationToken);
+
+        foreach (var entity in entitys.Items)
+            await AddBaseUser.OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

@@ -18,6 +18,7 @@ using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.RepairSchedule;
 using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -71,10 +72,10 @@ public partial class EditRepairSchedule(ILogger<EditRepairSchedule> logger,
         if (entity == null)
             return new BaseResult(500, "补卡申请不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.CompanyName = request.CompanyName;
         entity.DepartmentName = request.DepartmentName;
@@ -90,6 +91,10 @@ public partial class EditRepairSchedule(ILogger<EditRepairSchedule> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddRepairSchedule.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

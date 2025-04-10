@@ -42,8 +42,8 @@ public class EditBaseSystem(ILogger<EditBaseSystem> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseSystem.EditBaseSystem");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BaseSystemValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BaseSystemValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

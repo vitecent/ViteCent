@@ -10,6 +10,7 @@
 
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
+using ViteCent.Auth.Data.BaseDictionary;
 using ViteCent.Auth.Data.BaseOperation;
 using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Data.BaseResource;
@@ -20,6 +21,7 @@ using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Data.BaseUserRole;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseDepartment;
+using ViteCent.Auth.Entity.BaseDictionary;
 using ViteCent.Auth.Entity.BaseOperation;
 using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Auth.Entity.BaseResource;
@@ -53,7 +55,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseCompanyArgs, GetBaseCompanyEntityArgs>();
         CreateMap<SearchBaseCompanyArgs, SearchBaseCompanyEntityArgs>();
         CreateMap<BaseCompanyEntity, BaseCompanyResult>();
-        CreateMap<DeleteBaseCompanyArgs, DeleteBaseCompanyEntityArgs>();
+        CreateMap<DeleteBaseCompanyArgs, GetBaseCompanyEntityArgs>();
+        CreateMap<BaseCompanyEntity, DeleteBaseCompanyEntity>();
 
         #endregion
 
@@ -66,7 +69,22 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseDepartmentArgs, GetBaseDepartmentEntityArgs>();
         CreateMap<SearchBaseDepartmentArgs, SearchBaseDepartmentEntityArgs>();
         CreateMap<BaseDepartmentEntity, BaseDepartmentResult>();
-        CreateMap<DeleteBaseDepartmentArgs, DeleteBaseDepartmentEntityArgs>();
+        CreateMap<DeleteBaseDepartmentArgs, GetBaseDepartmentEntityArgs>();
+        CreateMap<BaseDepartmentEntity, DeleteBaseDepartmentEntity>();
+
+        #endregion
+
+        #region BaseDictionary
+
+        CreateMap<AddBaseDictionaryArgs, AddBaseDictionaryEntity>();
+        CreateMap<EditBaseDictionaryArgs, GetBaseDictionaryEntityArgs>();
+        CreateMap<GetBaseDictionaryArgs, GetBaseDictionaryEntityArgs>();
+        CreateMap<DisableBaseDictionaryArgs, GetBaseDictionaryEntityArgs>();
+        CreateMap<EnableBaseDictionaryArgs, GetBaseDictionaryEntityArgs>();
+        CreateMap<SearchBaseDictionaryArgs, SearchBaseDictionaryEntityArgs>();
+        CreateMap<BaseDictionaryEntity, BaseDictionaryResult>();
+        CreateMap<DeleteBaseDictionaryArgs, GetBaseDictionaryEntityArgs>();
+        CreateMap<BaseDictionaryEntity, DeleteBaseDictionaryEntity>();
 
         #endregion
 
@@ -79,7 +97,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseOperationArgs, GetBaseOperationEntityArgs>();
         CreateMap<SearchBaseOperationArgs, SearchBaseOperationEntityArgs>();
         CreateMap<BaseOperationEntity, BaseOperationResult>();
-        CreateMap<DeleteBaseOperationArgs, DeleteBaseOperationEntityArgs>();
+        CreateMap<DeleteBaseOperationArgs, GetBaseOperationEntityArgs>();
+        CreateMap<BaseOperationEntity, DeleteBaseOperationEntity>();
 
         #endregion
 
@@ -92,7 +111,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBasePositionArgs, GetBasePositionEntityArgs>();
         CreateMap<SearchBasePositionArgs, SearchBasePositionEntityArgs>();
         CreateMap<BasePositionEntity, BasePositionResult>();
-        CreateMap<DeleteBasePositionArgs, DeleteBasePositionEntityArgs>();
+        CreateMap<DeleteBasePositionArgs, GetBasePositionEntityArgs>();
+        CreateMap<BasePositionEntity, DeleteBasePositionEntity>();
 
         #endregion
 
@@ -105,7 +125,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseResourceArgs, GetBaseResourceEntityArgs>();
         CreateMap<SearchBaseResourceArgs, SearchBaseResourceEntityArgs>();
         CreateMap<BaseResourceEntity, BaseResourceResult>();
-        CreateMap<DeleteBaseResourceArgs, DeleteBaseResourceEntityArgs>();
+        CreateMap<DeleteBaseResourceArgs, GetBaseResourceEntityArgs>();
+        CreateMap<BaseResourceEntity, DeleteBaseResourceEntity>();
 
         #endregion
 
@@ -118,7 +139,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseRoleArgs, GetBaseRoleEntityArgs>();
         CreateMap<SearchBaseRoleArgs, SearchBaseRoleEntityArgs>();
         CreateMap<BaseRoleEntity, BaseRoleResult>();
-        CreateMap<DeleteBaseRoleArgs, DeleteBaseRoleEntityArgs>();
+        CreateMap<DeleteBaseRoleArgs, GetBaseRoleEntityArgs>();
+        CreateMap<BaseRoleEntity, DeleteBaseRoleEntity>();
 
         #endregion
 
@@ -131,7 +153,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseRolePermissionArgs, GetBaseRolePermissionEntityArgs>();
         CreateMap<SearchBaseRolePermissionArgs, SearchBaseRolePermissionEntityArgs>();
         CreateMap<BaseRolePermissionEntity, BaseRolePermissionResult>();
-        CreateMap<DeleteBaseRolePermissionArgs, DeleteBaseRolePermissionEntityArgs>();
+        CreateMap<DeleteBaseRolePermissionArgs, GetBaseRolePermissionEntityArgs>();
+        CreateMap<BaseRolePermissionEntity, DeleteBaseRolePermissionEntity>();
 
         #endregion
 
@@ -144,7 +167,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseSystemArgs, GetBaseSystemEntityArgs>();
         CreateMap<SearchBaseSystemArgs, SearchBaseSystemEntityArgs>();
         CreateMap<BaseSystemEntity, BaseSystemResult>();
-        CreateMap<DeleteBaseSystemArgs, DeleteBaseSystemEntityArgs>();
+        CreateMap<DeleteBaseSystemArgs, GetBaseSystemEntityArgs>();
+        CreateMap<BaseSystemEntity, DeleteBaseSystemEntity>();
 
         #endregion
 
@@ -157,7 +181,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseUserArgs, GetBaseUserEntityArgs>();
         CreateMap<SearchBaseUserArgs, SearchBaseUserEntityArgs>();
         CreateMap<BaseUserEntity, BaseUserResult>();
-        CreateMap<DeleteBaseUserArgs, DeleteBaseUserEntityArgs>();
+        CreateMap<DeleteBaseUserArgs, GetBaseUserEntityArgs>();
+        CreateMap<BaseUserEntity, DeleteBaseUserEntity>();
 
         #endregion
 
@@ -170,7 +195,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<EnableBaseUserRoleArgs, GetBaseUserRoleEntityArgs>();
         CreateMap<SearchBaseUserRoleArgs, SearchBaseUserRoleEntityArgs>();
         CreateMap<BaseUserRoleEntity, BaseUserRoleResult>();
-        CreateMap<DeleteBaseUserRoleArgs, DeleteBaseUserRoleEntityArgs>();
+        CreateMap<DeleteBaseUserRoleArgs, GetBaseUserRoleEntityArgs>();
+        CreateMap<BaseUserRoleEntity, DeleteBaseUserRoleEntity>();
 
         #endregion
 

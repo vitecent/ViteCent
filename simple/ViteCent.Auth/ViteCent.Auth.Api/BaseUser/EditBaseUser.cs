@@ -42,8 +42,8 @@ public class EditBaseUser(ILogger<EditBaseUser> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.EditBaseUser");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BaseUserValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BaseUserValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

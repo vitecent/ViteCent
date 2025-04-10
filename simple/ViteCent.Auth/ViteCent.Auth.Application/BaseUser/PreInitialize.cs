@@ -29,7 +29,7 @@ public class PreInitialize(ILogger<PreInitialize> logger,
 
         var input = new SearchBaseUserArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = 1
         };
 

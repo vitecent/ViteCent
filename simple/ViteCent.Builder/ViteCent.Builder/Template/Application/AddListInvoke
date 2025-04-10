@@ -30,6 +30,7 @@ using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Cache;
 #end
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -127,6 +128,11 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             entitys.Items.Add(entity);
         }
 
-        return await mediator.Send(entitys, cancellationToken);
+        var result = await mediator.Send(entitys, cancellationToken);
+
+        foreach (var entity in entitys.Items)
+            await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

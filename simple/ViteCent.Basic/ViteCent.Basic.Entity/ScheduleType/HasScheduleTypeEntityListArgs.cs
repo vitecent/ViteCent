@@ -21,6 +21,10 @@ namespace ViteCent.Basic.Entity.ScheduleType;
 public class HasScheduleTypeEntityListArgs : BaseArgs, IRequest<BaseResult>
 {
     /// <summary>
+    /// </summary>
+    public List<string> Codes { get; set; } = [];
+
+    /// <summary>
     /// 公司标识
     /// </summary>
     public List<string> CompanyIds { get; set; } = [];
@@ -29,4 +33,8 @@ public class HasScheduleTypeEntityListArgs : BaseArgs, IRequest<BaseResult>
     /// 部门标识
     /// </summary>
     public List<string> DepartmentIds { get; set; } = [];
+
+    /// <summary>
+    /// </summary>
+    public List<string> Names { get; set; } = [];
 }

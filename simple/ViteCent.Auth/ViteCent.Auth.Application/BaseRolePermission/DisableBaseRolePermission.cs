@@ -65,6 +65,10 @@ public partial class DisableBaseRolePermission(ILogger<DisableBaseRolePermission
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddBaseRolePermission.OverrideTopic(mediator, TopicEnum.Disable, entity, cancellationToken);
+
+        return result;
     }
 }

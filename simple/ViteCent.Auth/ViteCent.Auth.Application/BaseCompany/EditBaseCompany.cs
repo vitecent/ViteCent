@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -54,17 +55,17 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger,
         if (!check.Success)
             return check;
 
-        var args = mapper.Map<GetBaseCompanyEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseCompanyEntityArgs>(request);
 
-        var entity = await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
 
         if (entity == null)
             return new BaseResult(500, "公司信息不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.Abbreviation = request.Abbreviation;
         entity.Address = request.Address;
@@ -88,6 +89,10 @@ public partial class EditBaseCompany(ILogger<EditBaseCompany> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddBaseCompany.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

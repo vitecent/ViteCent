@@ -23,6 +23,7 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 

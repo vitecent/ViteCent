@@ -7,7 +7,6 @@
 
 using MediatR;
 using ViteCent.Auth.Data.BaseSystem;
-using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseSystem;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -64,6 +63,18 @@ public partial class AddBaseSystem
 
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseSystemEntity entity, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(0);
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -76,7 +87,7 @@ public partial class AddBaseSystem
 
         var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         request.CompanyName = hasCompany.Data.Name;

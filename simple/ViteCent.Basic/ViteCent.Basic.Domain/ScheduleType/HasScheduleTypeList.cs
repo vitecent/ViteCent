@@ -51,10 +51,20 @@ public class HasScheduleTypeList(ILogger<HasScheduleTypeList> logger) : BaseDoma
         if (request.DepartmentIds.Count > 0)
             query.Where(x => request.DepartmentIds.Contains(x.DepartmentId));
 
+        request.Codes.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (request.Codes.Count > 0)
+            query.Where(x => request.Codes.Contains(x.Code));
+
+        request.Names.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (request.Names.Count > 0)
+            query.Where(x => request.Names.Contains(x.Name));
+
         var entity = await query.CountAsync(cancellationToken);
 
         if (entity > 0)
-            return new BaseResult(500, "数据重复");
+            return new BaseResult(500, "编码 或 名称 重复");
 
         return new BaseResult();
     }

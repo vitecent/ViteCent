@@ -96,12 +96,6 @@ public class ScheduleEntity : BaseEntity, IRequest<BaseResult>
     public DateTime? LastTime { get; set; }
 
     /// <summary>
-    /// 职位名称
-    /// </summary>
-    [SugarColumn(ColumnName = "positionName")]
-    public string PositionName { get; set; } = string.Empty;
-
-    /// <summary>
     /// 名称
     /// </summary>
     [SugarColumn(ColumnName = "shift")]

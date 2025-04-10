@@ -31,6 +31,18 @@ public class HasShiftScheduleEntityListArgs : BaseArgs, IRequest<BaseResult>
     public List<string> DepartmentIds { get; set; } = [];
 
     /// <summary>
+    /// </summary>
+    public List<string> ScheduleIds { get; set; } = [];
+
+    /// <summary>
+    /// </summary>
+    public List<string> ShiftDepartmentIds { get; set; } = [];
+
+    /// <summary>
+    /// </summary>
+    public List<string> ShiftUserIds { get; set; } = [];
+
+    /// <summary>
     /// 用户标识
     /// </summary>
     public List<string> UserIds { get; set; } = [];

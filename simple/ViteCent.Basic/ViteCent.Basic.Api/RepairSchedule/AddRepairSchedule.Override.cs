@@ -23,7 +23,7 @@ public partial class AddRepairSchedule
     /// <returns></returns>
     internal static void OverrideInvoke(AddRepairScheduleArgs args, Core.Data.BaseUserInfo user)
     {
-        args.Status = (int)RepairScheduleEnum.Apply;
+        args.Status = (int)RepairScheduleEnum.Pass;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))

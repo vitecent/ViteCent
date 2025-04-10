@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using System.Security.Claims;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseDepartment;
@@ -36,7 +35,7 @@ public static class BaseAppliction
     {
         var searchCompanyArgs = new SearchBaseCompanyEntityArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
@@ -80,7 +79,7 @@ public static class BaseAppliction
         string companyId)
     {
         if (string.IsNullOrWhiteSpace(companyId))
-            return new DataResult<BaseCompanyEntity>(500, "参数不能为空");
+            return new DataResult<BaseCompanyEntity>();
 
         var getCompanyArgs = new GetBaseCompanyEntityArgs
         {
@@ -113,7 +112,7 @@ public static class BaseAppliction
     {
         var searchDepartmentArgs = new SearchBaseDepartmentEntityArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -156,8 +155,8 @@ public static class BaseAppliction
         string companyId,
         string departmentId)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(departmentId))
-            return new DataResult<BaseDepartmentEntity>(500, "参数不能为空");
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId))
+            return new DataResult<BaseDepartmentEntity>();
 
         var getDepartmentArgs = new GetBaseDepartmentEntityArgs
         {
@@ -195,7 +194,7 @@ public static class BaseAppliction
     {
         var searchOperationArgs = new SearchBaseOperationEntityArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -248,8 +247,9 @@ public static class BaseAppliction
         string resourceId,
         string operationId)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(systemId) && !string.IsNullOrWhiteSpace(resourceId) && !string.IsNullOrWhiteSpace(operationId))
-            return new DataResult<BaseOperationEntity>(500, "参数不能为空");
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId)
+            && string.IsNullOrWhiteSpace(resourceId) && string.IsNullOrWhiteSpace(operationId))
+            return new DataResult<BaseOperationEntity>();
 
         var getOperationArgs = new GetBaseOperationEntityArgs
         {
@@ -285,7 +285,7 @@ public static class BaseAppliction
     {
         var searchPositionArgs = new SearchBasePositionEntityArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -328,8 +328,8 @@ public static class BaseAppliction
         string companyId,
         string positionId)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(positionId))
-            return new DataResult<BasePositionEntity>(500, "参数不能为空");
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(positionId))
+            return new DataResult<BasePositionEntity>();
 
         var getPositionArgs = new GetBasePositionEntityArgs
         {
@@ -365,7 +365,7 @@ public static class BaseAppliction
     {
         var searchResourceArgs = new SearchBaseResourceEntityArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -413,8 +413,8 @@ public static class BaseAppliction
         string systemId,
         string resourceId)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(systemId) && !string.IsNullOrWhiteSpace(resourceId))
-            return new DataResult<BaseResourceEntity>(500, "参数不能为空");
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId) && string.IsNullOrWhiteSpace(resourceId))
+            return new DataResult<BaseResourceEntity>();
 
         var getResourceArgs = new GetBaseResourceEntityArgs
         {
@@ -449,7 +449,7 @@ public static class BaseAppliction
     {
         var searchRoleArgs = new SearchBaseRoleEntityArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -492,7 +492,7 @@ public static class BaseAppliction
         string companyId,
         string roleId)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(roleId))
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(roleId))
             return new DataResult<BaseRoleEntity>();
 
         var getRoleArgs = new GetBaseRoleEntityArgs
@@ -527,7 +527,7 @@ public static class BaseAppliction
     {
         var searchSystemArgs = new SearchBaseSystemEntityArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -571,8 +571,8 @@ public static class BaseAppliction
         string companyId,
         string systemId)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(systemId))
-            return new DataResult<BaseSystemEntity>(500, "参数不能为空");
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId))
+            return new DataResult<BaseSystemEntity>();
 
         var getSystemArgs = new GetBaseSystemEntityArgs
         {
@@ -608,7 +608,7 @@ public static class BaseAppliction
     {
         var searchUserArgs = new SearchBaseUserEntityArgs()
         {
-            Offset = 0,
+            Offset = 1,
             Limit = int.MaxValue,
             Args = []
         };
@@ -656,8 +656,8 @@ public static class BaseAppliction
         string departmentId,
         string userId)
     {
-        if (!string.IsNullOrWhiteSpace(companyId) && !string.IsNullOrWhiteSpace(departmentId) && !string.IsNullOrWhiteSpace(userId))
-            return new DataResult<BaseUserEntity>(500, "参数不能为空");
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(userId))
+            return new DataResult<BaseUserEntity>();
 
         var getUserArgs = new GetBaseUserEntityArgs
         {

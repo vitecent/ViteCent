@@ -39,7 +39,7 @@ public class HasBaseCompany(ILogger<HasBaseCompany> logger) : BaseDomain<BaseCom
         var query = Client.Query<BaseCompanyEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
+            query.Where(x => x.Id != request.Id);
 
         if (!string.IsNullOrWhiteSpace(request.Code))
             query.Where(x => x.Code == request.Code);

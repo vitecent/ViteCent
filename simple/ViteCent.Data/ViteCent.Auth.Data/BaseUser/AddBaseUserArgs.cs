@@ -76,6 +76,11 @@ public class AddBaseUserArgs : BaseArgs, IRequest<BaseResult>
     public string IdCard { get; set; } = string.Empty;
 
     /// <summary>
+    /// 超级管理员
+    /// </summary>
+    public int IsSuper { get; set; }
+
+    /// <summary>
     /// 昵称
     /// </summary>
     public string Nickname { get; set; } = string.Empty;

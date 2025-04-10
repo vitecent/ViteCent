@@ -42,8 +42,8 @@ public class EditBaseOperation(ILogger<EditBaseOperation> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseOperation.EditBaseOperation");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BaseOperationValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BaseOperationValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

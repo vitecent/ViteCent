@@ -16,6 +16,7 @@ using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -80,6 +81,11 @@ public class AddBasePositionList(ILogger<AddBasePositionList> logger,
             entitys.Items.Add(entity);
         }
 
-        return await mediator.Send(entitys, cancellationToken);
+        var result = await mediator.Send(entitys, cancellationToken);
+
+        foreach (var entity in entitys.Items)
+            await AddBasePosition.OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

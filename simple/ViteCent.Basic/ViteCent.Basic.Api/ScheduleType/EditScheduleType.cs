@@ -42,8 +42,8 @@ public class EditScheduleType(ILogger<EditScheduleType> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.ScheduleType.EditScheduleType");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new ScheduleTypeValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new ScheduleTypeValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

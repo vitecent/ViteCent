@@ -34,9 +34,5 @@ public class HasUserLeaveEntityArgs : BaseArgs, IRequest<BaseResult>
 
     /// <summary>
     /// </summary>
-    public UserLeaveEnum Status { get; set; }
-
-    /// <summary>
-    /// </summary>
     public string UserId { get; set; } = string.Empty;
 }

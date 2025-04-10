@@ -65,6 +65,10 @@ public partial class $!{Setting.DisableName}$!{Table.CamelCaseName}(ILogger<$!{S
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Disable, entity, cancellationToken);
+
+        return result;
     }
 }

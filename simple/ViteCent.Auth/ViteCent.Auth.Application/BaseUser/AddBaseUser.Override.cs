@@ -7,10 +7,10 @@
 
 using MediatR;
 using ViteCent.Auth.Data.BaseUser;
-using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -106,6 +106,18 @@ public partial class AddBaseUser
 
     /// <summary>
     /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseUserEntity entity, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(0);
+    }
+
+    /// <summary>
+    /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -121,7 +133,7 @@ public partial class AddBaseUser
 
         var hasCompany = await mediator.CheckCompany(request.CompanyId);
 
-        if (hasCompany.Success)
+        if (!hasCompany.Success)
             return hasCompany;
 
         request.CompanyName = hasCompany.Data.Name;
@@ -133,7 +145,7 @@ public partial class AddBaseUser
 
         var hasDepartment = await mediator.CheckDepartment(request.CompanyId, request.DepartmentId);
 
-        if (hasDepartment.Success)
+        if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment.Data.Name;
@@ -145,7 +157,7 @@ public partial class AddBaseUser
 
         var hasPosition = await mediator.CheckPosition(request.CompanyId, request.PositionId);
 
-        if (hasPosition.Success)
+        if (!hasPosition.Success)
             return hasPosition;
 
         request.PositionName = hasPosition.Data.Name;

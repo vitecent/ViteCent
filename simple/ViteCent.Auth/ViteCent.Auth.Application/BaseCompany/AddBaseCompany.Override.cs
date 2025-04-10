@@ -6,7 +6,6 @@
 #region
 
 using MediatR;
-using System.Threading;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Core.Data;
@@ -46,6 +45,18 @@ public partial class AddBaseCompany
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseCompanyEntity entity, CancellationToken cancellationToken)
+    {
+        await Task.FromResult(0);
     }
 
     /// <summary>

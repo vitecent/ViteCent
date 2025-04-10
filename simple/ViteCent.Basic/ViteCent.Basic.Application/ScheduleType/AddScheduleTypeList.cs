@@ -18,6 +18,7 @@ using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -87,6 +88,11 @@ public class AddScheduleTypeList(ILogger<AddScheduleTypeList> logger,
             entitys.Items.Add(entity);
         }
 
-        return await mediator.Send(entitys, cancellationToken);
+        var result = await mediator.Send(entitys, cancellationToken);
+
+        foreach (var entity in entitys.Items)
+            await AddScheduleType.OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
+
+        return result;
     }
 }

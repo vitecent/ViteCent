@@ -24,7 +24,7 @@ public partial class AddUserRest
     /// <returns></returns>
     internal static void OverrideInvoke(AddUserRestArgs args, Core.Data.BaseUserInfo user)
     {
-        args.Status = (int)UserRestEnum.Apply;
+        args.Status = (int)UserRestEnum.Pass;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))

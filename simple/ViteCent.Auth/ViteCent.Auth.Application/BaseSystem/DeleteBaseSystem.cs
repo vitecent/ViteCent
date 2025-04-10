@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseSystem;
 using ViteCent.Auth.Entity.BaseSystem;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -53,8 +54,19 @@ public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger,
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
-        var args = mapper.Map<DeleteBaseSystemEntityArgs>(request);
+        var getArgs = mapper.Map<GetBaseSystemEntityArgs>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "系统信息不存在");
+
+        var args = mapper.Map<DeleteBaseSystemEntity>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await AddBaseSystem.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

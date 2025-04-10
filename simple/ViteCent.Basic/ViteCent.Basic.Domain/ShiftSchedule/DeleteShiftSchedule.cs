@@ -21,7 +21,7 @@ namespace ViteCent.Basic.Domain.ShiftSchedule;
 /// 删除换班申请
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDomain<ShiftScheduleEntity>, IRequestHandler<DeleteShiftScheduleEntityArgs, BaseResult>
+public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDomain<DeleteShiftScheduleEntity>, IRequestHandler<DeleteShiftScheduleEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,26 +34,10 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDoma
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(DeleteShiftScheduleEntityArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(DeleteShiftScheduleEntity request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ShiftSchedule.DeleteShiftSchedule");
 
-        var query = Client.Query<ShiftScheduleEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-        if (!string.IsNullOrWhiteSpace(request.DepartmentId))
-            query.Where(x => x.DepartmentId == request.DepartmentId);
-
-        if (!string.IsNullOrWhiteSpace(request.UserId))
-            query.Where(x => x.UserId == request.UserId);
-
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

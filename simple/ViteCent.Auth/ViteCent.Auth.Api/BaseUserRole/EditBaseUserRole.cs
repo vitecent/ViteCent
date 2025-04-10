@@ -42,8 +42,8 @@ public class EditBaseUserRole(ILogger<EditBaseUserRole> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUserRole.EditBaseUserRole");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BaseUserRoleValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BaseUserRoleValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

@@ -39,7 +39,7 @@ public class HasUserLeaveList(ILogger<HasUserLeaveList> logger) : BaseDomain<Use
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserLeave.HasUserLeave");
 
-        var query = Client.Query<UserLeaveEntity>();
+        var query = Client.Query<UserLeaveEntity>().Where(x => x.Status != (int)UserLeaveEnum.Pass);
 
         request.CompanyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
@@ -55,6 +55,10 @@ public class HasUserLeaveList(ILogger<HasUserLeaveList> logger) : BaseDomain<Use
 
         if (request.UserIds.Count > 0)
             query.Where(x => request.UserIds.Contains(x.UserId));
+
+        query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
+                    (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                    (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entity = await query.CountAsync(cancellationToken);
 

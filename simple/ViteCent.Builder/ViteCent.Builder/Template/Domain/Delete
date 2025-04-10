@@ -21,7 +21,7 @@ namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 /// 删除$!{Table.Description}
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}, BaseResult>
+public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,59 +34,10 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name} request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
-        var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
-
-#if($HasId)
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
-
-#end
-#if($HasCompanyId)
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-#end
-#if($HasDepartmentId)
-        if (!string.IsNullOrWhiteSpace(request.DepartmentId))
-            query.Where(x => x.DepartmentId == request.DepartmentId);
-
-#end
-#if($HasPositionId)
-        if (!string.IsNullOrWhiteSpace(request.PositionId))
-            query.Where(x => x.PositionId == request.PositionId);
-
-#end
-#if($HasRoleId)
-        if (!string.IsNullOrWhiteSpace(request.RoleId))
-            query.Where(x => x.RoleId == request.RoleId);
-
-#end
-#if($HasUserId)
-        if (!string.IsNullOrWhiteSpace(request.UserId))
-            query.Where(x => x.UserId == request.UserId);
-
-#end
-#if($HasSystemId)
-        if (!string.IsNullOrWhiteSpace(request.SystemId))
-            query.Where(x => x.SystemId == request.SystemId);
-
-#end
-#if($HasResourceId)
-        if (!string.IsNullOrWhiteSpace(request.ResourceId))
-            query.Where(x => x.ResourceId == request.ResourceId);
-
-#end
-#if($HasOperationId)
-        if (!string.IsNullOrWhiteSpace(request.OperationId))
-            query.Where(x => x.OperationId == request.OperationId);
-
-#end
-        var entity = await query.FirstAsync(cancellationToken);
-
-        return await base.DeleteAsync(entity);
+        return await base.DeleteAsync(request);
     }
 }

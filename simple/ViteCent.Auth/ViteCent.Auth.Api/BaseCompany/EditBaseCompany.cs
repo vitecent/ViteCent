@@ -41,8 +41,8 @@ public class EditBaseCompany(ILogger<EditBaseCompany> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseCompany.EditBaseCompany");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new BaseCompanyValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new BaseCompanyValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

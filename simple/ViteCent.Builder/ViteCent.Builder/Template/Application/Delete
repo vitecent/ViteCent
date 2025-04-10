@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -81,8 +82,19 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
             request.PositionId = positionId;
 
 #end
-        var args = mapper.Map<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
+        var getArgs = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
 
-        return await mediator.Send(args, cancellationToken);
+        var entity = await mediator.Send(getArgs, cancellationToken);
+
+        if (entity == null)
+            return new BaseResult(500, "$!{Table.Description}不存在");
+
+        var args = mapper.Map<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>(entity);
+
+        var result = await mediator.Send(args, cancellationToken);
+
+        await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
+
+        return result;
     }
 }

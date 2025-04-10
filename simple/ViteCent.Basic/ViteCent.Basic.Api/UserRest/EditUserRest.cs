@@ -42,8 +42,8 @@ public class EditUserRest(ILogger<EditUserRest> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.UserRest.EditUserRest");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new UserRestValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new UserRestValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

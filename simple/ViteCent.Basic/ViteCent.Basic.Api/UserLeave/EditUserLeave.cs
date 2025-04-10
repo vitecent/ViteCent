@@ -42,8 +42,8 @@ public class EditUserLeave(ILogger<EditUserLeave> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.UserLeave.EditUserLeave");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new UserLeaveValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new UserLeaveValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

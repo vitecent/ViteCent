@@ -159,6 +159,6 @@ public class ElasticsearchFactory : IElasticsearch
             throw new Exception($"Search Failed {response.DebugInformation}");
         }
 
-        return new PageResult<T>(1, int.MaxValue, (int)response.Total, [.. response.Documents]); ;
+        return new PageResult<T>(1, int.MaxValue, (int)response.Total, [.. response.Documents]);
     }
 }

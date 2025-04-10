@@ -20,11 +20,6 @@ public class PreAddScheduleArgs
     public string DepartmentId { get; set; } = string.Empty;
 
     /// <summary>
-    /// 排班名称
-    /// </summary>
-    public string Shift { get; set; } = string.Empty;
-
-    /// <summary>
     /// 职位名称
     /// </summary>
     public string Job { get; set; } = string.Empty;
@@ -38,6 +33,11 @@ public class PreAddScheduleArgs
     /// 职位标识
     /// </summary>
     public string PositionId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 排班名称
+    /// </summary>
+    public string Shift { get; set; } = string.Empty;
 
     /// <summary>
     /// 用户标识

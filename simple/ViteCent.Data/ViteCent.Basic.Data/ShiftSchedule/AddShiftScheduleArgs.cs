@@ -41,6 +41,11 @@ public class AddShiftScheduleArgs : BaseArgs, IRequest<BaseResult>
     public string DepartmentName { get; set; } = string.Empty;
 
     /// <summary>
+    /// 岗位名称
+    /// </summary>
+    public string Job { get; set; } = string.Empty;
+
+    /// <summary>
     /// 描述
     /// </summary>
     public string Remark { get; set; } = string.Empty;
@@ -66,14 +71,9 @@ public class AddShiftScheduleArgs : BaseArgs, IRequest<BaseResult>
     public string ShiftDepartmentName { get; set; } = string.Empty;
 
     /// <summary>
-    /// 换班排班标识
+    /// 换班岗位名称
     /// </summary>
-    public string ShiftScheduleId { get; set; } = string.Empty;
-
-    /// <summary>
-    /// 换班排班名称
-    /// </summary>
-    public string ShiftScheduleName { get; set; } = string.Empty;
+    public string ShiftJob { get; set; } = string.Empty;
 
     /// <summary>
     /// 换班用户标识

@@ -18,6 +18,7 @@ using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Basic.Entity.UserLeave;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
 
 #endregion
@@ -71,10 +72,10 @@ public partial class EditUserLeave(ILogger<EditUserLeave> logger,
         if (entity == null)
             return new BaseResult(500, "请假申请不存在");
 
-        var result = await OverrideHandle(entity, cancellationToken);
+        check = await OverrideHandle(entity, cancellationToken);
 
-        if (!result.Success)
-            return result;
+        if (!check.Success)
+            return check;
 
         entity.CompanyName = request.CompanyName;
         entity.DepartmentName = request.DepartmentName;
@@ -88,6 +89,10 @@ public partial class EditUserLeave(ILogger<EditUserLeave> logger,
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
 
-        return await mediator.Send(entity, cancellationToken);
+        var result = await mediator.Send(entity, cancellationToken);
+
+        await AddUserLeave.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
+
+        return result;
     }
 }

@@ -42,8 +42,8 @@ public class EditRepairSchedule(ILogger<EditRepairSchedule> logger,
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.RepairSchedule.EditRepairSchedule");
 
-        var cancellationToken = new CancellationToken(true);
-        var validator = new RepairScheduleValidator();
+        var cancellationToken = new CancellationToken();
+        var validator = new RepairScheduleValidator(true);
 
         var check = await validator.ValidateAsync(args, cancellationToken);
 

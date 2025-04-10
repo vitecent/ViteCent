@@ -9,7 +9,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Entity.BasePosition;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
