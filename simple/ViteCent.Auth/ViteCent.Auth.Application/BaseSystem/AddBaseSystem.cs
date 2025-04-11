@@ -47,7 +47,8 @@ public partial class AddBaseSystem(ILogger<AddBaseSystem> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddBaseSystemArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddBaseSystemArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseSystem.AddBaseSystem");
 

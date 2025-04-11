@@ -47,7 +47,8 @@ public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddBaseCompanyListArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddBaseCompanyListArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseCompany.AddBaseCompanyList");
 

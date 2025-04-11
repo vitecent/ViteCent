@@ -51,7 +51,8 @@ public partial class EditScheduleType(ILogger<EditScheduleType> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(EditScheduleTypeArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(EditScheduleTypeArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.ScheduleType.EditScheduleType");
 

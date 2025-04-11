@@ -9,6 +9,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+#if($DataBase.Invoke)
+		<ProjectReference Include="..\..\\${Setting.Data.Projrect}\\$!{DataBase.InvokeProjrect}.${Setting.Data.Name}\\$!{DataBase.InvokeProjrect}.${Setting.Data.Name}.csproj" />
+#end
 		<ProjectReference Include="..\..\\${Setting.Data.Projrect}\\$!{DataBase.Name}.${Setting.Data.Name}\\$!{DataBase.Name}.${Setting.Data.Name}.csproj" />
 		<ProjectReference Include="..\\$!{DataBase.Name}.${Setting.Entity.Name}\\$!{DataBase.Name}.${Setting.Entity.Name}.csproj" />
 	</ItemGroup>

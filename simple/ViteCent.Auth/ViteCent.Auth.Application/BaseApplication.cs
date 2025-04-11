@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +23,7 @@ namespace ViteCent.Auth.Application;
 /// <summary>
 /// 基础仓储
 /// </summary>
-public static class BaseAppliction
+public static class BaseApplication
 {
     /// <summary>
     /// </summary>

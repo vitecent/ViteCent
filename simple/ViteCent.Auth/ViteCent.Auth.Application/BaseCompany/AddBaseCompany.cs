@@ -47,7 +47,8 @@ public partial class AddBaseCompany(ILogger<AddBaseCompany> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddBaseCompanyArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddBaseCompanyArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseCompany.AddBaseCompany");
 

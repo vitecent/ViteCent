@@ -1,0 +1,412 @@
+﻿using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
+using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
+using ViteCent.Core;
+using ViteCent.Core.Cache;
+using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
+using ViteCent.Core.Web;
+
+namespace $!{DataBase.Name}.$!{Setting.Application.Name};
+
+/// <summary>
+/// 基础仓储
+/// </summary>
+public static class Base$!{Setting.Application.Name}
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="companyInvoke"></param>
+    /// <param name="companyId"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>> CheckCompany(this IBaseInvoke<$!{Setting.GetName}BaseCompany$!{Setting.Data.ArgsSuffix}, DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
+        string companyId,
+        string token)
+    {
+        if (string.IsNullOrWhiteSpace(companyId))
+            return new DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>();
+
+        var getCompanyArgs = new $!{Setting.GetName}BaseCompany$!{Setting.Data.ArgsSuffix}
+        {
+            Id = companyId,
+        };
+
+        var company = await companyInvoke.InvokePostAsync("Auth", "/BaseCompany/Get", getCompanyArgs, token);
+
+        if (!company.Success)
+            return company;
+
+        if (company.Data == null)
+            return new DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, "公司不存在");
+
+        if (company.Data.Status == (int)StatusEnum.Disable)
+            return new DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, "公司已禁用");
+
+        return company;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="companyInvoke"></param>
+    /// <param name="companyIds"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> CheckCompany(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Data.ArgsSuffix}, PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
+        List<string> companyIds,
+        string token)
+    {
+        companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (companyIds.Count == 0)
+            return new PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>();
+
+        var searchCompanyArgs = new $!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Data.ArgsSuffix}
+        {
+            Offset = 1,
+            Limit = int.MaxValue,
+            Args =
+            [
+                new ()
+                {
+                    Field = "Id",
+                    Value = companyIds.ToJson(),
+                    Method = SearchEnum.In
+                }
+            ]
+        };
+
+        var companys = await companyInvoke.InvokePostAsync("Auth", "/BaseCompany/Page", searchCompanyArgs, token);
+
+        if (!companys.Success)
+            return companys;
+
+        if (companys.Total == 0)
+            return new PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, $"公司{companyIds.FirstOrDefault()}不存在");
+
+        var _companyIds = companys.Rows.Select(y => y.Id).ToList();
+        var _companyId = companyIds.FirstOrDefault(x => !_companyIds.Contains(x));
+
+        if (!string.IsNullOrWhiteSpace(_companyId))
+            return new PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, $"公司{_companyId}不存在");
+
+        var company = companys.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
+
+        if (company != null)
+            return new PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, $"公司{company.Name}已经禁用");
+
+        return companys;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="departmentInvoke"></param>
+    /// <param name="companyId"></param>
+    /// <param name="departmentId"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> CheckDepartment(this IBaseInvoke<$!{Setting.GetName}BaseDepartment$!{Setting.Data.ArgsSuffix}, DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
+        string companyId, string departmentId, string token)
+    {
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId))
+            return new DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>();
+
+        var getDepartmentArgs = new $!{Setting.GetName}BaseDepartment$!{Setting.Data.ArgsSuffix}
+        {
+            CompanyId = companyId,
+            Id = departmentId,
+        };
+
+        var department = await departmentInvoke.InvokePostAsync("Auth", "/BaseDepartment/Get", getDepartmentArgs, token);
+
+        if (!department.Success)
+            return department;
+
+        if (department.Data == null)
+            return new DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, "部门不存在");
+
+        if (department.Data.Status == (int)StatusEnum.Disable)
+            return new DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, "部门已禁用");
+
+        return department;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="departmentInvoke"></param>
+    /// <param name="companyIds"></param>
+    /// <param name="departmentIds"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> CheckDepartment(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseDepartment$!{Setting.Data.ArgsSuffix}, PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
+        List<string> companyIds,
+        List<string> departmentIds,
+        string token)
+    {
+        companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+        departmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (companyIds.Count == 0 && departmentIds.Count == 0)
+            return new PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>();
+
+        var searchDepartmentArgs = new $!{Setting.Data.SearchPrefix}BaseDepartment$!{Setting.Data.ArgsSuffix}
+        {
+            Offset = 1,
+            Limit = int.MaxValue,
+            Args = []
+        };
+
+        if (companyIds.Count > 0)
+            searchDepartmentArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (departmentIds.Count > 0)
+            searchDepartmentArgs.AddArgs("Id", departmentIds.ToJson(), SearchEnum.In);
+
+        var departments = await departmentInvoke.InvokePostAsync("Auth", "/BaseDepartment/Page", searchDepartmentArgs, token);
+
+        if (!departments.Success)
+            return departments;
+
+        if (departments.Total == 0)
+            return new PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, $"部门{departmentIds.FirstOrDefault()}不存在");
+
+        var _departmentIds = departments.Rows.Select(y => y.Id).ToList();
+        var _departmentId = departmentIds.FirstOrDefault(x => !_departmentIds.Contains(x));
+
+        if (!string.IsNullOrWhiteSpace(_departmentId))
+            return new PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, $"部门{_departmentId}不存在");
+
+        var department = departments.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
+
+        if (department != null)
+            return new PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, $"部门{department.Name}已经禁用");
+
+        return departments;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="positionInvoke"></param>
+    /// <param name="companyId"></param>
+    /// <param name="positionId"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<DataResult<BasePosition$!{Setting.Data.ResultSuffix}>> CheckPosition(this IBaseInvoke<$!{Setting.GetName}BasePosition$!{Setting.Data.ArgsSuffix}, DataResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
+        string companyId, string positionId, string token)
+    {
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(positionId))
+            return new DataResult<BasePosition$!{Setting.Data.ResultSuffix}>();
+
+        var getPositionArgs = new $!{Setting.GetName}BasePosition$!{Setting.Data.ArgsSuffix}
+        {
+            CompanyId = companyId,
+            Id = positionId,
+        };
+
+        var position = await positionInvoke.InvokePostAsync("Auth", "/BasePosition/Get", getPositionArgs, token);
+
+        if (!position.Success)
+            return position;
+
+        if (position.Data == null)
+            return new DataResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, "职位不存在");
+
+        if (position.Data.Status == (int)StatusEnum.Disable)
+            return new DataResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, "职位已禁用");
+
+        return position;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="positionInvoke"></param>
+    /// <param name="companyIds"></param>
+    /// <param name="positionIds"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> CheckPosition(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BasePosition$!{Setting.Data.ArgsSuffix}, PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
+        List<string> companyIds,
+        List<string> positionIds,
+        string token)
+    {
+        companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+        positionIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (companyIds.Count == 0 && positionIds.Count == 0)
+            return new PageResult<BasePosition$!{Setting.Data.ResultSuffix}>();
+
+        var searchPositionArgs = new $!{Setting.Data.SearchPrefix}BasePosition$!{Setting.Data.ArgsSuffix}
+        {
+            Offset = 1,
+            Limit = int.MaxValue,
+            Args = []
+        };
+
+        if (companyIds.Count > 0)
+            searchPositionArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (positionIds.Count > 0)
+            searchPositionArgs.AddArgs("Id", positionIds.ToJson(), SearchEnum.In);
+
+        var positions = await positionInvoke.InvokePostAsync("Auth", "/BasePosition/Page", searchPositionArgs, token);
+
+        if (!positions.Success)
+            return positions;
+
+        if (positions.Total == 0)
+            return new PageResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, $"职位{positionIds.FirstOrDefault()}不存在");
+
+        var _positionIds = positions.Rows.Select(y => y.Id).ToList();
+        var _positionId = positionIds.FirstOrDefault(x => !_positionIds.Contains(x));
+
+        if (!string.IsNullOrWhiteSpace(_positionId))
+            return new PageResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, $"职位{_positionId}不存在");
+
+        var position = positions.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
+
+        if (position != null)
+            return new PageResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, $"职位{position.Name}已经禁用");
+
+        return positions;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="userInvoke"></param>
+    /// <param name="companyId"></param>
+    /// <param name="departmentId"></param>
+    /// <param name="userId"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<DataResult<BaseUser$!{Setting.Data.ResultSuffix}>> CheckUser(this IBaseInvoke<$!{Setting.GetName}BaseUser$!{Setting.Data.ArgsSuffix}, DataResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
+        string companyId,
+        string departmentId,
+        string userId,
+        string token)
+    {
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(userId))
+            return new DataResult<BaseUser$!{Setting.Data.ResultSuffix}>();
+
+        var getUserArgs = new $!{Setting.GetName}BaseUser$!{Setting.Data.ArgsSuffix}
+        {
+            CompanyId = companyId,
+            DepartmentId = departmentId,
+            Id = userId,
+        };
+
+        var user = await userInvoke.InvokePostAsync("Auth", "/BaseUser/Get", getUserArgs, token);
+
+        if (!user.Success)
+            return user;
+
+        if (user.Data == null)
+            return new DataResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, "用户不存在");
+
+        if (user.Data.Status == (int)StatusEnum.Disable)
+            return new DataResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, "用户已禁用");
+
+        return user;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="userInvoke"></param>
+    /// <param name="companyIds"></param>
+    /// <param name="departmentIds"></param>
+    /// <param name="userIds"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> CheckUser(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}, PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
+        List<string> companyIds,
+        List<string> departmentIds,
+        List<string> userIds,
+        string token)
+    {
+        companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+        departmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+        userIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
+        if (companyIds.Count == 0 && departmentIds.Count == 0 && userIds.Count == 0)
+            return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>();
+
+        var searchUserArgs = new $!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}
+        {
+            Offset = 1,
+            Limit = int.MaxValue,
+            Args = []
+        };
+
+        if (companyIds.Count > 0)
+            searchUserArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        if (departmentIds.Count > 0)
+            searchUserArgs.AddArgs("DepartmentId", departmentIds.ToJson(), SearchEnum.In);
+
+        if (userIds.Count > 0)
+            searchUserArgs.AddArgs("Id", userIds.ToJson(), SearchEnum.In);
+
+        var users = await userInvoke.InvokePostAsync("Auth", "/BaseUser/Page", searchUserArgs, token);
+
+        if (!users.Success)
+            return users;
+
+        if (users.Total == 0)
+            return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, $"用户{userIds.FirstOrDefault()}不存在");
+
+        var _userIds = users.Rows.Select(y => y.Id).ToList();
+        var _userId = userIds.FirstOrDefault(x => !_userIds.Contains(x));
+
+        if (!string.IsNullOrWhiteSpace(_userId))
+            return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, $"用户{_userId}不存在");
+
+        var user = users.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
+
+        if (user != null)
+            return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, $"用户{user.RealName}已经禁用");
+
+        return users;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="cache"></param>
+    /// <param name="companyId"></param>
+    /// <param name="table"></param>
+    /// <returns></returns>
+    public static async Task<string> GetIdAsync(this IBaseCache cache,
+        string companyId,
+        string table)
+    {
+        return await cache.NextIdentity(new NextIdentifyArg()
+        {
+            CompanyId = companyId,
+            Name = table,
+        });
+    }
+
+    /// <summary>
+    /// 获取用户信息
+    /// </summary>
+    /// <param name="httpContextAccessor"></param>
+    /// <returns></returns>
+    public static BaseUserInfo InitUser(this IHttpContextAccessor httpContextAccessor)
+    {
+        var user = new BaseUserInfo();
+
+        var context = httpContextAccessor.HttpContext;
+
+        var token = context?.Request.Headers[BaseConst.Token].ToString() ?? string.Empty;
+
+        var json = context?.User.FindFirstValue(ClaimTypes.UserData);
+
+        if (!string.IsNullOrWhiteSpace(json))
+            user = json.DeJson<BaseUserInfo>();
+
+        user.Token = token;
+
+        return user;
+    }
+}

@@ -7,7 +7,7 @@
  */
 
 #region
-
+using MediatR;
 #if($HasCompanyId)
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
@@ -21,9 +21,11 @@ using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
+using ViteCent.Core.Web;
 
 #endregion
 
@@ -35,12 +37,67 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 {
     /// <summary>
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="request"></param>
+    /// <param name="user"></param>
+#if($HasCompanyId)
+    /// <param name="companyInvoke"></param>
+#end
+#if($HasDepartmentId)
+    /// <param name="departmentInvoke"></param>
+#end
+#if($HasPositionId)
+    /// <param name="positionInvoke"></param>
+#end
+#if($HasUserId)
+    /// <param name="userInvoke"></param>
+#end
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator,
+        $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request,
+        BaseUserInfo user,
+#if($HasCompanyId)
+    IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Data.ArgsSuffix}, PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
+#end
+#if($HasDepartmentId)
+    IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseDepartment$!{Setting.Data.ArgsSuffix}, PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
+#end
+#if($HasPositionId)
+    IBaseInvoke<$!{Setting.Data.SearchPrefix}BasePosition$!{Setting.Data.ArgsSuffix}, PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
+#end
+#if($HasUserId)
+    IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}, PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
+#end
+        CancellationToken cancellationToken)
+    {
+        return await Task.FromResult(new BaseResult());
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="mediator"></param>
+    /// <param name="topic"></param>
+    /// <param name="entity"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    internal static async Task OverrideTopic(IMediator mediator,
+        TopicEnum topic,
+        $!{Table.CamelCaseName}$!{Setting.Entity.Name} entity,
+        CancellationToken cancellationToken)
+    {
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
     /// 验证参数
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request,
+        CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 

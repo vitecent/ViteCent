@@ -53,7 +53,8 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}");
 

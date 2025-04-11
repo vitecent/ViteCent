@@ -57,7 +57,8 @@ public partial class AddUserRest(ILogger<AddUserRest> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddUserRestArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddUserRestArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserRest.AddUserRest");
 

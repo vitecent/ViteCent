@@ -57,7 +57,8 @@ public class AddScheduleList(ILogger<AddScheduleList> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddScheduleListArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddScheduleListArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.AddScheduleList");
 

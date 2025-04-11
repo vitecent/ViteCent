@@ -54,7 +54,8 @@ public partial class EditShiftSchedule(ILogger<EditShiftSchedule> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(EditShiftScheduleArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(EditShiftScheduleArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.ShiftSchedule.EditShiftSchedule");
 

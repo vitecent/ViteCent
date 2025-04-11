@@ -54,7 +54,8 @@ public partial class AddScheduleType(ILogger<AddScheduleType> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddScheduleTypeArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddScheduleTypeArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.ScheduleType.AddScheduleType");
 

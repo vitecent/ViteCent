@@ -47,7 +47,8 @@ public partial class AddBaseDictionary(ILogger<AddBaseDictionary> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddBaseDictionaryArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddBaseDictionaryArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseDictionary.AddBaseDictionary");
 

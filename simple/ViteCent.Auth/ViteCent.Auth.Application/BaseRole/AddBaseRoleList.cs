@@ -47,7 +47,8 @@ public class AddBaseRoleList(ILogger<AddBaseRoleList> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddBaseRoleListArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddBaseRoleListArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseRole.AddBaseRoleList");
 

@@ -56,7 +56,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator,
+        $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request,
+        BaseUserInfo user,
+        CancellationToken cancellationToken)
     {
         return await Task.FromResult(new BaseResult());
     }
@@ -68,7 +71,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, $!{Table.CamelCaseName}$!{Setting.Entity.Name} entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator,
+        TopicEnum topic,
+        $!{Table.CamelCaseName}$!{Setting.Entity.Name} entity,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
     }
@@ -79,7 +85,8 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request,
+        CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 

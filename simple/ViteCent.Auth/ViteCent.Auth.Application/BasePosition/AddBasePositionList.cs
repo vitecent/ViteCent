@@ -47,7 +47,8 @@ public class AddBasePositionList(ILogger<AddBasePositionList> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddBasePositionListArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddBasePositionListArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BasePosition.AddBasePositionList");
 

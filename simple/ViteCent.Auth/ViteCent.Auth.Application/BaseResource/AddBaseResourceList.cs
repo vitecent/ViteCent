@@ -47,7 +47,8 @@ public class AddBaseResourceList(ILogger<AddBaseResourceList> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(AddBaseResourceListArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(AddBaseResourceListArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseResource.AddBaseResourceList");
 
