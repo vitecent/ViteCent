@@ -90,7 +90,7 @@ public partial class AddBaseDepartment
         if (!hasCompany.Success)
             return hasCompany;
 
-        request.CompanyName = hasCompany.Data.Name;
+        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(request.ParentId))
         {

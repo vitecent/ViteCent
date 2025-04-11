@@ -82,7 +82,7 @@ public partial class AddSchedule
                 data.DepartmentName = item.Name;
         }
 
-        var users = await userInvoke.CheckUser(companyIds, departmentIds, userIds, user?.Token ?? string.Empty);
+        var users = await userInvoke.CheckUser(companyIds, departmentIds, [], userIds, user?.Token ?? string.Empty);
 
         if (!users.Success)
             return users;
@@ -150,7 +150,7 @@ public partial class AddSchedule
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId, user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;

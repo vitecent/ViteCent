@@ -49,7 +49,7 @@ public partial class EditShiftSchedule
         if (!hasCompany.Success)
             return hasCompany;
 
-        request.CompanyName = hasCompany.Data.Name;
+        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -61,14 +61,14 @@ public partial class EditShiftSchedule
         if (!hasDepartment.Success)
             return hasDepartment;
 
-        request.DepartmentName = hasDepartment.Data.Name;
+        request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId, user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
 
-        request.UserName = hasUser.Data.RealName;
+        request.UserName = hasUser?.Data?.RealName ?? string.Empty;
 
         var args = mapper.Map<GetScheduleEntityArgs>(request);
         args.Id = request.ScheduleId;

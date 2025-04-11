@@ -56,9 +56,10 @@ public class ListSchedule(ILogger<ListSchedule> logger,
 
         var companyIds = rows.Select(x => x.CompanyId).Distinct().ToList();
         var departmentIds = rows.Select(x => x.DepartmentId).Distinct().ToList();
+        var positionIds = rows.Select(x => x.PositionId).Distinct().ToList();
         var userIds = rows.Select(x => x.UserId).Distinct().ToList();
 
-        var users = await userInvoke.CheckUser(companyIds, departmentIds, userIds, user?.Token ?? string.Empty);
+        var users = await userInvoke.CheckUser(companyIds, departmentIds, positionIds, userIds, user?.Token ?? string.Empty);
 
         if (!users.Success)
             return new PageResult<UserScheduleResult>(users.Code, users.Message);

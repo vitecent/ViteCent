@@ -278,22 +278,25 @@ public static class BaseAppliction
     /// <param name="userInvoke"></param>
     /// <param name="companyId"></param>
     /// <param name="departmentId"></param>
+    /// <param name="positionId"></param>
     /// <param name="userId"></param>
     /// <param name="token"></param>
     /// <returns></returns>
     public static async Task<DataResult<BaseUserResult>> CheckUser(this IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
         string companyId,
         string departmentId,
+        string positionId,
         string userId,
         string token)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(userId))
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(positionId) && string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUserResult>();
 
         var getUserArgs = new GetBaseUserArgs
         {
             CompanyId = companyId,
             DepartmentId = departmentId,
+            PositionId = positionId,
             Id = userId,
         };
 
@@ -316,17 +319,20 @@ public static class BaseAppliction
     /// <param name="userInvoke"></param>
     /// <param name="companyIds"></param>
     /// <param name="departmentIds"></param>
+    /// <param name="positionIds"></param>
     /// <param name="userIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
     public static async Task<PageResult<BaseUserResult>> CheckUser(this IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
         List<string> companyIds,
         List<string> departmentIds,
+        List<string> positionIds,
         List<string> userIds,
         string token)
     {
         companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
         departmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+        positionIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
         userIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
         if (companyIds.Count == 0 && departmentIds.Count == 0 && userIds.Count == 0)
@@ -344,6 +350,9 @@ public static class BaseAppliction
 
         if (departmentIds.Count > 0)
             searchUserArgs.AddArgs("DepartmentId", departmentIds.ToJson(), SearchEnum.In);
+
+        if (positionIds.Count > 0)
+            searchUserArgs.AddArgs("PositionId", positionIds.ToJson(), SearchEnum.In);
 
         if (userIds.Count > 0)
             searchUserArgs.AddArgs("Id", userIds.ToJson(), SearchEnum.In);

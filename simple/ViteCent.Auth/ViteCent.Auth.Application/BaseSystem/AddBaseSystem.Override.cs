@@ -90,7 +90,7 @@ public partial class AddBaseSystem
         if (!hasCompany.Success)
             return hasCompany;
 
-        request.CompanyName = hasCompany.Data.Name;
+        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasBaseSystemEntityArgs
         {

@@ -62,7 +62,7 @@ public partial class LastSchedule
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId, user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;

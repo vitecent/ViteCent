@@ -45,7 +45,7 @@ public partial class EditScheduleType
         if (!hasCompany.Success)
             return hasCompany;
 
-        request.CompanyName = hasCompany.Data.Name;
+        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -57,7 +57,7 @@ public partial class EditScheduleType
         if (!hasDepartment.Success)
             return hasDepartment;
 
-        request.DepartmentName = hasDepartment.Data.Name;
+        request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasScheduleTypeEntityArgs
         {

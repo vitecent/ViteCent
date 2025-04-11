@@ -48,7 +48,7 @@ public partial class EditBaseUser
         if (!hasCompany.Success)
             return hasCompany;
 
-        request.CompanyName = hasCompany.Data.Name;
+        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -60,7 +60,7 @@ public partial class EditBaseUser
         if (!hasDepartment.Success)
             return hasDepartment;
 
-        request.DepartmentName = hasDepartment.Data.Name;
+        request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
@@ -72,7 +72,7 @@ public partial class EditBaseUser
         if (!hasPosition.Success)
             return hasPosition;
 
-        request.PositionName = hasPosition.Data.Name;
+        request.PositionName = hasPosition?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasBaseUserEntityArgs
         {
