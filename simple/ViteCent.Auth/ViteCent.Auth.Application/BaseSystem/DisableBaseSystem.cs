@@ -56,7 +56,7 @@ public partial class DisableBaseSystem(ILogger<DisableBaseSystem> logger,
 
         if (entity == null)
             return new BaseResult(500, "系统信息不存在");
-        
+
         if (entity.Status == (int)StatusEnum.Disable)
             return new BaseResult(500, "系统信息已禁用");
 

@@ -67,10 +67,10 @@ public partial class AddBaseUserRole
 
         var hasListArgs = new HasBaseUserRoleEntityListArgs
         {
-            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
-            DepartmentIds = [.. request.Items.Select(x => x.DepartmentId).Distinct()],
-            RoleIds = [.. request.Items.Select(x => x.RoleId).Distinct()],
-            UserIds = [.. request.Items.Select(x => x.UserId).Distinct()],
+            CompanyIds = companyIds,
+            DepartmentIds = departmentIds,
+            RoleIds = roleIds,
+            UserIds = userIds,
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -85,7 +85,7 @@ public partial class AddBaseUserRole
     /// <returns></returns>
     internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseUserRoleEntity entity, CancellationToken cancellationToken)
     {
-        await Task.FromResult(0);
+        await Task.CompletedTask;
     }
 
     /// <summary>

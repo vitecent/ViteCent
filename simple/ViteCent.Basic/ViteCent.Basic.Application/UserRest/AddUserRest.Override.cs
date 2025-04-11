@@ -10,7 +10,6 @@ using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.UserRest;
-using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Basic.Entity.UserRest;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;

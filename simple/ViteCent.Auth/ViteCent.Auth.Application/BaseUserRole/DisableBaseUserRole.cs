@@ -56,7 +56,7 @@ public partial class DisableBaseUserRole(ILogger<DisableBaseUserRole> logger,
 
         if (entity == null)
             return new BaseResult(500, "用户角色不存在");
-        
+
         if (entity.Status == (int)StatusEnum.Disable)
             return new BaseResult(500, "用户角色已禁用");
 

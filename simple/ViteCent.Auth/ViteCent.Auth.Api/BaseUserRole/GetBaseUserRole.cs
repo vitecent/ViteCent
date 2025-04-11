@@ -61,7 +61,7 @@ public class GetBaseUserRole(ILogger<GetBaseUserRole> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new DataResult<BaseUserRoleResult>(500, "角色标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<BaseUserRoleResult>(500, "用户标识不能为空");

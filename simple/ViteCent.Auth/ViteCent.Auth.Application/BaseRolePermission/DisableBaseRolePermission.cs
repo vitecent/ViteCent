@@ -56,7 +56,7 @@ public partial class DisableBaseRolePermission(ILogger<DisableBaseRolePermission
 
         if (entity == null)
             return new BaseResult(500, "角色权限不存在");
-        
+
         if (entity.Status == (int)StatusEnum.Disable)
             return new BaseResult(500, "角色权限已禁用");
 

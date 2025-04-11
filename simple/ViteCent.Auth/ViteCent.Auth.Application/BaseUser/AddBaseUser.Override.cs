@@ -90,9 +90,9 @@ public partial class AddBaseUser
 
         var hasListArgs = new HasBaseUserEntityListArgs
         {
-            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
-            DepartmentIds = [.. request.Items.Select(x => x.DepartmentId).Distinct()],
-            PositionIds = [.. request.Items.Select(x => x.PositionId).Distinct()],
+            CompanyIds = companyIds,
+            DepartmentIds = departmentIds,
+            PositionIds = positionIds,
             UserNos = [.. request.Items.Select(x => x.UserNo).Distinct()],
             Usernames = [.. request.Items.Select(x => x.Username).Distinct()],
             RealNames = [.. request.Items.Select(x => x.RealName).Distinct()],
@@ -113,7 +113,7 @@ public partial class AddBaseUser
     /// <returns></returns>
     internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseUserEntity entity, CancellationToken cancellationToken)
     {
-        await Task.FromResult(0);
+        await Task.CompletedTask;
     }
 
     /// <summary>

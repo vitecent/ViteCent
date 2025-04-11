@@ -1,8 +1,7 @@
 ﻿/*
  * **********************************
- * 代码由工具自动生成，请勿人工修改
- * 重新生成时，将覆盖原有代码
- * 如需扩展该类，请在partial类中实现
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
  * **********************************
  */
 
@@ -60,7 +59,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (string.IsNullOrWhiteSpace(request.CompanyId))
             request.CompanyId = companyId;
 
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);;
+        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);
 
         if (hasCompany.Success)
             return hasCompany;

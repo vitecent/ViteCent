@@ -57,7 +57,7 @@ public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new DataResult<BaseRolePermissionResult>(500, "角色标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new DataResult<BaseRolePermissionResult>(500, "系统标识不能为空");

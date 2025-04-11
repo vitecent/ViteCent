@@ -53,7 +53,7 @@ public partial class AddBasePosition
 
         var hasListArgs = new HasBasePositionEntityListArgs
         {
-            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
+            CompanyIds = companyIds,
             Codes = [.. request.Items.Select(x => x.Code).Distinct()],
             Names = [.. request.Items.Select(x => x.Name).Distinct()],
         };
@@ -70,7 +70,7 @@ public partial class AddBasePosition
     /// <returns></returns>
     internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BasePositionEntity entity, CancellationToken cancellationToken)
     {
-        await Task.FromResult(0);
+        await Task.CompletedTask;
     }
 
     /// <summary>

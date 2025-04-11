@@ -56,7 +56,7 @@ public partial class DisableBaseResource(ILogger<DisableBaseResource> logger,
 
         if (entity == null)
             return new BaseResult(500, "资源信息不存在");
-        
+
         if (entity.Status == (int)StatusEnum.Disable)
             return new BaseResult(500, "资源信息已禁用");
 

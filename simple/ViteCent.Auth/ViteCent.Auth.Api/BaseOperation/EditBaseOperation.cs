@@ -58,7 +58,7 @@ public class EditBaseOperation(ILogger<EditBaseOperation> logger,
 
         if (checkCompany != null && !checkCompany.Success)
             return checkCompany;
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new BaseResult(500, "系统标识不能为空");

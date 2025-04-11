@@ -56,7 +56,7 @@ public partial class AddBaseResource(ILogger<AddBaseResource> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new BaseResult(500, "系统标识不能为空");

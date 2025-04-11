@@ -20,8 +20,8 @@ namespace ViteCent.Basic.Data.RepairSchedule;
 [Serializable]
 public class AddRepairScheduleListArgs : BaseArgs, IRequest<BaseResult>
 {
-	/// <summary>
-	/// 补卡申请
-	/// </summary>
-	public List<AddRepairScheduleArgs> Items = [];
+    /// <summary>
+    /// 补卡申请
+    /// </summary>
+    public List<AddRepairScheduleArgs> Items = [];
 }

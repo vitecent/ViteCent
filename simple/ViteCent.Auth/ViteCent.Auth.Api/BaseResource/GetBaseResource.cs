@@ -53,7 +53,7 @@ public class GetBaseResource(ILogger<GetBaseResource> logger,
 
         if (check != null && !check.Success)
             return new DataResult<BaseResourceResult>(check.Code, check.Message);
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new DataResult<BaseResourceResult>(500, "系统标识不能为空");

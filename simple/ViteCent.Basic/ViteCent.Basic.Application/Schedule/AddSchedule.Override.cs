@@ -8,12 +8,10 @@
 using MediatR;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
-using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Basic.Data.UserRest;
-using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -120,7 +118,7 @@ public partial class AddSchedule
     /// <returns></returns>
     internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ScheduleEntity entity, CancellationToken cancellationToken)
     {
-        await Task.FromResult(0);
+        await Task.CompletedTask;
     }
 
     /// <summary>

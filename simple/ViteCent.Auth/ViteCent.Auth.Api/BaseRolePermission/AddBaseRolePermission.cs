@@ -60,7 +60,7 @@ public partial class AddBaseRolePermission(ILogger<AddBaseRolePermission> logger
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new BaseResult(500, "角色标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new BaseResult(500, "系统标识不能为空");

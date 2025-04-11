@@ -57,7 +57,7 @@ public class GetRepairSchedule(ILogger<GetRepairSchedule> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<RepairScheduleResult>(500, "部门标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<RepairScheduleResult>(500, "用户标识不能为空");

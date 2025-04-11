@@ -73,7 +73,7 @@ public class AddBaseRolePermissionList(ILogger<AddBaseRolePermissionList> logger
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.RoleId))
                     return new BaseResult(500, "角色标识不能为空");
- 
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.SystemId))
                     return new BaseResult(500, "系统标识不能为空");

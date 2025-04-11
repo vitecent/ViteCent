@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*
+ * **********************************
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ * **********************************
+ */
+
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;

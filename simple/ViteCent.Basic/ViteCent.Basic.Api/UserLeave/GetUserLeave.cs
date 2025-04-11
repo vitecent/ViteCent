@@ -57,7 +57,7 @@ public class GetUserLeave(ILogger<GetUserLeave> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<UserLeaveResult>(500, "部门标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<UserLeaveResult>(500, "用户标识不能为空");

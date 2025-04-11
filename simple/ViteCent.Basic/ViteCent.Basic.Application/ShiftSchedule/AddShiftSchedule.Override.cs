@@ -11,7 +11,6 @@ using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Data.ShiftSchedule;
-using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Basic.Entity.ShiftSchedule;
 using ViteCent.Core;

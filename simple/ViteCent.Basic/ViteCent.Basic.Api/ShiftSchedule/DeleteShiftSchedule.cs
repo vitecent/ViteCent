@@ -57,7 +57,7 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new BaseResult(500, "用户标识不能为空");

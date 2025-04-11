@@ -56,7 +56,7 @@ public partial class DisableBasePosition(ILogger<DisableBasePosition> logger,
 
         if (entity == null)
             return new BaseResult(500, "职位信息不存在");
-        
+
         if (entity.Status == (int)StatusEnum.Disable)
             return new BaseResult(500, "职位信息已禁用");
 

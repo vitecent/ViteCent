@@ -56,7 +56,7 @@ public partial class DisableBaseCompany(ILogger<DisableBaseCompany> logger,
 
         if (entity == null)
             return new BaseResult(500, "公司信息不存在");
-        
+
         if (entity.Status == (int)StatusEnum.Disable)
             return new BaseResult(500, "公司信息已禁用");
 

@@ -1,8 +1,6 @@
 ﻿#region
 
 using ViteCent.Basic.Data.Schedule;
-using ViteCent.Basic.Data.UserLeave;
-using ViteCent.Basic.Data.UserRest;
 using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Core.Data;
 

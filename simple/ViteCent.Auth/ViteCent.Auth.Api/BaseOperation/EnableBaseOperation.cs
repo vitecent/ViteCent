@@ -52,7 +52,7 @@ public class EnableBaseOperation(ILogger<EnableBaseOperation> logger,
 
         if (check != null && !check.Success)
             return check;
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new BaseResult(500, "系统标识不能为空");

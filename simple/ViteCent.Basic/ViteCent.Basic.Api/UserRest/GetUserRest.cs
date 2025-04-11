@@ -57,7 +57,7 @@ public class GetUserRest(ILogger<GetUserRest> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<UserRestResult>(500, "部门标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<UserRestResult>(500, "用户标识不能为空");

@@ -42,41 +42,57 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
 
 #if($HasCompanyId)
+        request.CompanyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
         if (request.CompanyIds.Count > 0)
             query.Where(x => request.CompanyIds.Contains(x.Id));
 
 #end
 #if($HasDepartmentId)
+        request.DepartmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
         if (request.DepartmentIds.Count > 0)
             query.Where(x => request.DepartmentIds.Contains(x.DepartmentId));
 
 #end
 #if($HasPositionId)
+        request.PositionIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
         if (request.PositionIds.Count > 0)
             query.Where(x => request.PositionIds.Contains(x.PositionId));
 
 #end
 #if($HasRoleId)
+        request.RoleIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
         if (request.RoleIds.Count > 0)
             query.Where(x => request.RoleIds.Contains(x.RoleId));
 
 #end
 #if($HasUserId)
+        request.UserIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
         if (request.UserIds.Count > 0)
             query.Where(x => request.UserIds.Contains(x.UserId));
 
 #end
 #if($HasSystemId)
+        request.SystemIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
         if (request.SystemIds.Count > 0)
             query.Where(x => request.SystemIds.Contains(x.SystemId));
 
 #end
 #if($HasResourceId)
+        request.ResourceIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
         if (request.ResourceIds.Count > 0)
             query.Where(x => request.ResourceIds.Contains(x.ResourceId));
 
 #end
 #if($HasOperationId)
+        request.OperationIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
+
         if (request.OperationIds.Count > 0)
             query.Where(x => request.OperationIds.Contains(x.OperationId));
 

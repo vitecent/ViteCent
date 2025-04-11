@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Data.BaseOperation;
 [Serializable]
 public class AddBaseOperationListArgs : BaseArgs, IRequest<BaseResult>
 {
-	/// <summary>
-	/// 操作信息
-	/// </summary>
-	public List<AddBaseOperationArgs> Items = [];
+    /// <summary>
+    /// 操作信息
+    /// </summary>
+    public List<AddBaseOperationArgs> Items = [];
 }

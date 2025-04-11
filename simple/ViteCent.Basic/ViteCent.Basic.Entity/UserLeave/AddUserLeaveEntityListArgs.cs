@@ -20,8 +20,8 @@ namespace ViteCent.Basic.Entity.UserLeave;
 [Serializable]
 public class AddUserLeaveEntityListArgs : IRequest<BaseResult>
 {
-	/// <summary>
-	/// 请假申请
-	/// </summary>
-	public List<AddUserLeaveEntity> Items = [];
+    /// <summary>
+    /// 请假申请
+    /// </summary>
+    public List<AddUserLeaveEntity> Items = [];
 }

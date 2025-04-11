@@ -24,15 +24,15 @@ public class DeleteScheduleEntityListArgs : BaseArgs, IRequest<BaseResult>
     public List<string> DepartmentIds { get; set; } = [];
 
     /// <summary>
-    /// 用户标识
-    /// </summary>
-    public List<string> UserIds { get; set; } = [];
-
-    /// <summary>
     /// </summary>
     public DateTime EndTime { get; set; }
 
     /// <summary>
     /// </summary>
     public DateTime StartTime { get; set; }
+
+    /// <summary>
+    /// 用户标识
+    /// </summary>
+    public List<string> UserIds { get; set; } = [];
 }

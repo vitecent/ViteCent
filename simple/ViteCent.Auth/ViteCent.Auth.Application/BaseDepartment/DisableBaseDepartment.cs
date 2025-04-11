@@ -56,7 +56,7 @@ public partial class DisableBaseDepartment(ILogger<DisableBaseDepartment> logger
 
         if (entity == null)
             return new BaseResult(500, "部门信息不存在");
-        
+
         if (entity.Status == (int)StatusEnum.Disable)
             return new BaseResult(500, "部门信息已禁用");
 

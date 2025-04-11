@@ -11,7 +11,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 using ViteCent.Core.Web.Api;
 using ViteCent.Core.Web.Filter;
 

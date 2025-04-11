@@ -114,7 +114,7 @@ public partial class AddRepairSchedule
     /// <returns></returns>
     internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, RepairScheduleEntity entity, CancellationToken cancellationToken)
     {
-        await Task.FromResult(0);
+        await Task.CompletedTask;
     }
 
     /// <summary>

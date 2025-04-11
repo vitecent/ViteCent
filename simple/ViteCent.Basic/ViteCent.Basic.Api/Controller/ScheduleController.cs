@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.Design;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Application;
 using ViteCent.Basic.Data.Schedule;

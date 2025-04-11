@@ -81,9 +81,9 @@ public partial class AddBaseOperation
 
         var hasListArgs = new HasBaseOperationEntityListArgs
         {
-            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
-            SystemIds = [.. request.Items.Select(x => x.SystemId).Distinct()],
-            ResourceIds = [.. request.Items.Select(x => x.ResourceId).Distinct()],
+            CompanyIds = companyIds,
+            SystemIds = systemIds,
+            ResourceIds = resourceIds,
             Codes = [.. request.Items.Select(x => x.Code).Distinct()],
             Names = [.. request.Items.Select(x => x.Name).Distinct()],
         };
@@ -100,7 +100,7 @@ public partial class AddBaseOperation
     /// <returns></returns>
     internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseOperationEntity entity, CancellationToken cancellationToken)
     {
-        await Task.FromResult(0);
+        await Task.CompletedTask;
     }
 
     /// <summary>

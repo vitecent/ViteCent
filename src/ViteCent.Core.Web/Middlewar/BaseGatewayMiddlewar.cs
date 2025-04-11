@@ -127,7 +127,13 @@ public class BaseGatewayMiddlewar(
 
             if (microService != null)
             {
-                uri = $"http://{microService.Address}:{microService.Port}{pathAndQuery.Replace($"/{key}", "")}";
+                uri = $"http://{microService.Address}:{microService.Port}{pathAndQuery}";
+
+                var replace = $"/{key}";
+                var index = uri.IndexOf(replace);
+
+                if (index != -1)
+                    uri = string.Concat(uri.AsSpan(0, index), uri.AsSpan(index + 1));
 
                 if (microService.IsHttps) uri = uri.Replace("http://", "https://");
             }

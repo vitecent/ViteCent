@@ -60,7 +60,7 @@ public class DisableBaseUserRole(ILogger<DisableBaseUserRole> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new BaseResult(500, "角色标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new BaseResult(500, "用户标识不能为空");

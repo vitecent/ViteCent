@@ -69,11 +69,11 @@ public partial class AddBaseRolePermission
 
         var hasListArgs = new HasBaseRolePermissionEntityListArgs
         {
-            CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
-            RoleIds = [.. request.Items.Select(x => x.RoleId).Distinct()],
-            SystemIds = [.. request.Items.Select(x => x.SystemId).Distinct()],
-            ResourceIds = [.. request.Items.Select(x => x.ResourceId).Distinct()],
-            OperationIds = [.. request.Items.Select(x => x.OperationId).Distinct()],
+            CompanyIds = companyIds,
+            RoleIds = roleIds,
+            SystemIds = systemIds,
+            ResourceIds = resourceIds,
+            OperationIds = operationIds,
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -88,7 +88,7 @@ public partial class AddBaseRolePermission
     /// <returns></returns>
     internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseRolePermissionEntity entity, CancellationToken cancellationToken)
     {
-        await Task.FromResult(0);
+        await Task.CompletedTask;
     }
 
     /// <summary>

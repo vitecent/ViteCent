@@ -43,7 +43,7 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}(ILogger<$!{Setting.HasNa
 
 #if($HasId)
         if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id == request.Id);
+            query.Where(x => x.Id != request.Id);
 
 #end
 #if($HasCompanyId)

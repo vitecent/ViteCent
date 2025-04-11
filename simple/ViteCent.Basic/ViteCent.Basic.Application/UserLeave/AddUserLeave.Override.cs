@@ -10,7 +10,6 @@ using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Basic.Data.UserLeave;
-using ViteCent.Basic.Entity.RepairSchedule;
 using ViteCent.Basic.Entity.UserLeave;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -115,7 +114,7 @@ public partial class AddUserLeave
     /// <returns></returns>
     internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, UserLeaveEntity entity, CancellationToken cancellationToken)
     {
-        await Task.FromResult(0);
+        await Task.CompletedTask;
     }
 
     /// <summary>

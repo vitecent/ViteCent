@@ -57,7 +57,7 @@ public class GetShiftSchedule(ILogger<GetShiftSchedule> logger,
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<ShiftScheduleResult>(500, "部门标识不能为空");
- 
+
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<ShiftScheduleResult>(500, "用户标识不能为空");

@@ -1,8 +1,7 @@
 ﻿/*
  * **********************************
- * 代码由工具自动生成，请勿人工修改
- * 重新生成时，将覆盖原有代码
- * 如需扩展该类，请在partial类中实现
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
  * **********************************
  */
 
@@ -61,7 +60,143 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         BaseUserInfo user,
         CancellationToken cancellationToken)
     {
-        return await Task.FromResult(new BaseResult());
+#if($HasCompanyId)
+        var companyId = user?.Company?.Id ?? string.Empty;
+#end
+#if($HasDepartmentId)
+        var departmentId = user?.Department?.Id ?? string.Empty;
+#end
+#if($HasPositionId)
+        var positionId = user?.Position?.Id ?? string.Empty;
+#end
+
+        foreach (var item in request.Items)
+        {
+#if($HasCompanyId)
+            if (string.IsNullOrWhiteSpace(item.CompanyId))
+                item.CompanyId = companyId;
+
+#end
+#if($HasDepartmentId)
+            if (string.IsNullOrWhiteSpace(item.DepartmentId))
+                item.DepartmentId = departmentId;
+
+#end
+#if($HasPositionId)
+            if (string.IsNullOrWhiteSpace(item.PositionId))
+                item.PositionId = positionId;
+
+#end
+        }
+
+#if($HasCompanyId)
+        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
+#end
+#if($HasDepartmentId)
+        var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
+#end
+#if($HasPositionId)
+        var positionIds = request.Items.Select(x => x.PositionId).Distinct().ToList();
+#end
+#if($HasRoleId)
+        var roleIds = request.Items.Select(x => x.RoleId).Distinct().ToList();
+#end
+#if($HasUserId)
+        var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
+#end
+#if($HasSystemId)
+        var systemIds = request.Items.Select(x => x.SystemId).Distinct().ToList();
+#end
+#if($HasResourceId)
+        var resourceIds = request.Items.Select(x => x.ResourceId).Distinct().ToList();
+#end
+#if($HasOperationId)
+        var operationIds = request.Items.Select(x => x.OperationId).Distinct().ToList();
+#end
+
+#if($HasCompanyId)
+        var companys = await mediator.CheckCompany(companyIds);
+
+        if (!companys.Success)
+            return companys;
+
+#end
+#if($HasDepartmentId)
+        var departments = await mediator.CheckDepartment(companyIds, departmentIds);
+
+        if (!departments.Success)
+            return departments;
+#end
+#if($HasPositionId)
+        var positions = await mediator.CheckPosition(companyIds, positionIds);
+
+        if (!positions.Success)
+            return positions;
+#end
+#if($HasRoleId)
+        var roles = await mediator.CheckRole(companyIds, roleIds);
+
+        if (!roles.Success)
+            return roles;
+
+#end
+#if($HasUserId)
+        var users = await mediator.CheckUser(companyIds, positionIds, userIds);
+
+        if (!users.Success)
+            return users;
+#end
+#if($HasSystemId)
+        var systems = await mediator.CheckSystem(companyIds, systemIds);
+
+        if (!systems.Success)
+            return systems;
+
+#end
+#if($HasResourceId)
+        var resources = await mediator.CheckResource(companyIds, systemIds, resourceIds);
+
+        if (!resources.Success)
+            return resources;
+
+#end
+#if($HasOperationId)
+        var operations = await mediator.CheckOperation(companyIds, systemIds, resourceIds, operationIds);
+
+        if (!operations.Success)
+            return operations;
+
+#end
+
+        var hasListArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}
+        {
+#if($HasCompanyId)
+            CompanyIds = companyIds,
+#end
+#if($HasDepartmentId)
+            DepartmentIds = departmentIds,
+#end
+#if($HasPositionId)
+            PositionIds = positionIds,
+#end
+#if($HasRoleId)
+            RoleIds = roleIds,
+#end
+#if($HasUserId)
+            UserIds = userIds,
+#end
+#if($HasSystemId)
+            SystemIds = systemIds,
+#end
+#if($HasResourceId)
+            ResourceIds = resourceIds,
+#end
+#if($HasOperationId)
+            OperationIds = operationIds,
+#end
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>
@@ -146,7 +281,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 
 #end
 #if($HasResourceId)
-        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);;
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);
 
         if (hasResource.Success)
             return hasResource;

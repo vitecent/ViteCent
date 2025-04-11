@@ -1,8 +1,7 @@
 ﻿/*
  * **********************************
- * 代码由工具自动生成，请勿人工修改
- * 重新生成时，将覆盖原有代码
- * 如需扩展该类，请在partial类中实现
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
  * **********************************
  */
 
@@ -59,20 +58,137 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request,
         BaseUserInfo user,
 #if($HasCompanyId)
-    IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Data.ArgsSuffix}, PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
+        IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Data.ArgsSuffix}, PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
 #end
 #if($HasDepartmentId)
-    IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseDepartment$!{Setting.Data.ArgsSuffix}, PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
+        IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseDepartment$!{Setting.Data.ArgsSuffix}, PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
 #end
 #if($HasPositionId)
-    IBaseInvoke<$!{Setting.Data.SearchPrefix}BasePosition$!{Setting.Data.ArgsSuffix}, PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
+        IBaseInvoke<$!{Setting.Data.SearchPrefix}BasePosition$!{Setting.Data.ArgsSuffix}, PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
 #end
 #if($HasUserId)
-    IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}, PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
+        IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}, PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
 #end
         CancellationToken cancellationToken)
     {
-        return await Task.FromResult(new BaseResult());
+#if($HasCompanyId)
+        var companyId = user?.Company?.Id ?? string.Empty;
+#end
+#if($HasDepartmentId)
+        var departmentId = user?.Department?.Id ?? string.Empty;
+#end
+#if($HasPositionId)
+        var positionId = user?.Position?.Id ?? string.Empty;
+#end
+
+        foreach (var item in request.Items)
+        {
+#if($HasCompanyId)
+            if (string.IsNullOrWhiteSpace(item.CompanyId))
+                item.CompanyId = companyId;
+
+#end
+#if($HasDepartmentId)
+            if (string.IsNullOrWhiteSpace(item.DepartmentId))
+                item.DepartmentId = departmentId;
+
+#end
+#if($HasPositionId)
+            if (string.IsNullOrWhiteSpace(item.PositionId))
+                item.PositionId = positionId;
+#end
+        }
+
+#if($HasCompanyId)
+        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
+#end
+#if($HasDepartmentId)
+        var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
+#end
+#if($HasPositionId)
+        var positionIds = request.Items.Select(x => x.PositionId).Distinct().ToList();
+#end
+#if($HasUserId)
+        var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
+#end
+
+#if($HasCompanyId)
+        var companys = await companyInvoke.CheckCompany(companyIds, user?.Token ?? string.Empty);
+
+        if (!companys.Success)
+            return companys;
+
+        foreach (var item in companys.Rows)
+        {
+            var items = request.Items.Where(x => x.CompanyId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.CompanyName = item.Name;
+        }
+
+#end
+#if($HasDepartmentId)
+        var departments = await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+
+        if (!departments.Success)
+            return departments;
+
+        foreach (var item in departments.Rows)
+        {
+            var items = request.Items.Where(x => x.DepartmentId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.DepartmentName = item.Name;
+        }
+
+#end
+#if($HasPositionId)
+        var positions = await positionInvoke.CheckPosition(companyIds, positionIds, user?.Token ?? string.Empty);
+
+        if (!positions.Success)
+            return positions;
+
+        foreach (var item in positions.Rows)
+        {
+            var items = request.Items.Where(x => x.PositionId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.PositionName = item.Name;
+        }
+
+#end
+#if($HasUserId)
+        var users = await userInvoke.CheckUser(companyIds, departmentIds, userIds, user?.Token ?? string.Empty);
+
+        if (!users.Success)
+            return users;
+
+        foreach (var item in users.Rows)
+        {
+            var items = request.Items.Where(x => x.UserId == item.Id).ToList();
+
+            foreach (var data in items)
+                data.UserName = item.RealName;
+        }
+
+#end
+        var hasListArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}
+        {
+#if($HasCompanyId)
+            CompanyIds = companyIds,
+#end
+#if($HasDepartmentId)
+            DepartmentIds = departmentIds,
+#end
+#if($HasPositionId)
+            PositionIds = positionIds,
+#end
+#if($HasUserId)
+            UserIds = userIds,
+#end
+        };
+
+        return await mediator.Send(hasListArgs, cancellationToken);
     }
 
     /// <summary>
@@ -105,7 +221,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (string.IsNullOrWhiteSpace(request.CompanyId))
             request.CompanyId = companyId;
 
-        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);;
+        var hasCompany = await companyInvoke.CheckCompany(request.CompanyId, user?.Token ?? string.Empty);
 
         if (hasCompany.Success)
             return hasCompany;

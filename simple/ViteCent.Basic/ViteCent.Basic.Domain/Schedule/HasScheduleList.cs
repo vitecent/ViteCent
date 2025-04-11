@@ -9,7 +9,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;

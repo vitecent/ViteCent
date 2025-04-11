@@ -1,8 +1,7 @@
 ﻿/*
  * **********************************
- * 代码由工具自动生成，请勿人工修改
- * 重新生成时，将覆盖原有代码
- * 如需扩展该类，请在partial类中实现
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
  * **********************************
  */
 
@@ -124,7 +123,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
 
 #end
 #if($HasResourceId)
-        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);;
+        var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);
 
         if (hasResource.Success)
             return hasResource;

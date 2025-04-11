@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Entity.BasePosition;
 [Serializable]
 public class AddBasePositionEntityListArgs : IRequest<BaseResult>
 {
-	/// <summary>
-	/// 职位信息
-	/// </summary>
-	public List<AddBasePositionEntity> Items = [];
+    /// <summary>
+    /// 职位信息
+    /// </summary>
+    public List<AddBasePositionEntity> Items = [];
 }
