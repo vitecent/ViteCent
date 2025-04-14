@@ -1,0 +1,6 @@
+powershell -Command "Invoke-WebRequest -Uri http://localhost:7000/openapi/v1.json"
+powershell -Command "Invoke-WebRequest -Uri http://localhost:8000/openapi/v1.json"
+powershell -Command "Invoke-WebRequest -Uri http://localhost:8010/openapi/v1.json"
+powershell -Command "Invoke-WebRequest -Uri http://localhost:8020/openapi/v1.json"
+powershell -Command "Invoke-WebRequest -Uri http://localhost:8030/openapi/v1.json"
+powershell -Command "Invoke-WebRequest -Uri http://localhost:8040/openapi/v1.json"
