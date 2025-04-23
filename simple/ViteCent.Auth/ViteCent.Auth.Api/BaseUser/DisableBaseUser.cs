@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class DisableBaseUser(ILogger<DisableBaseUser> logger,
-    IMediator mediator) : BaseLoginApi<DisableBaseUserArgs, BaseResult>
+public class DisableBaseUser(
+    ILogger<DisableBaseUser> logger,
+    IMediator mediator)
+    : BaseLoginApi<DisableBaseUserArgs, BaseResult>
 {
     /// <summary>
     /// 禁用用户信息

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BasePosition;
@@ -23,7 +23,8 @@ public static class BaseAppliction
     /// <param name="companyId"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<DataResult<BaseCompanyResult>> CheckCompany(this IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
+    public static async Task<DataResult<BaseCompanyResult>> CheckCompany(
+        this IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
         string companyId,
         string token)
     {
@@ -32,7 +33,7 @@ public static class BaseAppliction
 
         var getCompanyArgs = new GetBaseCompanyArgs
         {
-            Id = companyId,
+            Id = companyId
         };
 
         var company = await companyInvoke.InvokePostAsync("Auth", "/BaseCompany/Get", getCompanyArgs, token);
@@ -55,7 +56,8 @@ public static class BaseAppliction
     /// <param name="companyIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseCompanyResult>> CheckCompany(this IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
+    public static async Task<PageResult<BaseCompanyResult>> CheckCompany(
+        this IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
         List<string> companyIds,
         string token)
     {
@@ -64,13 +66,13 @@ public static class BaseAppliction
         if (companyIds.Count == 0)
             return new PageResult<BaseCompanyResult>();
 
-        var searchCompanyArgs = new SearchBaseCompanyArgs()
+        var searchCompanyArgs = new SearchBaseCompanyArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new ()
+                new SearchItem
                 {
                     Field = "Id",
                     Value = companyIds.ToJson(),
@@ -108,7 +110,8 @@ public static class BaseAppliction
     /// <param name="departmentId"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<DataResult<BaseDepartmentResult>> CheckDepartment(this IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
+    public static async Task<DataResult<BaseDepartmentResult>> CheckDepartment(
+        this IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
         string companyId, string departmentId, string token)
     {
         if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId))
@@ -117,10 +120,11 @@ public static class BaseAppliction
         var getDepartmentArgs = new GetBaseDepartmentArgs
         {
             CompanyId = companyId,
-            Id = departmentId,
+            Id = departmentId
         };
 
-        var department = await departmentInvoke.InvokePostAsync("Auth", "/BaseDepartment/Get", getDepartmentArgs, token);
+        var department =
+            await departmentInvoke.InvokePostAsync("Auth", "/BaseDepartment/Get", getDepartmentArgs, token);
 
         if (!department.Success)
             return department;
@@ -141,7 +145,8 @@ public static class BaseAppliction
     /// <param name="departmentIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseDepartmentResult>> CheckDepartment(this IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
+    public static async Task<PageResult<BaseDepartmentResult>> CheckDepartment(
+        this IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
         List<string> companyIds,
         List<string> departmentIds,
         string token)
@@ -152,7 +157,7 @@ public static class BaseAppliction
         if (companyIds.Count == 0 && departmentIds.Count == 0)
             return new PageResult<BaseDepartmentResult>();
 
-        var searchDepartmentArgs = new SearchBaseDepartmentArgs()
+        var searchDepartmentArgs = new SearchBaseDepartmentArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -165,7 +170,8 @@ public static class BaseAppliction
         if (departmentIds.Count > 0)
             searchDepartmentArgs.AddArgs("Id", departmentIds.ToJson(), SearchEnum.In);
 
-        var departments = await departmentInvoke.InvokePostAsync("Auth", "/BaseDepartment/Page", searchDepartmentArgs, token);
+        var departments =
+            await departmentInvoke.InvokePostAsync("Auth", "/BaseDepartment/Page", searchDepartmentArgs, token);
 
         if (!departments.Success)
             return departments;
@@ -194,7 +200,8 @@ public static class BaseAppliction
     /// <param name="positionId"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<DataResult<BasePositionResult>> CheckPosition(this IBaseInvoke<GetBasePositionArgs, DataResult<BasePositionResult>> positionInvoke,
+    public static async Task<DataResult<BasePositionResult>> CheckPosition(
+        this IBaseInvoke<GetBasePositionArgs, DataResult<BasePositionResult>> positionInvoke,
         string companyId, string positionId, string token)
     {
         if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(positionId))
@@ -203,7 +210,7 @@ public static class BaseAppliction
         var getPositionArgs = new GetBasePositionArgs
         {
             CompanyId = companyId,
-            Id = positionId,
+            Id = positionId
         };
 
         var position = await positionInvoke.InvokePostAsync("Auth", "/BasePosition/Get", getPositionArgs, token);
@@ -227,7 +234,8 @@ public static class BaseAppliction
     /// <param name="positionIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BasePositionResult>> CheckPosition(this IBaseInvoke<SearchBasePositionArgs, PageResult<BasePositionResult>> positionInvoke,
+    public static async Task<PageResult<BasePositionResult>> CheckPosition(
+        this IBaseInvoke<SearchBasePositionArgs, PageResult<BasePositionResult>> positionInvoke,
         List<string> companyIds,
         List<string> positionIds,
         string token)
@@ -238,7 +246,7 @@ public static class BaseAppliction
         if (companyIds.Count == 0 && positionIds.Count == 0)
             return new PageResult<BasePositionResult>();
 
-        var searchPositionArgs = new SearchBasePositionArgs()
+        var searchPositionArgs = new SearchBasePositionArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -282,14 +290,16 @@ public static class BaseAppliction
     /// <param name="userId"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<DataResult<BaseUserResult>> CheckUser(this IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
+    public static async Task<DataResult<BaseUserResult>> CheckUser(
+        this IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
         string companyId,
         string departmentId,
         string positionId,
         string userId,
         string token)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(positionId) && string.IsNullOrWhiteSpace(userId))
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) &&
+            string.IsNullOrWhiteSpace(positionId) && string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUserResult>();
 
         var getUserArgs = new GetBaseUserArgs
@@ -297,7 +307,7 @@ public static class BaseAppliction
             CompanyId = companyId,
             DepartmentId = departmentId,
             PositionId = positionId,
-            Id = userId,
+            Id = userId
         };
 
         var user = await userInvoke.InvokePostAsync("Auth", "/BaseUser/Get", getUserArgs, token);
@@ -323,7 +333,8 @@ public static class BaseAppliction
     /// <param name="userIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseUserResult>> CheckUser(this IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
+    public static async Task<PageResult<BaseUserResult>> CheckUser(
+        this IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
         List<string> companyIds,
         List<string> departmentIds,
         List<string> positionIds,
@@ -338,7 +349,7 @@ public static class BaseAppliction
         if (companyIds.Count == 0 && departmentIds.Count == 0 && userIds.Count == 0)
             return new PageResult<BaseUserResult>();
 
-        var searchUserArgs = new SearchBaseUserArgs()
+        var searchUserArgs = new SearchBaseUserArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -389,10 +400,10 @@ public static class BaseAppliction
         string companyId,
         string table)
     {
-        return await cache.NextIdentity(new NextIdentifyArg()
+        return await cache.NextIdentity(new NextIdentifyArg
         {
             CompanyId = companyId,
-            Name = table,
+            Name = table
         });
     }
 

@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseUserRole;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUserRole")]
-public class GetBaseUserRole(ILogger<GetBaseUserRole> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseUserRoleArgs, DataResult<BaseUserRoleResult>>
+public class GetBaseUserRole(
+    ILogger<GetBaseUserRole> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseUserRoleArgs, DataResult<BaseUserRoleResult>>
 {
     /// <summary>
     /// 获取用户角色
@@ -66,6 +68,6 @@ public class GetBaseUserRole(ILogger<GetBaseUserRole> logger,
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<BaseUserRoleResult>(500, "用户标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

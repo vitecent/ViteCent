@@ -28,8 +28,10 @@ namespace ViteCent.Basic.Api.UserLeave;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserLeave")]
-public class AddUserLeaveList(ILogger<AddUserLeaveList> logger,
-    IMediator mediator) : BaseLoginApi<AddUserLeaveListArgs, BaseResult>
+public class AddUserLeaveList(
+    ILogger<AddUserLeaveList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddUserLeaveListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增请假申请
@@ -77,8 +79,8 @@ public class AddUserLeaveList(ILogger<AddUserLeaveList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.UserId))
                     return new BaseResult(500, "用户标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

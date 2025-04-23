@@ -25,7 +25,8 @@ public partial class ScheduleTypeValidator : AbstractValidator<AddScheduleTypeAr
 
         RuleFor(x => x.EndTime).Matches(BaseConst.Time).WithMessage("结束时间格式错误");
 
-        var scheduleTypes = new List<int> { (int)ScheduleTypeEnum.Schedule, (int)ScheduleTypeEnum.Leave, (int)ScheduleTypeEnum.Rest };
+        var scheduleTypes = new List<int>
+            { (int)ScheduleTypeEnum.Schedule, (int)ScheduleTypeEnum.Leave, (int)ScheduleTypeEnum.Rest };
 
         RuleFor(x => x.ScheduleType).Must(x => scheduleTypes.Contains(x)).WithMessage("类型不存在");
     }

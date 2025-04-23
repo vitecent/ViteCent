@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Entity.BaseRolePermission;
 [Serializable]
 public class AddBaseRolePermissionEntityListArgs : IRequest<BaseResult>
 {
-    /// <summary>
-    /// 角色权限
-    /// </summary>
-    public List<AddBaseRolePermissionEntity> Items = [];
+	// <summary>
+	/// 角色权限
+	/// </summary>
+	public List<AddBaseRolePermissionEntity> Items = [];
 }

@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.UserRest;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserRest")]
-public class DeleteUserRest(ILogger<DeleteUserRest> logger,
-    IMediator mediator) : BaseLoginApi<DeleteUserRestArgs, BaseResult>
+public class DeleteUserRest(
+    ILogger<DeleteUserRest> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteUserRestArgs, BaseResult>
 {
     /// <summary>
     /// 删除调休申请

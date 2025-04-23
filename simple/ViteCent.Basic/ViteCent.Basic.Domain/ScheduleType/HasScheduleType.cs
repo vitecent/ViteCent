@@ -14,7 +14,8 @@ namespace ViteCent.Basic.Domain.ScheduleType;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasScheduleType(ILogger<HasScheduleType> logger) : BaseDomain<ScheduleTypeEntity>, IRequestHandler<HasScheduleTypeEntityArgs, BaseResult>
+public class HasScheduleType(ILogger<HasScheduleType> logger)
+    : BaseDomain<ScheduleTypeEntity>, IRequestHandler<HasScheduleTypeEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

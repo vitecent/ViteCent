@@ -37,14 +37,16 @@ namespace ViteCent.Basic.Application.UserLeave;
 /// <param name="departmentInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddUserLeaveList(ILogger<AddUserLeaveList> logger,
+public class AddUserLeaveList(
+    ILogger<AddUserLeaveList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
     IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddUserLeaveListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddUserLeaveListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

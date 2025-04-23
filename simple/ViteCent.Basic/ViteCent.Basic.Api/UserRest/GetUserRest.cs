@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.UserRest;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserRest")]
-public class GetUserRest(ILogger<GetUserRest> logger,
-    IMediator mediator) : BaseLoginApi<GetUserRestArgs, DataResult<UserRestResult>>
+public class GetUserRest(
+    ILogger<GetUserRest> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetUserRestArgs, DataResult<UserRestResult>>
 {
     /// <summary>
     /// 获取调休申请
@@ -62,6 +64,6 @@ public class GetUserRest(ILogger<GetUserRest> logger,
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<UserRestResult>(500, "用户标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

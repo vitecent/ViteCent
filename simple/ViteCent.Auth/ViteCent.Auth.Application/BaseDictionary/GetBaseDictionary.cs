@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BaseDictionary;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetBaseDictionary(ILogger<GetBaseDictionary> logger,
+public class GetBaseDictionary(
+    ILogger<GetBaseDictionary> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseDictionaryArgs, DataResult<BaseDictionaryResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetBaseDictionaryArgs, DataResult<BaseDictionaryResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetBaseDictionary(ILogger<GetBaseDictionary> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<BaseDictionaryResult>> Handle(GetBaseDictionaryArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<BaseDictionaryResult>> Handle(GetBaseDictionaryArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseDictionary.GetBaseDictionary");
 

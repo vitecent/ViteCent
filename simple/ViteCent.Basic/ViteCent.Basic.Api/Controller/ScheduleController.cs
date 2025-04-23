@@ -24,7 +24,8 @@ namespace ViteCent.Basic.Api.Controller;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class ScheduleController(ILogger<ScheduleController> logger,
+public class ScheduleController(
+    ILogger<ScheduleController> logger,
     IMediator mediator,
     IHttpContextAccessor httpContextAccessor,
     IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke) : ControllerBase
@@ -32,7 +33,7 @@ public class ScheduleController(ILogger<ScheduleController> logger,
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// </summary>
@@ -51,7 +52,7 @@ public class ScheduleController(ILogger<ScheduleController> logger,
 
         foreach (var item in args)
         {
-            var _item = new AddScheduleArgs()
+            var _item = new AddScheduleArgs
             {
                 CompanyId = item.CompanyId,
                 DepartmentId = item.DepartmentId,
@@ -60,13 +61,13 @@ public class ScheduleController(ILogger<ScheduleController> logger,
                 Job = item.Job,
                 StartTime = DateTime.Parse($"{item.Date} 00:00:00"),
                 EndTime = DateTime.Parse($"{item.Date} 23:59:59"),
-                Status = (int)ScheduleEnum.None,
+                Status = (int)ScheduleEnum.None
             };
 
             items.Add(_item);
         }
 
-        var request = new AddScheduleListArgs()
+        var request = new AddScheduleListArgs
         {
             Items = items
         };
@@ -87,13 +88,13 @@ public class ScheduleController(ILogger<ScheduleController> logger,
         var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
         var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
 
-        var deleteScheduleArgs = new DeleteScheduleEntityListArgs()
+        var deleteScheduleArgs = new DeleteScheduleEntityListArgs
         {
             CompanyIds = companyIds,
             DepartmentIds = departmentIds,
             UserIds = userIds,
             StartTime = request.Items.Min(x => x.StartTime),
-            EndTime = request.Items.Max(x => x.EndTime),
+            EndTime = request.Items.Max(x => x.EndTime)
         };
 
         var delete = await mediator.Send(deleteScheduleArgs, cancellationToken);
@@ -128,36 +129,37 @@ public class ScheduleController(ILogger<ScheduleController> logger,
         var departmentId = user?.Department?.Id ?? string.Empty;
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        var searchUserArgs = new SearchBaseUserArgs()
+        var searchUserArgs = new SearchBaseUserArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new ()
+                new SearchItem
                 {
                     Field = "CompanyId",
-                    Value = companyId,
+                    Value = companyId
                 },
-                new ()
+                new SearchItem
                 {
                     Field = "DepartmentId",
-                    Value = departmentId,
+                    Value = departmentId
                 },
-                new ()
+                new SearchItem
                 {
                     Field = "PositionId",
-                    Value = positionId,
+                    Value = positionId
                 },
-                new ()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 }
             ]
         };
 
-        var users = await userInvoke.InvokePostAsync("Auth", "/BaseUser/Page", searchUserArgs, user?.Token ?? string.Empty);
+        var users = await userInvoke.InvokePostAsync("Auth", "/BaseUser/Page", searchUserArgs,
+            user?.Token ?? string.Empty);
 
         if (!users.Success)
             return new PageResult<PreAddScheduleArgs>(users.Code, users.Message);
@@ -165,10 +167,9 @@ public class ScheduleController(ILogger<ScheduleController> logger,
         var items = new List<PreAddScheduleArgs>();
 
         foreach (var item in users.Rows)
-        {
             for (var date = args.StartTime; date < args.EndTime;)
             {
-                var _item = new PreAddScheduleArgs()
+                var _item = new PreAddScheduleArgs
                 {
                     CompanyId = item.CompanyId,
                     DepartmentId = item.DepartmentId,
@@ -177,43 +178,42 @@ public class ScheduleController(ILogger<ScheduleController> logger,
                     Name = item.RealName,
                     Shift = string.Empty,
                     Job = string.Empty,
-                    Date = date.ToString("yyyy-MM-dd"),
+                    Date = date.ToString("yyyy-MM-dd")
                 };
 
                 items.Add(_item);
 
                 date = date.AddDays(1);
             }
-        }
 
-        var request = new SearchScheduleArgs()
+        var request = new SearchScheduleArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new ()
+                new SearchItem
                 {
                     Field = "CompanyId",
-                    Value = companyId,
+                    Value = companyId
                 },
-                new ()
+                new SearchItem
                 {
                     Field = "DepartmentId",
-                    Value = departmentId,
+                    Value = departmentId
                 },
-                new ()
+                new SearchItem
                 {
                     Field = "PositionId",
-                    Value = positionId,
+                    Value = positionId
                 },
-                new ()
+                new SearchItem
                 {
                     Field = "StartTime",
                     Value = args.StartTime.ToString("yyyy-MM-dd HH:mm:ss"),
                     Method = SearchEnum.GreaterThanOrEqual
                 },
-                new ()
+                new SearchItem
                 {
                     Field = "EndTime",
                     Value = args.EndTime.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -226,7 +226,8 @@ public class ScheduleController(ILogger<ScheduleController> logger,
 
         foreach (var row in rows.Rows)
         {
-            var item = items.FirstOrDefault(x => x.CompanyId == row.CompanyId && x.DepartmentId == row.DepartmentId && x.UserId == row.UserId
+            var item = items.FirstOrDefault(x =>
+                x.CompanyId == row.CompanyId && x.DepartmentId == row.DepartmentId && x.UserId == row.UserId
                 && x.Date == row.StartTime.ToString("yyyy-MM-dd"));
 
             if (item != null)
@@ -237,7 +238,7 @@ public class ScheduleController(ILogger<ScheduleController> logger,
             }
         }
 
-        var result = new PageResult<PreAddScheduleArgs>()
+        var result = new PageResult<PreAddScheduleArgs>
         {
             Rows = items
         };

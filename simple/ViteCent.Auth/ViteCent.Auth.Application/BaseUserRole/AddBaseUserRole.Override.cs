@@ -26,7 +26,8 @@ public partial class AddBaseUserRole
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseUserRoleListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseUserRoleListArgs request,
+        BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -70,7 +71,7 @@ public partial class AddBaseUserRole
             CompanyIds = companyIds,
             DepartmentIds = departmentIds,
             RoleIds = roleIds,
-            UserIds = userIds,
+            UserIds = userIds
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -83,7 +84,8 @@ public partial class AddBaseUserRole
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseUserRoleEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseUserRoleEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
     }
@@ -130,7 +132,7 @@ public partial class AddBaseUserRole
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
             RoleId = request.RoleId,
-            UserId = request.UserId,
+            UserId = request.UserId
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

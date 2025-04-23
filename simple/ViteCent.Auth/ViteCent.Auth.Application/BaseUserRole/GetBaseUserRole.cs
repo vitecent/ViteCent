@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BaseUserRole;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetBaseUserRole(ILogger<GetBaseUserRole> logger,
+public class GetBaseUserRole(
+    ILogger<GetBaseUserRole> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseUserRoleArgs, DataResult<BaseUserRoleResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetBaseUserRoleArgs, DataResult<BaseUserRoleResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetBaseUserRole(ILogger<GetBaseUserRole> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<BaseUserRoleResult>> Handle(GetBaseUserRoleArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<BaseUserRoleResult>> Handle(GetBaseUserRoleArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUserRole.GetBaseUserRole");
 

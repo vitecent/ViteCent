@@ -33,7 +33,8 @@ public class PageRepairSchedule(ILogger<PageRepairSchedule> logger) : BaseDomain
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<RepairScheduleEntity>> Handle(SearchRepairScheduleEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<RepairScheduleEntity>> Handle(SearchRepairScheduleEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.RepairSchedule.PageRepairSchedule");
 

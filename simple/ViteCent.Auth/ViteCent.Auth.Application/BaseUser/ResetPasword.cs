@@ -20,7 +20,8 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="cache"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class ResetPasword(ILogger<ResetPasword> logger,
+public class ResetPasword(
+    ILogger<ResetPasword> logger,
     IBaseCache cache,
     IMediator mediator,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<ResetPaswordArgs, BaseResult>
@@ -47,10 +48,10 @@ public class ResetPasword(ILogger<ResetPasword> logger,
         if (string.IsNullOrWhiteSpace(companyId))
             companyId = request.CompanyId;
 
-        var args = new GetBaseUserEntityArgs()
+        var args = new GetBaseUserEntityArgs
         {
             Id = request.UserId,
-            CompanyId = companyId,
+            CompanyId = companyId
         };
 
         var entity = await mediator.Send(args, cancellationToken);

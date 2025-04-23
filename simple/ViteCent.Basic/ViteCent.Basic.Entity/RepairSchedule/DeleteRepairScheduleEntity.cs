@@ -5,13 +5,6 @@
  * **********************************
  */
 
-#region
-
-using MediatR;
-using ViteCent.Core.Data;
-
-#endregion
-
 namespace ViteCent.Basic.Entity.RepairSchedule;
 
 /// <summary>

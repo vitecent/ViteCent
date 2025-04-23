@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BasePosition;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BasePosition")]
-public class DisableBasePosition(ILogger<DisableBasePosition> logger,
-    IMediator mediator) : BaseLoginApi<DisableBasePositionArgs, BaseResult>
+public class DisableBasePosition(
+    ILogger<DisableBasePosition> logger,
+    IMediator mediator)
+    : BaseLoginApi<DisableBasePositionArgs, BaseResult>
 {
     /// <summary>
     /// 禁用职位信息

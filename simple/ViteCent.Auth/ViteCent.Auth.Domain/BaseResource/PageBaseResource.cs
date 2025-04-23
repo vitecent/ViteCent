@@ -33,7 +33,8 @@ public class PageBaseResource(ILogger<PageBaseResource> logger) : BaseDomain<Bas
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<BaseResourceEntity>> Handle(SearchBaseResourceEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<BaseResourceEntity>> Handle(SearchBaseResourceEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseResource.PageBaseResource");
 

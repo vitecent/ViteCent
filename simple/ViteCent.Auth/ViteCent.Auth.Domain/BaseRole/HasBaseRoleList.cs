@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseRole;
 /// 批量角色信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseRoleList(ILogger<HasBaseRoleList> logger) : BaseDomain<BaseRoleEntity>, IRequestHandler<HasBaseRoleEntityListArgs, BaseResult>
+public class HasBaseRoleList(ILogger<HasBaseRoleList> logger)
+    : BaseDomain<BaseRoleEntity>, IRequestHandler<HasBaseRoleEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

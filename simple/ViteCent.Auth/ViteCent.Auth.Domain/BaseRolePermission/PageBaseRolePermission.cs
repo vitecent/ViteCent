@@ -33,7 +33,8 @@ public class PageBaseRolePermission(ILogger<PageBaseRolePermission> logger) : Ba
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<BaseRolePermissionEntity>> Handle(SearchBaseRolePermissionEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<BaseRolePermissionEntity>> Handle(SearchBaseRolePermissionEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRolePermission.PageBaseRolePermission");
 

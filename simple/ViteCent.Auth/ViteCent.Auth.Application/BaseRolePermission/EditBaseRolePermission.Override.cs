@@ -32,7 +32,8 @@ public partial class EditBaseRolePermission
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task<BaseResult> OverrideHandle(EditBaseRolePermissionArgs request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle(EditBaseRolePermissionArgs request,
+        CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -59,7 +60,8 @@ public partial class EditBaseRolePermission
         if (!hasResource.Success)
             return hasResource;
 
-        var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
+        var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId,
+            request.OperationId);
 
         if (!hasOperation.Success)
             return hasOperation;
@@ -71,7 +73,7 @@ public partial class EditBaseRolePermission
             RoleId = request.RoleId,
             SystemId = request.SystemId,
             ResourceId = request.ResourceId,
-            OperationId = request.OperationId,
+            OperationId = request.OperationId
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

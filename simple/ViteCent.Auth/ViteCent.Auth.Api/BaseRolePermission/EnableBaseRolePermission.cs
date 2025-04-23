@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
-public class EnableBaseRolePermission(ILogger<EnableBaseRolePermission> logger,
-    IMediator mediator) : BaseLoginApi<EnableBaseRolePermissionArgs, BaseResult>
+public class EnableBaseRolePermission(
+    ILogger<EnableBaseRolePermission> logger,
+    IMediator mediator)
+    : BaseLoginApi<EnableBaseRolePermissionArgs, BaseResult>
 {
     /// <summary>
     /// 启用角色权限

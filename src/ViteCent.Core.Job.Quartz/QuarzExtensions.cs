@@ -36,15 +36,9 @@ public static class QuarzExtensions
     {
         var lifetime = app.Lifetime;
 
-        lifetime.ApplicationStarted.Register(async () =>
-        {
-            await scheduler.Start();
-        });
+        lifetime.ApplicationStarted.Register(async () => { await scheduler.Start(); });
 
-        lifetime.ApplicationStopping.Register(async () =>
-        {
-            await scheduler.Shutdown();
-        });
+        lifetime.ApplicationStopping.Register(async () => { await scheduler.Shutdown(); });
 
         return app;
     }

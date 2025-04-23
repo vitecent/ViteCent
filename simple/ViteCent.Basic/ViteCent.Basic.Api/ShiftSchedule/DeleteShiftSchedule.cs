@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.ShiftSchedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("ShiftSchedule")]
-public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger,
-    IMediator mediator) : BaseLoginApi<DeleteShiftScheduleArgs, BaseResult>
+public class DeleteShiftSchedule(
+    ILogger<DeleteShiftSchedule> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteShiftScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 删除换班申请

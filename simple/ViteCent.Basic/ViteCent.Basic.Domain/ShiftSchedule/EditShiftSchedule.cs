@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.ShiftSchedule;
 /// 编辑换班申请
 /// </summary>
 /// <param name="logger"></param>
-public class EditShiftSchedule(ILogger<EditShiftSchedule> logger) : BaseDomain<ShiftScheduleEntity>, IRequestHandler<ShiftScheduleEntity, BaseResult>
+public class EditShiftSchedule(
+    ILogger<EditShiftSchedule> logger)
+    : BaseDomain<ShiftScheduleEntity>, IRequestHandler<ShiftScheduleEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

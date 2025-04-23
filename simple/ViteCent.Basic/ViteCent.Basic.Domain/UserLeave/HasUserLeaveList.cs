@@ -22,7 +22,8 @@ namespace ViteCent.Basic.Domain.UserLeave;
 /// 批量请假申请判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasUserLeaveList(ILogger<HasUserLeaveList> logger) : BaseDomain<UserLeaveEntity>, IRequestHandler<HasUserLeaveEntityListArgs, BaseResult>
+public class HasUserLeaveList(ILogger<HasUserLeaveList> logger)
+    : BaseDomain<UserLeaveEntity>, IRequestHandler<HasUserLeaveEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -57,8 +58,8 @@ public class HasUserLeaveList(ILogger<HasUserLeaveList> logger) : BaseDomain<Use
             query.Where(x => request.UserIds.Contains(x.UserId));
 
         query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-                    (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-                    (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entity = await query.CountAsync(cancellationToken);
 

@@ -2,9 +2,10 @@ bin/
 obj/
 .vs/
 logs/
-Upload/
+UploadFile/
+PublishProfiles/
+packages/
 *.user
 *.exe
 *.jar
-PublishProfiles/
-packages/
+*.user

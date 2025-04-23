@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseOperation;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseOperation")]
-public class AddBaseOperationList(ILogger<AddBaseOperationList> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseOperationListArgs, BaseResult>
+public class AddBaseOperationList(
+    ILogger<AddBaseOperationList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseOperationListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增操作信息
@@ -77,8 +79,8 @@ public class AddBaseOperationList(ILogger<AddBaseOperationList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.ResourceId))
                     return new BaseResult(500, "资源标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

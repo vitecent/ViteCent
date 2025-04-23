@@ -22,11 +22,13 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
 /// <param name="userInvoke"></param>
-public class ListSchedule(ILogger<ListSchedule> logger,
+public class ListSchedule(
+    ILogger<ListSchedule> logger,
     IMapper mapper,
     IMediator mediator,
     IHttpContextAccessor httpContextAccessor,
-    IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke) : IRequestHandler<ListScheduleArgs, PageResult<UserScheduleResult>>
+    IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke)
+    : IRequestHandler<ListScheduleArgs, PageResult<UserScheduleResult>>
 {
     /// <summary>
     /// 用户信息
@@ -59,7 +61,8 @@ public class ListSchedule(ILogger<ListSchedule> logger,
         var positionIds = rows.Select(x => x.PositionId).Distinct().ToList();
         var userIds = rows.Select(x => x.UserId).Distinct().ToList();
 
-        var users = await userInvoke.CheckUser(companyIds, departmentIds, positionIds, userIds, user?.Token ?? string.Empty);
+        var users = await userInvoke.CheckUser(companyIds, departmentIds, positionIds, userIds,
+            user?.Token ?? string.Empty);
 
         if (!users.Success)
             return new PageResult<UserScheduleResult>(users.Code, users.Message);

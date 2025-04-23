@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseDepartment;
 /// 新增部门信息
 /// </summary>
 /// <param name="logger"></param>
-public class AddBaseDepartment(ILogger<AddBaseDepartment> logger) : BaseDomain<AddBaseDepartmentEntity>, IRequestHandler<AddBaseDepartmentEntity, BaseResult>
+public class AddBaseDepartment(
+    ILogger<AddBaseDepartment> logger)
+    : BaseDomain<AddBaseDepartmentEntity>, IRequestHandler<AddBaseDepartmentEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

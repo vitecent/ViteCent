@@ -26,8 +26,10 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class PageBaseUser(ILogger<PageBaseUser> logger,
-    IMediator mediator) : BaseLoginApi<SearchBaseUserArgs, PageResult<BaseUserResult>>
+public class PageBaseUser(
+    ILogger<PageBaseUser> logger,
+    IMediator mediator)
+    : BaseLoginApi<SearchBaseUserArgs, PageResult<BaseUserResult>>
 {
     /// <summary>
     /// 用户信息分页

@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace ViteCent.Basic.Data.RepairSchedule;
+﻿namespace ViteCent.Basic.Data.RepairSchedule;
 
 /// <summary>
 /// </summary>

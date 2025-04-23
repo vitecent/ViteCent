@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.ScheduleType;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageScheduleType(ILogger<PageScheduleType> logger,
+public class PageScheduleType(
+    ILogger<PageScheduleType> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<SearchScheduleTypeArgs, PageResult<ScheduleTypeResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<SearchScheduleTypeArgs, PageResult<ScheduleTypeResult>>
 {
     /// <summary>
     /// 用户信息

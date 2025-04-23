@@ -20,7 +20,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class ResetPasword(ILogger<ResetPasword> logger,
+public class ResetPasword(
+    ILogger<ResetPasword> logger,
     IMediator mediator) : BaseLoginApi<ResetPaswordArgs, BaseResult>
 {
     /// <summary>

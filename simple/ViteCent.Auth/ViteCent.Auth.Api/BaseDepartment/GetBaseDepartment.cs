@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseDepartment;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDepartment")]
-public class GetBaseDepartment(ILogger<GetBaseDepartment> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>>
+public class GetBaseDepartment(
+    ILogger<GetBaseDepartment> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>>
 {
     /// <summary>
     /// 获取部门信息
@@ -54,6 +56,6 @@ public class GetBaseDepartment(ILogger<GetBaseDepartment> logger,
         if (check != null && !check.Success)
             return new DataResult<BaseDepartmentResult>(check.Code, check.Message);
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

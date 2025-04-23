@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseResource;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseResource")]
-public class DisableBaseResource(ILogger<DisableBaseResource> logger,
-    IMediator mediator) : BaseLoginApi<DisableBaseResourceArgs, BaseResult>
+public class DisableBaseResource(
+    ILogger<DisableBaseResource> logger,
+    IMediator mediator)
+    : BaseLoginApi<DisableBaseResourceArgs, BaseResult>
 {
     /// <summary>
     /// 禁用资源信息

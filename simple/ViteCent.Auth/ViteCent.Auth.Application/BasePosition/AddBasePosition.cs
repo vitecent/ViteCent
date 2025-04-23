@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BasePosition;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class AddBasePosition(ILogger<AddBasePosition> logger,
+public partial class AddBasePosition(
+    ILogger<AddBasePosition> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBasePositionArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBasePositionArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

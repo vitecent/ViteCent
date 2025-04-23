@@ -21,7 +21,8 @@ namespace ViteCent.Basic.Domain.ScheduleType;
 /// 批量基础排班判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasScheduleTypeList(ILogger<HasScheduleTypeList> logger) : BaseDomain<ScheduleTypeEntity>, IRequestHandler<HasScheduleTypeEntityListArgs, BaseResult>
+public class HasScheduleTypeList(ILogger<HasScheduleTypeList> logger) : BaseDomain<ScheduleTypeEntity>,
+    IRequestHandler<HasScheduleTypeEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

@@ -5,7 +5,6 @@
 
 #region
 
-using System.Collections.Generic;
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Data;
@@ -52,7 +51,9 @@ public partial class EditScheduleType
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
@@ -65,7 +66,7 @@ public partial class EditScheduleType
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

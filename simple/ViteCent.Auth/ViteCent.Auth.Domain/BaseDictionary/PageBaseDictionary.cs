@@ -33,7 +33,8 @@ public class PageBaseDictionary(ILogger<PageBaseDictionary> logger) : BaseDomain
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<BaseDictionaryEntity>> Handle(SearchBaseDictionaryEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<BaseDictionaryEntity>> Handle(SearchBaseDictionaryEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseDictionary.PageBaseDictionary");
 

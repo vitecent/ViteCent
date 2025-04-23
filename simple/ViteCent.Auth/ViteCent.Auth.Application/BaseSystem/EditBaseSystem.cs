@@ -28,10 +28,12 @@ namespace ViteCent.Auth.Application.BaseSystem;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class EditBaseSystem(ILogger<EditBaseSystem> logger,
+public partial class EditBaseSystem(
+    ILogger<EditBaseSystem> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditBaseSystemArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<EditBaseSystemArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

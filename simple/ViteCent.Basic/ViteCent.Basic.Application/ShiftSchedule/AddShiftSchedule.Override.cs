@@ -36,7 +36,8 @@ public partial class AddShiftSchedule
     /// <param name="userInvoke"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(MediatR.IMediator mediator, AddShiftScheduleListArgs request, BaseUserInfo user,
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddShiftScheduleListArgs request,
+        BaseUserInfo user,
         IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
         IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
         IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke, CancellationToken cancellationToken)
@@ -70,7 +71,8 @@ public partial class AddShiftSchedule
                 data.CompanyName = item.Name;
         }
 
-        var departments = await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+        var departments =
+            await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
@@ -101,7 +103,7 @@ public partial class AddShiftSchedule
         var searchArgs = new SearchScheduleArgs
         {
             Offset = 1,
-            Limit = int.MaxValue,
+            Limit = int.MaxValue
         };
 
         if (companyIds.Count > 0)
@@ -144,7 +146,7 @@ public partial class AddShiftSchedule
             UserIds = userIds,
             ScheduleIds = scheduleIds,
             ShiftDepartmentIds = [.. request.Items.Select(x => x.ShiftDepartmentId).Distinct()],
-            ShiftUserIds = [.. request.Items.Select(x => x.ShiftUserId).Distinct()],
+            ShiftUserIds = [.. request.Items.Select(x => x.ShiftUserId).Distinct()]
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -157,7 +159,8 @@ public partial class AddShiftSchedule
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ShiftScheduleEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ShiftScheduleEntity entity,
+        CancellationToken cancellationToken)
     {
         if (topic != TopicEnum.Add && entity.Status != (int)ShiftScheduleEnum.Pass)
             return;
@@ -173,7 +176,7 @@ public partial class AddShiftSchedule
             ShiftDepartmentName = entity.ShiftDepartmentName,
             ShiftUserId = entity.ShiftUserId,
             ShiftUserName = entity.ShiftUserName,
-            ShiftJob = entity.Job,
+            ShiftJob = entity.Job
         };
 
         await mediator.Publish(topicArgs, cancellationToken);
@@ -203,14 +206,17 @@ public partial class AddShiftSchedule
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId,
+            user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
@@ -220,14 +226,16 @@ public partial class AddShiftSchedule
         if (string.IsNullOrWhiteSpace(request.ShiftDepartmentId))
             request.ShiftDepartmentId = departmentId;
 
-        var hasShiftDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.ShiftDepartmentId, user?.Token ?? string.Empty);
+        var hasShiftDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.ShiftDepartmentId,
+            user?.Token ?? string.Empty);
 
         if (!hasShiftDepartment.Success)
             return hasShiftDepartment;
 
         request.ShiftDepartmentName = hasShiftDepartment?.Data?.Name ?? string.Empty;
 
-        var hasShiftUser = await userInvoke.CheckUser(request.CompanyId, request.ShiftDepartmentId, string.Empty, request.ShiftUserId, user?.Token ?? string.Empty);
+        var hasShiftUser = await userInvoke.CheckUser(request.CompanyId, request.ShiftDepartmentId, string.Empty,
+            request.ShiftUserId, user?.Token ?? string.Empty);
 
         if (!hasShiftUser.Success)
             return hasShiftUser;
@@ -254,7 +262,7 @@ public partial class AddShiftSchedule
             UserId = request.UserId,
             ScheduleId = request.ScheduleId,
             ShiftDepartmentId = request.ShiftDepartmentId,
-            ShiftUserId = request.ShiftUserId,
+            ShiftUserId = request.ShiftUserId
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

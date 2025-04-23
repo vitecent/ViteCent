@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.UserLeave;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetUserLeave(ILogger<GetUserLeave> logger,
+public class GetUserLeave(
+    ILogger<GetUserLeave> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserLeaveArgs, DataResult<UserLeaveResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetUserLeaveArgs, DataResult<UserLeaveResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetUserLeave(ILogger<GetUserLeave> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<UserLeaveResult>> Handle(GetUserLeaveArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<UserLeaveResult>> Handle(GetUserLeaveArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserLeave.GetUserLeave");
 

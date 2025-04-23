@@ -66,6 +66,11 @@ public class AddBaseUserArgs : BaseArgs, IRequest<BaseResult>
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
+    /// 指纹
+    /// </summary>
+    public string Finger { get; set; } = string.Empty;
+
+    /// <summary>
     /// 性别
     /// </summary>
     public int Gender { get; set; }

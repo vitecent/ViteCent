@@ -47,14 +47,17 @@ public partial class FirstSchedule
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId,
+            user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;

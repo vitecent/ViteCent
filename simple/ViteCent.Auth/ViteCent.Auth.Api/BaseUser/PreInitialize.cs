@@ -17,7 +17,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// <param name="mediator"></param>
 [ApiController]
 [Route("BaseUser")]
-public class PreInitialize(ILogger<PreInitialize> logger,
+public class PreInitialize(
+    ILogger<PreInitialize> logger,
     IMediator mediator) : BaseApi<PreInitializeArgs, DataResult<PreInitializeResult>>
 {
     /// <summary>
@@ -31,6 +32,6 @@ public class PreInitialize(ILogger<PreInitialize> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.PreInitialize");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

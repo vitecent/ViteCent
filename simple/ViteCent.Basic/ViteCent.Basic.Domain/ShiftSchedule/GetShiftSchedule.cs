@@ -20,7 +20,9 @@ namespace ViteCent.Basic.Domain.ShiftSchedule;
 /// 获取换班申请
 /// </summary>
 /// <param name="logger"></param>
-public class GetShiftSchedule(ILogger<GetShiftSchedule> logger) : BaseDomain<ShiftScheduleEntity>, IRequestHandler<GetShiftScheduleEntityArgs, ShiftScheduleEntity>
+public class GetShiftSchedule(
+    ILogger<GetShiftSchedule> logger)
+    : BaseDomain<ShiftScheduleEntity>, IRequestHandler<GetShiftScheduleEntityArgs, ShiftScheduleEntity>
 {
     /// <summary>
     /// 数据库名称

@@ -4,7 +4,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using SqlSugar;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BaseOperation;
@@ -34,7 +33,8 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="configuration"></param>
-public class Login(ILogger<Login> logger,
+public class Login(
+    ILogger<Login> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
@@ -61,19 +61,19 @@ public class Login(ILogger<Login> logger,
         if (user.Status == (int)StatusEnum.Disable)
             return new DataResult<LoginResult>(500, "用户已被禁用");
 
-        var userInfo = new BaseUserInfo()
+        var userInfo = new BaseUserInfo
         {
             Id = user.Id,
             Name = user.RealName,
             Code = user.Username,
-            IsSuper = user.IsSuper,
+            IsSuper = user.IsSuper
         };
 
         if (!string.IsNullOrWhiteSpace(user.CompanyId))
         {
-            var companyArgs = new GetBaseCompanyArgs()
+            var companyArgs = new GetBaseCompanyArgs
             {
-                Id = user.CompanyId,
+                Id = user.CompanyId
             };
 
             var baseCompany = await mediator.Send(companyArgs, cancellationToken);
@@ -81,19 +81,19 @@ public class Login(ILogger<Login> logger,
             if (baseCompany.Data == null)
                 return new DataResult<LoginResult>(500, "公司信息不存在");
 
-            userInfo.Company = new BaseCompanyInfo()
+            userInfo.Company = new BaseCompanyInfo
             {
                 Id = baseCompany.Data.Id,
                 Name = baseCompany.Data.Name,
-                Code = baseCompany.Data.Code,
+                Code = baseCompany.Data.Code
             };
         }
 
         if (!string.IsNullOrWhiteSpace(user.DepartmentId))
         {
-            var departmentArgs = new GetBaseDepartmentArgs()
+            var departmentArgs = new GetBaseDepartmentArgs
             {
-                Id = user.DepartmentId,
+                Id = user.DepartmentId
             };
 
             if (!string.IsNullOrWhiteSpace(user.CompanyId))
@@ -104,19 +104,19 @@ public class Login(ILogger<Login> logger,
             if (baseDepartment.Data == null)
                 return new DataResult<LoginResult>(500, "部门信息不存在");
 
-            userInfo.Department = new BaseDepartmentInfo()
+            userInfo.Department = new BaseDepartmentInfo
             {
                 Id = baseDepartment.Data.Id,
                 Name = baseDepartment.Data.Name,
-                Code = baseDepartment.Data.Code,
+                Code = baseDepartment.Data.Code
             };
         }
 
         if (!string.IsNullOrWhiteSpace(user.PositionId))
         {
-            var positionArgs = new GetBasePositionArgs()
+            var positionArgs = new GetBasePositionArgs
             {
-                Id = user.PositionId,
+                Id = user.PositionId
             };
 
             if (!string.IsNullOrWhiteSpace(user.CompanyId))
@@ -127,11 +127,11 @@ public class Login(ILogger<Login> logger,
             if (basePosition.Data == null)
                 return new DataResult<LoginResult>(500, "职位信息不存在");
 
-            userInfo.Position = new BasePositionInfo()
+            userInfo.Position = new BasePositionInfo
             {
                 Id = basePosition.Data.Id,
                 Name = basePosition.Data.Name,
-                Code = basePosition.Data.Code,
+                Code = basePosition.Data.Code
             };
         }
 
@@ -154,11 +154,11 @@ public class Login(ILogger<Login> logger,
         cache.SetString($"User{refreshToken}", request, TimeSpan.FromDays(365));
         cache.SetString($"UserInfo{user.Id}", authInfo, TimeSpan.FromHours(expires));
 
-        var result = new DataResult<LoginResult>(new LoginResult()
+        var result = new DataResult<LoginResult>(new LoginResult
         {
             Token = token,
             RefreshToken = refreshToken,
-            ExpireTime = DateTime.Now.AddHours(24),
+            ExpireTime = DateTime.Now.AddHours(24)
         });
 
         return result;
@@ -172,16 +172,16 @@ public class Login(ILogger<Login> logger,
     /// <returns></returns>
     private async Task GetOperation(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
-        var args = new SearchBaseOperationArgs()
+        var args = new SearchBaseOperationArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 }
             ]
         };
@@ -190,10 +190,10 @@ public class Login(ILogger<Login> logger,
             args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
-                Value = userInfo.Company.Id,
+                Value = userInfo.Company.Id
             });
 
         var data = await mediator.Send(args, cancellationToken);
@@ -213,18 +213,19 @@ public class Login(ILogger<Login> logger,
     /// <param name="operations"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task GetResource(List<string> ids, BaseUserInfo userInfo, List<BaseOperationResult> operations, CancellationToken cancellationToken)
+    private async Task GetResource(List<string> ids, BaseUserInfo userInfo, List<BaseOperationResult> operations,
+        CancellationToken cancellationToken)
     {
-        var args = new SearchBaseResourceArgs()
+        var args = new SearchBaseResourceArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 }
             ]
         };
@@ -233,10 +234,10 @@ public class Login(ILogger<Login> logger,
             args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
-                Value = userInfo.Company.Id,
+                Value = userInfo.Company.Id
             });
 
         var data = await mediator.Send(args, cancellationToken);
@@ -257,16 +258,16 @@ public class Login(ILogger<Login> logger,
     /// <returns></returns>
     private async Task GetRole(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
-        var args = new SearchBaseRoleArgs()
+        var args = new SearchBaseRoleArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new ()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 }
             ]
         };
@@ -275,10 +276,10 @@ public class Login(ILogger<Login> logger,
             args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
-                Value = userInfo.Company.Id,
+                Value = userInfo.Company.Id
             });
 
         var data = await mediator.Send(args, cancellationToken);
@@ -299,16 +300,16 @@ public class Login(ILogger<Login> logger,
     /// <returns></returns>
     private async Task GetRolePermission(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
-        var args = new SearchBaseRolePermissionArgs()
+        var args = new SearchBaseRolePermissionArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 }
             ]
         };
@@ -317,10 +318,10 @@ public class Login(ILogger<Login> logger,
             args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
-                Value = userInfo.Company.Id,
+                Value = userInfo.Company.Id
             });
 
         var data = await mediator.Send(args, cancellationToken);
@@ -341,18 +342,19 @@ public class Login(ILogger<Login> logger,
     /// <param name="resources"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task GetSystem(List<string> ids, BaseUserInfo userInfo, List<BaseOperationResult> operations, List<BaseResourceResult> resources, CancellationToken cancellationToken)
+    private async Task GetSystem(List<string> ids, BaseUserInfo userInfo, List<BaseOperationResult> operations,
+        List<BaseResourceResult> resources, CancellationToken cancellationToken)
     {
-        var args = new SearchBaseSystemArgs()
+        var args = new SearchBaseSystemArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 }
             ]
         };
@@ -361,10 +363,10 @@ public class Login(ILogger<Login> logger,
             args.AddArgs("Id", ids.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
-                Value = userInfo.Company.Id,
+                Value = userInfo.Company.Id
             });
 
         var systems = await mediator.Send(args, cancellationToken);
@@ -373,36 +375,36 @@ public class Login(ILogger<Login> logger,
         var auth = new List<string>();
 
         if (systems.Total > 0)
-        {
             foreach (var system in systems.Rows)
             {
-                var _system = new BaseSystemInfo()
+                var _system = new BaseSystemInfo
                 {
                     Id = system.Id,
                     Name = system.Name,
-                    Code = system.Code,
+                    Code = system.Code
                 };
 
                 var _resources = resources.Where(x => x.SystemId == system.Id).ToList();
 
                 foreach (var resource in _resources)
                 {
-                    var _resource = new BaseResourceInfo()
+                    var _resource = new BaseResourceInfo
                     {
                         Id = resource.Id,
                         Name = resource.Name,
-                        Code = resource.Code,
+                        Code = resource.Code
                     };
 
-                    var _operations = operations.Where(x => x.SystemId == system.Id && x.ResourceId == resource.Id).ToList();
+                    var _operations = operations.Where(x => x.SystemId == system.Id && x.ResourceId == resource.Id)
+                        .ToList();
 
                     foreach (var operation in _operations)
                     {
-                        var _operation = new BaseOperationInfo()
+                        var _operation = new BaseOperationInfo
                         {
                             Id = operation.Id,
                             Name = operation.Name,
-                            Code = operation.Code,
+                            Code = operation.Code
                         };
 
                         auth.Add($"{system.Code}.{resource.Code}.{operation.Code}");
@@ -415,7 +417,6 @@ public class Login(ILogger<Login> logger,
 
                 authInfo.Add(_system);
             }
-        }
 
         userInfo.AuthInfo = authInfo;
         userInfo.Auth = auth;
@@ -428,40 +429,40 @@ public class Login(ILogger<Login> logger,
     /// <returns></returns>
     private async Task GetUserRole(BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
-        var args = new SearchBaseUserRoleArgs()
+        var args = new SearchBaseUserRoleArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new ()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 },
-                new()
+                new SearchItem
                 {
                     Field = "UserId",
                     Value = userInfo.Id,
-                    Group = "Role",
+                    Group = "Role"
                 }
             ]
         };
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Company?.Id))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
                 Value = userInfo.Company.Id,
-                Group = "Role",
+                Group = "Role"
             });
 
         if (!string.IsNullOrWhiteSpace(userInfo?.Department?.Id))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "DepartmentId",
                 Value = userInfo.Department.Id,
-                Group = "Role",
+                Group = "Role"
             });
 
         var data = await mediator.Send(args, cancellationToken);

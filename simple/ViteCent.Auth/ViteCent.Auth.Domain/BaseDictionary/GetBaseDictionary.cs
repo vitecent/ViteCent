@@ -20,7 +20,9 @@ namespace ViteCent.Auth.Domain.BaseDictionary;
 /// 获取字典信息
 /// </summary>
 /// <param name="logger"></param>
-public class GetBaseDictionary(ILogger<GetBaseDictionary> logger) : BaseDomain<BaseDictionaryEntity>, IRequestHandler<GetBaseDictionaryEntityArgs, BaseDictionaryEntity>
+public class GetBaseDictionary(
+    ILogger<GetBaseDictionary> logger)
+    : BaseDomain<BaseDictionaryEntity>, IRequestHandler<GetBaseDictionaryEntityArgs, BaseDictionaryEntity>
 {
     /// <summary>
     /// 数据库名称

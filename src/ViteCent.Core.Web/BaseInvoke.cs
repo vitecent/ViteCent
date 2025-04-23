@@ -2,7 +2,6 @@
 
 using Dapr.Client;
 using Microsoft.Extensions.Configuration;
-using System.Security.Policy;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Register;
@@ -16,7 +15,8 @@ namespace ViteCent.Core.Web;
 /// <param name="cache"></param>
 /// <param name="configuration"></param>
 /// <param name="dapr"></param>
-public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configuration, DaprClient dapr) : IBaseInvoke<Args, Result> where Args : BaseArgs
+public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configuration, DaprClient dapr)
+    : IBaseInvoke<Args, Result> where Args : BaseArgs
     where Result : BaseResult
 {
     /// <summary>

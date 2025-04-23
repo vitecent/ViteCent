@@ -5,7 +5,6 @@
 
 #region
 
-using ViteCent.Basic.Data.ShiftSchedule;
 using ViteCent.Basic.Data.UserLeave;
 using ViteCent.Basic.Entity.UserLeave;
 using ViteCent.Core.Data;
@@ -55,14 +54,17 @@ public partial class EditUserLeave
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId,
+            user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
@@ -76,7 +78,7 @@ public partial class EditUserLeave
             DepartmentId = request.DepartmentId,
             UserId = request.UserId,
             StartTime = request.StartTime,
-            EndTime = request.EndTime,
+            EndTime = request.EndTime
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

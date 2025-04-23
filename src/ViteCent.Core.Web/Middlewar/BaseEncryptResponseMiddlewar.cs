@@ -1,8 +1,8 @@
 ﻿#region
 
+using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System.Text;
 using ViteCent.Core.Data;
 
 #endregion
@@ -65,7 +65,7 @@ public class BaseEncryptResponseMiddlewar(RequestDelegate next, IConfiguration c
         {
             "AES" => input.EncryptAES(key),
             "DES" => input.EncryptDES(key),
-            _ => throw new Exception($"Encrypt:Type {type} Is Not Support"),
+            _ => throw new Exception($"Encrypt:Type {type} Is Not Support")
         };
     }
 

@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BaseSystem;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
+public class AddBaseSystemList(
+    ILogger<AddBaseSystemList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseSystemListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBaseSystemListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -59,7 +61,7 @@ public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
         if (!check.Success)
             return check;
 
-        var entitys = new AddBaseSystemEntityListArgs()
+        var entitys = new AddBaseSystemEntityListArgs
         {
             Items = []
         };

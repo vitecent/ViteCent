@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseRole;
 /// 编辑角色信息
 /// </summary>
 /// <param name="logger"></param>
-public class EditBaseRole(ILogger<EditBaseRole> logger) : BaseDomain<BaseRoleEntity>, IRequestHandler<BaseRoleEntity, BaseResult>
+public class EditBaseRole(
+    ILogger<EditBaseRole> logger)
+    : BaseDomain<BaseRoleEntity>, IRequestHandler<BaseRoleEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

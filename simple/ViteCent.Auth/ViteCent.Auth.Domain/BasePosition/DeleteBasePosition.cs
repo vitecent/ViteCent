@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BasePosition;
 /// 删除职位信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBasePosition(ILogger<DeleteBasePosition> logger) : BaseDomain<DeleteBasePositionEntity>, IRequestHandler<DeleteBasePositionEntity, BaseResult>
+public class DeleteBasePosition(
+    ILogger<DeleteBasePosition> logger)
+    : BaseDomain<DeleteBasePositionEntity>, IRequestHandler<DeleteBasePositionEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteBasePosition(ILogger<DeleteBasePosition> logger) : BaseDomain
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BasePosition.DeleteBasePosition");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

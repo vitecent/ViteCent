@@ -28,8 +28,10 @@ namespace ViteCent.Basic.Api.ScheduleType;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("ScheduleType")]
-public partial class AddScheduleType(ILogger<AddScheduleType> logger,
-    IMediator mediator) : BaseLoginApi<AddScheduleTypeArgs, BaseResult>
+public partial class AddScheduleType(
+    ILogger<AddScheduleType> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddScheduleTypeArgs, BaseResult>
 {
     /// <summary>
     /// 新增基础排班

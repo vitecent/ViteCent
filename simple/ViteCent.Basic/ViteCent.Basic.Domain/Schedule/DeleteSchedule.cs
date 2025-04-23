@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.Schedule;
 /// 删除排班信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteSchedule(ILogger<DeleteSchedule> logger) : BaseDomain<DeleteScheduleEntity>, IRequestHandler<DeleteScheduleEntity, BaseResult>
+public class DeleteSchedule(
+    ILogger<DeleteSchedule> logger)
+    : BaseDomain<DeleteScheduleEntity>, IRequestHandler<DeleteScheduleEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteSchedule(ILogger<DeleteSchedule> logger) : BaseDomain<DeleteS
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.Schedule.DeleteSchedule");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

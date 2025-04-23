@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseCompany;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseCompany")]
-public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseCompanyListArgs, BaseResult>
+public class AddBaseCompanyList(
+    ILogger<AddBaseCompanyList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseCompanyListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增公司信息
@@ -64,8 +66,8 @@ public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger,
 
             if (!check.IsValid)
                 return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

@@ -14,10 +14,12 @@ namespace ViteCent.Statistics.Application.Statistics;
 /// <summary>
 /// 考勤统计仓储
 /// </summary>
-public class Schedule(ILogger<Schedule> logger,
+public class Schedule(
+    ILogger<Schedule> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<StatisticsScheduleStatisticsArgs, DataResult<ScheduleStatisticsResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<StatisticsScheduleStatisticsArgs, DataResult<ScheduleStatisticsResult>>
 {
     /// <summary>
     /// 用户信息

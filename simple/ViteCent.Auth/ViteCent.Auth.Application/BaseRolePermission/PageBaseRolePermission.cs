@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageBaseRolePermission(ILogger<PageBaseRolePermission> logger,
+public class PageBaseRolePermission(
+    ILogger<PageBaseRolePermission> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<SearchBaseRolePermissionArgs, PageResult<BaseRolePermissionResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<SearchBaseRolePermissionArgs, PageResult<BaseRolePermissionResult>>
 {
     /// <summary>
     /// 用户信息

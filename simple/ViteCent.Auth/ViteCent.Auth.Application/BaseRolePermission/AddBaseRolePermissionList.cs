@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddBaseRolePermissionList(ILogger<AddBaseRolePermissionList> logger,
+public class AddBaseRolePermissionList(
+    ILogger<AddBaseRolePermissionList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseRolePermissionListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBaseRolePermissionListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -59,7 +61,7 @@ public class AddBaseRolePermissionList(ILogger<AddBaseRolePermissionList> logger
         if (!check.Success)
             return check;
 
-        var entitys = new AddBaseRolePermissionEntityListArgs()
+        var entitys = new AddBaseRolePermissionEntityListArgs
         {
             Items = []
         };

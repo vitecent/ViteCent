@@ -26,8 +26,10 @@ namespace ViteCent.Basic.Api.UserLeave;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserLeave")]
-public class PageUserLeave(ILogger<PageUserLeave> logger,
-    IMediator mediator) : BaseLoginApi<SearchUserLeaveArgs, PageResult<UserLeaveResult>>
+public class PageUserLeave(
+    ILogger<PageUserLeave> logger,
+    IMediator mediator)
+    : BaseLoginApi<SearchUserLeaveArgs, PageResult<UserLeaveResult>>
 {
     /// <summary>
     /// 请假申请分页

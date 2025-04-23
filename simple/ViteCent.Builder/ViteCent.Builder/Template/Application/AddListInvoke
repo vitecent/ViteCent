@@ -59,7 +59,8 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 /// <param name="userInvoke"></param>
 #end
 /// <param name="httpContextAccessor"></param>
-public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger,
+public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(
+    ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger,
 #if($HasId)
     IBaseCache cache,
 #end
@@ -77,7 +78,8 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 #if($HasUserId)
     IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}, PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
 #end
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 用户信息

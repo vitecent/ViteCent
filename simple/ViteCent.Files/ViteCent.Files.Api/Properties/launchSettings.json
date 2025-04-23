@@ -1,14 +1,14 @@
 {
-  "profiles": {
-    "ViteCent.Files": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "openapi/v1.json",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://192.168.0.53:8020",
-      "dotnetRunMessages": true
+    "profiles": {
+        "ViteCent.Files": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "launchUrl": "openapi/v1.json",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "applicationUrl": "http://192.168.0.53:8020",
+            "dotnetRunMessages": true
+        }
     }
-  }
 }

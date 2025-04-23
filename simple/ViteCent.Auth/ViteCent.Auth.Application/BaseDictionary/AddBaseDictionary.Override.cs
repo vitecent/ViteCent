@@ -8,15 +8,12 @@
 
 #region
 
-using ViteCent.Auth.Entity.BaseCompany;
-using ViteCent.Auth.Data.BaseDictionary;
-using ViteCent.Core;
-using ViteCent.Core.Data;
 using MediatR;
-using ViteCent.Auth.Entity.BaseSystem;
+using ViteCent.Auth.Data.BaseDictionary;
 using ViteCent.Auth.Entity.BaseDictionary;
+using ViteCent.Auth.Entity.BaseSystem;
+using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
-using ViteCent.Auth.Entity.BaseOperation;
 
 #endregion
 
@@ -34,15 +31,14 @@ public partial class AddBaseDictionary
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseDictionaryListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseDictionaryListArgs request,
+        BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
         foreach (var item in request.Items)
-        {
             if (string.IsNullOrWhiteSpace(item.CompanyId))
                 item.CompanyId = companyId;
-        }
 
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
 
@@ -55,7 +51,7 @@ public partial class AddBaseDictionary
         {
             CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
             Codes = [.. request.Items.Select(x => x.Code).Distinct()],
-            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()]
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -68,7 +64,8 @@ public partial class AddBaseDictionary
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseDictionaryEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseDictionaryEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.FromResult(0);
     }
@@ -95,7 +92,7 @@ public partial class AddBaseDictionary
         {
             CompanyId = request.CompanyId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

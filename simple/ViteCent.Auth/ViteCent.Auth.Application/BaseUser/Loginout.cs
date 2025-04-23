@@ -17,7 +17,8 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="logger"></param>
 /// <param name="cache"></param>
 /// <param name="httpContextAccessor"></param>
-public class Loginout(ILogger<Loginout> logger,
+public class Loginout(
+    ILogger<Loginout> logger,
     IBaseCache cache,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<LoginoutArgs, BaseResult>
 {

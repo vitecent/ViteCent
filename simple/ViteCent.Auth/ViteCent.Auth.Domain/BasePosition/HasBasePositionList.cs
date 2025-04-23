@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BasePosition;
 /// 批量职位信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBasePositionList(ILogger<HasBasePositionList> logger) : BaseDomain<BasePositionEntity>, IRequestHandler<HasBasePositionEntityListArgs, BaseResult>
+public class HasBasePositionList(ILogger<HasBasePositionList> logger) : BaseDomain<BasePositionEntity>,
+    IRequestHandler<HasBasePositionEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

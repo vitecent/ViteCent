@@ -34,13 +34,15 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger,
+public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(
+    ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger,
 #if($HasId)
     IBaseCache cache,
 #end
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -65,7 +67,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         if (!check.Success)
             return check;
 
-        var entitys = new $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}()
+        var entitys = new $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}
         {
             Items = []
         };

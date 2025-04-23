@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BaseRole;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddBaseRoleList(ILogger<AddBaseRoleList> logger,
+public class AddBaseRoleList(
+    ILogger<AddBaseRoleList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseRoleListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBaseRoleListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -59,7 +61,7 @@ public class AddBaseRoleList(ILogger<AddBaseRoleList> logger,
         if (!check.Success)
             return check;
 
-        var entitys = new AddBaseRoleEntityListArgs()
+        var entitys = new AddBaseRoleEntityListArgs
         {
             Items = []
         };

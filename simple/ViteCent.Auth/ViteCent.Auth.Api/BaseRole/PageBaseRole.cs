@@ -26,8 +26,10 @@ namespace ViteCent.Auth.Api.BaseRole;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRole")]
-public class PageBaseRole(ILogger<PageBaseRole> logger,
-    IMediator mediator) : BaseLoginApi<SearchBaseRoleArgs, PageResult<BaseRoleResult>>
+public class PageBaseRole(
+    ILogger<PageBaseRole> logger,
+    IMediator mediator)
+    : BaseLoginApi<SearchBaseRoleArgs, PageResult<BaseRoleResult>>
 {
     /// <summary>
     /// 角色信息分页

@@ -28,8 +28,10 @@ namespace ViteCent.Basic.Api.RepairSchedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("RepairSchedule")]
-public partial class AddRepairSchedule(ILogger<AddRepairSchedule> logger,
-    IMediator mediator) : BaseLoginApi<AddRepairScheduleArgs, BaseResult>
+public partial class AddRepairSchedule(
+    ILogger<AddRepairSchedule> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddRepairScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 新增补卡申请

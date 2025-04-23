@@ -20,7 +20,8 @@ namespace ViteCent.Basic.Api.Schedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class FirstSchedule(ILogger<FirstSchedule> logger,
+public class FirstSchedule(
+    ILogger<FirstSchedule> logger,
     IMediator mediator) : BaseLoginApi<FirstScheduleArgs, BaseResult>
 {
     /// <summary>

@@ -14,7 +14,8 @@ namespace ViteCent.Basic.Domain.Schedule;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasSchedule(ILogger<HasSchedule> logger) : BaseDomain<ScheduleEntity>, IRequestHandler<HasScheduleEntityArgs, BaseResult>
+public class HasSchedule(ILogger<HasSchedule> logger)
+    : BaseDomain<ScheduleEntity>, IRequestHandler<HasScheduleEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -44,8 +45,8 @@ public class HasSchedule(ILogger<HasSchedule> logger) : BaseDomain<ScheduleEntit
             query.Where(x => x.UserId == request.UserId);
 
         query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-            (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-            (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entity = await query.CountAsync(cancellationToken);
 

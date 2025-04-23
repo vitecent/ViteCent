@@ -1,33 +1,33 @@
 ﻿{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Information"
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Information"
+        }
+    },
+    "AllowedHosts": "*",
+    "Environment": "$!{Setting.Api.Environment}",
+    "Cache": "$!{Setting.Api.Cache}",
+    "Register": "$!{Setting.Api.Register}",
+    "Trace": "$!{Setting.Api.Trace}",
+    "Service": {
+        "Name": "$!{DataBase.ServiceName}",
+        "Port": "$!{DataBase.ServicePort}",
+        "Address": "$!{DataBase.ServiceAddress}"
+    },
+    "DataBase": [
+        {
+            "Type": "$!{DataBase.Type}",
+            "Name": "$!{DataBase.Name}",
+            "Master": "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;",
+            "Slaves": [
+                "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;"
+            ]
+        }
+    ],
+    "Jwt": {
+        "Key": "$!{Setting.Api.JwtKey}",
+        "Issuer": "$!{Setting.Api.JwtIssuer}",
+        "Audience": "$!{Setting.Api.JwtAudience}"
     }
-  },
-  "AllowedHosts": "*",
-  "Environment": "$!{Setting.Api.Environment}",
-  "Cache": "$!{Setting.Api.Cache}",
-  "Register": "$!{Setting.Api.Register}",
-  "Trace": "$!{Setting.Api.Trace}",
-  "Service": {
-    "Name": "$!{DataBase.ServiceName}",
-    "Port": $!{DataBase.ServicePort},
-    "Address": "$!{DataBase.ServiceAddress}"
-  },
-  "DataBase": [
-    {
-      "Type": "$!{DataBase.Type}",
-      "Name": "$!{DataBase.Name}",
-      "Master": "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;",
-      "Slaves": [
-        "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;"
-      ]
-    }
-  ],
-  "Jwt": {
-    "Key": "$!{Setting.Api.JwtKey}",
-    "Issuer": "$!{Setting.Api.JwtIssuer}",
-    "Audience": "$!{Setting.Api.JwtAudience}"
-  }
 }

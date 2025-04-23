@@ -26,15 +26,14 @@ public partial class AddBaseSystem
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseSystemListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseSystemListArgs request,
+        BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
         foreach (var item in request.Items)
-        {
             if (string.IsNullOrWhiteSpace(item.CompanyId))
                 item.CompanyId = companyId;
-        }
 
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
 
@@ -55,7 +54,7 @@ public partial class AddBaseSystem
         {
             CompanyIds = companyIds,
             Codes = [.. request.Items.Select(x => x.Code).Distinct()],
-            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()]
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -68,7 +67,8 @@ public partial class AddBaseSystem
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseSystemEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseSystemEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
     }
@@ -96,7 +96,7 @@ public partial class AddBaseSystem
         {
             CompanyId = request.CompanyId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.UserRest;
 /// 删除调休申请
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteUserRest(ILogger<DeleteUserRest> logger) : BaseDomain<DeleteUserRestEntity>, IRequestHandler<DeleteUserRestEntity, BaseResult>
+public class DeleteUserRest(
+    ILogger<DeleteUserRest> logger)
+    : BaseDomain<DeleteUserRestEntity>, IRequestHandler<DeleteUserRestEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteUserRest(ILogger<DeleteUserRest> logger) : BaseDomain<DeleteU
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserRest.DeleteUserRest");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

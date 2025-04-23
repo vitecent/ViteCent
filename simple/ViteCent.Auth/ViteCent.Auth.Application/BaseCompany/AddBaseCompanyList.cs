@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BaseCompany;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger,
+public class AddBaseCompanyList(
+    ILogger<AddBaseCompanyList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseCompanyListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBaseCompanyListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -59,7 +61,7 @@ public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger,
         if (!check.Success)
             return check;
 
-        var entitys = new AddBaseCompanyEntityListArgs()
+        var entitys = new AddBaseCompanyEntityListArgs
         {
             Items = []
         };

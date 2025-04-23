@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Entity.BaseUserRole;
 [Serializable]
 public class AddBaseUserRoleEntityListArgs : IRequest<BaseResult>
 {
-    /// <summary>
-    /// 用户角色
-    /// </summary>
-    public List<AddBaseUserRoleEntity> Items = [];
+	// <summary>
+	/// 用户角色
+	/// </summary>
+	public List<AddBaseUserRoleEntity> Items = [];
 }

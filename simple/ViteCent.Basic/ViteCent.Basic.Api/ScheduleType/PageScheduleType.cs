@@ -26,8 +26,10 @@ namespace ViteCent.Basic.Api.ScheduleType;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("ScheduleType")]
-public class PageScheduleType(ILogger<PageScheduleType> logger,
-    IMediator mediator) : BaseLoginApi<SearchScheduleTypeArgs, PageResult<ScheduleTypeResult>>
+public class PageScheduleType(
+    ILogger<PageScheduleType> logger,
+    IMediator mediator)
+    : BaseLoginApi<SearchScheduleTypeArgs, PageResult<ScheduleTypeResult>>
 {
     /// <summary>
     /// 基础排班分页

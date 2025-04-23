@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BasePosition;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BasePosition")]
-public class AddBasePositionList(ILogger<AddBasePositionList> logger,
-    IMediator mediator) : BaseLoginApi<AddBasePositionListArgs, BaseResult>
+public class AddBasePositionList(
+    ILogger<AddBasePositionList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBasePositionListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增职位信息
@@ -69,8 +71,8 @@ public class AddBasePositionList(ILogger<AddBasePositionList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

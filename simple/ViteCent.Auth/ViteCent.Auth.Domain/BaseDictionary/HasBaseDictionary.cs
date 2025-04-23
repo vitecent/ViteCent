@@ -22,7 +22,8 @@ namespace ViteCent.Auth.Domain.BaseDictionary;
 /// 字典信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseDictionary(ILogger<HasBaseDictionary> logger) : BaseDomain<BaseDictionaryEntity>, IRequestHandler<HasBaseDictionaryEntityArgs, BaseResult>
+public class HasBaseDictionary(ILogger<HasBaseDictionary> logger) : BaseDomain<BaseDictionaryEntity>,
+    IRequestHandler<HasBaseDictionaryEntityArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

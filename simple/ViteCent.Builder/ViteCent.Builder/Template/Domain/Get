@@ -20,7 +20,9 @@ namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 /// 获取$!{Table.Description}
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}, $!{Table.CamelCaseName}$!{Setting.Entity.Name}>
+public class $!{Setting.GetName}$!{Table.CamelCaseName}(
+    ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger)
+    : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}, $!{Table.CamelCaseName}$!{Setting.Entity.Name}>
 {
     /// <summary>
     /// 数据库名称

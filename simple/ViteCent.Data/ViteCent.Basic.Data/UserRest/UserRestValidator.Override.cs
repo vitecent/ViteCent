@@ -20,7 +20,7 @@ public partial class UserRestValidator : AbstractValidator<AddUserRestArgs>
     /// <param name="validate"></param>
     private void OverrideValidator(bool validate)
     {
-        var status = new List<int>() { (int)UserRestEnum.Apply, (int)UserRestEnum.Pass, (int)UserRestEnum.NoPass };
+        var status = new List<int> { (int)UserRestEnum.Apply, (int)UserRestEnum.Pass, (int)UserRestEnum.NoPass };
 
         RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
     }

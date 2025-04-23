@@ -59,7 +59,8 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 /// <param name="userInvoke"></param>
 #end
 /// <param name="httpContextAccessor"></param>
-public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger,
+public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(
+    ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger,
 #if($HasId)
     IBaseCache cache,
 #end
@@ -77,7 +78,8 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
 #if($HasUserId)
     IBaseInvoke<$!{Setting.GetName}BaseUser$!{Setting.Data.ArgsSuffix}, DataResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
 #end
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 用户信息

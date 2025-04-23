@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
-public class AddBaseRolePermissionList(ILogger<AddBaseRolePermissionList> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseRolePermissionListArgs, BaseResult>
+public class AddBaseRolePermissionList(
+    ILogger<AddBaseRolePermissionList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseRolePermissionListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增角色权限
@@ -85,8 +87,8 @@ public class AddBaseRolePermissionList(ILogger<AddBaseRolePermissionList> logger
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.OperationId))
                     return new BaseResult(500, "操作标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

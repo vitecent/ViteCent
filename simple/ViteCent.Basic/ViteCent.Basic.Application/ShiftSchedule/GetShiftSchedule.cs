@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetShiftSchedule(ILogger<GetShiftSchedule> logger,
+public class GetShiftSchedule(
+    ILogger<GetShiftSchedule> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetShiftScheduleArgs, DataResult<ShiftScheduleResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetShiftScheduleArgs, DataResult<ShiftScheduleResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetShiftSchedule(ILogger<GetShiftSchedule> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<ShiftScheduleResult>> Handle(GetShiftScheduleArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<ShiftScheduleResult>> Handle(GetShiftScheduleArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.ShiftSchedule.GetShiftSchedule");
 

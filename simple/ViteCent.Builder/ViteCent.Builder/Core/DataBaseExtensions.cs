@@ -31,8 +31,8 @@ public class DataBaseExtensions
                 ServiceName = "Basic",
                 ServicePort = 8010,
                 Invoke = true,
-                InvokeProjrect="ViteCent.Auth",
-                InvokeService="Auth"
+                InvokeProjrect = "ViteCent.Auth",
+                InvokeService = "Auth"
             }
         };
 

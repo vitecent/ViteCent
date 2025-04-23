@@ -34,13 +34,15 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger,
+public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(
+    ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger,
 #if($HasId)
     IBaseCache cache,
 #end
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 用户信息

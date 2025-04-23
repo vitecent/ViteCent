@@ -28,8 +28,10 @@ namespace ViteCent.Basic.Api.UserRest;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserRest")]
-public class AddUserRestList(ILogger<AddUserRestList> logger,
-    IMediator mediator) : BaseLoginApi<AddUserRestListArgs, BaseResult>
+public class AddUserRestList(
+    ILogger<AddUserRestList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddUserRestListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增调休申请
@@ -77,8 +79,8 @@ public class AddUserRestList(ILogger<AddUserRestList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.UserId))
                     return new BaseResult(500, "用户标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

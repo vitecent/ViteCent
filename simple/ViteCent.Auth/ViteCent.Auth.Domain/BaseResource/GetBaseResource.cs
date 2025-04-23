@@ -20,7 +20,9 @@ namespace ViteCent.Auth.Domain.BaseResource;
 /// 获取资源信息
 /// </summary>
 /// <param name="logger"></param>
-public class GetBaseResource(ILogger<GetBaseResource> logger) : BaseDomain<BaseResourceEntity>, IRequestHandler<GetBaseResourceEntityArgs, BaseResourceEntity>
+public class GetBaseResource(
+    ILogger<GetBaseResource> logger)
+    : BaseDomain<BaseResourceEntity>, IRequestHandler<GetBaseResourceEntityArgs, BaseResourceEntity>
 {
     /// <summary>
     /// 数据库名称

@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Data.BaseRole;
 [Serializable]
 public class AddBaseRoleListArgs : BaseArgs, IRequest<BaseResult>
 {
-    /// <summary>
-    /// 角色信息
-    /// </summary>
-    public List<AddBaseRoleArgs> Items = [];
+	/// <summary>
+	/// 角色信息
+	/// </summary>
+	public List<AddBaseRoleArgs> Items = [];
 }

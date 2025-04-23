@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
-public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseRolePermissionArgs, DataResult<BaseRolePermissionResult>>
+public class GetBaseRolePermission(
+    ILogger<GetBaseRolePermission> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseRolePermissionArgs, DataResult<BaseRolePermissionResult>>
 {
     /// <summary>
     /// 获取角色权限
@@ -70,6 +72,6 @@ public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger,
             if (string.IsNullOrEmpty(args.OperationId))
                 return new DataResult<BaseRolePermissionResult>(500, "操作标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

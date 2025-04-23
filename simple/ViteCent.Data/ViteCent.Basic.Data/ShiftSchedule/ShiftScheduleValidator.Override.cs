@@ -20,7 +20,8 @@ public partial class ShiftScheduleValidator : AbstractValidator<AddShiftSchedule
     /// <param name="validate"></param>
     private void OverrideValidator(bool validate)
     {
-        var status = new List<int>() { (int)ShiftScheduleEnum.Apply, (int)ShiftScheduleEnum.Pass, (int)ShiftScheduleEnum.NoPass };
+        var status = new List<int>
+            { (int)ShiftScheduleEnum.Apply, (int)ShiftScheduleEnum.Pass, (int)ShiftScheduleEnum.NoPass };
 
         RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
 

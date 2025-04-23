@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseSystem;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseSystem")]
-public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger,
-    IMediator mediator) : BaseLoginApi<DeleteBaseSystemArgs, BaseResult>
+public class DeleteBaseSystem(
+    ILogger<DeleteBaseSystem> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteBaseSystemArgs, BaseResult>
 {
     /// <summary>
     /// 删除系统信息

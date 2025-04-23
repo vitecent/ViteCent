@@ -26,8 +26,10 @@ namespace ViteCent.Auth.Api.BaseCompany;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseCompany")]
-public class DeleteBaseCompany(ILogger<DeleteBaseCompany> logger,
-    IMediator mediator) : BaseLoginApi<DeleteBaseCompanyArgs, BaseResult>
+public class DeleteBaseCompany(
+    ILogger<DeleteBaseCompany> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteBaseCompanyArgs, BaseResult>
 {
     /// <summary>
     /// 删除公司信息

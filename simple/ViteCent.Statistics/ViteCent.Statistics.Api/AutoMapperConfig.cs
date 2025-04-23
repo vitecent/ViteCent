@@ -10,7 +10,7 @@ namespace ViteCent.Statistics.Api;
 /// <summary>
 /// 用户角色映射
 /// </summary>
-public partial class AutoMapperConfig : BaseMapperConfig
+public class AutoMapperConfig : BaseMapperConfig
 {
     /// <summary>
     /// 映射

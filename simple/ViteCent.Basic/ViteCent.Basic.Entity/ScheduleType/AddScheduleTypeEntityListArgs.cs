@@ -20,8 +20,8 @@ namespace ViteCent.Basic.Entity.ScheduleType;
 [Serializable]
 public class AddScheduleTypeEntityListArgs : IRequest<BaseResult>
 {
-    /// <summary>
-    /// 基础排班
-    /// </summary>
-    public List<AddScheduleTypeEntity> Items = [];
+	// <summary>
+	/// 基础排班
+	/// </summary>
+	public List<AddScheduleTypeEntity> Items = [];
 }

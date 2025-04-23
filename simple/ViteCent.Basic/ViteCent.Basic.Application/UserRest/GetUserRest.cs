@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.UserRest;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetUserRest(ILogger<GetUserRest> logger,
+public class GetUserRest(
+    ILogger<GetUserRest> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserRestArgs, DataResult<UserRestResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetUserRestArgs, DataResult<UserRestResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetUserRest(ILogger<GetUserRest> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<UserRestResult>> Handle(GetUserRestArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<UserRestResult>> Handle(GetUserRestArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserRest.GetUserRest");
 

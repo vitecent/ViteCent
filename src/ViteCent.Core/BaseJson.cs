@@ -35,7 +35,7 @@ public static class BaseJson
                 {
                     DateTimeFormat = "yyyy-MM-dd HH:mm:ss"
                 }
-            ],
+            ]
         };
     }
 

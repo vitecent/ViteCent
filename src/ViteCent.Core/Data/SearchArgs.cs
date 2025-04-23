@@ -44,7 +44,8 @@ public class SearchArgs : BaseArgs
         var parameters = new Dictionary<string, object>();
 
         //删除空
-        Args.RemoveAll(x => string.IsNullOrWhiteSpace(x.Field) || string.IsNullOrWhiteSpace(x.Value) || x.Value == "[]");
+        Args.RemoveAll(x =>
+            string.IsNullOrWhiteSpace(x.Field) || string.IsNullOrWhiteSpace(x.Value) || x.Value == "[]");
 
         if (Args.Count == 0) return (result, parameters);
 
@@ -52,7 +53,6 @@ public class SearchArgs : BaseArgs
         sql.Append("1 = 1 ");
 
         foreach (var item in Args)
-        {
             if (item.Value.StartsWith('[') && item.Value.EndsWith(']'))
             {
                 var values = item.Value.DeJson<List<string>>();
@@ -64,7 +64,6 @@ public class SearchArgs : BaseArgs
                     item.Value = value;
                 }
             }
-        }
 
         //处理普通
         var list = Args.Where(x => string.IsNullOrWhiteSpace(x.Group)).ToList();
@@ -129,7 +128,7 @@ public class SearchArgs : BaseArgs
                         else
                         {
                             sql.Append("(" +
-                                "");
+                                       "");
                             var j = 0;
                             g.ToList().ForEach(x =>
                             {
@@ -220,7 +219,7 @@ public class SearchArgs : BaseArgs
                 break;
 
             case SearchEnum.InLike:
-                var keys = item.Value?.ToString()?.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+                var keys = item.Value?.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
                 if (keys?.Count > 1)
                 {
@@ -247,7 +246,7 @@ public class SearchArgs : BaseArgs
         {
             if (item.Method == SearchEnum.InLike)
             {
-                var keys = item.Value?.ToString()?.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+                var keys = item.Value?.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
                 keys?.ForEach(key =>
                 {
@@ -258,16 +257,24 @@ public class SearchArgs : BaseArgs
             else
             {
                 if (item.Method == SearchEnum.Like || item.Method == SearchEnum.NoLike)
+                {
                     parameters.Add($"{item.Field}{index}", $"%{item.Value}%");
+                }
                 else if (item.Method == SearchEnum.LikeLeft)
+                {
                     parameters.Add($"{item.Field}{index}", $"%{item.Value}");
+                }
                 else if (item.Method == SearchEnum.LikeRight)
+                {
                     parameters.Add($"{item.Field}{index}", $"{item.Value}%");
+                }
                 else if (item.Method == SearchEnum.In)
                 {
                 }
                 else
+                {
                     parameters.Add($"{item.Field}{index}", item.Value ?? default!);
+                }
 
                 index++;
             }

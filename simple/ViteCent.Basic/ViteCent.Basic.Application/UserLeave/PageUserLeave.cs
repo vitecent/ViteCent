@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.UserLeave;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageUserLeave(ILogger<PageUserLeave> logger,
+public class PageUserLeave(
+    ILogger<PageUserLeave> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<SearchUserLeaveArgs, PageResult<UserLeaveResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<SearchUserLeaveArgs, PageResult<UserLeaveResult>>
 {
     /// <summary>
     /// 用户信息

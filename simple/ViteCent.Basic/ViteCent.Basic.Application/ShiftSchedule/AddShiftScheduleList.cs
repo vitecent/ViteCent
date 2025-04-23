@@ -37,14 +37,16 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
 /// <param name="departmentInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddShiftScheduleList(ILogger<AddShiftScheduleList> logger,
+public class AddShiftScheduleList(
+    ILogger<AddShiftScheduleList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
     IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddShiftScheduleListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddShiftScheduleListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseDictionary;
 /// 批量字典信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseDictionaryList(ILogger<HasBaseDictionaryList> logger) : BaseDomain<BaseDictionaryEntity>, IRequestHandler<HasBaseDictionaryEntityListArgs, BaseResult>
+public class HasBaseDictionaryList(ILogger<HasBaseDictionaryList> logger) : BaseDomain<BaseDictionaryEntity>,
+    IRequestHandler<HasBaseDictionaryEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 字典信息库名称

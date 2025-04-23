@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseSystem;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseSystem")]
-public class DisableBaseSystem(ILogger<DisableBaseSystem> logger,
-    IMediator mediator) : BaseLoginApi<DisableBaseSystemArgs, BaseResult>
+public class DisableBaseSystem(
+    ILogger<DisableBaseSystem> logger,
+    IMediator mediator)
+    : BaseLoginApi<DisableBaseSystemArgs, BaseResult>
 {
     /// <summary>
     /// 禁用系统信息

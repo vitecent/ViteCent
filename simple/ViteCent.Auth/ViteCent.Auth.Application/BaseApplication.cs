@@ -1,8 +1,8 @@
 #region
 
+using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using System.Security.Claims;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseDepartment;
 using ViteCent.Auth.Entity.BaseOperation;
@@ -33,13 +33,13 @@ public static class BaseApplication
     public static async Task<PageResult<BaseCompanyEntity>> CheckCompany(this IMediator mediator,
         List<string> companyIds)
     {
-        var searchCompanyArgs = new SearchBaseCompanyEntityArgs()
+        var searchCompanyArgs = new SearchBaseCompanyEntityArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new ()
+                new SearchItem
                 {
                     Field = "Id",
                     Value = companyIds.ToJson(),
@@ -64,9 +64,9 @@ public static class BaseApplication
         if (company != null)
             return new PageResult<BaseCompanyEntity>(500, $"公司{company.Name}已经禁用");
 
-        return new PageResult<BaseCompanyEntity>()
+        return new PageResult<BaseCompanyEntity>
         {
-            Rows = companys,
+            Rows = companys
         };
     }
 
@@ -83,7 +83,7 @@ public static class BaseApplication
 
         var getCompanyArgs = new GetBaseCompanyEntityArgs
         {
-            Id = companyId,
+            Id = companyId
         };
 
         var company = await mediator.Send(getCompanyArgs);
@@ -94,9 +94,9 @@ public static class BaseApplication
         if (company.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseCompanyEntity>(500, "公司已禁用");
 
-        return new DataResult<BaseCompanyEntity>()
+        return new DataResult<BaseCompanyEntity>
         {
-            Data = company,
+            Data = company
         };
     }
 
@@ -110,7 +110,7 @@ public static class BaseApplication
         List<string> companyIds,
         List<string> departmentIds)
     {
-        var searchDepartmentArgs = new SearchBaseDepartmentEntityArgs()
+        var searchDepartmentArgs = new SearchBaseDepartmentEntityArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -139,7 +139,7 @@ public static class BaseApplication
         if (department != null)
             return new PageResult<BaseDepartmentEntity>(500, $"部门{department.Name}已经禁用");
 
-        return new PageResult<BaseDepartmentEntity>()
+        return new PageResult<BaseDepartmentEntity>
         {
             Rows = departments
         };
@@ -161,7 +161,7 @@ public static class BaseApplication
         var getDepartmentArgs = new GetBaseDepartmentEntityArgs
         {
             CompanyId = companyId,
-            Id = departmentId,
+            Id = departmentId
         };
 
         var department = await mediator.Send(getDepartmentArgs);
@@ -172,7 +172,7 @@ public static class BaseApplication
         if (department.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseDepartmentEntity>(500, "部门已禁用");
 
-        return new DataResult<BaseDepartmentEntity>()
+        return new DataResult<BaseDepartmentEntity>
         {
             Data = department
         };
@@ -192,7 +192,7 @@ public static class BaseApplication
         List<string> resourceIds,
         List<string> operationIds)
     {
-        var searchOperationArgs = new SearchBaseOperationEntityArgs()
+        var searchOperationArgs = new SearchBaseOperationEntityArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -227,7 +227,7 @@ public static class BaseApplication
         if (operation != null)
             return new PageResult<BaseOperationEntity>(500, $"操作{operation.Name}已经禁用");
 
-        return new PageResult<BaseOperationEntity>()
+        return new PageResult<BaseOperationEntity>
         {
             Rows = operations
         };
@@ -248,7 +248,8 @@ public static class BaseApplication
         string operationId)
     {
         if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId)
-            && string.IsNullOrWhiteSpace(resourceId) && string.IsNullOrWhiteSpace(operationId))
+                                                 && string.IsNullOrWhiteSpace(resourceId) &&
+                                                 string.IsNullOrWhiteSpace(operationId))
             return new DataResult<BaseOperationEntity>();
 
         var getOperationArgs = new GetBaseOperationEntityArgs
@@ -256,7 +257,7 @@ public static class BaseApplication
             CompanyId = companyId,
             SystemId = systemId,
             ResourceId = resourceId,
-            Id = operationId,
+            Id = operationId
         };
 
         var operation = await mediator.Send(getOperationArgs);
@@ -267,7 +268,7 @@ public static class BaseApplication
         if (operation.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseOperationEntity>(500, "操作已禁用");
 
-        return new DataResult<BaseOperationEntity>()
+        return new DataResult<BaseOperationEntity>
         {
             Data = operation
         };
@@ -283,7 +284,7 @@ public static class BaseApplication
         List<string> companyIds,
         List<string> positionIds)
     {
-        var searchPositionArgs = new SearchBasePositionEntityArgs()
+        var searchPositionArgs = new SearchBasePositionEntityArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -312,7 +313,7 @@ public static class BaseApplication
         if (position != null)
             return new PageResult<BasePositionEntity>(500, $"职位{position.Name}已经禁用");
 
-        return new PageResult<BasePositionEntity>()
+        return new PageResult<BasePositionEntity>
         {
             Rows = positions
         };
@@ -334,7 +335,7 @@ public static class BaseApplication
         var getPositionArgs = new GetBasePositionEntityArgs
         {
             CompanyId = companyId,
-            Id = positionId,
+            Id = positionId
         };
 
         var position = await mediator.Send(getPositionArgs);
@@ -345,7 +346,7 @@ public static class BaseApplication
         if (position.Status == (int)StatusEnum.Disable)
             return new DataResult<BasePositionEntity>(500, "职位已禁用");
 
-        return new DataResult<BasePositionEntity>()
+        return new DataResult<BasePositionEntity>
         {
             Data = position
         };
@@ -363,7 +364,7 @@ public static class BaseApplication
         List<string> systemIds,
         List<string> resourceIds)
     {
-        var searchResourceArgs = new SearchBaseResourceEntityArgs()
+        var searchResourceArgs = new SearchBaseResourceEntityArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -395,7 +396,7 @@ public static class BaseApplication
         if (resource != null)
             return new PageResult<BaseResourceEntity>(500, $"资源{resource.Name}已经禁用");
 
-        return new PageResult<BaseResourceEntity>()
+        return new PageResult<BaseResourceEntity>
         {
             Rows = resources
         };
@@ -413,14 +414,15 @@ public static class BaseApplication
         string systemId,
         string resourceId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId) && string.IsNullOrWhiteSpace(resourceId))
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId) &&
+            string.IsNullOrWhiteSpace(resourceId))
             return new DataResult<BaseResourceEntity>();
 
         var getResourceArgs = new GetBaseResourceEntityArgs
         {
             CompanyId = companyId,
             SystemId = systemId,
-            Id = resourceId,
+            Id = resourceId
         };
 
         var resource = await mediator.Send(getResourceArgs);
@@ -431,7 +433,7 @@ public static class BaseApplication
         if (resource.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseResourceEntity>(500, "资源已禁用");
 
-        return new DataResult<BaseResourceEntity>()
+        return new DataResult<BaseResourceEntity>
         {
             Data = resource
         };
@@ -447,7 +449,7 @@ public static class BaseApplication
         List<string> companyIds,
         List<string> roleIds)
     {
-        var searchRoleArgs = new SearchBaseRoleEntityArgs()
+        var searchRoleArgs = new SearchBaseRoleEntityArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -476,7 +478,7 @@ public static class BaseApplication
         if (role != null)
             return new PageResult<BaseRoleEntity>(500, $"角色{role.Name}已经禁用");
 
-        return new PageResult<BaseRoleEntity>()
+        return new PageResult<BaseRoleEntity>
         {
             Rows = roles
         };
@@ -498,7 +500,7 @@ public static class BaseApplication
         var getRoleArgs = new GetBaseRoleEntityArgs
         {
             CompanyId = companyId,
-            Id = roleId,
+            Id = roleId
         };
 
         var role = await mediator.Send(getRoleArgs);
@@ -509,7 +511,7 @@ public static class BaseApplication
         if (role.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseRoleEntity>(500, "角色已禁用");
 
-        return new DataResult<BaseRoleEntity>()
+        return new DataResult<BaseRoleEntity>
         {
             Data = role
         };
@@ -525,7 +527,7 @@ public static class BaseApplication
         List<string> companyIds,
         List<string> systemIds)
     {
-        var searchSystemArgs = new SearchBaseSystemEntityArgs()
+        var searchSystemArgs = new SearchBaseSystemEntityArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -554,7 +556,7 @@ public static class BaseApplication
         if (system != null)
             return new PageResult<BaseSystemEntity>(500, $"系统{system.Name}已经禁用");
 
-        return new PageResult<BaseSystemEntity>()
+        return new PageResult<BaseSystemEntity>
         {
             Rows = systems
         };
@@ -577,7 +579,7 @@ public static class BaseApplication
         var getSystemArgs = new GetBaseSystemEntityArgs
         {
             CompanyId = companyId,
-            Id = systemId,
+            Id = systemId
         };
 
         var system = await mediator.Send(getSystemArgs);
@@ -588,7 +590,7 @@ public static class BaseApplication
         if (system.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseSystemEntity>(500, "系统已禁用");
 
-        return new DataResult<BaseSystemEntity>()
+        return new DataResult<BaseSystemEntity>
         {
             Data = system
         };
@@ -606,7 +608,7 @@ public static class BaseApplication
         List<string> departmentIds,
         List<string> userIds)
     {
-        var searchUserArgs = new SearchBaseUserEntityArgs()
+        var searchUserArgs = new SearchBaseUserEntityArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -638,7 +640,7 @@ public static class BaseApplication
         if (user != null)
             return new PageResult<BaseUserEntity>(500, $"用户{user.RealName}已经禁用");
 
-        return new PageResult<BaseUserEntity>()
+        return new PageResult<BaseUserEntity>
         {
             Rows = users
         };
@@ -656,14 +658,15 @@ public static class BaseApplication
         string departmentId,
         string userId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(userId))
+        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) &&
+            string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUserEntity>();
 
         var getUserArgs = new GetBaseUserEntityArgs
         {
             CompanyId = companyId,
             DepartmentId = departmentId,
-            Id = userId,
+            Id = userId
         };
 
         var user = await mediator.Send(getUserArgs);
@@ -674,7 +677,7 @@ public static class BaseApplication
         if (user.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseUserEntity>(500, "用户已禁用");
 
-        return new DataResult<BaseUserEntity>()
+        return new DataResult<BaseUserEntity>
         {
             Data = user
         };
@@ -690,10 +693,10 @@ public static class BaseApplication
         string companyId,
         string table)
     {
-        return await cache.NextIdentity(new NextIdentifyArg()
+        return await cache.NextIdentity(new NextIdentifyArg
         {
             CompanyId = companyId,
-            Name = table,
+            Name = table
         });
     }
 

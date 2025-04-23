@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.UserRest;
 /// 批量新增调休申请
 /// </summary>
 /// <param name="logger"></param>
-public class AddUserRestList(ILogger<AddUserRestList> logger) : BaseDomain<AddUserRestEntity>, IRequestHandler<AddUserRestEntityListArgs, BaseResult>
+public class AddUserRestList(
+    ILogger<AddUserRestList> logger)
+    : BaseDomain<AddUserRestEntity>, IRequestHandler<AddUserRestEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

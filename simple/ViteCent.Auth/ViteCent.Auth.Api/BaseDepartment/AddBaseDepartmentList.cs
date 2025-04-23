@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseDepartment;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDepartment")]
-public class AddBaseDepartmentList(ILogger<AddBaseDepartmentList> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseDepartmentListArgs, BaseResult>
+public class AddBaseDepartmentList(
+    ILogger<AddBaseDepartmentList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseDepartmentListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增部门信息
@@ -69,8 +71,8 @@ public class AddBaseDepartmentList(ILogger<AddBaseDepartmentList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

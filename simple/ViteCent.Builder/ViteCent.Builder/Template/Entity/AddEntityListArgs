@@ -20,7 +20,7 @@ namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 [Serializable]
 public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} : IRequest<BaseResult>
 {
-	/// <summary>
+	// <summary>
 	/// $!{Table.Description}
 	/// </summary>
 	public List<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}> Items = [];

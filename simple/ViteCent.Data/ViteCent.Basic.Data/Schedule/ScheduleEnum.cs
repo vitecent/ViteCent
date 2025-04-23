@@ -26,5 +26,5 @@ public enum ScheduleEnum
 
     /// <summary>
     /// </summary>
-    Last = 6,
+    Last = 6
 }

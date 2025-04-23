@@ -67,7 +67,7 @@ public partial class EditBaseOperation
             SystemId = request.SystemId,
             ResourceId = request.ResourceId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

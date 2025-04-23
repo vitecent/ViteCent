@@ -14,7 +14,8 @@ namespace ViteCent.Basic.Domain.UserLeave;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasUserLeave(ILogger<HasUserLeave> logger) : BaseDomain<UserLeaveEntity>, IRequestHandler<HasUserLeaveEntityArgs, BaseResult>
+public class HasUserLeave(ILogger<HasUserLeave> logger)
+    : BaseDomain<UserLeaveEntity>, IRequestHandler<HasUserLeaveEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -44,8 +45,8 @@ public class HasUserLeave(ILogger<HasUserLeave> logger) : BaseDomain<UserLeaveEn
             query.Where(x => x.UserId == request.UserId);
 
         query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-             (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-             (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entity = await query.CountAsync(cancellationToken);
 

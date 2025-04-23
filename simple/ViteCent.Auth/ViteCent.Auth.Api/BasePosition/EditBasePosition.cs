@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BasePosition;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BasePosition")]
-public class EditBasePosition(ILogger<EditBasePosition> logger,
-    IMediator mediator) : BaseLoginApi<EditBasePositionArgs, BaseResult>
+public class EditBasePosition(
+    ILogger<EditBasePosition> logger,
+    IMediator mediator)
+    : BaseLoginApi<EditBasePositionArgs, BaseResult>
 {
     /// <summary>
     /// 编辑职位信息

@@ -6,6 +6,7 @@
 #region
 
 using ViteCent.Basic.Data.UserLeave;
+using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
 #endregion
@@ -21,7 +22,7 @@ public partial class AddUserLeave
     /// <param name="args"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static void OverrideInvoke(AddUserLeaveArgs args, Core.Data.BaseUserInfo user)
+    internal static void OverrideInvoke(AddUserLeaveArgs args, BaseUserInfo user)
     {
         args.Status = (int)UserLeaveEnum.Pass;
 

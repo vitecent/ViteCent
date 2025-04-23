@@ -33,7 +33,8 @@ public class PageShiftSchedule(ILogger<PageShiftSchedule> logger) : BaseDomain<S
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<ShiftScheduleEntity>> Handle(SearchShiftScheduleEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<ShiftScheduleEntity>> Handle(SearchShiftScheduleEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ShiftSchedule.PageShiftSchedule");
 

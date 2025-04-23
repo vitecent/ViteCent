@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseOperation;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseOperation")]
-public class DisableBaseOperation(ILogger<DisableBaseOperation> logger,
-    IMediator mediator) : BaseLoginApi<DisableBaseOperationArgs, BaseResult>
+public class DisableBaseOperation(
+    ILogger<DisableBaseOperation> logger,
+    IMediator mediator)
+    : BaseLoginApi<DisableBaseOperationArgs, BaseResult>
 {
     /// <summary>
     /// 禁用操作信息

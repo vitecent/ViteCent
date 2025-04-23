@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseOperation;
 /// 批量操作信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseOperationList(ILogger<HasBaseOperationList> logger) : BaseDomain<BaseOperationEntity>, IRequestHandler<HasBaseOperationEntityListArgs, BaseResult>
+public class HasBaseOperationList(ILogger<HasBaseOperationList> logger) : BaseDomain<BaseOperationEntity>,
+    IRequestHandler<HasBaseOperationEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

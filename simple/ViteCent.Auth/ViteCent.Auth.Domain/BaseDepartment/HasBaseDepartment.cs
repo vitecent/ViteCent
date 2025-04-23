@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseDepartment;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseDepartment(ILogger<HasBaseDepartment> logger) : BaseDomain<BaseDepartmentEntity>, IRequestHandler<HasBaseDepartmentEntityArgs, BaseResult>
+public class HasBaseDepartment(ILogger<HasBaseDepartment> logger) : BaseDomain<BaseDepartmentEntity>,
+    IRequestHandler<HasBaseDepartmentEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

@@ -14,7 +14,8 @@ namespace ViteCent.Basic.Domain.UserRest;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasUserRest(ILogger<HasUserRest> logger) : BaseDomain<UserRestEntity>, IRequestHandler<HasUserRestEntityArgs, BaseResult>
+public class HasUserRest(ILogger<HasUserRest> logger)
+    : BaseDomain<UserRestEntity>, IRequestHandler<HasUserRestEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
@@ -44,8 +45,8 @@ public class HasUserRest(ILogger<HasUserRest> logger) : BaseDomain<UserRestEntit
             query.Where(x => x.UserId == request.UserId);
 
         query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-            (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-            (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entity = await query.CountAsync(cancellationToken);
 

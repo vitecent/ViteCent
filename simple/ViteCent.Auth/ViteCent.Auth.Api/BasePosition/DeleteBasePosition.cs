@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BasePosition;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BasePosition")]
-public class DeleteBasePosition(ILogger<DeleteBasePosition> logger,
-    IMediator mediator) : BaseLoginApi<DeleteBasePositionArgs, BaseResult>
+public class DeleteBasePosition(
+    ILogger<DeleteBasePosition> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteBasePositionArgs, BaseResult>
 {
     /// <summary>
     /// 删除职位信息

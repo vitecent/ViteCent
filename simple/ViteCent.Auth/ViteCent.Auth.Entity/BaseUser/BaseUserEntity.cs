@@ -96,6 +96,12 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
+    /// 指纹
+    /// </summary>
+    [SugarColumn(ColumnName = "finger")]
+    public string Finger { get; set; } = string.Empty;
+
+    /// <summary>
     /// 性别
     /// </summary>
     [SugarColumn(ColumnName = "gender")]

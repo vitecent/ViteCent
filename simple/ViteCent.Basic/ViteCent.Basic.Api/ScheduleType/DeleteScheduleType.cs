@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.ScheduleType;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("ScheduleType")]
-public class DeleteScheduleType(ILogger<DeleteScheduleType> logger,
-    IMediator mediator) : BaseLoginApi<DeleteScheduleTypeArgs, BaseResult>
+public class DeleteScheduleType(
+    ILogger<DeleteScheduleType> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteScheduleTypeArgs, BaseResult>
 {
     /// <summary>
     /// 删除基础排班

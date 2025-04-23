@@ -30,8 +30,10 @@ namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("$!{Table.CamelCaseName}")]
-public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger,
-    IMediator mediator) : BaseLoginApi<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
+public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(
+    ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}> logger,
+    IMediator mediator)
+    : BaseLoginApi<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 新增$!{Table.Description}
@@ -54,55 +56,55 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(ILogger<$!{Setti
 
         if (!check.IsValid)
             return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
-#if($HasCompanyId)
 
+#if($HasCompanyId)
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
+
 #end
 #if($HasDepartmentId)
-
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
+
 #end
 #if($HasPositionId)
-
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
                 return new BaseResult(500, "职位标识不能为空");
+
 #end
 #if($HasRoleId)
-
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new BaseResult(500, "角色标识不能为空");
+
 #end
 #if($HasUserId)
- 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new BaseResult(500, "用户标识不能为空");
+
 #end
 #if($HasSystemId)
- 
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new BaseResult(500, "系统标识不能为空");
+
 #end
 #if($HasResourceId)
-
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.ResourceId))
                 return new BaseResult(500, "资源标识不能为空");
+
 #end
 #if($HasOperationId)
-
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.OperationId))
                 return new BaseResult(500, "操作标识不能为空");
-#end
 
+#end
         return await mediator.Send(args, cancellationToken);
     }
 }

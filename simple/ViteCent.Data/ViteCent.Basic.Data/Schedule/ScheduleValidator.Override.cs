@@ -20,7 +20,8 @@ public partial class ScheduleValidator : AbstractValidator<AddScheduleArgs>
     /// <param name="validate"></param>
     private void OverrideValidator(bool validate)
     {
-        var status = new List<int>() { (int)ScheduleEnum.Normal, (int)ScheduleEnum.Late, (int)ScheduleEnum.Early, (int)ScheduleEnum.None };
+        var status = new List<int>
+            { (int)ScheduleEnum.Normal, (int)ScheduleEnum.Late, (int)ScheduleEnum.Early, (int)ScheduleEnum.None };
 
         RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
     }

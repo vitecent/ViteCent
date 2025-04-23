@@ -26,8 +26,10 @@ namespace ViteCent.Auth.Api.BaseCompany;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseCompany")]
-public class GetBaseCompany(ILogger<GetBaseCompany> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseCompanyArgs, DataResult<BaseCompanyResult>>
+public class GetBaseCompany(
+    ILogger<GetBaseCompany> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseCompanyArgs, DataResult<BaseCompanyResult>>
 {
     /// <summary>
     /// 获取公司信息
@@ -44,6 +46,6 @@ public class GetBaseCompany(ILogger<GetBaseCompany> logger,
         if (args == null)
             return new DataResult<BaseCompanyResult>(500, "参数不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

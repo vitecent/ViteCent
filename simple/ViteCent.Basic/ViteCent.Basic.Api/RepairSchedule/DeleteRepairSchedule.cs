@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.RepairSchedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("RepairSchedule")]
-public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger,
-    IMediator mediator) : BaseLoginApi<DeleteRepairScheduleArgs, BaseResult>
+public class DeleteRepairSchedule(
+    ILogger<DeleteRepairSchedule> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteRepairScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 删除补卡申请

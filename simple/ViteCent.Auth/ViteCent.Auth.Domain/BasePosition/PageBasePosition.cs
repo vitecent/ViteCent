@@ -33,7 +33,8 @@ public class PageBasePosition(ILogger<PageBasePosition> logger) : BaseDomain<Bas
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<BasePositionEntity>> Handle(SearchBasePositionEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<BasePositionEntity>> Handle(SearchBasePositionEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BasePosition.PageBasePosition");
 

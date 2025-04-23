@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseDictionary;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDictionary")]
-public class EnableBaseDictionary(ILogger<EnableBaseDictionary> logger,
-    IMediator mediator) : BaseLoginApi<EnableBaseDictionaryArgs, BaseResult>
+public class EnableBaseDictionary(
+    ILogger<EnableBaseDictionary> logger,
+    IMediator mediator)
+    : BaseLoginApi<EnableBaseDictionaryArgs, BaseResult>
 {
     /// <summary>
     /// 启用字典信息

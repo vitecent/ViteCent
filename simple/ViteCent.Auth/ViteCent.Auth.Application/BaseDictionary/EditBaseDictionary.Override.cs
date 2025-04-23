@@ -8,7 +8,6 @@
 
 #region
 
-using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Data.BaseDictionary;
 using ViteCent.Auth.Entity.BaseDictionary;
 using ViteCent.Core.Data;
@@ -56,7 +55,7 @@ public partial class EditBaseDictionary
             Id = request.Id,
             CompanyId = request.CompanyId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

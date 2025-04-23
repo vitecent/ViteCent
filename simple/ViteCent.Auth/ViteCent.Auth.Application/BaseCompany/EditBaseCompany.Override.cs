@@ -39,7 +39,7 @@ public partial class EditBaseCompany
         {
             var hasParentArgs = new GetBaseCompanyEntityArgs
             {
-                Id = request.ParentId,
+                Id = request.ParentId
             };
 
             var hasParent = await mediator.Send(hasParentArgs, cancellationToken);
@@ -60,7 +60,7 @@ public partial class EditBaseCompany
         {
             Id = request.Id,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

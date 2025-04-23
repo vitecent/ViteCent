@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.ShiftSchedule;
 /// 删除换班申请
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDomain<DeleteShiftScheduleEntity>, IRequestHandler<DeleteShiftScheduleEntity, BaseResult>
+public class DeleteShiftSchedule(
+    ILogger<DeleteShiftSchedule> logger)
+    : BaseDomain<DeleteShiftScheduleEntity>, IRequestHandler<DeleteShiftScheduleEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger) : BaseDoma
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ShiftSchedule.DeleteShiftSchedule");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

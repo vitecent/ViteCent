@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.UserRest;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageUserRest(ILogger<PageUserRest> logger,
+public class PageUserRest(
+    ILogger<PageUserRest> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<SearchUserRestArgs, PageResult<UserRestResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<SearchUserRestArgs, PageResult<UserRestResult>>
 {
     /// <summary>
     /// 用户信息

@@ -1,7 +1,7 @@
 #region
 
-using Autofac;
 using System.Reflection;
+using Autofac;
 using Module = Autofac.Module;
 
 #endregion
@@ -10,7 +10,7 @@ namespace ViteCent.Statistics.Api;
 
 /// <summary>
 /// </summary>
-public partial class AutoFacConfig : Module
+public class AutoFacConfig : Module
 {
     /// <summary>
     /// 注入
@@ -24,7 +24,7 @@ public partial class AutoFacConfig : Module
 
         var assemblies = new List<Assembly>();
 
-        var dlls = new List<string>() { "*Application.dll", "*Domain.dll" };
+        var dlls = new List<string> { "*Application.dll", "*Domain.dll" };
 
         foreach (var dll in dlls)
         {

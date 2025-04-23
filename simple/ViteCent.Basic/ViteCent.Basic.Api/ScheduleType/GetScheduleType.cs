@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.ScheduleType;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("ScheduleType")]
-public class GetScheduleType(ILogger<GetScheduleType> logger,
-    IMediator mediator) : BaseLoginApi<GetScheduleTypeArgs, DataResult<ScheduleTypeResult>>
+public class GetScheduleType(
+    ILogger<GetScheduleType> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetScheduleTypeArgs, DataResult<ScheduleTypeResult>>
 {
     /// <summary>
     /// 获取基础排班
@@ -58,6 +60,6 @@ public class GetScheduleType(ILogger<GetScheduleType> logger,
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<ScheduleTypeResult>(500, "部门标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

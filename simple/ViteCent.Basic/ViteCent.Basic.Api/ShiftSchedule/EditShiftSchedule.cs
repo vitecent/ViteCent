@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.ShiftSchedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("ShiftSchedule")]
-public class EditShiftSchedule(ILogger<EditShiftSchedule> logger,
-    IMediator mediator) : BaseLoginApi<EditShiftScheduleArgs, BaseResult>
+public class EditShiftSchedule(
+    ILogger<EditShiftSchedule> logger,
+    IMediator mediator)
+    : BaseLoginApi<EditShiftScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 编辑换班申请

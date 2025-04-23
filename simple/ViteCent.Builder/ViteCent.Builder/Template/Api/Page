@@ -26,8 +26,10 @@ namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("$!{Table.CamelCaseName}")]
-public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger,
-    IMediator mediator) : BaseLoginApi<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
+public class $!{Setting.PageName}$!{Table.CamelCaseName}(
+    ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger,
+    IMediator mediator)
+    : BaseLoginApi<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 {
     /// <summary>
     /// $!{Table.Description}分页

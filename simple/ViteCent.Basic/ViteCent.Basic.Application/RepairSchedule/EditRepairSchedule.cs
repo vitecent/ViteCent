@@ -35,13 +35,15 @@ namespace ViteCent.Basic.Application.RepairSchedule;
 /// <param name="departmentInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class EditRepairSchedule(ILogger<EditRepairSchedule> logger,
+public partial class EditRepairSchedule(
+    ILogger<EditRepairSchedule> logger,
     IMapper mapper,
     IMediator mediator,
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditRepairScheduleArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<EditRepairScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

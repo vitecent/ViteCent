@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BaseOperation;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetBaseOperation(ILogger<GetBaseOperation> logger,
+public class GetBaseOperation(
+    ILogger<GetBaseOperation> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseOperationArgs, DataResult<BaseOperationResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetBaseOperationArgs, DataResult<BaseOperationResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetBaseOperation(ILogger<GetBaseOperation> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<BaseOperationResult>> Handle(GetBaseOperationArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<BaseOperationResult>> Handle(GetBaseOperationArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseOperation.GetBaseOperation");
 

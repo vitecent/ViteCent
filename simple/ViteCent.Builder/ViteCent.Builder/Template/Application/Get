@@ -30,14 +30,16 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 /// <param name="httpContextAccessor"></param>
 #end
-public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger,
+public class $!{Setting.GetName}$!{Table.CamelCaseName}(
+    ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger,
     IMapper mapper,
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
+    IHttpContextAccessor httpContextAccessor)
 #else
-    IMediator mediator) : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
+    IMediator mediator)
 #end
+    : IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 {
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     /// <summary>
@@ -52,7 +54,8 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(ILogger<$!{Setting.GetNa
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>> Handle($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
+    public async Task<DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>> Handle($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
 

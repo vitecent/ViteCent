@@ -53,7 +53,9 @@ public partial class EditSchedule
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
@@ -62,20 +64,21 @@ public partial class EditSchedule
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId,
+            user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
 
         request.UserName = hasUser?.Data?.RealName ?? string.Empty;
 
-        var hasLeaveArgs = new HasUserLeaveEntityArgs()
+        var hasLeaveArgs = new HasUserLeaveEntityArgs
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
             UserId = request.UserId,
             StartTime = request.StartTime,
-            EndTime = request.EndTime,
+            EndTime = request.EndTime
         };
 
         var hasLeave = await mediator.Send(hasLeaveArgs, cancellationToken);
@@ -83,7 +86,7 @@ public partial class EditSchedule
         if (hasLeave.Success)
             return new BaseResult(500, "用户已请假");
 
-        var hasRestArgs = new HasUserRestEntityArgs()
+        var hasRestArgs = new HasUserRestEntityArgs
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
@@ -105,7 +108,7 @@ public partial class EditSchedule
             DepartmentId = request.DepartmentId,
             UserId = request.UserId,
             StartTime = request.StartTime,
-            EndTime = request.EndTime,
+            EndTime = request.EndTime
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

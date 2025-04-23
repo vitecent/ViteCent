@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseOperation;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseOperation")]
-public partial class AddBaseOperation(ILogger<AddBaseOperation> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseOperationArgs, BaseResult>
+public partial class AddBaseOperation(
+    ILogger<AddBaseOperation> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseOperationArgs, BaseResult>
 {
     /// <summary>
     /// 新增操作信息

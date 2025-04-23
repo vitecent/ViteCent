@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseCompany;
 /// 批量公司信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseCompanyList(ILogger<HasBaseCompanyList> logger) : BaseDomain<BaseCompanyEntity>, IRequestHandler<HasBaseCompanyEntityListArgs, BaseResult>
+public class HasBaseCompanyList(ILogger<HasBaseCompanyList> logger)
+    : BaseDomain<BaseCompanyEntity>, IRequestHandler<HasBaseCompanyEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

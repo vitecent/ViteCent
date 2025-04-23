@@ -26,8 +26,10 @@ namespace ViteCent.Auth.Api.BaseCompany;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseCompany")]
-public class PageBaseCompany(ILogger<PageBaseCompany> logger,
-    IMediator mediator) : BaseLoginApi<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>>
+public class PageBaseCompany(
+    ILogger<PageBaseCompany> logger,
+    IMediator mediator)
+    : BaseLoginApi<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>>
 {
     /// <summary>
     /// 公司信息分页

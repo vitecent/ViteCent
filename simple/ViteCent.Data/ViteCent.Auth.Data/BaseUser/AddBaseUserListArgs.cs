@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Data.BaseUser;
 [Serializable]
 public class AddBaseUserListArgs : BaseArgs, IRequest<BaseResult>
 {
-    /// <summary>
-    /// 用户信息
-    /// </summary>
-    public List<AddBaseUserArgs> Items = [];
+	/// <summary>
+	/// 用户信息
+	/// </summary>
+	public List<AddBaseUserArgs> Items = [];
 }

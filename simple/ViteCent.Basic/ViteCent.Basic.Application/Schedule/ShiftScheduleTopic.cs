@@ -19,7 +19,8 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class ShiftScheduleTopic(ILogger<ShiftScheduleTopic> logger,
+public class ShiftScheduleTopic(
+    ILogger<ShiftScheduleTopic> logger,
     IMapper mapper,
     IMediator mediator,
     IHttpContextAccessor httpContextAccessor) : INotificationHandler<ShiftScheduleTopicArgs>

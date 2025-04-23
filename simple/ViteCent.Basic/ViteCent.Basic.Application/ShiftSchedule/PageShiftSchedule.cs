@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageShiftSchedule(ILogger<PageShiftSchedule> logger,
+public class PageShiftSchedule(
+    ILogger<PageShiftSchedule> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<SearchShiftScheduleArgs, PageResult<ShiftScheduleResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<SearchShiftScheduleArgs, PageResult<ShiftScheduleResult>>
 {
     /// <summary>
     /// 用户信息

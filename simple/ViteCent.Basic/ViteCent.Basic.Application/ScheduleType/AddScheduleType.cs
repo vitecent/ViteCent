@@ -35,13 +35,15 @@ namespace ViteCent.Basic.Application.ScheduleType;
 /// <param name="companyInvoke"></param>
 /// <param name="departmentInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class AddScheduleType(ILogger<AddScheduleType> logger,
+public partial class AddScheduleType(
+    ILogger<AddScheduleType> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddScheduleTypeArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddScheduleTypeArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

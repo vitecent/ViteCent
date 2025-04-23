@@ -33,7 +33,8 @@ public class PageUserLeave(ILogger<PageUserLeave> logger) : BaseDomain<UserLeave
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<UserLeaveEntity>> Handle(SearchUserLeaveEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<UserLeaveEntity>> Handle(SearchUserLeaveEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserLeave.PageUserLeave");
 

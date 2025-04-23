@@ -20,7 +20,9 @@ namespace ViteCent.Auth.Domain.BaseUserRole;
 /// 获取用户角色
 /// </summary>
 /// <param name="logger"></param>
-public class GetBaseUserRole(ILogger<GetBaseUserRole> logger) : BaseDomain<BaseUserRoleEntity>, IRequestHandler<GetBaseUserRoleEntityArgs, BaseUserRoleEntity>
+public class GetBaseUserRole(
+    ILogger<GetBaseUserRole> logger)
+    : BaseDomain<BaseUserRoleEntity>, IRequestHandler<GetBaseUserRoleEntityArgs, BaseUserRoleEntity>
 {
     /// <summary>
     /// 数据库名称

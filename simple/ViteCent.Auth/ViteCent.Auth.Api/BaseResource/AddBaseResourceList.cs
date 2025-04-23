@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseResource;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseResource")]
-public class AddBaseResourceList(ILogger<AddBaseResourceList> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseResourceListArgs, BaseResult>
+public class AddBaseResourceList(
+    ILogger<AddBaseResourceList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseResourceListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增资源信息
@@ -73,8 +75,8 @@ public class AddBaseResourceList(ILogger<AddBaseResourceList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.SystemId))
                     return new BaseResult(500, "系统标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

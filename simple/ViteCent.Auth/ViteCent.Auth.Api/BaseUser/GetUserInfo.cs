@@ -19,7 +19,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class GetUserInfo(ILogger<GetUserInfo> logger,
+public class GetUserInfo(
+    ILogger<GetUserInfo> logger,
     IMediator mediator) : BaseLoginApi<GetUserInfoArgs, DataResult<BaseUserInfo>>
 {
     /// <summary>
@@ -33,6 +34,6 @@ public class GetUserInfo(ILogger<GetUserInfo> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.GetUserInfo");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

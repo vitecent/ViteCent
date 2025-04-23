@@ -20,7 +20,8 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
-public class GetAllPermission(ILogger<GetAllPermission> logger,
+public class GetAllPermission(
+    ILogger<GetAllPermission> logger,
     IMediator mediator) : BaseLoginApi<GetAllPermissionArgs, DataResult<AllPermissionResult>>
 {
     /// <summary>
@@ -42,6 +43,6 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<AllPermissionResult>(500, "公司标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

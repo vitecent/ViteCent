@@ -20,7 +20,9 @@ namespace ViteCent.Auth.Domain.BasePosition;
 /// 获取职位信息
 /// </summary>
 /// <param name="logger"></param>
-public class GetBasePosition(ILogger<GetBasePosition> logger) : BaseDomain<BasePositionEntity>, IRequestHandler<GetBasePositionEntityArgs, BasePositionEntity>
+public class GetBasePosition(
+    ILogger<GetBasePosition> logger)
+    : BaseDomain<BasePositionEntity>, IRequestHandler<GetBasePositionEntityArgs, BasePositionEntity>
 {
     /// <summary>
     /// 数据库名称

@@ -33,7 +33,8 @@ public class PageUserRest(ILogger<PageUserRest> logger) : BaseDomain<UserRestEnt
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<UserRestEntity>> Handle(SearchUserRestEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<UserRestEntity>> Handle(SearchUserRestEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserRest.PageUserRest");
 

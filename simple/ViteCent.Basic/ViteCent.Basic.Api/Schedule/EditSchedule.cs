@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.Schedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class EditSchedule(ILogger<EditSchedule> logger,
-    IMediator mediator) : BaseLoginApi<EditScheduleArgs, BaseResult>
+public class EditSchedule(
+    ILogger<EditSchedule> logger,
+    IMediator mediator)
+    : BaseLoginApi<EditScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 编辑排班信息

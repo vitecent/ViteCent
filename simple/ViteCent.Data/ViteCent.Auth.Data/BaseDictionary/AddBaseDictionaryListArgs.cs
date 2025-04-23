@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Data.BaseDictionary;
 [Serializable]
 public class AddBaseDictionaryListArgs : BaseArgs, IRequest<BaseResult>
 {
-    /// <summary>
-    /// 字典信息
-    /// </summary>
-    public List<AddBaseDictionaryArgs> Items = [];
+	/// <summary>
+	/// 字典信息
+	/// </summary>
+	public List<AddBaseDictionaryArgs> Items = [];
 }

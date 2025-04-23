@@ -51,14 +51,17 @@ public partial class EditRepairSchedule
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId,
+            user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
@@ -70,7 +73,7 @@ public partial class EditRepairSchedule
             Id = request.Id,
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
-            UserId = request.UserId,
+            UserId = request.UserId
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

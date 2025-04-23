@@ -21,7 +21,9 @@ namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 /// 删除$!{Table.Description}
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger) : BaseDomain<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}, BaseResult>
+public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(
+    ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger)
+    : BaseDomain<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

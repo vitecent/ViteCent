@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BasePosition;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BasePosition")]
-public partial class AddBasePosition(ILogger<AddBasePosition> logger,
-    IMediator mediator) : BaseLoginApi<AddBasePositionArgs, BaseResult>
+public partial class AddBasePosition(
+    ILogger<AddBasePosition> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBasePositionArgs, BaseResult>
 {
     /// <summary>
     /// 新增职位信息

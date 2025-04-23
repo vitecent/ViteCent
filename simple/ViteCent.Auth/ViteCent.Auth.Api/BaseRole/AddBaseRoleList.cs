@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseRole;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRole")]
-public class AddBaseRoleList(ILogger<AddBaseRoleList> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseRoleListArgs, BaseResult>
+public class AddBaseRoleList(
+    ILogger<AddBaseRoleList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseRoleListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增角色信息
@@ -69,8 +71,8 @@ public class AddBaseRoleList(ILogger<AddBaseRoleList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

@@ -20,7 +20,8 @@ public partial class RepairScheduleValidator : AbstractValidator<AddRepairSchedu
     /// <param name="validate"></param>
     private void OverrideValidator(bool validate)
     {
-        var status = new List<int>() { (int)RepairScheduleEnum.Apply, (int)RepairScheduleEnum.Pass, (int)RepairScheduleEnum.NoPass };
+        var status = new List<int>
+            { (int)RepairScheduleEnum.Apply, (int)RepairScheduleEnum.Pass, (int)RepairScheduleEnum.NoPass };
 
         RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
     }

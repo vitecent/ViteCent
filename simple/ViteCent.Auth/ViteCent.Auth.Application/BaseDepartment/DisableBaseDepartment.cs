@@ -28,10 +28,12 @@ namespace ViteCent.Auth.Application.BaseDepartment;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class DisableBaseDepartment(ILogger<DisableBaseDepartment> logger,
+public partial class DisableBaseDepartment(
+    ILogger<DisableBaseDepartment> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<DisableBaseDepartmentArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<DisableBaseDepartmentArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

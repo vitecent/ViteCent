@@ -33,7 +33,8 @@ public class PageBaseDepartment(ILogger<PageBaseDepartment> logger) : BaseDomain
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<BaseDepartmentEntity>> Handle(SearchBaseDepartmentEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<BaseDepartmentEntity>> Handle(SearchBaseDepartmentEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseDepartment.PageBaseDepartment");
 

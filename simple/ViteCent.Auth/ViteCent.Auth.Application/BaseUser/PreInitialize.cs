@@ -14,7 +14,8 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
-public class PreInitialize(ILogger<PreInitialize> logger,
+public class PreInitialize(
+    ILogger<PreInitialize> logger,
     IMediator mediator) : IRequestHandler<PreInitializeArgs, DataResult<PreInitializeResult>>
 {
     /// <summary>
@@ -23,11 +24,12 @@ public class PreInitialize(ILogger<PreInitialize> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<PreInitializeResult>> Handle(PreInitializeArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<PreInitializeResult>> Handle(PreInitializeArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.PreInitialize");
 
-        var input = new SearchBaseUserArgs()
+        var input = new SearchBaseUserArgs
         {
             Offset = 1,
             Limit = 1
@@ -36,14 +38,13 @@ public class PreInitialize(ILogger<PreInitialize> logger,
         var result = await mediator.Send(input, cancellationToken);
 
         if (result.Rows.Count == 0)
-            return new DataResult<PreInitializeResult>(new PreInitializeResult()
+            return new DataResult<PreInitializeResult>(new PreInitializeResult
             {
                 Flag = true
             });
-        else
-            return new DataResult<PreInitializeResult>(new PreInitializeResult()
-            {
-                Flag = false
-            });
+        return new DataResult<PreInitializeResult>(new PreInitializeResult
+        {
+            Flag = false
+        });
     }
 }

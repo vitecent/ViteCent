@@ -19,7 +19,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class Loginout(ILogger<Loginout> logger,
+public class Loginout(
+    ILogger<Loginout> logger,
     IMediator mediator) : BaseLoginApi<LoginoutArgs, BaseResult>
 {
     /// <summary>
@@ -33,6 +34,6 @@ public class Loginout(ILogger<Loginout> logger,
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.Loginout");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

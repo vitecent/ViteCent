@@ -37,14 +37,16 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="departmentInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddScheduleList(ILogger<AddScheduleList> logger,
+public class AddScheduleList(
+    ILogger<AddScheduleList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
     IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddScheduleListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddScheduleListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BasePosition;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetBasePosition(ILogger<GetBasePosition> logger,
+public class GetBasePosition(
+    ILogger<GetBasePosition> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBasePositionArgs, DataResult<BasePositionResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetBasePositionArgs, DataResult<BasePositionResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetBasePosition(ILogger<GetBasePosition> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<BasePositionResult>> Handle(GetBasePositionArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<BasePositionResult>> Handle(GetBasePositionArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BasePosition.GetBasePosition");
 

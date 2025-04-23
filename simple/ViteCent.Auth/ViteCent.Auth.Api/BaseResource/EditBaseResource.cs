@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseResource;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseResource")]
-public class EditBaseResource(ILogger<EditBaseResource> logger,
-    IMediator mediator) : BaseLoginApi<EditBaseResourceArgs, BaseResult>
+public class EditBaseResource(
+    ILogger<EditBaseResource> logger,
+    IMediator mediator)
+    : BaseLoginApi<EditBaseResourceArgs, BaseResult>
 {
     /// <summary>
     /// 编辑资源信息

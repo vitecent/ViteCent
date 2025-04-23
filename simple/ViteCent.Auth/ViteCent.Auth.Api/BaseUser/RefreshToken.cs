@@ -17,7 +17,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// <param name="mediator"></param>
 [ApiController]
 [Route("BaseUser")]
-public class RefreshToken(ILogger<RefreshToken> logger,
+public class RefreshToken(
+    ILogger<RefreshToken> logger,
     IMediator mediator) : BaseApi<RefreshTokenArgs, DataResult<RefreshTokenResult>>
 {
     /// <summary>
@@ -36,7 +37,8 @@ public class RefreshToken(ILogger<RefreshToken> logger,
         var result = await validator.ValidateAsync(args, cancellationToken);
 
         if (!result.IsValid)
-            return new DataResult<RefreshTokenResult>(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+            return new DataResult<RefreshTokenResult>(500,
+                result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         return await mediator.Send(args, cancellationToken);
     }

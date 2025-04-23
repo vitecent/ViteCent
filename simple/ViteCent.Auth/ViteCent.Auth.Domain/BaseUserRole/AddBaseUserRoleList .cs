@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseUserRole;
 /// 批量新增用户角色
 /// </summary>
 /// <param name="logger"></param>
-public class AddBaseUserRoleList(ILogger<AddBaseUserRoleList> logger) : BaseDomain<AddBaseUserRoleEntity>, IRequestHandler<AddBaseUserRoleEntityListArgs, BaseResult>
+public class AddBaseUserRoleList(
+    ILogger<AddBaseUserRoleList> logger)
+    : BaseDomain<AddBaseUserRoleEntity>, IRequestHandler<AddBaseUserRoleEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

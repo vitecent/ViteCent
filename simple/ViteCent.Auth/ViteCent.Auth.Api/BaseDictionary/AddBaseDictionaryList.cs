@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseDictionary;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDictionary")]
-public class AddBaseDictionaryList(ILogger<AddBaseDictionaryList> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseDictionaryListArgs, BaseResult>
+public class AddBaseDictionaryList(
+    ILogger<AddBaseDictionaryList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseDictionaryListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增字典信息
@@ -69,8 +71,8 @@ public class AddBaseDictionaryList(ILogger<AddBaseDictionaryList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

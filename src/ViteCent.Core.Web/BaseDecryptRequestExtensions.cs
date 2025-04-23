@@ -2,28 +2,27 @@
 using Microsoft.Extensions.DependencyInjection;
 using ViteCent.Core.Web.Middlewar;
 
-namespace ViteCent.Core.Web
+namespace ViteCent.Core.Web;
+
+/// <summary>
+/// </summary>
+public static class BaseDecryptRequestExtensions
 {
     /// <summary>
     /// </summary>
-    public static class BaseDecryptRequestExtensions
+    /// <param name="services"></param>
+    /// <returns></returns>
+    public static IServiceCollection AddDecryptRequest(this IServiceCollection services)
     {
-        /// <summary>
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddDecryptRequest(this IServiceCollection services)
-        {
-            return services;
-        }
+        return services;
+    }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="app"></param>
-        /// <returns></returns>
-        public static void UseDecryptRequest(this WebApplication app)
-        {
-            app.UseMiddleware<BaseDecryptRequestMiddlewar>();
-        }
+    /// <summary>
+    /// </summary>
+    /// <param name="app"></param>
+    /// <returns></returns>
+    public static void UseDecryptRequest(this WebApplication app)
+    {
+        app.UseMiddleware<BaseDecryptRequestMiddlewar>();
     }
 }

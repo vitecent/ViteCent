@@ -26,7 +26,8 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="departmentInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class LastSchedule(ILogger<LastSchedule> logger,
+public partial class LastSchedule(
+    ILogger<LastSchedule> logger,
     IMapper mapper,
     IMediator mediator,
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,

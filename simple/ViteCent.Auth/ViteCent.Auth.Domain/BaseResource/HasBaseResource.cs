@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseResource;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseResource(ILogger<HasBaseResource> logger) : BaseDomain<BaseResourceEntity>, IRequestHandler<HasBaseResourceEntityArgs, BaseResult>
+public class HasBaseResource(ILogger<HasBaseResource> logger)
+    : BaseDomain<BaseResourceEntity>, IRequestHandler<HasBaseResourceEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

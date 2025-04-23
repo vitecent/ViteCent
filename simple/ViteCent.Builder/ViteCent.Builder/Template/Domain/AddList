@@ -21,7 +21,9 @@ namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 /// 批量新增$!{Table.Description}
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger) : BaseDomain<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
+public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(
+    ILogger<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger)
+    : BaseDomain<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 数据库名称

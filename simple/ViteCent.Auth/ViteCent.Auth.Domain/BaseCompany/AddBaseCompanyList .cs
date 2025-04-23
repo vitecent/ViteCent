@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseCompany;
 /// 批量新增公司信息
 /// </summary>
 /// <param name="logger"></param>
-public class AddBaseCompanyList(ILogger<AddBaseCompanyList> logger) : BaseDomain<AddBaseCompanyEntity>, IRequestHandler<AddBaseCompanyEntityListArgs, BaseResult>
+public class AddBaseCompanyList(
+    ILogger<AddBaseCompanyList> logger)
+    : BaseDomain<AddBaseCompanyEntity>, IRequestHandler<AddBaseCompanyEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

@@ -17,7 +17,8 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="logger"></param>
 /// <param name="cache"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetUserInfo(ILogger<AddBaseUser> logger,
+public class GetUserInfo(
+    ILogger<AddBaseUser> logger,
     IBaseCache cache,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetUserInfoArgs, DataResult<BaseUserInfo>>
 {

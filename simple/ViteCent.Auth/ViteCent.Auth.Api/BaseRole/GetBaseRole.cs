@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseRole;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRole")]
-public class GetBaseRole(ILogger<GetBaseRole> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseRoleArgs, DataResult<BaseRoleResult>>
+public class GetBaseRole(
+    ILogger<GetBaseRole> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseRoleArgs, DataResult<BaseRoleResult>>
 {
     /// <summary>
     /// 获取角色信息
@@ -54,6 +56,6 @@ public class GetBaseRole(ILogger<GetBaseRole> logger,
         if (check != null && !check.Success)
             return new DataResult<BaseRoleResult>(check.Code, check.Message);
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

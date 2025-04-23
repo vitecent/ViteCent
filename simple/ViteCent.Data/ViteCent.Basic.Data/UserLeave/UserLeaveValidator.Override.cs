@@ -20,7 +20,7 @@ public partial class UserLeaveValidator : AbstractValidator<AddUserLeaveArgs>
     /// <param name="validate"></param>
     private void OverrideValidator(bool validate)
     {
-        var status = new List<int>() { (int)UserLeaveEnum.Apply, (int)UserLeaveEnum.Pass, (int)UserLeaveEnum.NoPass };
+        var status = new List<int> { (int)UserLeaveEnum.Apply, (int)UserLeaveEnum.Pass, (int)UserLeaveEnum.NoPass };
 
         RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
     }

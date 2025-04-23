@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BasePosition;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasBasePosition(ILogger<HasBasePosition> logger) : BaseDomain<BasePositionEntity>, IRequestHandler<HasBasePositionEntityArgs, BaseResult>
+public class HasBasePosition(ILogger<HasBasePosition> logger)
+    : BaseDomain<BasePositionEntity>, IRequestHandler<HasBasePositionEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

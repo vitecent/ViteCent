@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BaseDictionary;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class AddBaseDictionary(ILogger<AddBaseDictionary> logger,
+public partial class AddBaseDictionary(
+    ILogger<AddBaseDictionary> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseDictionaryArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBaseDictionaryArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

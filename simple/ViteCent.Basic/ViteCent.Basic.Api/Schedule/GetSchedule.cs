@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.Schedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class GetSchedule(ILogger<GetSchedule> logger,
-    IMediator mediator) : BaseLoginApi<GetScheduleArgs, DataResult<ScheduleResult>>
+public class GetSchedule(
+    ILogger<GetSchedule> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetScheduleArgs, DataResult<ScheduleResult>>
 {
     /// <summary>
     /// 获取排班信息
@@ -62,6 +64,6 @@ public class GetSchedule(ILogger<GetSchedule> logger,
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<ScheduleResult>(500, "用户标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

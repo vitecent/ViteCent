@@ -1,9 +1,9 @@
 ﻿#region
 
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
-using System.Security.Claims;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -20,7 +20,12 @@ namespace ViteCent.Core.Web.Filter;
 /// <param name="resource"></param>
 /// <param name="operation"></param>
 [AttributeUsage(AttributeTargets.Method)]
-public class BaseAuthFilter(IBaseCache cache, IConfiguration configuration, string system, string resource, string operation) : ActionFilterAttribute
+public class BaseAuthFilter(
+    IBaseCache cache,
+    IConfiguration configuration,
+    string system,
+    string resource,
+    string operation) : ActionFilterAttribute
 {
     /// <summary>
     /// </summary>

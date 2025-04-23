@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.RepairSchedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("RepairSchedule")]
-public class GetRepairSchedule(ILogger<GetRepairSchedule> logger,
-    IMediator mediator) : BaseLoginApi<GetRepairScheduleArgs, DataResult<RepairScheduleResult>>
+public class GetRepairSchedule(
+    ILogger<GetRepairSchedule> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetRepairScheduleArgs, DataResult<RepairScheduleResult>>
 {
     /// <summary>
     /// 获取补卡申请
@@ -62,6 +64,6 @@ public class GetRepairSchedule(ILogger<GetRepairSchedule> logger,
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<RepairScheduleResult>(500, "用户标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

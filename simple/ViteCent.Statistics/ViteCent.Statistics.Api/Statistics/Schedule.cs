@@ -19,7 +19,8 @@ namespace ViteCent.Statistics.Api.Statistics;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class Schedule(ILogger<Schedule> logger,
+public class Schedule(
+    ILogger<Schedule> logger,
     IMediator mediator) : BaseLoginApi<StatisticsScheduleStatisticsArgs, DataResult<ScheduleStatisticsResult>>
 {
     /// <summary>
@@ -40,7 +41,8 @@ public class Schedule(ILogger<Schedule> logger,
         var check = await validator.ValidateAsync(args, cancellationToken);
 
         if (!check.IsValid)
-            return new DataResult<ScheduleStatisticsResult>(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+            return new DataResult<ScheduleStatisticsResult>(500,
+                check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         return await mediator.Send(args);
     }

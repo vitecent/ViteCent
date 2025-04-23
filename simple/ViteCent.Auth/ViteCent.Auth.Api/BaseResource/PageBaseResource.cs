@@ -26,8 +26,10 @@ namespace ViteCent.Auth.Api.BaseResource;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseResource")]
-public class PageBaseResource(ILogger<PageBaseResource> logger,
-    IMediator mediator) : BaseLoginApi<SearchBaseResourceArgs, PageResult<BaseResourceResult>>
+public class PageBaseResource(
+    ILogger<PageBaseResource> logger,
+    IMediator mediator)
+    : BaseLoginApi<SearchBaseResourceArgs, PageResult<BaseResourceResult>>
 {
     /// <summary>
     /// 资源信息分页

@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BasePosition;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BasePosition")]
-public class GetBasePosition(ILogger<GetBasePosition> logger,
-    IMediator mediator) : BaseLoginApi<GetBasePositionArgs, DataResult<BasePositionResult>>
+public class GetBasePosition(
+    ILogger<GetBasePosition> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBasePositionArgs, DataResult<BasePositionResult>>
 {
     /// <summary>
     /// 获取职位信息
@@ -54,6 +56,6 @@ public class GetBasePosition(ILogger<GetBasePosition> logger,
         if (check != null && !check.Success)
             return new DataResult<BasePositionResult>(check.Code, check.Message);
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

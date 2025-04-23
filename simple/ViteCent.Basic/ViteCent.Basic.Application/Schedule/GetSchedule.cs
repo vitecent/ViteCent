@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetSchedule(ILogger<GetSchedule> logger,
+public class GetSchedule(
+    ILogger<GetSchedule> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetScheduleArgs, DataResult<ScheduleResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetScheduleArgs, DataResult<ScheduleResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetSchedule(ILogger<GetSchedule> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<ScheduleResult>> Handle(GetScheduleArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<ScheduleResult>> Handle(GetScheduleArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.GetSchedule");
 

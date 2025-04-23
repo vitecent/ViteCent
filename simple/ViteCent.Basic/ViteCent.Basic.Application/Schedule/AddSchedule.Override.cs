@@ -35,7 +35,8 @@ public partial class AddSchedule
     /// <param name="userInvoke"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(MediatR.IMediator mediator, AddScheduleListArgs request, BaseUserInfo user,
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddScheduleListArgs request,
+        BaseUserInfo user,
         IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
         IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
         IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke, CancellationToken cancellationToken)
@@ -69,7 +70,8 @@ public partial class AddSchedule
                 data.CompanyName = item.Name;
         }
 
-        var departments = await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+        var departments =
+            await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
@@ -91,10 +93,7 @@ public partial class AddSchedule
         {
             var items = request.Items.Where(x => x.UserId == item.Id).ToList();
 
-            foreach (var data in items)
-            {
-                data.UserName = item.RealName;
-            }
+            foreach (var data in items) data.UserName = item.RealName;
         }
 
         var hasListArgs = new HasScheduleEntityListArgs
@@ -103,7 +102,7 @@ public partial class AddSchedule
             DepartmentIds = departmentIds,
             UserIds = userIds,
             StartTime = request.Items.Min(x => x.StartTime),
-            EndTime = request.Items.Max(x => x.EndTime),
+            EndTime = request.Items.Max(x => x.EndTime)
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -116,7 +115,8 @@ public partial class AddSchedule
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ScheduleEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ScheduleEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
     }
@@ -143,25 +143,28 @@ public partial class AddSchedule
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId,
+            user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
 
-        var hasLeaveArgs = new HasUserLeaveEntityArgs()
+        var hasLeaveArgs = new HasUserLeaveEntityArgs
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
             UserId = request.UserId,
             StartTime = request.StartTime,
-            EndTime = request.EndTime,
+            EndTime = request.EndTime
         };
 
         var hasLeave = await mediator.Send(hasLeaveArgs, cancellationToken);
@@ -169,7 +172,7 @@ public partial class AddSchedule
         if (hasLeave.Success)
             return new BaseResult(500, "用户已请假");
 
-        var hasRestArgs = new HasUserRestEntityArgs()
+        var hasRestArgs = new HasUserRestEntityArgs
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
@@ -190,7 +193,7 @@ public partial class AddSchedule
             DepartmentId = request.DepartmentId,
             UserId = request.UserId,
             StartTime = request.StartTime,
-            EndTime = request.EndTime,
+            EndTime = request.EndTime
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

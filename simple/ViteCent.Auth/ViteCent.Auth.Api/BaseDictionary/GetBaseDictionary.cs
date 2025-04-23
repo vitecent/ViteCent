@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseDictionary;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDictionary")]
-public class GetBaseDictionary(ILogger<GetBaseDictionary> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseDictionaryArgs, DataResult<BaseDictionaryResult>>
+public class GetBaseDictionary(
+    ILogger<GetBaseDictionary> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseDictionaryArgs, DataResult<BaseDictionaryResult>>
 {
     /// <summary>
     /// 获取字典信息
@@ -54,6 +56,6 @@ public class GetBaseDictionary(ILogger<GetBaseDictionary> logger,
         if (check != null && !check.Success)
             return new DataResult<BaseDictionaryResult>(check.Code, check.Message);
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

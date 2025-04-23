@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.UserLeave;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserLeave")]
-public class GetUserLeave(ILogger<GetUserLeave> logger,
-    IMediator mediator) : BaseLoginApi<GetUserLeaveArgs, DataResult<UserLeaveResult>>
+public class GetUserLeave(
+    ILogger<GetUserLeave> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetUserLeaveArgs, DataResult<UserLeaveResult>>
 {
     /// <summary>
     /// 获取请假申请
@@ -62,6 +64,6 @@ public class GetUserLeave(ILogger<GetUserLeave> logger,
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<UserLeaveResult>(500, "用户标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

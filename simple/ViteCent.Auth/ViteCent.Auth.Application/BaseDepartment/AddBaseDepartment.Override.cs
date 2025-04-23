@@ -26,15 +26,14 @@ public partial class AddBaseDepartment
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseDepartmentListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseDepartmentListArgs request,
+        BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
         foreach (var item in request.Items)
-        {
             if (string.IsNullOrWhiteSpace(item.CompanyId))
                 item.CompanyId = companyId;
-        }
 
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
 
@@ -55,7 +54,7 @@ public partial class AddBaseDepartment
         {
             CompanyIds = [.. request.Items.Select(x => x.CompanyId).Distinct()],
             Codes = [.. request.Items.Select(x => x.Code).Distinct()],
-            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()]
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -68,7 +67,8 @@ public partial class AddBaseDepartment
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseDepartmentEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseDepartmentEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.FromResult(0);
     }
@@ -97,7 +97,7 @@ public partial class AddBaseDepartment
             var hasParentArgs = new GetBaseDepartmentEntityArgs
             {
                 CompanyId = request.CompanyId,
-                Id = request.ParentId,
+                Id = request.ParentId
             };
 
             var hasParent = await mediator.Send(hasParentArgs, cancellationToken);
@@ -118,7 +118,7 @@ public partial class AddBaseDepartment
         {
             CompanyId = request.CompanyId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

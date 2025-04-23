@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BaseDepartment;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetBaseDepartment(ILogger<GetBaseDepartment> logger,
+public class GetBaseDepartment(
+    ILogger<GetBaseDepartment> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetBaseDepartment(ILogger<GetBaseDepartment> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<BaseDepartmentResult>> Handle(GetBaseDepartmentArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<BaseDepartmentResult>> Handle(GetBaseDepartmentArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseDepartment.GetBaseDepartment");
 

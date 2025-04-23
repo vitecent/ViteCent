@@ -28,10 +28,12 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class EditBaseUser(ILogger<EditBaseUser> logger,
+public partial class EditBaseUser(
+    ILogger<EditBaseUser> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<EditBaseUserArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<EditBaseUserArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -74,6 +76,7 @@ public partial class EditBaseUser(ILogger<EditBaseUser> logger,
         entity.DepartmentName = request.DepartmentName;
         entity.Description = request.Description;
         entity.Email = request.Email;
+        entity.Finger = request.Finger;
         entity.Gender = request.Gender;
         entity.IdCard = request.IdCard;
         entity.IsSuper = request.IsSuper;

@@ -57,7 +57,7 @@ public class BaseDecryptRequestMiddlewar(RequestDelegate next, IConfiguration co
         {
             "AES" => input.DecryptAES(key),
             "DES" => input.DecryptDES(key),
-            _ => throw new Exception($"Encrypt:Type {type} Is Not Support"),
+            _ => throw new Exception($"Encrypt:Type {type} Is Not Support")
         };
 
         return result.StringToByte();

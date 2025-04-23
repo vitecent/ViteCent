@@ -20,7 +20,9 @@ namespace ViteCent.Auth.Domain.BaseSystem;
 /// 获取系统信息
 /// </summary>
 /// <param name="logger"></param>
-public class GetBaseSystem(ILogger<GetBaseSystem> logger) : BaseDomain<BaseSystemEntity>, IRequestHandler<GetBaseSystemEntityArgs, BaseSystemEntity>
+public class GetBaseSystem(
+    ILogger<GetBaseSystem> logger)
+    : BaseDomain<BaseSystemEntity>, IRequestHandler<GetBaseSystemEntityArgs, BaseSystemEntity>
 {
     /// <summary>
     /// 数据库名称

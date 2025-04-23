@@ -33,7 +33,8 @@ public class PageBaseOperation(ILogger<PageBaseOperation> logger) : BaseDomain<B
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<BaseOperationEntity>> Handle(SearchBaseOperationEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<BaseOperationEntity>> Handle(SearchBaseOperationEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseOperation.PageBaseOperation");
 

@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseResource;
 /// 批量资源信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseResourceList(ILogger<HasBaseResourceList> logger) : BaseDomain<BaseResourceEntity>, IRequestHandler<HasBaseResourceEntityListArgs, BaseResult>
+public class HasBaseResourceList(ILogger<HasBaseResourceList> logger) : BaseDomain<BaseResourceEntity>,
+    IRequestHandler<HasBaseResourceEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

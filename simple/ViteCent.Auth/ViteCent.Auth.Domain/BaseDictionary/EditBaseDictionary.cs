@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseDictionary;
 /// 编辑字典信息
 /// </summary>
 /// <param name="logger"></param>
-public class EditBaseDictionary(ILogger<EditBaseDictionary> logger) : BaseDomain<BaseDictionaryEntity>, IRequestHandler<BaseDictionaryEntity, BaseResult>
+public class EditBaseDictionary(
+    ILogger<EditBaseDictionary> logger)
+    : BaseDomain<BaseDictionaryEntity>, IRequestHandler<BaseDictionaryEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

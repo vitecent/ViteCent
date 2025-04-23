@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseRolePermission;
 /// 删除角色权限
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger) : BaseDomain<DeleteBaseRolePermissionEntity>, IRequestHandler<DeleteBaseRolePermissionEntity, BaseResult>
+public class DeleteBaseRolePermission(
+    ILogger<DeleteBaseRolePermission> logger)
+    : BaseDomain<DeleteBaseRolePermissionEntity>, IRequestHandler<DeleteBaseRolePermissionEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger) 
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRolePermission.DeleteBaseRolePermission");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.RepairSchedule;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetRepairSchedule(ILogger<GetRepairSchedule> logger,
+public class GetRepairSchedule(
+    ILogger<GetRepairSchedule> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetRepairScheduleArgs, DataResult<RepairScheduleResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetRepairScheduleArgs, DataResult<RepairScheduleResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetRepairSchedule(ILogger<GetRepairSchedule> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<RepairScheduleResult>> Handle(GetRepairScheduleArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<RepairScheduleResult>> Handle(GetRepairScheduleArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.RepairSchedule.GetRepairSchedule");
 

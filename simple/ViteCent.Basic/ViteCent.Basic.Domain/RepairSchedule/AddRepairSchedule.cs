@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.RepairSchedule;
 /// 新增补卡申请
 /// </summary>
 /// <param name="logger"></param>
-public class AddRepairSchedule(ILogger<AddRepairSchedule> logger) : BaseDomain<AddRepairScheduleEntity>, IRequestHandler<AddRepairScheduleEntity, BaseResult>
+public class AddRepairSchedule(
+    ILogger<AddRepairSchedule> logger)
+    : BaseDomain<AddRepairScheduleEntity>, IRequestHandler<AddRepairScheduleEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

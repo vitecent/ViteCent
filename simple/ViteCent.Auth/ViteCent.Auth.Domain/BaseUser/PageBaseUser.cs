@@ -33,7 +33,8 @@ public class PageBaseUser(ILogger<PageBaseUser> logger) : BaseDomain<BaseUserEnt
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<BaseUserEntity>> Handle(SearchBaseUserEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<BaseUserEntity>> Handle(SearchBaseUserEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseUser.PageBaseUser");
 

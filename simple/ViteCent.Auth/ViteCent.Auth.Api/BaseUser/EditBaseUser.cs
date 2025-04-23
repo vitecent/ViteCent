@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class EditBaseUser(ILogger<EditBaseUser> logger,
-    IMediator mediator) : BaseLoginApi<EditBaseUserArgs, BaseResult>
+public class EditBaseUser(
+    ILogger<EditBaseUser> logger,
+    IMediator mediator)
+    : BaseLoginApi<EditBaseUserArgs, BaseResult>
 {
     /// <summary>
     /// 编辑用户信息

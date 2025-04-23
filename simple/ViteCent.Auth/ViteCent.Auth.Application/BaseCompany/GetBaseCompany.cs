@@ -24,9 +24,11 @@ namespace ViteCent.Auth.Application.BaseCompany;
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
-public class GetBaseCompany(ILogger<GetBaseCompany> logger,
+public class GetBaseCompany(
+    ILogger<GetBaseCompany> logger,
     IMapper mapper,
-    IMediator mediator) : IRequestHandler<GetBaseCompanyArgs, DataResult<BaseCompanyResult>>
+    IMediator mediator)
+    : IRequestHandler<GetBaseCompanyArgs, DataResult<BaseCompanyResult>>
 {
     /// <summary>
     /// 获取公司信息
@@ -34,7 +36,8 @@ public class GetBaseCompany(ILogger<GetBaseCompany> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<BaseCompanyResult>> Handle(GetBaseCompanyArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<BaseCompanyResult>> Handle(GetBaseCompanyArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseCompany.GetBaseCompany");
 

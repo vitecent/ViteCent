@@ -20,7 +20,9 @@ namespace ViteCent.Auth.Domain.BaseRolePermission;
 /// 获取角色权限
 /// </summary>
 /// <param name="logger"></param>
-public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger) : BaseDomain<BaseRolePermissionEntity>, IRequestHandler<GetBaseRolePermissionEntityArgs, BaseRolePermissionEntity>
+public class GetBaseRolePermission(
+    ILogger<GetBaseRolePermission> logger)
+    : BaseDomain<BaseRolePermissionEntity>, IRequestHandler<GetBaseRolePermissionEntityArgs, BaseRolePermissionEntity>
 {
     /// <summary>
     /// 数据库名称

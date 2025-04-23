@@ -14,7 +14,8 @@ namespace ViteCent.Basic.Domain.ShiftSchedule;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasShiftSchedule(ILogger<HasShiftSchedule> logger) : BaseDomain<ShiftScheduleEntity>, IRequestHandler<HasShiftScheduleEntityArgs, BaseResult>
+public class HasShiftSchedule(ILogger<HasShiftSchedule> logger)
+    : BaseDomain<ShiftScheduleEntity>, IRequestHandler<HasShiftScheduleEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

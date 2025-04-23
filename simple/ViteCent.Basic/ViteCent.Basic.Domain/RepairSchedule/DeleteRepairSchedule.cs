@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.RepairSchedule;
 /// 删除补卡申请
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger) : BaseDomain<DeleteRepairScheduleEntity>, IRequestHandler<DeleteRepairScheduleEntity, BaseResult>
+public class DeleteRepairSchedule(
+    ILogger<DeleteRepairSchedule> logger)
+    : BaseDomain<DeleteRepairScheduleEntity>, IRequestHandler<DeleteRepairScheduleEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger) : BaseDo
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.RepairSchedule.DeleteRepairSchedule");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

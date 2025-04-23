@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseSystem;
 /// 批量新增系统信息
 /// </summary>
 /// <param name="logger"></param>
-public class AddBaseSystemList(ILogger<AddBaseSystemList> logger) : BaseDomain<AddBaseSystemEntity>, IRequestHandler<AddBaseSystemEntityListArgs, BaseResult>
+public class AddBaseSystemList(
+    ILogger<AddBaseSystemList> logger)
+    : BaseDomain<AddBaseSystemEntity>, IRequestHandler<AddBaseSystemEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

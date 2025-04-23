@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
-public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger,
-    IMediator mediator) : BaseLoginApi<DeleteBaseRolePermissionArgs, BaseResult>
+public class DeleteBaseRolePermission(
+    ILogger<DeleteBaseRolePermission> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteBaseRolePermissionArgs, BaseResult>
 {
     /// <summary>
     /// 删除角色权限

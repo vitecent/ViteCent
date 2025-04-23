@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseResource;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseResource")]
-public class GetBaseResource(ILogger<GetBaseResource> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseResourceArgs, DataResult<BaseResourceResult>>
+public class GetBaseResource(
+    ILogger<GetBaseResource> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseResourceArgs, DataResult<BaseResourceResult>>
 {
     /// <summary>
     /// 获取资源信息
@@ -58,6 +60,6 @@ public class GetBaseResource(ILogger<GetBaseResource> logger,
             if (string.IsNullOrEmpty(args.SystemId))
                 return new DataResult<BaseResourceResult>(500, "系统标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

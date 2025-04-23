@@ -3,7 +3,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using ViteCent.Core.Data;
@@ -52,13 +51,10 @@ public static class ZipkinExtensions
                         .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(serviceName))
                         .AddAspNetCoreInstrumentation(option =>
                         {
-                            option.Filter = (httpContext) => !httpContext.Request.Path.StartsWithSegments(check);
+                            option.Filter = httpContext => !httpContext.Request.Path.StartsWithSegments(check);
                         })
                         .AddHttpClientInstrumentation()
-                        .AddZipkinExporter(zipkin =>
-                        {
-                            zipkin.Endpoint = new Uri(uri);
-                        });
+                        .AddZipkinExporter(zipkin => { zipkin.Endpoint = new Uri(uri); });
                 });
         }
 

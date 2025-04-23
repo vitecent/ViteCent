@@ -26,15 +26,14 @@ public partial class AddBaseRolePermission
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseRolePermissionListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseRolePermissionListArgs request,
+        BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
         foreach (var item in request.Items)
-        {
             if (string.IsNullOrWhiteSpace(item.CompanyId))
                 item.CompanyId = companyId;
-        }
 
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
         var roleIds = request.Items.Select(x => x.RoleId).Distinct().ToList();
@@ -73,7 +72,7 @@ public partial class AddBaseRolePermission
             RoleIds = roleIds,
             SystemIds = systemIds,
             ResourceIds = resourceIds,
-            OperationIds = operationIds,
+            OperationIds = operationIds
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -86,7 +85,8 @@ public partial class AddBaseRolePermission
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseRolePermissionEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseRolePermissionEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
     }
@@ -96,7 +96,8 @@ public partial class AddBaseRolePermission
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task<BaseResult> OverrideHandle(AddBaseRolePermissionArgs request, CancellationToken cancellationToken)
+    private async Task<BaseResult> OverrideHandle(AddBaseRolePermissionArgs request,
+        CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
@@ -123,7 +124,8 @@ public partial class AddBaseRolePermission
         if (!hasResource.Success)
             return hasResource;
 
-        var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
+        var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId,
+            request.OperationId);
 
         if (!hasOperation.Success)
             return hasOperation;
@@ -134,7 +136,7 @@ public partial class AddBaseRolePermission
             RoleId = request.RoleId,
             SystemId = request.SystemId,
             ResourceId = request.ResourceId,
-            OperationId = request.OperationId,
+            OperationId = request.OperationId
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

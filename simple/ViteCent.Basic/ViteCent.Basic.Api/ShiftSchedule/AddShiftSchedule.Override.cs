@@ -6,6 +6,7 @@
 #region
 
 using ViteCent.Basic.Data.ShiftSchedule;
+using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
 #endregion
@@ -21,7 +22,7 @@ public partial class AddShiftSchedule
     /// <param name="args"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static void OverrideInvoke(AddShiftScheduleArgs args, Core.Data.BaseUserInfo user)
+    internal static void OverrideInvoke(AddShiftScheduleArgs args, BaseUserInfo user)
     {
         args.Status = (int)ShiftScheduleEnum.Pass;
 

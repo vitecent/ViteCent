@@ -33,7 +33,8 @@ public class PageSchedule(ILogger<PageSchedule> logger) : BaseDomain<ScheduleEnt
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<ScheduleEntity>> Handle(SearchScheduleEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<ScheduleEntity>> Handle(SearchScheduleEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.Schedule.PageSchedule");
 

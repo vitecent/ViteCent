@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class DeleteBaseUser(ILogger<DeleteBaseUser> logger,
-    IMediator mediator) : BaseLoginApi<DeleteBaseUserArgs, BaseResult>
+public class DeleteBaseUser(
+    ILogger<DeleteBaseUser> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteBaseUserArgs, BaseResult>
 {
     /// <summary>
     /// 删除用户信息

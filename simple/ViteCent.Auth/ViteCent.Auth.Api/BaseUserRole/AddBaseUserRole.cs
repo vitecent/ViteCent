@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseUserRole;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUserRole")]
-public partial class AddBaseUserRole(ILogger<AddBaseUserRole> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseUserRoleArgs, BaseResult>
+public partial class AddBaseUserRole(
+    ILogger<AddBaseUserRole> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseUserRoleArgs, BaseResult>
 {
     /// <summary>
     /// 新增用户角色

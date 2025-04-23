@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BaseSystem;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetBaseSystem(ILogger<GetBaseSystem> logger,
+public class GetBaseSystem(
+    ILogger<GetBaseSystem> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseSystemArgs, DataResult<BaseSystemResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetBaseSystemArgs, DataResult<BaseSystemResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetBaseSystem(ILogger<GetBaseSystem> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<BaseSystemResult>> Handle(GetBaseSystemArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<BaseSystemResult>> Handle(GetBaseSystemArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseSystem.GetBaseSystem");
 

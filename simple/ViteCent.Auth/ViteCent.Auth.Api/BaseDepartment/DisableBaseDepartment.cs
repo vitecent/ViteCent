@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseDepartment;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDepartment")]
-public class DisableBaseDepartment(ILogger<DisableBaseDepartment> logger,
-    IMediator mediator) : BaseLoginApi<DisableBaseDepartmentArgs, BaseResult>
+public class DisableBaseDepartment(
+    ILogger<DisableBaseDepartment> logger,
+    IMediator mediator)
+    : BaseLoginApi<DisableBaseDepartmentArgs, BaseResult>
 {
     /// <summary>
     /// 禁用部门信息

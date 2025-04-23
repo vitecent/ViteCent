@@ -28,8 +28,10 @@ namespace ViteCent.Basic.Api.Schedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class AddScheduleList(ILogger<AddScheduleList> logger,
-    IMediator mediator) : BaseLoginApi<AddScheduleListArgs, BaseResult>
+public class AddScheduleList(
+    ILogger<AddScheduleList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddScheduleListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增排班信息
@@ -77,8 +79,8 @@ public class AddScheduleList(ILogger<AddScheduleList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.UserId))
                     return new BaseResult(500, "用户标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

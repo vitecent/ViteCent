@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseSystem;
 /// 批量系统信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseSystemList(ILogger<HasBaseSystemList> logger) : BaseDomain<BaseSystemEntity>, IRequestHandler<HasBaseSystemEntityListArgs, BaseResult>
+public class HasBaseSystemList(ILogger<HasBaseSystemList> logger)
+    : BaseDomain<BaseSystemEntity>, IRequestHandler<HasBaseSystemEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

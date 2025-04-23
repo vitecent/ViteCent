@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseResource;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseResource")]
-public partial class AddBaseResource(ILogger<AddBaseResource> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseResourceArgs, BaseResult>
+public partial class AddBaseResource(
+    ILogger<AddBaseResource> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseResourceArgs, BaseResult>
 {
     /// <summary>
     /// 新增资源信息

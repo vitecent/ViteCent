@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseDictionary;
 /// 删除字典信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBaseDictionary(ILogger<DeleteBaseDictionary> logger) : BaseDomain<DeleteBaseDictionaryEntity>, IRequestHandler<DeleteBaseDictionaryEntity, BaseResult>
+public class DeleteBaseDictionary(
+    ILogger<DeleteBaseDictionary> logger)
+    : BaseDomain<DeleteBaseDictionaryEntity>, IRequestHandler<DeleteBaseDictionaryEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteBaseDictionary(ILogger<DeleteBaseDictionary> logger) : BaseDo
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseDictionary.DeleteBaseDictionary");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

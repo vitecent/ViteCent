@@ -1,8 +1,6 @@
 ﻿#region
 
-using log4net;
 using Quartz;
-using ViteCent.Core;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Register;
@@ -13,11 +11,14 @@ namespace ViteCent.Job.Api.Jobs;
 
 /// <summary>
 /// </summary>
-
 /// <param name="cache"></param>
 /// <param name="register"></param>
 /// <param name="logger"></param>
-public class DiscoverJob(IBaseCache cache, IRegister register, ILogger<DiscoverJob> logger) : IJob
+public class DiscoverJob(
+    IBaseCache cache,
+    IRegister register,
+    ILogger<DiscoverJob> logger)
+    : IJob
 {
     /// <summary>
     /// </summary>
@@ -31,6 +32,6 @@ public class DiscoverJob(IBaseCache cache, IRegister register, ILogger<DiscoverJ
 
         logger.LogInformation($"获取到{services.Count}个服务");
 
-        cache.SetString(Const.RegistServices, services, TimeSpan.FromMinutes(1));
+        cache.SetString(BaseConst.RegistServices, services, TimeSpan.FromMinutes(1));
     }
 }

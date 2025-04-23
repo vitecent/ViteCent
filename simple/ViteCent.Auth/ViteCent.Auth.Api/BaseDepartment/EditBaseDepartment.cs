@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseDepartment;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDepartment")]
-public class EditBaseDepartment(ILogger<EditBaseDepartment> logger,
-    IMediator mediator) : BaseLoginApi<EditBaseDepartmentArgs, BaseResult>
+public class EditBaseDepartment(
+    ILogger<EditBaseDepartment> logger,
+    IMediator mediator)
+    : BaseLoginApi<EditBaseDepartmentArgs, BaseResult>
 {
     /// <summary>
     /// 编辑部门信息

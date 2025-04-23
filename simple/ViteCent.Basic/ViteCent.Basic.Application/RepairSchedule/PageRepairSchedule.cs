@@ -26,10 +26,12 @@ namespace ViteCent.Basic.Application.RepairSchedule;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageRepairSchedule(ILogger<PageRepairSchedule> logger,
+public class PageRepairSchedule(
+    ILogger<PageRepairSchedule> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<SearchRepairScheduleArgs, PageResult<RepairScheduleResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<SearchRepairScheduleArgs, PageResult<RepairScheduleResult>>
 {
     /// <summary>
     /// 用户信息

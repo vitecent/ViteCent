@@ -27,8 +27,10 @@ namespace ViteCent.Basic.Api.ShiftSchedule;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("ShiftSchedule")]
-public class GetShiftSchedule(ILogger<GetShiftSchedule> logger,
-    IMediator mediator) : BaseLoginApi<GetShiftScheduleArgs, DataResult<ShiftScheduleResult>>
+public class GetShiftSchedule(
+    ILogger<GetShiftSchedule> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetShiftScheduleArgs, DataResult<ShiftScheduleResult>>
 {
     /// <summary>
     /// 获取换班申请
@@ -62,6 +64,6 @@ public class GetShiftSchedule(ILogger<GetShiftSchedule> logger,
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<ShiftScheduleResult>(500, "用户标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseResource;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseResource")]
-public class DeleteBaseResource(ILogger<DeleteBaseResource> logger,
-    IMediator mediator) : BaseLoginApi<DeleteBaseResourceArgs, BaseResult>
+public class DeleteBaseResource(
+    ILogger<DeleteBaseResource> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteBaseResourceArgs, BaseResult>
 {
     /// <summary>
     /// 删除资源信息

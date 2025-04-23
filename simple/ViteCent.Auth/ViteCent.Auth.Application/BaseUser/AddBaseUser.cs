@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class AddBaseUser(ILogger<AddBaseUser> logger,
+public partial class AddBaseUser(
+    ILogger<AddBaseUser> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseUserArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBaseUserArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

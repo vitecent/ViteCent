@@ -33,7 +33,8 @@ public class PageBaseRole(ILogger<PageBaseRole> logger) : BaseDomain<BaseRoleEnt
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<List<BaseRoleEntity>> Handle(SearchBaseRoleEntityArgs request, CancellationToken cancellationToken)
+    public async Task<List<BaseRoleEntity>> Handle(SearchBaseRoleEntityArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRole.PageBaseRole");
 

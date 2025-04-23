@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseRolePermission;
 /// 批量角色权限判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseRolePermissionList(ILogger<HasBaseRolePermissionList> logger) : BaseDomain<BaseRolePermissionEntity>, IRequestHandler<HasBaseRolePermissionEntityListArgs, BaseResult>
+public class HasBaseRolePermissionList(ILogger<HasBaseRolePermissionList> logger)
+    : BaseDomain<BaseRolePermissionEntity>, IRequestHandler<HasBaseRolePermissionEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -34,7 +35,8 @@ public class HasBaseRolePermissionList(ILogger<HasBaseRolePermissionList> logger
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(HasBaseRolePermissionEntityListArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(HasBaseRolePermissionEntityListArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseRolePermission.HasBaseRolePermission");
 

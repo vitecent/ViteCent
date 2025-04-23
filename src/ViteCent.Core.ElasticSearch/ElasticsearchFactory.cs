@@ -29,7 +29,7 @@ public class ElasticsearchFactory : IElasticsearch
     {
         logger = new BaseLogger(typeof(ElasticsearchFactory));
 
-        client = new(new ElasticsearchClientSettings(new Uri(url))
+        client = new ElasticsearchClient(new ElasticsearchClientSettings(new Uri(url))
             .DefaultIndex(index)
             .EnableDebugMode()
             .DisableDirectStreaming()
@@ -149,15 +149,9 @@ public class ElasticsearchFactory : IElasticsearch
     /// <returns></returns>
     public async Task<PageResult<T>> SearchDocumentsAsync<T>(string index) where T : class, new()
     {
-        var response = await client.SearchAsync<T>(s =>
-        {
-            s.Index(index);
-        });
+        var response = await client.SearchAsync<T>(s => { s.Index(index); });
 
-        if (!response.IsValidResponse)
-        {
-            throw new Exception($"Search Failed {response.DebugInformation}");
-        }
+        if (!response.IsValidResponse) throw new Exception($"Search Failed {response.DebugInformation}");
 
         return new PageResult<T>(1, int.MaxValue, (int)response.Total, [.. response.Documents]);
     }

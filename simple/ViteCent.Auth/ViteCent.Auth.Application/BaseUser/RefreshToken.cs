@@ -16,7 +16,8 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="logger"></param>
 /// <param name="cache"></param>
 /// <param name="mediator"></param>
-public class RefreshToken(ILogger<RefreshToken> logger,
+public class RefreshToken(
+    ILogger<RefreshToken> logger,
     IBaseCache cache,
     IMediator mediator) : IRequestHandler<RefreshTokenArgs, DataResult<RefreshTokenResult>>
 {
@@ -26,7 +27,8 @@ public class RefreshToken(ILogger<RefreshToken> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<RefreshTokenResult>> Handle(RefreshTokenArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<RefreshTokenResult>> Handle(RefreshTokenArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.RefreshToken");
 
@@ -40,11 +42,11 @@ public class RefreshToken(ILogger<RefreshToken> logger,
         if (!login.Success)
             return new DataResult<RefreshTokenResult>(login.Code, login.Message);
 
-        var result = new DataResult<RefreshTokenResult>()
+        var result = new DataResult<RefreshTokenResult>
         {
-            Data = new()
+            Data = new RefreshTokenResult
             {
-                Token = login.Data.Token,
+                Token = login.Data.Token
             }
         };
 

@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseOperation;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseOperation(ILogger<HasBaseOperation> logger) : BaseDomain<BaseOperationEntity>, IRequestHandler<HasBaseOperationEntityArgs, BaseResult>
+public class HasBaseOperation(ILogger<HasBaseOperation> logger)
+    : BaseDomain<BaseOperationEntity>, IRequestHandler<HasBaseOperationEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

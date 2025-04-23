@@ -10,9 +10,8 @@ namespace ViteCent.Core.Job.Quartz;
 
 /// <summary>
 /// </summary>
-
 /// <param name="provider"></param>
-public partial class BaseJobFactory(IServiceProvider provider) : IJobFactory
+public class BaseJobFactory(IServiceProvider provider) : IJobFactory
 {
     /// <summary>
     /// </summary>
@@ -33,12 +32,8 @@ public partial class BaseJobFactory(IServiceProvider provider) : IJobFactory
     public void ReturnJob(IJob job)
     {
         if (job is BaseJobWrapper scopedJob)
-        {
             scopedJob.Dispose();
-        }
         else
-        {
             (job as IDisposable)?.Dispose();
-        }
     }
 }

@@ -30,14 +30,16 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 /// <param name="httpContextAccessor"></param>
 #end
-public class $!{Setting.PageName}$!{Table.CamelCaseName}(ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger,
+public class $!{Setting.PageName}$!{Table.CamelCaseName}(
+    ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger,
     IMapper mapper,
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
+    IHttpContextAccessor httpContextAccessor)
 #else
-    IMediator mediator) : IRequestHandler<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
+    IMediator mediator)
 #end
+    : IRequestHandler<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 {
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     /// <summary>

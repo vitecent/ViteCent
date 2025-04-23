@@ -14,7 +14,8 @@ namespace ViteCent.Basic.Domain.RepairSchedule;
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-public class HasRepairSchedule(ILogger<HasRepairSchedule> logger) : BaseDomain<RepairScheduleEntity>, IRequestHandler<HasRepairScheduleEntityArgs, BaseResult>
+public class HasRepairSchedule(ILogger<HasRepairSchedule> logger) : BaseDomain<RepairScheduleEntity>,
+    IRequestHandler<HasRepairScheduleEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>

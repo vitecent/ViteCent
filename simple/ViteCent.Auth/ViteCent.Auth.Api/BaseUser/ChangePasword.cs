@@ -19,7 +19,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class ChangePasword(ILogger<ChangePasword> logger,
+public class ChangePasword(
+    ILogger<ChangePasword> logger,
     IMediator mediator) : BaseLoginApi<ChangePaswordArgs, BaseResult>
 {
     /// <summary>

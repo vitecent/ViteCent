@@ -24,9 +24,11 @@ namespace ViteCent.Auth.Application.BaseCompany;
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
-public class PageBaseCompany(ILogger<PageBaseCompany> logger,
+public class PageBaseCompany(
+    ILogger<PageBaseCompany> logger,
     IMapper mapper,
-    IMediator mediator) : IRequestHandler<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>>
+    IMediator mediator)
+    : IRequestHandler<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>>
 {
     /// <summary>
     /// 公司信息分页

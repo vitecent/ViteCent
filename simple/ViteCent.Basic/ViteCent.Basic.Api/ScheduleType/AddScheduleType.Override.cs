@@ -7,6 +7,7 @@
 
 using ViteCent.Basic.Data.ScheduleType;
 using ViteCent.Core;
+using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
 #endregion
@@ -22,7 +23,7 @@ public partial class AddScheduleType
     /// <param name="args"></param>
     /// <param name="user"></param>
     /// <returns></returns>
-    internal static void OverrideInvoke(AddScheduleTypeArgs args, Core.Data.BaseUserInfo user)
+    internal static void OverrideInvoke(AddScheduleTypeArgs args, BaseUserInfo user)
     {
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))

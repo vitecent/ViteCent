@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageBaseUser(ILogger<PageBaseUser> logger,
+public class PageBaseUser(
+    ILogger<PageBaseUser> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<SearchBaseUserArgs, PageResult<BaseUserResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<SearchBaseUserArgs, PageResult<BaseUserResult>>
 {
     /// <summary>
     /// 用户信息

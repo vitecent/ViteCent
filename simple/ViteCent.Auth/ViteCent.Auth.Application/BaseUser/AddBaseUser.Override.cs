@@ -27,7 +27,8 @@ public partial class AddBaseUser
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseUserListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseUserListArgs request,
+        BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -98,7 +99,7 @@ public partial class AddBaseUser
             RealNames = [.. request.Items.Select(x => x.RealName).Distinct()],
             IdCards = [.. request.Items.Select(x => x.IdCard).Distinct()],
             Emails = [.. request.Items.Select(x => x.Email).Distinct()],
-            Phones = [.. request.Items.Select(x => x.Phone).Distinct()],
+            Phones = [.. request.Items.Select(x => x.Phone).Distinct()]
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -111,7 +112,8 @@ public partial class AddBaseUser
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseUserEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseUserEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
     }

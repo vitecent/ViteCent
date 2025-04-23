@@ -22,7 +22,8 @@ namespace ViteCent.Basic.Domain.UserRest;
 /// 批量调休申请判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasUserRestList(ILogger<HasUserRestList> logger) : BaseDomain<UserRestEntity>, IRequestHandler<HasUserRestEntityListArgs, BaseResult>
+public class HasUserRestList(ILogger<HasUserRestList> logger)
+    : BaseDomain<UserRestEntity>, IRequestHandler<HasUserRestEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -57,8 +58,8 @@ public class HasUserRestList(ILogger<HasUserRestList> logger) : BaseDomain<UserR
             query.Where(x => request.UserIds.Contains(x.UserId));
 
         query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-                    (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-                    (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entity = await query.CountAsync(cancellationToken);
 

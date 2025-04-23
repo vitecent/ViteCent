@@ -26,10 +26,12 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger,
+public class GetBaseRolePermission(
+    ILogger<GetBaseRolePermission> logger,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetBaseRolePermissionArgs, DataResult<BaseRolePermissionResult>>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<GetBaseRolePermissionArgs, DataResult<BaseRolePermissionResult>>
 {
     /// <summary>
     /// 用户信息
@@ -42,7 +44,8 @@ public class GetBaseRolePermission(ILogger<GetBaseRolePermission> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<BaseRolePermissionResult>> Handle(GetBaseRolePermissionArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<BaseRolePermissionResult>> Handle(GetBaseRolePermissionArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseRolePermission.GetBaseRolePermission");
 

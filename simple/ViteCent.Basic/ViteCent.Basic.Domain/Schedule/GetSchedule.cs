@@ -20,7 +20,9 @@ namespace ViteCent.Basic.Domain.Schedule;
 /// 获取排班信息
 /// </summary>
 /// <param name="logger"></param>
-public class GetSchedule(ILogger<GetSchedule> logger) : BaseDomain<ScheduleEntity>, IRequestHandler<GetScheduleEntityArgs, ScheduleEntity>
+public class GetSchedule(
+    ILogger<GetSchedule> logger)
+    : BaseDomain<ScheduleEntity>, IRequestHandler<GetScheduleEntityArgs, ScheduleEntity>
 {
     /// <summary>
     /// 数据库名称

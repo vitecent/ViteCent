@@ -22,7 +22,9 @@ namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 /// 批量$!{Table.Description}判重
 /// </summary>
 /// <param name="logger"></param>
-public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(ILogger<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger) : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
+public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(
+    ILogger<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger)
+    : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// $!{Table.Description}库名称

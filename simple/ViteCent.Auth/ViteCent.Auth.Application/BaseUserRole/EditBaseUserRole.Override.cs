@@ -5,7 +5,6 @@
 
 #region
 
-using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseUserRole;
 using ViteCent.Auth.Entity.BaseUserRole;
 using ViteCent.Core.Data;
@@ -71,7 +70,7 @@ public partial class EditBaseUserRole
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
             RoleId = request.RoleId,
-            UserId = request.UserId,
+            UserId = request.UserId
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

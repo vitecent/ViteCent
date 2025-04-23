@@ -26,8 +26,10 @@ namespace ViteCent.Auth.Api.BaseCompany;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseCompany")]
-public class DisableBaseCompany(ILogger<DisableBaseCompany> logger,
-    IMediator mediator) : BaseLoginApi<DisableBaseCompanyArgs, BaseResult>
+public class DisableBaseCompany(
+    ILogger<DisableBaseCompany> logger,
+    IMediator mediator)
+    : BaseLoginApi<DisableBaseCompanyArgs, BaseResult>
 {
     /// <summary>
     /// 禁用公司信息

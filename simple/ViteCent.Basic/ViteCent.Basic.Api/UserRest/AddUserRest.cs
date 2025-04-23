@@ -28,8 +28,10 @@ namespace ViteCent.Basic.Api.UserRest;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("UserRest")]
-public partial class AddUserRest(ILogger<AddUserRest> logger,
-    IMediator mediator) : BaseLoginApi<AddUserRestArgs, BaseResult>
+public partial class AddUserRest(
+    ILogger<AddUserRest> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddUserRestArgs, BaseResult>
 {
     /// <summary>
     /// 新增调休申请

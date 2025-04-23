@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.UserLeave;
 /// 删除请假申请
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteUserLeave(ILogger<DeleteUserLeave> logger) : BaseDomain<DeleteUserLeaveEntity>, IRequestHandler<DeleteUserLeaveEntity, BaseResult>
+public class DeleteUserLeave(
+    ILogger<DeleteUserLeave> logger)
+    : BaseDomain<DeleteUserLeaveEntity>, IRequestHandler<DeleteUserLeaveEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteUserLeave(ILogger<DeleteUserLeave> logger) : BaseDomain<Delet
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserLeave.DeleteUserLeave");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

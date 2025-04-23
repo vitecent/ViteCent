@@ -1,7 +1,6 @@
 ﻿#region
 
 using AutoMapper;
-using System.Reflection.Metadata;
 
 #endregion
 

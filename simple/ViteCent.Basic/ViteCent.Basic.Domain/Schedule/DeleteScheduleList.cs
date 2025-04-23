@@ -14,7 +14,8 @@ namespace ViteCent.Basic.Domain.Schedule;
 /// 批量排班信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteScheduleList(ILogger<DeleteScheduleList> logger) : BaseDomain<ScheduleEntity>, IRequestHandler<DeleteScheduleEntityListArgs, BaseResult>
+public class DeleteScheduleList(ILogger<DeleteScheduleList> logger)
+    : BaseDomain<ScheduleEntity>, IRequestHandler<DeleteScheduleEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -49,8 +50,8 @@ public class DeleteScheduleList(ILogger<DeleteScheduleList> logger) : BaseDomain
             query.Where(x => request.UserIds.Contains(x.UserId));
 
         query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-            (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-            (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entitys = await query.ToListAsync(cancellationToken);
 

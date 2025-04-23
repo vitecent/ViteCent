@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.UserLeave;
 /// 新增请假申请
 /// </summary>
 /// <param name="logger"></param>
-public class AddUserLeave(ILogger<AddUserLeave> logger) : BaseDomain<AddUserLeaveEntity>, IRequestHandler<AddUserLeaveEntity, BaseResult>
+public class AddUserLeave(
+    ILogger<AddUserLeave> logger)
+    : BaseDomain<AddUserLeaveEntity>, IRequestHandler<AddUserLeaveEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

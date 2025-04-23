@@ -10,7 +10,7 @@ namespace ViteCent.Auth.Data.BaseUser;
 /// <summary>
 /// </summary>
 [Serializable]
-public partial class LoginArgsValidator : AbstractValidator<LoginArgs>
+public class LoginArgsValidator : AbstractValidator<LoginArgs>
 {
     /// <summary>
     /// </summary>

@@ -126,7 +126,8 @@ public static class BaseString
 
             case HideEnum.Middle:
                 var start = (input.Length - length) / 2;
-                input = $"{"*".Repeat(start)}{input.Substring(start, length)}{"*".Repeat(input.Length - length - start)}";
+                input =
+                    $"{"*".Repeat(start)}{input.Substring(start, length)}{"*".Repeat(input.Length - length - start)}";
                 break;
 
             case HideEnum.End:

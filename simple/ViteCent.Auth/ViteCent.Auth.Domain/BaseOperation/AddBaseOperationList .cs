@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseOperation;
 /// 批量新增操作信息
 /// </summary>
 /// <param name="logger"></param>
-public class AddBaseOperationList(ILogger<AddBaseOperationList> logger) : BaseDomain<AddBaseOperationEntity>, IRequestHandler<AddBaseOperationEntityListArgs, BaseResult>
+public class AddBaseOperationList(
+    ILogger<AddBaseOperationList> logger)
+    : BaseDomain<AddBaseOperationEntity>, IRequestHandler<AddBaseOperationEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称

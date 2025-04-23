@@ -29,11 +29,13 @@ public partial class BaseCompanyValidator : AbstractValidator<AddBaseCompanyArgs
         RuleFor(x => x.Name).Length(1, 50).WithMessage("名称1-50个字符");
         RuleFor(x => x.Name).Matches(BaseConst.PositiveChineseEnglishUnderline).WithMessage("名称只支持数字、字母、中文、下划线");
 
-        RuleFor(x => x.LegalPhone).Matches(BaseConst.Mobile).When(x => !string.IsNullOrWhiteSpace(x.LegalPhone)).WithMessage("电话格式错误");
+        RuleFor(x => x.LegalPhone).Matches(BaseConst.Mobile).When(x => !string.IsNullOrWhiteSpace(x.LegalPhone))
+            .WithMessage("电话格式错误");
 
-        RuleFor(x => x.Email).Matches(BaseConst.Email).When(x => !string.IsNullOrWhiteSpace(x.Email)).WithMessage("邮箱格式错误");
+        RuleFor(x => x.Email).Matches(BaseConst.Email).When(x => !string.IsNullOrWhiteSpace(x.Email))
+            .WithMessage("邮箱格式错误");
 
-        var status = new List<int>() { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
+        var status = new List<int> { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
 
         RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
     }

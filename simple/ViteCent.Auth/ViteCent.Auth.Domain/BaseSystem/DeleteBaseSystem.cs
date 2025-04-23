@@ -21,7 +21,9 @@ namespace ViteCent.Auth.Domain.BaseSystem;
 /// 删除系统信息
 /// </summary>
 /// <param name="logger"></param>
-public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger) : BaseDomain<DeleteBaseSystemEntity>, IRequestHandler<DeleteBaseSystemEntity, BaseResult>
+public class DeleteBaseSystem(
+    ILogger<DeleteBaseSystem> logger)
+    : BaseDomain<DeleteBaseSystemEntity>, IRequestHandler<DeleteBaseSystemEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -38,6 +40,6 @@ public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger) : BaseDomain<Del
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseSystem.DeleteBaseSystem");
 
-        return await base.DeleteAsync(request);
+        return await DeleteAsync(request);
     }
 }

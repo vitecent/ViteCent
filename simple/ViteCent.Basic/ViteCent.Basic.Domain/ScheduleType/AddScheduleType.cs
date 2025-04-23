@@ -21,7 +21,9 @@ namespace ViteCent.Basic.Domain.ScheduleType;
 /// 新增基础排班
 /// </summary>
 /// <param name="logger"></param>
-public class AddScheduleType(ILogger<AddScheduleType> logger) : BaseDomain<AddScheduleTypeEntity>, IRequestHandler<AddScheduleTypeEntity, BaseResult>
+public class AddScheduleType(
+    ILogger<AddScheduleType> logger)
+    : BaseDomain<AddScheduleTypeEntity>, IRequestHandler<AddScheduleTypeEntity, BaseResult>
 {
     /// <summary>
     /// 数据库名称

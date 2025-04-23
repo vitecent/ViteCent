@@ -1,10 +1,7 @@
 ﻿#region
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
-using ViteCent.Core.Data;
 
 #endregion
 
@@ -64,7 +61,7 @@ public static class RedisExtensions
         {
             "AES" => input.DecryptAES(key),
             "DES" => input.DecryptDES(key),
-            _ => throw new Exception($"Encrypt:Type {type} Is Not Support"),
+            _ => throw new Exception($"Encrypt:Type {type} Is Not Support")
         };
     }
 

@@ -31,9 +31,11 @@ public partial class AddScheduleType
     /// <param name="departmentInvoke"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(MediatR.IMediator mediator, AddScheduleTypeListArgs request, BaseUserInfo user,
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddScheduleTypeListArgs request,
+        BaseUserInfo user,
         IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
-        IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke, CancellationToken cancellationToken)
+        IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
+        CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -63,7 +65,8 @@ public partial class AddScheduleType
                 data.CompanyName = item.Name;
         }
 
-        var departments = await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+        var departments =
+            await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
@@ -81,7 +84,7 @@ public partial class AddScheduleType
             CompanyIds = companyIds,
             DepartmentIds = departmentIds,
             Codes = request.Items.Select(x => x.Code).Distinct().ToList(),
-            Names = request.Items.Select(x => x.Name).Distinct().ToList(),
+            Names = request.Items.Select(x => x.Name).Distinct().ToList()
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -94,7 +97,8 @@ public partial class AddScheduleType
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ScheduleTypeEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, ScheduleTypeEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
     }
@@ -123,7 +127,9 @@ public partial class AddScheduleType
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
@@ -135,7 +141,7 @@ public partial class AddScheduleType
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

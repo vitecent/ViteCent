@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BaseDepartment;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddBaseDepartmentList(ILogger<AddBaseDepartmentList> logger,
+public class AddBaseDepartmentList(
+    ILogger<AddBaseDepartmentList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseDepartmentListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBaseDepartmentListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -59,7 +61,7 @@ public class AddBaseDepartmentList(ILogger<AddBaseDepartmentList> logger,
         if (!check.Success)
             return check;
 
-        var entitys = new AddBaseDepartmentEntityListArgs()
+        var entitys = new AddBaseDepartmentEntityListArgs
         {
             Items = []
         };

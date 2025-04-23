@@ -21,7 +21,8 @@ namespace ViteCent.Basic.Domain.Schedule;
 /// 批量排班信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasScheduleList(ILogger<HasScheduleList> logger) : BaseDomain<ScheduleEntity>, IRequestHandler<HasScheduleEntityListArgs, BaseResult>
+public class HasScheduleList(ILogger<HasScheduleList> logger)
+    : BaseDomain<ScheduleEntity>, IRequestHandler<HasScheduleEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称
@@ -56,8 +57,8 @@ public class HasScheduleList(ILogger<HasScheduleList> logger) : BaseDomain<Sched
             query.Where(x => request.UserIds.Contains(x.UserId));
 
         query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-                    (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-                    (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
+                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
 
         var entity = await query.CountAsync(cancellationToken);
 

@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class GetAllPermission(ILogger<GetAllPermission> logger,
+public class GetAllPermission(
+    ILogger<GetAllPermission> logger,
     IMediator mediator,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<GetAllPermissionArgs, DataResult<AllPermissionResult>>
 {
@@ -36,7 +37,8 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<DataResult<AllPermissionResult>> Handle(GetAllPermissionArgs request, CancellationToken cancellationToken)
+    public async Task<DataResult<AllPermissionResult>> Handle(GetAllPermissionArgs request,
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.AllPermission.GetAllPermission");
 
@@ -49,12 +51,12 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
 
         var result = await GetSystem(request.CompanyId, cancellationToken);
 
-        return new DataResult<AllPermissionResult>()
+        return new DataResult<AllPermissionResult>
         {
-            Data = new AllPermissionResult()
+            Data = new AllPermissionResult
             {
-                Items = result,
-            },
+                Items = result
+            }
         };
     }
 
@@ -65,22 +67,23 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
     /// <param name="resources"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task<List<BaseSystemInfo>> GetOperation(string companyId, List<BaseSystemResult> systems, List<BaseResourceResult> resources, CancellationToken cancellationToken)
+    private async Task<List<BaseSystemInfo>> GetOperation(string companyId, List<BaseSystemResult> systems,
+        List<BaseResourceResult> resources, CancellationToken cancellationToken)
     {
         var systemIds = systems.Select(x => x.Id).ToList();
         var resourceIds = systems.Select(x => x.Id).ToList();
 
-        var args = new SearchBaseOperationArgs()
+        var args = new SearchBaseOperationArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
-                },
+                    Value = ((int)StatusEnum.Enable).ToString()
+                }
             ]
         };
 
@@ -91,10 +94,10 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
             args.AddArgs("ResourceId", resourceIds.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(companyId))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
-                Value = companyId,
+                Value = companyId
             });
 
         var operations = await mediator.Send(args, cancellationToken);
@@ -106,33 +109,34 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
 
         foreach (var system in systems)
         {
-            var _system = new BaseSystemInfo()
+            var _system = new BaseSystemInfo
             {
                 Id = system.Id,
                 Name = system.Name,
-                Code = system.Code,
+                Code = system.Code
             };
 
             var _resources = resources.Where(x => x.SystemId == system.Id).ToList();
 
             foreach (var resource in _resources)
             {
-                var _resource = new BaseResourceInfo()
+                var _resource = new BaseResourceInfo
                 {
                     Id = resource.Id,
                     Name = resource.Name,
-                    Code = resource.Code,
+                    Code = resource.Code
                 };
 
-                var _operations = operations.Rows.Where(x => x.SystemId == system.Id && x.ResourceId == resource.Id).ToList();
+                var _operations = operations.Rows.Where(x => x.SystemId == system.Id && x.ResourceId == resource.Id)
+                    .ToList();
 
                 foreach (var operation in _operations)
                 {
-                    var _operation = new BaseOperationInfo()
+                    var _operation = new BaseOperationInfo
                     {
                         Id = operation.Id,
                         Name = operation.Name,
-                        Code = operation.Code,
+                        Code = operation.Code
                     };
 
                     _resource.Operations.Add(_operation);
@@ -153,20 +157,21 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
     /// <param name="systems"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    private async Task<List<BaseSystemInfo>> GetResource(string companyId, List<BaseSystemResult> systems, CancellationToken cancellationToken)
+    private async Task<List<BaseSystemInfo>> GetResource(string companyId, List<BaseSystemResult> systems,
+        CancellationToken cancellationToken)
     {
         var systemIds = systems.Select(x => x.Id).ToList();
 
-        var args = new SearchBaseResourceArgs()
+        var args = new SearchBaseResourceArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 }
             ]
         };
@@ -175,10 +180,10 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
             args.AddArgs("SystemId", systemIds.ToJson(), SearchEnum.In);
 
         if (!string.IsNullOrWhiteSpace(companyId))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
-                Value = companyId,
+                Value = companyId
             });
 
         var resources = await mediator.Send(args, cancellationToken);
@@ -196,25 +201,25 @@ public class GetAllPermission(ILogger<GetAllPermission> logger,
     /// <returns></returns>
     private async Task<List<BaseSystemInfo>> GetSystem(string companyId, CancellationToken cancellationToken)
     {
-        var args = new SearchBaseSystemArgs()
+        var args = new SearchBaseSystemArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
             Args =
             [
-                new()
+                new SearchItem
                 {
                     Field = "Status",
-                    Value = ((int)StatusEnum.Enable).ToString(),
+                    Value = ((int)StatusEnum.Enable).ToString()
                 }
             ]
         };
 
         if (!string.IsNullOrWhiteSpace(companyId))
-            args.Args.Add(new()
+            args.Args.Add(new SearchItem
             {
                 Field = "CompanyId",
-                Value = companyId,
+                Value = companyId
             });
 
         var systems = await mediator.Send(args, cancellationToken);

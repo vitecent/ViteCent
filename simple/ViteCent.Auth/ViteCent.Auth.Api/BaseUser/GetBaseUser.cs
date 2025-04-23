@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
-public class GetBaseUser(ILogger<GetBaseUser> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseUserArgs, DataResult<BaseUserResult>>
+public class GetBaseUser(
+    ILogger<GetBaseUser> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseUserArgs, DataResult<BaseUserResult>>
 {
     /// <summary>
     /// 获取用户信息
@@ -62,6 +64,6 @@ public class GetBaseUser(ILogger<GetBaseUser> logger,
             if (string.IsNullOrEmpty(args.PositionId))
                 return new DataResult<BaseUserResult>(500, "职位标识不能为空");
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

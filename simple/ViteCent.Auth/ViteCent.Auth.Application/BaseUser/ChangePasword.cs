@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <param name="cache"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class ChangePasword(ILogger<ChangePasword> logger,
+public class ChangePasword(
+    ILogger<ChangePasword> logger,
     IBaseCache cache,
     IMediator mediator,
     IHttpContextAccessor httpContextAccessor) : IRequestHandler<ChangePaswordArgs, BaseResult>
@@ -45,10 +46,10 @@ public class ChangePasword(ILogger<ChangePasword> logger,
 
         request.OriginalPassword = $"{user.Name}{request.OriginalPassword}{BaseConst.Salf}".EncryptMD5();
 
-        var args = new LoginEntityArgs()
+        var args = new LoginEntityArgs
         {
             Username = user.Code,
-            Password = request.OriginalPassword,
+            Password = request.OriginalPassword
         };
 
         var entity = await mediator.Send(args, cancellationToken);

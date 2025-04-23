@@ -28,8 +28,10 @@ namespace ViteCent.Auth.Api.BaseSystem;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseSystem")]
-public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
-    IMediator mediator) : BaseLoginApi<AddBaseSystemListArgs, BaseResult>
+public class AddBaseSystemList(
+    ILogger<AddBaseSystemList> logger,
+    IMediator mediator)
+    : BaseLoginApi<AddBaseSystemListArgs, BaseResult>
 {
     /// <summary>
     /// 批量新增系统信息
@@ -69,8 +71,8 @@ public class AddBaseSystemList(ILogger<AddBaseSystemList> logger,
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
-        }
 
+        }
         return await mediator.Send(args, cancellationToken);
     }
 }

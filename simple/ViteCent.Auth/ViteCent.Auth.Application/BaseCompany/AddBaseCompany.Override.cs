@@ -26,7 +26,8 @@ public partial class AddBaseCompany
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseCompanyListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseCompanyListArgs request,
+        BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyIds = request.Items.Select(x => x.ParentId).Distinct().ToList();
 
@@ -41,7 +42,7 @@ public partial class AddBaseCompany
         var hasListArgs = new HasBaseCompanyEntityListArgs
         {
             Codes = [.. request.Items.Select(x => x.Code).Distinct()],
-            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()]
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -54,7 +55,8 @@ public partial class AddBaseCompany
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseCompanyEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseCompanyEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.FromResult(0);
     }
@@ -70,7 +72,7 @@ public partial class AddBaseCompany
         {
             var hasParentArgs = new GetBaseCompanyEntityArgs
             {
-                Id = request.ParentId,
+                Id = request.ParentId
             };
 
             var hasParent = await mediator.Send(hasParentArgs, cancellationToken);
@@ -90,7 +92,7 @@ public partial class AddBaseCompany
         var hasArgs = new HasBaseCompanyEntityArgs
         {
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

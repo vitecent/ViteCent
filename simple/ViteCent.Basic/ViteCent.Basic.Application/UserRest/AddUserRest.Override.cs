@@ -33,7 +33,8 @@ public partial class AddUserRest
     /// <param name="userInvoke"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddUserRestListArgs request, BaseUserInfo user,
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddUserRestListArgs request,
+        BaseUserInfo user,
         IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
         IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
         IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke, CancellationToken cancellationToken)
@@ -67,7 +68,8 @@ public partial class AddUserRest
                 data.CompanyName = item.Name;
         }
 
-        var departments = await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+        var departments =
+            await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
@@ -99,7 +101,7 @@ public partial class AddUserRest
             DepartmentIds = departmentIds,
             UserIds = userIds,
             StartTime = request.Items.Min(x => x.StartTime),
-            EndTime = request.Items.Max(x => x.EndTime),
+            EndTime = request.Items.Max(x => x.EndTime)
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -112,7 +114,8 @@ public partial class AddUserRest
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, UserRestEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, UserRestEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.FromResult(0);
     }
@@ -141,14 +144,17 @@ public partial class AddUserRest
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
             request.DepartmentId = departmentId;
 
-        var hasDepartment = await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId, user?.Token ?? string.Empty);
+        var hasDepartment =
+            await departmentInvoke.CheckDepartment(request.CompanyId, request.DepartmentId,
+                user?.Token ?? string.Empty);
 
         if (!hasDepartment.Success)
             return hasDepartment;
 
         request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
-        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId, user?.Token ?? string.Empty);
+        var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId,
+            user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
@@ -159,7 +165,7 @@ public partial class AddUserRest
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
-            UserId = request.UserId,
+            UserId = request.UserId
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

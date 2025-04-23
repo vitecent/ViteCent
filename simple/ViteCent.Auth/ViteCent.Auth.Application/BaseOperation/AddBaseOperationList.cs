@@ -30,11 +30,13 @@ namespace ViteCent.Auth.Application.BaseOperation;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class AddBaseOperationList(ILogger<AddBaseOperationList> logger,
+public class AddBaseOperationList(
+    ILogger<AddBaseOperationList> logger,
     IBaseCache cache,
     IMapper mapper,
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<AddBaseOperationListArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<AddBaseOperationListArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -59,7 +61,7 @@ public class AddBaseOperationList(ILogger<AddBaseOperationList> logger,
         if (!check.Success)
             return check;
 
-        var entitys = new AddBaseOperationEntityListArgs()
+        var entitys = new AddBaseOperationEntityListArgs
         {
             Items = []
         };

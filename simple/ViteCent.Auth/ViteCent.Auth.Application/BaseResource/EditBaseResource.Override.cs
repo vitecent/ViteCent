@@ -6,11 +6,8 @@
 #region
 
 using ViteCent.Auth.Data.BaseResource;
-using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseResource;
-using ViteCent.Auth.Entity.BaseUserRole;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -62,7 +59,7 @@ public partial class EditBaseResource
             CompanyId = request.CompanyId,
             SystemId = request.SystemId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

@@ -51,7 +51,7 @@ public partial class EditBasePosition
             Id = request.Id,
             CompanyId = request.CompanyId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

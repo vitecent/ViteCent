@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseDictionary;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseDictionary")]
-public class DeleteBaseDictionary(ILogger<DeleteBaseDictionary> logger,
-    IMediator mediator) : BaseLoginApi<DeleteBaseDictionaryArgs, BaseResult>
+public class DeleteBaseDictionary(
+    ILogger<DeleteBaseDictionary> logger,
+    IMediator mediator)
+    : BaseLoginApi<DeleteBaseDictionaryArgs, BaseResult>
 {
     /// <summary>
     /// 删除字典信息

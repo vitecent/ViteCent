@@ -27,8 +27,10 @@ namespace ViteCent.Auth.Api.BaseSystem;
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseSystem")]
-public class GetBaseSystem(ILogger<GetBaseSystem> logger,
-    IMediator mediator) : BaseLoginApi<GetBaseSystemArgs, DataResult<BaseSystemResult>>
+public class GetBaseSystem(
+    ILogger<GetBaseSystem> logger,
+    IMediator mediator)
+    : BaseLoginApi<GetBaseSystemArgs, DataResult<BaseSystemResult>>
 {
     /// <summary>
     /// 获取系统信息
@@ -54,6 +56,6 @@ public class GetBaseSystem(ILogger<GetBaseSystem> logger,
         if (check != null && !check.Success)
             return new DataResult<BaseSystemResult>(check.Code, check.Message);
 
-        return await mediator.Send(args, new CancellationToken());
+        return await mediator.Send(args);
     }
 }

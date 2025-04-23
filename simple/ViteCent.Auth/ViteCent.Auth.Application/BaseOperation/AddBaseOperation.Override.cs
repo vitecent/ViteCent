@@ -26,15 +26,14 @@ public partial class AddBaseOperation
     /// <param name="user"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseOperationListArgs request, BaseUserInfo user, CancellationToken cancellationToken)
+    internal static async Task<BaseResult> OverrideHandle(IMediator mediator, AddBaseOperationListArgs request,
+        BaseUserInfo user, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;
 
         foreach (var item in request.Items)
-        {
             if (string.IsNullOrWhiteSpace(item.CompanyId))
                 item.CompanyId = companyId;
-        }
 
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
         var systemIds = request.Items.Select(x => x.SystemId).Distinct().ToList();
@@ -85,7 +84,7 @@ public partial class AddBaseOperation
             SystemIds = systemIds,
             ResourceIds = resourceIds,
             Codes = [.. request.Items.Select(x => x.Code).Distinct()],
-            Names = [.. request.Items.Select(x => x.Name).Distinct()],
+            Names = [.. request.Items.Select(x => x.Name).Distinct()]
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -98,7 +97,8 @@ public partial class AddBaseOperation
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseOperationEntity entity, CancellationToken cancellationToken)
+    internal static async Task OverrideTopic(IMediator mediator, TopicEnum topic, BaseOperationEntity entity,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
     }
@@ -142,7 +142,7 @@ public partial class AddBaseOperation
             SystemId = request.SystemId,
             ResourceId = request.ResourceId,
             Code = request.Code,
-            Name = request.Name,
+            Name = request.Name
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

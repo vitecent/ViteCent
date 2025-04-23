@@ -21,7 +21,8 @@ namespace ViteCent.Auth.Domain.BaseDepartment;
 /// 批量部门信息判重
 /// </summary>
 /// <param name="logger"></param>
-public class HasBaseDepartmentList(ILogger<HasBaseDepartmentList> logger) : BaseDomain<BaseDepartmentEntity>, IRequestHandler<HasBaseDepartmentEntityListArgs, BaseResult>
+public class HasBaseDepartmentList(ILogger<HasBaseDepartmentList> logger) : BaseDomain<BaseDepartmentEntity>,
+    IRequestHandler<HasBaseDepartmentEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称
