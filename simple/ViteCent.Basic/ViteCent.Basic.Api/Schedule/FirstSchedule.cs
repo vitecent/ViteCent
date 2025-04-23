@@ -22,7 +22,8 @@ namespace ViteCent.Basic.Api.Schedule;
 [Route("Schedule")]
 public class FirstSchedule(
     ILogger<FirstSchedule> logger,
-    IMediator mediator) : BaseLoginApi<FirstScheduleArgs, BaseResult>
+    IMediator mediator)
+    : BaseLoginApi<FirstScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 上班

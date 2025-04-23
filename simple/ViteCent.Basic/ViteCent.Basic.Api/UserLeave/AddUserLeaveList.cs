@@ -79,8 +79,8 @@ public class AddUserLeaveList(
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.UserId))
                     return new BaseResult(500, "用户标识不能为空");
-
         }
+
         return await mediator.Send(args, cancellationToken);
     }
 }

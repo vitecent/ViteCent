@@ -75,8 +75,8 @@ public class AddScheduleTypeList(
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.DepartmentId))
                     return new BaseResult(500, "部门标识不能为空");
-
         }
+
         return await mediator.Send(args, cancellationToken);
     }
 }

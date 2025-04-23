@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Entity.BaseCompany;
 [Serializable]
 public class AddBaseCompanyEntityListArgs : IRequest<BaseResult>
 {
-	// <summary>
-	/// 公司信息
-	/// </summary>
-	public List<AddBaseCompanyEntity> Items = [];
+    /// <summary>
+    /// 公司信息
+    /// </summary>
+    public List<AddBaseCompanyEntity> Items = [];
 }

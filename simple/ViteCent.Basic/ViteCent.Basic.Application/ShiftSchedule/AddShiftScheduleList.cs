@@ -86,7 +86,6 @@ public class AddShiftScheduleList(
             var entity = mapper.Map<AddShiftScheduleEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "ShiftSchedule");
-
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
             entity.DataVersion = DateTime.Now;

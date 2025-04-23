@@ -20,8 +20,8 @@ namespace ViteCent.Basic.Entity.UserRest;
 [Serializable]
 public class AddUserRestEntityListArgs : IRequest<BaseResult>
 {
-	// <summary>
-	/// 调休申请
-	/// </summary>
-	public List<AddUserRestEntity> Items = [];
+    /// <summary>
+    /// 调休申请
+    /// </summary>
+    public List<AddUserRestEntity> Items = [];
 }

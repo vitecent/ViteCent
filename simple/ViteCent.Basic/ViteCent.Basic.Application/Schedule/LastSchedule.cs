@@ -33,7 +33,8 @@ public partial class LastSchedule(
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<LastScheduleArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<LastScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

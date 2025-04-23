@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Entity.BaseSystem;
 [Serializable]
 public class AddBaseSystemEntityListArgs : IRequest<BaseResult>
 {
-	// <summary>
-	/// 系统信息
-	/// </summary>
-	public List<AddBaseSystemEntity> Items = [];
+    /// <summary>
+    /// 系统信息
+    /// </summary>
+    public List<AddBaseSystemEntity> Items = [];
 }

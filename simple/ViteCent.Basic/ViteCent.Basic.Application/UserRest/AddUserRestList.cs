@@ -86,7 +86,6 @@ public class AddUserRestList(
             var entity = mapper.Map<AddUserRestEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "UserRest");
-
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
             entity.DataVersion = DateTime.Now;

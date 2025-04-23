@@ -1,5 +1,6 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+
+using System.Security.Claims;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BasePosition;

@@ -87,8 +87,8 @@ public class AddBaseRolePermissionList(
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.OperationId))
                     return new BaseResult(500, "操作标识不能为空");
-
         }
+
         return await mediator.Send(args, cancellationToken);
     }
 }

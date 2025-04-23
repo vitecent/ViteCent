@@ -79,8 +79,8 @@ public class AddBaseUserList(
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.PositionId))
                     return new BaseResult(500, "职位标识不能为空");
-
         }
+
         return await mediator.Send(args, cancellationToken);
     }
 }

@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Data.BaseResource;
 [Serializable]
 public class AddBaseResourceListArgs : BaseArgs, IRequest<BaseResult>
 {
-	/// <summary>
-	/// 资源信息
-	/// </summary>
-	public List<AddBaseResourceArgs> Items = [];
+    /// <summary>
+    /// 资源信息
+    /// </summary>
+    public List<AddBaseResourceArgs> Items = [];
 }

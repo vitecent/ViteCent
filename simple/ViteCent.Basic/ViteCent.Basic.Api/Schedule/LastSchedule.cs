@@ -22,7 +22,8 @@ namespace ViteCent.Basic.Api.Schedule;
 [Route("Schedule")]
 public class LastSchedule(
     ILogger<LastSchedule> logger,
-    IMediator mediator) : BaseLoginApi<LastScheduleArgs, BaseResult>
+    IMediator mediator)
+    : BaseLoginApi<LastScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 编辑排班信息

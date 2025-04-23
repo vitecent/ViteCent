@@ -1,6 +1,5 @@
 ﻿#region
 
-using System.IO.Compression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+
+using System.IO.Compression;
 using ViteCent.Core.Logging.Log4Net;
 using ViteCent.Core.Web.Filter;
 

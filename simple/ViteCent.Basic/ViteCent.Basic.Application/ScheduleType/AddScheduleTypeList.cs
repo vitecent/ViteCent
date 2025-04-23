@@ -83,7 +83,6 @@ public class AddScheduleTypeList(
             var entity = mapper.Map<AddScheduleTypeEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "ScheduleType");
-
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
             entity.DataVersion = DateTime.Now;

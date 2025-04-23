@@ -33,7 +33,8 @@ public partial class FirstSchedule(
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<FirstScheduleArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor)
+    : IRequestHandler<FirstScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息

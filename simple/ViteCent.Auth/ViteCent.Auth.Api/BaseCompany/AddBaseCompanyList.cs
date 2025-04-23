@@ -66,8 +66,8 @@ public class AddBaseCompanyList(
 
             if (!check.IsValid)
                 return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
-
         }
+
         return await mediator.Send(args, cancellationToken);
     }
 }

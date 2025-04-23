@@ -1,7 +1,8 @@
 #region
 
-using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+
+using System.Security.Claims;
 using ViteCent.Core;
 using ViteCent.Core.Data;
 

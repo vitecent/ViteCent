@@ -1,8 +1,9 @@
 #region
 
-using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+
+using System.Security.Claims;
 using ViteCent.Auth.Entity.BaseCompany;
 using ViteCent.Auth.Entity.BaseDepartment;
 using ViteCent.Auth.Entity.BaseOperation;

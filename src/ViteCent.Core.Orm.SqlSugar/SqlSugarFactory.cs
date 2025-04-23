@@ -1,8 +1,8 @@
 ﻿#region
 
-using System.Linq.Expressions;
 using AutoMapper;
 using SqlSugar;
+using System.Linq.Expressions;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -178,6 +178,56 @@ public class SqlSugarFactory : IFactory
     /// <summary>
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public IFastest<T> Fastest<T>() where T : class, new()
+    {
+        return client.Fastest<T>();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="tableName"></param>
+    /// <param name="cache"></param>
+    /// <returns></returns>
+    public async Task<List<BaseField>> GetFields(string tableName, bool cache = false)
+    {
+        var fields = client.DbMaintenance.GetColumnInfosByTableName(tableName, cache);
+
+        var config = new MapperConfiguration(configuration =>
+        {
+            configuration.CreateMap<DbColumnInfo, BaseField>()
+                .ForMember(x => x.Default, y => y.MapFrom(z => z.DefaultValue))
+                .ForMember(x => x.Description, y => y.MapFrom(z => z.ColumnDescription))
+                .ForMember(x => x.Identity, y => y.MapFrom(z => z.IsIdentity))
+                .ForMember(x => x.PrimaryKey, y => y.MapFrom(z => z.IsPrimarykey))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.DbColumnName))
+                .ForMember(x => x.Nullable, y => y.MapFrom(z => z.IsNullable))
+                .ForMember(x => x.Type, y => y.MapFrom(z => z.DataType));
+        });
+
+        var result = new Mapper(config).Map<List<BaseField>>(fields);
+
+        return await Task.FromResult(result);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="cache"></param>
+    /// <returns></returns>
+    public async Task<List<BaseTable>> GetTables(bool cache = false)
+    {
+        var tables = client.DbMaintenance.GetTableInfoList(cache);
+
+        var config = new MapperConfiguration(configuration => { configuration.CreateMap<DbTableInfo, BaseTable>(); });
+
+        var result = new Mapper(config).Map<List<BaseTable>>(tables);
+
+        return await Task.FromResult(result);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     /// <param name="entity"></param>
     public void Insert<T>(T entity) where T : class, new()
     {
@@ -234,6 +284,15 @@ public class SqlSugarFactory : IFactory
     /// <summary>
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public ISugarQueryable<T> Query<T>() where T : class, new()
+    {
+        return client.Queryable<T>();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     /// <param name="entity"></param>
     public void Update<T>(T entity) where T : class, new()
     {
@@ -280,65 +339,6 @@ public class SqlSugarFactory : IFactory
     {
         commands.Add(new Command
         { CommandType = CommandEnum.Update, DataType = DataEnum.SQL, SQL = sql, Parameters = parameters });
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public IFastest<T> Fastest<T>() where T : class, new()
-    {
-        return client.Fastest<T>();
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="tableName"></param>
-    /// <param name="cache"></param>
-    /// <returns></returns>
-    public async Task<List<BaseField>> GetFields(string tableName, bool cache = false)
-    {
-        var fields = client.DbMaintenance.GetColumnInfosByTableName(tableName, cache);
-
-        var config = new MapperConfiguration(configuration =>
-        {
-            configuration.CreateMap<DbColumnInfo, BaseField>()
-                .ForMember(x => x.Default, y => y.MapFrom(z => z.DefaultValue))
-                .ForMember(x => x.Description, y => y.MapFrom(z => z.ColumnDescription))
-                .ForMember(x => x.Identity, y => y.MapFrom(z => z.IsIdentity))
-                .ForMember(x => x.PrimaryKey, y => y.MapFrom(z => z.IsPrimarykey))
-                .ForMember(x => x.Name, y => y.MapFrom(z => z.DbColumnName))
-                .ForMember(x => x.Nullable, y => y.MapFrom(z => z.IsNullable))
-                .ForMember(x => x.Type, y => y.MapFrom(z => z.DataType));
-        });
-
-        var result = new Mapper(config).Map<List<BaseField>>(fields);
-
-        return await Task.FromResult(result);
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="cache"></param>
-    /// <returns></returns>
-    public async Task<List<BaseTable>> GetTables(bool cache = false)
-    {
-        var tables = client.DbMaintenance.GetTableInfoList(cache);
-
-        var config = new MapperConfiguration(configuration => { configuration.CreateMap<DbTableInfo, BaseTable>(); });
-
-        var result = new Mapper(config).Map<List<BaseTable>>(tables);
-
-        return await Task.FromResult(result);
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public ISugarQueryable<T> Query<T>() where T : class, new()
-    {
-        return client.Queryable<T>();
     }
 
     /// <summary>

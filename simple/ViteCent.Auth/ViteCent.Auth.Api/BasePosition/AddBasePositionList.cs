@@ -71,8 +71,8 @@ public class AddBasePositionList(
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
-
         }
+
         return await mediator.Send(args, cancellationToken);
     }
 }

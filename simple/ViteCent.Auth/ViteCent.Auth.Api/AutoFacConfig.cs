@@ -8,8 +8,8 @@
 
 #region
 
-using System.Reflection;
 using Autofac;
+using System.Reflection;
 using Module = Autofac.Module;
 
 #endregion
@@ -33,7 +33,11 @@ public partial class AutoFacConfig : Module
 
         var assemblies = new List<Assembly>();
 
-        var dlls = new List<string> { "*Application.dll", "*Domain.dll" };
+        var dlls = new List<string>
+        {
+            "*Application.dll",
+            "*Domain.dll"
+        };
 
         foreach (var dll in dlls)
         {

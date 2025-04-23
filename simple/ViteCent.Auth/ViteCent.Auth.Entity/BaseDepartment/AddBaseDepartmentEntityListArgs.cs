@@ -20,8 +20,8 @@ namespace ViteCent.Auth.Entity.BaseDepartment;
 [Serializable]
 public class AddBaseDepartmentEntityListArgs : IRequest<BaseResult>
 {
-	// <summary>
-	/// 部门信息
-	/// </summary>
-	public List<AddBaseDepartmentEntity> Items = [];
+    /// <summary>
+    /// 部门信息
+    /// </summary>
+    public List<AddBaseDepartmentEntity> Items = [];
 }

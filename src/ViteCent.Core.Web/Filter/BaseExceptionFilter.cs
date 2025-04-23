@@ -1,8 +1,9 @@
 ﻿#region
 
-using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
+
+using System.Text.Json;
 using ViteCent.Core.Data;
 
 #endregion

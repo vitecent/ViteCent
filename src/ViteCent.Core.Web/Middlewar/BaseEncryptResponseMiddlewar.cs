@@ -1,8 +1,9 @@
 ﻿#region
 
-using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+
+using System.Text;
 using ViteCent.Core.Data;
 
 #endregion

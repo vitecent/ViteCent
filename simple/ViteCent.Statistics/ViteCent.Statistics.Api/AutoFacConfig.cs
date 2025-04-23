@@ -1,7 +1,8 @@
 #region
 
-using System.Reflection;
 using Autofac;
+
+using System.Reflection;
 using Module = Autofac.Module;
 
 #endregion

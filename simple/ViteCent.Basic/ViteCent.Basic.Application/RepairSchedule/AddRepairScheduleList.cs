@@ -86,7 +86,6 @@ public class AddRepairScheduleList(
             var entity = mapper.Map<AddRepairScheduleEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "RepairSchedule");
-
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
             entity.DataVersion = DateTime.Now;

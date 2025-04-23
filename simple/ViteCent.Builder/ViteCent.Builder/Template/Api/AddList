@@ -69,56 +69,56 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 
             if (!check.IsValid)
                 return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
-
 #if($HasCompanyId)
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
-
 #end
 #if($HasDepartmentId)
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.DepartmentId))
                     return new BaseResult(500, "部门标识不能为空");
-
 #end
 #if($HasPositionId)
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.PositionId))
                     return new BaseResult(500, "职位标识不能为空");
-
 #end
 #if($HasRoleId)
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.RoleId))
                     return new BaseResult(500, "角色标识不能为空");
-
 #end
 #if($HasUserId)
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.UserId))
                     return new BaseResult(500, "用户标识不能为空");
-
 #end
 #if($HasSystemId)
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.SystemId))
                     return new BaseResult(500, "系统标识不能为空");
-
 #end
 #if($HasResourceId)
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.ResourceId))
                     return new BaseResult(500, "资源标识不能为空");
-
 #end
 #if($HasOperationId)
+
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.OperationId))
                     return new BaseResult(500, "操作标识不能为空");
-
 #end
         }
+
         return await mediator.Send(args, cancellationToken);
     }
 }

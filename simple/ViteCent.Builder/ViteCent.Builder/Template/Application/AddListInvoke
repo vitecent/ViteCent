@@ -123,7 +123,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 
             entity.Id = await cache.GetIdAsync(companyId, "$!{Table.CamelCaseName}");
 #end
-
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
             entity.DataVersion = DateTime.Now;

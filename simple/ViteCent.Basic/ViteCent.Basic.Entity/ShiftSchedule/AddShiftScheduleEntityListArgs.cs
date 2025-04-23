@@ -20,8 +20,8 @@ namespace ViteCent.Basic.Entity.ShiftSchedule;
 [Serializable]
 public class AddShiftScheduleEntityListArgs : IRequest<BaseResult>
 {
-	// <summary>
-	/// 换班申请
-	/// </summary>
-	public List<AddShiftScheduleEntity> Items = [];
+    /// <summary>
+    /// 换班申请
+    /// </summary>
+    public List<AddShiftScheduleEntity> Items = [];
 }

@@ -86,7 +86,6 @@ public class AddUserLeaveList(
             var entity = mapper.Map<AddUserLeaveEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "UserLeave");
-
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
             entity.DataVersion = DateTime.Now;

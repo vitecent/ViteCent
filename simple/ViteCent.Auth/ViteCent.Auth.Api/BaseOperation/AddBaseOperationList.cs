@@ -79,8 +79,8 @@ public class AddBaseOperationList(
             if (User.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.ResourceId))
                     return new BaseResult(500, "资源标识不能为空");
-
         }
+
         return await mediator.Send(args, cancellationToken);
     }
 }
