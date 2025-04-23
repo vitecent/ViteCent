@@ -27,37 +27,50 @@ public class Program
         {
             OnBuild = builder =>
             {
-                builder.Services.AddScoped<DiscoverJob>();
-                builder.Services.AddScoped<GuardJob>();
+                builder.Services.AddScoped<FingerJob>();
+                builder.Services.AddScoped<ServiceJob>();
+                builder.Services.AddScoped<StartJob>();
 
                 builder.UseAutoMapper(typeof(AutoMapperConfig));
                 builder.UseAutoFac(new AutoFacConfig());
             },
             OnRegist = async scheduler =>
             {
-                var discoverJob = JobBuilder.Create<DiscoverJob>()
-                    .WithIdentity("DiscoverJob", "DiscoverGroup")
+                var fingerJob = JobBuilder.Create<FingerJob>()
+                   .WithIdentity("FingerJob", "FingerGroup")
+                   .Build();
+
+                var fingerTrigger = TriggerBuilder.Create()
+                    .WithIdentity("FingerJob", "FingerGroup")
+                    .StartNow()
+                    .WithCronSchedule("0/30 * * * * ? ")
+                    .Build();
+
+                await scheduler.ScheduleJob(fingerJob, fingerTrigger);
+
+                var serviceJob = JobBuilder.Create<ServiceJob>()
+                    .WithIdentity("ServiceJob", "ServiceGroup")
                     .Build();
 
                 var discoverTrigger = TriggerBuilder.Create()
-                    .WithIdentity("DiscoverJob", "DiscoverGroup")
+                    .WithIdentity("ServiceJob", "ServiceGroup")
                     .StartNow()
                     .WithCronSchedule("0 0/1 * * * ? ")
                     .Build();
 
-                await scheduler.ScheduleJob(discoverJob, discoverTrigger);
+                await scheduler.ScheduleJob(serviceJob, discoverTrigger);
 
-                var guardJob = JobBuilder.Create<GuardJob>()
-                    .WithIdentity("GuardJob", "GuardGroup")
+                var startJob = JobBuilder.Create<StartJob>()
+                    .WithIdentity("StartJob", "StartGroup")
                     .Build();
 
                 var guardTrigger = TriggerBuilder.Create()
-                    .WithIdentity("GuardJob", "GuardGroup")
+                    .WithIdentity("StartJob", "StartGroup")
                     .StartNow()
                     .WithCronSchedule("0 0/10 * * * ? ")
                     .Build();
 
-                await scheduler.ScheduleJob(guardJob, guardTrigger);
+                await scheduler.ScheduleJob(startJob, guardTrigger);
             }
         };
 

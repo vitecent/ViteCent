@@ -28,19 +28,12 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
 
         if (!validate)
         {
-            RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("密码不能为空");
-            RuleFor(x => x.Password).Length(6, 16).WithMessage("密码6-16个字符");
-            RuleFor(x => x.Password).Matches(BaseConst.PositiveEnglishUnderline).WithMessage("密码只支持数字、字母、下划线");
+            RuleFor(x => x.Finger).NotNull().NotEmpty().WithMessage("指纹信息不能为空");
         }
-        else
-        {
-            RuleFor(x => x.Password).NotNull().NotEmpty().When(x => !string.IsNullOrWhiteSpace(x.Password))
-                .WithMessage("密码不能为空");
-            RuleFor(x => x.Password).Length(6, 16).When(x => !string.IsNullOrWhiteSpace(x.Password))
-                .WithMessage("密码6-16个字符");
-            RuleFor(x => x.Password).Matches(BaseConst.PositiveEnglishUnderline)
-                .When(x => !string.IsNullOrWhiteSpace(x.Password)).WithMessage("密码只支持数字、字母、下划线");
-        }
+
+        RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("密码不能为空");
+        RuleFor(x => x.Password).Length(6, 16).WithMessage("密码6-16个字符");
+        RuleFor(x => x.Password).Matches(BaseConst.PositiveEnglishUnderline).WithMessage("密码只支持数字、字母、下划线");
 
         RuleFor(x => x.Email).Matches(BaseConst.Email).When(x => !string.IsNullOrWhiteSpace(x.Email))
             .WithMessage("邮箱格式错误");

@@ -10,6 +10,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\ViteCent.Core.Web\ViteCent.Core.Web.csproj" />
+		<ProjectReference Include="..\..\ViteCent.Auth\ViteCent.Auth.Entity\ViteCent.Auth.Entity.csproj" />
+		<ProjectReference Include="..\..\ViteCent.Data\ViteCent.Auth.Data\ViteCent.Auth.Data.csproj" />
 	</ItemGroup>
 
 </Project>

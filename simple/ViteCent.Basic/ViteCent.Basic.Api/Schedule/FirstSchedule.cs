@@ -3,6 +3,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ViteCent.Basic.Data.Schedule;
+using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 using ViteCent.Core.Web.Api;
@@ -17,12 +18,14 @@ namespace ViteCent.Basic.Api.Schedule;
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mediator"></param>
+/// <param name="cache"></param>
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
 public class FirstSchedule(
     ILogger<FirstSchedule> logger,
-    IMediator mediator)
+    IMediator mediator,
+    IBaseCache cache)
     : BaseLoginApi<FirstScheduleArgs, BaseResult>
 {
     /// <summary>
@@ -69,6 +72,22 @@ public class FirstSchedule(
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new BaseResult(500, "用户标识不能为空");
+
+        if (args.Model == (int)ModelEnum.Finger)
+        {
+            if (!cache.HasKey("Finger"))
+                return new BaseResult(500, "请先录入指纹信息");
+
+            var userFinger = cache.GetString<UserFinger>("Finger");
+
+            if (userFinger == null)
+                return new BaseResult(500, "指纹信息不存在");
+
+            if (userFinger.UserId != args.UserId)
+                return new BaseResult(500, "指纹信息不匹配");
+
+            cache.DeleteKey("Finger");
+        }
 
         return await mediator.Send(args, cancellationToken);
     }

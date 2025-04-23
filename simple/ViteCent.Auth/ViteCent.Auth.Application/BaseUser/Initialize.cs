@@ -33,7 +33,7 @@ public class Initialize(
 
         var args = mapper.Map<AddBaseUserArgs>(request);
 
-        var validator = new BaseUserValidator();
+        var validator = new BaseUserValidator(true);
         var result = await validator.ValidateAsync(args, cancellationToken);
 
         if (!result.IsValid)

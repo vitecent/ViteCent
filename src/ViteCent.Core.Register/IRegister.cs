@@ -13,7 +13,7 @@ public interface IRegister
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    Task<Dictionary<string, List<ServiceConfig>>> DiscoverAsync();
+    Task<Dictionary<string, List<ServiceConfig>>> ServiceAsync();
 
     /// <summary>
     /// </summary>

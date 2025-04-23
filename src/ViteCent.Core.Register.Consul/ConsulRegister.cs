@@ -27,7 +27,7 @@ public class ConsulRegister(string uri) : IRegister
     /// <summary>
     /// </summary>
     /// <returns></returns>
-    public async Task<Dictionary<string, List<ServiceConfig>>> DiscoverAsync()
+    public async Task<Dictionary<string, List<ServiceConfig>>> ServiceAsync()
     {
         var result = new Dictionary<string, List<ServiceConfig>>();
 

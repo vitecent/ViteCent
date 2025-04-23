@@ -3,6 +3,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Web.Api;
 
@@ -31,6 +32,12 @@ public class Initialize(
     public override async Task<BaseResult> InvokeAsync(InitializeArgs args)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.Initialize");
+
+        if (string.IsNullOrEmpty(args.Username) && !string.IsNullOrWhiteSpace(args.RealName))
+            args.Username = args.RealName.GetPinYin().ToCamelCase();
+
+        if (string.IsNullOrEmpty(args.Password))
+            args.Password = BaseConst.DefaultPassword;
 
         return await mediator.Send(args);
     }

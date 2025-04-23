@@ -5,6 +5,7 @@ using Quartz;
 using ViteCent.Core.Api.Swagger;
 using ViteCent.Core.Cache.Redis;
 using ViteCent.Core.Job.Quartz;
+using ViteCent.Core.Orm.SqlSugar;
 using ViteCent.Core.Register.Consul;
 using ViteCent.Core.Trace.Zipkin;
 
@@ -73,6 +74,9 @@ public class JobMicroService : MicroService
 
         logger.LogInformation("开始 添加 Zipkin 服务");
         services.AddZipkin(configuration);
+
+        logger.LogInformation("开始添加 SqlSugar 服务");
+        services.AddSqlSugger(configuration);
 
         logger.LogInformation("开始添加  Swagger 服务");
         services.AddSwagger(title, xmls);

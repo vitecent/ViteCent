@@ -29,6 +29,11 @@ public class FirstScheduleArgs : BaseArgs, IRequest<BaseResult>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 打卡类型
+    /// </summary>
+    public int Model { get; set; } = 1;
+
+    /// <summary>
     /// 用户标识
     /// </summary>
     public string UserId { get; set; } = string.Empty;

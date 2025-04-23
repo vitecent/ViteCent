@@ -14,10 +14,10 @@ namespace ViteCent.Job.Api.Jobs;
 /// <param name="cache"></param>
 /// <param name="register"></param>
 /// <param name="logger"></param>
-public class DiscoverJob(
+public class ServiceJob(
     IBaseCache cache,
     IRegister register,
-    ILogger<DiscoverJob> logger)
+    ILogger<ServiceJob> logger)
     : IJob
 {
     /// <summary>
@@ -26,9 +26,9 @@ public class DiscoverJob(
     /// <returns></returns>
     public async Task Execute(IJobExecutionContext context)
     {
-        logger.LogInformation($"DiscoverJob : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+        logger.LogInformation($"ServiceJob : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
 
-        var services = await register.DiscoverAsync();
+        var services = await register.ServiceAsync();
 
         logger.LogInformation($"获取到{services.Count}个服务");
 
