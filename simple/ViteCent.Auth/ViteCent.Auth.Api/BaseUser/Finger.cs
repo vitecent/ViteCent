@@ -3,8 +3,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ViteCent.Auth.Data.BaseUser;
-using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 using ViteCent.Core.Web.Api;
 using ViteCent.Core.Web.Filter;
 
@@ -13,44 +13,48 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Auth.Api.BaseUser;
 
 /// <summary>
-/// 注册指纹接口
+/// 绑定指纹接口
 /// </summary>
 /// <param name="logger"></param>
-/// <param name="cache"></param>
+/// <param name="mediator"></param>
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
 public class Finger(
     ILogger<Finger> logger,
-    IBaseCache cache) : BaseLoginApi<FingerArgs, DataResult<FingerResult>>
+    IMediator mediator) : BaseLoginApi<FingerArgs, BaseResult>
 {
     /// <summary>
-    /// 注册指纹
+    /// 绑定指纹
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
     [HttpPost]
     [Route("Finger")]
-    public override async Task<DataResult<FingerResult>> InvokeAsync(FingerArgs args)
+    public override async Task<BaseResult> InvokeAsync(FingerArgs args)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.Finger");
 
-        if (!cache.HasKey("RegisterFinger"))
-            return new DataResult<FingerResult>(500, "请先录入指纹信息");
+        var cancellationToken = new CancellationToken();
+        var validator = new FingerValidator();
 
-        var finger = cache.GetString<object>("RegisterFinger");
+        var check = await validator.ValidateAsync(args, cancellationToken);
 
-        if (finger == null)
-            return new DataResult<FingerResult>(500, "指纹信息不存在");
+        if (!check.IsValid)
+            return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
-        var result = new DataResult<FingerResult>()
-        {
-            Data = new FingerResult()
-            {
-                Template = finger
-            }
-        };
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.CompanyId))
+                return new BaseResult(500, "公司标识不能为空");
 
-        return await Task.FromResult(result);
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.DepartmentId))
+                return new BaseResult(500, "部门标识不能为空");
+
+        if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (string.IsNullOrEmpty(args.PositionId))
+                return new BaseResult(500, "职位标识不能为空");
+
+        return await mediator.Send(args, cancellationToken);
     }
 }

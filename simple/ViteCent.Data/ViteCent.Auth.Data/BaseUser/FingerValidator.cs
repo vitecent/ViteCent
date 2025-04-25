@@ -1,6 +1,8 @@
-#region
+﻿#region
 
 using FluentValidation;
+using MediatR;
+using ViteCent.Core.Data;
 
 #endregion
 
@@ -8,13 +10,14 @@ namespace ViteCent.Auth.Data.BaseUser;
 
 /// <summary>
 /// </summary>
-[Serializable]
-public class RefreshTokenArgsValidator : AbstractValidator<RefreshTokenArgs>
+public class FingerValidator : AbstractValidator<FingerArgs>
 {
     /// <summary>
     /// </summary>
-    public RefreshTokenArgsValidator()
+    public FingerValidator()
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+
+        RuleFor(x => x.Id).NotNull().NotEmpty().WithMessage("标识不能为空");
     }
 }

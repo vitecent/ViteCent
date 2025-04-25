@@ -37,7 +37,7 @@ public class ResetPasword(
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.ResetPasword");
 
         var cancellationToken = new CancellationToken();
-        var validator = new ResetPaswordArgsValidator();
+        var validator = new ResetPaswordValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
 
         if (!result.IsValid)

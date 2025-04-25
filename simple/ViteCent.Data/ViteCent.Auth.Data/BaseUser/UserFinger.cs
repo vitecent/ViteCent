@@ -10,7 +10,7 @@ public class UserFinger
 
     /// <summary>
     /// </summary>
-    public object Template { get; set; } = new();
+    public string Template { get; set; } = string.Empty;
 
     /// <summary>
     /// </summary>

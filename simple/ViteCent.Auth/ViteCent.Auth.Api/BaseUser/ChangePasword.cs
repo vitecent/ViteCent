@@ -35,7 +35,7 @@ public class ChangePasword(
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.ChangePasword");
 
         var cancellationToken = new CancellationToken();
-        var validator = new ChangePaswordArgsValidator();
+        var validator = new ChangePaswordValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
 
         if (!result.IsValid)

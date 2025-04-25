@@ -33,7 +33,7 @@ public class Login(
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.Login");
 
         var cancellationToken = new CancellationToken();
-        var validator = new LoginArgsValidator();
+        var validator = new LoginValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
 
         if (!result.IsValid)

@@ -33,7 +33,7 @@ public class RefreshToken(
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.RefreshToken");
 
         var cancellationToken = new CancellationToken();
-        var validator = new RefreshTokenArgsValidator();
+        var validator = new RefreshTokenValidator();
         var result = await validator.ValidateAsync(args, cancellationToken);
 
         if (!result.IsValid)

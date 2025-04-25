@@ -26,11 +26,6 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
         RuleFor(x => x.Username).Length(4, 12).WithMessage("用户名4-12个字符");
         RuleFor(x => x.Username).Matches(BaseConst.PositiveEnglish).WithMessage("用户名只支持数字、字母");
 
-        if (!validate)
-        {
-            RuleFor(x => x.Finger).NotNull().NotEmpty().WithMessage("指纹信息不能为空");
-        }
-
         RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("密码不能为空");
         RuleFor(x => x.Password).Length(6, 16).WithMessage("密码6-16个字符");
         RuleFor(x => x.Password).Matches(BaseConst.PositiveEnglishUnderline).WithMessage("密码只支持数字、字母、下划线");

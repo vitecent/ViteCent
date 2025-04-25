@@ -7,6 +7,7 @@
 
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Domain.BaseUser;
+using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core.Web;
 
 #endregion
@@ -23,5 +24,6 @@ public partial class AutoMapperConfig : BaseMapperConfig
     {
         CreateMap<InitializeArgs, AddBaseUserArgs>();
         CreateMap<LoginArgs, LoginEntityArgs>();
+        CreateMap<FingerArgs, GetBaseUserEntityArgs>();
     }
 }

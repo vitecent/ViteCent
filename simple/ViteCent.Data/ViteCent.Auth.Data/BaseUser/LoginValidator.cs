@@ -10,11 +10,11 @@ namespace ViteCent.Auth.Data.BaseUser;
 /// <summary>
 /// </summary>
 [Serializable]
-public class LoginArgsValidator : AbstractValidator<LoginArgs>
+public class LoginValidator : AbstractValidator<LoginArgs>
 {
     /// <summary>
     /// </summary>
-    public LoginArgsValidator()
+    public LoginValidator()
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 

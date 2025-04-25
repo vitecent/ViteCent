@@ -10,11 +10,11 @@ namespace ViteCent.Auth.Data.BaseUser;
 /// <summary>
 /// </summary>
 [Serializable]
-public class ChangePaswordArgsValidator : AbstractValidator<ChangePaswordArgs>
+public class ChangePaswordValidator : AbstractValidator<ChangePaswordArgs>
 {
     /// <summary>
     /// </summary>
-    public ChangePaswordArgsValidator()
+    public ChangePaswordValidator()
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 
