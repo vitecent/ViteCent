@@ -25,12 +25,12 @@ public class StartJob(
         logger.LogInformation($"StartJob : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
 
         var urls = new List<string> {
-            "http://localhost:7000/openapi/v1.json",
-            "http://localhost:8000/openapi/v1.json",
-            "http://localhost:8010/openapi/v1.json",
-            "http://localhost:8020/openapi/v1.json",
-            "http://localhost:8030/openapi/v1.json",
-            "http://localhost:8040/openapi/v1.json",
+            "http://localhost:7000/check",
+            "http://localhost:8000/check",
+            "http://localhost:8010/check",
+            "http://localhost:8020/check",
+            "http://localhost:8030/check",
+            "http://localhost:8040/check",
         };
 
         var client = new BaseHttpClient<BaseResult>();

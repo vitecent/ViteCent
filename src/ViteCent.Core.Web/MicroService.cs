@@ -1,6 +1,7 @@
 ﻿#region
 
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,10 +40,25 @@ public abstract class MicroService
     public virtual async Task RunAsync(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Configuration.AddEnvironmentVariables();
         var configuration = builder.Configuration;
         configuration.SetBasePath(Directory.GetCurrentDirectory());
 
         await ConfigAsync(configuration);
+
+        var isDapr = configuration["Environment"] ?? default!;
+
+        var configPoint = configuration["Port"] ?? default!;
+
+        if (isDapr != "Dapr") configPoint = configuration["Service:Port"] ?? default!;
+
+        logger.LogInformation($"Host ServicePoint ：{configPoint}");
+
+        var flagServicePort = int.TryParse(configPoint, out var servicePort);
+
+        if (!flagServicePort || servicePort < 1) throw new Exception("Appsettings Must Be ServiceConfig.Port");
+
+        builder.WebHost.UseUrls($"http://*:{servicePort}");
 
         var services = builder.Services;
 
