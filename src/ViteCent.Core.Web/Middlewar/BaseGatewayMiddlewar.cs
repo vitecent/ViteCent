@@ -3,6 +3,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Configuration;
+using System.Security.Policy;
+using System.Text.RegularExpressions;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Register;
@@ -130,10 +132,11 @@ public class BaseGatewayMiddlewar(
                 uri = $"http://{microService.Address}:{microService.Port}{pathAndQuery}";
 
                 var replace = $"/{key}";
+
                 var index = uri.IndexOf(replace);
 
                 if (index != -1)
-                    uri = string.Concat(uri.AsSpan(0, index), uri.AsSpan(index + 1));
+                    uri = uri.Remove(index, replace.Length);
 
                 if (microService.IsHttps) uri = uri.Replace("http://", "https://");
             }
