@@ -14,11 +14,12 @@ using ViteCent.Core.Register;
 namespace ViteCent.Core.Web.Middlewar;
 
 /// <summary>
+/// API网关中间件，用于处理请求转发和负载均衡
 /// </summary>
-/// <param name="next"></param>
-/// <param name="httpClient"></param>
-/// <param name="cache"></param>
-/// <param name="configuration"></param>
+/// <param name="next">请求处理管道中的下一个中间件</param>
+/// <param name="httpClient">HTTP客户端工厂，用于创建HTTP请求</param>
+/// <param name="cache">缓存接口，用于存储和获取服务注册信息</param>
+/// <param name="configuration">配置接口，用于获取系统配置信息</param>
 public class BaseGatewayMiddlewar(
     RequestDelegate next,
     IHttpClientFactory httpClient,
@@ -26,8 +27,10 @@ public class BaseGatewayMiddlewar(
     IConfiguration configuration)
 {
     /// <summary>
+    /// 处理HTTP请求的异步方法
     /// </summary>
-    /// <param name="context"></param>
+    /// <param name="context">当前HTTP请求的上下文信息</param>
+    /// <returns>表示异步操作的任务</returns>
     public async Task InvokeAsync(HttpContext context)
     {
         var logger = new BaseLogger(typeof(BaseGatewayMiddlewar));
@@ -96,9 +99,10 @@ public class BaseGatewayMiddlewar(
     }
 
     /// <summary>
+    /// 根据请求上下文获取目标服务的URI
     /// </summary>
-    /// <param name="context"></param>
-    /// <returns></returns>
+    /// <param name="context">当前HTTP请求的上下文信息</param>
+    /// <returns>目标服务的URI，如果未找到匹配的服务则返回null</returns>
     private string GetServiceUri(HttpContext context)
     {
         var baseUri = new Uri(context.Request.GetDisplayUrl());

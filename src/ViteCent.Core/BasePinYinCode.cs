@@ -1,10 +1,13 @@
 ﻿namespace ViteCent.Core;
 
 /// <summary>
+/// 拼音编码数据类，提供中文字符到拼音的映射数据
 /// </summary>
 public class BasePinYinCode
 {
     /// <summary>
+    /// 拼音编码映射数组，每个元素格式为"拼音:对应的汉字列表"
+    /// 例如："a:阿啊吖嗄腌锕" 表示这些汉字的拼音都是'a'
     /// </summary>
     internal static string[] Codes =
     [

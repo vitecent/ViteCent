@@ -10,14 +10,16 @@ using ViteCent.Core.Data;
 namespace ViteCent.Core.Register.Consul;
 
 /// <summary>
+/// Consul服务注册配置扩展类，提供Consul服务注册和配置的功能
 /// </summary>
 public static class ConsulExtensions
 {
     /// <summary>
+    /// 添加Consul服务注册到依赖注入容器
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="services">服务集合</param>
+    /// <param name="configuration">配置信息，用于获取Consul服务地址</param>
+    /// <returns>配置后的服务集合</returns>
     public static IServiceCollection AddConsul(this IServiceCollection services, IConfiguration configuration)
     {
         var uri = configuration["Register"] ?? default!;
@@ -30,9 +32,10 @@ public static class ConsulExtensions
     }
 
     /// <summary>
+    /// 启用Consul服务注册，将当前服务注册到Consul服务中心
     /// </summary>
-    /// <param name="app"></param>
-    /// <returns></returns>
+    /// <param name="app">Web应用程序构建器</param>
+    /// <returns>配置后的应用程序构建器</returns>
     public static async Task<IApplicationBuilder> UseConsulAsync(this WebApplication app)
     {
         var logger = new BaseLogger(typeof(ConsulExtensions));

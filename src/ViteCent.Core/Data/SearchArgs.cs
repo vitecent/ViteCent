@@ -8,36 +8,44 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Core.Data;
 
 /// <summary>
+/// 搜索参数基类，提供通用的查询条件、分页和排序功能
 /// </summary>
 public class SearchArgs : BaseArgs
 {
     /// <summary>
+    /// 参数索引，用于生成SQL参数名称
     /// </summary>
     private int index = 1;
 
     /// <summary>
+    /// 查询条件列表，包含字段名、查询方法和查询值
     /// </summary>
     public List<SearchItem> Args { get; set; } = [];
 
     /// <summary>
+    /// 每页记录数，用于分页查询
     /// </summary>
     public int Limit { get; set; }
 
     /// <summary>
+    /// 当前页码，用于分页查询的偏移量
     /// </summary>
     public int Offset { get; set; }
 
     /// <summary>
+    /// 排序字段列表，定义查询结果的排序规则
     /// </summary>
     public List<OrderField> Order { get; set; } = [];
 
     /// <summary>
+    /// 查询结果的总记录数
     /// </summary>
     public int Total { get; set; }
 
     /// <summary>
+    /// 将查询条件转换为SQL语句和参数
     /// </summary>
-    /// <returns></returns>
+    /// <returns>返回元组，包含SQL WHERE子句和对应的参数字典</returns>
     public (string, object) ToSql()
     {
         var result = string.Empty;
@@ -153,10 +161,11 @@ public class SearchArgs : BaseArgs
     }
 
     /// <summary>
+    /// 将单个查询条件转换为SQL语句片段
     /// </summary>
-    /// <param name="item"></param>
-    /// <param name="parameters"></param>
-    /// <returns></returns>
+    /// <param name="item">查询条件项，包含字段名、查询方法和查询值</param>
+    /// <param name="parameters">SQL参数字典，用于存储参数值</param>
+    /// <returns>返回SQL语句片段</returns>
     private string ToSql(SearchItem item, Dictionary<string, object> parameters)
     {
         var sql = string.Empty;

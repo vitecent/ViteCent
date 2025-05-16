@@ -8,14 +8,17 @@ using ViteCent.Core.Data;
 namespace ViteCent.Core;
 
 /// <summary>
+/// HTTP客户端工具类，提供基础的HTTP请求功能
 /// </summary>
+/// <typeparam name="T">返回结果类型，必须继承自BaseResult类</typeparam>
 public class BaseHttpClient<T> where T : BaseResult
 {
     /// <summary>
+    /// 发送GET请求的异步方法
     /// </summary>
-    /// <param name="uri"></param>
-    /// <param name="token"></param>
-    /// <returns></returns>
+    /// <param name="uri">请求的URL地址</param>
+    /// <param name="token">身份验证令牌，可选参数</param>
+    /// <returns>返回指定类型T的响应结果</returns>
     public async Task<T> GetAsync(string uri, string token = "")
     {
         return await BasePolicy<T>.ExecuteAsync(async () =>
@@ -41,11 +44,12 @@ public class BaseHttpClient<T> where T : BaseResult
     }
 
     /// <summary>
+    /// 发送POST请求的异步方法
     /// </summary>
-    /// <param name="uri"></param>
-    /// <param name="args"></param>
-    /// <param name="token"></param>
-    /// <returns></returns>
+    /// <param name="uri">请求的URL地址</param>
+    /// <param name="args">请求参数对象，包含需要发送的数据</param>
+    /// <param name="token">身份验证令牌，可选参数</param>
+    /// <returns>返回指定类型T的响应结果</returns>
     public async Task<T> PostAsync(string uri, BaseArgs args, string token = "")
     {
         return await BasePolicy<T>.ExecuteAsync(async () =>

@@ -19,7 +19,12 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Core.Web;
 
 /// <summary>
+/// 微服务基础抽象类，提供微服务的基本功能和生命周期管理
 /// </summary>
+/// <remarks>
+/// 该类作为所有微服务的基类，提供统一的配置、构建、启动和停止等生命周期管理。
+/// 继承此类可以快速构建一个具备标准功能的微服务应用。
+/// </remarks>
 public abstract class MicroService
 {
     private readonly BaseLogger logger;
@@ -34,9 +39,17 @@ public abstract class MicroService
     }
 
     /// <summary>
+    /// 运行微服务应用
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
+    /// <param name="args">启动参数数组</param>
+    /// <returns>异步任务</returns>
+    /// <remarks>
+    /// 该方法执行以下操作：
+    /// 1. 初始化WebApplicationBuilder
+    /// 2. 配置服务和中间件
+    /// 3. 启动HTTP服务器
+    /// 4. 注册生命周期事件
+    /// </remarks>
     public virtual async Task RunAsync(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -122,9 +135,13 @@ public abstract class MicroService
     }
 
     /// <summary>
+    /// 构建微服务应用
     /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
+    /// <param name="builder">Web应用构建器</param>
+    /// <returns>异步任务</returns>
+    /// <remarks>
+    /// 在此方法中可以添加自定义服务注册、配置中间件等构建操作
+    /// </remarks>
     protected virtual async Task BuildAsync(WebApplicationBuilder builder)
     {
         logger.LogInformation("开始构建微服务");
@@ -132,9 +149,13 @@ public abstract class MicroService
     }
 
     /// <summary>
+    /// 配置微服务应用
     /// </summary>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="configuration">配置接口</param>
+    /// <returns>异步任务</returns>
+    /// <remarks>
+    /// 在此方法中可以进行配置文件加载、环境变量设置等配置操作
+    /// </remarks>
     protected virtual async Task ConfigAsync(IConfiguration configuration)
     {
         logger.LogInformation("开始配置微服务");
@@ -142,9 +163,13 @@ public abstract class MicroService
     }
 
     /// <summary>
+    /// 启动微服务应用
     /// </summary>
-    /// <param name="app"></param>
-    /// <returns></returns>
+    /// <param name="app">Web应用实例</param>
+    /// <returns>异步任务</returns>
+    /// <remarks>
+    /// 在此方法中可以进行服务启动前的准备工作，如初始化资源、启动后台任务等
+    /// </remarks>
     protected virtual async Task StartAsync(WebApplication app)
     {
         logger.LogInformation("开始启动微服务");
@@ -152,8 +177,12 @@ public abstract class MicroService
     }
 
     /// <summary>
+    /// 停止微服务应用
     /// </summary>
-    /// <returns></returns>
+    /// <returns>异步任务</returns>
+    /// <remarks>
+    /// 在此方法中可以进行服务停止时的清理工作，如释放资源、保存状态等
+    /// </remarks>
     protected virtual async Task StopAsync()
     {
         logger.LogInformation("开始停止微服务");

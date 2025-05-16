@@ -10,25 +10,30 @@ using ViteCent.Core.Trace.Zipkin;
 namespace ViteCent.Core.Web;
 
 /// <summary>
+/// 文档微服务类，提供Consul服务注册、Zipkin链路追踪和Swagger文档服务等功能
 /// </summary>
 public class FilesMicroService : MicroService
 {
     /// <summary>
+    /// 日志记录器实例
     /// </summary>
     private readonly BaseLogger logger;
 
     /// <summary>
+    /// Swagger文档标题
     /// </summary>
     private readonly string title;
 
     /// <summary>
+    /// XML文档文件路径列表
     /// </summary>
     private readonly List<string> xmls;
 
     /// <summary>
+    /// 初始化文档微服务实例
     /// </summary>
-    /// <param name="title"></param>
-    /// <param name="xmls"></param>
+    /// <param name="title">Swagger文档标题</param>
+    /// <param name="xmls">XML文档文件路径列表</param>
     public FilesMicroService(string title, List<string> xmls)
     {
         this.title = title;
@@ -40,9 +45,10 @@ public class FilesMicroService : MicroService
     }
 
     /// <summary>
+    /// 构建微服务，配置Consul注册、Zipkin链路追踪和Swagger文档服务
     /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
+    /// <param name="builder">Web应用程序构建器</param>
+    /// <returns>异步任务</returns>
     protected override async Task BuildAsync(WebApplicationBuilder builder)
     {
         await base.BuildAsync(builder);
@@ -61,9 +67,10 @@ public class FilesMicroService : MicroService
     }
 
     /// <summary>
+    /// 启动微服务，配置中间件管道
     /// </summary>
-    /// <param name="app"></param>
-    /// <returns></returns>
+    /// <param name="app">Web应用程序实例</param>
+    /// <returns>异步任务</returns>
     protected override async Task StartAsync(WebApplication app)
     {
         await base.StartAsync(app);

@@ -12,18 +12,20 @@ namespace ViteCent.Core;
 public static partial class BaseRegex
 {
     /// <summary>
+    /// 验证字符串是否只包含中文字符
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">待验证的字符串</param>
+    /// <returns>如果字符串只包含中文字符返回true，否则返回false</returns>
     public static bool IsChinese(this string input)
     {
         return Chinese().IsMatch(input);
     }
 
     /// <summary>
+    /// 验证字符串是否只包含中文和英文字符
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">待验证的字符串</param>
+    /// <returns>如果字符串只包含中文和英文字符返回true，否则返回false</returns>
     public static bool IsChineseEnglish(this string input)
     {
         return ChineseEnglish().IsMatch(input);

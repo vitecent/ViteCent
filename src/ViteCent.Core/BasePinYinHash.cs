@@ -1,10 +1,13 @@
 ﻿namespace ViteCent.Core;
 
 /// <summary>
+/// 拼音哈希码数据类，提供中文字符的拼音哈希映射数据
 /// </summary>
 public class BasePinYinHash
 {
     /// <summary>
+    /// 拼音哈希码数组，存储中文字符的拼音哈希映射数据
+    /// 每个子数组代表一组拼音的哈希码集合，用于快速匹配和查找中文字符的拼音
     /// </summary>
     private static short[][] _hashes =
     [
@@ -425,7 +428,9 @@ public class BasePinYinHash
     ];
 
     /// <summary>
+    /// 获取或设置拼音哈希码数组
     /// </summary>
+    /// <value>包含拼音哈希映射数据的二维数组</value>
     public static short[][] Hashes
     {
         get => _hashes;

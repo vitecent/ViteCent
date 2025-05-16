@@ -11,25 +11,30 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Core.Orm.SqlSugar;
 
 /// <summary>
+/// SqlSugar数据库操作工厂类，提供数据库连接、事务管理和CRUD等操作功能
 /// </summary>
 public class SqlSugarFactory : IFactory
 {
     /// <summary>
+    /// SqlSugar数据库操作客户端实例
     /// </summary>
     private readonly SqlSugarClient client = default!;
 
     /// <summary>
+    /// 待执行的数据库命令列表
     /// </summary>
     private readonly List<Command> commands = [];
 
     /// <summary>
+    /// 日志记录器实例
     /// </summary>
     private readonly BaseLogger logger;
 
     /// <summary>
+    /// 初始化SqlSugar数据库操作工厂类的新实例
     /// </summary>
-    /// <param name="dataBase"></param>
-    /// <param name="log"></param>
+    /// <param name="dataBase">数据库连接配置名称</param>
+    /// <param name="log">是否启用SQL日志记录，默认为true</param>
     public SqlSugarFactory(string dataBase, bool log = true)
     {
         logger = new BaseLogger(typeof(SqlSugarFactory));
@@ -84,8 +89,9 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 异步提交所有待执行的数据库命令
     /// </summary>
-    /// <returns></returns>
+    /// <returns>返回操作结果，包含状态码和错误信息（如果有）</returns>
     public async Task<BaseResult> CommitAsync()
     {
         if (commands.Count <= 0) return new BaseResult();
@@ -138,37 +144,41 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 根据条件删除指定类型的数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="where"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="where">删除条件表达式</param>
     public void Delete<T>(Expression<Func<T, bool>> where) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Where, Where = where });
     }
 
     /// <summary>
+    /// 删除指定的实体数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entity"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="entity">要删除的实体对象</param>
     public void Delete<T>(T entity) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Entity, Entity = entity });
     }
 
     /// <summary>
+    /// 批量删除实体数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entitys"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="entitys">要删除的实体对象列表</param>
     public void Delete<T>(List<T> entitys) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Entity, Entity = entitys });
     }
 
     /// <summary>
+    /// 使用SQL语句删除数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="sql"></param>
-    /// <param name="parameters"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="sql">删除SQL语句</param>
+    /// <param name="parameters">SQL参数对象</param>
     public void Delete<T>(string sql, object parameters = default!) where T : class, new()
     {
         commands.Add(new Command
@@ -176,19 +186,21 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 获取快速批量操作接口
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <returns>返回快速批量操作接口</returns>
     public IFastest<T> Fastest<T>() where T : class, new()
     {
         return client.Fastest<T>();
     }
 
     /// <summary>
+    /// 获取指定数据表的字段信息
     /// </summary>
-    /// <param name="tableName"></param>
-    /// <param name="cache"></param>
-    /// <returns></returns>
+    /// <param name="tableName">表名</param>
+    /// <param name="cache">是否使用缓存，默认为false</param>
+    /// <returns>返回字段信息列表</returns>
     public async Task<List<BaseField>> GetFields(string tableName, bool cache = false)
     {
         var fields = client.DbMaintenance.GetColumnInfosByTableName(tableName, cache);
@@ -211,9 +223,10 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 获取数据库中所有表的信息
     /// </summary>
-    /// <param name="cache"></param>
-    /// <returns></returns>
+    /// <param name="cache">是否使用缓存，默认为false</param>
+    /// <returns>返回数据表信息列表</returns>
     public async Task<List<BaseTable>> GetTables(bool cache = false)
     {
         var tables = client.DbMaintenance.GetTableInfoList(cache);
@@ -226,28 +239,31 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 插入单个实体数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entity"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="entity">要插入的实体对象</param>
     public void Insert<T>(T entity) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Insert, DataType = DataEnum.Entity, Entity = entity });
     }
 
     /// <summary>
+    /// 批量插入实体数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entitys"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="entitys">要插入的实体对象列表</param>
     public void Insert<T>(List<T> entitys) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Insert, DataType = DataEnum.Entity, Entity = entitys });
     }
 
     /// <summary>
+    /// 使用SQL语句插入数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="sql"></param>
-    /// <param name="parameters"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="sql">插入SQL语句</param>
+    /// <param name="parameters">SQL参数对象</param>
     public void Insert<T>(string sql, object parameters = default!) where T : class, new()
     {
         commands.Add(new Command
@@ -255,10 +271,11 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 异步执行分页查询
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="args"></param>
-    /// <returns></returns>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="args">查询参数，包含分页、排序等信息</param>
+    /// <returns>返回分页查询结果列表</returns>
     public async Task<List<T>> PageAsync<T>(SearchArgs args) where T : class, new()
     {
         if (args.Offset < 1) args.Offset = 1;
@@ -282,28 +299,31 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 获取查询接口
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <returns>返回SqlSugar查询接口</returns>
     public ISugarQueryable<T> Query<T>() where T : class, new()
     {
         return client.Queryable<T>();
     }
 
     /// <summary>
+    /// 更新单个实体数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entity"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="entity">要更新的实体对象</param>
     public void Update<T>(T entity) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Update, DataType = DataEnum.Entity, Entity = entity });
     }
 
     /// <summary>
+    /// 更新实体的指定列
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entity"></param>
-    /// <param name="columns"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="entity">要更新的实体对象</param>
+    /// <param name="columns">要更新的列选择器表达式</param>
     public void Update<T>(T entity, Expression<Func<T, object>> columns) where T : class, new()
     {
         commands.Add(new Command
@@ -311,19 +331,21 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 批量更新实体数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entitys"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="entitys">要更新的实体对象列表</param>
     public void Update<T>(List<T> entitys) where T : class, new()
     {
         commands.Add(new Command { CommandType = CommandEnum.Update, DataType = DataEnum.Entity, Entity = entitys });
     }
 
     /// <summary>
+    /// 批量更新实体的指定列
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entitys"></param>
-    /// <param name="columns"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="entitys">要更新的实体对象列表</param>
+    /// <param name="columns">要更新的列选择器表达式</param>
     public void Update<T>(List<T> entitys, Expression<Func<T, object>> columns) where T : class, new()
     {
         commands.Add(new Command
@@ -331,10 +353,11 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 使用SQL语句更新数据
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="sql"></param>
-    /// <param name="parameters"></param>
+    /// <typeparam name="T">实体类型</typeparam>
+    /// <param name="sql">更新SQL语句</param>
+    /// <param name="parameters">SQL参数对象</param>
     public void Update<T>(string sql, object parameters = default!) where T : class, new()
     {
         commands.Add(new Command
@@ -342,9 +365,10 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
+    /// 根据数据库类型字符串获取对应的DbType枚举值
     /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
+    /// <param name="type">数据库类型字符串</param>
+    /// <returns>返回对应的DbType枚举值</returns>
     private static DbType GetDbType(string type)
     {
         return type switch

@@ -7,21 +7,26 @@ using Microsoft.Extensions.Configuration;
 namespace ViteCent.Core.Orm;
 
 /// <summary>
+/// 数据库配置管理工具类，用于管理和访问数据库连接配置信息
 /// </summary>
 public class FactoryConfigExtensions
 {
     /// <summary>
+    /// 数据库配置集合，存储所有已注册的数据库配置信息
     /// </summary>
     private static readonly List<FactoryConfig> configs = [];
 
     /// <summary>
+    /// 用于线程同步的锁对象，确保配置操作的线程安全
     /// </summary>
     private static readonly object key = new();
 
     /// <summary>
+    /// 根据配置名称获取数据库配置信息
     /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
+    /// <param name="key">配置名称</param>
+    /// <returns>返回匹配的数据库配置信息，如果未找到则抛出异常</returns>
+    /// <exception cref="Exception">当参数key为空或配置不存在时抛出异常</exception>
     public static FactoryConfig GetConfig(string key)
     {
         if (string.IsNullOrWhiteSpace(key)) throw new Exception("参数key不能为空");
@@ -32,8 +37,10 @@ public class FactoryConfigExtensions
     }
 
     /// <summary>
+    /// 设置数据库配置信息，从配置文件中读取并初始化数据库连接信息
     /// </summary>
-    /// <param name="configuration"></param>
+    /// <param name="configuration">配置信息对象，包含数据库连接相关配置</param>
+    /// <exception cref="Exception">当配置文件缺少必要的数据库配置信息时抛出异常</exception>
     public static void SetConfig(IConfiguration configuration)
     {
         var logger = new BaseLogger(typeof(FactoryConfigExtensions));
@@ -117,10 +124,12 @@ public class FactoryConfigExtensions
     }
 
     /// <summary>
+    /// 解密数据库连接字符串
     /// </summary>
-    /// <param name="input"></param>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="input">需要解密的数据库连接字符串</param>
+    /// <param name="configuration">包含解密配置信息的配置对象</param>
+    /// <returns>解密后的数据库连接字符串</returns>
+    /// <exception cref="Exception">当解密类型不支持或配置信息不完整时抛出异常</exception>
     private static string Decrypt(string input, IConfiguration configuration)
     {
         var type = configuration["Encrypt:Type"] ?? string.Empty;
@@ -148,9 +157,10 @@ public class FactoryConfigExtensions
     }
 
     /// <summary>
+    /// 判断是否启用数据库连接字符串加密
     /// </summary>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="configuration">配置信息对象</param>
+    /// <returns>如果启用加密返回true，否则返回false</returns>
     private static bool IsEncrypt(IConfiguration configuration)
     {
         var _switch = configuration["Encrypt:Switch"] ?? string.Empty;

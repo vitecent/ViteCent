@@ -14,29 +14,35 @@ using ViteCent.Core.Trace.Zipkin;
 namespace ViteCent.Core.Web;
 
 /// <summary>
+/// 任务调度微服务类，提供Quartz任务调度、Consul服务注册、Zipkin链路追踪等功能
 /// </summary>
 public class JobMicroService : MicroService
 {
     /// <summary>
+    /// 日志记录器实例
     /// </summary>
     private readonly BaseLogger logger;
 
     /// <summary>
+    /// 服务标题
     /// </summary>
     private readonly string title;
 
     /// <summary>
+    /// XML文档路径列表
     /// </summary>
     private readonly List<string> xmls;
 
     /// <summary>
+    /// Quartz调度器实例
     /// </summary>
     private IScheduler scheduler = default!;
 
     /// <summary>
+    /// 初始化任务调度微服务
     /// </summary>
-    /// <param name="title"></param>
-    /// <param name="xmls"></param>
+    /// <param name="title">服务标题，用于Swagger文档显示</param>
+    /// <param name="xmls">XML文档路径列表，用于Swagger文档生成</param>
     public JobMicroService(string title, List<string> xmls)
     {
         this.title = title;
@@ -48,17 +54,20 @@ public class JobMicroService : MicroService
     }
 
     /// <summary>
+    /// 构建服务时的回调委托，用于自定义服务配置
     /// </summary>
     public Action<WebApplicationBuilder> OnBuild { get; set; } = default!;
 
     /// <summary>
+    /// 注册Quartz任务时的回调委托，用于配置任务调度
     /// </summary>
     public Action<IScheduler> OnRegist { get; set; } = default!;
 
     /// <summary>
+    /// 构建微服务应用
     /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
+    /// <param name="builder">Web应用构建器</param>
+    /// <returns>构建任务</returns>
     protected override async Task BuildAsync(WebApplicationBuilder builder)
     {
         await base.BuildAsync(builder);
@@ -99,9 +108,10 @@ public class JobMicroService : MicroService
     }
 
     /// <summary>
+    /// 启动微服务应用
     /// </summary>
-    /// <param name="app"></param>
-    /// <returns></returns>
+    /// <param name="app">Web应用实例</param>
+    /// <returns>启动任务</returns>
     protected override async Task StartAsync(WebApplication app)
     {
         await base.StartAsync(app);

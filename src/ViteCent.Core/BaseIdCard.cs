@@ -1,13 +1,15 @@
 ﻿namespace ViteCent.Core;
 
 /// <summary>
+/// 身份证号码工具类，提供身份证号码的验证和信息提取功能
 /// </summary>
 public static class IdCardHelper
 {
     /// <summary>
+    /// 从身份证号码中提取出生日期
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">身份证号码字符串（支持15位或18位）</param>
+    /// <returns>格式化的出生日期字符串（格式：YYYY-MM-DD），如果身份证号码无效则返回空字符串</returns>
     public static string GetIdAsyncCardBirthday(this string input)
     {
         if (!input.IsIdCard()) return string.Empty;
@@ -20,27 +22,30 @@ public static class IdCardHelper
     }
 
     /// <summary>
+    /// 从15位身份证号码中提取出生日期
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">15位身份证号码字符串</param>
+    /// <returns>格式化的出生日期字符串（格式：YY-MM-DD）</returns>
     public static string GetIdAsyncCardBirthday15(this string input)
     {
         return input.Substring(6, 6).Insert(4, "-").Insert(2, "-");
     }
 
     /// <summary>
+    /// 从18位身份证号码中提取出生日期
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">18位身份证号码字符串</param>
+    /// <returns>格式化的出生日期字符串（格式：YYYY-MM-DD）</returns>
     public static string GetIdAsyncCardBirthday18(this string input)
     {
         return input.Substring(6, 8).Insert(6, "-").Insert(4, "-");
     }
 
     /// <summary>
+    /// 验证身份证号码是否有效
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">待验证的身份证号码字符串</param>
+    /// <returns>如果身份证号码有效返回true，否则返回false</returns>
     public static bool IsIdCard(this string input)
     {
         if (string.IsNullOrWhiteSpace(input)) return false;
@@ -53,9 +58,10 @@ public static class IdCardHelper
     }
 
     /// <summary>
+    /// 验证15位身份证号码是否有效
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">待验证的15位身份证号码字符串</param>
+    /// <returns>如果15位身份证号码有效返回true，否则返回false</returns>
     public static bool IsIdCard15(this string input)
     {
         //数字验证
@@ -74,9 +80,10 @@ public static class IdCardHelper
     }
 
     /// <summary>
+    /// 验证18位身份证号码是否有效（包含校验码验证）
     /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <param name="input">待验证的18位身份证号码字符串</param>
+    /// <returns>如果18位身份证号码有效返回true，否则返回false</returns>
     public static bool IsIdCard18(this string input)
     {
         //数字验证

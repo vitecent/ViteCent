@@ -15,25 +15,30 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Core.Web;
 
 /// <summary>
+/// 基础微服务类，提供统一的服务配置和中间件集成功能
 /// </summary>
 public class BaseMicroService : MicroService
 {
     /// <summary>
+    /// 日志记录器实例
     /// </summary>
     private readonly BaseLogger logger;
 
     /// <summary>
+    /// 服务标题
     /// </summary>
     private readonly string title;
 
     /// <summary>
+    /// XML文档路径列表
     /// </summary>
     private readonly List<string> xmls;
 
     /// <summary>
+    /// 初始化基础微服务实例
     /// </summary>
-    /// <param name="title"></param>
-    /// <param name="xmls"></param>
+    /// <param name="title">服务的标题，用于Swagger文档显示</param>
+    /// <param name="xmls">XML文档路径列表，用于Swagger文档生成</param>
     public BaseMicroService(string title, List<string> xmls)
     {
         this.title = title;
@@ -45,17 +50,20 @@ public class BaseMicroService : MicroService
     }
 
     /// <summary>
+    /// 服务构建回调委托，用于在服务构建阶段添加自定义配置
     /// </summary>
     public Action<WebApplicationBuilder> OnBuild { get; set; } = default!;
 
     /// <summary>
+    /// 服务启动回调委托，用于在服务启动阶段添加自定义中间件
     /// </summary>
     public Action<WebApplication> OnStart { get; set; } = default!;
 
     /// <summary>
+    /// 构建微服务应用，配置基础服务和中间件
     /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
+    /// <param name="builder">Web应用构建器实例</param>
+    /// <returns>异步任务</returns>
     protected override async Task BuildAsync(WebApplicationBuilder builder)
     {
         await base.BuildAsync(builder);
@@ -91,9 +99,10 @@ public class BaseMicroService : MicroService
     }
 
     /// <summary>
+    /// 启动微服务应用，配置中间件管道
     /// </summary>
-    /// <param name="app"></param>
-    /// <returns></returns>
+    /// <param name="app">Web应用实例</param>
+    /// <returns>异步任务</returns>
     protected override async Task StartAsync(WebApplication app)
     {
         await base.StartAsync(app);

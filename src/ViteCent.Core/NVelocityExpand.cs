@@ -6,20 +6,24 @@ using NVelocity.Runtime;
 namespace ViteCent.Core;
 
 /// <summary>
+/// NVelocity模板引擎扩展类，提供模板渲染、变量设置和保存等功能
 /// </summary>
 public class NVelocityExpand
 {
     /// <summary>
+    /// Velocity上下文对象，用于存储模板变量
     /// </summary>
     private readonly VelocityContext vc = default!;
 
     /// <summary>
+    /// Velocity引擎实例，用于模板解析和渲染
     /// </summary>
     private readonly VelocityEngine ve = default!;
 
     /// <summary>
+    /// 初始化NVelocity模板引擎扩展类
     /// </summary>
-    /// <param name="path"></param>
+    /// <param name="path">模板文件所在的目录路径</param>
     public NVelocityExpand(string path)
     {
         ve = new VelocityEngine();
@@ -34,9 +38,10 @@ public class NVelocityExpand
     }
 
     /// <summary>
+    /// 渲染指定路径的模板并返回渲染结果
     /// </summary>
-    /// <param name="path"></param>
-    /// <returns></returns>
+    /// <param name="path">模板文件的相对路径</param>
+    /// <returns>渲染后的字符串内容</returns>
     public string Display(string path)
     {
         var vm = ve.GetTemplate(path);
@@ -46,19 +51,21 @@ public class NVelocityExpand
     }
 
     /// <summary>
+    /// 向模板上下文中添加变量
     /// </summary>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
+    /// <param name="key">变量名称</param>
+    /// <param name="value">变量值</param>
     public void Put(string key, object value)
     {
         vc.Put(key, value);
     }
 
     /// <summary>
+    /// 渲染指定路径的模板并保存到目标文件
     /// </summary>
-    /// <param name="path"></param>
-    /// <param name="savePath"></param>
-    /// <returns></returns>
+    /// <param name="path">模板文件的相对路径</param>
+    /// <param name="savePath">保存目标文件的完整路径</param>
+    /// <returns>保存是否成功</returns>
     public bool Save(string path, string savePath)
     {
         var vm = ve.GetTemplate(path);

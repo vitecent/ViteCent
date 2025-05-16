@@ -7,26 +7,30 @@ using Consul;
 namespace ViteCent.Core.Register.Consul;
 
 /// <summary>
+/// Consul服务注册实现类，提供服务注册、注销和服务查询功能
 /// </summary>
-/// <param name="uri"></param>
+/// <param name="uri">Consul服务器地址</param>
 public class ConsulRegister(string uri) : IRegister
 {
     /// <summary>
+    /// Consul客户端实例，用于与Consul服务器进行通信
     /// </summary>
     private readonly ConsulClient client = new(x => { x.Address = new Uri(uri); });
 
     /// <summary>
+    /// 注销指定的服务实例
     /// </summary>
-    /// <param name="serviceId"></param>
-    /// <returns></returns>
+    /// <param name="serviceId">要注销的服务实例ID</param>
+    /// <returns>表示异步操作的任务</returns>
     public async Task DeregisterAsync(string serviceId)
     {
         await client.Agent.ServiceDeregister(serviceId);
     }
 
     /// <summary>
+    /// 获取当前注册的所有服务实例信息
     /// </summary>
-    /// <returns></returns>
+    /// <returns>返回服务名称与服务实例列表的字典集合</returns>
     public async Task<Dictionary<string, List<ServiceConfig>>> ServiceAsync()
     {
         var result = new Dictionary<string, List<ServiceConfig>>();
@@ -68,9 +72,10 @@ public class ConsulRegister(string uri) : IRegister
     }
 
     /// <summary>
+    /// 注册微服务实例到Consul
     /// </summary>
-    /// <param name="microService"></param>
-    /// <returns></returns>
+    /// <param name="microService">微服务配置信息，包含服务ID、名称、地址、端口等</param>
+    /// <returns>表示异步操作的任务</returns>
     public async Task RegisterAsync(ServiceConfig microService)
     {
         var service = new AgentServiceRegistration
