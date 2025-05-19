@@ -8,14 +8,16 @@ using Microsoft.Extensions.DependencyInjection;
 namespace ViteCent.Core.Cache.Redis;
 
 /// <summary>
+/// Redis缓存配置扩展类
 /// </summary>
 public static class RedisExtensions
 {
     /// <summary>
+    /// 注册Redis缓存服务
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="services">服务集合</param>
+    /// <param name="configuration">配置信息</param>
+    /// <returns>返回服务集合</returns>
     public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration)
     {
         var logger = new BaseLogger(typeof(RedisExtensions));
@@ -35,10 +37,11 @@ public static class RedisExtensions
     }
 
     /// <summary>
+    /// 解密连接字符串
     /// </summary>
-    /// <param name="input"></param>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="input">加密的连接字符串</param>
+    /// <param name="configuration">配置信息</param>
+    /// <returns>返回解密后的连接字符串</returns>
     private static string Decrypt(string input, IConfiguration configuration)
     {
         var type = configuration["Encrypt:Type"] ?? string.Empty;
@@ -66,9 +69,10 @@ public static class RedisExtensions
     }
 
     /// <summary>
+    /// 判断是否启用加密
     /// </summary>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="configuration">配置信息</param>
+    /// <returns>返回是否启用加密</returns>
     private static bool IsEncrypt(IConfiguration configuration)
     {
         var _switch = configuration["Encrypt:Switch"] ?? string.Empty;

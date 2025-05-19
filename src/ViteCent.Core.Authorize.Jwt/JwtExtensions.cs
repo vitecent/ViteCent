@@ -9,14 +9,16 @@ using System.Text;
 namespace ViteCent.Core.Authorize.Jwt;
 
 /// <summary>
+/// JWT认证配置扩展类，提供JWT认证服务的注册和中间件配置
 /// </summary>
 public static class JwtExtensions
 {
     /// <summary>
+    /// 添加JWT认证服务到依赖注入容器
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="services">服务集合</param>
+    /// <param name="configuration">配置信息，用于获取JWT相关配置项（Key、Issuer、Audience）</param>
+    /// <returns>返回服务集合以支持链式调用</returns>
     public static IServiceCollection AddJwt(this IServiceCollection services, IConfiguration configuration)
     {
         var logger = new BaseLogger(typeof(JwtExtensions));
@@ -58,9 +60,10 @@ public static class JwtExtensions
     }
 
     /// <summary>
+    /// 启用JWT认证中间件
     /// </summary>
-    /// <param name="app"></param>
-    /// <returns></returns>
+    /// <param name="app">Web应用程序构建器</param>
+    /// <returns>返回应用程序构建器以支持链式调用</returns>
     public static IApplicationBuilder UseJwt(this WebApplication app)
     {
         app.UseAuthentication();

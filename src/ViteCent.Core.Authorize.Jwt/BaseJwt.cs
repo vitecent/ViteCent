@@ -9,14 +9,16 @@ using ViteCent.Core.Data;
 namespace ViteCent.Core.Authorize.Jwt;
 
 /// <summary>
+/// JWT令牌生成工具类，提供JWT令牌的创建和管理功能
 /// </summary>
 public class BaseJwt
 {
     /// <summary>
+    /// 生成JWT令牌
     /// </summary>
-    /// <param name="user"></param>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
+    /// <param name="user">用户信息对象，包含需要写入令牌的用户数据</param>
+    /// <param name="configuration">配置对象，用于获取JWT相关配置项（Key、Issuer、Audience、Expires等）</param>
+    /// <returns>返回生成的JWT令牌字符串</returns>
     public static string GenerateJwtToken(BaseUserInfo user, IConfiguration configuration)
     {
         var logger = new BaseLogger(typeof(BaseJwt));
