@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Basic.Entity.UserLeave;
 
 /// <summary>
-/// 获取请假申请参数
+/// 获取请假申请模型参数
 /// </summary>
 [Serializable]
 public class GetUserLeaveEntityArgs : IRequest<UserLeaveEntity>

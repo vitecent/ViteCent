@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseUserRole;
 
 /// <summary>
-/// 批量新增用户角色参数
+/// 批量新增用户角色模型
 /// </summary>
 [Serializable]
 public class AddBaseUserRoleEntityListArgs : IRequest<BaseResult>

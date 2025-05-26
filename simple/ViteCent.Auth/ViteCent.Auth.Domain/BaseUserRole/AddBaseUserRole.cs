@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseUserRole;
 
 /// <summary>
-/// 新增用户角色
+/// 新增用户角色领域
 /// </summary>
 /// <param name="logger"></param>
 public class AddBaseUserRole(

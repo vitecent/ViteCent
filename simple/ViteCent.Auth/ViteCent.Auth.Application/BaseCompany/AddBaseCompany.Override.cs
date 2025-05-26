@@ -33,7 +33,7 @@ public partial class AddBaseCompany
 
         if (companyIds.Count > 0)
         {
-            var companys = await mediator.CheckCompany(companyIds);
+            var companys = await mediator.CheckCompanys(companyIds);
 
             if (!companys.Success)
                 return companys;

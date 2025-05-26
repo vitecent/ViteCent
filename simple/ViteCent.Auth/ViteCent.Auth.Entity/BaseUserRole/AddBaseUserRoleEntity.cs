@@ -14,7 +14,7 @@ using SqlSugar;
 namespace ViteCent.Auth.Entity.BaseUserRole;
 
 /// <summary>
-/// 新增用户角色参数
+/// 新增用户角色模型
 /// </summary>
 [Serializable]
 [SugarTable("base_user_role")]

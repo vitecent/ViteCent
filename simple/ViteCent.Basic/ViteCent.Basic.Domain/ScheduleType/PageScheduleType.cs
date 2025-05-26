@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.ScheduleType;
 
 /// <summary>
-/// 基础排班分页
+/// 基础排班分页领域
 /// </summary>
 /// <param name="logger"></param>
 public class PageScheduleType(ILogger<PageScheduleType> logger) : BaseDomain<ScheduleTypeEntity>, IRequestHandler<SearchScheduleTypeEntityArgs, List<ScheduleTypeEntity>>

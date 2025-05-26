@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.RepairSchedule;
 
 /// <summary>
-/// 批量新增补卡申请参数
+/// 批量新增补卡申请模型
 /// </summary>
 [Serializable]
 public class AddRepairScheduleEntityListArgs : IRequest<BaseResult>

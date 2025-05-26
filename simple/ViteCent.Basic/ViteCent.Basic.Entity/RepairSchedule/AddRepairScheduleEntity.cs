@@ -14,7 +14,7 @@ using SqlSugar;
 namespace ViteCent.Basic.Entity.RepairSchedule;
 
 /// <summary>
-/// 新增补卡申请参数
+/// 新增补卡申请模型
 /// </summary>
 [Serializable]
 [SugarTable("repair_schedule")]

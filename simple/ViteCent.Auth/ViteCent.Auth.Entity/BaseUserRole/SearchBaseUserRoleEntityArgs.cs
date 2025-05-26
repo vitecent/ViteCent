@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseUserRole;
 
 /// <summary>
-/// 搜索用户角色参数
+/// 搜索用户角色模型参数
 /// </summary>
 [Serializable]
 public class SearchBaseUserRoleEntityArgs : SearchArgs, IRequest<List<BaseUserRoleEntity>>

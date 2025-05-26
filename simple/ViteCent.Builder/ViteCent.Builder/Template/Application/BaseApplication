@@ -37,7 +37,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="mediator"></param>
     /// <param name="companyIds"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseCompany$!{Setting.Entity.Name}>> CheckCompany(this IMediator mediator,
+    public static async Task<PageResult<BaseCompany$!{Setting.Entity.Name}>> CheckCompanys(this IMediator mediator,
         List<string> companyIds)
     {
         var searchCompanyArgs = new $!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}()
@@ -113,7 +113,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="companyIds"></param>
     /// <param name="departmentIds"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseDepartment$!{Setting.Entity.Name}>> CheckDepartment(this IMediator mediator,
+    public static async Task<PageResult<BaseDepartment$!{Setting.Entity.Name}>> CheckDepartments(this IMediator mediator,
         List<string> companyIds,
         List<string> departmentIds)
     {
@@ -162,7 +162,7 @@ public static class Base$!{Setting.Application.Name}
         string companyId,
         string departmentId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId))
+        if (string.IsNullOrWhiteSpace(departmentId))
             return new DataResult<BaseDepartment$!{Setting.Entity.Name}>();
 
         var getDepartmentArgs = new $!{Setting.GetName}BaseDepartment$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -193,7 +193,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="resourceIds"></param>
     /// <param name="operationIds"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseOperation$!{Setting.Entity.Name}>> CheckOperation(this IMediator mediator,
+    public static async Task<PageResult<BaseOperation$!{Setting.Entity.Name}>> CheckOperations(this IMediator mediator,
         List<string> companyIds,
         List<string> systemIds,
         List<string> resourceIds,
@@ -254,8 +254,7 @@ public static class Base$!{Setting.Application.Name}
         string resourceId,
         string operationId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId)
-            && string.IsNullOrWhiteSpace(resourceId) && string.IsNullOrWhiteSpace(operationId))
+        if (string.IsNullOrWhiteSpace(operationId))
             return new DataResult<BaseOperation$!{Setting.Entity.Name}>();
 
         var getOperationArgs = new $!{Setting.GetName}BaseOperation$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -286,7 +285,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="companyIds"></param>
     /// <param name="positionIds"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BasePosition$!{Setting.Entity.Name}>> CheckPosition(this IMediator mediator,
+    public static async Task<PageResult<BasePosition$!{Setting.Entity.Name}>> CheckPositions(this IMediator mediator,
         List<string> companyIds,
         List<string> positionIds)
     {
@@ -335,7 +334,7 @@ public static class Base$!{Setting.Application.Name}
         string companyId,
         string positionId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(positionId))
+        if (string.IsNullOrWhiteSpace(positionId))
             return new DataResult<BasePosition$!{Setting.Entity.Name}>();
 
         var getPositionArgs = new $!{Setting.GetName}BasePosition$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -365,7 +364,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="systemIds"></param>
     /// <param name="resourceIds"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseResource$!{Setting.Entity.Name}>> CheckResource(this IMediator mediator,
+    public static async Task<PageResult<BaseResource$!{Setting.Entity.Name}>> CheckResources(this IMediator mediator,
         List<string> companyIds,
         List<string> systemIds,
         List<string> resourceIds)
@@ -420,7 +419,7 @@ public static class Base$!{Setting.Application.Name}
         string systemId,
         string resourceId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId) && string.IsNullOrWhiteSpace(resourceId))
+        if (string.IsNullOrWhiteSpace(resourceId))
             return new DataResult<BaseResource$!{Setting.Entity.Name}>();
 
         var getResourceArgs = new $!{Setting.GetName}BaseResource$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -450,7 +449,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="companyIds"></param>
     /// <param name="roleIds"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseRole$!{Setting.Entity.Name}>> CheckRole(this IMediator mediator,
+    public static async Task<PageResult<BaseRole$!{Setting.Entity.Name}>> CheckRoles(this IMediator mediator,
         List<string> companyIds,
         List<string> roleIds)
     {
@@ -499,7 +498,7 @@ public static class Base$!{Setting.Application.Name}
         string companyId,
         string roleId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(roleId))
+        if (string.IsNullOrWhiteSpace(roleId))
             return new DataResult<BaseRole$!{Setting.Entity.Name}>();
 
         var getRoleArgs = new $!{Setting.GetName}BaseRole$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -528,7 +527,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="companyIds"></param>
     /// <param name="systemIds"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseSystem$!{Setting.Entity.Name}>> CheckSystem(this IMediator mediator,
+    public static async Task<PageResult<BaseSystem$!{Setting.Entity.Name}>> CheckSystems(this IMediator mediator,
         List<string> companyIds,
         List<string> systemIds)
     {
@@ -578,7 +577,7 @@ public static class Base$!{Setting.Application.Name}
         string companyId,
         string systemId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(systemId))
+        if (string.IsNullOrWhiteSpace(systemId))
             return new DataResult<BaseSystem$!{Setting.Entity.Name}>();
 
         var getSystemArgs = new $!{Setting.GetName}BaseSystem$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -608,7 +607,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="departmentIds"></param>
     /// <param name="userIds"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseUser$!{Setting.Entity.Name}>> CheckUser(this IMediator mediator,
+    public static async Task<PageResult<BaseUser$!{Setting.Entity.Name}>> CheckUsers(this IMediator mediator,
         List<string> companyIds,
         List<string> departmentIds,
         List<string> userIds)
@@ -663,7 +662,7 @@ public static class Base$!{Setting.Application.Name}
         string departmentId,
         string userId)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(userId))
+        if (string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUser$!{Setting.Entity.Name}>();
 
         var getUserArgs = new $!{Setting.GetName}BaseUser$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}

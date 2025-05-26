@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.RepairSchedule;
 
 /// <summary>
-/// 获取补卡申请
+/// 获取补卡申请领域
 /// </summary>
 /// <param name="logger"></param>
 public class GetRepairSchedule(

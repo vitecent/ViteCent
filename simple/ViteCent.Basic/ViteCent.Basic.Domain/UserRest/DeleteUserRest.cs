@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.UserRest;
 
 /// <summary>
-/// 删除调休申请
+/// 删除调休申请领域
 /// </summary>
 /// <param name="logger"></param>
 public class DeleteUserRest(

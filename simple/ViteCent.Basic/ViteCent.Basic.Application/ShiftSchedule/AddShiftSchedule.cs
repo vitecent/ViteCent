@@ -27,7 +27,7 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Application.ShiftSchedule;
 
 /// <summary>
-/// 新增换班申请仓储
+/// 新增换班申请应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>

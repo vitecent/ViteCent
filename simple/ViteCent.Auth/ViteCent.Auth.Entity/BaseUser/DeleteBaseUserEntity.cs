@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Auth.Entity.BaseUser;
 
 /// <summary>
-/// 删除用户信息参数
+/// 删除用户信息模型
 /// </summary>
 [Serializable]
+[SugarTable("base_user")]
 public class DeleteBaseUserEntity : BaseUserEntity
 {
 }

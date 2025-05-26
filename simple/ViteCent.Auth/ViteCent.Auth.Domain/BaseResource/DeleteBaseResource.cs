@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseResource;
 
 /// <summary>
-/// 删除资源信息
+/// 删除资源信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class DeleteBaseResource(

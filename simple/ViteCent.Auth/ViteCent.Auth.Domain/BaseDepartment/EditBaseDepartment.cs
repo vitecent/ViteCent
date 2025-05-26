@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseDepartment;
 
 /// <summary>
-/// 编辑部门信息
+/// 编辑部门信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class EditBaseDepartment(

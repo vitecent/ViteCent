@@ -21,7 +21,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseRolePermission;
 
 /// <summary>
-/// 删除角色权限仓储
+/// 删除角色权限应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

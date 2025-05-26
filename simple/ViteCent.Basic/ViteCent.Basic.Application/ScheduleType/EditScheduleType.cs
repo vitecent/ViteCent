@@ -25,7 +25,7 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Application.ScheduleType;
 
 /// <summary>
-/// 编辑基础排班仓储
+/// 编辑基础排班应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
@@ -78,6 +78,7 @@ public partial class EditScheduleType(
             return check;
 
         entity.Code = request.Code;
+        entity.Color = request.Color;
         entity.CompanyName = request.CompanyName;
         entity.DepartmentName = request.DepartmentName;
         entity.Description = request.Description;

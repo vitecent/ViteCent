@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseResource;
 
 /// <summary>
-/// 搜索资源信息参数
+/// 搜索资源信息模型参数
 /// </summary>
 [Serializable]
 public class SearchBaseResourceEntityArgs : SearchArgs, IRequest<List<BaseResourceEntity>>

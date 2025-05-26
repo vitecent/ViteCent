@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseRole;
 
 /// <summary>
-/// 删除角色信息
+/// 删除角色信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class DeleteBaseRole(

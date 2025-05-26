@@ -62,7 +62,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="companyIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> CheckCompany(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Data.ArgsSuffix}, PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
+    public static async Task<PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> CheckCompanys(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Data.ArgsSuffix}, PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>> companyInvoke,
         List<string> companyIds,
         string token)
     {
@@ -118,7 +118,7 @@ public static class Base$!{Setting.Application.Name}
     public static async Task<DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> CheckDepartment(this IBaseInvoke<$!{Setting.GetName}BaseDepartment$!{Setting.Data.ArgsSuffix}, DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
         string companyId, string departmentId, string token)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId))
+        if (string.IsNullOrWhiteSpace(departmentId))
             return new DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>();
 
         var getDepartmentArgs = new $!{Setting.GetName}BaseDepartment$!{Setting.Data.ArgsSuffix}
@@ -148,7 +148,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="departmentIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> CheckDepartment(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseDepartment$!{Setting.Data.ArgsSuffix}, PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
+    public static async Task<PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> CheckDepartments(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseDepartment$!{Setting.Data.ArgsSuffix}, PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>> departmentInvoke,
         List<string> companyIds,
         List<string> departmentIds,
         string token)
@@ -204,7 +204,7 @@ public static class Base$!{Setting.Application.Name}
     public static async Task<DataResult<BasePosition$!{Setting.Data.ResultSuffix}>> CheckPosition(this IBaseInvoke<$!{Setting.GetName}BasePosition$!{Setting.Data.ArgsSuffix}, DataResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
         string companyId, string positionId, string token)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(positionId))
+        if (string.IsNullOrWhiteSpace(positionId))
             return new DataResult<BasePosition$!{Setting.Data.ResultSuffix}>();
 
         var getPositionArgs = new $!{Setting.GetName}BasePosition$!{Setting.Data.ArgsSuffix}
@@ -234,7 +234,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="positionIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> CheckPosition(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BasePosition$!{Setting.Data.ArgsSuffix}, PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
+    public static async Task<PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> CheckPositions(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BasePosition$!{Setting.Data.ArgsSuffix}, PageResult<BasePosition$!{Setting.Data.ResultSuffix}>> positionInvoke,
         List<string> companyIds,
         List<string> positionIds,
         string token)
@@ -294,7 +294,7 @@ public static class Base$!{Setting.Application.Name}
         string userId,
         string token)
     {
-        if (string.IsNullOrWhiteSpace(companyId) && string.IsNullOrWhiteSpace(departmentId) && string.IsNullOrWhiteSpace(userId))
+        if (string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUser$!{Setting.Data.ResultSuffix}>();
 
         var getUserArgs = new $!{Setting.GetName}BaseUser$!{Setting.Data.ArgsSuffix}
@@ -326,7 +326,7 @@ public static class Base$!{Setting.Application.Name}
     /// <param name="userIds"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public static async Task<PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> CheckUser(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}, PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
+    public static async Task<PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> CheckUsers(this IBaseInvoke<$!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}, PageResult<BaseUser$!{Setting.Data.ResultSuffix}>> userInvoke,
         List<string> companyIds,
         List<string> departmentIds,
         List<string> userIds,

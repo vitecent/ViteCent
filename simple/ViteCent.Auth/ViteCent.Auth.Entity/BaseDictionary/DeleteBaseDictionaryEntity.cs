@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Auth.Entity.BaseDictionary;
 
 /// <summary>
-/// 删除字典信息参数
+/// 删除字典信息模型
 /// </summary>
 [Serializable]
+[SugarTable("base_dictionary")]
 public class DeleteBaseDictionaryEntity : BaseDictionaryEntity
 {
 }

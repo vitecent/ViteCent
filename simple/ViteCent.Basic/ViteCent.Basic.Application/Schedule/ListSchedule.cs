@@ -61,7 +61,7 @@ public class ListSchedule(
         var positionIds = rows.Select(x => x.PositionId).Distinct().ToList();
         var userIds = rows.Select(x => x.UserId).Distinct().ToList();
 
-        var users = await userInvoke.CheckUser(companyIds, departmentIds, positionIds, userIds,
+        var users = await userInvoke.CheckUsers(companyIds, departmentIds, positionIds, userIds,
             user?.Token ?? string.Empty);
 
         if (!users.Success)

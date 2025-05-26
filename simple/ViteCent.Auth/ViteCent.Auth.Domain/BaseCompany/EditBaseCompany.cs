@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseCompany;
 
 /// <summary>
-/// 编辑公司信息
+/// 编辑公司信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class EditBaseCompany(

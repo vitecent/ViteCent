@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Basic.Entity.Schedule;
 
 /// <summary>
-/// 删除排班信息参数
+/// 删除排班信息模型
 /// </summary>
 [Serializable]
+[SugarTable("schedule")]
 public class DeleteScheduleEntity : ScheduleEntity
 {
 }

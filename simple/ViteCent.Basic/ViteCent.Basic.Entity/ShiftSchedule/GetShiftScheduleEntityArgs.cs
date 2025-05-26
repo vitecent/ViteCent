@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Basic.Entity.ShiftSchedule;
 
 /// <summary>
-/// 获取换班申请参数
+/// 获取换班申请模型参数
 /// </summary>
 [Serializable]
 public class GetShiftScheduleEntityArgs : IRequest<ShiftScheduleEntity>

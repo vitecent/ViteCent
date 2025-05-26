@@ -14,7 +14,7 @@ using SqlSugar;
 namespace ViteCent.Auth.Entity.BaseCompany;
 
 /// <summary>
-/// 新增公司信息参数
+/// 新增公司信息模型
 /// </summary>
 [Serializable]
 [SugarTable("base_company")]

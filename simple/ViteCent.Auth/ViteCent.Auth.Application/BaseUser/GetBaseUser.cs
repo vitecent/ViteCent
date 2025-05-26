@@ -20,7 +20,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseUser;
 
 /// <summary>
-/// 获取用户信息仓储
+/// 获取用户信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

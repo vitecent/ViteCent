@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseUser;
 
 /// <summary>
-/// 获取用户信息
+/// 获取用户信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class GetBaseUser(

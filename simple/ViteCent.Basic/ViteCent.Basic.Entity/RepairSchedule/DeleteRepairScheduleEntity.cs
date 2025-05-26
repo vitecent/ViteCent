@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Basic.Entity.RepairSchedule;
 
 /// <summary>
-/// 删除补卡申请参数
+/// 删除补卡申请模型
 /// </summary>
 [Serializable]
+[SugarTable("repair_schedule")]
 public class DeleteRepairScheduleEntity : RepairScheduleEntity
 {
 }

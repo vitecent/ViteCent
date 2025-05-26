@@ -43,8 +43,7 @@ public partial class EditBasePosition
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasBasePositionEntityArgs
         {

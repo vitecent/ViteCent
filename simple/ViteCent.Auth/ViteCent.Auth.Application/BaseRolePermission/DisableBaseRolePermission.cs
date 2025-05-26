@@ -22,7 +22,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseRolePermission;
 
 /// <summary>
-/// 禁用角色权限仓储
+/// 禁用角色权限应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

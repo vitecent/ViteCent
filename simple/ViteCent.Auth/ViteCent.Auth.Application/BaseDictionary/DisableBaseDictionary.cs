@@ -22,7 +22,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseDictionary;
 
 /// <summary>
-/// 禁用字典信息仓储
+/// 禁用字典信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

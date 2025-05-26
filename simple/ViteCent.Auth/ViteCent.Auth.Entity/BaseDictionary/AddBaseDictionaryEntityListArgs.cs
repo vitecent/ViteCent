@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseDictionary;
 
 /// <summary>
-/// 批量新增字典信息参数
+/// 批量新增字典信息模型
 /// </summary>
 [Serializable]
 public class AddBaseDictionaryEntityListArgs : IRequest<BaseResult>

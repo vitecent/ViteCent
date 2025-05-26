@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.ScheduleType;
 
 /// <summary>
-/// 编辑基础排班
+/// 编辑基础排班领域
 /// </summary>
 /// <param name="logger"></param>
 public class EditScheduleType(

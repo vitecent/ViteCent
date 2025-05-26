@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseDictionary;
 
 /// <summary>
-/// 字典信息分页
+/// 字典信息分页领域
 /// </summary>
 /// <param name="logger"></param>
 public class PageBaseDictionary(ILogger<PageBaseDictionary> logger) : BaseDomain<BaseDictionaryEntity>, IRequestHandler<SearchBaseDictionaryEntityArgs, List<BaseDictionaryEntity>>

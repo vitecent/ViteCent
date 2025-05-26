@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Auth.Entity.BaseDepartment;
 
 /// <summary>
-/// 删除部门信息参数
+/// 删除部门信息模型
 /// </summary>
 [Serializable]
+[SugarTable("base_department")]
 public class DeleteBaseDepartmentEntity : BaseDepartmentEntity
 {
 }

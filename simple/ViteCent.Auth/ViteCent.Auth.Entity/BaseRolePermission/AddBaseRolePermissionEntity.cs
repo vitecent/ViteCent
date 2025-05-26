@@ -14,7 +14,7 @@ using SqlSugar;
 namespace ViteCent.Auth.Entity.BaseRolePermission;
 
 /// <summary>
-/// 新增角色权限参数
+/// 新增角色权限模型
 /// </summary>
 [Serializable]
 [SugarTable("base_role_permission")]

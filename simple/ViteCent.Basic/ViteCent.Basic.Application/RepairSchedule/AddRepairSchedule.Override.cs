@@ -55,7 +55,7 @@ public partial class AddRepairSchedule
         var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
         var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
 
-        var companys = await companyInvoke.CheckCompany(companyIds, user?.Token ?? string.Empty);
+        var companys = await companyInvoke.CheckCompanys(companyIds, user?.Token ?? string.Empty);
 
         if (!companys.Success)
             return companys;
@@ -69,7 +69,7 @@ public partial class AddRepairSchedule
         }
 
         var departments =
-            await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+            await departmentInvoke.CheckDepartments(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
@@ -82,7 +82,7 @@ public partial class AddRepairSchedule
                 data.DepartmentName = item.Name;
         }
 
-        var users = await userInvoke.CheckUser(companyIds, departmentIds, [], userIds, user?.Token ?? string.Empty);
+        var users = await userInvoke.CheckUsers(companyIds, departmentIds, [], userIds, user?.Token ?? string.Empty);
 
         if (!users.Success)
             return users;
@@ -136,8 +136,7 @@ public partial class AddRepairSchedule
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -150,16 +149,14 @@ public partial class AddRepairSchedule
 
         if (!hasDepartment.Success)
             return hasDepartment;
-
-        request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
+        else request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId,
             user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
-
-        request.UserName = hasUser?.Data?.RealName ?? string.Empty;
+        else request.UserName = hasUser?.Data?.RealName ?? string.Empty;
 
         var hasArgs = new HasRepairScheduleEntityArgs
         {

@@ -46,22 +46,22 @@ public partial class AddBaseUserRole
         var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
         var roleIds = request.Items.Select(x => x.RoleId).Distinct().ToList();
 
-        var companys = await mediator.CheckCompany(companyIds);
+        var companys = await mediator.CheckCompanys(companyIds);
 
         if (!companys.Success)
             return companys;
 
-        var departments = await mediator.CheckDepartment(companyIds, departmentIds);
+        var departments = await mediator.CheckDepartments(companyIds, departmentIds);
 
         if (!departments.Success)
             return departments;
 
-        var users = await mediator.CheckUser(companyIds, departmentIds, userIds);
+        var users = await mediator.CheckUsers(companyIds, departmentIds, userIds);
 
         if (!users.Success)
             return users;
 
-        var roles = await mediator.CheckRole(companyIds, roleIds);
+        var roles = await mediator.CheckRoles(companyIds, roleIds);
 
         if (!roles.Success)
             return roles;

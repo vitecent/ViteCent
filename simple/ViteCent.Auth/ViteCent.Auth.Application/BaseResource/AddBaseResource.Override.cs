@@ -38,7 +38,7 @@ public partial class AddBaseResource
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
         var systemIds = request.Items.Select(x => x.SystemId).Distinct().ToList();
 
-        var companys = await mediator.CheckCompany(companyIds);
+        var companys = await mediator.CheckCompanys(companyIds);
 
         if (!companys.Success)
             return companys;
@@ -51,7 +51,7 @@ public partial class AddBaseResource
                 data.CompanyName = item.Name;
         }
 
-        var systems = await mediator.CheckSystem(companyIds, systemIds);
+        var systems = await mediator.CheckSystems(companyIds, systemIds);
 
         if (!systems.Success)
             return systems;
@@ -104,15 +104,13 @@ public partial class AddBaseResource
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
         if (!hasSystem.Success)
             return hasSystem;
-
-        request.SystemName = hasSystem?.Data?.Name ?? string.Empty;
+        else request.SystemName = hasSystem?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasBaseResourceEntityArgs
         {

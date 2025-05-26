@@ -21,7 +21,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Basic.Application.UserLeave;
 
 /// <summary>
-/// 删除请假申请仓储
+/// 删除请假申请应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

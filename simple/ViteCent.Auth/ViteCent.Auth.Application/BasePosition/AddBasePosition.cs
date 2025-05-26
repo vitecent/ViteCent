@@ -23,7 +23,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BasePosition;
 
 /// <summary>
-/// 新增职位信息仓储
+/// 新增职位信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>

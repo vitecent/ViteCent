@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseCompany;
 
 /// <summary>
-/// 批量新增公司信息参数
+/// 批量新增公司信息模型
 /// </summary>
 [Serializable]
 public class AddBaseCompanyEntityListArgs : IRequest<BaseResult>

@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Entity.BaseDepartment;
 
 /// <summary>
-/// 部门信息
+/// 部门信息模型
 /// </summary>
 [Serializable]
 [SugarTable("base_department")]

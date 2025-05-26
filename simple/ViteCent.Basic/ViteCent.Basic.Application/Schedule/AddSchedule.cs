@@ -27,7 +27,7 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Application.Schedule;
 
 /// <summary>
-/// 新增排班信息仓储
+/// 新增排班信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>

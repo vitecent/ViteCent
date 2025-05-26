@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseDictionary;
 
 /// <summary>
-/// 获取字典信息参数
+/// 获取字典信息模型参数
 /// </summary>
 [Serializable]
 public class GetBaseDictionaryEntityArgs : IRequest<BaseDictionaryEntity>

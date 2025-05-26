@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseDictionary;
 
 /// <summary>
-/// 搜索字典信息参数
+/// 搜索字典信息模型参数
 /// </summary>
 [Serializable]
 public class SearchBaseDictionaryEntityArgs : SearchArgs, IRequest<List<BaseDictionaryEntity>>

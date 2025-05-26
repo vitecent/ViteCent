@@ -37,7 +37,7 @@ public partial class AddBasePosition
 
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
 
-        var companys = await mediator.CheckCompany(companyIds);
+        var companys = await mediator.CheckCompanys(companyIds);
 
         if (!companys.Success)
             return companys;
@@ -89,8 +89,7 @@ public partial class AddBasePosition
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasBasePositionEntityArgs
         {

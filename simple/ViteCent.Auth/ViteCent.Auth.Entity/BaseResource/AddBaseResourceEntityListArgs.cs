@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseResource;
 
 /// <summary>
-/// 批量新增资源信息参数
+/// 批量新增资源信息模型
 /// </summary>
 [Serializable]
 public class AddBaseResourceEntityListArgs : IRequest<BaseResult>

@@ -23,7 +23,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseSystem;
 
 /// <summary>
-/// 新增系统信息仓储
+/// 新增系统信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>

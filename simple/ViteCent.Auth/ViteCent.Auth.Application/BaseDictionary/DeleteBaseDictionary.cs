@@ -21,7 +21,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseDictionary;
 
 /// <summary>
-/// 删除字典信息仓储
+/// 删除字典信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

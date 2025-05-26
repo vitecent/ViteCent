@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.RepairSchedule;
 
 /// <summary>
-/// 补卡申请分页
+/// 补卡申请分页领域
 /// </summary>
 /// <param name="logger"></param>
 public class PageRepairSchedule(ILogger<PageRepairSchedule> logger) : BaseDomain<RepairScheduleEntity>, IRequestHandler<SearchRepairScheduleEntityArgs, List<RepairScheduleEntity>>

@@ -20,7 +20,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseDictionary;
 
 /// <summary>
-/// 字典信息分页仓储
+/// 字典信息分页应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

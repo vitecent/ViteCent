@@ -57,7 +57,7 @@ public partial class AddSchedule
         var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
         var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
 
-        var companys = await companyInvoke.CheckCompany(companyIds, user?.Token ?? string.Empty);
+        var companys = await companyInvoke.CheckCompanys(companyIds, user?.Token ?? string.Empty);
 
         if (!companys.Success)
             return companys;
@@ -71,7 +71,7 @@ public partial class AddSchedule
         }
 
         var departments =
-            await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+            await departmentInvoke.CheckDepartments(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
@@ -84,7 +84,7 @@ public partial class AddSchedule
                 data.DepartmentName = item.Name;
         }
 
-        var users = await userInvoke.CheckUser(companyIds, departmentIds, [], userIds, user?.Token ?? string.Empty);
+        var users = await userInvoke.CheckUsers(companyIds, departmentIds, [], userIds, user?.Token ?? string.Empty);
 
         if (!users.Success)
             return users;

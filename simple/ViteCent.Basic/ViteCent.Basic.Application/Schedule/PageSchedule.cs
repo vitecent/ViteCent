@@ -20,7 +20,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.Schedule;
 
 /// <summary>
-/// 排班信息分页仓储
+/// 排班信息分页应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

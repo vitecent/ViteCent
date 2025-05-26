@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseRolePermission;
 
 /// <summary>
-/// 角色权限分页
+/// 角色权限分页领域
 /// </summary>
 /// <param name="logger"></param>
 public class PageBaseRolePermission(ILogger<PageBaseRolePermission> logger) : BaseDomain<BaseRolePermissionEntity>, IRequestHandler<SearchBaseRolePermissionEntityArgs, List<BaseRolePermissionEntity>>

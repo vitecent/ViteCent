@@ -20,7 +20,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.ShiftSchedule;
 
 /// <summary>
-/// 获取换班申请仓储
+/// 获取换班申请应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

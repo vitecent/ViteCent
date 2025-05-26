@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Auth.Entity.BasePosition;
 
 /// <summary>
-/// 删除职位信息参数
+/// 删除职位信息模型
 /// </summary>
 [Serializable]
+[SugarTable("base_position")]
 public class DeleteBasePositionEntity : BasePositionEntity
 {
 }

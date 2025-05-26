@@ -45,8 +45,7 @@ public partial class EditSchedule
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -59,8 +58,7 @@ public partial class EditSchedule
 
         if (!hasDepartment.Success)
             return hasDepartment;
-
-        request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
+        else request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
@@ -69,8 +67,7 @@ public partial class EditSchedule
 
         if (!hasUser.Success)
             return hasUser;
-
-        request.UserName = hasUser?.Data?.RealName ?? string.Empty;
+        else request.UserName = hasUser?.Data?.RealName ?? string.Empty;
 
         var hasLeaveArgs = new HasUserLeaveEntityArgs
         {

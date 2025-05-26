@@ -66,8 +66,7 @@ public partial class EditBaseDepartment
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasBaseDepartmentEntityArgs
         {

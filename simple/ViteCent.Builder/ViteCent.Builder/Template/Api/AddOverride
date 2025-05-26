@@ -14,11 +14,11 @@ using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 // 引入核心
 using ViteCent.Core;
 
-// 引入基础枚举
+// 引入核心枚举类型
 using ViteCent.Core.Enums;
 #end
 
-// 引入数据结构
+// 引入核心数据类型
 using ViteCent.Core.Data;
 
 #endregion

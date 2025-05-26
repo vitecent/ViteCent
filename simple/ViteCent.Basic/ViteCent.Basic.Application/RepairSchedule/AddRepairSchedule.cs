@@ -27,7 +27,7 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Application.RepairSchedule;
 
 /// <summary>
-/// 新增补卡申请仓储
+/// 新增补卡申请应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>

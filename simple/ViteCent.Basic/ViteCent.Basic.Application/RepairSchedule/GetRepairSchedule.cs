@@ -20,7 +20,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.RepairSchedule;
 
 /// <summary>
-/// 获取补卡申请仓储
+/// 获取补卡申请应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

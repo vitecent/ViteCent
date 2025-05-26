@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseRolePermission;
 
 /// <summary>
-/// 批量新增角色权限参数
+/// 批量新增角色权限模型
 /// </summary>
 [Serializable]
 public class AddBaseRolePermissionEntityListArgs : IRequest<BaseResult>

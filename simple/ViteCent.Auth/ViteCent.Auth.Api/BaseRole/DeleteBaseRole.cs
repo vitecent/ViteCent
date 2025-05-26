@@ -7,12 +7,25 @@
 
 #region
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
+
+// 引入角色信息相关的数据传输对象
 using ViteCent.Auth.Data.BaseRole;
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
+
+// 引入核心枚举类型
 using ViteCent.Core.Enums;
+
+// 引入核心接口基类
 using ViteCent.Core.Web.Api;
+
+// 引入核心过滤器
 using ViteCent.Core.Web.Filter;
 
 #endregion
@@ -22,40 +35,71 @@ namespace ViteCent.Auth.Api.BaseRole;
 /// <summary>
 /// 删除角色信息接口
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mediator"></param>
+/// <remarks>
+/// 该接口负责处理删除角色信息的请求，主要功能包括：
+/// 1. 验证用户登录状态
+/// 2. 验证用户权限
+/// 3. 处理删除角色信息的请求
+/// 4. 返回操作结果
+/// </remarks>
+/// <param name="logger">用于记录接口的操作日志</param>
+/// <param name="mediator">用于发送命令请求</param>
+// 标记为 API 接口
 [ApiController]
+// 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
+// 设置路由前缀
 [Route("BaseRole")]
 public class DeleteBaseRole(
+    // 注入日志记录器
     ILogger<DeleteBaseRole> logger,
+    // 注入中介者
     IMediator mediator)
+    // 继承基类，指定查询参数和返回结果类型
     : BaseLoginApi<DeleteBaseRoleArgs, BaseResult>
 {
     /// <summary>
     /// 删除角色信息
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
+    /// <remarks>
+    /// 该方法主要完成以下功能：
+    /// 1. 记录方法调用日志，便于追踪和调试
+    /// 2. 验证参数有效性
+    /// 3. 通过中介者发送删除命令
+    /// 4. 返回操作结果
+    /// </remarks>
+    /// <param name="args">删除角色信息的参数</param>
+    /// <returns>返回删除操作的结果</returns>
+    // 标记为 POST 请求
     [HttpPost]
+    // 使用权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Auth", "BaseRole", "Delete" })]
+    // 设置路由名称
     [Route("Delete")]
     public override async Task<BaseResult> InvokeAsync(DeleteBaseRoleArgs args)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseRole.DeleteBaseRole");
 
+        // 验证参数有效性
         if (args == null)
             return new BaseResult(500, "参数不能为空");
 
+        // 如果用户不是超级管理员，则验证公司标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 
+        // 验证角色信息的有效性
         var check = User.CheckCompanyId(args.CompanyId);
 
+        // 如果验证失败，返回错误信息
         if (check != null && !check.Success)
             return check;
+        // 创建取消令牌，用于支持异步操作的取消
+        var cancellationToken = new CancellationToken();
 
-        return await mediator.Send(args);
+        // 通过中介者发送删除命令并返回结果
+        return await mediator.Send(args, cancellationToken);
     }
 }

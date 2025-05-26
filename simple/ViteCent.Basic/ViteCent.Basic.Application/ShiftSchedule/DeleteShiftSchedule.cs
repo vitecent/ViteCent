@@ -21,7 +21,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Basic.Application.ShiftSchedule;
 
 /// <summary>
-/// 删除换班申请仓储
+/// 删除换班申请应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

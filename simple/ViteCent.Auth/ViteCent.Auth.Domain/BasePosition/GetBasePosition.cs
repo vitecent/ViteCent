@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BasePosition;
 
 /// <summary>
-/// 获取职位信息
+/// 获取职位信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class GetBasePosition(

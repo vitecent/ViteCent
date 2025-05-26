@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseOperation;
 
 /// <summary>
-/// 获取操作信息参数
+/// 获取操作信息模型参数
 /// </summary>
 [Serializable]
 public class GetBaseOperationEntityArgs : IRequest<BaseOperationEntity>

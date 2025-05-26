@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BasePosition;
 
 /// <summary>
-/// 获取职位信息参数
+/// 获取职位信息模型参数
 /// </summary>
 [Serializable]
 public class GetBasePositionEntityArgs : IRequest<BasePositionEntity>

@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseDepartment;
 
 /// <summary>
-/// 部门信息分页
+/// 部门信息分页领域
 /// </summary>
 /// <param name="logger"></param>
 public class PageBaseDepartment(ILogger<PageBaseDepartment> logger) : BaseDomain<BaseDepartmentEntity>, IRequestHandler<SearchBaseDepartmentEntityArgs, List<BaseDepartmentEntity>>

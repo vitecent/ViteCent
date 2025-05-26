@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Basic.Entity.ShiftSchedule;
 
 /// <summary>
-/// 删除换班申请参数
+/// 删除换班申请模型
 /// </summary>
 [Serializable]
+[SugarTable("shift_schedule")]
 public class DeleteShiftScheduleEntity : ShiftScheduleEntity
 {
 }

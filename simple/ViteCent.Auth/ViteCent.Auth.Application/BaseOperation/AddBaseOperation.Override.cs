@@ -39,7 +39,7 @@ public partial class AddBaseOperation
         var systemIds = request.Items.Select(x => x.SystemId).Distinct().ToList();
         var resourceIds = request.Items.Select(x => x.ResourceId).Distinct().ToList();
 
-        var companys = await mediator.CheckCompany(companyIds);
+        var companys = await mediator.CheckCompanys(companyIds);
 
         if (!companys.Success)
             return companys;
@@ -52,7 +52,7 @@ public partial class AddBaseOperation
                 data.CompanyName = item.Name;
         }
 
-        var systems = await mediator.CheckSystem(companyIds, systemIds);
+        var systems = await mediator.CheckSystems(companyIds, systemIds);
 
         if (!systems.Success)
             return systems;
@@ -65,7 +65,7 @@ public partial class AddBaseOperation
                 data.SystemName = item.Name;
         }
 
-        var resources = await mediator.CheckResource(companyIds, systemIds, resourceIds);
+        var resources = await mediator.CheckResources(companyIds, systemIds, resourceIds);
 
         if (!resources.Success)
             return resources;
@@ -119,22 +119,19 @@ public partial class AddBaseOperation
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
         if (!hasSystem.Success)
             return hasSystem;
-
-        request.SystemName = hasSystem?.Data?.Name ?? string.Empty;
+        else request.SystemName = hasSystem?.Data?.Name ?? string.Empty;
 
         var hasResource = await mediator.CheckResource(request.CompanyId, request.SystemId, request.ResourceId);
 
         if (!hasResource.Success)
             return hasResource;
-
-        request.ResourceName = hasResource?.Data?.Name ?? string.Empty;
+        else request.ResourceName = hasResource?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasBaseOperationEntityArgs
         {

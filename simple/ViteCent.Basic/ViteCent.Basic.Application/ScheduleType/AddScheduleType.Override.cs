@@ -52,7 +52,7 @@ public partial class AddScheduleType
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
         var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
 
-        var companys = await companyInvoke.CheckCompany(companyIds, user?.Token ?? string.Empty);
+        var companys = await companyInvoke.CheckCompanys(companyIds, user?.Token ?? string.Empty);
 
         if (!companys.Success)
             return companys;
@@ -66,7 +66,7 @@ public partial class AddScheduleType
         }
 
         var departments =
-            await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+            await departmentInvoke.CheckDepartments(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
@@ -119,8 +119,7 @@ public partial class AddScheduleType
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -133,8 +132,7 @@ public partial class AddScheduleType
 
         if (!hasDepartment.Success)
             return hasDepartment;
-
-        request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
+        else request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasScheduleTypeEntityArgs
         {

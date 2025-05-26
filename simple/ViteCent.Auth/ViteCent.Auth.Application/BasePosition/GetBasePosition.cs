@@ -20,7 +20,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BasePosition;
 
 /// <summary>
-/// 获取职位信息仓储
+/// 获取职位信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

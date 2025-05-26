@@ -7,27 +7,27 @@
 
 #region
 
-// 引入 MediatR 用于处理命令和查询的中介者模式实现
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
 
-// 引入 ASP.NET Core MVC 的功能
+// 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
 // 引入$!{Table.Description}相关的数据传输对象
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
-// 引入数据结构
+// 引入核心数据类型
 using ViteCent.Core.Data;
 #if($HasCompanyId)
 
-// 引入基础枚举
+// 引入核心枚举类型
 using ViteCent.Core.Enums;
 #end
 
-// 引入接口基类
+// 引入核心接口基类
 using ViteCent.Core.Web.Api;
 
-// 引入过滤器
+// 引入核心过滤器
 using ViteCent.Core.Web.Filter;
 
 #endregion
@@ -38,7 +38,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 /// 删除$!{Table.Description}接口
 /// </summary>
 /// <remarks>
-/// 该接口主要负责处理删除$!{Table.Description}的相关操作，包括：
+/// 该接口负责处理删除$!{Table.Description}的请求，主要功能包括：
 /// 1. 验证用户登录状态
 /// 2. 验证用户权限
 /// 3. 处理删除$!{Table.Description}的请求

@@ -19,7 +19,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Application.BaseCompany;
 
 /// <summary>
-/// 公司信息分页仓储
+/// 公司信息分页应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

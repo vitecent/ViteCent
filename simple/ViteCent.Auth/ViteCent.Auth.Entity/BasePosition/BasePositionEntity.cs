@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Entity.BasePosition;
 
 /// <summary>
-/// 职位信息
+/// 职位信息模型
 /// </summary>
 [Serializable]
 [SugarTable("base_position")]

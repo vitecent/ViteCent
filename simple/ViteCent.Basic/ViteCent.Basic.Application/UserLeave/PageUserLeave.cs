@@ -20,7 +20,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Application.UserLeave;
 
 /// <summary>
-/// 请假申请分页仓储
+/// 请假申请分页应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

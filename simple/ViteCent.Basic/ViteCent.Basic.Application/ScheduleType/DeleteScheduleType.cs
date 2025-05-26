@@ -21,7 +21,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Basic.Application.ScheduleType;
 
 /// <summary>
-/// 删除基础排班仓储
+/// 删除基础排班应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

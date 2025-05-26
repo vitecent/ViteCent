@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.ScheduleType;
 
 /// <summary>
-/// 删除基础排班
+/// 删除基础排班领域
 /// </summary>
 /// <param name="logger"></param>
 public class DeleteScheduleType(

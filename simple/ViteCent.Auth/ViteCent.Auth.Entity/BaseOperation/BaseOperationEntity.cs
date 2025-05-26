@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Entity.BaseOperation;
 
 /// <summary>
-/// 操作信息
+/// 操作信息模型
 /// </summary>
 [Serializable]
 [SugarTable("base_operation")]

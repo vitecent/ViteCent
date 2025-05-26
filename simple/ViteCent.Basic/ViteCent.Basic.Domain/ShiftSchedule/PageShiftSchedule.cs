@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.ShiftSchedule;
 
 /// <summary>
-/// 换班申请分页
+/// 换班申请分页领域
 /// </summary>
 /// <param name="logger"></param>
 public class PageShiftSchedule(ILogger<PageShiftSchedule> logger) : BaseDomain<ShiftScheduleEntity>, IRequestHandler<SearchShiftScheduleEntityArgs, List<ShiftScheduleEntity>>

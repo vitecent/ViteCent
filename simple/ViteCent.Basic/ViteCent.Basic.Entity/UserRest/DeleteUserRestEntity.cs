@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Basic.Entity.UserRest;
 
 /// <summary>
-/// 删除调休申请参数
+/// 删除调休申请模型
 /// </summary>
 [Serializable]
+[SugarTable("user_rest")]
 public class DeleteUserRestEntity : UserRestEntity
 {
 }

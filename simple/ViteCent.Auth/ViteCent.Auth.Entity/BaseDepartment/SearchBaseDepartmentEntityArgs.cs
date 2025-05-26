@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseDepartment;
 
 /// <summary>
-/// 搜索部门信息参数
+/// 搜索部门信息模型参数
 /// </summary>
 [Serializable]
 public class SearchBaseDepartmentEntityArgs : SearchArgs, IRequest<List<BaseDepartmentEntity>>

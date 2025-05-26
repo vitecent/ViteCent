@@ -21,7 +21,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseDepartment;
 
 /// <summary>
-/// 删除部门信息仓储
+/// 删除部门信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

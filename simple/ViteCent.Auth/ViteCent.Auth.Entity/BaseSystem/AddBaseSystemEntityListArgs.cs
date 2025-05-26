@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseSystem;
 
 /// <summary>
-/// 批量新增系统信息参数
+/// 批量新增系统信息模型
 /// </summary>
 [Serializable]
 public class AddBaseSystemEntityListArgs : IRequest<BaseResult>

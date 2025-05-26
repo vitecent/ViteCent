@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.UserRest;
 
 /// <summary>
-/// 调休申请分页
+/// 调休申请分页领域
 /// </summary>
 /// <param name="logger"></param>
 public class PageUserRest(ILogger<PageUserRest> logger) : BaseDomain<UserRestEntity>, IRequestHandler<SearchUserRestEntityArgs, List<UserRestEntity>>

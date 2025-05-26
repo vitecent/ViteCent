@@ -50,7 +50,7 @@ public partial class AddBaseUser
         var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
         var positionIds = request.Items.Select(x => x.PositionId).Distinct().ToList();
 
-        var companys = await mediator.CheckCompany(companyIds);
+        var companys = await mediator.CheckCompanys(companyIds);
 
         if (!companys.Success)
             return companys;
@@ -63,7 +63,7 @@ public partial class AddBaseUser
                 data.CompanyName = item.Name;
         }
 
-        var departments = await mediator.CheckDepartment(companyIds, departmentIds);
+        var departments = await mediator.CheckDepartments(companyIds, departmentIds);
 
         if (!departments.Success)
             return departments;
@@ -76,7 +76,7 @@ public partial class AddBaseUser
                 data.DepartmentId = item.Name;
         }
 
-        var positions = await mediator.CheckPosition(companyIds, positionIds);
+        var positions = await mediator.CheckPositions(companyIds, positionIds);
 
         if (!positions.Success)
             return positions;
@@ -137,8 +137,7 @@ public partial class AddBaseUser
 
         if (!hasCompany.Success)
             return hasCompany;
-
-        request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -149,8 +148,7 @@ public partial class AddBaseUser
 
         if (!hasDepartment.Success)
             return hasDepartment;
-
-        request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
+        else request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
 
         var positionId = user?.Position?.Id ?? string.Empty;
 
@@ -161,8 +159,7 @@ public partial class AddBaseUser
 
         if (!hasPosition.Success)
             return hasPosition;
-
-        request.PositionName = hasPosition?.Data?.Name ?? string.Empty;
+        else request.PositionName = hasPosition?.Data?.Name ?? string.Empty;
 
         var hasArgs = new HasBaseUserEntityArgs
         {

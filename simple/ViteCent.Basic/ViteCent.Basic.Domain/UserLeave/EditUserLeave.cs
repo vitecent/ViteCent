@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.UserLeave;
 
 /// <summary>
-/// 编辑请假申请
+/// 编辑请假申请领域
 /// </summary>
 /// <param name="logger"></param>
 public class EditUserLeave(

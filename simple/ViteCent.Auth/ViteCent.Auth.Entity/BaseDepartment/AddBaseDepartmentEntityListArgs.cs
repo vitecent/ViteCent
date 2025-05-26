@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseDepartment;
 
 /// <summary>
-/// 批量新增部门信息参数
+/// 批量新增部门信息模型
 /// </summary>
 [Serializable]
 public class AddBaseDepartmentEntityListArgs : IRequest<BaseResult>

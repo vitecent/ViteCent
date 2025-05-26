@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace ViteCent.Auth.Entity.BaseUserRole;
 
 /// <summary>
-/// 删除用户角色参数
+/// 删除用户角色模型
 /// </summary>
 [Serializable]
+[SugarTable("base_user_role")]
 public class DeleteBaseUserRoleEntity : BaseUserRoleEntity
 {
 }

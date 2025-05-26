@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseRole;
 
 /// <summary>
-/// 获取角色信息
+/// 获取角色信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class GetBaseRole(

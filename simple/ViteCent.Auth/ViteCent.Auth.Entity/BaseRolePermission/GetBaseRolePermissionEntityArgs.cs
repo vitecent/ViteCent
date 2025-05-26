@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseRolePermission;
 
 /// <summary>
-/// 获取角色权限参数
+/// 获取角色权限模型参数
 /// </summary>
 [Serializable]
 public class GetBaseRolePermissionEntityArgs : IRequest<BaseRolePermissionEntity>

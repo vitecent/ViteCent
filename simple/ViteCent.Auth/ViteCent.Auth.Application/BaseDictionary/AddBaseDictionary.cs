@@ -23,7 +23,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseDictionary;
 
 /// <summary>
-/// 新增字典信息仓储
+/// 新增字典信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>

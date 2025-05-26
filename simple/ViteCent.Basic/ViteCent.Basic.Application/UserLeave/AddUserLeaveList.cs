@@ -27,7 +27,7 @@ using ViteCent.Core.Web;
 namespace ViteCent.Basic.Application.UserLeave;
 
 /// <summary>
-/// 批量新增请假申请仓储
+/// 批量新增请假申请应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>

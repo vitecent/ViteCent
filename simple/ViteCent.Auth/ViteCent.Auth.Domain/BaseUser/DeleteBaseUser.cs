@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseUser;
 
 /// <summary>
-/// 删除用户信息
+/// 删除用户信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class DeleteBaseUser(

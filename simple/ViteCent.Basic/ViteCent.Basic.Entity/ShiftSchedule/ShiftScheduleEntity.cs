@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Entity.ShiftSchedule;
 
 /// <summary>
-/// 换班申请
+/// 换班申请模型
 /// </summary>
 [Serializable]
 [SugarTable("shift_schedule")]

@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Entity.UserLeave;
 
 /// <summary>
-/// 请假申请
+/// 请假申请模型
 /// </summary>
 [Serializable]
 [SugarTable("user_leave")]

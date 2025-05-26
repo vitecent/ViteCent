@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.UserLeave;
 
 /// <summary>
-/// 获取请假申请
+/// 获取请假申请领域
 /// </summary>
 /// <param name="logger"></param>
 public class GetUserLeave(

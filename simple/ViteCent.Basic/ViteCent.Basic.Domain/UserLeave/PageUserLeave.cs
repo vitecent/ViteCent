@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.UserLeave;
 
 /// <summary>
-/// 请假申请分页
+/// 请假申请分页领域
 /// </summary>
 /// <param name="logger"></param>
 public class PageUserLeave(ILogger<PageUserLeave> logger) : BaseDomain<UserLeaveEntity>, IRequestHandler<SearchUserLeaveEntityArgs, List<UserLeaveEntity>>

@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Entity.BaseDictionary;
 
 /// <summary>
-/// 字典信息
+/// 字典信息模型
 /// </summary>
 [Serializable]
 [SugarTable("base_dictionary")]

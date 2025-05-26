@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Entity.BaseRolePermission;
 
 /// <summary>
-/// 角色权限
+/// 角色权限模型
 /// </summary>
 [Serializable]
 [SugarTable("base_role_permission")]

@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseSystem;
 
 /// <summary>
-/// 获取系统信息
+/// 获取系统信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class GetBaseSystem(

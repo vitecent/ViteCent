@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.Schedule;
 
 /// <summary>
-/// 获取排班信息
+/// 获取排班信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class GetSchedule(

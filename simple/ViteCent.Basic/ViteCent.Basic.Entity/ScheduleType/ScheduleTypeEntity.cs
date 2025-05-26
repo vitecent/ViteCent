@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Entity.ScheduleType;
 
 /// <summary>
-/// 基础排班
+/// 基础排班模型
 /// </summary>
 [Serializable]
 [SugarTable("schedule_type")]
@@ -28,6 +28,12 @@ public class ScheduleTypeEntity : BaseEntity, IRequest<BaseResult>
     /// </summary>
     [SugarColumn(ColumnName = "code")]
     public string Code { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 颜色
+    /// </summary>
+    [SugarColumn(ColumnName = "color")]
+    public string Color { get; set; } = string.Empty;
 
     /// <summary>
     /// 公司标识

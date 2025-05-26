@@ -23,7 +23,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseUserRole;
 
 /// <summary>
-/// 新增用户角色仓储
+/// 新增用户角色应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="cache"></param>

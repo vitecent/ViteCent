@@ -7,7 +7,7 @@
 
 #region
 
-// 引入微服务
+// 引入 Web 核心 
 using ViteCent.Core.Web;
 
 #endregion

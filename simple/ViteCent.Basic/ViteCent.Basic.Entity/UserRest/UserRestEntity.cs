@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Entity.UserRest;
 
 /// <summary>
-/// 调休申请
+/// 调休申请模型
 /// </summary>
 [Serializable]
 [SugarTable("user_rest")]

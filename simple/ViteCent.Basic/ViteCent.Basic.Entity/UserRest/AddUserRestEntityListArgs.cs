@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.UserRest;
 
 /// <summary>
-/// 批量新增调休申请参数
+/// 批量新增调休申请模型
 /// </summary>
 [Serializable]
 public class AddUserRestEntityListArgs : IRequest<BaseResult>

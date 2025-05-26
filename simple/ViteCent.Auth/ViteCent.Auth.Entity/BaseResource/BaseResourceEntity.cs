@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Entity.BaseResource;
 
 /// <summary>
-/// 资源信息
+/// 资源信息模型
 /// </summary>
 [Serializable]
 [SugarTable("base_resource")]

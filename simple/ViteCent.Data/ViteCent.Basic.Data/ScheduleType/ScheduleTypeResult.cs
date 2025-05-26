@@ -19,6 +19,11 @@ public class ScheduleTypeResult
     public string Code { get; set; } = string.Empty;
 
     /// <summary>
+    /// 颜色
+    /// </summary>
+    public string Color { get; set; } = string.Empty;
+
+    /// <summary>
     /// 公司标识
     /// </summary>
     public string CompanyId { get; set; } = string.Empty;

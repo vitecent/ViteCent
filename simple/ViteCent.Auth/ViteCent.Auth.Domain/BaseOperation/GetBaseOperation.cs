@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseOperation;
 
 /// <summary>
-/// 获取操作信息
+/// 获取操作信息领域
 /// </summary>
 /// <param name="logger"></param>
 public class GetBaseOperation(

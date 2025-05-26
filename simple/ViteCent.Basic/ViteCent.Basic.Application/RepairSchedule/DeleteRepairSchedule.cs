@@ -21,7 +21,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Basic.Application.RepairSchedule;
 
 /// <summary>
-/// 删除补卡申请仓储
+/// 删除补卡申请应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

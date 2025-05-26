@@ -14,7 +14,7 @@ using MediatR;
 namespace ViteCent.Auth.Entity.BaseUserRole;
 
 /// <summary>
-/// 获取用户角色参数
+/// 获取用户角色模型参数
 /// </summary>
 [Serializable]
 public class GetBaseUserRoleEntityArgs : IRequest<BaseUserRoleEntity>

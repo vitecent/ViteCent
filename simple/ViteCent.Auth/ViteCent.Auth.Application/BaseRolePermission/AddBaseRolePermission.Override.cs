@@ -41,27 +41,27 @@ public partial class AddBaseRolePermission
         var resourceIds = request.Items.Select(x => x.ResourceId).Distinct().ToList();
         var operationIds = request.Items.Select(x => x.OperationId).Distinct().ToList();
 
-        var companys = await mediator.CheckCompany(companyIds);
+        var companys = await mediator.CheckCompanys(companyIds);
 
         if (!companys.Success)
             return companys;
 
-        var roles = await mediator.CheckRole(companyIds, roleIds);
+        var roles = await mediator.CheckRoles(companyIds, roleIds);
 
         if (!roles.Success)
             return roles;
 
-        var systems = await mediator.CheckSystem(companyIds, systemIds);
+        var systems = await mediator.CheckSystems(companyIds, systemIds);
 
         if (!systems.Success)
             return systems;
 
-        var resources = await mediator.CheckResource(companyIds, systemIds, resourceIds);
+        var resources = await mediator.CheckResources(companyIds, systemIds, resourceIds);
 
         if (!resources.Success)
             return resources;
 
-        var operations = await mediator.CheckOperation(companyIds, systemIds, resourceIds, operationIds);
+        var operations = await mediator.CheckOperations(companyIds, systemIds, resourceIds, operationIds);
 
         if (!operations.Success)
             return operations;

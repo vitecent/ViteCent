@@ -22,7 +22,7 @@ using ViteCent.Core.Enums;
 namespace ViteCent.Auth.Application.BaseCompany;
 
 /// <summary>
-/// 编辑公司信息仓储
+/// 编辑公司信息应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

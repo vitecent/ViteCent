@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Basic.Entity.Schedule;
 
 /// <summary>
-/// 批量新增排班信息参数
+/// 批量新增排班信息模型
 /// </summary>
 [Serializable]
 public class AddScheduleEntityListArgs : IRequest<BaseResult>

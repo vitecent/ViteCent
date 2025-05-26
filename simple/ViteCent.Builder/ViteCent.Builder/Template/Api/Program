@@ -7,7 +7,7 @@
 
 #region
 
-// 引入微服务
+// 引入 Web 核心 
 using ViteCent.Core.Web;
 
 #endregion
@@ -18,7 +18,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.Name};
 /// $!{DataBase.Name}服务API程序入口类
 /// </summary>
 /// <remarks>
-/// 该类负责配置和启动$!{DataBase.Name}服务的Web API应用程序，包括：
+/// 该类负责配置和启动$!{DataBase.Name}服务的Web API应用程序，主要功能包括：
 /// 1. 配置XML文档路径，用于Swagger接口文档生成
 /// 2. 初始化微服务配置，包括AutoMapper和AutoFac的配置
 /// 3. 启动微服务应用程序

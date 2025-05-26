@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace ViteCent.Auth.Entity.BaseOperation;
 
 /// <summary>
-/// 批量新增操作信息参数
+/// 批量新增操作信息模型
 /// </summary>
 [Serializable]
 public class AddBaseOperationEntityListArgs : IRequest<BaseResult>

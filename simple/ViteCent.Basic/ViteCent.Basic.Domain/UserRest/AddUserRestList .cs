@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.UserRest;
 
 /// <summary>
-/// 批量新增调休申请
+/// 批量新增调休申请领域
 /// </summary>
 /// <param name="logger"></param>
 public class AddUserRestList(
