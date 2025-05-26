@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 搜索$!{Table.Description}参数
+/// 搜索$!{Table.Description}模型参数
 /// </summary>
 [Serializable]
 public class $!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} : SearchArgs, IRequest<List<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>>

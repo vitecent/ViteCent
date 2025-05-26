@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 批量新增$!{Table.Description}参数
+/// 批量新增$!{Table.Description}模型
 /// </summary>
 [Serializable]
 public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} : IRequest<BaseResult>

@@ -14,7 +14,7 @@ using SqlSugar;
 namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 删除$!{Table.Description}参数
+/// 删除$!{Table.Description}模型
 /// </summary>
 [Serializable]
 [SugarTable("$!{Table.Name}")]

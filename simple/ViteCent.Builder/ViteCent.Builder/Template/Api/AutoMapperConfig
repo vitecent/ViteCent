@@ -14,7 +14,7 @@ using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 #end
 #foreach($Table in $Tables)
-// 引入$!{Table.Description}相关的数据实体对象
+// 引入$!{Table.Description}相关的数据模型对象
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 #end
@@ -30,7 +30,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.Name};
 /// </summary>
 /// <remarks>
 /// 该类负责配置$!{DataBase.Name}模块中所有需要的对象映射关系，包括：
-/// 1. $!{DataBase.Name}请求参数与实体参数之间的映射
+/// 1. $!{DataBase.Name}请求参数与模型参数之间的映射
 /// 2. 继承自BaseMapperConfig基类，实现自动化的对象映射配置
 /// </remarks>
 public partial class $!{Setting.Api.MapperName} : BaseMapperConfig

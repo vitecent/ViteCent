@@ -17,7 +17,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// $!{Table.Description}
+/// $!{Table.Description}模型
 /// </summary>
 [Serializable]
 [SugarTable("$!{Table.Name}")]
