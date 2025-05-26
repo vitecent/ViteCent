@@ -293,8 +293,17 @@ public class GenerateExtensions
                     Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
+            {
                 nh.Save(@"Template\Application\Page",
-                    Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.cs"));
+                        Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.cs"));
+
+                var hasOverride = File.Exists(Path.Combine(path,
+                        $"{setting.PageName}{table.Name.ToCamelCase()}.Override.cs"));
+
+                if (!hasOverride)
+                    nh.Save(@"Template\Application\PageOverride",
+                        Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.Override.cs"));
+            }
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Application\Delete",

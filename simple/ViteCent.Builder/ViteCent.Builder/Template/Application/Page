@@ -2,6 +2,7 @@
  * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * 如需扩展该类，请在partial类中实现
  * **********************************
  */
 
@@ -9,9 +10,7 @@
 
 using AutoMapper;
 using MediatR;
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 using Microsoft.AspNetCore.Http;
-#end
 using Microsoft.Extensions.Logging;
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
@@ -27,27 +26,19 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 /// <param name="logger"></param>
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 /// <param name="httpContextAccessor"></param>
-#end
-public class $!{Setting.PageName}$!{Table.CamelCaseName}(
+public partial class $!{Setting.PageName}$!{Table.CamelCaseName}(
     ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger,
     IMapper mapper,
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     IMediator mediator,
     IHttpContextAccessor httpContextAccessor)
-#else
-    IMediator mediator)
-#end
     : IRequestHandler<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 {
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     /// <summary>
     /// 用户信息
     /// </summary>
     private BaseUserInfo user = new();
 
-#end
     /// <summary>
     /// $!{Table.Description}分页
     /// </summary>
@@ -59,15 +50,11 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(
     {
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
 
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
         user = httpContextAccessor.InitUser();
 
-#end
         var args = mapper.Map<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
-#if($HasCompanyId)
 
-        args.AddCompanyId(user);
-#end
+        OverrideHandle(args, user);
 
         var list = await mediator.Send(args, cancellationToken);
 

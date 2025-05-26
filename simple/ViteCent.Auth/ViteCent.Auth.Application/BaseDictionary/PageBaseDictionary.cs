@@ -2,6 +2,7 @@
  * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * 如需扩展该类，请在partial类中实现
  * **********************************
  */
 
@@ -26,7 +27,7 @@ namespace ViteCent.Auth.Application.BaseDictionary;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageBaseDictionary(
+public partial class PageBaseDictionary(
     ILogger<PageBaseDictionary> logger,
     IMapper mapper,
     IMediator mediator,
@@ -53,7 +54,7 @@ public class PageBaseDictionary(
 
         var args = mapper.Map<SearchBaseDictionaryEntityArgs>(request);
 
-        args.AddCompanyId(user);
+        OverrideHandle(args, user);
 
         var list = await mediator.Send(args, cancellationToken);
 

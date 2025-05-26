@@ -2,6 +2,7 @@
  * **********************************
  * 代码由工具自动生成，请勿人工修改
  * 重新生成时，将覆盖原有代码
+ * 如需扩展该类，请在partial类中实现
  * **********************************
  */
 
@@ -26,7 +27,7 @@ namespace ViteCent.Auth.Application.BasePosition;
 /// <param name="mapper"></param>
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-public class PageBasePosition(
+public partial class PageBasePosition(
     ILogger<PageBasePosition> logger,
     IMapper mapper,
     IMediator mediator,
@@ -53,7 +54,7 @@ public class PageBasePosition(
 
         var args = mapper.Map<SearchBasePositionEntityArgs>(request);
 
-        args.AddCompanyId(user);
+        OverrideHandle(args, user);
 
         var list = await mediator.Send(args, cancellationToken);
 

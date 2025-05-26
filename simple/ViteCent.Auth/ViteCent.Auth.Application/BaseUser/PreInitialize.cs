@@ -42,6 +42,7 @@ public class PreInitialize(
             {
                 Flag = true
             });
+
         return new DataResult<PreInitializeResult>(new PreInitializeResult
         {
             Flag = false

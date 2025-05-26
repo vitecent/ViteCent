@@ -1,0 +1,30 @@
+﻿/*
+ * 代码由工具自动生成
+ * 重新生成时，不会覆盖原有代码
+ */
+
+#region
+
+#endregion
+
+using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using ViteCent.Core.Data;
+
+namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+
+/// <summary>
+/// $!{Table.Description}分页应用拓展
+/// </summary>
+public partial class $!{Setting.PageName}$!{Table.CamelCaseName}
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="args"></param>
+    /// <param name="user"></param>
+    private void OverrideHandle($!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} args, BaseUserInfo user)
+    {
+#if($HasCompanyId)
+        args.AddCompanyId(user);
+#end
+    }
+}

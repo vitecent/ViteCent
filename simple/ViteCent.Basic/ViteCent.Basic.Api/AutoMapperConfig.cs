@@ -44,7 +44,7 @@ using ViteCent.Basic.Entity.UserLeave;
 // 引入调休申请相关的数据模型对象
 using ViteCent.Basic.Entity.UserRest;
 
-// 引入 Web 核心
+// 引入 Web 核心 
 using ViteCent.Core.Web;
 
 #endregion
@@ -64,7 +64,9 @@ public partial class AutoMapperConfig : BaseMapperConfig
     /// <summary>
     /// 配置对象映射关系
     /// </summary>
-    /// <remarks>在此方法中配置所有需要的对象映射规则</remarks>
+    /// <remarks>
+    /// 在此方法中配置所有需要的对象映射规则
+    /// </remarks>
     public override void Map()
     {
         #region 补卡申请对象映射配置
