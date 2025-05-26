@@ -13,10 +13,7 @@ namespace ViteCent.Core.Web.Filter;
 /// <summary>
 /// 全局异常处理过滤器
 /// </summary>
-/// <remarks>
-/// 用于捕获和处理Web API中未经处理的异常，提供统一的异常处理机制
-/// 将异常信息记录到日志系统，并返回标准化的错误响应
-/// </remarks>
+/// <remarks>用于捕获和处理Web API中未经处理的异常，提供统一的异常处理机制 将异常信息记录到日志系统，并返回标准化的错误响应</remarks>
 public class BaseExceptionFilter : IExceptionFilter
 {
     /// <summary>

@@ -22,7 +22,7 @@ using ViteCent.Core.Enums;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 启用$!{Table.Description}仓储
+/// 启用$!{Table.Description}应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

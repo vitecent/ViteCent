@@ -28,6 +28,33 @@ public class ConsulRegister(string uri) : IRegister
     }
 
     /// <summary>
+    /// 注册微服务实例到Consul
+    /// </summary>
+    /// <param name="microService">微服务配置信息，包含服务ID、名称、地址、端口等</param>
+    /// <returns>表示异步操作的任务</returns>
+    public async Task RegisterAsync(ServiceConfig microService)
+    {
+        var service = new AgentServiceRegistration
+        {
+            ID = microService.Id,
+            Name = microService.Name,
+            Address = microService.Address,
+            Port = microService.Port,
+            Check = new AgentServiceCheck
+            {
+                Interval = TimeSpan.FromSeconds(30),
+                HTTP = $"http://{microService.Address}:{microService.Port}{microService.Check}",
+                Timeout = TimeSpan.FromSeconds(microService.Timeout),
+                DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(microService.Deregister)
+            }
+        };
+
+        if (microService.IsHttps) service.Check.HTTP = service.Check.HTTP.Replace("http://", "https://");
+
+        await client.Agent.ServiceRegister(service);
+    }
+
+    /// <summary>
     /// 获取当前注册的所有服务实例信息
     /// </summary>
     /// <returns>返回服务名称与服务实例列表的字典集合</returns>
@@ -69,32 +96,5 @@ public class ConsulRegister(string uri) : IRegister
         }
 
         return result;
-    }
-
-    /// <summary>
-    /// 注册微服务实例到Consul
-    /// </summary>
-    /// <param name="microService">微服务配置信息，包含服务ID、名称、地址、端口等</param>
-    /// <returns>表示异步操作的任务</returns>
-    public async Task RegisterAsync(ServiceConfig microService)
-    {
-        var service = new AgentServiceRegistration
-        {
-            ID = microService.Id,
-            Name = microService.Name,
-            Address = microService.Address,
-            Port = microService.Port,
-            Check = new AgentServiceCheck
-            {
-                Interval = TimeSpan.FromSeconds(30),
-                HTTP = $"http://{microService.Address}:{microService.Port}{microService.Check}",
-                Timeout = TimeSpan.FromSeconds(microService.Timeout),
-                DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(microService.Deregister)
-            }
-        };
-
-        if (microService.IsHttps) service.Check.HTTP = service.Check.HTTP.Replace("http://", "https://");
-
-        await client.Agent.ServiceRegister(service);
     }
 }

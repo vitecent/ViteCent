@@ -16,10 +16,7 @@ namespace ViteCent.Core.Web.Filter;
 /// <summary>
 /// 权限验证过滤器
 /// </summary>
-/// <remarks>
-/// 用于验证用户对特定系统资源的访问权限
-/// 检查用户登录状态、Token有效性以及操作权限
-/// </remarks>
+/// <remarks>用于验证用户对特定系统资源的访问权限 检查用户登录状态、Token有效性以及操作权限</remarks>
 /// <param name="cache">缓存接口，用于存储和验证用户Token</param>
 /// <param name="configuration">配置接口，用于获取JWT配置信息</param>
 /// <param name="system">系统标识</param>
@@ -139,9 +136,7 @@ public class BaseAuthFilter(
     /// <param name="resource">资源标识</param>
     /// <param name="operation">操作标识</param>
     /// <returns>true表示有权限，false表示无权限</returns>
-    /// <remarks>
-    /// 从缓存中获取用户的权限信息，验证用户是否具有指定的系统、资源和操作权限
-    /// </remarks>
+    /// <remarks>从缓存中获取用户的权限信息，验证用户是否具有指定的系统、资源和操作权限</remarks>
     private bool IsAUth(BaseUserInfo? user, string system, string resource, string operation)
     {
         var auth = new List<BaseSystemInfo>();

@@ -17,18 +17,24 @@ using ViteCent.Statistics.Data.Statistics;
 namespace ViteCent.Statistics.Domain.Statistics;
 
 /// <summary>
-/// 考勤统计
+/// 考勤统计服务类
 /// </summary>
-/// <param name="logger"></param>
+/// <remarks>
+/// 该服务负责处理考勤统计相关的业务逻辑，包括：
+/// 1. 根据条件筛选用户信息
+/// 2. 获取考勤班次类型
+/// 3. 统计每个用户在不同班次的考勤数据
+/// </remarks>
+/// <param name="logger">日志记录器</param>
 public class Schedule(ILogger<Schedule> logger)
     : IRequestHandler<StatisticsScheduleStatisticsEntityArgs, DataResult<ScheduleStatisticsResult>>
 {
     /// <summary>
-    /// 考勤统计
+    /// 处理考勤统计请求
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">统计请求参数，包含公司ID、部门ID、岗位ID、查询关键字、统计时间范围等</param>
+    /// <param name="cancellationToken">取消操作的令牌</param>
+    /// <returns>返回考勤统计结果，包含每个用户在不同班次的出勤次数和工时统计</returns>
     public async Task<DataResult<ScheduleStatisticsResult>> Handle(StatisticsScheduleStatisticsEntityArgs request,
         CancellationToken cancellationToken)
     {
@@ -135,9 +141,14 @@ public class Schedule(ILogger<Schedule> logger)
     }
 
     /// <summary>
+    /// 计算考勤数据统计结果
     /// </summary>
-    /// <param name="datas"></param>
-    /// <returns></returns>
+    /// <param name="datas">考勤记录列表</param>
+    /// <returns>
+    /// 返回包含出勤次数和工时的统计数据列表：
+    /// - 第一个元素为出勤次数
+    /// - 第二个元素为总工时（小时）
+    /// </returns>
     private static List<double> GetData(List<ScheduleResult> datas)
     {
         var result = new List<double>

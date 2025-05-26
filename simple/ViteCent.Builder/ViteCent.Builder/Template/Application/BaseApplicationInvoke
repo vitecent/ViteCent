@@ -20,7 +20,7 @@ using ViteCent.Core.Web;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name};
 
 /// <summary>
-/// 基础仓储
+/// 基础应用
 /// </summary>
 public static class Base$!{Setting.Application.Name}
 {

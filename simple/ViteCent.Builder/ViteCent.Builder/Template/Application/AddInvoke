@@ -38,7 +38,7 @@ using ViteCent.Core.Web;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 新增$!{Table.Description}仓储
+/// 新增$!{Table.Description}应用
 /// </summary>
 /// <param name="logger"></param>
 #if($HasId)

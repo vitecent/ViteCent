@@ -7,6 +7,7 @@
 
 #region
 
+// 引入微服务
 using ViteCent.Core.Web;
 
 #endregion
@@ -14,12 +15,12 @@ using ViteCent.Core.Web;
 namespace $!{DataBase.Name}.$!{Setting.Api.Name};
 
 /// <summary>
-/// $!{Table.Description}映射拓展 
+/// AutoMapper对象映射配置类拓展 
 /// </summary>
 public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
 {
     /// <summary>
-    /// 映射
+    /// 配置其他对象映射关系
     /// </summary>
     private void OverrideMap()
     {

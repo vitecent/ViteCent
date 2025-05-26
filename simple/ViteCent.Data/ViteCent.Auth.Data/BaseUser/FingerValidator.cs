@@ -1,8 +1,6 @@
 ﻿#region
 
 using FluentValidation;
-using MediatR;
-using ViteCent.Core.Data;
 
 #endregion
 

@@ -4,9 +4,10 @@
 /// </summary>
 public enum ModelEnum
 {
-	/// <summary>
+    /// <summary>
     /// </summary>
-    Finger = 1, 
+    Finger = 1,
+
     /// <summary>
     /// </summary>
     Web = 2

@@ -19,7 +19,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 批量$!{Table.Description}判重
+/// 批量$!{Table.Description}判重领域
 /// </summary>
 /// <param name="logger"></param>
 public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(

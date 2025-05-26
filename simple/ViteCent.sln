@@ -93,6 +93,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteCent.Statistics.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteCent.Statistics.Data", "ViteCent.Data\ViteCent.Statistics.Data\ViteCent.Statistics.Data.csproj", "{C187DD4D-DA4F-4CE2-DE1D-F51C6B2F7D10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteCent.Fiels.Data", "ViteCent.Data\ViteCent.Fiels.Data\ViteCent.Fiels.Data.csproj", "{6A0780DC-D5C4-2D9F-7F83-48AB70C5D46A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -247,6 +249,10 @@ Global
 		{C187DD4D-DA4F-4CE2-DE1D-F51C6B2F7D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C187DD4D-DA4F-4CE2-DE1D-F51C6B2F7D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C187DD4D-DA4F-4CE2-DE1D-F51C6B2F7D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A0780DC-D5C4-2D9F-7F83-48AB70C5D46A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A0780DC-D5C4-2D9F-7F83-48AB70C5D46A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A0780DC-D5C4-2D9F-7F83-48AB70C5D46A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A0780DC-D5C4-2D9F-7F83-48AB70C5D46A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -289,6 +295,7 @@ Global
 		{A255646B-7FC6-C01A-B8B9-7381A8BE53C4} = {DC0DDC90-1E84-4ECB-80D2-86BFEA39B2FE}
 		{1155C540-F274-8B5B-32B5-0AAB77F4DCBA} = {DC0DDC90-1E84-4ECB-80D2-86BFEA39B2FE}
 		{C187DD4D-DA4F-4CE2-DE1D-F51C6B2F7D10} = {DC0DDC90-1E84-4ECB-80D2-86BFEA39B2FE}
+		{6A0780DC-D5C4-2D9F-7F83-48AB70C5D46A} = {F4D3A3E5-77B4-44AA-8B45-2E1C655FF9EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B275C1A-10DA-4B8D-9F86-5F20E89E9F3E}

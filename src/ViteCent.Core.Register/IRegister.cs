@@ -13,15 +13,15 @@ public interface IRegister
     Task DeregisterAsync(string serviceId);
 
     /// <summary>
-    /// 获取当前已注册的所有服务列表
-    /// </summary>
-    /// <returns>返回服务名称与服务配置列表的字典映射</returns>
-    Task<Dictionary<string, List<ServiceConfig>>> ServiceAsync();
-
-    /// <summary>
     /// 注册新的微服务实例
     /// </summary>
     /// <param name="microService">微服务配置信息</param>
     /// <returns>表示异步操作的任务</returns>
     Task RegisterAsync(ServiceConfig microService);
+
+    /// <summary>
+    /// 获取当前已注册的所有服务列表
+    /// </summary>
+    /// <returns>返回服务名称与服务配置列表的字典映射</returns>
+    Task<Dictionary<string, List<ServiceConfig>>> ServiceAsync();
 }

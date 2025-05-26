@@ -35,7 +35,7 @@ using ViteCent.Core.Web;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 编辑$!{Table.Description}仓储
+/// 编辑$!{Table.Description}应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

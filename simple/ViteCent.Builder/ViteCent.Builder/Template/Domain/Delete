@@ -18,7 +18,7 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 删除$!{Table.Description}
+/// 删除$!{Table.Description}领域
 /// </summary>
 /// <param name="logger"></param>
 public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(

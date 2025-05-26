@@ -5,12 +5,19 @@
  * **********************************
  */
 
+#region
+
+using SqlSugar;
+
+#endregion
+
 namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}参数
 /// </summary>
 [Serializable]
+[SugarTable("$!{Table.Name}")]
 public class $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name} : $!{Table.CamelCaseName}$!{Setting.Entity.Name}
 {
 

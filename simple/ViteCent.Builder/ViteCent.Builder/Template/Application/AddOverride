@@ -43,7 +43,7 @@ using ViteCent.Core.Enums;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 新增$!{Table.Description}仓储拓展
+/// 新增$!{Table.Description}应用拓展
 /// </summary>
 public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 {

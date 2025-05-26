@@ -28,7 +28,7 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 删除$!{Table.Description}仓储拓展
+/// 删除$!{Table.Description}应用拓展
 /// </summary>
 public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
 {

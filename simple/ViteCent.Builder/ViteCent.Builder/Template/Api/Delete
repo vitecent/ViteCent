@@ -7,14 +7,27 @@
 
 #region
 
+// 引入 MediatR 用于处理命令和查询的中介者模式实现
 using MediatR;
+
+// 引入 ASP.NET Core MVC 的功能
 using Microsoft.AspNetCore.Mvc;
+
+// 引入$!{Table.Description}相关的数据传输对象
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
+// 引入数据结构
 using ViteCent.Core.Data;
 #if($HasCompanyId)
+
+// 引入基础枚举
 using ViteCent.Core.Enums;
 #end
+
+// 引入接口基类
 using ViteCent.Core.Web.Api;
+
+// 引入过滤器
 using ViteCent.Core.Web.Filter;
 
 #endregion
@@ -24,84 +37,122 @@ namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 /// <summary>
 /// 删除$!{Table.Description}接口
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mediator"></param>
+/// <remarks>
+/// 该接口主要负责处理删除$!{Table.Description}的相关操作，包括：
+/// 1. 验证用户登录状态
+/// 2. 验证用户权限
+/// 3. 处理删除$!{Table.Description}的请求
+/// 4. 返回操作结果
+/// </remarks>
+/// <param name="logger">用于记录接口的操作日志</param>
+/// <param name="mediator">用于发送命令请求</param>
+// 标记为 API 接口
 [ApiController]
+// 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
+// 设置路由前缀
 [Route("$!{Table.CamelCaseName}")]
 public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(
+    // 注入日志记录器
     ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger,
+    // 注入中介者
     IMediator mediator)
+    // 继承基类，指定查询参数和返回结果类型
     : BaseLoginApi<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
     /// 删除$!{Table.Description}
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
+    /// <remarks>
+    /// 该方法主要完成以下功能：
+    /// 1. 记录方法调用日志，便于追踪和调试
+    /// 2. 验证参数有效性
+    /// 3. 通过中介者发送删除命令
+    /// 4. 返回操作结果
+    /// </remarks>
+    /// <param name="args">删除$!{Table.Description}的参数</param>
+    /// <returns>返回删除操作的结果</returns>
+    // 标记为 POST 请求
     [HttpPost]
+    // 使用权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "$!{DataBase.ServiceName}", "$!{Table.CamelCaseName}", "$!{Setting.DeleteName}" })]
+    // 设置路由名称
     [Route("$!{Setting.DeleteName}")]
     public override async Task<BaseResult> InvokeAsync($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
+        // 验证参数有效性
         if (args == null)
             return new BaseResult(500, "参数不能为空");
 #if($HasCompanyId)
 
+        // 如果用户不是超级管理员，则验证公司标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 
+        // 验证$!{Table.Description}的有效性
         var check = User.CheckCompanyId(args.CompanyId);
 
+        // 如果验证失败，返回错误信息
         if (check != null && !check.Success)
             return check;
 #end
 #if($HasDepartmentId)
 
+        // 如果用户不是超级管理员，则验证部门标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
 #end
 #if($HasPositionId)
 
+        // 如果用户不是超级管理员，则验证职位标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
                 return new BaseResult(500, "职位标识不能为空");
 #end
 #if($HasRoleId)
 
+        // 如果用户不是超级管理员，则验证角色标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new BaseResult(500, "角色标识不能为空");
 #end
 #if($HasUserId)
 
+        // 如果用户不是超级管理员，则验证用户标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new BaseResult(500, "用户标识不能为空");
 #end
 #if($HasSystemId)
 
+        // 如果用户不是超级管理员，则验证系统标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new BaseResult(500, "系统标识不能为空");
 #end
 #if($HasResourceId)
 
+        // 如果用户不是超级管理员，则验证资源标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.ResourceId))
                 return new BaseResult(500, "资源标识不能为空");
 #end
 #if($HasOperationId)
 
+        // 如果用户不是超级管理员，则验证操作标识是否为空
         if (User.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.OperationId))
                 return new BaseResult(500, "操作标识不能为空");
 #end
+        // 创建取消令牌，用于支持异步操作的取消
+        var cancellationToken = new CancellationToken();
 
-        return await mediator.Send(args);
+        // 通过中介者发送删除命令并返回结果
+        return await mediator.Send(args, cancellationToken);
     }
 }

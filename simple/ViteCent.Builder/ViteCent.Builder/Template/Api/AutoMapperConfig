@@ -9,11 +9,16 @@
 #region
 
 #foreach($Table in $Tables)
+// 引入$!{Table.Description}相关的数据传输对象
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
 #end
 #foreach($Table in $Tables)
+// 引入$!{Table.Description}相关的数据实体对象
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+
 #end
+// 引入微服务
 using ViteCent.Core.Web;
 
 #endregion
@@ -21,45 +26,68 @@ using ViteCent.Core.Web;
 namespace $!{DataBase.Name}.$!{Setting.Api.Name};
 
 /// <summary>
-/// $!{Table.Description}映射
+/// AutoMapper对象映射配置类
 /// </summary>
+/// <remarks>
+/// 该类负责配置$!{DataBase.Name}模块中所有需要的对象映射关系，包括：
+/// 1. $!{DataBase.Name}请求参数与实体参数之间的映射
+/// 2. 继承自BaseMapperConfig基类，实现自动化的对象映射配置
+/// </remarks>
 public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
 {
     /// <summary>
-    /// 映射
+    /// 配置对象映射关系
     /// </summary>
+    /// <remarks>
+    /// 在此方法中配置所有需要的对象映射规则
+    /// </remarks>
     public override void Map()
     {
 #set($Index = 0)
 #foreach($Table in $Tables)
-        #region $!{Table.CamelCaseName}
+        #region $!{Table.Description}对象映射配置
 
 #if($Setting.AddName != "")
+        // 新增对象映射配置
         CreateMap<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
+
 #end
 #if($Setting.EditName != "")
+        // 编辑对象映射配置
         CreateMap<$!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+
 #end
 #if($Setting.GetName != "")
+        // 获取对象映射配置
         CreateMap<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+
 #end
 #if($DataBase.Invoke == false && $HasStatus && $Setting.DisableName != "")
+        // 禁用对象映射配置
         CreateMap<$!{Setting.DisableName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+
 #end
 #if($DataBase.Invoke == false && $HasStatus && $Setting.EnableName != "")
+        // 启用对象映射配置
         CreateMap<$!{Setting.EnableName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+
 #end
 #if($Setting.PageName != "")
+        // 分页对象映射配置
         CreateMap<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
+
 #end
 #if($Setting.GetName != ""||$Setting.PageName != "")
+        // 获取对象映射配置
         CreateMap<$!{Table.CamelCaseName}$!{Setting.Entity.Name}, $!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>();
+
 #end
 #if($Setting.DeleteName != "")
+        // 删除对象映射配置
         CreateMap<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
         CreateMap<$!{Table.CamelCaseName}$!{Setting.Entity.Name}, $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
-#end
 
+#end
         #endregion
 #set($Index = $Index + 1)
 #if($Index < $Tables.Count)
@@ -67,6 +95,7 @@ public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
 #end
 #end
 
+        // 其他对象映射配置
         OverrideMap();
     }
 }

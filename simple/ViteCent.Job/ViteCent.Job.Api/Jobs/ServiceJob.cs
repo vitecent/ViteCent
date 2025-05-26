@@ -10,10 +10,11 @@ using ViteCent.Core.Register;
 namespace ViteCent.Job.Api.Jobs;
 
 /// <summary>
+/// 服务发现作业 用于定期从注册中心获取最新的服务列表，并更新到缓存中，以便其他服务能够及时获取可用的服务信息
 /// </summary>
-/// <param name="cache"></param>
-/// <param name="register"></param>
-/// <param name="logger"></param>
+/// <param name="cache">缓存接口，用于存储服务列表信息</param>
+/// <param name="register">服务注册接口，用于从注册中心获取服务列表</param>
+/// <param name="logger">日志记录器，用于记录作业执行过程中的信息</param>
 public class ServiceJob(
     IBaseCache cache,
     IRegister register,
@@ -21,9 +22,10 @@ public class ServiceJob(
     : IJob
 {
     /// <summary>
+    /// 执行服务发现任务 从注册中心获取最新的服务列表，并将其更新到缓存中，设置1分钟的过期时间
     /// </summary>
-    /// <param name="context"></param>
-    /// <returns></returns>
+    /// <param name="context">作业执行上下文，包含作业的相关信息</param>
+    /// <returns>异步任务</returns>
     public async Task Execute(IJobExecutionContext context)
     {
         logger.LogInformation($"ServiceJob : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");

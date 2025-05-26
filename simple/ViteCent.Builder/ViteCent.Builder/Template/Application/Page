@@ -22,7 +22,7 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// $!{Table.Description}分页仓储
+/// $!{Table.Description}分页应用
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="mapper"></param>

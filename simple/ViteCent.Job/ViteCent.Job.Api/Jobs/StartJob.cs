@@ -3,23 +3,24 @@
 using Quartz;
 using ViteCent.Core;
 using ViteCent.Core.Data;
-using ViteCent.Core.Orm;
 
 #endregion
 
 namespace ViteCent.Job.Api.Jobs;
 
 /// <summary>
+/// 服务启动作业 用于定期检查各个服务的健康状态，通过HTTP请求访问服务的健康检查接口
 /// </summary>
-/// <param name="logger"></param>
+/// <param name="logger">日志记录器，用于记录作业执行过程中的信息和错误</param>
 public class StartJob(
     ILogger<ServiceJob> logger)
     : IJob
 {
     /// <summary>
+    /// 执行服务健康检查 遍历预定义的服务URL列表，向每个服务的健康检查接口发送GET请求 如果请求失败，记录错误信息并继续检查下一个服务
     /// </summary>
-    /// <param name="context"></param>
-    /// <returns></returns>
+    /// <param name="context">作业执行上下文，包含作业的相关信息</param>
+    /// <returns>异步任务</returns>
     public async Task Execute(IJobExecutionContext context)
     {
         logger.LogInformation($"StartJob : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");

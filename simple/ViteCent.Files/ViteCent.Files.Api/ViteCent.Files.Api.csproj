@@ -16,6 +16,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\ViteCent.Core.Web\ViteCent.Core.Web.csproj" />
+		<ProjectReference Include="..\..\ViteCent.Data\ViteCent.Fiels.Data\ViteCent.Fiels.Data.csproj" />
 	</ItemGroup>
 
 </Project>

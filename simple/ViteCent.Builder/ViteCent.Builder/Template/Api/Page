@@ -7,11 +7,22 @@
 
 #region
 
+// 引入 MediatR用于处理命令和查询的中介者模式实现
 using MediatR;
+
+// 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
+
+// 引入$!{Table.Description}相关的数据传输对象
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
+// 引入数据结构
 using ViteCent.Core.Data;
+
+// 引入接口基类
 using ViteCent.Core.Web.Api;
+
+// 引入过滤器
 using ViteCent.Core.Web.Filter;
 
 #endregion
@@ -19,33 +30,61 @@ using ViteCent.Core.Web.Filter;
 namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// $!{Table.Description}分页接口
+/// $!{Table.Description}分页查询接口
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mediator"></param>
+/// <remarks>
+/// 该接口提供$!{Table.Description}的分页查询功能，继承自BaseLoginApi基类。 主要职责：
+/// 1. 处理$!{Table.Description}的分页查询请求
+/// 2. 验证用户登录状态
+/// 3. 验证用户权限
+/// 4. 返回分页查询结果
+/// </remarks>
+/// <param name="logger">日志记录器，用于记录接口的操作日志</param>
+/// <param name="mediator">中介者接口，用于处理查询请求</param>
+ // 标记为API接口
 [ApiController]
+// 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
+// 设置路由前缀
 [Route("$!{Table.CamelCaseName}")]
 public class $!{Setting.PageName}$!{Table.CamelCaseName}(
+    // 注入日志记录器
     ILogger<$!{Setting.PageName}$!{Table.CamelCaseName}> logger,
+    // 注入中介者接口
     IMediator mediator)
+    // 继承基类，指定查询参数和返回结果类型
     : BaseLoginApi<$!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>>
 {
     /// <summary>
-    /// $!{Table.Description}分页
+    /// $!{Table.Description}分页查询
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
+    /// <param name="args">查询参数，包含分页、筛选等条件</param>
+    /// <returns>返回分页查询结果，包含$!{Table.Description}列表和分页信息</returns>
+    /// <remarks>
+    /// 该方法实现以下功能：
+    /// 1. 记录操作日志
+    /// 2. 验证参数有效性
+    /// 3. 通过中介者发送查询请求
+    /// 4. 返回查询结果
+    /// </remarks>
+    // 标记为POST请求
     [HttpPost]
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "$!{DataBase.ServiceName}", "$!{Table.CamelCaseName}", "$!{Setting.GetName}" })]
+    // 设置路由名称
     [Route("$!{Setting.PageName}")]
     public override async Task<PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>> InvokeAsync($!{Setting.Data.SearchPrefix}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
 
+        // 验证参数是否为空，确保请求参数的有效性
         if (args == null)
             return new PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "参数不能为空");
 
-        return await mediator.Send(args);
+        // 创建取消令牌，用于支持异步操作的取消
+        var cancellationToken = new CancellationToken();
+
+        // 通过中介者发送分页命令并返回结果
+        return await mediator.Send(args, cancellationToken);
     }
 }
