@@ -82,11 +82,8 @@ public partial class EditScheduleType(
         entity.CompanyName = request.CompanyName;
         entity.DepartmentName = request.DepartmentName;
         entity.Description = request.Description;
-        entity.EndTime = request.EndTime;
         entity.Name = request.Name;
-        entity.Overnight = request.Overnight;
         entity.ScheduleType = request.ScheduleType;
-        entity.StartTime = request.StartTime;
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

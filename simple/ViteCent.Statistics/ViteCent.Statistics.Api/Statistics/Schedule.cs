@@ -21,7 +21,7 @@ namespace ViteCent.Statistics.Api.Statistics;
 [Route("Schedule")]
 public class Schedule(
     ILogger<Schedule> logger,
-    IMediator mediator) : BaseLoginApi<StatisticsScheduleStatisticsArgs, DataResult<ScheduleStatisticsResult>>
+    IMediator mediator) : BaseApi<StatisticsScheduleStatisticsArgs, DataResult<ScheduleStatisticsResult>>
 {
     /// <summary>
     /// 考勤统计

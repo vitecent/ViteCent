@@ -36,7 +36,6 @@ public class ShiftScheduleTopic(
     /// <param name="notification"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    ///
     public async Task Handle(ShiftScheduleTopicArgs notification, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.ShiftScheduleTopic");

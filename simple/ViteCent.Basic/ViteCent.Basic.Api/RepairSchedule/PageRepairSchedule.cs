@@ -53,7 +53,7 @@ public class PageRepairSchedule(
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<SearchRepairScheduleArgs, PageResult<RepairScheduleResult>>
+    : BaseApi<SearchRepairScheduleArgs, PageResult<RepairScheduleResult>>
 {
     /// <summary>
     /// 补卡申请分页查询

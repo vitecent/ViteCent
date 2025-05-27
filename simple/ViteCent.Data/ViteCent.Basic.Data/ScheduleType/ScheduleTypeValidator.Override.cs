@@ -6,7 +6,6 @@
 #region
 
 using FluentValidation;
-using ViteCent.Core.Data;
 
 #endregion
 
@@ -21,10 +20,6 @@ public partial class ScheduleTypeValidator : AbstractValidator<AddScheduleTypeAr
     /// <param name="validate"></param>
     private void OverrideValidator(bool validate)
     {
-        RuleFor(x => x.StartTime).Matches(BaseConst.Time).WithMessage("开始时间格式错误");
-
-        RuleFor(x => x.EndTime).Matches(BaseConst.Time).WithMessage("结束时间格式错误");
-
         var scheduleTypes = new List<int>
             { (int)ScheduleTypeEnum.Schedule, (int)ScheduleTypeEnum.Leave, (int)ScheduleTypeEnum.Rest };
 

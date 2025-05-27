@@ -84,12 +84,6 @@ public class ScheduleTypeEntity : BaseEntity, IRequest<BaseResult>
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
-    /// 结束时间
-    /// </summary>
-    [SugarColumn(ColumnName = "endTime")]
-    public string EndTime { get; set; } = string.Empty;
-
-    /// <summary>
     /// 标识
     /// </summary>
     [SugarColumn(ColumnName = "id", IsPrimaryKey = true)]
@@ -102,22 +96,10 @@ public class ScheduleTypeEntity : BaseEntity, IRequest<BaseResult>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// 是否跨天
-    /// </summary>
-    [SugarColumn(ColumnName = "overnight")]
-    public int Overnight { get; set; }
-
-    /// <summary>
     /// 类型
     /// </summary>
     [SugarColumn(ColumnName = "scheduleType")]
     public int ScheduleType { get; set; }
-
-    /// <summary>
-    /// 开始时间
-    /// </summary>
-    [SugarColumn(ColumnName = "startTime")]
-    public string StartTime { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

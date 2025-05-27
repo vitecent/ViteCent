@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 [Route("BaseUser")]
 public class ChangePasword(
     ILogger<ChangePasword> logger,
-    IMediator mediator) : BaseLoginApi<ChangePaswordArgs, BaseResult>
+    IMediator mediator) : BaseApi<ChangePaswordArgs, BaseResult>
 {
     /// <summary>
     /// 重置密码

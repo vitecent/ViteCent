@@ -22,7 +22,7 @@ public class DataBase : BaseDataBase
 
     /// <summary>
     /// </summary>
-    public string Port { get; set; } = "3306";
+    public string Port { get; set; } = "13306";
 
     /// <summary>
     /// </summary>

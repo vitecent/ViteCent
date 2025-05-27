@@ -13,6 +13,9 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
+// 引入基础数据传输对象
+using ViteCent.Basic.Application;
+
 // 引入基础排班相关的数据传输对象
 using ViteCent.Basic.Data.ScheduleType;
 
@@ -43,6 +46,7 @@ namespace ViteCent.Basic.Api.ScheduleType;
 /// 4. 返回基础排班数据
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录接口的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 /// <param name="mediator">中介者接口，用于发送查询请求</param>
 // 标记为API接口
 [ApiController]
@@ -53,11 +57,18 @@ namespace ViteCent.Basic.Api.ScheduleType;
 public class GetScheduleType(
     // 注入日志记录器
     ILogger<GetScheduleType> logger,
+    // 注入HTTP上下文访问器
+    IHttpContextAccessor httpContextAccessor,
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<GetScheduleTypeArgs, DataResult<ScheduleTypeResult>>
+    : BaseApi<GetScheduleTypeArgs, DataResult<ScheduleTypeResult>>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 获取基础排班
     /// </summary>
@@ -86,19 +97,19 @@ public class GetScheduleType(
             return new DataResult<ScheduleTypeResult>(500, "参数不能为空");
 
         // 如果用户不是超级管理员，则验证公司标识是否为空
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<ScheduleTypeResult>(500, "公司标识不能为空");
 
         // 验证基础排班的有效性
-        var check = User.CheckCompanyId(args.CompanyId);
+        var check = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
         if (check != null && !check.Success)
             return new DataResult<ScheduleTypeResult>(check.Code, check.Message);
 
         // 如果用户不是超级管理员，则验证部门标识是否为空
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<ScheduleTypeResult>(500, "部门标识不能为空");
 

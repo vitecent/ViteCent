@@ -14,6 +14,9 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
+// 引入基础数据传输对象
+using ViteCent.Auth.Application;
+
 // 引入公司信息相关的数据传输对象
 using ViteCent.Auth.Data.BaseCompany;
 
@@ -42,6 +45,7 @@ namespace ViteCent.Auth.Api.BaseCompany;
 /// 5. 返回操作结果
 /// </remarks>
 /// <param name="logger">用于记录接口的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 /// <param name="mediator">用于发送命令请求</param>
 // 标记为 API 接口
 [ApiController]
@@ -52,11 +56,18 @@ namespace ViteCent.Auth.Api.BaseCompany;
 public class AddBaseCompanyList(
     // 注入日志记录器
     ILogger<AddBaseCompanyList> logger,
+    // 注入HTTP上下文访问器
+    IHttpContextAccessor httpContextAccessor,
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<AddBaseCompanyListArgs, BaseResult>
+    : BaseListApi<List<AddBaseCompanyArgs>, BaseResult>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 批量新增公司信息
     /// </summary>
@@ -78,7 +89,7 @@ public class AddBaseCompanyList(
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Auth", "BaseCompany", "Add" })]
     // 设置路由名称
     [Route("AddList")]
-    public override async Task<BaseResult> InvokeAsync(AddBaseCompanyListArgs args)
+    public override async Task<BaseResult> InvokeAsync(List<AddBaseCompanyArgs> args)
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseCompany.AddBaseCompanyList");
@@ -88,14 +99,14 @@ public class AddBaseCompanyList(
             return new BaseResult(500, "参数不能为空");
 
         // 验证公司信息列表不为空
-        if (args.Items.Count == 0)
+        if (args.Count == 0)
             return new BaseResult(500, "公司信息不能为空");
 
         // 获取去重公司信息数量
-        var count = args.Items.Distinct().Count();
+        var count = args.Distinct().Count();
 
         // 验证公司信息不重复
-        if (count != args.Items.Count)
+        if (count != args.Count)
             return new BaseResult(500, "公司信息重复");
 
         // 创建取消令牌
@@ -105,10 +116,10 @@ public class AddBaseCompanyList(
         var validator = new BaseCompanyValidator();
 
         // 验证每个公司信息的有效性
-        foreach (var item in args.Items)
+        foreach (var item in args)
         {
             // 重写调用方法
-            AddBaseCompany.OverrideInvoke(item, User);
+            AddBaseCompany.OverrideInvoke(item, user);
 
             // 验证公司信息的有效性
             var check = await validator.ValidateAsync(item, cancellationToken);
@@ -118,7 +129,13 @@ public class AddBaseCompanyList(
                 return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
         }
 
+        // 构建请求参数
+        var request = new AddBaseCompanyListArgs()
+        {
+            Items = args
+        };
+
         // 通过中介者发送批量新增命令并返回结果
-        return await mediator.Send(args, cancellationToken);
+        return await mediator.Send(request, cancellationToken);
     }
 }

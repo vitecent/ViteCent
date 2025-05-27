@@ -2,6 +2,7 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ViteCent.Basic.Application;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
@@ -17,6 +18,7 @@ namespace ViteCent.Basic.Api.Schedule;
 /// 上班接口
 /// </summary>
 /// <param name="logger"></param>
+/// <param name="httpContextAccessor"></param>
 /// <param name="mediator"></param>
 /// <param name="cache"></param>
 [ApiController]
@@ -24,10 +26,16 @@ namespace ViteCent.Basic.Api.Schedule;
 [Route("Schedule")]
 public class FirstSchedule(
     ILogger<FirstSchedule> logger,
+    IHttpContextAccessor httpContextAccessor,
     IMediator mediator,
     IBaseCache cache)
-    : BaseLoginApi<FirstScheduleArgs, BaseResult>
+    : BaseApi<FirstScheduleArgs, BaseResult>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 上班
     /// </summary>
@@ -40,13 +48,13 @@ public class FirstSchedule(
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.FirstSchedule");
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = User.Company.Id;
+                args.CompanyId = user.Company.Id;
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = User.Department.Id;
+                args.DepartmentId = user.Department.Id;
 
         var cancellationToken = new CancellationToken();
         var validator = new FirstScheduleValidator();
@@ -56,20 +64,20 @@ public class FirstSchedule(
         if (!check.IsValid)
             return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 
-        var checkCompany = User.CheckCompanyId(args.CompanyId);
+        var checkCompany = user.CheckCompanyId(args.CompanyId);
 
         if (checkCompany != null && !checkCompany.Success)
             return checkCompany;
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new BaseResult(500, "用户标识不能为空");
 

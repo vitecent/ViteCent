@@ -14,6 +14,9 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
+// 引入基础数据传输对象
+using ViteCent.Basic.Application;
+
 // 引入基础排班相关的数据传输对象
 using ViteCent.Basic.Data.ScheduleType;
 
@@ -45,6 +48,7 @@ namespace ViteCent.Basic.Api.ScheduleType;
 /// 5. 返回操作结果
 /// </remarks>
 /// <param name="logger">用于记录接口的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 /// <param name="mediator">用于发送命令请求</param>
 // 标记为 API 接口
 [ApiController]
@@ -55,11 +59,18 @@ namespace ViteCent.Basic.Api.ScheduleType;
 public class AddScheduleTypeList(
     // 注入日志记录器
     ILogger<AddScheduleTypeList> logger,
+    // 注入HTTP上下文访问器
+    IHttpContextAccessor httpContextAccessor,
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<AddScheduleTypeListArgs, BaseResult>
+    : BaseListApi<List<AddScheduleTypeArgs>, BaseResult>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 批量新增基础排班
     /// </summary>
@@ -81,7 +92,7 @@ public class AddScheduleTypeList(
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Basic", "ScheduleType", "Add" })]
     // 设置路由名称
     [Route("AddList")]
-    public override async Task<BaseResult> InvokeAsync(AddScheduleTypeListArgs args)
+    public override async Task<BaseResult> InvokeAsync(List<AddScheduleTypeArgs> args)
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Api.ScheduleType.AddScheduleTypeList");
@@ -91,14 +102,14 @@ public class AddScheduleTypeList(
             return new BaseResult(500, "参数不能为空");
 
         // 验证基础排班列表不为空
-        if (args.Items.Count == 0)
+        if (args.Count == 0)
             return new BaseResult(500, "基础排班不能为空");
 
         // 获取去重基础排班数量
-        var count = args.Items.Distinct().Count();
+        var count = args.Distinct().Count();
 
         // 验证基础排班不重复
-        if (count != args.Items.Count)
+        if (count != args.Count)
             return new BaseResult(500, "基础排班重复");
 
         // 创建取消令牌
@@ -108,10 +119,10 @@ public class AddScheduleTypeList(
         var validator = new ScheduleTypeValidator();
 
         // 验证每个基础排班的有效性
-        foreach (var item in args.Items)
+        foreach (var item in args)
         {
             // 重写调用方法
-            AddScheduleType.OverrideInvoke(item, User);
+            AddScheduleType.OverrideInvoke(item, user);
 
             // 验证基础排班的有效性
             var check = await validator.ValidateAsync(item, cancellationToken);
@@ -121,17 +132,23 @@ public class AddScheduleTypeList(
                 return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
             // 如果用户不是超级管理员，验证公司标识不能为空
-            if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
 
             // 如果用户不是超级管理员，验证部门标识不能为空
-            if (User.IsSuper != (int)YesNoEnum.Yes)
+            if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.DepartmentId))
                     return new BaseResult(500, "部门标识不能为空");
         }
 
+        // 构建请求参数
+        var request = new AddScheduleTypeListArgs()
+        {
+            Items = args
+        };
+
         // 通过中介者发送批量新增命令并返回结果
-        return await mediator.Send(args, cancellationToken);
+        return await mediator.Send(request, cancellationToken);
     }
 }

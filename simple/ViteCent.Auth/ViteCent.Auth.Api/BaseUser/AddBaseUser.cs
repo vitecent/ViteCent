@@ -14,6 +14,9 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
+// 引入基础数据传输对象
+using ViteCent.Auth.Application;
+
 // 引入用户信息相关的数据传输对象
 using ViteCent.Auth.Data.BaseUser;
 
@@ -45,6 +48,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// 5. 返回操作结果
 /// </remarks>
 /// <param name="logger">用于记录接口的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 /// <param name="mediator">用于发送命令请求</param>
 // 标记为 API 接口
 [ApiController]
@@ -55,11 +59,18 @@ namespace ViteCent.Auth.Api.BaseUser;
 public partial class AddBaseUser(
     // 注入日志记录器
     ILogger<AddBaseUser> logger,
+    // 注入HTTP上下文访问器
+    IHttpContextAccessor httpContextAccessor,
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<AddBaseUserArgs, BaseResult>
+    : BaseApi<AddBaseUserArgs, BaseResult>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 新增用户信息
     /// </summary>
@@ -86,7 +97,7 @@ public partial class AddBaseUser(
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.AddBaseUser");
 
         // 重写调用方法
-        OverrideInvoke(args, User);
+        OverrideInvoke(args, user);
 
         // 创建取消令牌，用于支持异步操作的取消
         var cancellationToken = new CancellationToken();
@@ -102,17 +113,17 @@ public partial class AddBaseUser(
             return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
         // 如果用户不是超级管理员，验证公司标识是否为空
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 
         // 如果用户不是超级管理员，验证部门标识是否为空
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
 
         // 如果用户不是超级管理员，验证职位标识是否为空
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
                 return new BaseResult(500, "职位标识不能为空");
 

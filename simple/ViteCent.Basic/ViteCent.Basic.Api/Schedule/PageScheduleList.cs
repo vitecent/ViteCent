@@ -1,37 +1,56 @@
-﻿#region
+#region
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
-using ViteCent.Auth.Data.BaseUser;
+
+// 引入职位信息相关的数据传输对象
+using ViteCent.Auth.Data.BasePosition;
+
+// 引入基础数据传输对象
 using ViteCent.Basic.Application;
+
+// 引入排班信息相关的数据传输对象
 using ViteCent.Basic.Data.Schedule;
-using ViteCent.Basic.Entity.Schedule;
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
+
+// 引入核心枚举类型
 using ViteCent.Core.Enums;
+
+//引入 web 核心
 using ViteCent.Core.Web;
+
+// 引入核心接口基类
+using ViteCent.Core.Web.Api;
+
+// 引入核心过滤器
 using ViteCent.Core.Web.Filter;
 
 #endregion
 
-namespace ViteCent.Basic.Api.Controller;
+namespace ViteCent.Basic.Api.Schedule;
 
 /// <summary>
 /// </summary>
 /// <param name="logger"></param>
-/// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
-/// <param name="userInvoke"></param>
+/// <param name="positionInvoke"></param>
+/// <param name="mediator"></param>
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public class ScheduleController(
-    ILogger<ScheduleController> logger,
-    IMediator mediator,
+public partial class PageScheduleList(
+    ILogger<AddSchedule> logger,
     IHttpContextAccessor httpContextAccessor,
-    IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke) : ControllerBase
+    IBaseInvoke<SearchBasePositionArgs, PageResult<BasePositionResult>> positionInvoke,
+    IMediator mediator)
+    : BaseApi<PreSearchScheduleArgs, BaseResult>
 {
     /// <summary>
-    /// 用户信息
     /// </summary>
     private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
@@ -40,79 +59,9 @@ public class ScheduleController(
     /// <param name="args"></param>
     /// <returns></returns>
     [HttpPost]
-    [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Basic", "Schedule", "Add" })]
-    [Route("PreAddList")]
-    public async Task<BaseResult> AddList(List<PreAddScheduleArgs> args)
-    {
-        logger.LogInformation("Invoke ViteCent.Basic.Api.Controller.PreAddList");
-
-        var cancellationToken = new CancellationToken();
-
-        var items = new List<AddScheduleArgs>();
-
-        foreach (var item in args)
-        {
-            var _item = new AddScheduleArgs
-            {
-                CompanyId = item.CompanyId,
-                DepartmentId = item.DepartmentId,
-                UserId = item.UserId,
-                Shift = item.Shift,
-                Job = item.Job,
-                StartTime = DateTime.Parse($"{item.Date} 00:00:00"),
-                EndTime = DateTime.Parse($"{item.Date} 23:59:59"),
-                Status = (int)ScheduleEnum.None
-            };
-
-            items.Add(_item);
-        }
-
-        var request = new AddScheduleListArgs
-        {
-            Items = items
-        };
-
-        var companyId = user?.Company?.Id ?? string.Empty;
-        var departmentId = user?.Department?.Id ?? string.Empty;
-
-        foreach (var item in request.Items)
-        {
-            if (string.IsNullOrWhiteSpace(item.CompanyId))
-                item.CompanyId = companyId;
-
-            if (string.IsNullOrWhiteSpace(item.DepartmentId))
-                item.DepartmentId = departmentId;
-        }
-
-        var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
-        var departmentIds = request.Items.Select(x => x.DepartmentId).Distinct().ToList();
-        var userIds = request.Items.Select(x => x.UserId).Distinct().ToList();
-
-        var deleteScheduleArgs = new DeleteScheduleEntityListArgs
-        {
-            CompanyIds = companyIds,
-            DepartmentIds = departmentIds,
-            UserIds = userIds,
-            StartTime = request.Items.Min(x => x.StartTime),
-            EndTime = request.Items.Max(x => x.EndTime)
-        };
-
-        var delete = await mediator.Send(deleteScheduleArgs, cancellationToken);
-
-        if (!delete.Success)
-            return delete;
-
-        return await mediator.Send(request, cancellationToken);
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    [HttpPost]
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Basic", "Schedule", "Get" })]
     [Route("PageList")]
-    public async Task<PageResult<PreAddScheduleArgs>> PageList(PreSearchScheduleArgs args)
+    public override async Task<BaseResult> InvokeAsync(PreSearchScheduleArgs args)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.Controller.PageList");
 
@@ -129,7 +78,7 @@ public class ScheduleController(
         var departmentId = user?.Department?.Id ?? string.Empty;
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        var searchUserArgs = new SearchBaseUserArgs
+        var searchPositionArgs = new SearchBasePositionArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -158,24 +107,24 @@ public class ScheduleController(
             ]
         };
 
-        var users = await userInvoke.InvokePostAsync("Auth", "/BaseUser/Page", searchUserArgs,
+        var positions = await positionInvoke.InvokePostAsync("Auth", "/BasePosition/Page", searchPositionArgs,
             user?.Token ?? string.Empty);
 
-        if (!users.Success)
-            return new PageResult<PreAddScheduleArgs>(users.Code, users.Message);
+        if (!positions.Success)
+            return new PageResult<PreAddScheduleArgs>(positions.Code, positions.Message);
 
         var items = new List<PreAddScheduleArgs>();
 
-        foreach (var item in users.Rows)
+        foreach (var item in positions.Rows)
             for (var date = args.StartTime; date < args.EndTime;)
             {
                 var _item = new PreAddScheduleArgs
                 {
                     CompanyId = item.CompanyId,
-                    DepartmentId = item.DepartmentId,
-                    PositionId = item.PositionId,
+                    DepartmentId = departmentId,
+                    PositionId = item.Id,
                     UserId = item.Id,
-                    Name = item.RealName,
+                    Name = item.Name,
                     Shift = string.Empty,
                     Job = string.Empty,
                     Date = date.ToString("yyyy-MM-dd")

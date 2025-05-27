@@ -2,6 +2,7 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ViteCent.Auth.Application;
 using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -16,14 +17,21 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 /// 获取所有权限接口
 /// </summary>
 /// <param name="logger"></param>
+/// <param name="httpContextAccessor"></param>
 /// <param name="mediator"></param>
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
 public class GetAllPermission(
     ILogger<GetAllPermission> logger,
-    IMediator mediator) : BaseLoginApi<GetAllPermissionArgs, DataResult<AllPermissionResult>>
+    IHttpContextAccessor httpContextAccessor,
+    IMediator mediator) : BaseApi<GetAllPermissionArgs, DataResult<AllPermissionResult>>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 获取角色权限
     /// </summary>
@@ -39,7 +47,7 @@ public class GetAllPermission(
         if (args == null)
             return new DataResult<AllPermissionResult>(500, "参数不能为空");
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<AllPermissionResult>(500, "公司标识不能为空");
 

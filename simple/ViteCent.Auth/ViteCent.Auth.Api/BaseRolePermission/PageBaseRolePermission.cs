@@ -53,7 +53,7 @@ public class PageBaseRolePermission(
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<SearchBaseRolePermissionArgs, PageResult<BaseRolePermissionResult>>
+    : BaseApi<SearchBaseRolePermissionArgs, PageResult<BaseRolePermissionResult>>
 {
     /// <summary>
     /// 角色权限分页查询

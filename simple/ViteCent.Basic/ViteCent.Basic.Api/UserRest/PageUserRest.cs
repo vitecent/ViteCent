@@ -53,7 +53,7 @@ public class PageUserRest(
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<SearchUserRestArgs, PageResult<UserRestResult>>
+    : BaseApi<SearchUserRestArgs, PageResult<UserRestResult>>
 {
     /// <summary>
     /// 调休申请分页查询

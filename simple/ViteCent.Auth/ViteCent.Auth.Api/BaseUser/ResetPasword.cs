@@ -2,6 +2,7 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ViteCent.Auth.Application;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
@@ -16,14 +17,21 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// 重置密码接口
 /// </summary>
 /// <param name="logger"></param>
+/// <param name="httpContextAccessor"></param>
 /// <param name="mediator"></param>
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseUser")]
 public class ResetPasword(
     ILogger<ResetPasword> logger,
-    IMediator mediator) : BaseLoginApi<ResetPaswordArgs, BaseResult>
+    IHttpContextAccessor httpContextAccessor,
+    IMediator mediator) : BaseApi<ResetPaswordArgs, BaseResult>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 重置密码
     /// </summary>
@@ -43,7 +51,7 @@ public class ResetPasword(
         if (!result.IsValid)
             return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 

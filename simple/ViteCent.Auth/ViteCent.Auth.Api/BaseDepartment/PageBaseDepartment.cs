@@ -53,7 +53,7 @@ public class PageBaseDepartment(
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>>
+    : BaseApi<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>>
 {
     /// <summary>
     /// 部门信息分页查询

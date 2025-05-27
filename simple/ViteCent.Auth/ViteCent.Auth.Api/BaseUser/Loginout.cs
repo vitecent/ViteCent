@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 [Route("BaseUser")]
 public class Loginout(
     ILogger<Loginout> logger,
-    IMediator mediator) : BaseLoginApi<LoginoutArgs, BaseResult>
+    IMediator mediator) : BaseApi<LoginoutArgs, BaseResult>
 {
     /// <summary>
     /// 退出登录

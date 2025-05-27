@@ -64,11 +64,6 @@ public class ScheduleTypeResult
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
-    /// 结束时间
-    /// </summary>
-    public string EndTime { get; set; } = string.Empty;
-
-    /// <summary>
     /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
@@ -79,19 +74,9 @@ public class ScheduleTypeResult
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// 是否跨天
-    /// </summary>
-    public int Overnight { get; set; }
-
-    /// <summary>
     /// 类型
     /// </summary>
     public int ScheduleType { get; set; }
-
-    /// <summary>
-    /// 开始时间
-    /// </summary>
-    public string StartTime { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

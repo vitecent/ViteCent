@@ -13,6 +13,9 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
+// 引入基础数据传输对象
+using ViteCent.Auth.Application;
+
 // 引入操作信息相关的数据传输对象
 using ViteCent.Auth.Data.BaseOperation;
 
@@ -43,6 +46,7 @@ namespace ViteCent.Auth.Api.BaseOperation;
 /// 4. 返回操作结果
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录接口的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 /// <param name="mediator">中介者接口，用于发送命令请求</param>
  // 标记为API接口
 [ApiController]
@@ -53,11 +57,18 @@ namespace ViteCent.Auth.Api.BaseOperation;
 public class EnableBaseOperation(
     // 注入日志记录器
     ILogger<EnableBaseOperation> logger,
+    // 注入HTTP上下文访问器
+    IHttpContextAccessor httpContextAccessor,
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<EnableBaseOperationArgs, BaseResult>
+    : BaseApi<EnableBaseOperationArgs, BaseResult>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 启用操作信息
     /// </summary>
@@ -85,24 +96,24 @@ public class EnableBaseOperation(
         var cancellationToken = new CancellationToken();
 
         // 如果用户不是超级管理员，则验证公司标识是否为空
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 
         // 验证操作信息的有效性
-        var check = User.CheckCompanyId(args.CompanyId);
+        var check = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
         if (check != null && !check.Success)
             return check;
 
         // 如果用户不是超级管理员，则验证系统标识是否为空
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new BaseResult(500, "系统标识不能为空");
 
         // 如果用户不是超级管理员，则验证资源标识是否为空
-        if (User.IsSuper != (int)YesNoEnum.Yes)
+        if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.ResourceId))
                 return new BaseResult(500, "资源标识不能为空");
 

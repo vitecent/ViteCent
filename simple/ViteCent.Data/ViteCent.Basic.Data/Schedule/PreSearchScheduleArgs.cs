@@ -1,8 +1,15 @@
-﻿namespace ViteCent.Basic.Data.Schedule;
+﻿#region
+
+// 引入核心数据类型
+using ViteCent.Core.Data;
+
+#endregion
+
+namespace ViteCent.Basic.Data.Schedule;
 
 /// <summary>
 /// </summary>
-public class PreSearchScheduleArgs
+public class PreSearchScheduleArgs : BaseArgs
 {
     /// <summary>
     /// </summary>

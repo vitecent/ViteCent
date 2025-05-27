@@ -11,7 +11,7 @@
  Target Server Version : 80042
  File Encoding         : 65001
 
- Date: 26/05/2025 10:58:53
+ Date: 26/05/2025 16:56:04
 */
 
 SET NAMES utf8mb4;
@@ -102,12 +102,6 @@ CREATE TABLE `schedule_type`  (
   INDEX `companyId`(`companyId`) USING BTREE,
   INDEX `departmentId`(`departmentId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '基础排班' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of schedule_type
--- ----------------------------
-INSERT INTO `schedule_type` VALUES ('20250526000000', '', '', '', '', 'ZhuBan', '主班', 1, '08:00:00', '18:00:00', 1, '', '#16C4A1', '管理员', '2025-05-26 02:47:06', '', NULL, '2025-05-26 02:47:06');
-INSERT INTO `schedule_type` VALUES ('20250526000001', '', '', '', '', 'FuBan', '副班', 1, '08:00:00', '18:00:00', 1, '', '#6730C5', '管理员', '2025-05-26 02:47:34', '', NULL, '2025-05-26 02:47:34');
 
 -- ----------------------------
 -- Table structure for shift_schedule

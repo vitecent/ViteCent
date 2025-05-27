@@ -21,7 +21,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 [Route("BaseUser")]
 public class GetUserInfo(
     ILogger<GetUserInfo> logger,
-    IMediator mediator) : BaseLoginApi<GetUserInfoArgs, DataResult<BaseUserInfo>>
+    IMediator mediator) : BaseApi<GetUserInfoArgs, DataResult<BaseUserInfo>>
 {
     /// <summary>
     /// 获取用户信息

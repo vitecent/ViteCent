@@ -53,7 +53,7 @@ public class PageShiftSchedule(
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<SearchShiftScheduleArgs, PageResult<ShiftScheduleResult>>
+    : BaseApi<SearchShiftScheduleArgs, PageResult<ShiftScheduleResult>>
 {
     /// <summary>
     /// 换班申请分页查询

@@ -53,7 +53,7 @@ public class PageBaseOperation(
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseLoginApi<SearchBaseOperationArgs, PageResult<BaseOperationResult>>
+    : BaseApi<SearchBaseOperationArgs, PageResult<BaseOperationResult>>
 {
     /// <summary>
     /// 操作信息分页查询
