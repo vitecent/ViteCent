@@ -77,13 +77,23 @@ public partial class EditScheduleType(
         if (!check.Success)
             return check;
 
-        entity.Code = request.Code;
-        entity.Color = request.Color;
-        entity.CompanyName = request.CompanyName;
-        entity.DepartmentName = request.DepartmentName;
-        entity.Description = request.Description;
+        if(request.Code is not null)
+            entity.Code = request.Code;
+
+        if(request.Color is not null)
+            entity.Color = request.Color;
+
+        if(request.CompanyName is not null)
+            entity.CompanyName = request.CompanyName;
+
+        if(request.DepartmentName is not null)
+            entity.DepartmentName = request.DepartmentName;
+
+        if(request.Description is not null)
+            entity.Description = request.Description;
+
         entity.Name = request.Name;
-        entity.ScheduleType = request.ScheduleType;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

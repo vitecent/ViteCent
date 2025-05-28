@@ -27,7 +27,7 @@ public class BaseUserRoleEntity : BaseEntity, IRequest<BaseResult>
     /// 颜色
     /// </summary>
     [SugarColumn(ColumnName = "color")]
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 公司标识
@@ -45,7 +45,7 @@ public class BaseUserRoleEntity : BaseEntity, IRequest<BaseResult>
     /// 创建人
     /// </summary>
     [SugarColumn(ColumnName = "creator")]
-    public string Creator { get; set; } = string.Empty;
+    public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
@@ -75,13 +75,13 @@ public class BaseUserRoleEntity : BaseEntity, IRequest<BaseResult>
     /// 状态
     /// </summary>
     [SugarColumn(ColumnName = "status")]
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
     [SugarColumn(ColumnName = "updater")]
-    public string Updater { get; set; } = string.Empty;
+    public string? Updater { get; set; }
 
     /// <summary>
     /// 修改时间

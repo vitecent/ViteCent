@@ -35,6 +35,6 @@ public partial class BaseDictionaryValidator : AbstractValidator<AddBaseDictiona
 
         var status = new List<int> { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
 
-        RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
+        RuleFor(x => x.Status).Must(x => status.Contains(x.Value)).When(x => x.Status.HasValue).WithMessage("状态不存在");
     }
 }

@@ -114,7 +114,18 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
             return check;
 
 #foreach($Field in $EditFields)
+#if($Field.Nullable)
+#if($Field.DataType == "string?")
+        if(request.$!{Field.CamelCaseName} is not null)
+            entity.$!{Field.CamelCaseName} = request.$!{Field.CamelCaseName};
+#else
+        if(request.$!{Field.CamelCaseName}.HasValue)
+            entity.$!{Field.CamelCaseName} = request.$!{Field.CamelCaseName}.Value;
+#end
+#else
         entity.$!{Field.CamelCaseName} = request.$!{Field.CamelCaseName};
+#end
+
 #end
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;

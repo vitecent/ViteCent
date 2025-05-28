@@ -80,17 +80,35 @@ public partial class EditSchedule(
         if (!check.Success)
             return check;
 
-        entity.CompanyName = request.CompanyName;
-        entity.DepartmentName = request.DepartmentName;
+        if(request.CompanyName is not null)
+            entity.CompanyName = request.CompanyName;
+
+        if(request.DepartmentName is not null)
+            entity.DepartmentName = request.DepartmentName;
+
         entity.EndTime = request.EndTime;
-        entity.FirstTime = request.FirstTime;
-        entity.Job = request.Job;
-        entity.LastTime = request.LastTime;
+
+        if(request.FirstTime.HasValue)
+            entity.FirstTime = request.FirstTime.Value;
+
+        if(request.Job is not null)
+            entity.Job = request.Job;
+
+        if(request.LastTime.HasValue)
+            entity.LastTime = request.LastTime.Value;
+
         entity.Shift = request.Shift;
+
         entity.StartTime = request.StartTime;
-        entity.Status = request.Status;
+
+        if(request.Status.HasValue)
+            entity.Status = request.Status.Value;
+
         entity.UserId = request.UserId;
-        entity.UserName = request.UserName;
+
+        if(request.UserName is not null)
+            entity.UserName = request.UserName;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

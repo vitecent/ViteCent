@@ -22,11 +22,11 @@ public class DataBase : BaseDataBase
 
     /// <summary>
     /// </summary>
-    public string Port { get; set; } = "13306";
+    public string Port { get; set; } = "3306";
 
     /// <summary>
     /// </summary>
-    public string Server { get; set; } = "192.168.0.105";
+    public string Server { get; set; } = "192.168.0.8";
 
     /// <summary>
     /// </summary>

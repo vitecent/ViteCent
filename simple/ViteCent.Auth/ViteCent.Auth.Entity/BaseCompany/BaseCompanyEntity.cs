@@ -27,37 +27,37 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
     /// 简称
     /// </summary>
     [SugarColumn(ColumnName = "abbreviation")]
-    public string Abbreviation { get; set; } = string.Empty;
+    public string? Abbreviation { get; set; }
 
     /// <summary>
     /// 详细地址
     /// </summary>
     [SugarColumn(ColumnName = "address")]
-    public string Address { get; set; } = string.Empty;
+    public string? Address { get; set; }
 
     /// <summary>
     /// 城市
     /// </summary>
     [SugarColumn(ColumnName = "city")]
-    public string City { get; set; } = string.Empty;
+    public string? City { get; set; }
 
     /// <summary>
     /// 编码
     /// </summary>
     [SugarColumn(ColumnName = "code")]
-    public string Code { get; set; } = string.Empty;
+    public string? Code { get; set; }
 
     /// <summary>
     /// 颜色
     /// </summary>
     [SugarColumn(ColumnName = "color")]
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 国家
     /// </summary>
     [SugarColumn(ColumnName = "country")]
-    public string Country { get; set; } = string.Empty;
+    public string? Country { get; set; }
 
     /// <summary>
     /// 创建时间
@@ -69,7 +69,7 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
     /// 创建人
     /// </summary>
     [SugarColumn(ColumnName = "creator")]
-    public string Creator { get; set; } = string.Empty;
+    public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
@@ -81,13 +81,13 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
     /// 简介
     /// </summary>
     [SugarColumn(ColumnName = "description")]
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
     /// <summary>
     /// 邮箱
     /// </summary>
     [SugarColumn(ColumnName = "email")]
-    public string Email { get; set; } = string.Empty;
+    public string? Email { get; set; }
 
     /// <summary>
     /// 成立日期
@@ -105,31 +105,31 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
     /// 行业
     /// </summary>
     [SugarColumn(ColumnName = "industry")]
-    public string Industry { get; set; } = string.Empty;
+    public string? Industry { get; set; }
 
     /// <summary>
     /// 法人
     /// </summary>
     [SugarColumn(ColumnName = "legalPerson")]
-    public string LegalPerson { get; set; } = string.Empty;
+    public string? LegalPerson { get; set; }
 
     /// <summary>
     /// 法人电话
     /// </summary>
     [SugarColumn(ColumnName = "legalPhone")]
-    public string LegalPhone { get; set; } = string.Empty;
+    public string? LegalPhone { get; set; }
 
     /// <summary>
     /// 级别
     /// </summary>
     [SugarColumn(ColumnName = "level")]
-    public string Level { get; set; } = string.Empty;
+    public string? Level { get; set; }
 
     /// <summary>
     /// 商标
     /// </summary>
     [SugarColumn(ColumnName = "logo")]
-    public string Logo { get; set; } = string.Empty;
+    public string? Logo { get; set; }
 
     /// <summary>
     /// 名称
@@ -141,25 +141,25 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
     /// 父级标识
     /// </summary>
     [SugarColumn(ColumnName = "parentId")]
-    public string ParentId { get; set; } = string.Empty;
+    public string? ParentId { get; set; }
 
     /// <summary>
     /// 省份
     /// </summary>
     [SugarColumn(ColumnName = "province")]
-    public string Province { get; set; } = string.Empty;
+    public string? Province { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
     [SugarColumn(ColumnName = "status")]
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
     [SugarColumn(ColumnName = "updater")]
-    public string Updater { get; set; } = string.Empty;
+    public string? Updater { get; set; }
 
     /// <summary>
     /// 修改时间

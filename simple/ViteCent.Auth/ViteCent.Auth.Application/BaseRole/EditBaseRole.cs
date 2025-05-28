@@ -69,13 +69,26 @@ public partial class EditBaseRole(
         if (!check.Success)
             return check;
 
-        entity.Abbreviation = request.Abbreviation;
-        entity.Code = request.Code;
-        entity.Color = request.Color;
-        entity.CompanyName = request.CompanyName;
-        entity.Description = request.Description;
+        if(request.Abbreviation is not null)
+            entity.Abbreviation = request.Abbreviation;
+
+        if(request.Code is not null)
+            entity.Code = request.Code;
+
+        if(request.Color is not null)
+            entity.Color = request.Color;
+
+        if(request.CompanyName is not null)
+            entity.CompanyName = request.CompanyName;
+
+        if(request.Description is not null)
+            entity.Description = request.Description;
+
         entity.Name = request.Name;
-        entity.Status = request.Status;
+
+        if(request.Status.HasValue)
+            entity.Status = request.Status.Value;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

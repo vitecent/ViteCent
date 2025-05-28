@@ -14,11 +14,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据传输对象
-using ViteCent.Auth.Application;
-
 // 引入用户信息相关的数据传输对象
 using ViteCent.Auth.Data.BaseUser;
+
+// 引入基础数据传输对象
+using ViteCent.Auth.Application;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;

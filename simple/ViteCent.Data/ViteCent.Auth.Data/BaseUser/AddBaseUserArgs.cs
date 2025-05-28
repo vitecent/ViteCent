@@ -23,7 +23,7 @@ public class AddBaseUserArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 头像
     /// </summary>
-    public string Avatar { get; set; } = string.Empty;
+    public string? Avatar { get; set; }
 
     /// <summary>
     /// 出生日期
@@ -33,7 +33,7 @@ public class AddBaseUserArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 颜色
     /// </summary>
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 公司标识
@@ -43,7 +43,7 @@ public class AddBaseUserArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 公司名称
     /// </summary>
-    public string CompanyName { get; set; } = string.Empty;
+    public string? CompanyName { get; set; }
 
     /// <summary>
     /// 部门标识
@@ -53,72 +53,72 @@ public class AddBaseUserArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 部门名称
     /// </summary>
-    public string DepartmentName { get; set; } = string.Empty;
+    public string? DepartmentName { get; set; }
 
     /// <summary>
     /// 简介
     /// </summary>
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
     /// <summary>
     /// 邮箱
     /// </summary>
-    public string Email { get; set; } = string.Empty;
+    public string? Email { get; set; }
 
     /// <summary>
     /// 指纹
     /// </summary>
-    public string Finger { get; set; } = string.Empty;
+    public string? Finger { get; set; }
 
     /// <summary>
     /// 性别
     /// </summary>
-    public int Gender { get; set; }
+    public int? Gender { get; set; }
 
     /// <summary>
     /// 身份证
     /// </summary>
-    public string IdCard { get; set; } = string.Empty;
+    public string? IdCard { get; set; }
 
     /// <summary>
     /// 超级管理员
     /// </summary>
-    public int IsSuper { get; set; }
+    public int? IsSuper { get; set; }
 
     /// <summary>
     /// 昵称
     /// </summary>
-    public string Nickname { get; set; } = string.Empty;
+    public string? Nickname { get; set; }
 
     /// <summary>
     /// 密码
     /// </summary>
-    public string Password { get; set; } = string.Empty;
+    public string? Password { get; set; }
 
     /// <summary>
     /// 电话
     /// </summary>
-    public string Phone { get; set; } = string.Empty;
+    public string? Phone { get; set; }
 
     /// <summary>
     /// 职位标识
     /// </summary>
-    public string PositionId { get; set; } = string.Empty;
+    public string? PositionId { get; set; }
 
     /// <summary>
     /// 职位名称
     /// </summary>
-    public string PositionName { get; set; } = string.Empty;
+    public string? PositionName { get; set; }
 
     /// <summary>
     /// 真实姓名
     /// </summary>
-    public string RealName { get; set; } = string.Empty;
+    public string? RealName { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 用户名
@@ -128,5 +128,5 @@ public class AddBaseUserArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 编号
     /// </summary>
-    public string UserNo { get; set; } = string.Empty;
+    public string? UserNo { get; set; }
 }

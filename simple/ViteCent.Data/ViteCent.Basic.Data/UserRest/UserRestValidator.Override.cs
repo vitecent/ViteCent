@@ -22,6 +22,6 @@ public partial class UserRestValidator : AbstractValidator<AddUserRestArgs>
     {
         var status = new List<int> { (int)UserRestEnum.Apply, (int)UserRestEnum.Pass, (int)UserRestEnum.NoPass };
 
-        RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
+        RuleFor(x => x.Status).Must(x => status.Contains(x.Value)).When(x => x.Status.HasValue).WithMessage("状态不存在");
     }
 }

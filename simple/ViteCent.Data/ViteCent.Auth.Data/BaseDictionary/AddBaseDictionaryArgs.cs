@@ -23,17 +23,17 @@ public class AddBaseDictionaryArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 简称
     /// </summary>
-    public string Abbreviation { get; set; } = string.Empty;
+    public string? Abbreviation { get; set; }
 
     /// <summary>
     /// 编码
     /// </summary>
-    public string Code { get; set; } = string.Empty;
+    public string? Code { get; set; }
 
     /// <summary>
     /// 颜色
     /// </summary>
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 公司标识
@@ -43,12 +43,12 @@ public class AddBaseDictionaryArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 简介
     /// </summary>
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
     /// <summary>
     /// 级别
     /// </summary>
-    public string Level { get; set; } = string.Empty;
+    public string? Level { get; set; }
 
     /// <summary>
     /// 名称
@@ -58,12 +58,12 @@ public class AddBaseDictionaryArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 父级标识
     /// </summary>
-    public string ParentId { get; set; } = string.Empty;
+    public string? ParentId { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 内容

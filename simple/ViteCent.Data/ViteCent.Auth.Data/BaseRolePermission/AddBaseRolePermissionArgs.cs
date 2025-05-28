@@ -43,7 +43,7 @@ public class AddBaseRolePermissionArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 系统标识

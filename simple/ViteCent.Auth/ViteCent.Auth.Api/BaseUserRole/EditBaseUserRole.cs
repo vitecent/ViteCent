@@ -13,11 +13,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据传输对象
-using ViteCent.Auth.Application;
-
 // 引入用户角色相关的数据传输对象
 using ViteCent.Auth.Data.BaseUserRole;
+
+// 引入基础数据传输对象
+using ViteCent.Auth.Application;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -55,7 +55,7 @@ namespace ViteCent.Auth.Api.BaseUserRole;
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
 [Route("BaseUserRole")]
-public class EditBaseUserRole(
+public partial class EditBaseUserRole(
     // 注入日志记录器
     ILogger<EditBaseUserRole> logger,
     // 注入HTTP上下文访问器
@@ -93,6 +93,9 @@ public class EditBaseUserRole(
     {
         // 记录方法调用日志，便于追踪和调试，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUserRole.EditBaseUserRole");
+
+        // 重写调用方法
+        OverrideInvoke(args, user);
 
         // 创建取消令牌，用于支持异步操作的取消
         var cancellationToken = new CancellationToken();

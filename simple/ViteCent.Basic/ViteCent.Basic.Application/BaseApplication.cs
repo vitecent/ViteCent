@@ -3,7 +3,6 @@
 using System.Security.Claims;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
-using ViteCent.Auth.Data.BasePosition;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Core;
 using ViteCent.Core.Cache;
@@ -194,93 +193,6 @@ public static class BaseAppliction
         return departments;
     }
 
-    /// <summary>
-    /// </summary>
-    /// <param name="positionInvoke"></param>
-    /// <param name="companyId"></param>
-    /// <param name="positionId"></param>
-    /// <param name="token"></param>
-    /// <returns></returns>
-    public static async Task<DataResult<BasePositionResult>> CheckPosition(
-        this IBaseInvoke<GetBasePositionArgs, DataResult<BasePositionResult>> positionInvoke,
-        string companyId, string positionId, string token)
-    {
-        if (string.IsNullOrWhiteSpace(positionId))
-            return new DataResult<BasePositionResult>();
-
-        var getPositionArgs = new GetBasePositionArgs
-        {
-            CompanyId = companyId,
-            Id = positionId
-        };
-
-        var position = await positionInvoke.InvokePostAsync("Auth", "/BasePosition/Get", getPositionArgs, token);
-
-        if (!position.Success)
-            return position;
-
-        if (position.Data == null)
-            return new DataResult<BasePositionResult>(500, "职位不存在");
-
-        if (position.Data.Status == (int)StatusEnum.Disable)
-            return new DataResult<BasePositionResult>(500, "职位已禁用");
-
-        return position;
-    }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="positionInvoke"></param>
-    /// <param name="companyIds"></param>
-    /// <param name="positionIds"></param>
-    /// <param name="token"></param>
-    /// <returns></returns>
-    public static async Task<PageResult<BasePositionResult>> CheckPositions(
-        this IBaseInvoke<SearchBasePositionArgs, PageResult<BasePositionResult>> positionInvoke,
-        List<string> companyIds,
-        List<string> positionIds,
-        string token)
-    {
-        companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-        positionIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-
-        if (companyIds.Count == 0 && positionIds.Count == 0)
-            return new PageResult<BasePositionResult>();
-
-        var searchPositionArgs = new SearchBasePositionArgs
-        {
-            Offset = 1,
-            Limit = int.MaxValue,
-            Args = []
-        };
-
-        if (companyIds.Count > 0)
-            searchPositionArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
-
-        if (positionIds.Count > 0)
-            searchPositionArgs.AddArgs("Id", positionIds.ToJson(), SearchEnum.In);
-
-        var positions = await positionInvoke.InvokePostAsync("Auth", "/BasePosition/Page", searchPositionArgs, token);
-
-        if (!positions.Success)
-            return positions;
-
-        if (positions.Total == 0)
-            return new PageResult<BasePositionResult>(500, $"职位{positionIds.FirstOrDefault()}不存在");
-
-        var _positionIds = positions.Rows.Select(y => y.Id).ToList();
-        var _positionId = positionIds.FirstOrDefault(x => !_positionIds.Contains(x));
-
-        if (!string.IsNullOrWhiteSpace(_positionId))
-            return new PageResult<BasePositionResult>(500, $"职位{_positionId}不存在");
-
-        var position = positions.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
-
-        if (position != null)
-            return new PageResult<BasePositionResult>(500, $"职位{position.Name}已经禁用");
-
-        return positions;
-    }
 
     /// <summary>
     /// </summary>
@@ -385,7 +297,7 @@ public static class BaseAppliction
         var user = users.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (user != null)
-            return new PageResult<BaseUserResult>(500, $"用户{user.RealName}已经禁用");
+            return new PageResult<BaseUserResult>(500, $"用户{user?.RealName}已经禁用");
 
         return users;
     }

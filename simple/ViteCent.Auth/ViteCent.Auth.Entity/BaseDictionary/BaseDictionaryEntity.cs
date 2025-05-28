@@ -27,19 +27,19 @@ public class BaseDictionaryEntity : BaseEntity, IRequest<BaseResult>
     /// 简称
     /// </summary>
     [SugarColumn(ColumnName = "abbreviation")]
-    public string Abbreviation { get; set; } = string.Empty;
+    public string? Abbreviation { get; set; }
 
     /// <summary>
     /// 编码
     /// </summary>
     [SugarColumn(ColumnName = "code")]
-    public string Code { get; set; } = string.Empty;
+    public string? Code { get; set; }
 
     /// <summary>
     /// 颜色
     /// </summary>
     [SugarColumn(ColumnName = "color")]
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 公司标识
@@ -57,7 +57,7 @@ public class BaseDictionaryEntity : BaseEntity, IRequest<BaseResult>
     /// 创建人
     /// </summary>
     [SugarColumn(ColumnName = "creator")]
-    public string Creator { get; set; } = string.Empty;
+    public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
@@ -69,7 +69,7 @@ public class BaseDictionaryEntity : BaseEntity, IRequest<BaseResult>
     /// 简介
     /// </summary>
     [SugarColumn(ColumnName = "description")]
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
     /// <summary>
     /// 标识
@@ -81,7 +81,7 @@ public class BaseDictionaryEntity : BaseEntity, IRequest<BaseResult>
     /// 级别
     /// </summary>
     [SugarColumn(ColumnName = "level")]
-    public string Level { get; set; } = string.Empty;
+    public string? Level { get; set; }
 
     /// <summary>
     /// 名称
@@ -93,19 +93,19 @@ public class BaseDictionaryEntity : BaseEntity, IRequest<BaseResult>
     /// 父级标识
     /// </summary>
     [SugarColumn(ColumnName = "parentId")]
-    public string ParentId { get; set; } = string.Empty;
+    public string? ParentId { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
     [SugarColumn(ColumnName = "status")]
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
     [SugarColumn(ColumnName = "updater")]
-    public string Updater { get; set; } = string.Empty;
+    public string? Updater { get; set; }
 
     /// <summary>
     /// 修改时间

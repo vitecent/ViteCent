@@ -16,7 +16,7 @@ public class BaseUserRoleResult
     /// <summary>
     /// 颜色
     /// </summary>
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 公司标识
@@ -31,7 +31,7 @@ public class BaseUserRoleResult
     /// <summary>
     /// 创建人
     /// </summary>
-    public string Creator { get; set; } = string.Empty;
+    public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
@@ -56,12 +56,12 @@ public class BaseUserRoleResult
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
-    public string Updater { get; set; } = string.Empty;
+    public string? Updater { get; set; }
 
     /// <summary>
     /// 修改时间

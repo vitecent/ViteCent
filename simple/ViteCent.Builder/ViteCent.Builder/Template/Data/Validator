@@ -28,9 +28,9 @@ public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : A
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 #foreach($Field in $ValidatorFields)
-#if($Field.DataType == "string" || $Field.DataType == "Guid")
+#if($Field.DataType == "string" || $Field.DataType == "string?" || $Field.DataType == "Guid" || $Field.DataType == "Guid?")
         RuleFor(x => x.$!{Field.CamelCaseName}).NotNull().NotEmpty().WithMessage("$!{Field.Description}不能为空");
-#elseif($Field.DataType == "DateTime")
+#elseif($Field.DataType == "DateTime" || $Field.DataType == "DateTime?")
         RuleFor(x => x.$!{Field.CamelCaseName}).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("$!{Field.Description}不能为空");
 #else
         RuleFor(x => x.$!{Field.CamelCaseName}).GreaterThan(0).WithMessage("$!{Field.Description}不能为空");

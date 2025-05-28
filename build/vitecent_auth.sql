@@ -11,7 +11,7 @@
  Target Server Version : 80042
  File Encoding         : 65001
 
- Date: 26/05/2025 16:56:38
+ Date: 27/05/2025 16:28:41
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `base_company`  (
 -- ----------------------------
 -- Records of base_company
 -- ----------------------------
-INSERT INTO `base_company` VALUES ('1', NULL, NULL, 'OMDX', '鼎新基地', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-01 11:57:28', NULL, '2025-04-01 11:57:28', '2025-04-01 11:57:28', 1);
+INSERT INTO `base_company` VALUES ('1', NULL, NULL, NULL, '鼎新基地', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-27 15:43:08', NULL, '2025-05-27 15:43:08', '2025-05-27 15:43:08', 1);
 
 -- ----------------------------
 -- Table structure for base_department
@@ -86,7 +86,7 @@ CREATE TABLE `base_department`  (
 -- ----------------------------
 -- Records of base_department
 -- ----------------------------
-INSERT INTO `base_department` VALUES ('1', NULL, NULL, '1', '鼎新基地', 'OMDX', '航气处', NULL, NULL, NULL, NULL, NULL, NULL, '2025-04-01 11:58:23', NULL, '2025-04-09 14:19:33', '2025-04-09 14:19:33', 1);
+INSERT INTO `base_department` VALUES ('1', NULL, NULL, '1', '鼎新基地', NULL, '航气处', NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-27 15:44:55', NULL, '2025-05-27 15:45:10', '2025-05-27 15:45:10', 1);
 
 -- ----------------------------
 -- Table structure for base_dictionary
@@ -113,11 +113,6 @@ CREATE TABLE `base_dictionary`  (
   INDEX `name`(`name`) USING BTREE,
   INDEX `companyId`(`companyId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '字典信息' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of base_dictionary
--- ----------------------------
-INSERT INTO `base_dictionary` VALUES ('1', '', NULL, NULL, 'Model', '打卡方式', '1', NULL, NULL, NULL, NULL, '2025-04-09 17:51:27', NULL, '2025-05-26 10:35:41', '2025-05-26 10:35:41', 1);
 
 -- ----------------------------
 -- Table structure for base_operation
@@ -170,18 +165,6 @@ CREATE TABLE `base_position`  (
   INDEX `name`(`name`) USING BTREE,
   INDEX `companyId`(`companyId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '职位信息' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of base_position
--- ----------------------------
-INSERT INTO `base_position` VALUES ('1', '', '', '', 'DaiBanZhuRen', '带班主任', '', '', '#D72929', '管理员', '2025-05-26 02:39:27', '', NULL, '2025-05-26 02:39:27', 1);
-INSERT INTO `base_position` VALUES ('2', '', '', '', 'ZhuBan', '主班', '', '', '#9D8640', '管理员', '2025-05-26 02:39:38', '', NULL, '2025-05-26 02:39:38', 1);
-INSERT INTO `base_position` VALUES ('3', '', '', '', 'FuBan', '副班', '', '', '#5F9D40', '管理员', '2025-05-26 02:39:54', '', NULL, '2025-05-26 02:39:54', 1);
-INSERT INTO `base_position` VALUES ('4', '', '', '', 'JianKongBan', '监控班', '', '', '#16C4A1', '管理员', '2025-05-26 02:40:14', '', NULL, '2025-05-26 02:40:14', 1);
-INSERT INTO `base_position` VALUES ('5', '', '', '', 'JiHuaBan', '计划班', '', '', '#3082C5', '管理员', '2025-05-26 02:40:30', '', NULL, '2025-05-26 02:40:30', 1);
-INSERT INTO `base_position` VALUES ('6', '', '', '', 'TongHangBan', '通航班', '', '', '#6730C5', '管理员', '2025-05-26 02:40:55', '', NULL, '2025-05-26 02:40:55', 1);
-INSERT INTO `base_position` VALUES ('7', '', '', '', 'ZhiHuiBan', '指挥班', '', '', '#A730C5', '管理员', '2025-05-26 02:41:20', '', NULL, '2025-05-26 02:41:20', 1);
-INSERT INTO `base_position` VALUES ('8', '', '', '', 'ZhiHuiSuoBan', '指挥所班', '', '', '#C530AF', '管理员', '2025-05-26 02:41:44', '', NULL, '2025-05-26 02:41:44', 1);
 
 -- ----------------------------
 -- Table structure for base_resource
@@ -325,9 +308,9 @@ CREATE TABLE `base_user`  (
 -- ----------------------------
 -- Records of base_user
 -- ----------------------------
-INSERT INTO `base_user` VALUES ('1', '', '', '', '', '', '管理员', 1, NULL, 'admin', 'C383B86184682DF3E48B2BCE066B91E2', NULL, NULL, '管理员', NULL, 1, NULL, NULL, NULL, NULL, 'msplWZl4iFcuwQxu2zOBFW2ObwELFQ9qQQocDl0BCJWOYwERmCZuQQYUL4PBBofHU8EGEVJogQKOV3XBCRa2VoEGD0x5gQaMsiuBBwnaacEFj8A/gQiB0lGBBYkjZYEGjTBRgQaIzjNBBnxTWEEDF6czAQWCPiGBB3gZQAEKhBYqwQeFqQsBCHcQUoEKjxsQAQV9GIQBBI8KP8EJiwARdncBAwQGBwoNDxITFBQSEA8QABF1dgEDBgcJCgwPEBEREhAPDxAAEQEBAgQFBggLDxIUFBUUExIREgARdHUBBAYJCgsMDw8QEBEPDg4PABECAwQFBgcJCw8SFBQWFRQSERAAEXR0dwMGCQoMDg8QEBAPDw4ODwARBAQGBgcICgwPEhUWFhYUExMTABFzdHYCBAcICw4QEREREA8PDw8AEQQFBggICQkMDxMWFxgXFRQTEwARc3R1AQMGCAoNDxAQERESERAPABEHBwcICAkKDRAVGBgYGBYVFRYAEXJ0dXcDBQcJDA8REhQUFRQTEgARCAkKCgoLDA4RFRgZGhkYFhYWABFwc3V3AgQHCQwPEhUWFhUVFBMAEQoKCwwMDQ0PERYaGhoZGBYWFwERcXN1dwIGCQ0RFBcXFxUUExMBEA0NDg8PDxASFhkcHBoXFRYBEG1xcnV3BQkOEhUXFxYTEhICDw8PEBEREhQYGhsaGBUUAhBsbnJ2BQsQFBYXGBcWFBMDDhESExMUFRcYGhkZFgIPZWdrcwQNExcYGBgWFhUEDRETExUUFhcYFxcDDmBkbwMQFhkZGBcWFwQNYGsCERcaGRgVFQ==', NULL, NULL, '2025-04-01 11:59:40', NULL, '2025-04-23 16:32:59', '2025-04-23 16:32:59', 1);
-INSERT INTO `base_user` VALUES ('20250526000000', '1', '鼎新基地', '1', '航气处', '', '', 2, '', 'ZhangSanA', 'A04F0B492431C2C67A167FA44FC86A03', '', '', '张三A', '', 1, '', NULL, '', '张三A', '', '', '管理员', '2025-05-26 12:13:57', '', NULL, '2025-05-26 12:13:57', 1);
-INSERT INTO `base_user` VALUES ('20250526000001', '1', '鼎新基地', '1', '航气处', '', '', 2, '', 'ZhangSanB', '58A15417270D1F4397F40B277ABF4BCB', '', '', '张三B', '', 2, '', NULL, '', '张三B', '', '', '管理员', '2025-05-26 12:14:09', '', NULL, '2025-05-26 12:14:09', 1);
+INSERT INTO `base_user` VALUES ('1', '', '', '', '', '', '', 1, '', 'admin', 'C383B86184682DF3E48B2BCE066B91E2', '', '', '', '', 0, '', NULL, '', '', NULL, NULL, '管理员', '2025-05-27 15:40:14', NULL, '2025-05-27 15:46:34', '2025-05-27 15:46:34', NULL);
+INSERT INTO `base_user` VALUES ('2', '1', '鼎新基地', '1', '航气处', '', '', 2, NULL, 'YongHuA', '4F88CC50593C6D7F9403E86D1C99F987', NULL, NULL, '用户A', NULL, 1, NULL, NULL, NULL, '用户A', NULL, NULL, '', '2025-05-27 15:45:26', '', '2025-05-27 16:18:09', '2025-05-27 16:18:09', 1);
+INSERT INTO `base_user` VALUES ('3', '1', '鼎新基地', '1', '航气处', '', '2', 2, NULL, 'YongHuB', '7E080D78BC688B7A709B07847E63DC13', NULL, NULL, '用户B', NULL, 1, NULL, NULL, NULL, '用户B', NULL, NULL, '', '2025-05-27 15:45:51', NULL, '2025-05-27 16:17:39', '2025-05-27 16:17:39', 1);
 
 -- ----------------------------
 -- Table structure for base_user_role

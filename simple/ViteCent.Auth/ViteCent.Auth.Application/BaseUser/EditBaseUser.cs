@@ -69,26 +69,65 @@ public partial class EditBaseUser(
         if (!check.Success)
             return check;
 
-        entity.Avatar = request.Avatar;
-        entity.Birthday = request.Birthday;
-        entity.Color = request.Color;
-        entity.CompanyName = request.CompanyName;
-        entity.DepartmentName = request.DepartmentName;
-        entity.Description = request.Description;
-        entity.Email = request.Email;
-        entity.Finger = request.Finger;
-        entity.Gender = request.Gender;
-        entity.IdCard = request.IdCard;
-        entity.IsSuper = request.IsSuper;
-        entity.Nickname = request.Nickname;
-        entity.Password = request.Password;
-        entity.Phone = request.Phone;
-        entity.PositionId = request.PositionId;
-        entity.PositionName = request.PositionName;
-        entity.RealName = request.RealName;
-        entity.Status = request.Status;
+        if(request.Avatar is not null)
+            entity.Avatar = request.Avatar;
+
+        if(request.Birthday.HasValue)
+            entity.Birthday = request.Birthday.Value;
+
+        if(request.Color is not null)
+            entity.Color = request.Color;
+
+        if(request.CompanyName is not null)
+            entity.CompanyName = request.CompanyName;
+
+        if(request.DepartmentName is not null)
+            entity.DepartmentName = request.DepartmentName;
+
+        if(request.Description is not null)
+            entity.Description = request.Description;
+
+        if(request.Email is not null)
+            entity.Email = request.Email;
+
+        if(request.Finger is not null)
+            entity.Finger = request.Finger;
+
+        if(request.Gender.HasValue)
+            entity.Gender = request.Gender.Value;
+
+        if(request.IdCard is not null)
+            entity.IdCard = request.IdCard;
+
+        if(request.IsSuper.HasValue)
+            entity.IsSuper = request.IsSuper.Value;
+
+        if(request.Nickname is not null)
+            entity.Nickname = request.Nickname;
+
+        if(request.Password is not null)
+            entity.Password = request.Password;
+
+        if(request.Phone is not null)
+            entity.Phone = request.Phone;
+
+        if(request.PositionId is not null)
+            entity.PositionId = request.PositionId;
+
+        if(request.PositionName is not null)
+            entity.PositionName = request.PositionName;
+
+        if(request.RealName is not null)
+            entity.RealName = request.RealName;
+
+        if(request.Status.HasValue)
+            entity.Status = request.Status.Value;
+
         entity.Username = request.Username;
-        entity.UserNo = request.UserNo;
+
+        if(request.UserNo is not null)
+            entity.UserNo = request.UserNo;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

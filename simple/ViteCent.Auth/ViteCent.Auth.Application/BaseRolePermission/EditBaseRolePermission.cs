@@ -70,10 +70,16 @@ public partial class EditBaseRolePermission(
             return check;
 
         entity.OperationId = request.OperationId;
+
         entity.ResourceId = request.ResourceId;
+
         entity.RoleId = request.RoleId;
-        entity.Status = request.Status;
+
+        if(request.Status.HasValue)
+            entity.Status = request.Status.Value;
+
         entity.SystemId = request.SystemId;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

@@ -33,7 +33,7 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 公司名称
     /// </summary>
     [SugarColumn(ColumnName = "companyName")]
-    public string CompanyName { get; set; } = string.Empty;
+    public string? CompanyName { get; set; }
 
     /// <summary>
     /// 创建时间
@@ -45,7 +45,7 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 创建人
     /// </summary>
     [SugarColumn(ColumnName = "creator")]
-    public string Creator { get; set; } = string.Empty;
+    public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
@@ -63,7 +63,7 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 部门名称
     /// </summary>
     [SugarColumn(ColumnName = "departmentName")]
-    public string DepartmentName { get; set; } = string.Empty;
+    public string? DepartmentName { get; set; }
 
     /// <summary>
     /// 标识
@@ -75,13 +75,13 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 岗位名称
     /// </summary>
     [SugarColumn(ColumnName = "job")]
-    public string Job { get; set; } = string.Empty;
+    public string? Job { get; set; }
 
     /// <summary>
     /// 描述
     /// </summary>
     [SugarColumn(ColumnName = "remark")]
-    public string Remark { get; set; } = string.Empty;
+    public string? Remark { get; set; }
 
     /// <summary>
     /// 排班标识
@@ -93,7 +93,7 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 排班名称
     /// </summary>
     [SugarColumn(ColumnName = "scheduleName")]
-    public string ScheduleName { get; set; } = string.Empty;
+    public string? ScheduleName { get; set; }
 
     /// <summary>
     /// 换班部门标识
@@ -105,13 +105,13 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 换班部门名称
     /// </summary>
     [SugarColumn(ColumnName = "shiftDepartmentName")]
-    public string ShiftDepartmentName { get; set; } = string.Empty;
+    public string? ShiftDepartmentName { get; set; }
 
     /// <summary>
     /// 换班岗位名称
     /// </summary>
     [SugarColumn(ColumnName = "shiftJob")]
-    public string ShiftJob { get; set; } = string.Empty;
+    public string? ShiftJob { get; set; }
 
     /// <summary>
     /// 换班用户标识
@@ -123,19 +123,19 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 换班用户名称
     /// </summary>
     [SugarColumn(ColumnName = "shiftUserName")]
-    public string ShiftUserName { get; set; } = string.Empty;
+    public string? ShiftUserName { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
     [SugarColumn(ColumnName = "status")]
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
     [SugarColumn(ColumnName = "updater")]
-    public string Updater { get; set; } = string.Empty;
+    public string? Updater { get; set; }
 
     /// <summary>
     /// 修改时间
@@ -153,5 +153,5 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 用户名称
     /// </summary>
     [SugarColumn(ColumnName = "userName")]
-    public string UserName { get; set; } = string.Empty;
+    public string? UserName { get; set; }
 }

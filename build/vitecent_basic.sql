@@ -11,11 +11,42 @@
  Target Server Version : 80042
  File Encoding         : 65001
 
- Date: 26/05/2025 16:56:04
+ Date: 27/05/2025 16:28:55
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for base_post
+-- ----------------------------
+DROP TABLE IF EXISTS `base_post`;
+CREATE TABLE `base_post`  (
+  `id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '标识',
+  `level` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '级别',
+  `companyId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公司标识',
+  `companyName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '公司名称',
+  `code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '编码',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名称',
+  `abbreviation` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '简称',
+  `description` varchar(5000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '简介',
+  `color` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '颜色',
+  `creator` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `createTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `updater` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `updateTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+  `dataVersion` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '数据版本',
+  `status` int(0) NULL DEFAULT 1 COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `name`(`name`) USING BTREE,
+  INDEX `companyId`(`companyId`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '职位信息' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of base_post
+-- ----------------------------
+INSERT INTO `base_post` VALUES ('1', NULL, '', '', 'GangWeiA', '岗位A', NULL, NULL, '#CB2626', '', '2025-05-27 15:40:49', '', '2025-05-27 15:41:12', '2025-05-27 15:41:12', 1);
+INSERT INTO `base_post` VALUES ('2', NULL, '', '', 'GangWeiB', '岗位B', NULL, NULL, '#46E80B', '', '2025-05-27 15:41:08', '', '2025-05-27 15:41:15', '2025-05-27 15:41:15', 1);
 
 -- ----------------------------
 -- Table structure for repair_schedule
@@ -76,6 +107,12 @@ CREATE TABLE `schedule`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '排班信息' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of schedule
+-- ----------------------------
+INSERT INTO `schedule` VALUES ('1', '1', '鼎新基地', '1', '航气处', '岗位A', '20250527000000', '用户A', '主班', '2025-05-27 00:00:00', '2025-05-27 23:59:59', NULL, NULL, '', '2025-05-27 15:54:14', NULL, '2025-05-27 16:16:49', '2025-05-27 16:16:49', 4);
+INSERT INTO `schedule` VALUES ('2', '1', '鼎新基地', '1', '航气处', '岗位A', '20250527000002', '用户B', '副班', '2025-05-27 00:00:00', '2025-05-27 23:59:59', NULL, NULL, '', '2025-05-27 15:54:14', NULL, '2025-05-27 16:16:56', '2025-05-27 16:16:56', 4);
+
+-- ----------------------------
 -- Table structure for schedule_type
 -- ----------------------------
 DROP TABLE IF EXISTS `schedule_type`;
@@ -87,10 +124,6 @@ CREATE TABLE `schedule_type`  (
   `departmentName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '部门名称',
   `code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '编码',
   `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名称',
-  `scheduleType` int(0) NULL DEFAULT NULL COMMENT '类型',
-  `startTime` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '开始时间',
-  `endTime` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '结束时间',
-  `overnight` int(0) NOT NULL COMMENT '是否跨天',
   `description` varchar(5000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '简介',
   `color` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '颜色',
   `creator` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
@@ -102,6 +135,12 @@ CREATE TABLE `schedule_type`  (
   INDEX `companyId`(`companyId`) USING BTREE,
   INDEX `departmentId`(`departmentId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '基础排班' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of schedule_type
+-- ----------------------------
+INSERT INTO `schedule_type` VALUES ('1', '', '', '', '', 'ZhuBan', '主班', NULL, '#E01717', '', '2025-05-27 15:50:13', NULL, NULL, '2025-05-27 15:50:13');
+INSERT INTO `schedule_type` VALUES ('2', '', '', '', '', 'FuBan', '副班', NULL, '#53E017', '', '2025-05-27 15:50:31', NULL, NULL, '2025-05-27 15:50:31');
 
 -- ----------------------------
 -- Table structure for shift_schedule

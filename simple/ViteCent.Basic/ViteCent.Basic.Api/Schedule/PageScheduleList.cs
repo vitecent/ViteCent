@@ -6,11 +6,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入职位信息相关的数据传输对象
-using ViteCent.Auth.Data.BasePosition;
-
 // 引入基础数据传输对象
 using ViteCent.Basic.Application;
+
+// 引入岗位位信息相关的数据传输对象
+using ViteCent.Basic.Data.BasePost;
 
 // 引入排班信息相关的数据传输对象
 using ViteCent.Basic.Data.Schedule;
@@ -21,13 +21,10 @@ using ViteCent.Core.Data;
 // 引入核心枚举类型
 using ViteCent.Core.Enums;
 
-//引入 web 核心
-using ViteCent.Core.Web;
-
 // 引入核心接口基类
 using ViteCent.Core.Web.Api;
 
-// 引入核心过滤器
+// 引入核心过滤器ViteCent.Basic.Api.Schedu
 using ViteCent.Core.Web.Filter;
 
 #endregion
@@ -38,15 +35,13 @@ namespace ViteCent.Basic.Api.Schedule;
 /// </summary>
 /// <param name="logger"></param>
 /// <param name="httpContextAccessor"></param>
-/// <param name="positionInvoke"></param>
 /// <param name="mediator"></param>
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("Schedule")]
-public partial class PageScheduleList(
+public class PageScheduleList(
     ILogger<AddSchedule> logger,
     IHttpContextAccessor httpContextAccessor,
-    IBaseInvoke<SearchBasePositionArgs, PageResult<BasePositionResult>> positionInvoke,
     IMediator mediator)
     : BaseApi<PreSearchScheduleArgs, BaseResult>
 {
@@ -63,7 +58,7 @@ public partial class PageScheduleList(
     [Route("PageList")]
     public override async Task<BaseResult> InvokeAsync(PreSearchScheduleArgs args)
     {
-        logger.LogInformation("Invoke ViteCent.Basic.Api.Controller.PageList");
+        logger.LogInformation("Invoke ViteCent.Basic.Api.Schedu.PageList");
 
         var cancellationToken = new CancellationToken();
 
@@ -78,7 +73,7 @@ public partial class PageScheduleList(
         var departmentId = user?.Department?.Id ?? string.Empty;
         var positionId = user?.Position?.Id ?? string.Empty;
 
-        var searchPositionArgs = new SearchBasePositionArgs
+        var searchPositionArgs = new SearchBasePostArgs
         {
             Offset = 1,
             Limit = int.MaxValue,
@@ -107,26 +102,20 @@ public partial class PageScheduleList(
             ]
         };
 
-        var positions = await positionInvoke.InvokePostAsync("Auth", "/BasePosition/Page", searchPositionArgs,
-            user?.Token ?? string.Empty);
+        var posts = await mediator.Send(searchPositionArgs, cancellationToken);
 
-        if (!positions.Success)
-            return new PageResult<PreAddScheduleArgs>(positions.Code, positions.Message);
+        if (!posts.Success)
+            return new PageResult<PreAddScheduleArgs>(posts.Code, posts.Message);
 
         var items = new List<PreAddScheduleArgs>();
 
-        foreach (var item in positions.Rows)
+        foreach (var item in posts.Rows)
+        {
             for (var date = args.StartTime; date < args.EndTime;)
             {
                 var _item = new PreAddScheduleArgs
                 {
-                    CompanyId = item.CompanyId,
-                    DepartmentId = departmentId,
-                    PositionId = item.Id,
-                    UserId = item.Id,
-                    Name = item.Name,
-                    Shift = string.Empty,
-                    Job = string.Empty,
+                    Job = item.Name,
                     Date = date.ToString("yyyy-MM-dd")
                 };
 
@@ -134,6 +123,7 @@ public partial class PageScheduleList(
 
                 date = date.AddDays(1);
             }
+        }
 
         var request = new SearchScheduleArgs
         {
@@ -173,19 +163,15 @@ public partial class PageScheduleList(
 
         var rows = await mediator.Send(request, cancellationToken);
 
-        foreach (var row in rows.Rows)
-        {
-            var item = items.FirstOrDefault(x =>
-                x.CompanyId == row.CompanyId && x.DepartmentId == row.DepartmentId && x.UserId == row.UserId
-                && x.Date == row.StartTime.ToString("yyyy-MM-dd"));
-
-            if (item != null)
+        //按照岗位合并排班信息
+        if (rows.Success && rows.Rows.Count > 0)
+            foreach (var item in items)
             {
-                item.Name = row.UserName;
-                item.Shift = row.Shift;
-                item.Job = row.Job;
+                var _row = rows.Rows.Where(x => x.StartTime.ToString("yyyy-MM-dd") == item.Date && x.Job == item.Job).OrderBy(x => x.Id).ToList();
+
+                item.Name = string.Join(",", _row.Select(x => x.UserName).Distinct().ToList());
+                item.Shift = string.Join(",", _row.Select(x => x.Shift).Distinct().ToList());
             }
-        }
 
         var result = new PageResult<PreAddScheduleArgs>
         {

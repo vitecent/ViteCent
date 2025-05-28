@@ -80,16 +80,32 @@ public partial class EditRepairSchedule(
         if (!check.Success)
             return check;
 
-        entity.CompanyName = request.CompanyName;
-        entity.DepartmentName = request.DepartmentName;
-        entity.Remark = request.Remark;
+        if(request.CompanyName is not null)
+            entity.CompanyName = request.CompanyName;
+
+        if(request.DepartmentName is not null)
+            entity.DepartmentName = request.DepartmentName;
+
+        if(request.Remark is not null)
+            entity.Remark = request.Remark;
+
         entity.RepairTime = request.RepairTime;
+
         entity.RepairType = request.RepairType;
+
         entity.ScheduleId = request.ScheduleId;
-        entity.ScheduleName = request.ScheduleName;
-        entity.Status = request.Status;
+
+        if(request.ScheduleName is not null)
+            entity.ScheduleName = request.ScheduleName;
+
+        if(request.Status.HasValue)
+            entity.Status = request.Status.Value;
+
         entity.UserId = request.UserId;
-        entity.UserName = request.UserName;
+
+        if(request.UserName is not null)
+            entity.UserName = request.UserName;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

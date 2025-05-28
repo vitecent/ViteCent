@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 #endregion
 
@@ -32,6 +33,7 @@ public class Initialize(
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.Initialize");
 
         var args = mapper.Map<AddBaseUserArgs>(request);
+        args.IsSuper = (int)YesNoEnum.Yes;
 
         var validator = new BaseUserValidator(true);
         var result = await validator.ValidateAsync(args, cancellationToken);

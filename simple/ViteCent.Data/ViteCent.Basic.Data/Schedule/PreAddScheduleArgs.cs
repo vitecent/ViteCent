@@ -37,9 +37,9 @@ public class PreAddScheduleArgs : BaseArgs
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// 职位标识
+    /// 岗位标识
     /// </summary>
-    public string PositionId { get; set; } = string.Empty;
+    public string PostId { get; set; } = string.Empty;
 
     /// <summary>
     /// 排班名称

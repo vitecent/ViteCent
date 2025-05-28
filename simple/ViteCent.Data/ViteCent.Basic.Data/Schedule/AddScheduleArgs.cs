@@ -28,7 +28,7 @@ public class AddScheduleArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 公司名称
     /// </summary>
-    public string CompanyName { get; set; } = string.Empty;
+    public string? CompanyName { get; set; }
 
     /// <summary>
     /// 部门标识
@@ -38,7 +38,7 @@ public class AddScheduleArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 部门名称
     /// </summary>
-    public string DepartmentName { get; set; } = string.Empty;
+    public string? DepartmentName { get; set; }
 
     /// <summary>
     /// 结束时间
@@ -53,7 +53,7 @@ public class AddScheduleArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 岗位名称
     /// </summary>
-    public string Job { get; set; } = string.Empty;
+    public string? Job { get; set; }
 
     /// <summary>
     /// 下班时间
@@ -73,7 +73,7 @@ public class AddScheduleArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 用户标识
@@ -83,5 +83,5 @@ public class AddScheduleArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 用户名称
     /// </summary>
-    public string UserName { get; set; } = string.Empty;
+    public string? UserName { get; set; }
 }

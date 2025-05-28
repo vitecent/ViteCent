@@ -27,7 +27,7 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     /// 头像
     /// </summary>
     [SugarColumn(ColumnName = "avatar")]
-    public string Avatar { get; set; } = string.Empty;
+    public string? Avatar { get; set; }
 
     /// <summary>
     /// 出生日期
@@ -39,7 +39,7 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     /// 颜色
     /// </summary>
     [SugarColumn(ColumnName = "color")]
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 公司标识
@@ -51,7 +51,7 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     /// 公司名称
     /// </summary>
     [SugarColumn(ColumnName = "companyName")]
-    public string CompanyName { get; set; } = string.Empty;
+    public string? CompanyName { get; set; }
 
     /// <summary>
     /// 创建时间
@@ -63,7 +63,7 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     /// 创建人
     /// </summary>
     [SugarColumn(ColumnName = "creator")]
-    public string Creator { get; set; } = string.Empty;
+    public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
@@ -81,31 +81,31 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     /// 部门名称
     /// </summary>
     [SugarColumn(ColumnName = "departmentName")]
-    public string DepartmentName { get; set; } = string.Empty;
+    public string? DepartmentName { get; set; }
 
     /// <summary>
     /// 简介
     /// </summary>
     [SugarColumn(ColumnName = "description")]
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
     /// <summary>
     /// 邮箱
     /// </summary>
     [SugarColumn(ColumnName = "email")]
-    public string Email { get; set; } = string.Empty;
+    public string? Email { get; set; }
 
     /// <summary>
     /// 指纹
     /// </summary>
     [SugarColumn(ColumnName = "finger")]
-    public string Finger { get; set; } = string.Empty;
+    public string? Finger { get; set; }
 
     /// <summary>
     /// 性别
     /// </summary>
     [SugarColumn(ColumnName = "gender")]
-    public int Gender { get; set; }
+    public int? Gender { get; set; }
 
     /// <summary>
     /// 标识
@@ -117,61 +117,61 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     /// 身份证
     /// </summary>
     [SugarColumn(ColumnName = "idCard")]
-    public string IdCard { get; set; } = string.Empty;
+    public string? IdCard { get; set; }
 
     /// <summary>
     /// 超级管理员
     /// </summary>
     [SugarColumn(ColumnName = "isSuper")]
-    public int IsSuper { get; set; }
+    public int? IsSuper { get; set; }
 
     /// <summary>
     /// 昵称
     /// </summary>
     [SugarColumn(ColumnName = "nickname")]
-    public string Nickname { get; set; } = string.Empty;
+    public string? Nickname { get; set; }
 
     /// <summary>
     /// 密码
     /// </summary>
     [SugarColumn(ColumnName = "password")]
-    public string Password { get; set; } = string.Empty;
+    public string? Password { get; set; }
 
     /// <summary>
     /// 电话
     /// </summary>
     [SugarColumn(ColumnName = "phone")]
-    public string Phone { get; set; } = string.Empty;
+    public string? Phone { get; set; }
 
     /// <summary>
     /// 职位标识
     /// </summary>
     [SugarColumn(ColumnName = "positionId")]
-    public string PositionId { get; set; } = string.Empty;
+    public string? PositionId { get; set; }
 
     /// <summary>
     /// 职位名称
     /// </summary>
     [SugarColumn(ColumnName = "positionName")]
-    public string PositionName { get; set; } = string.Empty;
+    public string? PositionName { get; set; }
 
     /// <summary>
     /// 真实姓名
     /// </summary>
     [SugarColumn(ColumnName = "realName")]
-    public string RealName { get; set; } = string.Empty;
+    public string? RealName { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
     [SugarColumn(ColumnName = "status")]
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
     [SugarColumn(ColumnName = "updater")]
-    public string Updater { get; set; } = string.Empty;
+    public string? Updater { get; set; }
 
     /// <summary>
     /// 修改时间
@@ -189,5 +189,5 @@ public class BaseUserEntity : BaseEntity, IRequest<BaseResult>
     /// 编号
     /// </summary>
     [SugarColumn(ColumnName = "userNo")]
-    public string UserNo { get; set; } = string.Empty;
+    public string? UserNo { get; set; }
 }

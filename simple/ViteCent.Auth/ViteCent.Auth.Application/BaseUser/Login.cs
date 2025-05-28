@@ -64,9 +64,9 @@ public class Login(
         var userInfo = new BaseUserInfo
         {
             Id = user.Id,
-            Name = user.RealName,
+            Name = user?.RealName,
             Code = user.Username,
-            IsSuper = user.IsSuper
+            IsSuper = user.IsSuper.Value
         };
 
         if (!string.IsNullOrWhiteSpace(user.CompanyId))

@@ -37,6 +37,9 @@
 		<None Update="Template\Api\Edit">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Template\Api\EditOverride">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Template\Api\Enable">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

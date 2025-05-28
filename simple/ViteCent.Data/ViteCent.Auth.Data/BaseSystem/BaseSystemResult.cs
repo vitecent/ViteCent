@@ -16,17 +16,17 @@ public class BaseSystemResult
     /// <summary>
     /// 简称
     /// </summary>
-    public string Abbreviation { get; set; } = string.Empty;
+    public string? Abbreviation { get; set; }
 
     /// <summary>
     /// 编码
     /// </summary>
-    public string Code { get; set; } = string.Empty;
+    public string? Code { get; set; }
 
     /// <summary>
     /// 颜色
     /// </summary>
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 公司标识
@@ -36,7 +36,7 @@ public class BaseSystemResult
     /// <summary>
     /// 公司名称
     /// </summary>
-    public string CompanyName { get; set; } = string.Empty;
+    public string? CompanyName { get; set; }
 
     /// <summary>
     /// 创建时间
@@ -46,7 +46,7 @@ public class BaseSystemResult
     /// <summary>
     /// 创建人
     /// </summary>
-    public string Creator { get; set; } = string.Empty;
+    public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
@@ -56,7 +56,7 @@ public class BaseSystemResult
     /// <summary>
     /// 简介
     /// </summary>
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
     /// <summary>
     /// 标识
@@ -71,12 +71,12 @@ public class BaseSystemResult
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
-    public string Updater { get; set; } = string.Empty;
+    public string? Updater { get; set; }
 
     /// <summary>
     /// 修改时间

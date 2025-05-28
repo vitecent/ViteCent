@@ -72,14 +72,14 @@ public class UserScheduleResult
     public DateTime? LastTime { get; set; }
 
     /// <summary>
-    /// 职位标识
+    /// 岗位标识
     /// </summary>
-    public string PositionId { get; set; } = string.Empty;
+    public string PostId { get; set; } = string.Empty;
 
     /// <summary>
-    /// 职位名称
+    /// 岗位名称
     /// </summary>
-    public string PositionName { get; set; } = string.Empty;
+    public string PostName { get; set; } = string.Empty;
 
     /// <summary>
     /// 名称

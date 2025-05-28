@@ -69,10 +69,16 @@ public partial class EditBaseUserRole(
         if (!check.Success)
             return check;
 
-        entity.Color = request.Color;
+        if(request.Color is not null)
+            entity.Color = request.Color;
+
         entity.RoleId = request.RoleId;
-        entity.Status = request.Status;
+
+        if(request.Status.HasValue)
+            entity.Status = request.Status.Value;
+
         entity.UserId = request.UserId;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

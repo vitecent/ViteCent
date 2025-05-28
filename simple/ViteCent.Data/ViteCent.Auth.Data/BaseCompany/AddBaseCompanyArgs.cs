@@ -23,42 +23,42 @@ public class AddBaseCompanyArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 简称
     /// </summary>
-    public string Abbreviation { get; set; } = string.Empty;
+    public string? Abbreviation { get; set; }
 
     /// <summary>
     /// 详细地址
     /// </summary>
-    public string Address { get; set; } = string.Empty;
+    public string? Address { get; set; }
 
     /// <summary>
     /// 城市
     /// </summary>
-    public string City { get; set; } = string.Empty;
+    public string? City { get; set; }
 
     /// <summary>
     /// 编码
     /// </summary>
-    public string Code { get; set; } = string.Empty;
+    public string? Code { get; set; }
 
     /// <summary>
     /// 颜色
     /// </summary>
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 国家
     /// </summary>
-    public string Country { get; set; } = string.Empty;
+    public string? Country { get; set; }
 
     /// <summary>
     /// 简介
     /// </summary>
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
     /// <summary>
     /// 邮箱
     /// </summary>
-    public string Email { get; set; } = string.Empty;
+    public string? Email { get; set; }
 
     /// <summary>
     /// 成立日期
@@ -68,27 +68,27 @@ public class AddBaseCompanyArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 行业
     /// </summary>
-    public string Industry { get; set; } = string.Empty;
+    public string? Industry { get; set; }
 
     /// <summary>
     /// 法人
     /// </summary>
-    public string LegalPerson { get; set; } = string.Empty;
+    public string? LegalPerson { get; set; }
 
     /// <summary>
     /// 法人电话
     /// </summary>
-    public string LegalPhone { get; set; } = string.Empty;
+    public string? LegalPhone { get; set; }
 
     /// <summary>
     /// 级别
     /// </summary>
-    public string Level { get; set; } = string.Empty;
+    public string? Level { get; set; }
 
     /// <summary>
     /// 商标
     /// </summary>
-    public string Logo { get; set; } = string.Empty;
+    public string? Logo { get; set; }
 
     /// <summary>
     /// 名称
@@ -98,15 +98,15 @@ public class AddBaseCompanyArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 父级标识
     /// </summary>
-    public string ParentId { get; set; } = string.Empty;
+    public string? ParentId { get; set; }
 
     /// <summary>
     /// 省份
     /// </summary>
-    public string Province { get; set; } = string.Empty;
+    public string? Province { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 }

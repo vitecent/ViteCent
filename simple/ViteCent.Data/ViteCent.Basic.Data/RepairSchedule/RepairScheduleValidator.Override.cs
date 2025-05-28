@@ -23,6 +23,6 @@ public partial class RepairScheduleValidator : AbstractValidator<AddRepairSchedu
         var status = new List<int>
             { (int)RepairScheduleEnum.Apply, (int)RepairScheduleEnum.Pass, (int)RepairScheduleEnum.NoPass };
 
-        RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
+        RuleFor(x => x.Status).Must(x => status.Contains(x.Value)).When(x => x.Status.HasValue).WithMessage("状态不存在");
     }
 }

@@ -69,24 +69,59 @@ public partial class EditBaseCompany(
         if (!check.Success)
             return check;
 
-        entity.Abbreviation = request.Abbreviation;
-        entity.Address = request.Address;
-        entity.City = request.City;
-        entity.Code = request.Code;
-        entity.Color = request.Color;
-        entity.Country = request.Country;
-        entity.Description = request.Description;
-        entity.Email = request.Email;
-        entity.EstablishDate = request.EstablishDate;
-        entity.Industry = request.Industry;
-        entity.LegalPerson = request.LegalPerson;
-        entity.LegalPhone = request.LegalPhone;
-        entity.Level = request.Level;
-        entity.Logo = request.Logo;
+        if(request.Abbreviation is not null)
+            entity.Abbreviation = request.Abbreviation;
+
+        if(request.Address is not null)
+            entity.Address = request.Address;
+
+        if(request.City is not null)
+            entity.City = request.City;
+
+        if(request.Code is not null)
+            entity.Code = request.Code;
+
+        if(request.Color is not null)
+            entity.Color = request.Color;
+
+        if(request.Country is not null)
+            entity.Country = request.Country;
+
+        if(request.Description is not null)
+            entity.Description = request.Description;
+
+        if(request.Email is not null)
+            entity.Email = request.Email;
+
+        if(request.EstablishDate.HasValue)
+            entity.EstablishDate = request.EstablishDate.Value;
+
+        if(request.Industry is not null)
+            entity.Industry = request.Industry;
+
+        if(request.LegalPerson is not null)
+            entity.LegalPerson = request.LegalPerson;
+
+        if(request.LegalPhone is not null)
+            entity.LegalPhone = request.LegalPhone;
+
+        if(request.Level is not null)
+            entity.Level = request.Level;
+
+        if(request.Logo is not null)
+            entity.Logo = request.Logo;
+
         entity.Name = request.Name;
-        entity.ParentId = request.ParentId;
-        entity.Province = request.Province;
-        entity.Status = request.Status;
+
+        if(request.ParentId is not null)
+            entity.ParentId = request.ParentId;
+
+        if(request.Province is not null)
+            entity.Province = request.Province;
+
+        if(request.Status.HasValue)
+            entity.Status = request.Status.Value;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

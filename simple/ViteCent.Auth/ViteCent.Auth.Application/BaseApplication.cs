@@ -824,7 +824,7 @@ public static class BaseApplication
 
         // 如果存在已禁用的用户，返回错误信息
         if (user != null)
-            return new PageResult<BaseUserEntity>(500, $"用户{user.RealName}已经禁用");
+            return new PageResult<BaseUserEntity>(500, $"用户{user?.RealName}已经禁用");
 
         // 返回用户列表
         return new PageResult<BaseUserEntity>

@@ -26,9 +26,12 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
         RuleFor(x => x.Username).Length(4, 12).WithMessage("用户名4-12个字符");
         RuleFor(x => x.Username).Matches(BaseConst.PositiveEnglish).WithMessage("用户名只支持数字、字母");
 
-        RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("密码不能为空");
-        RuleFor(x => x.Password).Length(6, 16).WithMessage("密码6-16个字符");
-        RuleFor(x => x.Password).Matches(BaseConst.PositiveEnglishUnderline).WithMessage("密码只支持数字、字母、下划线");
+        if (!validate)
+        {
+            RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("密码不能为空");
+            RuleFor(x => x.Password).Length(6, 16).WithMessage("密码6-16个字符");
+            RuleFor(x => x.Password).Matches(BaseConst.PositiveEnglishUnderline).WithMessage("密码只支持数字、字母、下划线");
+        }
 
         RuleFor(x => x.Email).Matches(BaseConst.Email).When(x => !string.IsNullOrWhiteSpace(x.Email))
             .WithMessage("邮箱格式错误");
@@ -44,11 +47,11 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
             .WithMessage("电话格式错误");
 
         var genders = new List<int> { (int)GenderEnum.Male, (int)GenderEnum.FeMale };
-        RuleFor(x => x.Gender).Must(x => genders.Contains(x)).When(x => !string.IsNullOrWhiteSpace(x.Phone))
+        RuleFor(x => x.Gender).Must(x => genders.Contains(x.Value)).When(x => !string.IsNullOrWhiteSpace(x.Phone) && x.Gender.HasValue)
             .WithMessage("性别格式错误");
 
         var status = new List<int> { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
 
-        RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
+        RuleFor(x => x.Status).Must(x => status.Contains(x.Value)).When(x => x.Status.HasValue).WithMessage("状态不存在");
     }
 }

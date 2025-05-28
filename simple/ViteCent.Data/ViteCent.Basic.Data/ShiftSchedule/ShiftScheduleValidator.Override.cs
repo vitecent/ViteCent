@@ -23,7 +23,7 @@ public partial class ShiftScheduleValidator : AbstractValidator<AddShiftSchedule
         var status = new List<int>
             { (int)ShiftScheduleEnum.Apply, (int)ShiftScheduleEnum.Pass, (int)ShiftScheduleEnum.NoPass };
 
-        RuleFor(x => x.Status).Must(x => status.Contains(x)).WithMessage("状态不存在");
+        RuleFor(x => x.Status).Must(x => status.Contains(x.Value)).When(x => x.Status.HasValue).WithMessage("状态不存在");
 
         RuleFor(x => x).Must(x => x.ShiftUserId != x.UserId).WithMessage("换班人不能相同");
     }

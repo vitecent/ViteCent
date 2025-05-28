@@ -23,7 +23,7 @@ public class AddBaseUserRoleArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 颜色
     /// </summary>
-    public string Color { get; set; } = string.Empty;
+    public string? Color { get; set; }
 
     /// <summary>
     /// 公司标识
@@ -43,7 +43,7 @@ public class AddBaseUserRoleArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 用户标识

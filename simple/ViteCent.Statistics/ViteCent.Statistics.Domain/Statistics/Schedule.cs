@@ -75,8 +75,7 @@ public class Schedule(ILogger<Schedule> logger)
 
         var basicClient = new SqlSugarFactory("ViteCent.Basic");
 
-        var jobQuery = basicClient.Query<ScheduleTypeEntity>()
-            .Where(x => x.ScheduleType == (int)ScheduleTypeEnum.Schedule);
+        var jobQuery = basicClient.Query<ScheduleTypeEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             jobQuery = jobQuery.Where(x => x.CompanyId == request.CompanyId);

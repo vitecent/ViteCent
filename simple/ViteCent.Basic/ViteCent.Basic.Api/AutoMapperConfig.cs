@@ -8,6 +8,9 @@
 
 #region
 
+// 引入职位信息相关的数据传输对象
+using ViteCent.Basic.Data.BasePost;
+
 // 引入补卡申请相关的数据传输对象
 using ViteCent.Basic.Data.RepairSchedule;
 
@@ -25,6 +28,9 @@ using ViteCent.Basic.Data.UserLeave;
 
 // 引入调休申请相关的数据传输对象
 using ViteCent.Basic.Data.UserRest;
+
+// 引入职位信息相关的数据模型对象
+using ViteCent.Basic.Entity.BasePost;
 
 // 引入补卡申请相关的数据模型对象
 using ViteCent.Basic.Entity.RepairSchedule;
@@ -44,7 +50,7 @@ using ViteCent.Basic.Entity.UserLeave;
 // 引入调休申请相关的数据模型对象
 using ViteCent.Basic.Entity.UserRest;
 
-// 引入 Web 核心
+// 引入 Web 核心 
 using ViteCent.Core.Web;
 
 #endregion
@@ -64,9 +70,34 @@ public partial class AutoMapperConfig : BaseMapperConfig
     /// <summary>
     /// 配置对象映射关系
     /// </summary>
-    /// <remarks>在此方法中配置所有需要的对象映射规则</remarks>
+    /// <remarks>
+    /// 在此方法中配置所有需要的对象映射规则
+    /// </remarks>
     public override void Map()
     {
+        #region 职位信息对象映射配置
+
+        // 新增对象映射配置
+        CreateMap<AddBasePostArgs, AddBasePostEntity>();
+
+        // 编辑对象映射配置
+        CreateMap<EditBasePostArgs, GetBasePostEntityArgs>();
+
+        // 获取对象映射配置
+        CreateMap<GetBasePostArgs, GetBasePostEntityArgs>();
+
+        // 分页对象映射配置
+        CreateMap<SearchBasePostArgs, SearchBasePostEntityArgs>();
+
+        // 获取对象映射配置
+        CreateMap<BasePostEntity, BasePostResult>();
+
+        // 删除对象映射配置
+        CreateMap<DeleteBasePostArgs, GetBasePostEntityArgs>();
+        CreateMap<BasePostEntity, DeleteBasePostEntity>();
+
+        #endregion
+
         #region 补卡申请对象映射配置
 
         // 新增对象映射配置

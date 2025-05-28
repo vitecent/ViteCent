@@ -372,7 +372,7 @@ public static class Base$!{Setting.Application.Name}
         var user = users.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (user != null)
-            return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, $"用户{user.RealName}已经禁用");
+            return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, $"用户{user?.RealName}已经禁用");
 
         return users;
     }

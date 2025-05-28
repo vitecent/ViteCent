@@ -90,8 +90,7 @@ public class DataBaseExtensions
                         .Replace("uniqueidentifier", "Guid")
                         .Replace("smallmoney", "decimal");
 
-                    var types = new List<string> { "bool", "DateTime", "long", "decimal", "float", "short" };
-                    if (field.Nullable && types.Contains(field.DataType))
+                    if (field.Nullable)
                         field.DataType = $"{field.DataType}?";
 
                     if (field.Length > 0)

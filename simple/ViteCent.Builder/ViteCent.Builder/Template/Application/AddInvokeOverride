@@ -113,7 +113,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 #end
 
 #if($HasCompanyId)
-        var companys = await companyInvoke.CheckCompany(companyIds, user?.Token ?? string.Empty);
+        var companys = await companyInvoke.CheckCompanys(companyIds, user?.Token ?? string.Empty);
 
         if (!companys.Success)
             return companys;
@@ -128,7 +128,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 
 #end
 #if($HasDepartmentId)
-        var departments = await departmentInvoke.CheckDepartment(companyIds, departmentIds, user?.Token ?? string.Empty);
+        var departments = await departmentInvoke.CheckDepartments(companyIds, departmentIds, user?.Token ?? string.Empty);
 
         if (!departments.Success)
             return departments;
@@ -143,7 +143,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 
 #end
 #if($HasPositionId)
-        var positions = await positionInvoke.CheckPosition(companyIds, positionIds, user?.Token ?? string.Empty);
+        var positions = await positionInvoke.CheckPositions(companyIds, positionIds, user?.Token ?? string.Empty);
 
         if (!positions.Success)
             return positions;
@@ -158,7 +158,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 
 #end
 #if($HasUserId)
-        var users = await userInvoke.CheckUser(companyIds, departmentIds, userIds, user?.Token ?? string.Empty);
+        var users = await userInvoke.CheckUsers(companyIds, departmentIds, userIds, user?.Token ?? string.Empty);
 
         if (!users.Success)
             return users;

@@ -21,7 +21,7 @@ public class UserRestResult
     /// <summary>
     /// 公司名称
     /// </summary>
-    public string CompanyName { get; set; } = string.Empty;
+    public string? CompanyName { get; set; }
 
     /// <summary>
     /// 创建时间
@@ -31,7 +31,7 @@ public class UserRestResult
     /// <summary>
     /// 创建人
     /// </summary>
-    public string Creator { get; set; } = string.Empty;
+    public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
@@ -46,7 +46,7 @@ public class UserRestResult
     /// <summary>
     /// 部门名称
     /// </summary>
-    public string DepartmentName { get; set; } = string.Empty;
+    public string? DepartmentName { get; set; }
 
     /// <summary>
     /// 结束时间
@@ -61,7 +61,7 @@ public class UserRestResult
     /// <summary>
     /// 描述
     /// </summary>
-    public string Remark { get; set; } = string.Empty;
+    public string? Remark { get; set; }
 
     /// <summary>
     /// 开始时间
@@ -71,12 +71,12 @@ public class UserRestResult
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
-    public string Updater { get; set; } = string.Empty;
+    public string? Updater { get; set; }
 
     /// <summary>
     /// 修改时间
@@ -91,5 +91,5 @@ public class UserRestResult
     /// <summary>
     /// 用户名称
     /// </summary>
-    public string UserName { get; set; } = string.Empty;
+    public string? UserName { get; set; }
 }

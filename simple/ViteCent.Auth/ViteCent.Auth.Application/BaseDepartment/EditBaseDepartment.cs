@@ -69,17 +69,38 @@ public partial class EditBaseDepartment(
         if (!check.Success)
             return check;
 
-        entity.Abbreviation = request.Abbreviation;
-        entity.Code = request.Code;
-        entity.Color = request.Color;
-        entity.CompanyName = request.CompanyName;
-        entity.Description = request.Description;
-        entity.Level = request.Level;
-        entity.Manager = request.Manager;
-        entity.ManagerPhone = request.ManagerPhone;
+        if(request.Abbreviation is not null)
+            entity.Abbreviation = request.Abbreviation;
+
+        if(request.Code is not null)
+            entity.Code = request.Code;
+
+        if(request.Color is not null)
+            entity.Color = request.Color;
+
+        if(request.CompanyName is not null)
+            entity.CompanyName = request.CompanyName;
+
+        if(request.Description is not null)
+            entity.Description = request.Description;
+
+        if(request.Level is not null)
+            entity.Level = request.Level;
+
+        if(request.Manager is not null)
+            entity.Manager = request.Manager;
+
+        if(request.ManagerPhone is not null)
+            entity.ManagerPhone = request.ManagerPhone;
+
         entity.Name = request.Name;
-        entity.ParentId = request.ParentId;
-        entity.Status = request.Status;
+
+        if(request.ParentId is not null)
+            entity.ParentId = request.ParentId;
+
+        if(request.Status.HasValue)
+            entity.Status = request.Status.Value;
+
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;
