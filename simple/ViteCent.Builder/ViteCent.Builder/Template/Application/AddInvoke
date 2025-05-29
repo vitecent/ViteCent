@@ -111,10 +111,6 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(
         if (!check.Success)
             return check;
 
-
-
-
-
         var entity = mapper.Map<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>(request);
 #if($HasId)
 
@@ -131,19 +127,11 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(
         if (!result.Success)
             return result;
 
-
-
-
-
         result.Message = entity.Id;
 
 #end
         await OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
 
         return result;
-
-
-
-
     }
 }

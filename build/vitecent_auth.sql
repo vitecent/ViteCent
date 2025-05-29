@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 192.168.0.8
+ Source Server         : 192.168.0.9
  Source Server Type    : MySQL
  Source Server Version : 80042
- Source Host           : 192.168.0.8:3306
+ Source Host           : 192.168.0.9:3306
  Source Schema         : vitecent_auth
 
  Target Server Type    : MySQL
  Target Server Version : 80042
  File Encoding         : 65001
 
- Date: 28/05/2025 16:22:36
+ Date: 29/05/2025 11:05:42
 */
 
 SET NAMES utf8mb4;
@@ -315,6 +315,9 @@ CREATE TABLE `base_user`  (
 -- Records of base_user
 -- ----------------------------
 INSERT INTO `base_user` VALUES ('1', '1', '鼎新基地', '1', '航气处', '', NULL, 1, '', 'admin', 'C383B86184682DF3E48B2BCE066B91E2', '', '', '管理员', '', 0, '', NULL, '', '', NULL, NULL, '', '2025-05-28 16:19:19', NULL, '2025-05-28 16:22:23', '2025-05-28 16:22:23', NULL);
+INSERT INTO `base_user` VALUES ('2', '1', '鼎新基地', '1', '航气处', '', NULL, 2, NULL, 'ZhangSan', '2A0D83351D75245BEA5E35B36F7C9DF8', NULL, NULL, '用户1', NULL, 1, NULL, NULL, NULL, '1', NULL, NULL, '管理员', '2025-05-28 17:20:21', '管理员', '2025-05-29 09:37:58', '2025-05-29 09:37:58', 1);
+INSERT INTO `base_user` VALUES ('3', '1', '鼎新基地', '1', '航气处', '', '', 2, NULL, 'LiSi', 'E59B68567F6477BDB61A29F9EC23C5EA', NULL, NULL, '用户2', NULL, 2, NULL, NULL, NULL, '2', NULL, NULL, '管理员', '2025-05-28 17:33:05', NULL, '2025-05-29 09:38:02', '2025-05-29 09:38:02', 1);
+INSERT INTO `base_user` VALUES ('4', '1', '鼎新基地', '1', '航气处', '', '1', 2, NULL, 'WangWu', '75445BF2DD53D74A4EBACA356F5E8210', NULL, NULL, '用户3', NULL, 1, NULL, NULL, NULL, '2', NULL, NULL, '管理员', '2025-05-28 17:34:46', NULL, '2025-05-29 09:38:10', '2025-05-29 09:38:10', 1);
 
 -- ----------------------------
 -- Table structure for base_user_role

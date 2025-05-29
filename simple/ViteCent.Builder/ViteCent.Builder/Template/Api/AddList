@@ -14,11 +14,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入$!{Table.Description}相关的数据传输对象
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
-
 // 引入基础数据传输对象
 using $!{DataBase.Name}.$!{Setting.Application.Name};
+
+// 引入$!{Table.Description}相关的数据传输对象
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -103,17 +103,9 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         if (args is null)
             return new BaseResult(500, "参数不能为空");
 
-
-
-
-
         // 验证$!{Table.Description}列表不为空
         if (args.Count == 0)
             return new BaseResult(500, "$!{Table.Description}不能为空");
-
-
-
-
 
         // 获取去重$!{Table.Description}数量
         var count = args.Distinct().Count();
@@ -121,10 +113,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         // 验证$!{Table.Description}不重复
         if (count != args.Count)
             return new BaseResult(500, "$!{Table.Description}重复");
-
-
-
-
 
         // 创建取消令牌
         var cancellationToken = new CancellationToken();
@@ -144,20 +132,12 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             // 如果验证失败，返回错误信息
             if (!check.IsValid)
                 return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
-
-
-
-
 #if($HasCompanyId)
 
             // 如果用户不是超级管理员，验证公司标识不能为空
             if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.CompanyId))
                     return new BaseResult(500, "公司标识不能为空");
-
-
-
-
 #end
 #if($HasDepartmentId)
 
@@ -165,10 +145,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.DepartmentId))
                     return new BaseResult(500, "部门标识不能为空");
-
-
-
-
 #end
 #if($HasPositionId)
 
@@ -176,10 +152,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.PositionId))
                     return new BaseResult(500, "职位标识不能为空");
-
-
-
-
 #end
 #if($HasRoleId)
 
@@ -187,10 +159,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.RoleId))
                     return new BaseResult(500, "角色标识不能为空");
-
-
-
-
 #end
 #if($HasUserId)
 
@@ -198,10 +166,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.UserId))
                     return new BaseResult(500, "用户标识不能为空");
-
-
-
-
 #end
 #if($HasSystemId)
 
@@ -209,10 +173,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.SystemId))
                     return new BaseResult(500, "系统标识不能为空");
-
-
-
-
 #end
 #if($HasResourceId)
 
@@ -220,10 +180,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.ResourceId))
                     return new BaseResult(500, "资源标识不能为空");
-
-
-
-
 #end
 #if($HasOperationId)
 
@@ -231,10 +187,6 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             if (user.IsSuper != (int)YesNoEnum.Yes)
                 if (string.IsNullOrEmpty(item.OperationId))
                     return new BaseResult(500, "操作标识不能为空");
-
-
-
-
 #end
         }
 
@@ -246,9 +198,5 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 
         // 通过中介者发送批量新增命令并返回结果
         return await mediator.Send(request, cancellationToken);
-
-
-
-
     }
 }

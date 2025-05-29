@@ -41,9 +41,5 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}");
 
         return await base.AddAsync(request.Items);
-
-
-
-
     }
 }

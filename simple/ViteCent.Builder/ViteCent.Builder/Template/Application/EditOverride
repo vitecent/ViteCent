@@ -54,10 +54,6 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         CancellationToken cancellationToken)
     {
         return await Task.FromResult(new BaseResult());
-
-
-
-
     }
 
     /// <summary>
@@ -80,9 +76,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasCompany.Success)
             return hasCompany;
 
-
-
- request.CompanyName = hasCompany?.Data?.Name;
+        request.CompanyName = hasCompany?.Data?.Name;
 
 #end
 #if($HasDepartmentId)
@@ -96,9 +90,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasDepartment.Success)
             return hasDepartment;
 
-
-
- request.DepartmentName = hasDepartment?.Data?.Name;
+        request.DepartmentName = hasDepartment?.Data?.Name;
 
 #end
 #if($HasPositionId)
@@ -112,9 +104,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasPosition.Success)
             return hasPosition;
 
-
-
- request.PositionName = hasPosition?.Data?.Name;
+        request.PositionName = hasPosition?.Data?.Name;
 
 #end
 #if($HasUserId)
@@ -123,9 +113,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasUser.Success)
             return hasUser;
 
-
-
- request.UserName = hasUser?.Data?.RealName;
+        request.UserName = hasUser?.Data?.RealName;
 
 #end
 #if($HasRoleId)
@@ -134,9 +122,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasRole.Success)
             return hasRole;
 
-
-
- request.RoleName = hasRole?.Data?.Name;
+        request.RoleName = hasRole?.Data?.Name;
 
 #end
 #if($HasSystemId)
@@ -145,9 +131,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasSystem.Success)
             return hasSystem;
 
-
-
- request.SystemName = hasSystem?.Data?.Name;
+        request.SystemName = hasSystem?.Data?.Name;
 
 #end
 #if($HasResourceId)
@@ -156,9 +140,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasResource.Success)
             return hasResource;
 
-
-
- request.ResourceName = hasResource?.Data?.Name;
+        request.ResourceName = hasResource?.Data?.Name;
 
 #end
 #if($HasOperationId)
@@ -167,9 +149,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasOperation.Success)
             return hasOperation;
 
-
-
- request.OperationName = hasOperation?.Data?.Name;
+        request.OperationName = hasOperation?.Data?.Name;
 
 #end
         var hasArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -201,9 +181,5 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         };
 
         return await mediator.Send(hasArgs, cancellationToken);
-
-
-
-
     }
 }

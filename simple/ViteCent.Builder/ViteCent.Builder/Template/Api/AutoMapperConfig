@@ -18,7 +18,7 @@ using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 #end
-// 引入 Web 核心 
+// 引入 Web 核心
 using ViteCent.Core.Web;
 
 #endregion
@@ -38,9 +38,7 @@ public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
     /// <summary>
     /// 配置对象映射关系
     /// </summary>
-    /// <remarks>
-    /// 在此方法中配置所有需要的对象映射规则
-    /// </remarks>
+    /// <remarks>在此方法中配置所有需要的对象映射规则</remarks>
     public override void Map()
     {
 #set($Index = 0)

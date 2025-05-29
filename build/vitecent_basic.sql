@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 192.168.0.8
+ Source Server         : 192.168.0.9
  Source Server Type    : MySQL
  Source Server Version : 80042
- Source Host           : 192.168.0.8:3306
+ Source Host           : 192.168.0.9:3306
  Source Schema         : vitecent_basic
 
  Target Server Type    : MySQL
  Target Server Version : 80042
  File Encoding         : 65001
 
- Date: 28/05/2025 15:07:55
+ Date: 29/05/2025 11:05:59
 */
 
 SET NAMES utf8mb4;
@@ -42,6 +42,11 @@ CREATE TABLE `base_post`  (
   INDEX `name`(`name`) USING BTREE,
   INDEX `companyId`(`companyId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '职位信息' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of base_post
+-- ----------------------------
+INSERT INTO `base_post` VALUES ('1', NULL, '1', '鼎新基地', 'gangwei1', '岗位1', NULL, NULL, '0800-1200,1400-1800', '#FF0000', '管理员', '2025-05-28 17:19:02', '管理员', '2025-05-29 09:37:00', '2025-05-29 09:37:00', 1);
 
 -- ----------------------------
 -- Table structure for repair_schedule
@@ -105,6 +110,11 @@ CREATE TABLE `schedule`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '排班信息' ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Records of schedule
+-- ----------------------------
+INSERT INTO `schedule` VALUES ('1', '1', '鼎新基地', '1', '航气处', '1', '岗位1', '1', '班次1', '2', '用户1', '0800-1200,1400-1800', '2025-05-29 09:36:01', '2025-05-29 09:36:05', NULL, NULL, '1', '2025-05-29 09:36:21', NULL, '2025-05-29 09:41:31', '2025-05-29 09:41:31', NULL);
+
+-- ----------------------------
 -- Table structure for schedule_type
 -- ----------------------------
 DROP TABLE IF EXISTS `schedule_type`;
@@ -127,6 +137,11 @@ CREATE TABLE `schedule_type`  (
   INDEX `companyId`(`companyId`) USING BTREE,
   INDEX `departmentId`(`departmentId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '基础排班' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of schedule_type
+-- ----------------------------
+INSERT INTO `schedule_type` VALUES ('1', '1', '鼎新基地', '1', '航气处', 'banci1', '班次1', NULL, '#FF0000', '管理员', '2025-05-28 17:19:27', '管理员', '2025-05-29 09:37:22', '2025-05-29 09:37:22');
 
 -- ----------------------------
 -- Table structure for shift_schedule

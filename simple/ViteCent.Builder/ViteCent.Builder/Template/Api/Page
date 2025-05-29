@@ -81,18 +81,10 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(
         if (args is null)
             return new PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "参数不能为空");
 
-
-
-
-
         // 创建取消令牌，用于支持异步操作的取消
         var cancellationToken = new CancellationToken();
 
         // 通过中介者发送分页命令并返回结果
         return await mediator.Send(args, cancellationToken);
-
-
-
-
     }
 }

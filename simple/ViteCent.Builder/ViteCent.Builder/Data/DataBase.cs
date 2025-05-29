@@ -26,7 +26,7 @@ public class DataBase : BaseDataBase
 
     /// <summary>
     /// </summary>
-    public string Server { get; set; } = "192.168.0.8";
+    public string Server { get; set; } = "192.168.0.9";
 
     /// <summary>
     /// </summary>

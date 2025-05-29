@@ -41,9 +41,5 @@ public class $!{Setting.EditName}$!{Table.CamelCaseName}(
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
 
         return await base.EditAsync(request);
-
-
-
-
     }
 }

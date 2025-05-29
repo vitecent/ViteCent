@@ -28,6 +28,7 @@ namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 /// <summary>
 /// 新增$!{Table.Description}接口拓展
 /// </summary>
+/// <remarks>
 /// 该部分类主要负责处理新增公司信息时的自定义逻辑
 /// </remarks>
 public partial class $!{Setting.AddName}$!{Table.CamelCaseName}

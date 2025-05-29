@@ -13,11 +13,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入$!{Table.Description}相关的数据传输对象
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
-
 // 引入基础数据传输对象
 using $!{DataBase.Name}.$!{Setting.Application.Name};
+
+// 引入$!{Table.Description}相关的数据传输对象
+using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -103,20 +103,12 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new BaseResult(500, "公司标识不能为空");
 
-
-
-
-
         // 验证$!{Table.Description}的有效性
         var check = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
         if (check is not null && !check.Success)
             return check;
-
-
-
-
 #end
 #if($HasDepartmentId)
 
@@ -124,10 +116,6 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
-
-
-
-
 #end
 #if($HasPositionId)
 
@@ -135,10 +123,6 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
                 return new BaseResult(500, "职位标识不能为空");
-
-
-
-
 #end
 #if($HasRoleId)
 
@@ -146,10 +130,6 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new BaseResult(500, "角色标识不能为空");
-
-
-
-
 #end
 #if($HasUserId)
 
@@ -157,10 +137,6 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new BaseResult(500, "用户标识不能为空");
-
-
-
-
 #end
 #if($HasSystemId)
 
@@ -168,10 +144,6 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new BaseResult(500, "系统标识不能为空");
-
-
-
-
 #end
 #if($HasResourceId)
 
@@ -179,10 +151,6 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.ResourceId))
                 return new BaseResult(500, "资源标识不能为空");
-
-
-
-
 #end
 #if($HasOperationId)
 
@@ -190,17 +158,9 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.OperationId))
                 return new BaseResult(500, "操作标识不能为空");
-
-
-
-
 #end
 
         // 通过中介者发送启用命令并返回结果
         return await mediator.Send(args, cancellationToken);
-
-
-
-
     }
 }

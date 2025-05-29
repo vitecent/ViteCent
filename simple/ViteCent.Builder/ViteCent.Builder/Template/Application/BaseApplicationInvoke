@@ -37,10 +37,6 @@ public static class Base$!{Setting.Application.Name}
         if (string.IsNullOrWhiteSpace(companyId))
             return new DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>();
 
-
-
-
-
         var getCompanyArgs = new $!{Setting.GetName}BaseCompany$!{Setting.Data.ArgsSuffix}
         {
             Id = companyId,
@@ -51,29 +47,13 @@ public static class Base$!{Setting.Application.Name}
         if (!company.Success)
             return company;
 
-
-
-
-
         if (company.Data is null)
             return new DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, "公司不存在");
-
-
-
-
 
         if (company.Data.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, "公司已禁用");
 
-
-
-
-
         return company;
-
-
-
-
     }
 
     /// <summary>
@@ -90,10 +70,6 @@ public static class Base$!{Setting.Application.Name}
 
         if (companyIds.Count == 0)
             return new PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>();
-
-
-
-
 
         var searchCompanyArgs = new $!{Setting.Data.SearchPrefix}BaseCompany$!{Setting.Data.ArgsSuffix}
         {
@@ -115,16 +91,8 @@ public static class Base$!{Setting.Application.Name}
         if (!companys.Success)
             return companys;
 
-
-
-
-
         if (companys.Total == 0)
             return new PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, $"公司{companyIds.FirstOrDefault()}不存在");
-
-
-
-
 
         var _companyIds = companys.Rows.Select(y => y.Id).ToList();
         var _companyId = companyIds.FirstOrDefault(x => !_companyIds.Contains(x));
@@ -132,24 +100,12 @@ public static class Base$!{Setting.Application.Name}
         if (!string.IsNullOrWhiteSpace(_companyId))
             return new PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, $"公司{_companyId}不存在");
 
-
-
-
-
         var company = companys.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (company is not null)
             return new PageResult<BaseCompany$!{Setting.Data.ResultSuffix}>(500, $"公司{company.Name}已经禁用");
 
-
-
-
-
         return companys;
-
-
-
-
     }
 
     /// <summary>
@@ -165,10 +121,6 @@ public static class Base$!{Setting.Application.Name}
         if (string.IsNullOrWhiteSpace(departmentId))
             return new DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>();
 
-
-
-
-
         var getDepartmentArgs = new $!{Setting.GetName}BaseDepartment$!{Setting.Data.ArgsSuffix}
         {
             CompanyId = companyId,
@@ -180,29 +132,13 @@ public static class Base$!{Setting.Application.Name}
         if (!department.Success)
             return department;
 
-
-
-
-
         if (department.Data is null)
             return new DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, "部门不存在");
-
-
-
-
 
         if (department.Data.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, "部门已禁用");
 
-
-
-
-
         return department;
-
-
-
-
     }
 
     /// <summary>
@@ -223,10 +159,6 @@ public static class Base$!{Setting.Application.Name}
         if (companyIds.Count == 0 && departmentIds.Count == 0)
             return new PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>();
 
-
-
-
-
         var searchDepartmentArgs = new $!{Setting.Data.SearchPrefix}BaseDepartment$!{Setting.Data.ArgsSuffix}
         {
             Offset = 1,
@@ -245,16 +177,8 @@ public static class Base$!{Setting.Application.Name}
         if (!departments.Success)
             return departments;
 
-
-
-
-
         if (departments.Total == 0)
             return new PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, $"部门{departmentIds.FirstOrDefault()}不存在");
-
-
-
-
 
         var _departmentIds = departments.Rows.Select(y => y.Id).ToList();
         var _departmentId = departmentIds.FirstOrDefault(x => !_departmentIds.Contains(x));
@@ -262,24 +186,12 @@ public static class Base$!{Setting.Application.Name}
         if (!string.IsNullOrWhiteSpace(_departmentId))
             return new PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, $"部门{_departmentId}不存在");
 
-
-
-
-
         var department = departments.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (department is not null)
             return new PageResult<BaseDepartment$!{Setting.Data.ResultSuffix}>(500, $"部门{department.Name}已经禁用");
 
-
-
-
-
         return departments;
-
-
-
-
     }
 
     /// <summary>
@@ -295,10 +207,6 @@ public static class Base$!{Setting.Application.Name}
         if (string.IsNullOrWhiteSpace(positionId))
             return new DataResult<BasePosition$!{Setting.Data.ResultSuffix}>();
 
-
-
-
-
         var getPositionArgs = new $!{Setting.GetName}BasePosition$!{Setting.Data.ArgsSuffix}
         {
             CompanyId = companyId,
@@ -310,29 +218,13 @@ public static class Base$!{Setting.Application.Name}
         if (!position.Success)
             return position;
 
-
-
-
-
         if (position.Data is null)
             return new DataResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, "职位不存在");
-
-
-
-
 
         if (position.Data.Status == (int)StatusEnum.Disable)
             return new DataResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, "职位已禁用");
 
-
-
-
-
         return position;
-
-
-
-
     }
 
     /// <summary>
@@ -353,10 +245,6 @@ public static class Base$!{Setting.Application.Name}
         if (companyIds.Count == 0 && positionIds.Count == 0)
             return new PageResult<BasePosition$!{Setting.Data.ResultSuffix}>();
 
-
-
-
-
         var searchPositionArgs = new $!{Setting.Data.SearchPrefix}BasePosition$!{Setting.Data.ArgsSuffix}
         {
             Offset = 1,
@@ -375,16 +263,8 @@ public static class Base$!{Setting.Application.Name}
         if (!positions.Success)
             return positions;
 
-
-
-
-
         if (positions.Total == 0)
             return new PageResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, $"职位{positionIds.FirstOrDefault()}不存在");
-
-
-
-
 
         var _positionIds = positions.Rows.Select(y => y.Id).ToList();
         var _positionId = positionIds.FirstOrDefault(x => !_positionIds.Contains(x));
@@ -392,24 +272,12 @@ public static class Base$!{Setting.Application.Name}
         if (!string.IsNullOrWhiteSpace(_positionId))
             return new PageResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, $"职位{_positionId}不存在");
 
-
-
-
-
         var position = positions.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (position is not null)
             return new PageResult<BasePosition$!{Setting.Data.ResultSuffix}>(500, $"职位{position.Name}已经禁用");
 
-
-
-
-
         return positions;
-
-
-
-
     }
 
     /// <summary>
@@ -429,10 +297,6 @@ public static class Base$!{Setting.Application.Name}
         if (string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUser$!{Setting.Data.ResultSuffix}>();
 
-
-
-
-
         var getUserArgs = new $!{Setting.GetName}BaseUser$!{Setting.Data.ArgsSuffix}
         {
             CompanyId = companyId,
@@ -445,29 +309,13 @@ public static class Base$!{Setting.Application.Name}
         if (!user.Success)
             return user;
 
-
-
-
-
         if (user.Data is null)
             return new DataResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, "用户不存在");
-
-
-
-
 
         if (user.Data.Status == (int)StatusEnum.Disable)
             return new DataResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, "用户已禁用");
 
-
-
-
-
         return user;
-
-
-
-
     }
 
     /// <summary>
@@ -491,10 +339,6 @@ public static class Base$!{Setting.Application.Name}
         if (companyIds.Count == 0 && departmentIds.Count == 0 && userIds.Count == 0)
             return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>();
 
-
-
-
-
         var searchUserArgs = new $!{Setting.Data.SearchPrefix}BaseUser$!{Setting.Data.ArgsSuffix}
         {
             Offset = 1,
@@ -516,16 +360,8 @@ public static class Base$!{Setting.Application.Name}
         if (!users.Success)
             return users;
 
-
-
-
-
         if (users.Total == 0)
             return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, $"用户{userIds.FirstOrDefault()}不存在");
-
-
-
-
 
         var _userIds = users.Rows.Select(y => y.Id).ToList();
         var _userId = userIds.FirstOrDefault(x => !_userIds.Contains(x));
@@ -533,24 +369,12 @@ public static class Base$!{Setting.Application.Name}
         if (!string.IsNullOrWhiteSpace(_userId))
             return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, $"用户{_userId}不存在");
 
-
-
-
-
         var user = users.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (user is not null)
             return new PageResult<BaseUser$!{Setting.Data.ResultSuffix}>(500, $"用户{user?.RealName}已经禁用");
 
-
-
-
-
         return users;
-
-
-
-
     }
 
     /// <summary>
@@ -591,9 +415,5 @@ public static class Base$!{Setting.Application.Name}
         user.Token = token;
 
         return user;
-
-
-
-
     }
 }

@@ -41,9 +41,5 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
         return await DeleteAsync(request);
-
-
-
-
     }
 }

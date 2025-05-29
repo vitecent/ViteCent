@@ -57,10 +57,6 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
         if (!check.Success)
             return check;
 
-
-
-
-
         var getArgs = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
 
         var entity = await mediator.Send(getArgs, cancellationToken);
@@ -68,26 +64,18 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
         if (entity is null)
             return new BaseResult(500, "$!{Table.Description}不存在");
 
-
-
-
-
         check = await OverrideHandle(entity, cancellationToken);
 
         if (!check.Success)
             return check;
 
-
-
-
-
 #foreach($Field in $EditFields)
 #if($Field.Nullable)
 #if($Field.DataType == "string?")
-        if(request.$!{Field.CamelCaseName} is not null)
+        if (request.$!{Field.CamelCaseName} is not null)
             entity.$!{Field.CamelCaseName} = request.$!{Field.CamelCaseName};
 #else
-        if(request.$!{Field.CamelCaseName}.HasValue)
+        if (request.$!{Field.CamelCaseName}.HasValue)
             entity.$!{Field.CamelCaseName} = request.$!{Field.CamelCaseName}.Value;
 #end
 #else
@@ -104,9 +92,5 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
         await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
 
         return result;
-
-
-
-
     }
 }

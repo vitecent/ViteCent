@@ -91,16 +91,8 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         if (entity is null)
             return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "$!{Table.Description}不存在");
 
-
-
-
-
         var dto = mapper.Map<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(entity);
 
         return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(dto);
-
-
-
-
     }
 }
