@@ -27,6 +27,8 @@ public partial class ScheduleValidator : AbstractValidator<AddScheduleArgs>
     public ScheduleValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
         RuleFor(x => x.EndTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("结束时间不能为空");
         RuleFor(x => x.PostId).NotNull().NotEmpty().WithMessage("岗位标识不能为空");
         RuleFor(x => x.StartTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("开始时间不能为空");

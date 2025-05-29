@@ -64,11 +64,6 @@ public class BasePositionResult
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
-    /// 级别
-    /// </summary>
-    public string? Level { get; set; }
-
-    /// <summary>
     /// 名称
     /// </summary>
     public string Name { get; set; } = string.Empty;

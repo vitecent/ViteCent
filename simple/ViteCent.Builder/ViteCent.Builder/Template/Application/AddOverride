@@ -115,53 +115,53 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 #end
 
 #if($HasCompanyId)
-        var companys = await mediator.CheckCompany(companyIds);
+        var companys = await mediator.CheckCompanys(companyIds);
 
         if (!companys.Success)
             return companys;
 
 #end
 #if($HasDepartmentId)
-        var departments = await mediator.CheckDepartment(companyIds, departmentIds);
+        var departments = await mediator.CheckDepartments(companyIds, departmentIds);
 
         if (!departments.Success)
             return departments;
 #end
 #if($HasPositionId)
-        var positions = await mediator.CheckPosition(companyIds, positionIds);
+        var positions = await mediator.CheckPositions(companyIds, positionIds);
 
         if (!positions.Success)
             return positions;
 #end
 #if($HasRoleId)
-        var roles = await mediator.CheckRole(companyIds, roleIds);
+        var roles = await mediator.CheckRoles(companyIds, roleIds);
 
         if (!roles.Success)
             return roles;
 
 #end
 #if($HasUserId)
-        var users = await mediator.CheckUser(companyIds, positionIds, userIds);
+        var users = await mediator.CheckUsers(companyIds, positionIds, userIds);
 
         if (!users.Success)
             return users;
 #end
 #if($HasSystemId)
-        var systems = await mediator.CheckSystem(companyIds, systemIds);
+        var systems = await mediator.CheckSystems(companyIds, systemIds);
 
         if (!systems.Success)
             return systems;
 
 #end
 #if($HasResourceId)
-        var resources = await mediator.CheckResource(companyIds, systemIds, resourceIds);
+        var resources = await mediator.CheckResources(companyIds, systemIds, resourceIds);
 
         if (!resources.Success)
             return resources;
 
 #end
 #if($HasOperationId)
-        var operations = await mediator.CheckOperation(companyIds, systemIds, resourceIds, operationIds);
+        var operations = await mediator.CheckOperations(companyIds, systemIds, resourceIds, operationIds);
 
         if (!operations.Success)
             return operations;

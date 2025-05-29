@@ -26,8 +26,7 @@ public partial class AddBaseRolePermission
     {
         args.Status = (int)StatusEnum.Enable;
 
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user?.Company?.Id ?? string.Empty;
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
     }
 }

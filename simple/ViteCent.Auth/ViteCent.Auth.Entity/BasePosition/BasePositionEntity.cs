@@ -84,12 +84,6 @@ public class BasePositionEntity : BaseEntity, IRequest<BaseResult>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
-    /// 级别
-    /// </summary>
-    [SugarColumn(ColumnName = "level")]
-    public string? Level { get; set; }
-
-    /// <summary>
     /// 名称
     /// </summary>
     [SugarColumn(ColumnName = "name")]

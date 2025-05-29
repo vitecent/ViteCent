@@ -22,9 +22,6 @@ using ViteCent.Basic.Data.RepairSchedule;
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
-// 引入核心枚举类型
-using ViteCent.Core.Enums;
-
 // 引入核心接口基类
 using ViteCent.Core.Web.Api;
 
@@ -92,31 +89,17 @@ public class GetRepairSchedule(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Api.RepairSchedule.GetRepairSchedule");
 
+        // 设置公司标识
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
+
+        // 设置部门标识
+        if (string.IsNullOrEmpty(args.DepartmentId))
+            args.DepartmentId = user?.Department?.Id ?? string.Empty;
+
         // 验证参数是否为空，确保请求参数的有效性
         if (args is null)
             return new DataResult<RepairScheduleResult>(500, "参数不能为空");
-
-        // 如果用户不是超级管理员，则验证公司标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                return new DataResult<RepairScheduleResult>(500, "公司标识不能为空");
-
-        // 验证补卡申请的有效性
-        var check = user.CheckCompanyId(args.CompanyId);
-
-        // 如果验证失败，返回错误信息
-        if (check is not null && !check.Success)
-            return new DataResult<RepairScheduleResult>(check.Code, check.Message);
-
-        // 如果用户不是超级管理员，则验证部门标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.DepartmentId))
-                return new DataResult<RepairScheduleResult>(500, "部门标识不能为空");
-
-        // 如果用户不是超级管理员，则验证用户标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.UserId))
-                return new DataResult<RepairScheduleResult>(500, "用户标识不能为空");
 
         // 创建取消令牌，用于支持异步操作的取消
         var cancellationToken = new CancellationToken();

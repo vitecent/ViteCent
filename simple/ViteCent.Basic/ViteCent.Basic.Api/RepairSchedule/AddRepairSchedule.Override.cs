@@ -7,7 +7,6 @@
 
 using ViteCent.Basic.Data.RepairSchedule;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -26,12 +25,10 @@ public partial class AddRepairSchedule
     {
         args.Status = (int)RepairScheduleEnum.Pass;
 
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user?.Company?.Id ?? string.Empty;
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
 
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
+        if (string.IsNullOrEmpty(args.DepartmentId))
+            args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
     }
 }

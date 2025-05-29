@@ -8,6 +8,9 @@
 
 #region
 
+// 引入日志信息相关的数据传输对象
+using ViteCent.Basic.Data.BaseLogs;
+
 // 引入职位信息相关的数据传输对象
 using ViteCent.Basic.Data.BasePost;
 
@@ -28,6 +31,9 @@ using ViteCent.Basic.Data.UserLeave;
 
 // 引入调休申请相关的数据传输对象
 using ViteCent.Basic.Data.UserRest;
+
+// 引入日志信息相关的数据模型对象
+using ViteCent.Basic.Entity.BaseLogs;
 
 // 引入职位信息相关的数据模型对象
 using ViteCent.Basic.Entity.BasePost;
@@ -73,6 +79,29 @@ public partial class AutoMapperConfig : BaseMapperConfig
     /// <remarks>在此方法中配置所有需要的对象映射规则</remarks>
     public override void Map()
     {
+        #region 日志信息对象映射配置
+
+        // 新增对象映射配置
+        CreateMap<AddBaseLogsArgs, AddBaseLogsEntity>();
+
+        // 编辑对象映射配置
+        CreateMap<EditBaseLogsArgs, GetBaseLogsEntityArgs>();
+
+        // 获取对象映射配置
+        CreateMap<GetBaseLogsArgs, GetBaseLogsEntityArgs>();
+
+        // 分页对象映射配置
+        CreateMap<SearchBaseLogsArgs, SearchBaseLogsEntityArgs>();
+
+        // 获取对象映射配置
+        CreateMap<BaseLogsEntity, BaseLogsResult>();
+
+        // 删除对象映射配置
+        CreateMap<DeleteBaseLogsArgs, GetBaseLogsEntityArgs>();
+        CreateMap<BaseLogsEntity, DeleteBaseLogsEntity>();
+
+        #endregion
+
         #region 职位信息对象映射配置
 
         // 新增对象映射配置

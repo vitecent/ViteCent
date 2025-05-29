@@ -19,11 +19,14 @@ using ViteCent.Basic.Application;
 // 引入请假申请相关的数据传输对象
 using ViteCent.Basic.Data.UserLeave;
 
+// 引入基础日志数据传输对象
+using ViteCent.Basic.Data.BaseLogs;
+
+// 引入核心
+using ViteCent.Core;
+
 // 引入核心数据类型
 using ViteCent.Core.Data;
-
-// 引入核心枚举类型
-using ViteCent.Core.Enums;
 
 // 引入核心接口基类
 using ViteCent.Core.Web.Api;
@@ -92,36 +95,49 @@ public class DeleteUserLeave(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Api.UserLeave.DeleteUserLeave");
 
-        // 验证参数有效性
-        if (args is null)
-            return new BaseResult(500, "参数不能为空");
+        // 设置公司标识
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
 
-        // 如果用户不是超级管理员，则验证公司标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                return new BaseResult(500, "公司标识不能为空");
-
-        // 验证请假申请的有效性
-        var check = user.CheckCompanyId(args.CompanyId);
-
-        // 如果验证失败，返回错误信息
-        if (check is not null && !check.Success)
-            return check;
-
-        // 如果用户不是超级管理员，则验证部门标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.DepartmentId))
-                return new BaseResult(500, "部门标识不能为空");
-
-        // 如果用户不是超级管理员，则验证用户标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.UserId))
-                return new BaseResult(500, "用户标识不能为空");
+        // 设置部门标识
+        if (string.IsNullOrEmpty(args.DepartmentId))
+            args.DepartmentId = user?.Department?.Id ?? string.Empty;
 
         // 创建取消令牌，用于支持异步操作的取消
         var cancellationToken = new CancellationToken();
 
+        // 创建日志参数对象，用于记录操作日志
+        var logsArgs = new AddBaseLogsArgs()
+        {
+            CompanyId = user?.Company?.Id ?? string.Empty,
+            CompanyName = user?.Company?.Name ?? string.Empty,
+            DepartmentId = user?.Department?.Id ?? string.Empty,
+            DepartmentName = user?.Department?.Name ?? string.Empty,
+            SystemId = string.Empty,
+            SystemName = "Basic",
+            ResourceId = string.Empty,
+            ResourceName = "UserLeave",
+            OperationId = string.Empty,
+            OperationName = "Delete",
+            Description = "删除请假申请",
+            Args = args.ToJson()
+        };
+
+        // 验证参数有效性
+        if (args is null)
+            return new BaseResult(500, "参数不能为空");
+
         // 通过中介者发送删除命令并返回结果
-        return await mediator.Send(args, cancellationToken);
+        var result = await mediator.Send(args, cancellationToken);
+
+        // 记录失败操作日志
+        if (!result.Success)
+            await mediator.LogError(logsArgs, result.Message, cancellationToken);
+
+        // 记录成功操作日志
+        await mediator.LogSuccess(logsArgs, cancellationToken);
+
+        // 返回操作结果
+        return result;
     }
 }

@@ -27,6 +27,8 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
     public BaseUserValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
         RuleFor(x => x.Username).NotNull().NotEmpty().WithMessage("用户名不能为空");
 
         OverrideValidator(validate);

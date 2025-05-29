@@ -19,13 +19,16 @@ using $!{DataBase.Name}.$!{Setting.Application.Name};
 // 引入$!{Table.Description}相关的数据传输对象
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
+#if($HasLog)
+// 引入基础日志数据传输对象
+using $!{DataBase.Name}.$!{Setting.Data.Name}.BaseLogs;
+
+// 引入核心
+using ViteCent.Core;
+
+#end
 // 引入核心数据类型
 using ViteCent.Core.Data;
-#if($HasCompanyId||$HasDepartmentId||$HasPositionId)
-
-// 引入核心枚举类型
-using ViteCent.Core.Enums;
-#end
 
 // 引入核心接口基类
 using ViteCent.Core.Web.Api;
@@ -94,73 +97,59 @@ public class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.EnableName}$!{Table.CamelCaseName}");
 
-        // 创建取消令牌，用于支持异步操作的取消
-        var cancellationToken = new CancellationToken();
 #if($HasCompanyId)
+        // 设置公司标识
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
 
-        // 如果用户不是超级管理员，则验证公司标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                return new BaseResult(500, "公司标识不能为空");
-
-        // 验证$!{Table.Description}的有效性
-        var check = user.CheckCompanyId(args.CompanyId);
-
-        // 如果验证失败，返回错误信息
-        if (check is not null && !check.Success)
-            return check;
 #end
 #if($HasDepartmentId)
+        // 设置部门标识
+        if (string.IsNullOrEmpty(args.DepartmentId))
+            args.DepartmentId = user?.Department?.Id ?? string.Empty;
 
-        // 如果用户不是超级管理员，则验证部门标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.DepartmentId))
-                return new BaseResult(500, "部门标识不能为空");
 #end
 #if($HasPositionId)
+        // 设置职位标识
+        if (string.IsNullOrEmpty(args.PositionId))
+            args.PositionId = user?.Position?.Id ?? string.Empty;
 
-        // 如果用户不是超级管理员，则验证职位标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.PositionId))
-                return new BaseResult(500, "职位标识不能为空");
 #end
-#if($HasRoleId)
+        // 创建取消令牌，用于支持异步操作的取消
+        var cancellationToken = new CancellationToken();
+#if($HasLog)
 
-        // 如果用户不是超级管理员，则验证角色标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.RoleId))
-                return new BaseResult(500, "角色标识不能为空");
-#end
-#if($HasUserId)
-
-        // 如果用户不是超级管理员，则验证用户标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.UserId))
-                return new BaseResult(500, "用户标识不能为空");
-#end
-#if($HasSystemId)
-
-        // 如果用户不是超级管理员，则验证系统标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.SystemId))
-                return new BaseResult(500, "系统标识不能为空");
-#end
-#if($HasResourceId)
-
-        // 如果用户不是超级管理员，则验证资源标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.ResourceId))
-                return new BaseResult(500, "资源标识不能为空");
-#end
-#if($HasOperationId)
-
-        // 如果用户不是超级管理员，则验证操作标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.OperationId))
-                return new BaseResult(500, "操作标识不能为空");
+        // 创建日志参数对象，用于记录操作日志
+        var logsArgs = new AddBaseLogsArgs()
+        {
+            CompanyId = user?.Company?.Id ?? string.Empty,
+            CompanyName = user?.Company?.Name ?? string.Empty,
+            DepartmentId = user?.Department?.Id ?? string.Empty,
+            DepartmentName = user?.Department?.Name ?? string.Empty,
+            SystemId = string.Empty,
+            SystemName = "$!{DataBase.ServiceName}",
+            ResourceId = string.Empty,
+            ResourceName = "$!{Table.CamelCaseName}",
+            OperationId = string.Empty,
+            OperationName = "$!{Setting.EnableName}",
+            Description = "启用$!{Table.Description}",
+            Args = args.ToJson()
+        };
 #end
 
         // 通过中介者发送启用命令并返回结果
-        return await mediator.Send(args, cancellationToken);
+        var result = await mediator.Send(args, cancellationToken);
+#if($HasLog)
+
+        // 记录失败操作日志
+        if (!result.Success)
+            await mediator.LogError(logsArgs, result.Message, cancellationToken);
+
+        // 记录成功操作日志
+        await mediator.LogSuccess(logsArgs, cancellationToken);
+#end
+
+        // 返回操作结果
+        return result;
     }
 }

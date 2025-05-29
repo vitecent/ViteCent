@@ -28,17 +28,14 @@ public partial class AddBaseUser
         args.Status = (int)StatusEnum.Enable;
         args.IsSuper = (int)YesNoEnum.No;
 
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user?.Company?.Id ?? string.Empty;
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
 
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
+        if (string.IsNullOrEmpty(args.DepartmentId))
+            args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
 
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.PositionId))
-                args.PositionId = user?.Position?.Id ?? string.Empty;
+        if (string.IsNullOrEmpty(args.PositionId))
+            args.PositionId = user?.Position?.Id ?? string.Empty;
 
         if (string.IsNullOrEmpty(args.Username) && !string.IsNullOrWhiteSpace(args.RealName))
             args.Username = args.RealName.GetPinYin().ToCamelCase();

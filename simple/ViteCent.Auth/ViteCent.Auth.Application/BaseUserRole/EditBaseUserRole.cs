@@ -72,6 +72,10 @@ public partial class EditBaseUserRole(
         if (request.Color is not null)
             entity.Color = request.Color;
 
+        entity.CompanyId = request.CompanyId;
+
+        entity.DepartmentId = request.DepartmentId;
+
         entity.RoleId = request.RoleId;
 
         if (request.Status.HasValue)

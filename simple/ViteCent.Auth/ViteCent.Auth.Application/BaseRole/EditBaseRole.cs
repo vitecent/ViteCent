@@ -78,6 +78,8 @@ public partial class EditBaseRole(
         if (request.Color is not null)
             entity.Color = request.Color;
 
+        entity.CompanyId = request.CompanyId;
+
         if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 

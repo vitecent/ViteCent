@@ -17,6 +17,9 @@ using ViteCent.Auth.Data.BaseDepartment;
 // 引入字典信息相关的数据传输对象
 using ViteCent.Auth.Data.BaseDictionary;
 
+// 引入日志信息相关的数据传输对象
+using ViteCent.Auth.Data.BaseLogs;
+
 // 引入操作信息相关的数据传输对象
 using ViteCent.Auth.Data.BaseOperation;
 
@@ -49,6 +52,9 @@ using ViteCent.Auth.Entity.BaseDepartment;
 
 // 引入字典信息相关的数据模型对象
 using ViteCent.Auth.Entity.BaseDictionary;
+
+// 引入日志信息相关的数据模型对象
+using ViteCent.Auth.Entity.BaseLogs;
 
 // 引入操作信息相关的数据模型对象
 using ViteCent.Auth.Entity.BaseOperation;
@@ -181,6 +187,35 @@ public partial class AutoMapperConfig : BaseMapperConfig
         // 删除对象映射配置
         CreateMap<DeleteBaseDictionaryArgs, GetBaseDictionaryEntityArgs>();
         CreateMap<BaseDictionaryEntity, DeleteBaseDictionaryEntity>();
+
+        #endregion
+
+        #region 日志信息对象映射配置
+
+        // 新增对象映射配置
+        CreateMap<AddBaseLogsArgs, AddBaseLogsEntity>();
+
+        // 编辑对象映射配置
+        CreateMap<EditBaseLogsArgs, GetBaseLogsEntityArgs>();
+
+        // 获取对象映射配置
+        CreateMap<GetBaseLogsArgs, GetBaseLogsEntityArgs>();
+
+        // 禁用对象映射配置
+        CreateMap<DisableBaseLogsArgs, GetBaseLogsEntityArgs>();
+
+        // 启用对象映射配置
+        CreateMap<EnableBaseLogsArgs, GetBaseLogsEntityArgs>();
+
+        // 分页对象映射配置
+        CreateMap<SearchBaseLogsArgs, SearchBaseLogsEntityArgs>();
+
+        // 获取对象映射配置
+        CreateMap<BaseLogsEntity, BaseLogsResult>();
+
+        // 删除对象映射配置
+        CreateMap<DeleteBaseLogsArgs, GetBaseLogsEntityArgs>();
+        CreateMap<BaseLogsEntity, DeleteBaseLogsEntity>();
 
         #endregion
 

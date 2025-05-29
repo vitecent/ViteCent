@@ -19,6 +19,12 @@ using ViteCent.Auth.Application;
 // 引入公司信息相关的数据传输对象
 using ViteCent.Auth.Data.BaseCompany;
 
+// 引入基础日志数据传输对象
+using ViteCent.Auth.Data.BaseLogs;
+
+// 引入核心
+using ViteCent.Core;
+
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
@@ -89,14 +95,41 @@ public class DeleteBaseCompany(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseCompany.DeleteBaseCompany");
 
+        // 创建取消令牌，用于支持异步操作的取消
+        var cancellationToken = new CancellationToken();
+
+        // 创建日志参数对象，用于记录操作日志
+        var logsArgs = new AddBaseLogsArgs()
+        {
+            CompanyId = user?.Company?.Id ?? string.Empty,
+            CompanyName = user?.Company?.Name ?? string.Empty,
+            DepartmentId = user?.Department?.Id ?? string.Empty,
+            DepartmentName = user?.Department?.Name ?? string.Empty,
+            SystemId = string.Empty,
+            SystemName = "Auth",
+            ResourceId = string.Empty,
+            ResourceName = "BaseCompany",
+            OperationId = string.Empty,
+            OperationName = "Delete",
+            Description = "删除公司信息",
+            Args = args.ToJson()
+        };
+
         // 验证参数有效性
         if (args is null)
             return new BaseResult(500, "参数不能为空");
 
-        // 创建取消令牌，用于支持异步操作的取消
-        var cancellationToken = new CancellationToken();
-
         // 通过中介者发送删除命令并返回结果
-        return await mediator.Send(args, cancellationToken);
+        var result = await mediator.Send(args, cancellationToken);
+
+        // 记录失败操作日志
+        if (!result.Success)
+            await mediator.LogError(logsArgs, result.Message, cancellationToken);
+
+        // 记录成功操作日志
+        await mediator.LogSuccess(logsArgs, cancellationToken);
+
+        // 返回操作结果
+        return result;
     }
 }

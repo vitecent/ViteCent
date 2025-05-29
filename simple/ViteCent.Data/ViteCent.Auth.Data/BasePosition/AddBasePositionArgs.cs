@@ -51,11 +51,6 @@ public class AddBasePositionArgs : BaseArgs, IRequest<BaseResult>
     public string? Description { get; set; }
 
     /// <summary>
-    /// 级别
-    /// </summary>
-    public string? Level { get; set; }
-
-    /// <summary>
     /// 名称
     /// </summary>
     public string Name { get; set; } = string.Empty;

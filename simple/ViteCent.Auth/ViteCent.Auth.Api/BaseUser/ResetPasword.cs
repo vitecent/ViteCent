@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using ViteCent.Auth.Application;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Core.Data;
-using ViteCent.Core.Enums;
 using ViteCent.Core.Web.Api;
 using ViteCent.Core.Web.Filter;
 
@@ -50,10 +49,6 @@ public class ResetPasword(
 
         if (!result.IsValid)
             return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
-
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                return new BaseResult(500, "公司标识不能为空");
 
         return await mediator.Send(args);
     }

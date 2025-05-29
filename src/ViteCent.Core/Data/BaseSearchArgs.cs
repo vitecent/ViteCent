@@ -41,7 +41,7 @@ public static class BaseSearchArgs
     /// <param name="field">公司ID字段名，默认为CompanyId</param>
     public static void AddCompanyId(this SearchArgs args, BaseUserInfo user, string field = "CompanyId")
     {
-        if (user.IsSuper != (int)YesNoEnum.Yes) args.AddArgs(field, user?.Company?.Id ?? default!);
+         args.AddArgs(field, user?.Company?.Id ?? default!);
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public static class BaseSearchArgs
     /// <returns>权限检查结果，成功返回空消息，失败返回错误信息</returns>
     public static BaseResult CheckCompanyId(this BaseUserInfo user, string companyId)
     {
-        if (user.IsSuper != (int)YesNoEnum.Yes)
+        
             if (companyId != user.Company.Id)
                 return new BaseResult(401, "您没有权限访问该数据");
 

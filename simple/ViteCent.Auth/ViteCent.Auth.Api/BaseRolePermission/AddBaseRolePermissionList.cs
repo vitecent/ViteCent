@@ -20,11 +20,14 @@ using ViteCent.Auth.Application;
 // 引入角色权限相关的数据传输对象
 using ViteCent.Auth.Data.BaseRolePermission;
 
+// 引入基础日志数据传输对象
+using ViteCent.Auth.Data.BaseLogs;
+
+// 引入核心
+using ViteCent.Core;
+
 // 引入核心数据类型
 using ViteCent.Core.Data;
-
-// 引入核心枚举类型
-using ViteCent.Core.Enums;
 
 // 引入核心接口基类
 using ViteCent.Core.Web.Api;
@@ -97,23 +100,58 @@ public class AddBaseRolePermissionList(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseRolePermission.AddBaseRolePermissionList");
 
+        // 创建取消令牌
+        var cancellationToken = new CancellationToken();
+
+        // 创建日志参数对象，用于记录操作日志
+        var logsArgs = new AddBaseLogsArgs()
+        {
+            CompanyId = user?.Company?.Id ?? string.Empty,
+            CompanyName = user?.Company?.Name ?? string.Empty,
+            DepartmentId = user?.Department?.Id ?? string.Empty,
+            DepartmentName = user?.Department?.Name ?? string.Empty,
+            SystemId = string.Empty,
+            SystemName = "Auth",
+            ResourceId = string.Empty,
+            ResourceName = "BaseRolePermission",
+            OperationId = string.Empty,
+            OperationName = "Add",
+            Description = "批量新增角色权限",
+            Args = args.ToJson()
+        };
+
         // 验证参数不为空
         if (args is null)
+        {
+            // 记录失败操作日志
+            await mediator.LogError(logsArgs, "参数不能为空", cancellationToken);
+
+            // 返回操作结果
             return new BaseResult(500, "参数不能为空");
+        }
 
         // 验证角色权限列表不为空
         if (args.Count == 0)
+        {
+            // 记录失败操作日志
+            await mediator.LogError(logsArgs, "角色权限不能为", cancellationToken);
+
+            // 返回操作结果
             return new BaseResult(500, "角色权限不能为空");
+        }
 
         // 获取去重角色权限数量
         var count = args.Distinct().Count();
 
         // 验证角色权限不重复
         if (count != args.Count)
-            return new BaseResult(500, "角色权限重复");
+        {
+            // 记录失败操作日志
+            await mediator.LogError(logsArgs, "角色权限重复", cancellationToken);
 
-        // 创建取消令牌
-        var cancellationToken = new CancellationToken();
+            // 返回操作结果
+            return new BaseResult(500, "角色权限重复");
+        }
 
         // 创建数据验证器，用于支持异步操作的取消
         var validator = new BaseRolePermissionValidator();
@@ -129,32 +167,13 @@ public class AddBaseRolePermissionList(
 
             // 如果验证失败，返回错误信息
             if (!check.IsValid)
+            {
+                // 记录失败操作日志
+                await mediator.LogError(logsArgs, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty, cancellationToken);
+
+                // 返回操作结果
                 return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
-
-            // 如果用户不是超级管理员，验证公司标识不能为空
-            if (user.IsSuper != (int)YesNoEnum.Yes)
-                if (string.IsNullOrEmpty(item.CompanyId))
-                    return new BaseResult(500, "公司标识不能为空");
-
-            // 如果用户不是超级管理员，验证角色标识不能为空
-            if (user.IsSuper != (int)YesNoEnum.Yes)
-                if (string.IsNullOrEmpty(item.RoleId))
-                    return new BaseResult(500, "角色标识不能为空");
-
-            // 如果用户不是超级管理员，验证系统标识不能为空
-            if (user.IsSuper != (int)YesNoEnum.Yes)
-                if (string.IsNullOrEmpty(item.SystemId))
-                    return new BaseResult(500, "系统标识不能为空");
-
-            // 如果用户不是超级管理员，验证资源标识不能为空
-            if (user.IsSuper != (int)YesNoEnum.Yes)
-                if (string.IsNullOrEmpty(item.ResourceId))
-                    return new BaseResult(500, "资源标识不能为空");
-
-            // 如果用户不是超级管理员，验证操作标识不能为空
-            if (user.IsSuper != (int)YesNoEnum.Yes)
-                if (string.IsNullOrEmpty(item.OperationId))
-                    return new BaseResult(500, "操作标识不能为空");
+            }
         }
 
         // 构建请求参数
@@ -164,6 +183,16 @@ public class AddBaseRolePermissionList(
         };
 
         // 通过中介者发送批量新增命令并返回结果
-        return await mediator.Send(request, cancellationToken);
+        var result = await mediator.Send(request, cancellationToken);
+
+        // 记录失败操作日志
+        if (!result.Success)
+            await mediator.LogError(logsArgs, result.Message, cancellationToken);
+
+        // 记录成功操作日志
+        await mediator.LogSuccess(logsArgs, cancellationToken);
+
+        // 返回操作结果
+        return result;
     }
 }

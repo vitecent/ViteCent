@@ -89,6 +89,7 @@ public class GenerateExtensions
             var hasOperationId = table.Fields.Any(x => x.Name.ToCamelCase() == "OperationId");
             var hasId = table.Fields.Any(x => x.Name.ToCamelCase() == "Id");
             var hasStatus = table.Fields.Any(x => x.Name.ToCamelCase() == "Status");
+            var hasLog = table.CamelCaseName != "BaseLogs";
 
             nh.Put("Table", table);
             nh.Put("HasCompanyId", hasCompanyId);
@@ -101,6 +102,7 @@ public class GenerateExtensions
             nh.Put("HasOperationId", hasOperationId);
             nh.Put("HasId", hasId);
             nh.Put("HasStatus", hasStatus);
+            nh.Put("HasLog", hasLog);
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
@@ -204,7 +206,7 @@ public class GenerateExtensions
             logger.LogInformation($"Generate Application {table.Name.ToCamelCase()}");
 
             var removeField = new List<string>
-                { "Id", "CompanyId", "DepartmentId", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
+                { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
 
             var editField = table.Fields.Where(x => !removeField.Contains(x.Name.ToCamelCase())).ToList();
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
@@ -373,12 +375,9 @@ public class GenerateExtensions
             var removeField = new List<string>
                 { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
 
-            var removeFieldEx = new List<string> { "CompanyId", "DepartmentId" };
-
             var addField = table.Fields.Where(x => !removeField.Contains(x.Name.ToCamelCase())).ToList();
             var validatorFields = table.Fields.Where(x =>
-                !x.Nullable && !removeField.Contains(x.Name.ToCamelCase()) &&
-                !removeFieldEx.Contains(x.Name.ToCamelCase())).ToList();
+                !x.Nullable && !removeField.Contains(x.Name.ToCamelCase())).ToList();
 
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
             var hasDepartmentId = table.Fields.Any(x => x.Name.ToCamelCase() == "DepartmentId");

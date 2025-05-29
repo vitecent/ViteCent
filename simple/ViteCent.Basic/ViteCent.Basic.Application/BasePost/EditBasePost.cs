@@ -83,14 +83,13 @@ public partial class EditBasePost(
         if (request.Color is not null)
             entity.Color = request.Color;
 
+        entity.CompanyId = request.CompanyId;
+
         if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
         if (request.Description is not null)
             entity.Description = request.Description;
-
-        if (request.Level is not null)
-            entity.Level = request.Level;
 
         entity.Name = request.Name;
 

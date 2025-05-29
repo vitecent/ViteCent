@@ -16,7 +16,6 @@ using ViteCent.Core.Data;
 // 引入核心
 
 // 引入核心枚举类型
-using ViteCent.Core.Enums;
 
 #endregion
 
@@ -33,9 +32,9 @@ public partial class EditBaseDictionary
     /// <returns></returns>
     internal static void OverrideInvoke(EditBaseDictionaryArgs args, BaseUserInfo user)
     {
-        // 如果用户不是超级管理员，则设置公司标识
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user?.Company?.Id ?? string.Empty;
+        // 设置公司标识
+
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
     }
 }

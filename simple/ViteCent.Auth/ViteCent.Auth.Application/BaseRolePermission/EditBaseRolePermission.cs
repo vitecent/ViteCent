@@ -69,6 +69,8 @@ public partial class EditBaseRolePermission(
         if (!check.Success)
             return check;
 
+        entity.CompanyId = request.CompanyId;
+
         entity.OperationId = request.OperationId;
 
         entity.ResourceId = request.ResourceId;

@@ -42,24 +42,21 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
     private static void OverrideInvoke($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args, BaseUserInfo user)
     {
 #if($HasCompanyId)
-        // 如果用户不是超级管理员，则设置公司标识
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user?.Company?.Id ?? string.Empty;
+        // 设置公司标识
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
 
 #end
 #if($HasDepartmentId)
-        // 如果用户不是超级管理员，则设置部门标识
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = user?.Department?.Id ?? string.Empty;;
+        // 设置部门标识
+        if (string.IsNullOrEmpty(args.DepartmentId))
+            args.DepartmentId = user?.Department?.Id ?? string.Empty;
 
 #end
 #if($HasPositionId)
-        // 如果用户不是超级管理员，则设置职位标识
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.PositionId))
-                args.PositionId = user?.Position?.Id ?? string.Empty;
+        // 设置职位标识
+        if (string.IsNullOrEmpty(args.PositionId))
+            args.PositionId = user?.Position?.Id ?? string.Empty;
 
 #end
     }

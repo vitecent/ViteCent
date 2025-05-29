@@ -19,11 +19,14 @@ using ViteCent.Basic.Application;
 // 引入排班信息相关的数据传输对象
 using ViteCent.Basic.Data.Schedule;
 
+// 引入基础日志数据传输对象
+using ViteCent.Basic.Data.BaseLogs;
+
+// 引入核心
+using ViteCent.Core;
+
 // 引入核心数据类型
 using ViteCent.Core.Data;
-
-// 引入核心枚举类型
-using ViteCent.Core.Enums;
 
 // 引入核心接口基类
 using ViteCent.Core.Web.Api;
@@ -100,6 +103,23 @@ public partial class EditSchedule(
         // 创建取消令牌，用于支持异步操作的取消
         var cancellationToken = new CancellationToken();
 
+        // 创建日志参数对象，用于记录操作日志
+        var logsArgs = new AddBaseLogsArgs()
+        {
+            CompanyId = user?.Company?.Id ?? string.Empty,
+            CompanyName = user?.Company?.Name ?? string.Empty,
+            DepartmentId = user?.Department?.Id ?? string.Empty,
+            DepartmentName = user?.Department?.Name ?? string.Empty,
+            SystemId = string.Empty,
+            SystemName = "Basic",
+            ResourceId = string.Empty,
+            ResourceName = "Schedule",
+            OperationId = string.Empty,
+            OperationName = "Edit",
+            Description = "编辑排班信息",
+            Args = args.ToJson()
+        };
+
         // 创建数据验证器，true参数表示启用编辑模式的验证规则
         var validator = new ScheduleValidator(true);
 
@@ -108,31 +128,25 @@ public partial class EditSchedule(
 
         // 如果验证失败，返回错误信息
         if (!check.IsValid)
+        {
+            // 记录失败操作日志
+            await mediator.LogError(logsArgs, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty, cancellationToken);
+
+            // 返回操作结果
             return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
-
-        // 如果用户不是超级管理员，则验证公司标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                return new BaseResult(500, "公司标识不能为空");
-
-        // 验证排班信息的有效性
-        var checkCompany = user.CheckCompanyId(args.CompanyId);
-
-        // 如果验证失败，返回错误信息
-        if (checkCompany is not null && !checkCompany.Success)
-            return checkCompany;
-
-        // 如果用户不是超级管理员，则验证部门标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.DepartmentId))
-                return new BaseResult(500, "部门标识不能为空");
-
-        // 如果用户不是超级管理员，则验证用户标识是否为空
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.UserId))
-                return new BaseResult(500, "用户标识不能为空");
+        }
 
         // 通过中介者发送编辑命令并返回结果
-        return await mediator.Send(args, cancellationToken);
+        var result = await mediator.Send(args, cancellationToken);
+
+        // 记录失败操作日志
+        if (!result.Success)
+            await mediator.LogError(logsArgs, result.Message, cancellationToken);
+
+        // 记录成功操作日志
+        await mediator.LogSuccess(logsArgs, cancellationToken);
+
+        // 返回操作结果
+        return result;
     }
 }

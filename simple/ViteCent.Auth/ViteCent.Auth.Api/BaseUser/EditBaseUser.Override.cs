@@ -36,20 +36,20 @@ public partial class EditBaseUser
     {
         args.IsSuper = (int)YesNoEnum.No;
 
-        // 如果用户不是超级管理员，则设置公司标识
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user?.Company?.Id ?? string.Empty;
+        // 设置公司标识
 
-        // 如果用户不是超级管理员，则设置部门标识
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
 
-        // 如果用户不是超级管理员，则设置职位标识
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.PositionId))
-                args.PositionId = user?.Position?.Id ?? string.Empty;
+        // 设置部门标识
+
+        if (string.IsNullOrEmpty(args.DepartmentId))
+            args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
+
+        // 设置职位标识
+
+        if (string.IsNullOrEmpty(args.PositionId))
+            args.PositionId = user?.Position?.Id ?? string.Empty;
 
         if (string.IsNullOrEmpty(args.Username) && !string.IsNullOrWhiteSpace(args.RealName))
             args.Username = args.RealName.GetPinYin().ToCamelCase();

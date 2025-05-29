@@ -39,10 +39,10 @@ public partial class AddBasePost
     {
         args.Status = (int)StatusEnum.Enable;
 
-        // 如果用户不是超级管理员，则设置公司标识
-        if (user.IsSuper != (int)YesNoEnum.Yes)
-            if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user?.Company?.Id ?? string.Empty;
+        // 设置公司标识
+
+        if (string.IsNullOrEmpty(args.CompanyId))
+            args.CompanyId = user?.Company?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(args.Code) && !string.IsNullOrWhiteSpace(args.Name))
             args.Code = args.Name.GetPinYin().ToCamelCase();

@@ -78,8 +78,12 @@ public partial class EditBaseUser(
         if (request.Color is not null)
             entity.Color = request.Color;
 
+        entity.CompanyId = request.CompanyId;
+
         if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
+
+        entity.DepartmentId = request.DepartmentId;
 
         if (request.DepartmentName is not null)
             entity.DepartmentName = request.DepartmentName;

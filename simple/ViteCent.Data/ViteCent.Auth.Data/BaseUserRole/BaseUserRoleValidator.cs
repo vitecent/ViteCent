@@ -27,6 +27,8 @@ public partial class BaseUserRoleValidator : AbstractValidator<AddBaseUserRoleAr
     public BaseUserRoleValidator(bool validate = false)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
         RuleFor(x => x.RoleId).NotNull().NotEmpty().WithMessage("角色标识不能为空");
         RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("用户标识不能为空");
 
