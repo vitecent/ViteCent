@@ -55,7 +55,7 @@ public static class BaseJson
 
         var result = JsonConvert.DeserializeObject<T>(json, settings);
 
-        if (result == null)
+        if (result is null)
             return default!;
 
         return result;
@@ -68,7 +68,7 @@ public static class BaseJson
     /// <returns>序列化后的JSON字符串，如果输入对象为null则返回默认值</returns>
     public static string ToJson(this object obj)
     {
-        if (obj == null)
+        if (obj is null)
             return default!;
 
         return JsonConvert.SerializeObject(obj, settings);

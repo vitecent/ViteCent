@@ -79,6 +79,11 @@ public class BasePostResult
     public int? Status { get; set; }
 
     /// <summary>
+    /// 上班时间
+    /// </summary>
+    public string? Times { get; set; }
+
+    /// <summary>
     /// 修改人
     /// </summary>
     public string? Updater { get; set; }

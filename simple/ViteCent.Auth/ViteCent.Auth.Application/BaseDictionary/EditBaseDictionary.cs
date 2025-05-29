@@ -61,7 +61,7 @@ public partial class EditBaseDictionary(
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "字典信息不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -69,27 +69,30 @@ public partial class EditBaseDictionary(
         if (!check.Success)
             return check;
 
-        if(request.Abbreviation is not null)
+        if (request.Abbreviation is not null)
             entity.Abbreviation = request.Abbreviation;
 
-        if(request.Code is not null)
+        if (request.Code is not null)
             entity.Code = request.Code;
 
-        if(request.Color is not null)
+        if (request.Color is not null)
             entity.Color = request.Color;
 
-        if(request.Description is not null)
+        if (request.CompanyName is not null)
+            entity.CompanyName = request.CompanyName;
+
+        if (request.Description is not null)
             entity.Description = request.Description;
 
-        if(request.Level is not null)
+        if (request.Level is not null)
             entity.Level = request.Level;
 
         entity.Name = request.Name;
 
-        if(request.ParentId is not null)
+        if (request.ParentId is not null)
             entity.ParentId = request.ParentId;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
         entity.Value = request.Value;

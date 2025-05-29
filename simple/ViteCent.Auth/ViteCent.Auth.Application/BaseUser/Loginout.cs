@@ -39,7 +39,7 @@ public class Loginout(
 
         user = httpContextAccessor.InitUser();
 
-        if (user != null)
+        if (user is not null)
         {
             cache.DeleteKey($"User{user.Id}");
             cache.DeleteKey($"UserInfo{user?.Id}");

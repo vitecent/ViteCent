@@ -64,19 +64,19 @@ public class ScheduleResult
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
-    /// 岗位名称
-    /// </summary>
-    public string? Job { get; set; }
-
-    /// <summary>
     /// 下班时间
     /// </summary>
     public DateTime? LastTime { get; set; }
 
     /// <summary>
-    /// 名称
+    /// 岗位标识
     /// </summary>
-    public string Shift { get; set; } = string.Empty;
+    public string PostId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 岗位名称
+    /// </summary>
+    public string? PostName { get; set; }
 
     /// <summary>
     /// 开始时间
@@ -87,6 +87,21 @@ public class ScheduleResult
     /// 状态
     /// </summary>
     public int? Status { get; set; }
+
+    /// <summary>
+    /// 上班时间
+    /// </summary>
+    public string? Times { get; set; }
+
+    /// <summary>
+    /// 班次标识
+    /// </summary>
+    public string TypeId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 班次名称
+    /// </summary>
+    public string TypeName { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

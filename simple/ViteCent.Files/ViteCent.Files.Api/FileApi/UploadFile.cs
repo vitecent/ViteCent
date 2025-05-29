@@ -26,7 +26,7 @@ public class UploadFile(IConfiguration configuration) : BaseFileApi<IFormFile, B
     public override async Task<BaseResult> InvokeAsync(IFormFile file)
     {
         // 验证文件是否为空
-        if (file == null) return new BaseResult(73001, "文件不能为空");
+        if (file is null) return new BaseResult(73001, "文件不能为空");
 
         // 构建文件保存路径
         var root = $"{Environment.CurrentDirectory}/wwwroot";

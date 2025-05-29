@@ -35,7 +35,7 @@ public class ListSchedule(
     {
         logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.ListSchedule");
 
-        if (args == null)
+        if (args is null)
             return new PageResult<UserScheduleResult>(500, "参数不能为空");
 
         return await mediator.Send(args);

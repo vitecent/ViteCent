@@ -68,7 +68,7 @@ public class DeleteBaseUser(ILogger<DeleteBaseUser> logger,
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "用户信息不存在");
 
         var args = mapper.Map<DeleteBaseUserEntity>(entity);

@@ -104,6 +104,14 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         if (entity > 0)
             return new BaseResult(500, "$!{Table.Description}重复");
 
+
+
+
+
         return new BaseResult();
+
+
+
+
     }
 }

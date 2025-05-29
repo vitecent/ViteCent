@@ -41,7 +41,7 @@ public static class BaseAppliction
         if (!company.Success)
             return company;
 
-        if (company.Data == null)
+        if (company.Data is null)
             return new DataResult<BaseCompanyResult>(500, "公司不存在");
 
         if (company.Data.Status == (int)StatusEnum.Disable)
@@ -97,7 +97,7 @@ public static class BaseAppliction
 
         var company = companys.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
-        if (company != null)
+        if (company is not null)
             return new PageResult<BaseCompanyResult>(500, $"公司{company.Name}已经禁用");
 
         return companys;
@@ -129,7 +129,7 @@ public static class BaseAppliction
         if (!department.Success)
             return department;
 
-        if (department.Data == null)
+        if (department.Data is null)
             return new DataResult<BaseDepartmentResult>(500, "部门不存在");
 
         if (department.Data.Status == (int)StatusEnum.Disable)
@@ -187,12 +187,11 @@ public static class BaseAppliction
 
         var department = departments.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
-        if (department != null)
+        if (department is not null)
             return new PageResult<BaseDepartmentResult>(500, $"部门{department.Name}已经禁用");
 
         return departments;
     }
-
 
     /// <summary>
     /// </summary>
@@ -227,7 +226,7 @@ public static class BaseAppliction
         if (!user.Success)
             return user;
 
-        if (user.Data == null)
+        if (user.Data is null)
             return new DataResult<BaseUserResult>(500, "用户不存在");
 
         if (user.Data.Status == (int)StatusEnum.Disable)
@@ -296,7 +295,7 @@ public static class BaseAppliction
 
         var user = users.Rows.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
-        if (user != null)
+        if (user is not null)
             return new PageResult<BaseUserResult>(500, $"用户{user?.RealName}已经禁用");
 
         return users;

@@ -60,7 +60,7 @@ public class GetBaseSystem(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<BaseSystemResult>(500, "系统信息不存在");
 
         var dto = mapper.Map<BaseSystemResult>(entity);

@@ -54,9 +54,14 @@ public class ShiftScheduleResult
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 岗位标识
+    /// </summary>
+    public string PostId { get; set; } = string.Empty;
+
+    /// <summary>
     /// 岗位名称
     /// </summary>
-    public string? Job { get; set; }
+    public string? PostName { get; set; }
 
     /// <summary>
     /// 描述
@@ -69,11 +74,6 @@ public class ShiftScheduleResult
     public string ScheduleId { get; set; } = string.Empty;
 
     /// <summary>
-    /// 排班名称
-    /// </summary>
-    public string? ScheduleName { get; set; }
-
-    /// <summary>
     /// 换班部门标识
     /// </summary>
     public string ShiftDepartmentId { get; set; } = string.Empty;
@@ -84,9 +84,24 @@ public class ShiftScheduleResult
     public string? ShiftDepartmentName { get; set; }
 
     /// <summary>
+    /// 换班岗位标识
+    /// </summary>
+    public string ShiftPostId { get; set; } = string.Empty;
+
+    /// <summary>
     /// 换班岗位名称
     /// </summary>
-    public string? ShiftJob { get; set; }
+    public string? ShiftPostName { get; set; }
+
+    /// <summary>
+    /// 换班班次标识
+    /// </summary>
+    public string ShiftTypeId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 换班班次名称
+    /// </summary>
+    public string ShiftTypeName { get; set; } = string.Empty;
 
     /// <summary>
     /// 换班用户标识
@@ -102,6 +117,16 @@ public class ShiftScheduleResult
     /// 状态
     /// </summary>
     public int? Status { get; set; }
+
+    /// <summary>
+    /// 班次标识
+    /// </summary>
+    public string TypeId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 班次名称
+    /// </summary>
+    public string TypeName { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

@@ -63,7 +63,7 @@ public class DeleteRepairSchedule(ILogger<DeleteRepairSchedule> logger,
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "补卡申请不存在");
 
         var args = mapper.Map<DeleteRepairScheduleEntity>(entity);

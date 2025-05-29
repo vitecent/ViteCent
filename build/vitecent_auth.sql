@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 192.168.0.105
+ Source Server         : 192.168.0.8
  Source Server Type    : MySQL
  Source Server Version : 80042
- Source Host           : 192.168.0.105:13306
+ Source Host           : 192.168.0.8:3306
  Source Schema         : vitecent_auth
 
  Target Server Type    : MySQL
  Target Server Version : 80042
  File Encoding         : 65001
 
- Date: 27/05/2025 16:28:41
+ Date: 28/05/2025 16:22:36
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `base_company`  (
 -- ----------------------------
 -- Records of base_company
 -- ----------------------------
-INSERT INTO `base_company` VALUES ('1', NULL, NULL, NULL, '鼎新基地', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-27 15:43:08', NULL, '2025-05-27 15:43:08', '2025-05-27 15:43:08', 1);
+INSERT INTO `base_company` VALUES ('1', NULL, NULL, NULL, '鼎新基地', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:20:01', NULL, '2025-05-28 16:20:01', '2025-05-28 16:20:01', 1);
 
 -- ----------------------------
 -- Table structure for base_department
@@ -86,7 +86,7 @@ CREATE TABLE `base_department`  (
 -- ----------------------------
 -- Records of base_department
 -- ----------------------------
-INSERT INTO `base_department` VALUES ('1', NULL, NULL, '1', '鼎新基地', NULL, '航气处', NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-27 15:44:55', NULL, '2025-05-27 15:45:10', '2025-05-27 15:45:10', 1);
+INSERT INTO `base_department` VALUES ('1', NULL, NULL, '1', '鼎新基地', NULL, '航气处', NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:21:25', NULL, '2025-05-28 16:21:25', '2025-05-28 16:21:25', 1);
 
 -- ----------------------------
 -- Table structure for base_dictionary
@@ -95,6 +95,7 @@ DROP TABLE IF EXISTS `base_dictionary`;
 CREATE TABLE `base_dictionary`  (
   `id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '标识',
   `companyId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公司标识',
+  `companyName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '公司名称',
   `parentId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '父级标识',
   `level` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '级别',
   `code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '编码',
@@ -113,6 +114,11 @@ CREATE TABLE `base_dictionary`  (
   INDEX `name`(`name`) USING BTREE,
   INDEX `companyId`(`companyId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '字典信息' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of base_dictionary
+-- ----------------------------
+INSERT INTO `base_dictionary` VALUES ('1', '1', '鼎新基地', NULL, NULL, 'Model', '打卡方式', '1', NULL, NULL, NULL, NULL, '2025-05-28 16:21:51', NULL, '2025-05-28 16:21:51', '2025-05-28 16:21:51', 1);
 
 -- ----------------------------
 -- Table structure for base_operation
@@ -308,9 +314,7 @@ CREATE TABLE `base_user`  (
 -- ----------------------------
 -- Records of base_user
 -- ----------------------------
-INSERT INTO `base_user` VALUES ('1', '', '', '', '', '', '', 1, '', 'admin', 'C383B86184682DF3E48B2BCE066B91E2', '', '', '', '', 0, '', NULL, '', '', NULL, NULL, '管理员', '2025-05-27 15:40:14', NULL, '2025-05-27 15:46:34', '2025-05-27 15:46:34', NULL);
-INSERT INTO `base_user` VALUES ('2', '1', '鼎新基地', '1', '航气处', '', '', 2, NULL, 'YongHuA', '4F88CC50593C6D7F9403E86D1C99F987', NULL, NULL, '用户A', NULL, 1, NULL, NULL, NULL, '用户A', NULL, NULL, '', '2025-05-27 15:45:26', '', '2025-05-27 16:18:09', '2025-05-27 16:18:09', 1);
-INSERT INTO `base_user` VALUES ('3', '1', '鼎新基地', '1', '航气处', '', '2', 2, NULL, 'YongHuB', '7E080D78BC688B7A709B07847E63DC13', NULL, NULL, '用户B', NULL, 1, NULL, NULL, NULL, '用户B', NULL, NULL, '', '2025-05-27 15:45:51', NULL, '2025-05-27 16:17:39', '2025-05-27 16:17:39', 1);
+INSERT INTO `base_user` VALUES ('1', '1', '鼎新基地', '1', '航气处', '', NULL, 1, '', 'admin', 'C383B86184682DF3E48B2BCE066B91E2', '', '', '管理员', '', 0, '', NULL, '', '', NULL, NULL, '', '2025-05-28 16:19:19', NULL, '2025-05-28 16:22:23', '2025-05-28 16:22:23', NULL);
 
 -- ----------------------------
 -- Table structure for base_user_role

@@ -65,7 +65,7 @@ public class GetBaseUserRole(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<BaseUserRoleResult>(500, "用户角色不存在");
 
         var dto = mapper.Map<BaseUserRoleResult>(entity);

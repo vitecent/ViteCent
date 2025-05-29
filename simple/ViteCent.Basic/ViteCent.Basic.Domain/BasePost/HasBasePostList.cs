@@ -9,7 +9,6 @@
 
 using MediatR;
 using Microsoft.Extensions.Logging;
-using ViteCent.Basic.Data.BasePost;
 using ViteCent.Basic.Entity.BasePost;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;

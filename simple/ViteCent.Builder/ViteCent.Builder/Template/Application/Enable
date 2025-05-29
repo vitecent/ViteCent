@@ -56,11 +56,19 @@ public partial class $!{Setting.EnableName}$!{Table.CamelCaseName}(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "$!{Table.Description}不存在");
+
+
+
+
 
         if (entity.Status == (int)StatusEnum.Enable)
             return new BaseResult(500, "$!{Table.Description}已启用");
+
+
+
+
 
         entity.Status = (int)StatusEnum.Enable;
         entity.Updater = user?.Name ?? string.Empty;
@@ -72,5 +80,9 @@ public partial class $!{Setting.EnableName}$!{Table.CamelCaseName}(
         await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Enable, entity, cancellationToken);
 
         return result;
+
+
+
+
     }
 }

@@ -14,11 +14,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入调休申请相关的数据传输对象
-using ViteCent.Basic.Data.UserRest;
-
 // 引入基础数据传输对象
 using ViteCent.Basic.Application;
+
+// 引入调休申请相关的数据传输对象
+using ViteCent.Basic.Data.UserRest;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -98,7 +98,7 @@ public class AddUserRestList(
         logger.LogInformation("Invoke ViteCent.Basic.Api.UserRest.AddUserRestList");
 
         // 验证参数不为空
-        if (args == null)
+        if (args is null)
             return new BaseResult(500, "参数不能为空");
 
         // 验证调休申请列表不为空

@@ -129,7 +129,7 @@ public class BaseGatewayMiddlewar(
         {
             var microService = BaseService.GetServiceRandom(list);
 
-            if (microService != null)
+            if (microService is not null)
             {
                 uri = $"http://{microService.Address}:{microService.Port}{pathAndQuery}";
 

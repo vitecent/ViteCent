@@ -65,6 +65,7 @@ public class RedisCache : IBaseCache
     public T GetList<T>(string key, int index)
     {
         if (!HasKey(key)) return default!;
+
         var json = dataBase.ListGetByIndex(key, index);
 
         return !string.IsNullOrWhiteSpace(json) ? json.ToString().DeJson<T>() : default!;

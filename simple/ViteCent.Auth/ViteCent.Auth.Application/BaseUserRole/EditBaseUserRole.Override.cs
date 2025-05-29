@@ -44,6 +44,8 @@ public partial class EditBaseUserRole
         if (!hasCompany.Success)
             return hasCompany;
 
+        ;
+
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(request.DepartmentId))

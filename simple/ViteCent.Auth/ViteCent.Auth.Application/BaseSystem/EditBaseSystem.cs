@@ -61,7 +61,7 @@ public partial class EditBaseSystem(
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "系统信息不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -69,24 +69,24 @@ public partial class EditBaseSystem(
         if (!check.Success)
             return check;
 
-        if(request.Abbreviation is not null)
+        if (request.Abbreviation is not null)
             entity.Abbreviation = request.Abbreviation;
 
-        if(request.Code is not null)
+        if (request.Code is not null)
             entity.Code = request.Code;
 
-        if(request.Color is not null)
+        if (request.Color is not null)
             entity.Color = request.Color;
 
-        if(request.CompanyName is not null)
+        if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
-        if(request.Description is not null)
+        if (request.Description is not null)
             entity.Description = request.Description;
 
         entity.Name = request.Name;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
         entity.Updater = user?.Name ?? string.Empty;

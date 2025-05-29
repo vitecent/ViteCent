@@ -70,7 +70,7 @@ public class GetBaseUser(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<BaseUserResult>(500, "用户信息不存在");
 
         var dto = mapper.Map<BaseUserResult>(entity);

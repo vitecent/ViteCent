@@ -60,7 +60,7 @@ public class GetBaseOperation(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<BaseOperationResult>(500, "操作信息不存在");
 
         var dto = mapper.Map<BaseOperationResult>(entity);

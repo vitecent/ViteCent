@@ -6,11 +6,11 @@
  */
 
 #region
+
 using MediatR;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Basic.Data.BasePost;
 using ViteCent.Basic.Entity.BasePost;
-using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
@@ -102,6 +102,8 @@ public partial class AddBasePost
 
         if (hasCompany.Success)
             return hasCompany;
+
+        request.CompanyName = hasCompany?.Data?.Name;
 
         var hasArgs = new HasBasePostEntityArgs
         {

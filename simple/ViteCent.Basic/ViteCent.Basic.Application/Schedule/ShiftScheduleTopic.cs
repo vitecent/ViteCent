@@ -47,14 +47,17 @@ public class ShiftScheduleTopic(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return;
 
         entity.DepartmentId = notification.ShiftDepartmentId;
         entity.DepartmentName = notification.ShiftDepartmentName;
         entity.UserId = notification.ShiftUserId;
         entity.UserName = notification.ShiftUserName;
-        entity.Job = notification.ShiftJob;
+        entity.PostId = notification.ShiftPostId;
+        entity.PostName = notification.ShiftPostName;
+        entity.TypeId = notification.ShiftTypeId;
+        entity.TypeName = notification.ShiftTypeName;
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;

@@ -78,7 +78,7 @@ public class SqlSugarFactory : IFactory
 
                 foreach (var p in parameter)
                     if (types.Contains(p.DbType))
-                        text = text.Replace(p.ParameterName, p.Value == null ? "" : p.Value.ToString());
+                        text = text.Replace(p.ParameterName, p.Value is null ? "" : p.Value.ToString());
                     else
                         text = text.Replace(p.ParameterName, $"'{p.Value ?? default!}'");
 

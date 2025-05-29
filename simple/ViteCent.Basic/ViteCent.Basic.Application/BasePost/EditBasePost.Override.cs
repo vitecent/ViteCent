@@ -7,7 +7,6 @@
 
 #region
 
-using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Basic.Data.BasePost;
 using ViteCent.Basic.Entity.BasePost;
 using ViteCent.Core.Data;
@@ -51,6 +50,8 @@ public partial class EditBasePost
 
         if (hasCompany.Success)
             return hasCompany;
+
+        request.CompanyName = hasCompany?.Data?.Name;
 
         var hasArgs = new HasBasePostEntityArgs
         {

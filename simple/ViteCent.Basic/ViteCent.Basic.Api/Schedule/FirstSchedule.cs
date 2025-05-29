@@ -50,11 +50,11 @@ public class FirstSchedule(
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user.Company.Id;
+                args.CompanyId = user?.Company?.Id ?? string.Empty;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = user.Department.Id;
+                args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
 
         var cancellationToken = new CancellationToken();
         var validator = new FirstScheduleValidator();
@@ -70,7 +70,7 @@ public class FirstSchedule(
 
         var checkCompany = user.CheckCompanyId(args.CompanyId);
 
-        if (checkCompany != null && !checkCompany.Success)
+        if (checkCompany is not null && !checkCompany.Success)
             return checkCompany;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
@@ -88,7 +88,7 @@ public class FirstSchedule(
 
             var userFinger = cache.GetString<UserFinger>("Finger");
 
-            if (userFinger == null)
+            if (userFinger is null)
                 return new BaseResult(500, "指纹信息不存在");
 
             if (userFinger.UserId != args.UserId)

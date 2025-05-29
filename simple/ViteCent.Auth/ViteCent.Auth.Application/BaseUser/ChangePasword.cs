@@ -54,7 +54,7 @@ public class ChangePasword(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<LoginResult>(500, "用户名或密码错误");
 
         if (entity.Status == (int)StatusEnum.Disable)

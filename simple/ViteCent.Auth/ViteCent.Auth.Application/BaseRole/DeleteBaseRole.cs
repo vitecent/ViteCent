@@ -58,7 +58,7 @@ public class DeleteBaseRole(ILogger<DeleteBaseRole> logger,
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "角色信息不存在");
 
         var args = mapper.Map<DeleteBaseRoleEntity>(entity);

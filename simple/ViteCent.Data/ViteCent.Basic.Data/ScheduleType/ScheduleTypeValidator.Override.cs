@@ -22,6 +22,5 @@ public partial class ScheduleTypeValidator : AbstractValidator<AddScheduleTypeAr
     {
         var scheduleTypes = new List<int>
             { (int)ScheduleTypeEnum.Schedule, (int)ScheduleTypeEnum.Leave, (int)ScheduleTypeEnum.Rest };
-
     }
 }

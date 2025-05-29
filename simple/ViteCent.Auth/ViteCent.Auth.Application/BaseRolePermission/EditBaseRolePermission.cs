@@ -61,7 +61,7 @@ public partial class EditBaseRolePermission(
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "角色权限不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -75,7 +75,7 @@ public partial class EditBaseRolePermission(
 
         entity.RoleId = request.RoleId;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
         entity.SystemId = request.SystemId;

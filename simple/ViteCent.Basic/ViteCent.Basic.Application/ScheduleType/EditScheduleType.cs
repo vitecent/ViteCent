@@ -69,7 +69,7 @@ public partial class EditScheduleType(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "基础排班不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -77,19 +77,19 @@ public partial class EditScheduleType(
         if (!check.Success)
             return check;
 
-        if(request.Code is not null)
+        if (request.Code is not null)
             entity.Code = request.Code;
 
-        if(request.Color is not null)
+        if (request.Color is not null)
             entity.Color = request.Color;
 
-        if(request.CompanyName is not null)
+        if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
-        if(request.DepartmentName is not null)
+        if (request.DepartmentName is not null)
             entity.DepartmentName = request.DepartmentName;
 
-        if(request.Description is not null)
+        if (request.Description is not null)
             entity.Description = request.Description;
 
         entity.Name = request.Name;

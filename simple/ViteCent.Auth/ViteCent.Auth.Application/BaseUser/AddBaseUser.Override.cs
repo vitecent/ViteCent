@@ -32,7 +32,7 @@ public partial class AddBaseUser
     {
         var companyId = user?.Company?.Id ?? string.Empty;
         var departmentId = user?.Department?.Id ?? string.Empty;
-        var position = user?.Position?.Id ?? string.Empty;
+        var positionId = user?.Position?.Id ?? string.Empty;
 
         foreach (var item in request.Items)
         {
@@ -43,7 +43,7 @@ public partial class AddBaseUser
                 item.DepartmentId = departmentId;
 
             if (string.IsNullOrWhiteSpace(item.PositionId))
-                item.PositionId = position;
+                item.PositionId = positionId;
         }
 
         var companyIds = request.Items.Select(x => x.CompanyId).Distinct().ToList();
@@ -137,7 +137,8 @@ public partial class AddBaseUser
 
         if (!hasCompany.Success)
             return hasCompany;
-        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+
+        request.CompanyName = hasCompany?.Data?.Name;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -148,9 +149,14 @@ public partial class AddBaseUser
 
         if (!hasDepartment.Success)
             return hasDepartment;
-        else request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
+
+        request.DepartmentName = hasDepartment?.Data?.Name;
 
         var positionId = user?.Position?.Id ?? string.Empty;
+        var positionName = user?.Position?.Name ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(positionName))
+            positionName = request.PositionName;
 
         if (string.IsNullOrWhiteSpace(request.PositionId))
             request.PositionId = positionId;
@@ -159,7 +165,11 @@ public partial class AddBaseUser
 
         if (!hasPosition.Success)
             return hasPosition;
-        else request.PositionName = hasPosition?.Data?.Name ?? string.Empty;
+
+        request.PositionName = hasPosition?.Data?.Name;
+
+        if (string.IsNullOrWhiteSpace(request.PositionName))
+            request.PositionName = positionName;
 
         var hasArgs = new HasBaseUserEntityArgs
         {

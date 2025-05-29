@@ -72,7 +72,7 @@ public partial class EditSchedule(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "排班信息不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -80,33 +80,40 @@ public partial class EditSchedule(
         if (!check.Success)
             return check;
 
-        if(request.CompanyName is not null)
+        if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
-        if(request.DepartmentName is not null)
+        if (request.DepartmentName is not null)
             entity.DepartmentName = request.DepartmentName;
 
         entity.EndTime = request.EndTime;
 
-        if(request.FirstTime.HasValue)
+        if (request.FirstTime.HasValue)
             entity.FirstTime = request.FirstTime.Value;
 
-        if(request.Job is not null)
-            entity.Job = request.Job;
-
-        if(request.LastTime.HasValue)
+        if (request.LastTime.HasValue)
             entity.LastTime = request.LastTime.Value;
 
-        entity.Shift = request.Shift;
+        entity.PostId = request.PostId;
+
+        if (request.PostName is not null)
+            entity.PostName = request.PostName;
 
         entity.StartTime = request.StartTime;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
+
+        if (request.Times is not null)
+            entity.Times = request.Times;
+
+        entity.TypeId = request.TypeId;
+
+        entity.TypeName = request.TypeName;
 
         entity.UserId = request.UserId;
 
-        if(request.UserName is not null)
+        if (request.UserName is not null)
             entity.UserName = request.UserName;
 
         entity.Updater = user?.Name ?? string.Empty;

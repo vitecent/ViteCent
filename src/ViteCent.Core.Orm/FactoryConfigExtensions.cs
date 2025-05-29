@@ -82,7 +82,7 @@ public class FactoryConfigExtensions
 
             var slave = configuration.GetSection($"DataBase:{i}:Slaves");
 
-            if (slave != null)
+            if (slave is not null)
             {
                 var slaveCount = slave.GetChildren().Count();
 
@@ -109,7 +109,7 @@ public class FactoryConfigExtensions
             {
                 var _config = configs.FirstOrDefault(x => x.Name == factoryConfig.Name);
 
-                if (_config != null)
+                if (_config is not null)
                 {
                     _config.DbType = factoryConfig.DbType;
                     _config.Master = factoryConfig.Master;

@@ -58,7 +58,7 @@ public class DeleteBasePost(ILogger<DeleteBasePost> logger,
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "职位信息不存在");
 
         var args = mapper.Map<DeleteBasePostEntity>(entity);

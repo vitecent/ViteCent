@@ -21,11 +21,11 @@ public static class BaseEnum
         var strValue = enums.ToString();
         var fieldinfo = enums.GetType().GetField(strValue);
 
-        if (fieldinfo == null) return strValue;
+        if (fieldinfo is null) return strValue;
 
         var objs = fieldinfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
-        if (objs == null || objs.Length == 0) return strValue;
+        if (objs is null || objs.Length == 0) return strValue;
 
         var da = (DescriptionAttribute)objs[0];
 
@@ -43,7 +43,7 @@ public static class BaseEnum
         foreach (var item in Enum.GetValues(typeof(T)))
         {
             Enum.TryParse(typeof(T), item.ToString(), out var obj);
-            if (obj != null)
+            if (obj is not null)
                 if (obj is Enum enumValue)
                     if (value == Convert.ToInt32(enumValue))
                         return enumValue.GetDescription();

@@ -16,8 +16,10 @@ public static class IdCardHelper
 
         if (input.Length == 18)
             return input.GetIdAsyncCardBirthday18();
+
         if (input.Length == 15)
             return input.GetIdAsyncCardBirthday15();
+
         throw new Exception("身份证号格式错误");
     }
 
@@ -52,8 +54,10 @@ public static class IdCardHelper
 
         if (input.Length == 18)
             return input.IsIdCard18();
+
         if (input.Length == 15)
             return input.IsIdCard15();
+
         return false;
     }
 

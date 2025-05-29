@@ -58,7 +58,7 @@ public class DeleteBaseSystem(ILogger<DeleteBaseSystem> logger,
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "系统信息不存在");
 
         var args = mapper.Map<DeleteBaseSystemEntity>(entity);

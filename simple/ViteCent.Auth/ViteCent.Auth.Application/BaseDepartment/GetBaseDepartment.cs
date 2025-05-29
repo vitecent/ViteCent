@@ -60,7 +60,7 @@ public class GetBaseDepartment(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<BaseDepartmentResult>(500, "部门信息不存在");
 
         var dto = mapper.Map<BaseDepartmentResult>(entity);

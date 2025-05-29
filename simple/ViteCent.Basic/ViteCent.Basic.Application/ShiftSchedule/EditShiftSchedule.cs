@@ -72,7 +72,7 @@ public partial class EditShiftSchedule(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "换班申请不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -80,42 +80,51 @@ public partial class EditShiftSchedule(
         if (!check.Success)
             return check;
 
-        if(request.CompanyName is not null)
+        if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
-        if(request.DepartmentName is not null)
+        if (request.DepartmentName is not null)
             entity.DepartmentName = request.DepartmentName;
 
-        if(request.Job is not null)
-            entity.Job = request.Job;
+        entity.PostId = request.PostId;
 
-        if(request.Remark is not null)
+        if (request.PostName is not null)
+            entity.PostName = request.PostName;
+
+        if (request.Remark is not null)
             entity.Remark = request.Remark;
 
         entity.ScheduleId = request.ScheduleId;
 
-        if(request.ScheduleName is not null)
-            entity.ScheduleName = request.ScheduleName;
-
         entity.ShiftDepartmentId = request.ShiftDepartmentId;
 
-        if(request.ShiftDepartmentName is not null)
+        if (request.ShiftDepartmentName is not null)
             entity.ShiftDepartmentName = request.ShiftDepartmentName;
 
-        if(request.ShiftJob is not null)
-            entity.ShiftJob = request.ShiftJob;
+        entity.ShiftPostId = request.ShiftPostId;
+
+        if (request.ShiftPostName is not null)
+            entity.ShiftPostName = request.ShiftPostName;
+
+        entity.ShiftTypeId = request.ShiftTypeId;
+
+        entity.ShiftTypeName = request.ShiftTypeName;
 
         entity.ShiftUserId = request.ShiftUserId;
 
-        if(request.ShiftUserName is not null)
+        if (request.ShiftUserName is not null)
             entity.ShiftUserName = request.ShiftUserName;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
+
+        entity.TypeId = request.TypeId;
+
+        entity.TypeName = request.TypeName;
 
         entity.UserId = request.UserId;
 
-        if(request.UserName is not null)
+        if (request.UserName is not null)
             entity.UserName = request.UserName;
 
         entity.Updater = user?.Name ?? string.Empty;

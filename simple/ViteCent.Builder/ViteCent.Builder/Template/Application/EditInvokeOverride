@@ -42,6 +42,10 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         CancellationToken cancellationToken)
     {
         return await Task.FromResult(new BaseResult());
+
+
+
+
     }
 
     /// <summary>
@@ -64,6 +68,10 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasCompany.Success)
             return hasCompany;
 
+
+
+ request.CompanyName = hasCompany?.Data?.Name;
+
 #end
 #if($HasDepartmentId)
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -76,12 +84,20 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         if (hasDepartment.Success)
             return hasDepartment;
 
+
+
+ request.DepartmentName = hasDepartment?.Data?.Name;
+
 #end
 #if($HasUserId)
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 
         if (hasUser.Success)
             return hasUser;
+
+
+
+ request.UserName = hasUser?.Data?.RealName;
 
 #end
         var hasArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -101,5 +117,9 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
         };
 
         return await mediator.Send(hasArgs, cancellationToken);
+
+
+
+
     }
 }

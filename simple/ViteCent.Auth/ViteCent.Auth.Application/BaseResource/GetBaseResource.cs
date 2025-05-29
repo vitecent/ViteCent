@@ -60,7 +60,7 @@ public class GetBaseResource(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<BaseResourceResult>(500, "资源信息不存在");
 
         var dto = mapper.Map<BaseResourceResult>(entity);

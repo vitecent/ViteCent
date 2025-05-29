@@ -34,6 +34,11 @@ public class BaseDictionaryResult
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string? CompanyName { get; set; }
+
+    /// <summary>
     /// 创建时间
     /// </summary>
     public DateTime? CreateTime { get; set; }

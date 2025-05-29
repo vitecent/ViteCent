@@ -33,7 +33,7 @@ public partial class AddBaseDictionary
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user.Company.Id;
+                args.CompanyId = user?.Company?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(args.Code) && !string.IsNullOrWhiteSpace(args.Name))
             args.Code = args.Name.GetPinYin().ToCamelCase();

@@ -91,7 +91,7 @@ public static class BaseApplication
         var company = companys.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         // 如果存在被禁用的公司，返回错误信息
-        if (company != null)
+        if (company is not null)
             return new PageResult<BaseCompanyEntity>(500, $"公司{company.Name}已经禁用");
 
         // 返回查询结果
@@ -125,7 +125,7 @@ public static class BaseApplication
 
         var company = await mediator.Send(getCompanyArgs);
 
-        if (company == null)
+        if (company is null)
             return new DataResult<BaseCompanyEntity>(500, "公司不存在");
 
         if (company.Status == (int)StatusEnum.Disable)
@@ -179,7 +179,7 @@ public static class BaseApplication
 
         var department = departments.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
-        if (department != null)
+        if (department is not null)
             return new PageResult<BaseDepartmentEntity>(500, $"部门{department.Name}已经禁用");
 
         return new PageResult<BaseDepartmentEntity>
@@ -219,7 +219,7 @@ public static class BaseApplication
         var department = await mediator.Send(getDepartmentArgs);
 
         // 检查部门是否存在
-        if (department == null)
+        if (department is null)
             return new DataResult<BaseDepartmentEntity>(500, "部门不存在");
 
         // 检查部门状态是否正常
@@ -297,7 +297,7 @@ public static class BaseApplication
         var operation = operations.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         // 如果存在已禁用的操作，返回错误信息
-        if (operation != null)
+        if (operation is not null)
             return new PageResult<BaseOperationEntity>(500, $"操作{operation.Name}已经禁用");
 
         // 返回操作权限列表
@@ -344,7 +344,7 @@ public static class BaseApplication
         var operation = await mediator.Send(getOperationArgs);
 
         // 检查操作权限是否存在
-        if (operation == null)
+        if (operation is null)
             return new DataResult<BaseOperationEntity>(500, "操作不存在");
 
         // 检查操作权限状态是否正常
@@ -410,7 +410,7 @@ public static class BaseApplication
         var position = positions.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         // 如果存在已禁用的职位，返回错误信息
-        if (position != null)
+        if (position is not null)
             return new PageResult<BasePositionEntity>(500, $"职位{position.Name}已经禁用");
 
         // 返回职位列表
@@ -451,7 +451,7 @@ public static class BaseApplication
         var position = await mediator.Send(getPositionArgs);
 
         // 检查职位是否存在
-        if (position == null)
+        if (position is null)
             return new DataResult<BasePositionEntity>(500, "职位不存在");
 
         // 检查职位状态是否正常
@@ -523,7 +523,7 @@ public static class BaseApplication
         var resource = resources.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         // 如果存在已禁用的资源，返回错误信息
-        if (resource != null)
+        if (resource is not null)
             return new PageResult<BaseResourceEntity>(500, $"资源{resource.Name}已经禁用");
 
         // 返回资源列表
@@ -562,7 +562,7 @@ public static class BaseApplication
         var resource = await mediator.Send(getResourceArgs);
 
         // 检查资源是否存在
-        if (resource == null)
+        if (resource is null)
             return new DataResult<BaseResourceEntity>(500, "资源不存在");
 
         // 检查资源状态是否正常
@@ -623,7 +623,7 @@ public static class BaseApplication
         var role = roles.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         // 如果存在已禁用的角色，返回错误信息
-        if (role != null)
+        if (role is not null)
             return new PageResult<BaseRoleEntity>(500, $"角色{role.Name}已经禁用");
 
         // 返回角色列表
@@ -659,7 +659,7 @@ public static class BaseApplication
         var role = await mediator.Send(getRoleArgs);
 
         // 检查角色是否存在
-        if (role == null)
+        if (role is null)
             return new DataResult<BaseRoleEntity>(500, "角色不存在");
 
         // 检查角色状态是否正常
@@ -720,7 +720,7 @@ public static class BaseApplication
         var system = systems.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         // 如果存在已禁用的系统，返回错误信息
-        if (system != null)
+        if (system is not null)
             return new PageResult<BaseSystemEntity>(500, $"系统{system.Name}已经禁用");
 
         // 返回系统列表
@@ -756,7 +756,7 @@ public static class BaseApplication
         var system = await mediator.Send(getSystemArgs);
 
         // 检查系统是否存在
-        if (system == null)
+        if (system is null)
             return new DataResult<BaseSystemEntity>(500, "系统不存在");
 
         // 检查系统状态是否正常
@@ -823,7 +823,7 @@ public static class BaseApplication
         var user = users.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         // 如果存在已禁用的用户，返回错误信息
-        if (user != null)
+        if (user is not null)
             return new PageResult<BaseUserEntity>(500, $"用户{user?.RealName}已经禁用");
 
         // 返回用户列表
@@ -862,7 +862,7 @@ public static class BaseApplication
         var user = await mediator.Send(getUserArgs);
 
         // 检查用户是否存在
-        if (user == null)
+        if (user is null)
             return new DataResult<BaseUserEntity>(500, "用户不存在");
 
         // 检查用户状态是否正常

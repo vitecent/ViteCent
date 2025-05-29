@@ -65,7 +65,7 @@ public class GetRepairSchedule(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<RepairScheduleResult>(500, "补卡申请不存在");
 
         var dto = mapper.Map<RepairScheduleResult>(entity);

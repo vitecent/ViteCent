@@ -13,11 +13,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入资源信息相关的数据传输对象
-using ViteCent.Auth.Data.BaseResource;
-
 // 引入基础数据传输对象
 using ViteCent.Auth.Application;
+
+// 引入资源信息相关的数据传输对象
+using ViteCent.Auth.Data.BaseResource;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -93,7 +93,7 @@ public class GetBaseResource(
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseResource.GetBaseResource");
 
         // 验证参数是否为空，确保请求参数的有效性
-        if (args == null)
+        if (args is null)
             return new DataResult<BaseResourceResult>(500, "参数不能为空");
 
         // 如果用户不是超级管理员，则验证公司标识是否为空
@@ -105,7 +105,7 @@ public class GetBaseResource(
         var check = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
-        if (check != null && !check.Success)
+        if (check is not null && !check.Success)
             return new DataResult<BaseResourceResult>(check.Code, check.Message);
 
         // 如果用户不是超级管理员，则验证系统标识是否为空

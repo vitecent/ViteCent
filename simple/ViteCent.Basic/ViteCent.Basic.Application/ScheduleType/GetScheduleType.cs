@@ -65,7 +65,7 @@ public class GetScheduleType(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<ScheduleTypeResult>(500, "基础排班不存在");
 
         var dto = mapper.Map<ScheduleTypeResult>(entity);

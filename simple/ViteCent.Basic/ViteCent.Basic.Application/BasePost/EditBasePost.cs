@@ -66,7 +66,7 @@ public partial class EditBasePost(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "职位信息不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -74,28 +74,31 @@ public partial class EditBasePost(
         if (!check.Success)
             return check;
 
-        if(request.Abbreviation is not null)
+        if (request.Abbreviation is not null)
             entity.Abbreviation = request.Abbreviation;
 
-        if(request.Code is not null)
+        if (request.Code is not null)
             entity.Code = request.Code;
 
-        if(request.Color is not null)
+        if (request.Color is not null)
             entity.Color = request.Color;
 
-        if(request.CompanyName is not null)
+        if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
-        if(request.Description is not null)
+        if (request.Description is not null)
             entity.Description = request.Description;
 
-        if(request.Level is not null)
+        if (request.Level is not null)
             entity.Level = request.Level;
 
         entity.Name = request.Name;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
+
+        if (request.Times is not null)
+            entity.Times = request.Times;
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;

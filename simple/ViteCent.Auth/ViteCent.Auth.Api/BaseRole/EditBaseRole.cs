@@ -13,11 +13,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入角色信息相关的数据传输对象
-using ViteCent.Auth.Data.BaseRole;
-
 // 引入基础数据传输对象
 using ViteCent.Auth.Application;
+
+// 引入角色信息相关的数据传输对象
+using ViteCent.Auth.Data.BaseRole;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -119,7 +119,7 @@ public partial class EditBaseRole(
         var checkCompany = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
-        if (checkCompany != null && !checkCompany.Success)
+        if (checkCompany is not null && !checkCompany.Success)
             return checkCompany;
 
         // 通过中介者发送编辑命令并返回结果

@@ -46,7 +46,7 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
     /// <returns>返回调用结果，类型为Result</returns>
     public async Task<Result> InvokeGetMethodAsync(string service, string api, string token = "")
     {
-        if (dapr != null) return await InvokeDaprMethodAsync(HttpMethod.Get, service, api, default!, token);
+        if (dapr is not null) return await InvokeDaprMethodAsync(HttpMethod.Get, service, api, default!, token);
 
         return await InvokeHttpMethod(HttpMethod.Get, service, api, default!, token);
     }
@@ -111,7 +111,7 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
         {
             var microService = BaseService.GetServiceRandom(list);
 
-            if (microService != null)
+            if (microService is not null)
             {
                 uri = $"http://{microService.Address}:{microService.Port}{api.Replace($"/{service}", "")}";
 

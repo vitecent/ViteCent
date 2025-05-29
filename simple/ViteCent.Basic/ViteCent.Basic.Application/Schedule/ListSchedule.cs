@@ -71,7 +71,7 @@ public class ListSchedule(
         {
             var userInfo = rows.FirstOrDefault(x => x.UserId == item.Id);
 
-            if (userInfo != null)
+            if (userInfo is not null)
             {
                 userInfo.PostId = item.PositionId;
                 userInfo.PostName = item.PositionName;

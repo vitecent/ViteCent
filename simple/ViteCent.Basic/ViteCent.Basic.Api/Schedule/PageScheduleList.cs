@@ -167,10 +167,10 @@ public class PageScheduleList(
         if (rows.Success && rows.Rows.Count > 0)
             foreach (var item in items)
             {
-                var _row = rows.Rows.Where(x => x.StartTime.ToString("yyyy-MM-dd") == item.Date && x.Job == item.Job).OrderBy(x => x.Id).ToList();
+                var _row = rows.Rows.Where(x => x.StartTime.ToString("yyyy-MM-dd") == item.Date && x.PostName == item.Job).OrderBy(x => x.Id).ToList();
 
                 item.Name = string.Join(",", _row.Select(x => x.UserName).Distinct().ToList());
-                item.Shift = string.Join(",", _row.Select(x => x.Shift).Distinct().ToList());
+                item.Shift = string.Join(",", _row.Select(x => x.TypeName).Distinct().ToList());
             }
 
         var result = new PageResult<PreAddScheduleArgs>

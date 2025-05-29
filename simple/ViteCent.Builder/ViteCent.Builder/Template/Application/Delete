@@ -86,8 +86,12 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "$!{Table.Description}不存在");
+
+
+
+
 
         var args = mapper.Map<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>(entity);
 
@@ -96,5 +100,9 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
         await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
 
         return result;
+
+
+
+
     }
 }

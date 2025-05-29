@@ -128,16 +128,8 @@ public partial class AddShiftSchedule
 
         var entity = entitys.Rows.FirstOrDefault(x => x.Status != (int)ScheduleEnum.None);
 
-        if (entity != null)
+        if (entity is not null)
             return new BaseResult(500, "只有未打卡的班次才能换班");
-
-        foreach (var item in entitys.Rows)
-        {
-            var items = request.Items.Where(x => x.ScheduleId == item.Id).ToList();
-
-            foreach (var data in items)
-                data.ScheduleName = item.Shift;
-        }
 
         var hasListArgs = new HasShiftScheduleEntityListArgs
         {
@@ -176,7 +168,10 @@ public partial class AddShiftSchedule
             ShiftDepartmentName = entity.ShiftDepartmentName,
             ShiftUserId = entity.ShiftUserId,
             ShiftUserName = entity.ShiftUserName,
-            ShiftJob = entity.Job
+            ShiftTypeId = entity.ShiftTypeId,
+            ShiftTypeName = entity.ShiftTypeName,
+            ShiftPostId = entity.ShiftPostId,
+            ShiftPostName = entity.ShiftPostName
         };
 
         await mediator.Publish(topicArgs, cancellationToken);
@@ -198,7 +193,8 @@ public partial class AddShiftSchedule
 
         if (!hasCompany.Success)
             return hasCompany;
-        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+
+        request.CompanyName = hasCompany?.Data?.Name;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -211,14 +207,16 @@ public partial class AddShiftSchedule
 
         if (!hasDepartment.Success)
             return hasDepartment;
-        else request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
+
+        request.DepartmentName = hasDepartment?.Data?.Name;
 
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId,
             user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
-        else request.UserName = hasUser?.Data?.RealName ?? string.Empty;
+
+        request.UserName = hasUser?.Data?.RealName;
 
         if (string.IsNullOrWhiteSpace(request.ShiftDepartmentId))
             request.ShiftDepartmentId = departmentId;
@@ -242,13 +240,11 @@ public partial class AddShiftSchedule
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "排班信息不存在");
 
         if (entity.Status != (int)ScheduleEnum.None)
             return new BaseResult(500, "只有未打卡的班次才能换班");
-
-        request.ScheduleName = entity.Shift;
 
         var hasArgs = new HasShiftScheduleEntityArgs
         {

@@ -44,7 +44,7 @@ public class GetAllPermission(
     {
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseRolePermission.GetAllPermission");
 
-        if (args == null)
+        if (args is null)
             return new DataResult<AllPermissionResult>(500, "参数不能为空");
 
         if (user.IsSuper != (int)YesNoEnum.Yes)

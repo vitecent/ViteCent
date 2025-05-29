@@ -63,5 +63,9 @@ public partial class $!{Setting.PageName}$!{Table.CamelCaseName}(
         var result = new PageResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(args.Offset, args.Limit, args.Total, rows);
 
         return result;
+
+
+
+
     }
 }

@@ -56,7 +56,7 @@ public partial class DisableBaseUser(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "用户信息不存在");
 
         if (entity.Status == (int)StatusEnum.Disable)

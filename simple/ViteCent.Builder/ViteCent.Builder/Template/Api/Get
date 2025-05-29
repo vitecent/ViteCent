@@ -95,8 +95,12 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
 
         // 验证参数是否为空，确保请求参数的有效性
-        if (args == null)
+        if (args is null)
             return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "参数不能为空");
+
+
+
+
 #if($HasCompanyId)
 
         // 如果用户不是超级管理员，则验证公司标识是否为空
@@ -104,12 +108,20 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
             if (string.IsNullOrEmpty(args.CompanyId))
                 return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "公司标识不能为空");
 
+
+
+
+
         // 验证$!{Table.Description}的有效性
         var check = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
-        if (check != null && !check.Success)
+        if (check is not null && !check.Success)
             return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(check.Code, check.Message);
+
+
+
+
 #end
 #if($HasDepartmentId)
 
@@ -117,6 +129,10 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "部门标识不能为空");
+
+
+
+
 #end
 #if($HasPositionId)
 
@@ -124,6 +140,10 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.PositionId))
                 return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "职位标识不能为空");
+
+
+
+
 #end
 #if($HasRoleId)
 
@@ -131,6 +151,10 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.RoleId))
                 return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "角色标识不能为空");
+
+
+
+
 #end
 #if($HasUserId)
 
@@ -138,6 +162,10 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.UserId))
                 return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "用户标识不能为空");
+
+
+
+
 #end
 #if($HasSystemId)
 
@@ -145,6 +173,10 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.SystemId))
                 return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "系统标识不能为空");
+
+
+
+
 #end
 #if($HasResourceId)
 
@@ -152,6 +184,10 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.ResourceId))
                 return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "资源标识不能为空");
+
+
+
+
 #end
 #if($HasOperationId)
 
@@ -159,6 +195,10 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.OperationId))
                 return new DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>(500, "操作标识不能为空");
+
+
+
+
 #end
 
         // 创建取消令牌，用于支持异步操作的取消
@@ -166,5 +206,9 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
 
         // 通过中介者发送查询命令并返回结果
         return await mediator.Send(args, cancellationToken);
+
+
+
+
     }
 }

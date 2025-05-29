@@ -56,11 +56,19 @@ public partial class $!{Setting.DisableName}$!{Table.CamelCaseName}(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "$!{Table.Description}不存在");
+
+
+
+
 
         if (entity.Status == (int)StatusEnum.Disable)
             return new BaseResult(500, "$!{Table.Description}已禁用");
+
+
+
+
 
         entity.Status = (int)StatusEnum.Disable;
         entity.Updater = user?.Name ?? string.Empty;
@@ -72,5 +80,9 @@ public partial class $!{Setting.DisableName}$!{Table.CamelCaseName}(
         await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Disable, entity, cancellationToken);
 
         return result;
+
+
+
+
     }
 }

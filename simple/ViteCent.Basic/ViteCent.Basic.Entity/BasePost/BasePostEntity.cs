@@ -102,6 +102,12 @@ public class BasePostEntity : BaseEntity, IRequest<BaseResult>
     public int? Status { get; set; }
 
     /// <summary>
+    /// 上班时间
+    /// </summary>
+    [SugarColumn(ColumnName = "times")]
+    public string? Times { get; set; }
+
+    /// <summary>
     /// 修改人
     /// </summary>
     [SugarColumn(ColumnName = "updater")]

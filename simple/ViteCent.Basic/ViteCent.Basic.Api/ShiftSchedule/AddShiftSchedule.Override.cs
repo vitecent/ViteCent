@@ -28,14 +28,14 @@ public partial class AddShiftSchedule
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.CompanyId))
-                args.CompanyId = user.Company.Id;
+                args.CompanyId = user?.Company?.Id ?? string.Empty;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
-                args.DepartmentId = user.Department.Id;
+                args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
 
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.ShiftDepartmentId))
-                args.ShiftDepartmentId = user.Department.Id;
+                args.ShiftDepartmentId = user?.Department?.Id ?? string.Empty; ;
     }
 }

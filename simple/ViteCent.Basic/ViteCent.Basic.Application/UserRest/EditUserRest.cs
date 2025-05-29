@@ -72,7 +72,7 @@ public partial class EditUserRest(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "调休申请不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -80,25 +80,25 @@ public partial class EditUserRest(
         if (!check.Success)
             return check;
 
-        if(request.CompanyName is not null)
+        if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
-        if(request.DepartmentName is not null)
+        if (request.DepartmentName is not null)
             entity.DepartmentName = request.DepartmentName;
 
         entity.EndTime = request.EndTime;
 
-        if(request.Remark is not null)
+        if (request.Remark is not null)
             entity.Remark = request.Remark;
 
         entity.StartTime = request.StartTime;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
         entity.UserId = request.UserId;
 
-        if(request.UserName is not null)
+        if (request.UserName is not null)
             entity.UserName = request.UserName;
 
         entity.Updater = user?.Name ?? string.Empty;

@@ -78,7 +78,7 @@ public class PageBaseCompany(
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseCompany.PageBaseCompany");
 
         // 验证参数是否为空，确保请求参数的有效性
-        if (args == null)
+        if (args is null)
             return new PageResult<BaseCompanyResult>(500, "参数不能为空");
 
         // 创建取消令牌，用于支持异步操作的取消

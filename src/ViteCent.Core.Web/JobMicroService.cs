@@ -116,7 +116,7 @@ public class JobMicroService : MicroService
     {
         await base.StartAsync(app);
 
-        if (scheduler != null)
+        if (scheduler is not null)
         {
             logger.LogInformation("开始使用 Quartz 调度器");
             app.UseQuarz(scheduler);

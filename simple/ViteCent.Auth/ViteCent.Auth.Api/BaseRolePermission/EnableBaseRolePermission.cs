@@ -13,11 +13,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入角色权限相关的数据传输对象
-using ViteCent.Auth.Data.BaseRolePermission;
-
 // 引入基础数据传输对象
 using ViteCent.Auth.Application;
+
+// 引入角色权限相关的数据传输对象
+using ViteCent.Auth.Data.BaseRolePermission;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -104,7 +104,7 @@ public class EnableBaseRolePermission(
         var check = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
-        if (check != null && !check.Success)
+        if (check is not null && !check.Success)
             return check;
 
         // 如果用户不是超级管理员，则验证角色标识是否为空

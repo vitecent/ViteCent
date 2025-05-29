@@ -89,7 +89,7 @@ public class PreAddScheduleList(
             {
                 var user = users.Rows.FirstOrDefault(x => x.RealName == name);
 
-                if (user == null)
+                if (user is null)
                     return new BaseResult(500, $"用户{name}不存在");
 
                 var _item = new AddScheduleArgs
@@ -98,15 +98,15 @@ public class PreAddScheduleList(
                     DepartmentId = user.DepartmentId,
                     UserId = user.Id,
                     UserName = user.RealName,
-                    Shift = "副班",
-                    Job = item.Job,
+                    TypeName = "副班",
+                    PostName = item.Job,
                     StartTime = DateTime.Parse($"{item.Date} 00:00:00"),
                     EndTime = DateTime.Parse($"{item.Date} 23:59:59"),
                     Status = (int)ScheduleEnum.None
                 };
 
                 if (firt)
-                    _item.Shift = "主班";
+                    _item.TypeName = "主班";
 
                 items.Add(_item);
 

@@ -67,6 +67,10 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         if (!check.Success)
             return check;
 
+
+
+
+
         var entitys = new $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}
         {
             Items = []
@@ -100,5 +104,9 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Add, entity, cancellationToken);
 
         return result;
+
+
+
+
     }
 }

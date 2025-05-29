@@ -65,7 +65,7 @@ public class GetUserRest(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<UserRestResult>(500, "调休申请不存在");
 
         var dto = mapper.Map<UserRestResult>(entity);

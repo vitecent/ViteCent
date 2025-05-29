@@ -56,7 +56,7 @@ public partial class EnableBaseCompany(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "公司信息不存在");
 
         if (entity.Status == (int)StatusEnum.Enable)

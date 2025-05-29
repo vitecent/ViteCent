@@ -45,7 +45,7 @@ public partial class EditBaseDepartment
 
             var hasParent = await mediator.Send(hasParentArgs, cancellationToken);
 
-            if (hasParent == null)
+            if (hasParent is null)
                 return new BaseResult(500, "父级部门不存在");
 
             if (hasParent.Status == (int)StatusEnum.Disable)
@@ -66,7 +66,8 @@ public partial class EditBaseDepartment
 
         if (!hasCompany.Success)
             return hasCompany;
-        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+
+        request.CompanyName = hasCompany?.Data?.Name;
 
         var hasArgs = new HasBaseDepartmentEntityArgs
         {

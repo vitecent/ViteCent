@@ -120,18 +120,30 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (!companys.Success)
             return companys;
 
+
+
+
+
 #end
 #if($HasDepartmentId)
         var departments = await mediator.CheckDepartment(companyIds, departmentIds);
 
         if (!departments.Success)
             return departments;
+
+
+
+
 #end
 #if($HasPositionId)
         var positions = await mediator.CheckPosition(companyIds, positionIds);
 
         if (!positions.Success)
             return positions;
+
+
+
+
 #end
 #if($HasRoleId)
         var roles = await mediator.CheckRole(companyIds, roleIds);
@@ -139,18 +151,30 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (!roles.Success)
             return roles;
 
+
+
+
+
 #end
 #if($HasUserId)
         var users = await mediator.CheckUser(companyIds, positionIds, userIds);
 
         if (!users.Success)
             return users;
+
+
+
+
 #end
 #if($HasSystemId)
         var systems = await mediator.CheckSystem(companyIds, systemIds);
 
         if (!systems.Success)
             return systems;
+
+
+
+
 
 #end
 #if($HasResourceId)
@@ -159,12 +183,20 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (!resources.Success)
             return resources;
 
+
+
+
+
 #end
 #if($HasOperationId)
         var operations = await mediator.CheckOperation(companyIds, systemIds, resourceIds, operationIds);
 
         if (!operations.Success)
             return operations;
+
+
+
+
 
 #end
 
@@ -197,6 +229,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
+
+
+
+
     }
 
     /// <summary>
@@ -234,6 +270,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (hasCompany.Success)
             return hasCompany;
 
+
+
+ request.CompanyName = hasCompany?.Data?.Name;
+
 #end
 #if($HasDepartmentId)
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -245,6 +285,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 
         if (hasDepartment.Success)
             return hasDepartment;
+
+
+
+ request.DepartmentName = hasDepartment?.Data?.Name;
 
 #end
 #if($HasPositionId)
@@ -258,12 +302,20 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (hasPosition.Success)
             return hasPosition;
 
+
+
+ request.PositionName = hasPosition?.Data?.Name;
+
 #end
 #if($HasUserId)
         var hasUser = await mediator.CheckUser(request.CompanyId, request.DepartmentId, request.UserId);
 
         if (hasUser.Success)
             return hasUser;
+
+
+
+ request.UserName = hasUser?.Data?.RealName;
 
 #end
 #if($HasRoleId)
@@ -272,12 +324,20 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (hasRole.Success)
             return hasRole;
 
+
+
+ request.RoleName = hasRole?.Data?.Name;
+
 #end
 #if($HasSystemId)
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
         if (hasSystem.Success)
             return hasSystem;
+
+
+
+ request.SystemName = hasSystem?.Data?.Name;
 
 #end
 #if($HasResourceId)
@@ -286,12 +346,20 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (hasResource.Success)
             return hasResource;
 
+
+
+ request.ResourceName = hasResource?.Data?.Name;
+
 #end
 #if($HasOperationId)
         var hasOperation = await mediator.CheckOperation(request.CompanyId, request.SystemId, request.ResourceId, request.OperationId);
 
         if (hasOperation.Success)
             return hasOperation;
+
+
+
+ request.OperationName = hasOperation?.Data?.Name;
 
 #end
         var hasArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -323,5 +391,9 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         };
 
         return await mediator.Send(hasArgs, cancellationToken);
+
+
+
+
     }
 }

@@ -50,6 +50,8 @@ public partial class EditBaseDictionary
         if (!hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany?.Data?.Name;
+
         var hasArgs = new HasBaseDictionaryEntityArgs
         {
             Id = request.Id,

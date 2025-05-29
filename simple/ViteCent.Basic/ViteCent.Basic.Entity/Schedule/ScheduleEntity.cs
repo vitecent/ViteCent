@@ -84,22 +84,22 @@ public class ScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
-    /// 岗位名称
-    /// </summary>
-    [SugarColumn(ColumnName = "job")]
-    public string? Job { get; set; }
-
-    /// <summary>
     /// 下班时间
     /// </summary>
     [SugarColumn(ColumnName = "lastTime")]
     public DateTime? LastTime { get; set; }
 
     /// <summary>
-    /// 名称
+    /// 岗位标识
     /// </summary>
-    [SugarColumn(ColumnName = "shift")]
-    public string Shift { get; set; } = string.Empty;
+    [SugarColumn(ColumnName = "postId")]
+    public string PostId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 岗位名称
+    /// </summary>
+    [SugarColumn(ColumnName = "postName")]
+    public string? PostName { get; set; }
 
     /// <summary>
     /// 开始时间
@@ -112,6 +112,24 @@ public class ScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// </summary>
     [SugarColumn(ColumnName = "status")]
     public int? Status { get; set; }
+
+    /// <summary>
+    /// 上班时间
+    /// </summary>
+    [SugarColumn(ColumnName = "times")]
+    public string? Times { get; set; }
+
+    /// <summary>
+    /// 班次标识
+    /// </summary>
+    [SugarColumn(ColumnName = "typeId")]
+    public string TypeId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 班次名称
+    /// </summary>
+    [SugarColumn(ColumnName = "typeName")]
+    public string TypeName { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

@@ -41,6 +41,11 @@ public class AddBaseDictionaryArgs : BaseArgs, IRequest<BaseResult>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    public string? CompanyName { get; set; }
+
+    /// <summary>
     /// 简介
     /// </summary>
     public string? Description { get; set; }

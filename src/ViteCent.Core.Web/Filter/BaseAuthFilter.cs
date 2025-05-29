@@ -87,7 +87,7 @@ public class BaseAuthFilter(
 
         var user = json.DeJson<BaseUserInfo>();
 
-        if (user == null)
+        if (user is null)
         {
             logger.LogInformation($"{user?.Name} InvokeAsync {System}:{Resource}:{Operation} Not Login");
             context.Result = result;
@@ -144,19 +144,19 @@ public class BaseAuthFilter(
         if (cache.HasKey($"UserInfo{user?.Id}"))
             auth = cache.GetString<List<BaseSystemInfo>>($"UserInfo{user?.Id}");
 
-        if (auth == null) return false;
+        if (auth is null) return false;
 
         var _system = auth?.FirstOrDefault(x => x.Code == system);
 
-        if (_system == null) return false;
+        if (_system is null) return false;
 
         var _resource = _system.Resources.FirstOrDefault(x => x.Code == resource);
 
-        if (_resource == null) return false;
+        if (_resource is null) return false;
 
         var _operation = _resource.Operations.FirstOrDefault(x => x.Code == operation);
 
-        if (_operation != null) return true;
+        if (_operation is not null) return true;
 
         return false;
     }

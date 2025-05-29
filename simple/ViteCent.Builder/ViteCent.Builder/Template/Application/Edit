@@ -57,17 +57,29 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
         if (!check.Success)
             return check;
 
+
+
+
+
         var getArgs = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "$!{Table.Description}不存在");
+
+
+
+
 
         check = await OverrideHandle(entity, cancellationToken);
 
         if (!check.Success)
             return check;
+
+
+
+
 
 #foreach($Field in $EditFields)
 #if($Field.Nullable)
@@ -92,5 +104,9 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
         await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Edit, entity, cancellationToken);
 
         return result;
+
+
+
+
     }
 }

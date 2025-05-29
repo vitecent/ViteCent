@@ -72,10 +72,16 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string Id { get; set; } = string.Empty;
 
     /// <summary>
+    /// 岗位标识
+    /// </summary>
+    [SugarColumn(ColumnName = "postId")]
+    public string PostId { get; set; } = string.Empty;
+
+    /// <summary>
     /// 岗位名称
     /// </summary>
-    [SugarColumn(ColumnName = "job")]
-    public string? Job { get; set; }
+    [SugarColumn(ColumnName = "postName")]
+    public string? PostName { get; set; }
 
     /// <summary>
     /// 描述
@@ -90,12 +96,6 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string ScheduleId { get; set; } = string.Empty;
 
     /// <summary>
-    /// 排班名称
-    /// </summary>
-    [SugarColumn(ColumnName = "scheduleName")]
-    public string? ScheduleName { get; set; }
-
-    /// <summary>
     /// 换班部门标识
     /// </summary>
     [SugarColumn(ColumnName = "shiftDepartmentId")]
@@ -108,10 +108,28 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string? ShiftDepartmentName { get; set; }
 
     /// <summary>
+    /// 换班岗位标识
+    /// </summary>
+    [SugarColumn(ColumnName = "shiftPostId")]
+    public string ShiftPostId { get; set; } = string.Empty;
+
+    /// <summary>
     /// 换班岗位名称
     /// </summary>
-    [SugarColumn(ColumnName = "shiftJob")]
-    public string? ShiftJob { get; set; }
+    [SugarColumn(ColumnName = "shiftPostName")]
+    public string? ShiftPostName { get; set; }
+
+    /// <summary>
+    /// 换班班次标识
+    /// </summary>
+    [SugarColumn(ColumnName = "shiftTypeId")]
+    public string ShiftTypeId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 换班班次名称
+    /// </summary>
+    [SugarColumn(ColumnName = "shiftTypeName")]
+    public string ShiftTypeName { get; set; } = string.Empty;
 
     /// <summary>
     /// 换班用户标识
@@ -130,6 +148,18 @@ public class ShiftScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// </summary>
     [SugarColumn(ColumnName = "status")]
     public int? Status { get; set; }
+
+    /// <summary>
+    /// 班次标识
+    /// </summary>
+    [SugarColumn(ColumnName = "typeId")]
+    public string TypeId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 班次名称
+    /// </summary>
+    [SugarColumn(ColumnName = "typeName")]
+    public string TypeName { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

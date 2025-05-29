@@ -77,7 +77,7 @@ public partial class AddBaseCompany
 
             var hasParent = await mediator.Send(hasParentArgs, cancellationToken);
 
-            if (hasParent == null)
+            if (hasParent is null)
                 return new BaseResult(500, "父级公司不存在");
 
             if (hasParent.Status == (int)StatusEnum.Disable)

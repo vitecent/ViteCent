@@ -48,7 +48,8 @@ public partial class EditShiftSchedule
 
         if (!hasCompany.Success)
             return hasCompany;
-        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+
+        request.CompanyName = hasCompany?.Data?.Name;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -61,27 +62,27 @@ public partial class EditShiftSchedule
 
         if (!hasDepartment.Success)
             return hasDepartment;
-        else request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
+
+        request.DepartmentName = hasDepartment?.Data?.Name;
 
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, string.Empty, request.UserId,
             user?.Token ?? string.Empty);
 
         if (!hasUser.Success)
             return hasUser;
-        else request.UserName = hasUser?.Data?.RealName ?? string.Empty;
+
+        request.UserName = hasUser?.Data?.RealName;
 
         var args = mapper.Map<GetScheduleEntityArgs>(request);
         args.Id = request.ScheduleId;
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "排班信息不存在");
 
         if (entity.Status != (int)ScheduleEnum.None)
             return new BaseResult(500, "只有未打卡的班次才能换班");
-
-        request.ScheduleName = entity.Shift;
 
         var hasArgs = new HasShiftScheduleEntityArgs
         {

@@ -104,13 +104,15 @@ public partial class AddBaseResource
 
         if (!hasCompany.Success)
             return hasCompany;
-        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+
+        request.CompanyName = hasCompany?.Data?.Name;
 
         var hasSystem = await mediator.CheckSystem(request.CompanyId, request.SystemId);
 
         if (!hasSystem.Success)
             return hasSystem;
-        else request.SystemName = hasSystem?.Data?.Name ?? string.Empty;
+
+        request.SystemName = hasSystem?.Data?.Name;
 
         var hasArgs = new HasBaseResourceEntityArgs
         {

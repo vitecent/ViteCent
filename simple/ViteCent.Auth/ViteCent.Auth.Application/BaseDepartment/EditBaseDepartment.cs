@@ -61,7 +61,7 @@ public partial class EditBaseDepartment(
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "部门信息不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -69,36 +69,36 @@ public partial class EditBaseDepartment(
         if (!check.Success)
             return check;
 
-        if(request.Abbreviation is not null)
+        if (request.Abbreviation is not null)
             entity.Abbreviation = request.Abbreviation;
 
-        if(request.Code is not null)
+        if (request.Code is not null)
             entity.Code = request.Code;
 
-        if(request.Color is not null)
+        if (request.Color is not null)
             entity.Color = request.Color;
 
-        if(request.CompanyName is not null)
+        if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
-        if(request.Description is not null)
+        if (request.Description is not null)
             entity.Description = request.Description;
 
-        if(request.Level is not null)
+        if (request.Level is not null)
             entity.Level = request.Level;
 
-        if(request.Manager is not null)
+        if (request.Manager is not null)
             entity.Manager = request.Manager;
 
-        if(request.ManagerPhone is not null)
+        if (request.ManagerPhone is not null)
             entity.ManagerPhone = request.ManagerPhone;
 
         entity.Name = request.Name;
 
-        if(request.ParentId is not null)
+        if (request.ParentId is not null)
             entity.ParentId = request.ParentId;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
         entity.Updater = user?.Name ?? string.Empty;

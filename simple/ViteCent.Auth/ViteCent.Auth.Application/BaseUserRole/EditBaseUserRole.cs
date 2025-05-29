@@ -61,7 +61,7 @@ public partial class EditBaseUserRole(
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "用户角色不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -69,12 +69,12 @@ public partial class EditBaseUserRole(
         if (!check.Success)
             return check;
 
-        if(request.Color is not null)
+        if (request.Color is not null)
             entity.Color = request.Color;
 
         entity.RoleId = request.RoleId;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
         entity.UserId = request.UserId;

@@ -88,6 +88,8 @@ public partial class AddBaseDictionary
         if (!hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany?.Data?.Name;
+
         var hasArgs = new HasBaseDictionaryEntityArgs
         {
             CompanyId = request.CompanyId,

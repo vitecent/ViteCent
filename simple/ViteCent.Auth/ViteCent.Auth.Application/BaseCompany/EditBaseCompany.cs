@@ -61,7 +61,7 @@ public partial class EditBaseCompany(
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "公司信息不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -69,57 +69,57 @@ public partial class EditBaseCompany(
         if (!check.Success)
             return check;
 
-        if(request.Abbreviation is not null)
+        if (request.Abbreviation is not null)
             entity.Abbreviation = request.Abbreviation;
 
-        if(request.Address is not null)
+        if (request.Address is not null)
             entity.Address = request.Address;
 
-        if(request.City is not null)
+        if (request.City is not null)
             entity.City = request.City;
 
-        if(request.Code is not null)
+        if (request.Code is not null)
             entity.Code = request.Code;
 
-        if(request.Color is not null)
+        if (request.Color is not null)
             entity.Color = request.Color;
 
-        if(request.Country is not null)
+        if (request.Country is not null)
             entity.Country = request.Country;
 
-        if(request.Description is not null)
+        if (request.Description is not null)
             entity.Description = request.Description;
 
-        if(request.Email is not null)
+        if (request.Email is not null)
             entity.Email = request.Email;
 
-        if(request.EstablishDate.HasValue)
+        if (request.EstablishDate.HasValue)
             entity.EstablishDate = request.EstablishDate.Value;
 
-        if(request.Industry is not null)
+        if (request.Industry is not null)
             entity.Industry = request.Industry;
 
-        if(request.LegalPerson is not null)
+        if (request.LegalPerson is not null)
             entity.LegalPerson = request.LegalPerson;
 
-        if(request.LegalPhone is not null)
+        if (request.LegalPhone is not null)
             entity.LegalPhone = request.LegalPhone;
 
-        if(request.Level is not null)
+        if (request.Level is not null)
             entity.Level = request.Level;
 
-        if(request.Logo is not null)
+        if (request.Logo is not null)
             entity.Logo = request.Logo;
 
         entity.Name = request.Name;
 
-        if(request.ParentId is not null)
+        if (request.ParentId is not null)
             entity.ParentId = request.ParentId;
 
-        if(request.Province is not null)
+        if (request.Province is not null)
             entity.Province = request.Province;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
         entity.Updater = user?.Name ?? string.Empty;

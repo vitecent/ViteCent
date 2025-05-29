@@ -13,11 +13,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入补卡申请相关的数据传输对象
-using ViteCent.Basic.Data.RepairSchedule;
-
 // 引入基础数据传输对象
 using ViteCent.Basic.Application;
+
+// 引入补卡申请相关的数据传输对象
+using ViteCent.Basic.Data.RepairSchedule;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -119,7 +119,7 @@ public partial class EditRepairSchedule(
         var checkCompany = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
-        if (checkCompany != null && !checkCompany.Success)
+        if (checkCompany is not null && !checkCompany.Success)
             return checkCompany;
 
         // 如果用户不是超级管理员，则验证部门标识是否为空

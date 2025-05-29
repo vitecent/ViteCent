@@ -64,4 +64,9 @@ public class AddBasePostArgs : BaseArgs, IRequest<BaseResult>
     /// 状态
     /// </summary>
     public int? Status { get; set; }
+
+    /// <summary>
+    /// 上班时间
+    /// </summary>
+    public string? Times { get; set; }
 }

@@ -13,11 +13,11 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础排班相关的数据传输对象
-using ViteCent.Basic.Data.ScheduleType;
-
 // 引入基础数据传输对象
 using ViteCent.Basic.Application;
+
+// 引入基础排班相关的数据传输对象
+using ViteCent.Basic.Data.ScheduleType;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -93,7 +93,7 @@ public class DeleteScheduleType(
         logger.LogInformation("Invoke ViteCent.Basic.Api.ScheduleType.DeleteScheduleType");
 
         // 验证参数有效性
-        if (args == null)
+        if (args is null)
             return new BaseResult(500, "参数不能为空");
 
         // 如果用户不是超级管理员，则验证公司标识是否为空
@@ -105,13 +105,14 @@ public class DeleteScheduleType(
         var check = user.CheckCompanyId(args.CompanyId);
 
         // 如果验证失败，返回错误信息
-        if (check != null && !check.Success)
+        if (check is not null && !check.Success)
             return check;
 
         // 如果用户不是超级管理员，则验证部门标识是否为空
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (string.IsNullOrEmpty(args.DepartmentId))
                 return new BaseResult(500, "部门标识不能为空");
+
         // 创建取消令牌，用于支持异步操作的取消
         var cancellationToken = new CancellationToken();
 

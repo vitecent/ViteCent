@@ -119,7 +119,8 @@ public partial class AddScheduleType
 
         if (!hasCompany.Success)
             return hasCompany;
-        else request.CompanyName = hasCompany?.Data?.Name ?? string.Empty;
+
+        request.CompanyName = hasCompany?.Data?.Name;
 
         var departmentId = user?.Department?.Id ?? string.Empty;
 
@@ -132,7 +133,8 @@ public partial class AddScheduleType
 
         if (!hasDepartment.Success)
             return hasDepartment;
-        else request.DepartmentName = hasDepartment?.Data?.Name ?? string.Empty;
+
+        request.DepartmentName = hasDepartment?.Data?.Name;
 
         var hasArgs = new HasScheduleTypeEntityArgs
         {

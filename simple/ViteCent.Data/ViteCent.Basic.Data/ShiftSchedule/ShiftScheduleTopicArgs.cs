@@ -41,7 +41,7 @@ public class ShiftScheduleTopicArgs : INotification
 
     /// <summary>
     /// </summary>
-    public string ShiftJob { get; set; } = string.Empty;
+    public string ShiftPostName { get; set; } = string.Empty;
 
     /// <summary>
     /// 换班用户标识
@@ -56,4 +56,16 @@ public class ShiftScheduleTopicArgs : INotification
     /// 用户标识
     /// </summary>
     public string UserId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string ShiftPostId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string ShiftTypeId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string ShiftTypeName { get; set; } = string.Empty;
 }

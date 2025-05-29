@@ -55,7 +55,7 @@ public class Login(
 
         var user = await mediator.Send(args, cancellationToken);
 
-        if (user == null)
+        if (user is null)
             return new DataResult<LoginResult>(500, "用户名或密码错误");
 
         if (user.Status == (int)StatusEnum.Disable)
@@ -78,7 +78,7 @@ public class Login(
 
             var baseCompany = await mediator.Send(companyArgs, cancellationToken);
 
-            if (baseCompany.Data == null)
+            if (baseCompany.Data is null)
                 return new DataResult<LoginResult>(500, "公司信息不存在");
 
             userInfo.Company = new BaseCompanyInfo
@@ -101,7 +101,7 @@ public class Login(
 
             var baseDepartment = await mediator.Send(departmentArgs, cancellationToken);
 
-            if (baseDepartment.Data == null)
+            if (baseDepartment.Data is null)
                 return new DataResult<LoginResult>(500, "部门信息不存在");
 
             userInfo.Department = new BaseDepartmentInfo
@@ -124,7 +124,7 @@ public class Login(
 
             var basePosition = await mediator.Send(positionArgs, cancellationToken);
 
-            if (basePosition.Data == null)
+            if (basePosition.Data is null)
                 return new DataResult<LoginResult>(500, "职位信息不存在");
 
             userInfo.Position = new BasePositionInfo

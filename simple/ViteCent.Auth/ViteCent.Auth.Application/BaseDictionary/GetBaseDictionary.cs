@@ -60,7 +60,7 @@ public class GetBaseDictionary(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<BaseDictionaryResult>(500, "字典信息不存在");
 
         var dto = mapper.Map<BaseDictionaryResult>(entity);

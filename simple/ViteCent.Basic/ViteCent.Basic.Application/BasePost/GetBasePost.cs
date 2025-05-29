@@ -60,7 +60,7 @@ public class GetBasePost(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<BasePostResult>(500, "职位信息不存在");
 
         var dto = mapper.Map<BasePostResult>(entity);

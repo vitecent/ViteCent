@@ -56,7 +56,7 @@ public class ResetPasword(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new DataResult<LoginResult>(500, "用户不存在");
 
         request.Password = $"{entity.Username}{request.Password}{BaseConst.Salf}".EncryptMD5();

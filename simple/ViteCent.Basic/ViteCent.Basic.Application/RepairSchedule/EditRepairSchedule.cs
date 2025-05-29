@@ -72,7 +72,7 @@ public partial class EditRepairSchedule(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "补卡申请不存在");
 
         check = await OverrideHandle(entity, cancellationToken);
@@ -80,13 +80,13 @@ public partial class EditRepairSchedule(
         if (!check.Success)
             return check;
 
-        if(request.CompanyName is not null)
+        if (request.CompanyName is not null)
             entity.CompanyName = request.CompanyName;
 
-        if(request.DepartmentName is not null)
+        if (request.DepartmentName is not null)
             entity.DepartmentName = request.DepartmentName;
 
-        if(request.Remark is not null)
+        if (request.Remark is not null)
             entity.Remark = request.Remark;
 
         entity.RepairTime = request.RepairTime;
@@ -95,15 +95,15 @@ public partial class EditRepairSchedule(
 
         entity.ScheduleId = request.ScheduleId;
 
-        if(request.ScheduleName is not null)
+        if (request.ScheduleName is not null)
             entity.ScheduleName = request.ScheduleName;
 
-        if(request.Status.HasValue)
+        if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
         entity.UserId = request.UserId;
 
-        if(request.UserName is not null)
+        if (request.UserName is not null)
             entity.UserName = request.UserName;
 
         entity.Updater = user?.Name ?? string.Empty;

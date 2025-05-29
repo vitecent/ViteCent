@@ -63,7 +63,7 @@ public class DeleteBaseUserRole(ILogger<DeleteBaseUserRole> logger,
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "用户角色不存在");
 
         var args = mapper.Map<DeleteBaseUserRoleEntity>(entity);

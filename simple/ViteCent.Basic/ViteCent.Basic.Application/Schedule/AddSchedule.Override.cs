@@ -138,6 +138,8 @@ public partial class AddSchedule
         if (!hasCompany.Success)
             return hasCompany;
 
+        request.CompanyName = hasCompany?.Data?.Name;
+
         var departmentId = user?.Department?.Id ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(request.DepartmentId))
@@ -150,6 +152,8 @@ public partial class AddSchedule
         if (!hasDepartment.Success)
             return hasDepartment;
 
+        request.DepartmentName = hasDepartment?.Data?.Name;
+
         var positionId = user?.Position?.Id ?? string.Empty;
 
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, positionId, request.UserId,
@@ -157,6 +161,8 @@ public partial class AddSchedule
 
         if (!hasUser.Success)
             return hasUser;
+
+        request.UserName = hasUser?.Data?.RealName;
 
         var hasLeaveArgs = new HasUserLeaveEntityArgs
         {

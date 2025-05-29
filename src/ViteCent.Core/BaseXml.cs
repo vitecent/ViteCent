@@ -25,11 +25,11 @@ public static class BaseXml
 
         using var reader = new StringReader(xml);
 
-        if (reader == null) return default!;
+        if (reader is null) return default!;
 
         var result = new XmlSerializer(typeof(T)).Deserialize(reader);
 
-        if (result == null) return default!;
+        if (result is null) return default!;
 
         return (T)result;
     }
@@ -42,7 +42,7 @@ public static class BaseXml
     /// <exception cref="Exception">当对象为null时抛出异常</exception>
     public static XmlDocument ToXml(this object obj)
     {
-        if (obj == null) throw new Exception("obj 不能为空");
+        if (obj is null) throw new Exception("obj 不能为空");
 
         using var writer = new StringWriter();
         new XmlSerializer(obj.GetType()).Serialize(writer, obj);

@@ -57,9 +57,9 @@ public class Schedule(
 
         var args = mapper.Map<StatisticsScheduleStatisticsEntityArgs>(request);
 
-        args.CompanyId = user.Company.Id;
-        args.DepartmentId = user.Department.Id;
-        args.PositionId = user.Position.Id;
+        args.CompanyId = user?.Company?.Id ?? string.Empty;
+        args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
+        args.PositionId = user?.Position?.Id ?? string.Empty;
 
         if (request.Type == StatisticsScheduleTypeEnum.Year)
         {

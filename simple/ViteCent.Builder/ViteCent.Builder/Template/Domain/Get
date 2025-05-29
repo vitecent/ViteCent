@@ -87,5 +87,9 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
 
 #end
         return await query.FirstAsync(cancellationToken);
+
+
+
+
     }
 }

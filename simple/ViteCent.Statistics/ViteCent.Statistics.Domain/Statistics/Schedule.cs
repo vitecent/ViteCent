@@ -97,7 +97,7 @@ public class Schedule(ILogger<Schedule> logger)
 
         result.Data.Jobs.AddRange(jobs);
 
-        var query = basicClient.Query<ScheduleEntity>().Where(x => jobs.Contains(x.Shift));
+        var query = basicClient.Query<ScheduleEntity>().Where(x => jobs.Contains(x.TypeName));
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query = query.Where(x => x.CompanyId == request.CompanyId);
@@ -111,7 +111,7 @@ public class Schedule(ILogger<Schedule> logger)
 
         var list = await query.Select(x => new ScheduleResult
         {
-            Job = x.Shift,
+            TypeName = x.TypeName,
             UserName = x.UserName,
             FirstTime = x.FirstTime,
             LastTime = x.LastTime
@@ -123,7 +123,7 @@ public class Schedule(ILogger<Schedule> logger)
         foreach (var item in result.Data.Items)
             foreach (var job in result.Data.Jobs)
             {
-                var datas = list.Where(x => x.UserName == item.Name && x.Job == job).ToList();
+                var datas = list.Where(x => x.UserName == item.Name && x.PostName == job).ToList();
                 if (datas.Count == 0)
                 {
                     item.Values.Add([0, 0]);

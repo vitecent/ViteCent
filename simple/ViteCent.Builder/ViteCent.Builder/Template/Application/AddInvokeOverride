@@ -118,6 +118,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (!companys.Success)
             return companys;
 
+
+
+
+
         foreach (var item in companys.Rows)
         {
             var items = request.Items.Where(x => x.CompanyId == item.Id).ToList();
@@ -132,6 +136,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 
         if (!departments.Success)
             return departments;
+
+
+
+
 
         foreach (var item in departments.Rows)
         {
@@ -148,6 +156,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (!positions.Success)
             return positions;
 
+
+
+
+
         foreach (var item in positions.Rows)
         {
             var items = request.Items.Where(x => x.PositionId == item.Id).ToList();
@@ -162,6 +174,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 
         if (!users.Success)
             return users;
+
+
+
+
 
         foreach (var item in users.Rows)
         {
@@ -189,6 +205,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
+
+
+
+
     }
 
     /// <summary>
@@ -226,6 +246,10 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (hasCompany.Success)
             return hasCompany;
 
+
+
+ request.CompanyName = hasCompany?.Data?.Name;
+
 #end
 #if($HasDepartmentId)
         var departmentId = user?.Department?.Id ?? string.Empty;
@@ -238,12 +262,20 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         if (hasDepartment.Success)
             return hasDepartment;
 
+
+
+ request.DepartmentName = hasDepartment?.Data?.Name;
+
 #end
 #if($HasUserId)
         var hasUser = await userInvoke.CheckUser(request.CompanyId, request.DepartmentId, request.UserId, user?.Token ?? string.Empty);
 
         if (hasUser.Success)
             return hasUser;
+
+
+
+ request.UserName = hasUser?.Data?.RealName;
 
 #end
         var hasArgs = new $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}
@@ -263,5 +295,9 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
         };
 
         return await mediator.Send(hasArgs, cancellationToken);
+
+
+
+
     }
 }

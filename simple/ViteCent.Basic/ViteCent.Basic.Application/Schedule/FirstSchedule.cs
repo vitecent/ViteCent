@@ -62,7 +62,7 @@ public partial class FirstSchedule(
 
         var entity = await mediator.Send(args, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "排班信息不存在");
 
         var result = await OverrideHandle(entity, cancellationToken);

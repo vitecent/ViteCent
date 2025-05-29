@@ -56,7 +56,7 @@ public class BaseLoginFilter(IBaseCache cache, IConfiguration configuration) : A
 
         var user = json.DeJson<BaseUserInfo>();
 
-        if (user == null)
+        if (user is null)
         {
             context.Result = result;
             return;

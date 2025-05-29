@@ -63,7 +63,7 @@ public class DeleteShiftSchedule(ILogger<DeleteShiftSchedule> logger,
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "换班申请不存在");
 
         var args = mapper.Map<DeleteShiftScheduleEntity>(entity);

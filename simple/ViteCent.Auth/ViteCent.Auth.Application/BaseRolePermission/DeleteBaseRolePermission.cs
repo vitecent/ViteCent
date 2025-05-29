@@ -58,7 +58,7 @@ public class DeleteBaseRolePermission(ILogger<DeleteBaseRolePermission> logger,
 
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        if (entity == null)
+        if (entity is null)
             return new BaseResult(500, "角色权限不存在");
 
         var args = mapper.Map<DeleteBaseRolePermissionEntity>(entity);

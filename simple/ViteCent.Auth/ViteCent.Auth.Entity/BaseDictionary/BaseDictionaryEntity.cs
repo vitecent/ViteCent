@@ -48,6 +48,12 @@ public class BaseDictionaryEntity : BaseEntity, IRequest<BaseResult>
     public string CompanyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// 公司名称
+    /// </summary>
+    [SugarColumn(ColumnName = "companyName")]
+    public string? CompanyName { get; set; }
+
+    /// <summary>
     /// 创建时间
     /// </summary>
     [SugarColumn(ColumnName = "createTime")]
