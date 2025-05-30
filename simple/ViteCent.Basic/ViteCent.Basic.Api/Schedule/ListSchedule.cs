@@ -1,6 +1,5 @@
 #region
 
-
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
 
@@ -8,7 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // 引入基础数据传输对象
-using ViteCent.Basic.Application;
 
 // 引入排班信息相关的数据传输对象
 using ViteCent.Basic.Data.Schedule;

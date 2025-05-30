@@ -16,11 +16,11 @@ using Microsoft.AspNetCore.Mvc;
 // 引入基础数据传输对象
 using ViteCent.Basic.Application;
 
-// 引入请假申请相关的数据传输对象
-using ViteCent.Basic.Data.UserLeave;
-
 // 引入基础日志数据传输对象
 using ViteCent.Basic.Data.BaseLogs;
+
+// 引入请假申请相关的数据传输对象
+using ViteCent.Basic.Data.UserLeave;
 
 // 引入核心
 using ViteCent.Core;

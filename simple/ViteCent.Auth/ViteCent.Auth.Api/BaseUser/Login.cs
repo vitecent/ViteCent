@@ -65,9 +65,9 @@ public class Login(
         var logsArgs = new AddBaseLogsArgs()
         {
             CompanyId = string.Empty,
-            CompanyName =  string.Empty,
-            DepartmentId =  string.Empty,
-            DepartmentName =  string.Empty,
+            CompanyName = string.Empty,
+            DepartmentId = string.Empty,
+            DepartmentName = string.Empty,
             SystemId = string.Empty,
             SystemName = "Auth",
             ResourceId = string.Empty,

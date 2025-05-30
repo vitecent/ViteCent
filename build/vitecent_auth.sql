@@ -11,7 +11,7 @@
  Target Server Version : 80042
  File Encoding         : 65001
 
- Date: 29/05/2025 11:05:42
+ Date: 30/05/2025 09:08:12
 */
 
 SET NAMES utf8mb4;
@@ -51,11 +51,6 @@ CREATE TABLE `base_company`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '公司信息' ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of base_company
--- ----------------------------
-INSERT INTO `base_company` VALUES ('1', NULL, NULL, NULL, '鼎新基地', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:20:01', NULL, '2025-05-28 16:20:01', '2025-05-28 16:20:01', 1);
-
--- ----------------------------
 -- Table structure for base_department
 -- ----------------------------
 DROP TABLE IF EXISTS `base_department`;
@@ -82,11 +77,6 @@ CREATE TABLE `base_department`  (
   INDEX `name`(`name`) USING BTREE,
   INDEX `companyId`(`companyId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '部门信息' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of base_department
--- ----------------------------
-INSERT INTO `base_department` VALUES ('1', NULL, NULL, '1', '鼎新基地', NULL, '航气处', NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:21:25', NULL, '2025-05-28 16:21:25', '2025-05-28 16:21:25', 1);
 
 -- ----------------------------
 -- Table structure for base_dictionary
@@ -116,9 +106,36 @@ CREATE TABLE `base_dictionary`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '字典信息' ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of base_dictionary
+-- Table structure for base_logs
 -- ----------------------------
-INSERT INTO `base_dictionary` VALUES ('1', '1', '鼎新基地', NULL, NULL, 'Model', '打卡方式', '1', NULL, NULL, NULL, NULL, '2025-05-28 16:21:51', NULL, '2025-05-28 16:21:51', '2025-05-28 16:21:51', 1);
+DROP TABLE IF EXISTS `base_logs`;
+CREATE TABLE `base_logs`  (
+  `id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '标识',
+  `companyId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公司标识',
+  `companyName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '公司名称',
+  `departmentId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '部门标识',
+  `departmentName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '部门名称',
+  `systemId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '系统标识',
+  `systemName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '系统名称',
+  `resourceId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '资源标识',
+  `resourceName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '资源名称',
+  `operationId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '操作标识',
+  `operationName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '操作名称',
+  `description` varchar(5000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '简介',
+  `args` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '数据',
+  `creator` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `createTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `updater` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
+  `updateTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+  `dataVersion` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '数据版本',
+  `status` int(0) NULL DEFAULT 1 COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `departmentId`(`departmentId`) USING BTREE,
+  INDEX `companyId`(`companyId`) USING BTREE,
+  INDEX `resourceId`(`resourceId`) USING BTREE,
+  INDEX `operationId`(`operationId`) USING BTREE,
+  INDEX `systemId`(`systemId`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '日志信息' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for base_operation
@@ -153,7 +170,6 @@ CREATE TABLE `base_operation`  (
 DROP TABLE IF EXISTS `base_position`;
 CREATE TABLE `base_position`  (
   `id` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '标识',
-  `level` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '级别',
   `companyId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公司标识',
   `companyName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '公司名称',
   `code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '编码',
@@ -310,14 +326,6 @@ CREATE TABLE `base_user`  (
   INDEX `userNo`(`userNo`) USING BTREE,
   INDEX `idCard`(`idCard`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户信息' ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of base_user
--- ----------------------------
-INSERT INTO `base_user` VALUES ('1', '1', '鼎新基地', '1', '航气处', '', NULL, 1, '', 'admin', 'C383B86184682DF3E48B2BCE066B91E2', '', '', '管理员', '', 0, '', NULL, '', '', NULL, NULL, '', '2025-05-28 16:19:19', NULL, '2025-05-28 16:22:23', '2025-05-28 16:22:23', NULL);
-INSERT INTO `base_user` VALUES ('2', '1', '鼎新基地', '1', '航气处', '', NULL, 2, NULL, 'ZhangSan', '2A0D83351D75245BEA5E35B36F7C9DF8', NULL, NULL, '用户1', NULL, 1, NULL, NULL, NULL, '1', NULL, NULL, '管理员', '2025-05-28 17:20:21', '管理员', '2025-05-29 09:37:58', '2025-05-29 09:37:58', 1);
-INSERT INTO `base_user` VALUES ('3', '1', '鼎新基地', '1', '航气处', '', '', 2, NULL, 'LiSi', 'E59B68567F6477BDB61A29F9EC23C5EA', NULL, NULL, '用户2', NULL, 2, NULL, NULL, NULL, '2', NULL, NULL, '管理员', '2025-05-28 17:33:05', NULL, '2025-05-29 09:38:02', '2025-05-29 09:38:02', 1);
-INSERT INTO `base_user` VALUES ('4', '1', '鼎新基地', '1', '航气处', '', '1', 2, NULL, 'WangWu', '75445BF2DD53D74A4EBACA356F5E8210', NULL, NULL, '用户3', NULL, 1, NULL, NULL, NULL, '2', NULL, NULL, '管理员', '2025-05-28 17:34:46', NULL, '2025-05-29 09:38:10', '2025-05-29 09:38:10', 1);
 
 -- ----------------------------
 -- Table structure for base_user_role

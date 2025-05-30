@@ -17,11 +17,11 @@ using Microsoft.AspNetCore.Mvc;
 // 引入基础数据传输对象
 using ViteCent.Auth.Application;
 
-// 引入用户角色相关的数据传输对象
-using ViteCent.Auth.Data.BaseUserRole;
-
 // 引入基础日志数据传输对象
 using ViteCent.Auth.Data.BaseLogs;
+
+// 引入用户角色相关的数据传输对象
+using ViteCent.Auth.Data.BaseUserRole;
 
 // 引入核心
 using ViteCent.Core;

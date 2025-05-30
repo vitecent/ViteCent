@@ -17,11 +17,11 @@ using Microsoft.AspNetCore.Mvc;
 // 引入基础数据传输对象
 using ViteCent.Basic.Application;
 
-// 引入调休申请相关的数据传输对象
-using ViteCent.Basic.Data.UserRest;
-
 // 引入基础日志数据传输对象
 using ViteCent.Basic.Data.BaseLogs;
+
+// 引入调休申请相关的数据传输对象
+using ViteCent.Basic.Data.UserRest;
 
 // 引入核心
 using ViteCent.Core;

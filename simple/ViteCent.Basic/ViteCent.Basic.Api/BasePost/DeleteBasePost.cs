@@ -16,11 +16,11 @@ using Microsoft.AspNetCore.Mvc;
 // 引入基础数据传输对象
 using ViteCent.Basic.Application;
 
-// 引入职位信息相关的数据传输对象
-using ViteCent.Basic.Data.BasePost;
-
 // 引入基础日志数据传输对象
 using ViteCent.Basic.Data.BaseLogs;
+
+// 引入职位信息相关的数据传输对象
+using ViteCent.Basic.Data.BasePost;
 
 // 引入核心
 using ViteCent.Core;
