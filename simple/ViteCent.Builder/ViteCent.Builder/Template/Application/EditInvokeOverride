@@ -5,25 +5,38 @@
  * **********************************
  */
 
-#region
-
+#region 引入命名空间
 #if($HasCompanyId)
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasUserId)
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
+// 引入$!{Table.Description}相关的数据模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 

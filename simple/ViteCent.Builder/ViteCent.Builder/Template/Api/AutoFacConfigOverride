@@ -5,12 +5,15 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入Autofac依赖注入容器相关命名空间，提供IoC容器的核心功能
 using Autofac;
+
+// 将Autofac.Module重命名为Module，避免与System.Reflection.Module的命名冲突
 using Module = Autofac.Module;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Api.Name};
 

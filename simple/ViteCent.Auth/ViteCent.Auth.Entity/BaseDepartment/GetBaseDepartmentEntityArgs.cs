@@ -5,11 +5,11 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 using MediatR;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Auth.Entity.BaseDepartment;
 

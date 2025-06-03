@@ -5,11 +5,11 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 using MediatR;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Auth.Entity.BaseOperation;
 
@@ -35,7 +35,7 @@ public class GetBaseOperationEntityArgs : IRequest<BaseOperationEntity>
     public string ResourceId { get; set; } = string.Empty;
 
     /// <summary>
-    /// 系统标识
+    /// 核心标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
 }

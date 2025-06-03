@@ -5,23 +5,38 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
+
+// 引入基础排班相关的数据模型
 using ViteCent.Basic.Entity.ScheduleType;
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
+
+// 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Basic.Domain.ScheduleType;
 
 /// <summary>
-/// 批量新增基础排班领域
+/// 批量新增基础排班领域服务类
 /// </summary>
-/// <param name="logger"></param>
+/// <remarks>
+/// 该类负责处理批量新增基础排班的业务逻辑
+/// 继承自 BaseDomain 基类并实现 IRequestHandler 接口
+/// 通过依赖注入方式接收日志记录器，用于记录操作日志
+/// </remarks>
+/// <param name="logger">日志记录器实例</param>
 public class AddScheduleTypeList(
+    // 注入日志记录器
     ILogger<AddScheduleTypeList> logger)
     : BaseDomain<AddScheduleTypeEntity>, IRequestHandler<AddScheduleTypeEntityListArgs, BaseResult>
 {
@@ -31,15 +46,21 @@ public class AddScheduleTypeList(
     public override string DataBaseName => "ViteCent.Basic";
 
     /// <summary>
-    /// 批量新增基础排班
+    /// 处理批量新增基础排班的请求
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <remarks>
+    /// 实现 IRequestHandler 接口的 Handle 方法
+    /// 记录操作日志并调用基类的 AddAsync 方法执行批量新增操作
+    /// </remarks>
+    /// <param name="request">包含要新增的基础排班列表的请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>返回批量新增操作的结果</returns>
     public async Task<BaseResult> Handle(AddScheduleTypeEntityListArgs request, CancellationToken cancellationToken)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ScheduleType.AddScheduleTypeList");
 
+        // 调用基类的批量新增方法，传入请求中的基础排班列表
         return await base.AddAsync(request.Items);
     }
 }

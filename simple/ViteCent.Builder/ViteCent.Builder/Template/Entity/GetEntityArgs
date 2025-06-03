@@ -5,11 +5,11 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 using MediatR;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
@@ -77,7 +77,7 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!
 #end
 #if($HasSystemId)
     /// <summary>
-    /// 系统标识
+    /// 核心标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
 

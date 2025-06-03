@@ -5,40 +5,68 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入 AutoMapper 用于对象映射
 using AutoMapper;
+
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
+
+// 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Http;
 #end
+
+// 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
+// 引入$!{Table.Description}相关的数据模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
+
+// 引入核心枚举类型
 using ViteCent.Core.Enums;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 删除$!{Table.Description}应用
+/// 删除$!{Table.Description}的应用服务类
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mapper"></param>
-/// <param name="mediator"></param>
+/// <remarks>
+/// 该类负责处理$!{Table.Description}的删除操作，包括：
+/// 1. 验证$!{Table.Description}是否存在
+/// 2. 执行删除操作
+/// 3. 触发相关事件通知
+/// </remarks>
+/// <param name="logger">日志记录器，用于记录操作日志</param>
+/// <param name="mapper">对象映射器，用于结构和模型对象之间的转换</param>
+/// <param name="mediator">中介者，用于处理命令和查询</param>
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
-/// <param name="httpContextAccessor"></param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 #end
-public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger,
+public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(
+    // 注入日志记录器
+    ILogger<$!{Setting.DeleteName}$!{Table.CamelCaseName}> logger,
+    // 注入映射器接口
     IMapper mapper,
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
+    // 注入中介者接口
     IMediator mediator,
-    IHttpContextAccessor httpContextAccessor) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
+    // 注入HTTP上下文访问器
+    IHttpContextAccessor httpContextAccessor)
 #else
-    IMediator mediator) : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
+    IMediator mediator) 
 #end
+    // 继承基类，指定查询参数和返回结果类型
+    : IRequestHandler<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
     /// <summary>
@@ -48,22 +76,33 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
 
 #end
     /// <summary>
-    /// 删除$!{Table.Description}
+    /// 处理删除$!{Table.Description}的请求
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">删除$!{Table.Description}的请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>返回操作结果，包含状态码和消息</returns>
+    /// <remarks>
+    /// 该方法的处理流程：
+    /// 1. 记录操作日志
+    /// 2. 将请求参数转换为查询参数
+    /// 3. 查询$!{Table.Description}是否存在
+    /// 4. 执行删除操作
+    /// 5. 触发删除事件通知
+    /// </remarks>
     public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
+        // 初始化当前用户信息
         user = httpContextAccessor.InitUser();
 
 #end
 #if($HasCompanyId)
         var companyId = user?.Company?.Id ?? string.Empty;
 
+        // 如果用户没有$!{Table.Description}，则不设置公司标识
         if (!string.IsNullOrWhiteSpace(companyId))
             request.CompanyId = companyId;
 
@@ -71,6 +110,7 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
 #if($HasDepartmentId)
         var departmentId = user?.Department?.Id ?? string.Empty;
 
+        // 如果用户没有部门信息，则不设置部门标识
         if (!string.IsNullOrWhiteSpace(departmentId))
             request.DepartmentId = departmentId;
 
@@ -78,23 +118,31 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(ILogger<$!{Setting.De
 #if($HasPositionId)
         var positionId = user?.Position?.Id ?? string.Empty;
 
+        // 如果用户没有职位信息，则不设置职位标识
         if (!string.IsNullOrWhiteSpace(positionId))
             request.PositionId = positionId;
 
 #end
+        // 将删除请求参数映射为查询参数
         var getArgs = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);
 
+        // 查询要删除的$!{Table.Description}模型
         var entity = await mediator.Send(getArgs, cancellationToken);
 
+        / 如果$!{Table.Description}不存在，返回错误结果
         if (entity is null)
             return new BaseResult(500, "$!{Table.Description}不存在");
 
+        // 将$!{Table.Description}模型映射为删除模型参数
         var args = mapper.Map<$!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}>(entity);
 
+        // 发送删除命令并获取结果
         var result = await mediator.Send(args, cancellationToken);
 
+        // 触发删除事件通知
         await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideTopic(mediator, TopicEnum.Delete, entity, cancellationToken);
 
+        // 返回操作结果
         return result;
     }
 }

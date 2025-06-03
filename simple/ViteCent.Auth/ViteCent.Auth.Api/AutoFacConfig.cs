@@ -6,7 +6,7 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 // 引入Autofac IoC容器的功能
 using Autofac;
@@ -17,7 +17,7 @@ using System.Reflection;
 // 将Autofac.Module重命名为Module，避免与System.Reflection.Module的命名冲突
 using Module = Autofac.Module;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Auth.Api;
 
@@ -68,7 +68,7 @@ public partial class AutoFacConfig : Module
         var assemblies = new List<Assembly>();
 
         // 定义需要扫描的dll文件匹配模式
-        // *Application.dll：应用程序集，包含应用服务、DTO对象和业务逻辑实现
+        // *Application.dll：应用程序集，包含应用服务、结构对象和业务逻辑实现
         // *Domain.dll：领域程序集，包含领域模型、领域服务和领域事件
         var dlls = new List<string>
         {

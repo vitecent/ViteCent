@@ -5,12 +5,12 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 using MediatR;
 using ViteCent.Core.Data;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
@@ -78,7 +78,7 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSu
 #end
 #if($HasSystemId)
     /// <summary>
-    /// 系统标识
+    /// 核心标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
 

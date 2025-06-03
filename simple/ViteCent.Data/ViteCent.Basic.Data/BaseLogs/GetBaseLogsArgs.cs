@@ -5,12 +5,12 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 using MediatR;
 using ViteCent.Core.Data;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Basic.Data.BaseLogs;
 
@@ -46,7 +46,7 @@ public class GetBaseLogsArgs : BaseArgs, IRequest<DataResult<BaseLogsResult>>
     public string ResourceId { get; set; } = string.Empty;
 
     /// <summary>
-    /// 系统标识
+    /// 核心标识
     /// </summary>
     public string SystemId { get; set; } = string.Empty;
 }

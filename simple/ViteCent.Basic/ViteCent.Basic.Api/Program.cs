@@ -5,12 +5,12 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 // 引入 Web 核心
 using ViteCent.Core.Web;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Basic.Api;
 
@@ -59,6 +59,7 @@ public class Program
             }
         };
 
+        // 启动微服务应用程序
         await microService.RunAsync(args);
     }
 }

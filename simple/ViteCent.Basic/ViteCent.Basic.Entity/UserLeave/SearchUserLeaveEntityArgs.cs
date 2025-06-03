@@ -5,12 +5,12 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 using MediatR;
 using ViteCent.Core.Data;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Basic.Entity.UserLeave;
 

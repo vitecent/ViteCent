@@ -5,23 +5,37 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
+
+// 引入$!{Table.Description}相关的数据模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+
+// 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 获取$!{Table.Description}领域
+/// 获取$!{Table.Description}领域服务类
 /// </summary>
-/// <param name="logger"></param>
+/// <remarks>
+/// 该类负责处理获取单个$!{Table.Description}的业务逻辑，包括：
+/// 1. 根据$!{Table.Description}标识查询$!{Table.Description}详细信息
+/// 2. 返回查询结果
+/// </remarks>
+/// <param name="logger">日志记录器实例</param>
 public class $!{Setting.GetName}$!{Table.CamelCaseName}(
+    // 注入日志记录器
     ILogger<$!{Setting.GetName}$!{Table.CamelCaseName}> logger)
+    // 继承基类，指定查询参数和返回结果类型
     : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}, $!{Table.CamelCaseName}$!{Setting.Entity.Name}>
 {
     /// <summary>
@@ -30,62 +44,80 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
     public override string DataBaseName => "$!{DataBase.Name}";
 
     /// <summary>
-    /// 获取$!{Table.Description}
+    /// 处理获取$!{Table.Description}的请求
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">包含$!{Table.Description}标识的请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>$!{Table.Description}模型信息</returns>
+    /// <remarks>
+    /// 该方法执行以下步骤：
+    /// 1. 记录方法调用日志
+    /// 2. 构建查询条件
+    /// 3. 执行查询并返回第一条匹配记录
+    /// </remarks>
     public async Task<$!{Table.CamelCaseName}$!{Setting.Entity.Name}> Handle($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
 
+        // 初始化查询对象
         var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
 
 #if($HasId)
+        // 如果请求中包含标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id == request.Id);
 
 #end
 #if($HasCompanyId)
+        // 如果请求中包含公司标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);
 
 #end
 #if($HasDepartmentId)
+        // 如果请求中包含部门标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query.Where(x => x.DepartmentId == request.DepartmentId);
 
 #end
 #if($HasPositionId)
+        // 如果请求中包含职位标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.PositionId))
             query.Where(x => x.PositionId == request.PositionId);
 
 #end
 #if($HasRoleId)
+        // 如果请求中包含角色标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.RoleId))
             query.Where(x => x.RoleId == request.RoleId);
 
 #end
 #if($HasUserId)
+        // 如果请求中包含用户标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
 #end
 #if($HasSystemId)
+        // 如果请求中包含核心标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.SystemId))
             query.Where(x => x.SystemId == request.SystemId);
 
 #end
 #if($HasResourceId)
+        // 如果请求中包含资源标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.ResourceId))
             query.Where(x => x.ResourceId == request.ResourceId);
 
 #end
 #if($HasOperationId)
+        // 如果请求中包含操作标识，则添加查询条件
         if (!string.IsNullOrWhiteSpace(request.OperationId))
             query.Where(x => x.OperationId == request.OperationId);
 
 #end
+        // 执行异步查询，返回第一条匹配记录
         return await query.FirstAsync(cancellationToken);
     }
 }

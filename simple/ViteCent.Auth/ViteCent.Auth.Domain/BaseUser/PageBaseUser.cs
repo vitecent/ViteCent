@@ -5,22 +5,39 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
+
+// 引入用户信息相关的数据模型
 using ViteCent.Auth.Entity.BaseUser;
+
+// 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Auth.Domain.BaseUser;
 
-/// <summary>
-/// 用户信息分页领域
+// <summary>
+/// 用户信息分页查询领域服务
 /// </summary>
-/// <param name="logger"></param>
-public class PageBaseUser(ILogger<PageBaseUser> logger) : BaseDomain<BaseUserEntity>, IRequestHandler<SearchBaseUserEntityArgs, List<BaseUserEntity>>
+/// <remarks>
+/// 该类负责处理用户信息的分页查询请求，主要功能包括：
+/// 1. 接收并处理分页查询参数
+/// 2. 调用基础设施层执行分页查询
+/// 3. 返回符合条件的用户信息列表
+/// </remarks>
+/// <param name="logger">日志记录器，用于记录处理过程中的关键信息</param>
+public class PageBaseUser(
+    // 注入日志记录器
+    ILogger<PageBaseUser> logger) 
+    // 继承基类，指定查询参数和返回结果类型
+    : BaseDomain<BaseUserEntity>, IRequestHandler<SearchBaseUserEntityArgs, List<BaseUserEntity>>
 {
     /// <summary>
     /// 数据库名称
@@ -28,16 +45,24 @@ public class PageBaseUser(ILogger<PageBaseUser> logger) : BaseDomain<BaseUserEnt
     public override string DataBaseName => "ViteCent.Auth";
 
     /// <summary>
-    /// 用户信息分页
+    /// 处理用户信息分页查询请求
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">分页查询参数，包含页码、每页大小、查询条件等</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>符合条件的用户信息模型列表</returns>
+    /// <remarks>
+    /// 处理流程：
+    /// 1. 记录操作日志
+    /// 2. 调用基类的分页查询方法
+    /// 3. 返回查询结果
+    /// </remarks>
     public async Task<List<BaseUserEntity>> Handle(SearchBaseUserEntityArgs request,
         CancellationToken cancellationToken)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseUser.PageBaseUser");
 
+        // 调用基类的分页查询方法并返回结果
         return await base.PageAsync(request);
     }
 }

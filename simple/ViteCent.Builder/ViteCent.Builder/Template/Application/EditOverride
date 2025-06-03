@@ -5,37 +5,58 @@
  * **********************************
  */
 
-#region
-
+#region 引入命名空间
 #if($HasCompanyId)
+
+// 引入$!{Table.Description}相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
+
+// 引入部门信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseDepartment;
 #end
 #if($HasOperationId)
+
+// 引入操作信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseOperation;
 #end
 #if($HasPositionId)
+
+// 引入职位信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BasePosition;
 #end
 #if($HasResourceId)
+
+// 引入资源信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseResource;
 #end
 #if($HasRoleId)
+
+// 引入角色信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseRole;
 #end
 #if($HasUserId)
+
+// 引入用户信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
 #end
 #if($HasSystemId)
+
+// 引入核心信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
 #end
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
+// 引入$!{Table.Description}相关的数据模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 

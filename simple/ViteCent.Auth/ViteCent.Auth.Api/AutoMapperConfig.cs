@@ -6,42 +6,42 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
-// 引入公司信息相关的数据传输对象
+// 引入公司信息相关的数据结构
 using ViteCent.Auth.Data.BaseCompany;
 
-// 引入部门信息相关的数据传输对象
+// 引入部门信息相关的数据结构
 using ViteCent.Auth.Data.BaseDepartment;
 
-// 引入字典信息相关的数据传输对象
+// 引入字典信息相关的数据结构
 using ViteCent.Auth.Data.BaseDictionary;
 
-// 引入日志信息相关的数据传输对象
+// 引入日志信息相关的数据结构
 using ViteCent.Auth.Data.BaseLogs;
 
-// 引入操作信息相关的数据传输对象
+// 引入操作信息相关的数据结构
 using ViteCent.Auth.Data.BaseOperation;
 
-// 引入职位信息相关的数据传输对象
+// 引入职位信息相关的数据结构
 using ViteCent.Auth.Data.BasePosition;
 
-// 引入资源信息相关的数据传输对象
+// 引入资源信息相关的数据结构
 using ViteCent.Auth.Data.BaseResource;
 
-// 引入角色信息相关的数据传输对象
+// 引入角色信息相关的数据结构
 using ViteCent.Auth.Data.BaseRole;
 
-// 引入角色权限相关的数据传输对象
+// 引入角色权限相关的数据结构
 using ViteCent.Auth.Data.BaseRolePermission;
 
-// 引入系统信息相关的数据传输对象
+// 引入系统信息相关的数据结构
 using ViteCent.Auth.Data.BaseSystem;
 
-// 引入用户信息相关的数据传输对象
+// 引入用户信息相关的数据结构
 using ViteCent.Auth.Data.BaseUser;
 
-// 引入用户角色相关的数据传输对象
+// 引入用户角色相关的数据结构
 using ViteCent.Auth.Data.BaseUserRole;
 
 // 引入公司信息相关的数据模型对象
@@ -83,7 +83,7 @@ using ViteCent.Auth.Entity.BaseUserRole;
 // 引入 Web 核心
 using ViteCent.Core.Web;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Auth.Api;
 
@@ -130,7 +130,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseCompanyArgs, GetBaseCompanyEntityArgs>();
         CreateMap<BaseCompanyEntity, DeleteBaseCompanyEntity>();
 
-        #endregion
+        #endregion 公司信息对象映射配置
 
         #region 部门信息对象映射配置
 
@@ -159,7 +159,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseDepartmentArgs, GetBaseDepartmentEntityArgs>();
         CreateMap<BaseDepartmentEntity, DeleteBaseDepartmentEntity>();
 
-        #endregion
+        #endregion 部门信息对象映射配置
 
         #region 字典信息对象映射配置
 
@@ -188,7 +188,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseDictionaryArgs, GetBaseDictionaryEntityArgs>();
         CreateMap<BaseDictionaryEntity, DeleteBaseDictionaryEntity>();
 
-        #endregion
+        #endregion 字典信息对象映射配置
 
         #region 日志信息对象映射配置
 
@@ -217,7 +217,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseLogsArgs, GetBaseLogsEntityArgs>();
         CreateMap<BaseLogsEntity, DeleteBaseLogsEntity>();
 
-        #endregion
+        #endregion 日志信息对象映射配置
 
         #region 操作信息对象映射配置
 
@@ -246,7 +246,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseOperationArgs, GetBaseOperationEntityArgs>();
         CreateMap<BaseOperationEntity, DeleteBaseOperationEntity>();
 
-        #endregion
+        #endregion 操作信息对象映射配置
 
         #region 职位信息对象映射配置
 
@@ -275,7 +275,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBasePositionArgs, GetBasePositionEntityArgs>();
         CreateMap<BasePositionEntity, DeleteBasePositionEntity>();
 
-        #endregion
+        #endregion 职位信息对象映射配置
 
         #region 资源信息对象映射配置
 
@@ -304,7 +304,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseResourceArgs, GetBaseResourceEntityArgs>();
         CreateMap<BaseResourceEntity, DeleteBaseResourceEntity>();
 
-        #endregion
+        #endregion 资源信息对象映射配置
 
         #region 角色信息对象映射配置
 
@@ -333,7 +333,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseRoleArgs, GetBaseRoleEntityArgs>();
         CreateMap<BaseRoleEntity, DeleteBaseRoleEntity>();
 
-        #endregion
+        #endregion 角色信息对象映射配置
 
         #region 角色权限对象映射配置
 
@@ -362,7 +362,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseRolePermissionArgs, GetBaseRolePermissionEntityArgs>();
         CreateMap<BaseRolePermissionEntity, DeleteBaseRolePermissionEntity>();
 
-        #endregion
+        #endregion 角色权限对象映射配置
 
         #region 系统信息对象映射配置
 
@@ -391,7 +391,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseSystemArgs, GetBaseSystemEntityArgs>();
         CreateMap<BaseSystemEntity, DeleteBaseSystemEntity>();
 
-        #endregion
+        #endregion 系统信息对象映射配置
 
         #region 用户信息对象映射配置
 
@@ -420,7 +420,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseUserArgs, GetBaseUserEntityArgs>();
         CreateMap<BaseUserEntity, DeleteBaseUserEntity>();
 
-        #endregion
+        #endregion 用户信息对象映射配置
 
         #region 用户角色对象映射配置
 
@@ -449,7 +449,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseUserRoleArgs, GetBaseUserRoleEntityArgs>();
         CreateMap<BaseUserRoleEntity, DeleteBaseUserRoleEntity>();
 
-        #endregion
+        #endregion 用户角色对象映射配置
 
         // 其他对象映射配置
         OverrideMap();

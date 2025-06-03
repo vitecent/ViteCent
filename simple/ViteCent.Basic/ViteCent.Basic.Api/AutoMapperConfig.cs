@@ -6,30 +6,30 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
-// 引入日志信息相关的数据传输对象
+// 引入日志信息相关的数据结构
 using ViteCent.Basic.Data.BaseLogs;
 
-// 引入职位信息相关的数据传输对象
+// 引入职位信息相关的数据结构
 using ViteCent.Basic.Data.BasePost;
 
-// 引入补卡申请相关的数据传输对象
+// 引入补卡申请相关的数据结构
 using ViteCent.Basic.Data.RepairSchedule;
 
-// 引入排班信息相关的数据传输对象
+// 引入排班信息相关的数据结构
 using ViteCent.Basic.Data.Schedule;
 
-// 引入基础排班相关的数据传输对象
+// 引入基础排班相关的数据结构
 using ViteCent.Basic.Data.ScheduleType;
 
-// 引入换班申请相关的数据传输对象
+// 引入换班申请相关的数据结构
 using ViteCent.Basic.Data.ShiftSchedule;
 
-// 引入请假申请相关的数据传输对象
+// 引入请假申请相关的数据结构
 using ViteCent.Basic.Data.UserLeave;
 
-// 引入调休申请相关的数据传输对象
+// 引入调休申请相关的数据结构
 using ViteCent.Basic.Data.UserRest;
 
 // 引入日志信息相关的数据模型对象
@@ -59,7 +59,7 @@ using ViteCent.Basic.Entity.UserRest;
 // 引入 Web 核心
 using ViteCent.Core.Web;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Basic.Api;
 
@@ -100,7 +100,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBaseLogsArgs, GetBaseLogsEntityArgs>();
         CreateMap<BaseLogsEntity, DeleteBaseLogsEntity>();
 
-        #endregion
+        #endregion 日志信息对象映射配置
 
         #region 职位信息对象映射配置
 
@@ -123,7 +123,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteBasePostArgs, GetBasePostEntityArgs>();
         CreateMap<BasePostEntity, DeleteBasePostEntity>();
 
-        #endregion
+        #endregion 职位信息对象映射配置
 
         #region 补卡申请对象映射配置
 
@@ -146,7 +146,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteRepairScheduleArgs, GetRepairScheduleEntityArgs>();
         CreateMap<RepairScheduleEntity, DeleteRepairScheduleEntity>();
 
-        #endregion
+        #endregion 补卡申请对象映射配置
 
         #region 排班信息对象映射配置
 
@@ -169,7 +169,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteScheduleArgs, GetScheduleEntityArgs>();
         CreateMap<ScheduleEntity, DeleteScheduleEntity>();
 
-        #endregion
+        #endregion 排班信息对象映射配置
 
         #region 基础排班对象映射配置
 
@@ -192,7 +192,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteScheduleTypeArgs, GetScheduleTypeEntityArgs>();
         CreateMap<ScheduleTypeEntity, DeleteScheduleTypeEntity>();
 
-        #endregion
+        #endregion 基础排班对象映射配置
 
         #region 换班申请对象映射配置
 
@@ -215,7 +215,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteShiftScheduleArgs, GetShiftScheduleEntityArgs>();
         CreateMap<ShiftScheduleEntity, DeleteShiftScheduleEntity>();
 
-        #endregion
+        #endregion 换班申请对象映射配置
 
         #region 请假申请对象映射配置
 
@@ -238,7 +238,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteUserLeaveArgs, GetUserLeaveEntityArgs>();
         CreateMap<UserLeaveEntity, DeleteUserLeaveEntity>();
 
-        #endregion
+        #endregion 请假申请对象映射配置
 
         #region 调休申请对象映射配置
 
@@ -261,7 +261,7 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<DeleteUserRestArgs, GetUserRestEntityArgs>();
         CreateMap<UserRestEntity, DeleteUserRestEntity>();
 
-        #endregion
+        #endregion 调休申请对象映射配置
 
         // 其他对象映射配置
         OverrideMap();

@@ -5,56 +5,96 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
 #if($HasCompanyId)
+
+// 引入$!{Table.Description}相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
+
+// 引入部门信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseDepartment;
 #end
 #if($HasOperationId)
+
+// 引入操作信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseOperation;
 #end
 #if($HasPositionId)
+
+// 引入职位信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BasePosition;
 #end
 #if($HasResourceId)
+
+// 引入资源信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseResource;
 #end
 #if($HasRoleId)
+
+// 引入角色信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseRole;
 #end
 #if($HasUserId)
+
+// 引入用户信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
 #end
 #if($HasSystemId)
+
+// 引入核心信息相关的模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
 #end
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
+// 引入$!{Table.Description}相关的数据模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+
+// 引入核心
 using ViteCent.Core;
+
+// 引入核心枚举类型
 using ViteCent.Core.Data;
+
+// 引入核心枚举类型
 using ViteCent.Core.Enums;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 新增$!{Table.Description}应用拓展
+/// 新增$!{Table.Description}应用服务的扩展部分类
 /// </summary>
+/// <remarks>
+/// 该部分类包含了新增$!{Table.Description}时的自定义验证逻辑和事件处理：
+/// 1. 父级公司的验证
+/// 2. 公司编码和名称的唯一性检查
+/// 3. 公司层级关系的设置
+/// 4. 批量新增时的验证逻辑
+/// 5. 相关事件的处理
+/// </remarks>
 public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 {
     /// <summary>
-    /// 验证参数
+    /// 批量新增$!{Table.Description}的前置验证处理
     /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="request"></param>
-    /// <param name="user"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="mediator">中介者，用于处理命令和查询</param>
+    /// <param name="request">批量新增$!{Table.Description}的请求参数</param>
+    /// <param name="user">当前操作用户信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>返回验证结果，包含状态码和消息</returns>
+    /// <remarks>
+    /// 该方法执行以下验证：
+    /// 1. 验证所有父级公司是否存在且状态正常
+    /// 2. 检查所有公司编码和名称的唯一性
+    /// </remarks>
     internal static async Task<BaseResult> OverrideHandle(IMediator mediator,
         $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request,
         BaseUserInfo user,
@@ -200,12 +240,17 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     }
 
     /// <summary>
+    /// 处理$!{Table.Description}变更的事件通知
     /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="topic"></param>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="mediator">中介者，用于处理命令和查询</param>
+    /// <param name="topic">事件主题，表示操作类型（新增、修改、删除等）</param>
+    /// <param name="entity">公司模型信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>异步任务</returns>
+    /// <remarks>
+    /// 该方法用于处理$!{Table.Description}变更后的事件通知
+    /// 目前为预留方法，暂无具体实现
+    /// </remarks>
     internal static async Task OverrideTopic(IMediator mediator,
         TopicEnum topic,
         $!{Table.CamelCaseName}$!{Setting.Entity.Name} entity,
@@ -215,11 +260,17 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     }
 
     /// <summary>
-    /// 验证参数
+    /// 新增单个$!{Table.Description}的前置验证处理
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">新增$!{Table.Description}的请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>返回验证结果，包含状态码和消息</returns>
+    /// <remarks>
+    /// 该方法执行以下验证和处理：
+    /// 1. 验证父级公司是否存在且状态正常
+    /// 2. 设置公司的层级关系
+    /// 3. 检查公司编码和名称的唯一性
+    /// </remarks>
     private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request,
         CancellationToken cancellationToken)
     {

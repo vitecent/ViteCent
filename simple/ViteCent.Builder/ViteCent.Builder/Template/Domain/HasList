@@ -5,105 +5,151 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
+
+// 引入$!{Table.Description}相关的数据结构
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+
+// 引入$!{Table.Description}相关的数据模型
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
+
+// 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
-/// <summary>
-/// 批量$!{Table.Description}判重领域
+// <summary>
+/// 批量$!{Table.Description}判重处理类
 /// </summary>
-/// <param name="logger"></param>
+/// <remarks>
+/// 该类用于处理批量$!{Table.Description}的判重逻辑，包括：
+/// 1. 检查$!{Table.Description}编码是否重复
+/// 2. 检查$!{Table.Description}名称是否重复
+/// 3. 返回判重结果
+/// </remarks>
+/// <param name="logger">日志记录器实例</param>
 public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}(
+    // 注入日志记录器
     ILogger<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}> logger)
+    // 继承基类，指定查询参数和返回结果类型
     : BaseDomain<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>, IRequestHandler<$!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix}, BaseResult>
 {
     /// <summary>
-    /// $!{Table.Description}库名称
+    /// 数据库名称
     /// </summary>
     public override string DataBaseName => "$!{DataBase.Name}";
 
     /// <summary>
-    /// 批量$!{Table.Description}判重
+    /// 处理批量$!{Table.Description}判重请求
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">包含待检查的$!{Table.Description}编码和名称列表的请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>判重结果，包含状态码和提示信息</returns>
+    /// <remarks>
+    /// 该方法执行以下步骤：
+    /// 1. 记录方法调用日志
+    /// 2. 构建查询条件，检查编码和名称是否存在重复
+    /// 3. 执行查询并返回结果
+    /// </remarks>
     public async Task<BaseResult> Handle($!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.HasName}$!{Table.CamelCaseName}");
 
+        // 初始化查询对象
         var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();
 
 #if($HasCompanyId)
+        // 移除空白的公司标识
         request.CompanyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
+        // 如果公司标识列表不为空，添加查询条件
         if (request.CompanyIds.Count > 0)
             query.Where(x => request.CompanyIds.Contains(x.Id));
 
 #end
 #if($HasDepartmentId)
+        // 移除空白的部门标识
         request.DepartmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
+        // 如果部门标识列表不为空，添加查询条件
         if (request.DepartmentIds.Count > 0)
             query.Where(x => request.DepartmentIds.Contains(x.DepartmentId));
 
 #end
 #if($HasPositionId)
+        // 移除空白的职位标识
         request.PositionIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
+        // 如果职位标识列表不为空，添加查询条件
         if (request.PositionIds.Count > 0)
             query.Where(x => request.PositionIds.Contains(x.PositionId));
 
 #end
 #if($HasRoleId)
+        // 移除空白的角色标识
         request.RoleIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
+        // 如果角色标识列表不为空，添加查询条件
         if (request.RoleIds.Count > 0)
             query.Where(x => request.RoleIds.Contains(x.RoleId));
 
 #end
 #if($HasUserId)
+        // 移除空白的用户标识
         request.UserIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
+        // 如果用户标识列表不为空，添加查询条件
         if (request.UserIds.Count > 0)
             query.Where(x => request.UserIds.Contains(x.UserId));
 
 #end
 #if($HasSystemId)
+        // 移除空白的核心标识
         request.SystemIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
+        // 如果核心标识列表不为空，添加查询条件
         if (request.SystemIds.Count > 0)
             query.Where(x => request.SystemIds.Contains(x.SystemId));
 
 #end
 #if($HasResourceId)
+        // 移除空白的资源标识
         request.ResourceIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
+        // 如果资源标识列表不为空，添加查询条件
         if (request.ResourceIds.Count > 0)
             query.Where(x => request.ResourceIds.Contains(x.ResourceId));
 
 #end
 #if($HasOperationId)
+        // 移除空白的操作标识
         request.OperationIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
+        // 如果操作标识列表不为空，添加查询条件
         if (request.OperationIds.Count > 0)
             query.Where(x => request.OperationIds.Contains(x.OperationId));
 
 #end
+        // 执行异步查询，获取匹配记录数
         var entity = await query.CountAsync(cancellationToken);
 
+        // 如果存在匹配记录，返回错误结果
         if (entity > 0)
             return new BaseResult(500, "$!{Table.Description}重复");
 
+        // 如果没有匹配记录，返回成功结果
         return new BaseResult();
     }
 }

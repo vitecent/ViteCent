@@ -6,23 +6,48 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入 AutoMapper 用于对象映射
 using AutoMapper;
+
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Http;
+
+// 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
+
+// 引入公司相关的数据结构
 using ViteCent.Auth.Data.BaseCompany;
+
+// 引入部门相关的数据结构
 using ViteCent.Auth.Data.BaseDepartment;
+
+// 引入用户相关的数据结构
 using ViteCent.Auth.Data.BaseUser;
+
+// 引入请假申请相关的数据结构
 using ViteCent.Basic.Data.UserLeave;
+
+// 引入请假申请相关的模型
 using ViteCent.Basic.Entity.UserLeave;
+
+// 引入缓存接口
 using ViteCent.Core.Cache;
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
+
+// 引入核心枚举类型
 using ViteCent.Core.Enums;
+
+// 引入 Web 核心
 using ViteCent.Core.Web;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Basic.Application.UserLeave;
 
@@ -38,14 +63,20 @@ namespace ViteCent.Basic.Application.UserLeave;
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
 public class AddUserLeaveList(
+    // 注入日志记录器
     ILogger<AddUserLeaveList> logger,
+    // 注入缓存接口
     IBaseCache cache,
+    // 注入映射器接口
     IMapper mapper,
+    // 注入中介者接口
     IMediator mediator,
     IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
+    // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor)
+    // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<AddUserLeaveListArgs, BaseResult>
 {
     /// <summary>
@@ -62,6 +93,7 @@ public class AddUserLeaveList(
     public async Task<BaseResult> Handle(AddUserLeaveListArgs request,
         CancellationToken cancellationToken)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserLeave.AddUserLeaveList");
 
         user = httpContextAccessor.InitUser();

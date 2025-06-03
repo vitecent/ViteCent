@@ -5,7 +5,7 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
@@ -13,14 +13,14 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据传输对象
+// 引入基础数据结构
 using ViteCent.Auth.Application;
 
-// 引入基础日志数据传输对象
-using ViteCent.Auth.Data.BaseLogs;
-
-// 引入用户信息相关的数据传输对象
+// 引入用户信息相关的数据结构
 using ViteCent.Auth.Data.BaseUser;
+
+// 引入基础日志数据结构
+using ViteCent.Auth.Data.BaseLogs;
 
 // 引入核心
 using ViteCent.Core;
@@ -34,7 +34,7 @@ using ViteCent.Core.Web.Api;
 // 引入核心过滤器
 using ViteCent.Core.Web.Filter;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Auth.Api.BaseUser;
 
@@ -84,7 +84,7 @@ public class DisableBaseUser(
     /// </remarks>
     /// <param name="args">禁用参数，包含需要禁用的用户信息标识</param>
     /// <returns>返回基础结果对象，表示操作是否成功</returns>
-    // 标记为POST请求
+     // 标记为POST请求
     [HttpPost]
     // 权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Auth", "BaseUser", "Disable" })]

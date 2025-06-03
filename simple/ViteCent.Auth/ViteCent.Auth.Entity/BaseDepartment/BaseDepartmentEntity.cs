@@ -5,14 +5,14 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 using MediatR;
 using SqlSugar;
 using ViteCent.Core.Data;
 using ViteCent.Core.Orm.SqlSugar;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Auth.Entity.BaseDepartment;
 

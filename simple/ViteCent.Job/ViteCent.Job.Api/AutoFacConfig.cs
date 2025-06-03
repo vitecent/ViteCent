@@ -1,5 +1,6 @@
 ﻿#region
 
+// 引入Autofac依赖注入容器相关命名空间，提供IoC容器的核心功能
 using Autofac;
 
 #endregion

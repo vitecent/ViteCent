@@ -6,19 +6,36 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
+// 引入 AutoMapper 用于对象映射
 using AutoMapper;
+
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Http;
+
+// 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
+
+// 引入用户角色相关的数据结构
 using ViteCent.Auth.Data.BaseUserRole;
+
+// 引入用户角色相关的数据模型
 using ViteCent.Auth.Entity.BaseUserRole;
+
+// 引入缓存接口
 using ViteCent.Core.Cache;
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
+
+// 引入核心枚举类型
 using ViteCent.Core.Enums;
 
-#endregion
+#endregion 引入命名空间
 
 namespace ViteCent.Auth.Application.BaseUserRole;
 
@@ -31,11 +48,17 @@ namespace ViteCent.Auth.Application.BaseUserRole;
 /// <param name="mediator"></param>
 /// <param name="httpContextAccessor"></param>
 public partial class AddBaseUserRole(
+    // 注入日志记录器
     ILogger<AddBaseUserRole> logger,
+    // 注入缓存接口
     IBaseCache cache,
+    // 注入映射器接口
     IMapper mapper,
+    // 注入中介者接口
     IMediator mediator,
+    // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor)
+    // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<AddBaseUserRoleArgs, BaseResult>
 {
     /// <summary>
@@ -52,6 +75,7 @@ public partial class AddBaseUserRole(
     public async Task<BaseResult> Handle(AddBaseUserRoleArgs request,
         CancellationToken cancellationToken)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUserRole.AddBaseUserRole");
 
         user = httpContextAccessor.InitUser();

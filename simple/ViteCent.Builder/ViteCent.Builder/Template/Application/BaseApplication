@@ -5,7 +5,7 @@
  * **********************************
  */
 
-#region
+#region 引入命名空间
 
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +23,7 @@ using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
-#endregion
+#endregion 引入命名空间
 
 namespace $!{DataBase.Name}.$!{Setting.Application.Name};
 
@@ -547,18 +547,18 @@ public static class Base$!{Setting.Application.Name}
         var systems = await mediator.Send(searchSystemArgs);
 
         if (systems.Count == 0)
-            return new PageResult<BaseSystem$!{Setting.Entity.Name}>(500, $"系统{systemIds.FirstOrDefault()}不存在");
+            return new PageResult<BaseSystem$!{Setting.Entity.Name}>(500, $"核心{systemIds.FirstOrDefault()}不存在");
 
         var _systemIds = systems.Select(y => y.Id).ToList();
         var _systemId = systemIds.FirstOrDefault(x => !_systemIds.Contains(x));
 
         if (!string.IsNullOrWhiteSpace(_systemId))
-            return new PageResult<BaseSystem$!{Setting.Entity.Name}>(500, $"系统{_systemId}不存在");
+            return new PageResult<BaseSystem$!{Setting.Entity.Name}>(500, $"核心{_systemId}不存在");
 
         var system = systems.FirstOrDefault(x => x.Status == (int)StatusEnum.Disable);
 
         if (system is not null)
-            return new PageResult<BaseSystem$!{Setting.Entity.Name}>(500, $"系统{system.Name}已经禁用");
+            return new PageResult<BaseSystem$!{Setting.Entity.Name}>(500, $"核心{system.Name}已经禁用");
 
         return new PageResult<BaseSystem$!{Setting.Entity.Name}>()
         {
@@ -589,10 +589,10 @@ public static class Base$!{Setting.Application.Name}
         var system = await mediator.Send(getSystemArgs);
 
         if (system is null)
-            return new DataResult<BaseSystem$!{Setting.Entity.Name}>(500, "系统不存在");
+            return new DataResult<BaseSystem$!{Setting.Entity.Name}>(500, "核心不存在");
 
         if (system.Status == (int)StatusEnum.Disable)
-            return new DataResult<BaseSystem$!{Setting.Entity.Name}>(500, "系统已禁用");
+            return new DataResult<BaseSystem$!{Setting.Entity.Name}>(500, "核心已禁用");
 
         return new DataResult<BaseSystem$!{Setting.Entity.Name}>()
         {
