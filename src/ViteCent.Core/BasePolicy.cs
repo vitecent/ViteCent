@@ -15,14 +15,14 @@ public class BasePolicy<T>
     where T : class
 {
     /// <summary>
-    /// 执行带有重试、超时和熔断策略的异步操作
+    /// 执行带有重试、超时和熔断策略的操作
     /// </summary>
-    /// <param name="action">需要执行的异步操作委托</param>
+    /// <param name="action">需要执行的操作委托</param>
     /// <param name="timeOut">超时时间（秒），默认15秒</param>
     /// <param name="breaker">触发熔断的连续失败次数，默认2次</param>
     /// <param name="breakTimes">熔断时间（秒），默认30秒</param>
     /// <param name="retryTimes">重试间隔时间列表（秒），默认[5,10,20]秒</param>
-    /// <returns>返回泛型类型T的异步操作结果</returns>
+    /// <returns>返回泛型类型T的操作结果</returns>
     public static async Task<T> ExecuteAsync(Func<Task<T>> action, int timeOut = 15, int breaker = 2,
         int breakTimes = 30, params List<int> retryTimes)
     {

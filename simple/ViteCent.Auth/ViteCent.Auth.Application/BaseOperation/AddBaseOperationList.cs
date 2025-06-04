@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入操作信息相关的数据结构
+// 引入操作信息相关的数据参数
 using ViteCent.Auth.Data.BaseOperation;
 
 // 引入操作信息相关的数据模型
@@ -64,7 +64,7 @@ public class AddBaseOperationList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 新增操作信息
@@ -77,8 +77,6 @@ public class AddBaseOperationList(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseOperation.AddBaseOperationList");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await AddBaseOperation.OverrideHandle(mediator, request, user, cancellationToken);
 

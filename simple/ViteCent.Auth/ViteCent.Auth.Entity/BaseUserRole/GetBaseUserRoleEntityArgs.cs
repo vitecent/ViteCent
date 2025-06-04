@@ -7,6 +7,7 @@
 
 #region 引入命名空间
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
 
 #endregion 引入命名空间

@@ -20,16 +20,16 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入公司相关的数据结构
+// 引入公司相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
-// 引入部门相关的数据结构
+// 引入部门相关的数据参数
 using ViteCent.Auth.Data.BaseDepartment;
 
-// 引入用户相关的数据结构
+// 引入用户相关的数据参数
 using ViteCent.Auth.Data.BaseUser;
 
-// 引入请假申请相关的数据结构
+// 引入请假申请相关的数据参数
 using ViteCent.Basic.Data.UserLeave;
 
 // 引入请假申请相关的数据模型
@@ -76,7 +76,7 @@ public partial class EditUserLeave(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑请假申请
@@ -89,8 +89,6 @@ public partial class EditUserLeave(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserLeave.EditUserLeave");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await OverrideHandle(request, cancellationToken);
 

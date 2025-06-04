@@ -58,7 +58,7 @@ public class Login(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.Login");
 
-        // 创建取消令牌，用于支持异步操作的取消
+        // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
         // 创建日志参数对象，用于记录操作日志

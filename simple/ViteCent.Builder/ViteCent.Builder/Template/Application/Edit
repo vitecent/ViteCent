@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入$!{Table.Description}相关的数据结构
+// 引入$!{Table.Description}相关的数据参数
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
@@ -58,7 +58,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑$!{Table.Description}
@@ -70,8 +70,6 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await OverrideHandle(request, cancellationToken);
 

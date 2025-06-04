@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入角色权限相关的数据结构
+// 引入角色权限相关的数据参数
 using ViteCent.Auth.Data.BaseRolePermission;
 
 // 引入角色权限相关的数据模型
@@ -64,7 +64,7 @@ public class AddBaseRolePermissionList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 新增角色权限
@@ -77,8 +77,6 @@ public class AddBaseRolePermissionList(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseRolePermission.AddBaseRolePermissionList");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await AddBaseRolePermission.OverrideHandle(mediator, request, user, cancellationToken);
 

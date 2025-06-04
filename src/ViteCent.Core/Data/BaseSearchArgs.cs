@@ -34,11 +34,11 @@ public static class BaseSearchArgs
     }
 
     /// <summary>
-    /// 添加公司ID查询条件，用于数据权限控制
+    /// 添加公司标识查询条件，用于数据权限控制
     /// </summary>
     /// <param name="args">搜索参数对象</param>
     /// <param name="user">当前用户信息</param>
-    /// <param name="field">公司ID字段名，默认为CompanyId</param>
+    /// <param name="field">公司标识字段名，默认为CompanyId</param>
     public static void AddCompanyId(this SearchArgs args, BaseUserInfo user, string field = "CompanyId")
     {
         if (user.IsSuper != (int)YesNoEnum.Yes)
@@ -66,13 +66,13 @@ public static class BaseSearchArgs
     /// 检查用户是否有权限访问指定公司的数据
     /// </summary>
     /// <param name="user">当前用户信息</param>
-    /// <param name="companyId">要访问的公司ID</param>
+    /// <param name="companyId">要访问的公司标识</param>
     /// <returns>权限检查结果，成功返回空消息，失败返回错误信息</returns>
     public static BaseResult CheckCompanyId(this BaseUserInfo user, string companyId)
     {
         if (user.IsSuper != (int)YesNoEnum.Yes)
             if (companyId != user.Company.Id)
-            return new BaseResult(401, "您没有权限访问该数据");
+                return new BaseResult(401, "您没有权限访问该数据");
 
         return new BaseResult();
     }

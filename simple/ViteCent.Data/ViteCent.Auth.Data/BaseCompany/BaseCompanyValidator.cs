@@ -8,6 +8,7 @@
 
 #region 引入命名空间
 
+// 引入 FluentValidation 核心
 using FluentValidation;
 
 #endregion 引入命名空间
@@ -21,14 +22,18 @@ namespace ViteCent.Auth.Data.BaseCompany;
 public partial class BaseCompanyValidator : AbstractValidator<AddBaseCompanyArgs>
 {
     /// <summary>
-    /// 验证参数
+    /// 验证公司信息
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     public BaseCompanyValidator(bool validate = false)
     {
+        // 验证参数不能为空
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+
+        // 验证名称不能为空
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
 
+        // 调用扩展方法进行额外验证
         OverrideValidator(validate);
     }
 }

@@ -21,7 +21,10 @@ using ViteCent.Core.Data;
 
 namespace ViteCent.Auth.Api.BaseDepartment;
 
-/// <summary> 编辑部门信息接口拓展 </summary> 该部分类主要负责处理编辑公司信息时的自定义逻辑 </remarks>
+/// <summary>
+/// 编辑部门信息接口拓展
+/// </summary>
+/// <remarks>该部分类主要负责处理编辑公司信息时的自定义逻辑</remarks>
 public partial class EditBaseDepartment
 {
     /// <summary>
@@ -33,7 +36,6 @@ public partial class EditBaseDepartment
     internal static void OverrideInvoke(EditBaseDepartmentArgs args, BaseUserInfo user)
     {
         // 设置公司标识
-
         if (string.IsNullOrEmpty(args.CompanyId))
             args.CompanyId = user?.Company?.Id ?? string.Empty;
     }

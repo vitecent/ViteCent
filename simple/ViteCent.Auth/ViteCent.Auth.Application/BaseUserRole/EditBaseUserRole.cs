@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入用户角色相关的数据结构
+// 引入用户角色相关的数据参数
 using ViteCent.Auth.Data.BaseUserRole;
 
 // 引入用户角色相关的数据模型
@@ -58,7 +58,7 @@ public partial class EditBaseUserRole(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑用户角色
@@ -70,8 +70,6 @@ public partial class EditBaseUserRole(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUserRole.EditBaseUserRole");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await OverrideHandle(request, cancellationToken);
 

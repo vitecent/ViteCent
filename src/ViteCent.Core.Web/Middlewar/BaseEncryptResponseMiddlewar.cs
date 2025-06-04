@@ -18,10 +18,10 @@ namespace ViteCent.Core.Web.Middlewar;
 public class BaseEncryptResponseMiddlewar(RequestDelegate next, IConfiguration configuration)
 {
     /// <summary>
-    /// 处理HTTP响应的异步方法 当响应需要加密时，读取响应体内容并进行加密处理
+    /// 处理HTTP响应的方法 当响应需要加密时，读取响应体内容并进行加密处理
     /// </summary>
     /// <param name="context">当前HTTP请求的上下文信息</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     public async Task InvokeAsync(HttpContext context)
     {
         await next(context);

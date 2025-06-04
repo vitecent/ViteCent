@@ -2,7 +2,6 @@
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ViteCent.Auth.Application;
 using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Core.Data;
 using ViteCent.Core.Web.Api;

@@ -13,13 +13,10 @@ using AutoMapper;
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
 
-// 引入 ASP.NET Core MVC 核心功能
-using Microsoft.AspNetCore.Http;
-
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入请假申请相关的数据结构
+// 引入请假申请相关的数据参数
 using ViteCent.Basic.Data.UserLeave;
 
 // 引入请假申请相关的数据模型
@@ -45,26 +42,17 @@ namespace ViteCent.Basic.Application.UserLeave;
 /// 3. 触发相关事件通知
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录操作日志</param>
-/// <param name="mapper">对象映射器，用于结构和模型对象之间的转换</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
 /// <param name="mediator">中介者，用于处理命令和查询</param>
-/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 public class DeleteUserLeave(
     // 注入日志记录器
     ILogger<DeleteUserLeave> logger,
     // 注入映射器接口
     IMapper mapper,
-    // 注入中介者接口
-    IMediator mediator,
-    // 注入HTTP上下文访问器
-    IHttpContextAccessor httpContextAccessor)
+    IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<DeleteUserLeaveArgs, BaseResult>
 {
-    /// <summary>
-    /// 用户信息
-    /// </summary>
-    private BaseUserInfo user = new();
-
     /// <summary>
     /// 处理删除请假申请的请求
     /// </summary>
@@ -84,28 +72,13 @@ public class DeleteUserLeave(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserLeave.DeleteUserLeave");
 
-        // 初始化当前用户信息
-        user = httpContextAccessor.InitUser();
-
-        var companyId = user?.Company?.Id ?? string.Empty;
-
-        // 如果用户没有请假申请，则不设置公司标识
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
-
-        var departmentId = user?.Department?.Id ?? string.Empty;
-
-        // 如果用户没有部门信息，则不设置部门标识
-        if (!string.IsNullOrWhiteSpace(departmentId))
-            request.DepartmentId = departmentId;
-
         // 将删除请求参数映射为查询参数
         var getArgs = mapper.Map<GetUserLeaveEntityArgs>(request);
 
         // 查询要删除的请假申请模型
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        / 如果请假申请不存在，返回错误结果
+        // 如果请假申请不存在，返回错误结果
         if (entity is null)
             return new BaseResult(500, "请假申请不存在");
 

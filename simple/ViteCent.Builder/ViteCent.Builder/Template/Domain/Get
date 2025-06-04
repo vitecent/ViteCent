@@ -117,7 +117,7 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
             query.Where(x => x.OperationId == request.OperationId);
 
 #end
-        // 执行异步查询，返回第一条匹配记录
+        // 执行查询，返回第一条匹配记录
         return await query.FirstAsync(cancellationToken);
     }
 }

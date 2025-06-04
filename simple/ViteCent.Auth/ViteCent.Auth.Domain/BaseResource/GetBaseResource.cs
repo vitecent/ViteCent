@@ -75,7 +75,7 @@ public class GetBaseResource(
         if (!string.IsNullOrWhiteSpace(request.SystemId))
             query.Where(x => x.SystemId == request.SystemId);
 
-        // 执行异步查询，返回第一条匹配记录
+        // 执行查询，返回第一条匹配记录
         return await query.FirstAsync(cancellationToken);
     }
 }

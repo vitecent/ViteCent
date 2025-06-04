@@ -13,10 +13,7 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据结构
-using ViteCent.Basic.Application;
-
-// 引入排班信息相关的数据结构
+// 引入排班信息相关的数据参数
 using ViteCent.Basic.Data.Schedule;
 
 // 引入核心数据类型
@@ -51,7 +48,7 @@ namespace ViteCent.Basic.Api.Schedule;
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
 [Route("Schedule")]
-public class GetSchedule(
+public partial class GetSchedule(
     // 注入日志记录器
     ILogger<GetSchedule> logger,
     // 注入HTTP上下文访问器
@@ -89,19 +86,14 @@ public class GetSchedule(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.GetSchedule");
 
-        // 设置公司标识
-        if (string.IsNullOrEmpty(args.CompanyId))
-            args.CompanyId = user?.Company?.Id ?? string.Empty;
-
-        // 设置部门标识
-        if (string.IsNullOrEmpty(args.DepartmentId))
-            args.DepartmentId = user?.Department?.Id ?? string.Empty;
+        // 重写调用方法
+        OverrideInvoke(args, user);
 
         // 验证参数是否为空，确保请求参数的有效性
         if (args is null)
             return new DataResult<ScheduleResult>(500, "参数不能为空");
 
-        // 创建取消令牌，用于支持异步操作的取消
+        // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
         // 通过中介者发送查询命令并返回结果

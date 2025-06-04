@@ -13,7 +13,7 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入换班申请相关的数据结构
+// 引入换班申请相关的数据参数
 using ViteCent.Basic.Data.ShiftSchedule;
 
 // 引入核心数据类型
@@ -40,6 +40,7 @@ namespace ViteCent.Basic.Api.ShiftSchedule;
 /// 4. 返回分页查询结果
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录接口的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 /// <param name="mediator">中介者接口，用于处理查询请求</param>
  // 标记为API接口
 [ApiController]
@@ -47,14 +48,21 @@ namespace ViteCent.Basic.Api.ShiftSchedule;
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
 [Route("ShiftSchedule")]
-public class PageShiftSchedule(
+public partial class PageShiftSchedule(
     // 注入日志记录器
     ILogger<PageShiftSchedule> logger,
+    // 注入HTTP上下文访问器
+    IHttpContextAccessor httpContextAccessor,
     // 注入中介者接口
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : BaseApi<SearchShiftScheduleArgs, PageResult<ShiftScheduleResult>>
 {
+    /// <summary>
+    /// 用户信息
+    /// </summary>
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
+
     /// <summary>
     /// 换班申请分页查询
     /// </summary>
@@ -69,6 +77,7 @@ public class PageShiftSchedule(
     /// </remarks>
     // 标记为POST请求
     [HttpPost]
+    // 权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Basic", "ShiftSchedule", "Get" })]
     // 设置路由名称
     [Route("Page")]
@@ -81,7 +90,10 @@ public class PageShiftSchedule(
         if (args is null)
             return new PageResult<ShiftScheduleResult>(500, "参数不能为空");
 
-        // 创建取消令牌，用于支持异步操作的取消
+        // 重写调用方法
+        OverrideInvoke(args, user);
+
+        // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
         // 通过中介者发送分页命令并返回结果

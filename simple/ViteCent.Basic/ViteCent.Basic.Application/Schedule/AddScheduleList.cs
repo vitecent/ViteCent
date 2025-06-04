@@ -20,16 +20,16 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入公司相关的数据结构
+// 引入公司相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
-// 引入部门相关的数据结构
+// 引入部门相关的数据参数
 using ViteCent.Auth.Data.BaseDepartment;
 
-// 引入用户相关的数据结构
+// 引入用户相关的数据参数
 using ViteCent.Auth.Data.BaseUser;
 
-// 引入排班信息相关的数据结构
+// 引入排班信息相关的数据参数
 using ViteCent.Basic.Data.Schedule;
 
 // 引入排班信息相关的模型
@@ -82,7 +82,7 @@ public class AddScheduleList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 批量新增排班信息

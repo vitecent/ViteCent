@@ -79,7 +79,7 @@ public class GetUserRest(
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
-        // 执行异步查询，返回第一条匹配记录
+        // 执行查询，返回第一条匹配记录
         return await query.FirstAsync(cancellationToken);
     }
 }

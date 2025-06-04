@@ -23,7 +23,6 @@ public static class BaseDecryptRequestExtensions
     /// 启用请求解密中间件
     /// </summary>
     /// <param name="app">Web应用程序构建器</param>
-    /// <returns>无返回值</returns>
     public static void UseDecryptRequest(this WebApplication app)
     {
         app.UseMiddleware<BaseDecryptRequestMiddlewar>();

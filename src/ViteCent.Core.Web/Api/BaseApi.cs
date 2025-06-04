@@ -17,7 +17,7 @@ public abstract class BaseApi<Args, Result> : ControllerBase
     where Result : BaseResult
 {
     /// <summary>
-    /// 处理请求的异步方法
+    /// 处理请求的方法
     /// </summary>
     /// <param name="args">请求参数对象，包含所需的业务数据</param>
     /// <returns>返回处理结果，类型为Result</returns>

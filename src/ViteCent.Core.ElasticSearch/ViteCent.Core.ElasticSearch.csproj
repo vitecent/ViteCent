@@ -43,7 +43,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.17.3" />
+		<PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>

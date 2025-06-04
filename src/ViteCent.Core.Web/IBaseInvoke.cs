@@ -14,7 +14,7 @@ namespace ViteCent.Core.Web;
 public interface IBaseInvoke<Args, Result> where Args : BaseArgs where Result : BaseResult
 {
     /// <summary>
-    /// 执行GET方法的异步服务调用
+    /// 执行GET方法的服务调用
     /// </summary>
     /// <param name="service">服务名称</param>
     /// <param name="api">API接口名称</param>
@@ -23,7 +23,7 @@ public interface IBaseInvoke<Args, Result> where Args : BaseArgs where Result : 
     Task<Result> InvokeGetMethodAsync(string service, string api, string token = "");
 
     /// <summary>
-    /// 执行POST方法的异步服务调用
+    /// 执行POST方法的服务调用
     /// </summary>
     /// <param name="service">服务名称</param>
     /// <param name="api">API接口名称</param>

@@ -21,7 +21,7 @@ public static class BaseAppliction
     /// 检查单个公司的有效性
     /// </summary>
     /// <param name="companyInvoke">公司服务调用接口</param>
-    /// <param name="companyId">公司ID</param>
+    /// <param name="companyId">公司标识</param>
     /// <param name="token">认证令牌</param>
     /// <returns>返回公司信息的数据结果，如果公司不存在或已禁用则返回相应的错误信息</returns>
     public static async Task<DataResult<BaseCompanyResult>> CheckCompany(
@@ -29,7 +29,7 @@ public static class BaseAppliction
         string companyId,
         string token)
     {
-        // 验证公司ID是否为空
+        // 验证公司标识是否为空
         if (string.IsNullOrWhiteSpace(companyId))
             return new DataResult<BaseCompanyResult>();
 
@@ -61,7 +61,7 @@ public static class BaseAppliction
     /// 批量检查多个公司的有效性
     /// </summary>
     /// <param name="companyInvoke">公司服务调用接口</param>
-    /// <param name="companyIds">公司ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
     /// <param name="token">认证令牌</param>
     /// <returns>返回公司信息的分页结果，如果任一公司不存在或已禁用则返回相应的错误信息</returns>
     public static async Task<PageResult<BaseCompanyResult>> CheckCompanys(
@@ -69,10 +69,10 @@ public static class BaseAppliction
         List<string> companyIds,
         string token)
     {
-        // 移除空的公司ID
+        // 移除空的公司标识
         companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
-        // 如果没有有效的公司ID，直接返回空结果
+        // 如果没有有效的公司标识，直接返回空结果
         if (companyIds.Count == 0)
             return new PageResult<BaseCompanyResult>();
 
@@ -103,12 +103,12 @@ public static class BaseAppliction
         if (companys.Total == 0)
             return new PageResult<BaseCompanyResult>(500, $"公司{companyIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的公司ID列表
+        // 获取查询结果中的公司标识列表
         var _companyIds = companys.Rows.Select(y => y.Id).ToList();
-        // 查找是否有未找到的公司ID
+        // 查找是否有未找到的公司标识
         var _companyId = companyIds.FirstOrDefault(x => !_companyIds.Contains(x));
 
-        // 如果存在未找到的公司ID，返回错误信息
+        // 如果存在未找到的公司标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_companyId))
             return new PageResult<BaseCompanyResult>(500, $"公司{_companyId}不存在");
 
@@ -126,23 +126,23 @@ public static class BaseAppliction
     /// 检查单个部门的有效性
     /// </summary>
     /// <param name="departmentInvoke">部门服务调用接口</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="departmentId">部门ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="departmentId">部门标识</param>
     /// <param name="token">认证令牌</param>
     /// <returns>返回部门信息的数据结果，如果部门不存在或已禁用则返回相应的错误信息</returns>
     public static async Task<DataResult<BaseDepartmentResult>> CheckDepartment(
         this IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
         string companyId, string departmentId, string token)
     {
-        // 验证部门ID是否为空
+        // 验证部门标识是否为空
         if (string.IsNullOrWhiteSpace(departmentId))
             return new DataResult<BaseDepartmentResult>();
 
         // 构造获取部门信息的参数
         var getDepartmentArgs = new GetBaseDepartmentArgs
         {
-            CompanyId = companyId,  // 设置公司ID
-            Id = departmentId       // 设置部门ID
+            CompanyId = companyId,  // 设置公司标识
+            Id = departmentId       // 设置部门标识
         };
 
         // 调用服务获取部门信息
@@ -168,8 +168,8 @@ public static class BaseAppliction
     /// 批量检查多个部门的有效性
     /// </summary>
     /// <param name="departmentInvoke">部门服务调用接口</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="departmentIds">部门ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="departmentIds">部门标识列表</param>
     /// <param name="token">认证令牌</param>
     /// <returns>返回部门信息的分页结果，如果任一部门不存在或已禁用则返回相应的错误信息</returns>
     public static async Task<PageResult<BaseDepartmentResult>> CheckDepartments(
@@ -178,11 +178,11 @@ public static class BaseAppliction
         List<string> departmentIds,
         string token)
     {
-        // 移除空的公司ID和部门ID
+        // 移除空的公司标识和部门标识
         companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
         departmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
 
-        // 如果没有有效的公司ID和部门ID，直接返回空结果
+        // 如果没有有效的公司标识和部门标识，直接返回空结果
         if (companyIds.Count == 0 && departmentIds.Count == 0)
             return new PageResult<BaseDepartmentResult>();
 
@@ -194,11 +194,11 @@ public static class BaseAppliction
             Args = []
         };
 
-        // 如果有公司ID，添加公司ID筛选条件
+        // 如果有公司标识，添加公司标识筛选条件
         if (companyIds.Count > 0)
             searchDepartmentArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
-        // 如果有部门ID，添加部门ID筛选条件
+        // 如果有部门标识，添加部门标识筛选条件
         if (departmentIds.Count > 0)
             searchDepartmentArgs.AddArgs("Id", departmentIds.ToJson(), SearchEnum.In);
 
@@ -214,12 +214,12 @@ public static class BaseAppliction
         if (departments.Total == 0)
             return new PageResult<BaseDepartmentResult>(500, $"部门{departmentIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的部门ID列表
+        // 获取查询结果中的部门标识列表
         var _departmentIds = departments.Rows.Select(y => y.Id).ToList();
-        // 查找是否有未找到的部门ID
+        // 查找是否有未找到的部门标识
         var _departmentId = departmentIds.FirstOrDefault(x => !_departmentIds.Contains(x));
 
-        // 如果存在未找到的部门ID，返回错误信息
+        // 如果存在未找到的部门标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_departmentId))
             return new PageResult<BaseDepartmentResult>(500, $"部门{_departmentId}不存在");
 
@@ -237,10 +237,10 @@ public static class BaseAppliction
     /// 检查单个用户的有效性
     /// </summary>
     /// <param name="userInvoke">用户服务调用接口</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="departmentId">部门ID</param>
-    /// <param name="positionId">职位ID</param>
-    /// <param name="userId">用户ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="departmentId">部门标识</param>
+    /// <param name="positionId">职位标识</param>
+    /// <param name="userId">用户标识</param>
     /// <param name="token">认证令牌</param>
     /// <returns>返回用户信息的数据结果，如果用户不存在或已禁用则返回相应的错误信息</returns>
     public static async Task<DataResult<BaseUserResult>> CheckUser(
@@ -251,17 +251,17 @@ public static class BaseAppliction
         string userId,
         string token)
     {
-        // 验证用户ID是否为空
+        // 验证用户标识是否为空
         if (string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUserResult>();
 
         // 构造获取用户信息的参数
         var getUserArgs = new GetBaseUserArgs
         {
-            CompanyId = companyId,      // 设置公司ID
-            DepartmentId = departmentId, // 设置部门ID
-            PositionId = positionId,     // 设置职位ID
-            Id = userId                  // 设置用户ID
+            CompanyId = companyId,      // 设置公司标识
+            DepartmentId = departmentId, // 设置部门标识
+            PositionId = positionId,     // 设置职位标识
+            Id = userId                  // 设置用户标识
         };
 
         // 调用服务获取用户信息
@@ -286,10 +286,10 @@ public static class BaseAppliction
     /// 批量检查多个用户的有效性
     /// </summary>
     /// <param name="userInvoke">用户服务调用接口</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="departmentIds">部门ID列表</param>
-    /// <param name="positionIds">职位ID列表</param>
-    /// <param name="userIds">用户ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="departmentIds">部门标识列表</param>
+    /// <param name="positionIds">职位标识列表</param>
+    /// <param name="userIds">用户标识列表</param>
     /// <param name="token">认证令牌</param>
     /// <returns>返回用户信息的分页结果，如果任一用户不存在或已禁用则返回相应的错误信息</returns>
     public static async Task<PageResult<BaseUserResult>> CheckUsers(
@@ -300,7 +300,7 @@ public static class BaseAppliction
         List<string> userIds,
         string token)
     {
-        // 移除所有空的ID
+        // 移除所有空的标识
         companyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
         departmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
         positionIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
@@ -318,19 +318,19 @@ public static class BaseAppliction
             Args = []
         };
 
-        // 添加公司ID筛选条件
+        // 添加公司标识筛选条件
         if (companyIds.Count > 0)
             searchUserArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
-        // 添加部门ID筛选条件
+        // 添加部门标识筛选条件
         if (departmentIds.Count > 0)
             searchUserArgs.AddArgs("DepartmentId", departmentIds.ToJson(), SearchEnum.In);
 
-        // 添加职位ID筛选条件
+        // 添加职位标识筛选条件
         if (positionIds.Count > 0)
             searchUserArgs.AddArgs("PositionId", positionIds.ToJson(), SearchEnum.In);
 
-        // 添加用户ID筛选条件
+        // 添加用户标识筛选条件
         if (userIds.Count > 0)
             searchUserArgs.AddArgs("Id", userIds.ToJson(), SearchEnum.In);
 
@@ -345,12 +345,12 @@ public static class BaseAppliction
         if (users.Total == 0)
             return new PageResult<BaseUserResult>(500, $"用户{userIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的用户ID列表
+        // 获取查询结果中的用户标识列表
         var _userIds = users.Rows.Select(y => y.Id).ToList();
-        // 查找是否有未找到的用户ID
+        // 查找是否有未找到的用户标识
         var _userId = userIds.FirstOrDefault(x => !_userIds.Contains(x));
 
-        // 如果存在未找到的用户ID，返回错误信息
+        // 如果存在未找到的用户标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_userId))
             return new PageResult<BaseUserResult>(500, $"用户{_userId}不存在");
 
@@ -365,20 +365,20 @@ public static class BaseAppliction
     }
 
     /// <summary>
-    /// 获取下一个ID值
+    /// 获取下一个标识值
     /// </summary>
     /// <param name="cache">缓存接口</param>
-    /// <param name="companyId">公司ID</param>
+    /// <param name="companyId">公司标识</param>
     /// <param name="table">表名</param>
-    /// <returns>返回生成的下一个ID值</returns>
+    /// <returns>返回生成的下一个标识值</returns>
     public static async Task<string> GetIdAsync(this IBaseCache cache,
         string companyId,
         string table)
     {
-        // 调用缓存接口获取下一个ID值
+        // 调用缓存接口获取下一个标识值
         return await cache.NextIdentity(new NextIdentifyArg
         {
-            CompanyId = companyId,  // 设置公司ID
+            CompanyId = companyId,  // 设置公司标识
             Name = table            // 设置表名
         });
     }

@@ -13,13 +13,10 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据结构
-using ViteCent.Auth.Application;
-
-// 引入用户信息相关的数据结构
+// 引入用户信息相关的数据参数
 using ViteCent.Auth.Data.BaseUser;
 
-// 引入基础日志数据结构
+// 引入基础日志数据参数
 using ViteCent.Auth.Data.BaseLogs;
 
 // 引入核心
@@ -57,7 +54,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
 [Route("BaseUser")]
-public class EnableBaseUser(
+public partial class EnableBaseUser(
     // 注入日志记录器
     ILogger<EnableBaseUser> logger,
     // 注入HTTP上下文访问器
@@ -95,19 +92,10 @@ public class EnableBaseUser(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.EnableBaseUser");
 
-        // 设置公司标识
-        if (string.IsNullOrEmpty(args.CompanyId))
-            args.CompanyId = user?.Company?.Id ?? string.Empty;
+        // 重写调用方法
+        OverrideInvoke(args, user);
 
-        // 设置部门标识
-        if (string.IsNullOrEmpty(args.DepartmentId))
-            args.DepartmentId = user?.Department?.Id ?? string.Empty;
-
-        // 设置职位标识
-        if (string.IsNullOrEmpty(args.PositionId))
-            args.PositionId = user?.Position?.Id ?? string.Empty;
-
-        // 创建取消令牌，用于支持异步操作的取消
+        // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
         // 创建日志参数对象，用于记录操作日志

@@ -20,7 +20,7 @@ public class StartJob(
     /// 执行服务健康检查 遍历预定义的服务URL列表，向每个服务的健康检查接口发送GET请求 如果请求失败，记录错误信息并继续检查下一个服务
     /// </summary>
     /// <param name="context">作业执行上下文，包含作业的相关信息</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     public async Task Execute(IJobExecutionContext context)
     {
         logger.LogInformation($"StartJob : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");

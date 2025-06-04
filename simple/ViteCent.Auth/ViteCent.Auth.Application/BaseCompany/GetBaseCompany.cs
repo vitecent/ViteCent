@@ -16,7 +16,7 @@ using MediatR;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入公司信息相关的数据结构
+// 引入公司信息相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
 // 引入公司信息相关的数据模型
@@ -40,7 +40,7 @@ namespace ViteCent.Auth.Application.BaseCompany;
 /// 4. 处理查询结果为空的情况
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
-/// <param name="mapper">对象映射器，用于结构和模型对象之间的转换</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
 /// <param name="mediator">中介者，用于发送查询请求</param>
 public class GetBaseCompany(
     // 注入日志记录器
@@ -61,7 +61,7 @@ public class GetBaseCompany(
     /// 2. 将请求参数转换为模型查询参数
     /// 3. 执行公司信息查询
     /// 4. 处理查询结果为空的情况
-    /// 5. 转换查询结果为响应结构
+    /// 5. 转换查询结果为响应参数
     /// </remarks>
     /// <param name="request">获取公司信息的请求参数</param>
     /// <param name="cancellationToken">取消令牌</param>
@@ -82,7 +82,7 @@ public class GetBaseCompany(
         if (entity is null)
             return new DataResult<BaseCompanyResult>(500, "公司信息不存在");
 
-        // 将模型对象转换为响应结构
+        // 将模型对象转换为响应参数
         var dto = mapper.Map<BaseCompanyResult>(entity);
 
         // 返回成功的数据结果

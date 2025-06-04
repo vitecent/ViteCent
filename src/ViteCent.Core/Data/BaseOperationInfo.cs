@@ -11,7 +11,7 @@ public class BaseOperationInfo
     public string Code { get; set; } = string.Empty;
 
     /// <summary>
-    /// 操作唯一标识，系统内部使用的唯一ID
+    /// 操作唯一标识，系统内部使用的唯一标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
 

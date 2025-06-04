@@ -71,7 +71,7 @@ public class GetBasePost(
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             query.Where(x => x.CompanyId == request.CompanyId);
 
-        // 执行异步查询，返回第一条匹配记录
+        // 执行查询，返回第一条匹配记录
         return await query.FirstAsync(cancellationToken);
     }
 }

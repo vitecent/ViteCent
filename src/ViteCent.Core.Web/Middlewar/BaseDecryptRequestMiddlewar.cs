@@ -16,10 +16,10 @@ namespace ViteCent.Core.Web.Middlewar;
 public class BaseDecryptRequestMiddlewar(RequestDelegate next, IConfiguration configuration)
 {
     /// <summary>
-    /// 处理HTTP请求的异步方法 当请求需要解密时，读取请求体内容并进行解密处理
+    /// 处理HTTP请求的方法 当请求需要解密时，读取请求体内容并进行解密处理
     /// </summary>
     /// <param name="context">当前HTTP请求的上下文信息</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     public async Task InvokeAsync(HttpContext context)
     {
         if (IsEncrypt(context))

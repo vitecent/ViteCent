@@ -79,7 +79,7 @@ public class GetBaseUser(
         if (!string.IsNullOrWhiteSpace(request.PositionId))
             query.Where(x => x.PositionId == request.PositionId);
 
-        // 执行异步查询，返回第一条匹配记录
+        // 执行查询，返回第一条匹配记录
         return await query.FirstAsync(cancellationToken);
     }
 }

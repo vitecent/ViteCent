@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入字典信息相关的数据结构
+// 引入字典信息相关的数据参数
 using ViteCent.Auth.Data.BaseDictionary;
 
 // 引入字典信息相关的数据模型
@@ -64,7 +64,7 @@ public class AddBaseDictionaryList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 新增字典信息
@@ -77,8 +77,6 @@ public class AddBaseDictionaryList(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseDictionary.AddBaseDictionaryList");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await AddBaseDictionary.OverrideHandle(mediator, request, user, cancellationToken);
 

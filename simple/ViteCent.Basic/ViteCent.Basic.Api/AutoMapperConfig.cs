@@ -8,28 +8,28 @@
 
 #region 引入命名空间
 
-// 引入日志信息相关的数据结构
+// 引入日志信息相关的数据参数
 using ViteCent.Basic.Data.BaseLogs;
 
-// 引入职位信息相关的数据结构
+// 引入职位信息相关的数据参数
 using ViteCent.Basic.Data.BasePost;
 
-// 引入补卡申请相关的数据结构
+// 引入补卡申请相关的数据参数
 using ViteCent.Basic.Data.RepairSchedule;
 
-// 引入排班信息相关的数据结构
+// 引入排班信息相关的数据参数
 using ViteCent.Basic.Data.Schedule;
 
-// 引入基础排班相关的数据结构
+// 引入基础排班相关的数据参数
 using ViteCent.Basic.Data.ScheduleType;
 
-// 引入换班申请相关的数据结构
+// 引入换班申请相关的数据参数
 using ViteCent.Basic.Data.ShiftSchedule;
 
-// 引入请假申请相关的数据结构
+// 引入请假申请相关的数据参数
 using ViteCent.Basic.Data.UserLeave;
 
-// 引入调休申请相关的数据结构
+// 引入调休申请相关的数据参数
 using ViteCent.Basic.Data.UserRest;
 
 // 引入日志信息相关的数据模型对象

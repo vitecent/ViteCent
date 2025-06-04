@@ -11,7 +11,7 @@ public class BasePositionInfo
     public string Code { get; set; } = string.Empty;
 
     /// <summary>
-    /// 职位唯一标识，系统内部使用的唯一ID
+    /// 职位唯一标识，系统内部使用的唯一标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
 

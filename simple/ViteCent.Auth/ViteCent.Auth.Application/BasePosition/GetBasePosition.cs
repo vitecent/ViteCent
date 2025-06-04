@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入职位信息相关的数据结构
+// 引入职位信息相关的数据参数
 using ViteCent.Auth.Data.BasePosition;
 
 // 引入职位信息相关的数据模型
@@ -43,7 +43,7 @@ namespace ViteCent.Auth.Application.BasePosition;
 /// 4. 处理查询结果为空的情况
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
-/// <param name="mapper">对象映射器，用于结构和模型对象之间的转换</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
 /// <param name="mediator">中介者，用于发送查询请求</param>
 /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 public class GetBasePosition(
@@ -61,7 +61,7 @@ public class GetBasePosition(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 处理获取职位信息的请求
@@ -72,7 +72,7 @@ public class GetBasePosition(
     /// 2. 将请求参数转换为模型查询参数
     /// 3. 执行职位信息查询
     /// 4. 处理查询结果为空的情况
-    /// 5. 转换查询结果为响应结构
+    /// 5. 转换查询结果为响应参数
     /// </remarks>
     /// <param name="request">获取职位信息的请求参数</param>
     /// <param name="cancellationToken">取消令牌</param>
@@ -82,15 +82,6 @@ public class GetBasePosition(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Application.BasePosition.GetBasePosition");
-
-        // 初始化当前用户信息
-        user = httpContextAccessor.InitUser();
-
-        var companyId = user?.Company?.Id ?? string.Empty;
-
-        // 如果用户所属公司标识不为空，则将其添加到请求参数中
-        if (!string.IsNullOrWhiteSpace(companyId))
-            request.CompanyId = companyId;
 
         // 将请求参数转换为模型查询参数
         var args = mapper.Map<GetBasePositionEntityArgs>(request);
@@ -102,7 +93,7 @@ public class GetBasePosition(
         if (entity is null)
             return new DataResult<BasePositionResult>(500, "职位信息不存在");
 
-        // 将模型对象转换为响应结构
+        // 将模型对象转换为响应参数
         var dto = mapper.Map<BasePositionResult>(entity);
 
         // 返回成功的数据结果

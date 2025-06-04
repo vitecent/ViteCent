@@ -28,10 +28,10 @@ public interface IElasticsearch
     Task<bool> DeleteIndexAsync(string index);
 
     /// <summary>
-    /// 根据ID获取文档
+    /// 根据标识获取文档
     /// </summary>
     /// <typeparam name="T">文档类型</typeparam>
-    /// <param name="id">文档ID</param>
+    /// <param name="id">文档标识</param>
     /// <param name="index">索引名称</param>
     /// <returns>文档对象，如果不存在则返回null</returns>
     Task<T> GetDocumentAsync<T>(string id, string index) where T : class, new();

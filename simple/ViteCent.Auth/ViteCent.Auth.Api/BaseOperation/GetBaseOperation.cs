@@ -13,10 +13,7 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据结构
-using ViteCent.Auth.Application;
-
-// 引入操作信息相关的数据结构
+// 引入操作信息相关的数据参数
 using ViteCent.Auth.Data.BaseOperation;
 
 // 引入核心数据类型
@@ -51,7 +48,7 @@ namespace ViteCent.Auth.Api.BaseOperation;
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
 [Route("BaseOperation")]
-public class GetBaseOperation(
+public partial class GetBaseOperation(
     // 注入日志记录器
     ILogger<GetBaseOperation> logger,
     // 注入HTTP上下文访问器
@@ -89,15 +86,14 @@ public class GetBaseOperation(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseOperation.GetBaseOperation");
 
-        // 设置公司标识
-        if (string.IsNullOrEmpty(args.CompanyId))
-            args.CompanyId = user?.Company?.Id ?? string.Empty;
+        // 重写调用方法
+        OverrideInvoke(args, user);
 
         // 验证参数是否为空，确保请求参数的有效性
         if (args is null)
             return new DataResult<BaseOperationResult>(500, "参数不能为空");
 
-        // 创建取消令牌，用于支持异步操作的取消
+        // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
         // 通过中介者发送查询命令并返回结果

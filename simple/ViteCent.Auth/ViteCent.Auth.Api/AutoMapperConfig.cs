@@ -8,40 +8,40 @@
 
 #region 引入命名空间
 
-// 引入公司信息相关的数据结构
+// 引入公司信息相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
-// 引入部门信息相关的数据结构
+// 引入部门信息相关的数据参数
 using ViteCent.Auth.Data.BaseDepartment;
 
-// 引入字典信息相关的数据结构
+// 引入字典信息相关的数据参数
 using ViteCent.Auth.Data.BaseDictionary;
 
-// 引入日志信息相关的数据结构
+// 引入日志信息相关的数据参数
 using ViteCent.Auth.Data.BaseLogs;
 
-// 引入操作信息相关的数据结构
+// 引入操作信息相关的数据参数
 using ViteCent.Auth.Data.BaseOperation;
 
-// 引入职位信息相关的数据结构
+// 引入职位信息相关的数据参数
 using ViteCent.Auth.Data.BasePosition;
 
-// 引入资源信息相关的数据结构
+// 引入资源信息相关的数据参数
 using ViteCent.Auth.Data.BaseResource;
 
-// 引入角色信息相关的数据结构
+// 引入角色信息相关的数据参数
 using ViteCent.Auth.Data.BaseRole;
 
-// 引入角色权限相关的数据结构
+// 引入角色权限相关的数据参数
 using ViteCent.Auth.Data.BaseRolePermission;
 
-// 引入系统信息相关的数据结构
+// 引入系统信息相关的数据参数
 using ViteCent.Auth.Data.BaseSystem;
 
-// 引入用户信息相关的数据结构
+// 引入用户信息相关的数据参数
 using ViteCent.Auth.Data.BaseUser;
 
-// 引入用户角色相关的数据结构
+// 引入用户角色相关的数据参数
 using ViteCent.Auth.Data.BaseUserRole;
 
 // 引入公司信息相关的数据模型对象

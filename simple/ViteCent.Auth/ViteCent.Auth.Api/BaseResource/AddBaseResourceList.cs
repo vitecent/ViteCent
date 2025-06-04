@@ -14,13 +14,10 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据结构
-using ViteCent.Auth.Application;
-
-// 引入资源信息相关的数据结构
+// 引入资源信息相关的数据参数
 using ViteCent.Auth.Data.BaseResource;
 
-// 引入基础日志数据结构
+// 引入基础日志数据参数
 using ViteCent.Auth.Data.BaseLogs;
 
 // 引入核心
@@ -153,7 +150,7 @@ public class AddBaseResourceList(
             return new BaseResult(500, "资源信息重复");
         }
 
-        // 创建数据验证器，用于支持异步操作的取消
+        // 创建数据验证器，用于支持操作的取消
         var validator = new BaseResourceValidator();
 
         // 验证每个资源信息的有效性

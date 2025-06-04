@@ -7,7 +7,7 @@
 
 #region 引入命名空间
 
-// 引入$!{Table.Description}信息相关的数据结构
+// 引入$!{Table.Description}信息相关的数据参数
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 

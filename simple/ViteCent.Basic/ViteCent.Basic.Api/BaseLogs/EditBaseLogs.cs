@@ -13,10 +13,7 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据结构
-using ViteCent.Basic.Application;
-
-// 引入日志信息相关的数据结构
+// 引入日志信息相关的数据参数
 using ViteCent.Basic.Data.BaseLogs;
 
 // 引入核心数据类型
@@ -94,7 +91,7 @@ public partial class EditBaseLogs(
         // 重写调用方法
         OverrideInvoke(args, user);
 
-        // 创建取消令牌，用于支持异步操作的取消
+        // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
         // 创建数据验证器，true参数表示启用编辑模式的验证规则

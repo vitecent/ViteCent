@@ -63,7 +63,7 @@ public class BaseMicroService : MicroService
     /// 构建微服务应用，配置基础服务和中间件
     /// </summary>
     /// <param name="builder">Web应用构建器实例</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     protected override async Task BuildAsync(WebApplicationBuilder builder)
     {
         await base.BuildAsync(builder);
@@ -102,7 +102,7 @@ public class BaseMicroService : MicroService
     /// 启动微服务应用，配置中间件管道
     /// </summary>
     /// <param name="app">Web应用实例</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     protected override async Task StartAsync(WebApplication app)
     {
         await base.StartAsync(app);

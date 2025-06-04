@@ -38,7 +38,7 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
     private readonly DaprClient dapr = dapr;
 
     /// <summary>
-    /// 异步执行GET方法调用
+    /// 执行GET方法调用
     /// </summary>
     /// <param name="service">目标服务名称</param>
     /// <param name="api">API接口路径</param>
@@ -52,7 +52,7 @@ public class BaseInvoke<Args, Result>(IBaseCache cache, IConfiguration configura
     }
 
     /// <summary>
-    /// 异步执行POST方法调用
+    /// 执行POST方法调用
     /// </summary>
     /// <param name="service">目标服务名称</param>
     /// <param name="api">API接口路径</param>

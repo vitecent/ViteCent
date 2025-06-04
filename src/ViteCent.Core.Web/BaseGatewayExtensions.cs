@@ -29,7 +29,6 @@ public static class BaseGatewayExtensions
     /// 启用网关中间件
     /// </summary>
     /// <param name="app">Web应用程序构建器</param>
-    /// <returns>无返回值</returns>
     public static void UseGateway(this WebApplication app)
     {
         app.UseMiddleware<BaseGatewayMiddlewar>();

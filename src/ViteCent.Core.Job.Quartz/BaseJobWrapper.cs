@@ -27,7 +27,7 @@ public class BaseJobWrapper(IJob job, IServiceScope scope) : IJob, IDisposable
     /// 执行Quartz作业
     /// </summary>
     /// <param name="context">作业执行上下文，包含作业执行的相关信息</param>
-    /// <returns>表示异步操作的任务</returns>
+    /// <returns>任务</returns>
     public async Task Execute(IJobExecutionContext context)
     {
         await job.Execute(context);

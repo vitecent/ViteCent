@@ -8,6 +8,7 @@
 
 #region 引入命名空间
 
+// 引入 FluentValidation 核心
 using FluentValidation;
 
 #endregion 引入命名空间
@@ -21,21 +22,39 @@ namespace ViteCent.Basic.Data.Schedule;
 public partial class ScheduleValidator : AbstractValidator<AddScheduleArgs>
 {
     /// <summary>
-    /// 验证参数
+    /// 验证排班信息
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     public ScheduleValidator(bool validate = false)
     {
+        // 验证参数不能为空
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+
+        // 验证公司标识不能为空
         RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+
+        // 验证部门标识不能为空
         RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
+
+        // 验证结束时间不能为空
         RuleFor(x => x.EndTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("结束时间不能为空");
+
+        // 验证岗位标识不能为空
         RuleFor(x => x.PostId).NotNull().NotEmpty().WithMessage("岗位标识不能为空");
+
+        // 验证开始时间不能为空
         RuleFor(x => x.StartTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("开始时间不能为空");
+
+        // 验证班次标识不能为空
         RuleFor(x => x.TypeId).NotNull().NotEmpty().WithMessage("班次标识不能为空");
+
+        // 验证班次名称不能为空
         RuleFor(x => x.TypeName).NotNull().NotEmpty().WithMessage("班次名称不能为空");
+
+        // 验证用户标识不能为空
         RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("用户标识不能为空");
 
+        // 调用扩展方法进行额外验证
         OverrideValidator(validate);
     }
 }

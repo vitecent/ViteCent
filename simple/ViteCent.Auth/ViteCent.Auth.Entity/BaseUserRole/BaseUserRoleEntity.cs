@@ -7,9 +7,16 @@
 
 #region 引入命名空间
 
+// 引入 MediatR 用于实现中介者模式
 using MediatR;
+
+// 引入SqlSugar基础设施
 using SqlSugar;
+
+// 引入核心数据类型
 using ViteCent.Core.Data;
+
+// 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
 
 #endregion 引入命名空间

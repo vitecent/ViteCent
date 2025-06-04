@@ -18,7 +18,7 @@ public abstract class BaseFileApi<Args, Result> : ControllerBase
     where Result : BaseResult
 {
     /// <summary>
-    /// 处理文件上传的异步方法
+    /// 处理文件上传的方法
     /// </summary>
     /// <param name="file">上传的文件对象，包含文件内容和元数据</param>
     /// <returns>返回处理结果，类型为Result</returns>

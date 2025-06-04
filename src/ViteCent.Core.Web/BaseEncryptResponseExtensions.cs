@@ -23,7 +23,6 @@ public static class BaseEncryptResponseExtensions
     /// 启用响应加密中间件
     /// </summary>
     /// <param name="app">Web应用程序构建器</param>
-    /// <returns>无返回值</returns>
     public static void UseEncryptResponse(this WebApplication app)
     {
         app.UseMiddleware<BaseEncryptResponseMiddlewar>();

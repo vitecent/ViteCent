@@ -151,7 +151,7 @@ public class BaseConst
     public const string Token = "Authorization";
 
     /// <summary>
-    /// 用户请求追踪ID请求头名称
+    /// 用户请求追踪标识请求头名称
     /// </summary>
     public const string TraceingId = "User-TraceingId";
 

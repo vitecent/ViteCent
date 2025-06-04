@@ -21,7 +21,10 @@ using ViteCent.Core.Data;
 
 namespace ViteCent.Auth.Api.BasePosition;
 
-/// <summary> 编辑职位信息接口拓展 </summary> 该部分类主要负责处理编辑公司信息时的自定义逻辑 </remarks>
+/// <summary>
+/// 编辑职位信息接口拓展
+/// </summary>
+/// <remarks>该部分类主要负责处理编辑公司信息时的自定义逻辑</remarks>
 public partial class EditBasePosition
 {
     /// <summary>
@@ -33,7 +36,6 @@ public partial class EditBasePosition
     internal static void OverrideInvoke(EditBasePositionArgs args, BaseUserInfo user)
     {
         // 设置公司标识
-
         if (string.IsNullOrEmpty(args.CompanyId))
             args.CompanyId = user?.Company?.Id ?? string.Empty;
     }

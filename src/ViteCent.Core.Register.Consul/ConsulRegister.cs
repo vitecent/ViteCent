@@ -20,8 +20,8 @@ public class ConsulRegister(string uri) : IRegister
     /// <summary>
     /// 注销指定的服务实例
     /// </summary>
-    /// <param name="serviceId">要注销的服务实例ID</param>
-    /// <returns>表示异步操作的任务</returns>
+    /// <param name="serviceId">要注销的服务实例标识</param>
+    /// <returns>任务</returns>
     public async Task DeregisterAsync(string serviceId)
     {
         await client.Agent.ServiceDeregister(serviceId);
@@ -30,8 +30,8 @@ public class ConsulRegister(string uri) : IRegister
     /// <summary>
     /// 注册微服务实例到Consul
     /// </summary>
-    /// <param name="microService">微服务配置信息，包含服务ID、名称、地址、端口等</param>
-    /// <returns>表示异步操作的任务</returns>
+    /// <param name="microService">微服务配置信息，包含服务标识、名称、地址、端口等</param>
+    /// <returns>任务</returns>
     public async Task RegisterAsync(ServiceConfig microService)
     {
         var service = new AgentServiceRegistration

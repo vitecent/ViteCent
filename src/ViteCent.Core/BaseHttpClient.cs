@@ -14,7 +14,7 @@ namespace ViteCent.Core;
 public class BaseHttpClient<T> where T : BaseResult
 {
     /// <summary>
-    /// 发送GET请求的异步方法
+    /// 发送GET请求的方法
     /// </summary>
     /// <param name="uri">请求的URL地址</param>
     /// <param name="token">身份验证令牌，可选参数</param>
@@ -44,7 +44,7 @@ public class BaseHttpClient<T> where T : BaseResult
     }
 
     /// <summary>
-    /// 发送POST请求的异步方法
+    /// 发送POST请求的方法
     /// </summary>
     /// <param name="uri">请求的URL地址</param>
     /// <param name="args">请求参数对象，包含需要发送的数据</param>

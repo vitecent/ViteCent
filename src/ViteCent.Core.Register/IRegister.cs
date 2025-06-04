@@ -8,15 +8,15 @@ public interface IRegister
     /// <summary>
     /// 注销指定的微服务
     /// </summary>
-    /// <param name="serviceId">要注销的服务实例ID</param>
-    /// <returns>表示异步操作的任务</returns>
+    /// <param name="serviceId">要注销的服务实例标识</param>
+    /// <returns>任务</returns>
     Task DeregisterAsync(string serviceId);
 
     /// <summary>
     /// 注册新的微服务实例
     /// </summary>
     /// <param name="microService">微服务配置信息</param>
-    /// <returns>表示异步操作的任务</returns>
+    /// <returns>任务</returns>
     Task RegisterAsync(ServiceConfig microService);
 
     /// <summary>

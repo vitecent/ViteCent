@@ -8,8 +8,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
 		<PackageReference Include="AutoMapper" Version="14.0.0" />
 	</ItemGroup>
 
@@ -34,6 +34,12 @@
 		<None Update="Template\Api\AddOverride">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Template\Api\DeleteOverride">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Template\Api\DisableOverride">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Template\Api\Edit">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -46,8 +52,14 @@
 		<None Update="Template\Api\Disable">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Template\Api\EnableOverride">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="Template\Api\Get">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Template\Api\GetOverride">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Template\Api\Page">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -66,6 +78,9 @@
 		</None>
 		<None Update="Template\Api\Dockerfile">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Template\Api\PageOverride">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Template\Api\Program">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -117,10 +132,6 @@
 		<None Update="Template\Application\AddInvokeOverride">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-
-		<None Update="Template\Application\BaseApplicationInvoke">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="Template\Application\Edit">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -150,12 +161,6 @@
 		</None>
 		<None Update="Template\Application\Csproj">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Template\Application\BaseApplication">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Template\Application\PageOverride">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 
 		<None Update="Template\Data\AddArgs">

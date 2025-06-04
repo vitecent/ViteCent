@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using ViteCent.Auth.Data.BaseUser;
 
 // 引入基础数据传输对象
-using ViteCent.Basic.Application;
 
 // 引入排班信息相关的数据传输对象
 using ViteCent.Basic.Data.Schedule;

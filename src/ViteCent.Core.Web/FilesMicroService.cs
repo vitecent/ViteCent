@@ -48,7 +48,7 @@ public class FilesMicroService : MicroService
     /// 构建微服务，配置Consul注册、Zipkin链路追踪和Swagger文档服务
     /// </summary>
     /// <param name="builder">Web应用程序构建器</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     protected override async Task BuildAsync(WebApplicationBuilder builder)
     {
         await base.BuildAsync(builder);
@@ -70,7 +70,7 @@ public class FilesMicroService : MicroService
     /// 启动微服务，配置中间件管道
     /// </summary>
     /// <param name="app">Web应用程序实例</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     protected override async Task StartAsync(WebApplication app)
     {
         await base.StartAsync(app);

@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 // 公司实体类
 using ViteCent.Auth.Entity.BaseCompany;
 
-// 基础数据结构
+// 基础数据参数
 using ViteCent.Core.Data;
 
 // SqlSugar ORM基础类
@@ -73,7 +73,7 @@ public class HasBaseCompanyList(ILogger<HasBaseCompanyList> logger)
         if (request.Names.Count > 1)
             query = query.Where(x => request.Names.Contains(x.Name));
 
-        // 执行异步查询，获取匹配记录数
+        // 执行查询，获取匹配记录数
         var entity = await query.CountAsync(cancellationToken);
 
         // 如果存在匹配记录，返回错误结果

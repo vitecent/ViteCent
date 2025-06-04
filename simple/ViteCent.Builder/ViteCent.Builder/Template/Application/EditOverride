@@ -47,7 +47,7 @@ using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
 #end
 
-// 引入$!{Table.Description}相关的数据结构
+// 引入$!{Table.Description}相关的数据参数
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
@@ -61,16 +61,22 @@ using ViteCent.Core.Data;
 namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
-/// 删除$!{Table.Description}应用拓展
+/// 编辑$!{Table.Description}的处理类
 /// </summary>
+/// <remarks>
+/// 该类负责处理$!{Table.Description}的编辑操作
+/// </remarks>
 public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
 {
     /// <summary>
-    /// 验证$!{Table.Description}
+    /// 重写处理$!{Table.Description}实体的方法
     /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="entity">$!{Table.Description}实体对象</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>返回处理结果</returns>
+    /// <remarks>
+    /// 该方法主要用于处理$!{Table.Description}实体的编辑操作，目前返回默认的成功结果
+    /// </remarks>
     private async Task<BaseResult> OverrideHandle($!{Table.CamelCaseName}$!{Setting.Entity.Name} entity,
         CancellationToken cancellationToken)
     {
@@ -78,14 +84,15 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
     }
 
     /// <summary>
-    /// 验证参数
+    /// 重写处理编辑$!{Table.Description}请求的方法
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">编辑$!{Table.Description}的请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>返回处理结果</returns>
     private async Task<BaseResult> OverrideHandle($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request,
         CancellationToken cancellationToken)
     {
+        // 公司标识
         var companyId = user?.Company?.Id ?? string.Empty;
 
 #if($HasCompanyId)

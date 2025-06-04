@@ -39,7 +39,7 @@ public abstract class MicroService
     /// 运行微服务应用
     /// </summary>
     /// <param name="args">启动参数数组</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     /// <remarks>
     /// 该方法执行以下操作：
     /// 1. 初始化WebApplicationBuilder
@@ -135,7 +135,7 @@ public abstract class MicroService
     /// 构建微服务应用
     /// </summary>
     /// <param name="builder">Web应用构建器</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     /// <remarks>在此方法中可以添加自定义服务注册、配置中间件等构建操作</remarks>
     protected virtual async Task BuildAsync(WebApplicationBuilder builder)
     {
@@ -147,7 +147,7 @@ public abstract class MicroService
     /// 配置微服务应用
     /// </summary>
     /// <param name="configuration">配置接口</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     /// <remarks>在此方法中可以进行配置文件加载、环境变量设置等配置操作</remarks>
     protected virtual async Task ConfigAsync(IConfiguration configuration)
     {
@@ -159,7 +159,7 @@ public abstract class MicroService
     /// 启动微服务应用
     /// </summary>
     /// <param name="app">Web应用实例</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     /// <remarks>在此方法中可以进行服务启动前的准备工作，如初始化资源、启动后台任务等</remarks>
     protected virtual async Task StartAsync(WebApplication app)
     {
@@ -170,7 +170,7 @@ public abstract class MicroService
     /// <summary>
     /// 停止微服务应用
     /// </summary>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     /// <remarks>在此方法中可以进行服务停止时的清理工作，如释放资源、保存状态等</remarks>
     protected virtual async Task StopAsync()
     {

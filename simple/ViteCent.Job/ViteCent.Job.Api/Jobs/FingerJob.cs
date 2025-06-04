@@ -25,7 +25,7 @@ public class FingerJob(
     /// 执行指纹数据采集任务 从数据库中获取所有已启用且已录入指纹的用户信息，为每个用户分配索引号， 并将指纹数据列表更新到缓存中，设置35秒的过期时间
     /// </summary>
     /// <param name="context">作业执行上下文，包含作业的相关信息</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     public async Task Execute(IJobExecutionContext context)
     {
         logger.LogInformation($"FingerJob : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");

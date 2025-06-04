@@ -57,7 +57,7 @@ public class GenerateExtensions
 
             GenerateDomain(setting, root, database, nh);
 
-            //GenerateSolution(setting, root, database, nh);
+            GenerateSolution(setting, root, database, nh);
         }
     }
 
@@ -108,45 +108,73 @@ public class GenerateExtensions
             {
                 nh.Save(@"Template\Api\Add", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
 
-                nh.Save(@"Template\Api\AddList",
-                    Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+                nh.Save(@"Template\Api\AddList", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
 
-                var hasOverride =
-                    File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
 
                 if (!hasOverride)
-                    nh.Save(@"Template\Api\AddOverride",
-                        Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                    nh.Save(@"Template\Api\AddOverride", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
             }
 
             if (!string.IsNullOrWhiteSpace(setting.EditName))
             {
                 nh.Save(@"Template\Api\Edit", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.cs"));
 
-                var hasOverride =
-                       File.Exists(Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
 
                 if (!hasOverride)
-                    nh.Save(@"Template\Api\EditOverride",
-                        Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
+                    nh.Save(@"Template\Api\EditOverride", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
             }
 
-            nh.Save(@"Template\Api\Get", Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}.cs"));
+            if (!string.IsNullOrWhiteSpace(setting.GetName))
+            {
+                nh.Save(@"Template\Api\Get", Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}.cs"));
+
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}.Override.cs"));
+
+                if (!hasOverride)
+                    nh.Save(@"Template\Api\GetOverride", Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}.Override.cs"));
+            }
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
+            {
                 nh.Save(@"Template\Api\Page", Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.cs"));
 
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.Override.cs"));
+
+                if (!hasOverride)
+                    nh.Save(@"Template\Api\PageOverride", Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.Override.cs"));
+            }
+
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
-                nh.Save(@"Template\Api\Delete",
-                    Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
+            {
+                nh.Save(@"Template\Api\Delete", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
+
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.Override.cs"));
+
+                if (!hasOverride)
+                    nh.Save(@"Template\Api\DeleteOverride", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.Override.cs"));
+            }
 
             if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
-                nh.Save(@"Template\Api\Enable",
-                    Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
+            {
+                nh.Save(@"Template\Api\Enable", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
+
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.Override.cs"));
+
+                if (!hasOverride)
+                    nh.Save(@"Template\Api\EnableOverride", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.Override.cs"));
+            }
 
             if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
-                nh.Save(@"Template\Api\Disable",
-                    Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
+            {
+                nh.Save(@"Template\Api\Disable", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
+
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.Override.cs"));
+
+                if (!hasOverride)
+                    nh.Save(@"Template\Api\DisableOverride", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.Override.cs"));
+            }
         }
 
         nh.Put("Tables", database.Tables);
@@ -162,8 +190,7 @@ public class GenerateExtensions
             var hasOverride = File.Exists(Path.Combine(apiPth, $"{setting.Api.FacName}.Override.cs"));
 
             if (!hasOverride)
-                nh.Save(@"Template\Api\AutoFacConfigOverride",
-                    Path.Combine(apiPth, $"{setting.Api.FacName}.Override.cs"));
+                nh.Save(@"Template\Api\AutoFacConfigOverride", Path.Combine(apiPth, $"{setting.Api.FacName}.Override.cs"));
         }
 
         if (!string.IsNullOrWhiteSpace(setting.Api.MapperName))
@@ -173,8 +200,7 @@ public class GenerateExtensions
             var hasOverride = File.Exists(Path.Combine(apiPth, $"{setting.Api.MapperName}.Override.cs"));
 
             if (!hasOverride)
-                nh.Save(@"Template\Api\AutoMapperConfigOverride",
-                    Path.Combine(apiPth, $"{setting.Api.MapperName}.Override.cs"));
+                nh.Save(@"Template\Api\AutoMapperConfigOverride", Path.Combine(apiPth, $"{setting.Api.MapperName}.Override.cs"));
         }
 
         nh.Save(@"Template\Api\Dockerfile", Path.Combine(apiPth, "Dockerfile"));
@@ -196,8 +222,7 @@ public class GenerateExtensions
     {
         if (string.IsNullOrWhiteSpace(setting.Application.Name)) return;
 
-        var applicatioPath = Path.Combine(root, setting.ProjrectName,
-            $"{setting.ProjrectName}.{setting.Application.Name}");
+        var applicatioPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Application.Name}");
 
         foreach (var table in database.Tables)
         {
@@ -205,8 +230,7 @@ public class GenerateExtensions
 
             logger.LogInformation($"Generate Application {table.Name.ToCamelCase()}");
 
-            var removeField = new List<string>
-                { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
+            var removeField = new List<string> { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
 
             var editField = table.Fields.Where(x => !removeField.Contains(x.Name.ToCamelCase())).ToList();
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
@@ -241,33 +265,25 @@ public class GenerateExtensions
             {
                 if (database.Invoke)
                 {
-                    nh.Save(@"Template\Application\AddInvoke",
-                        Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
+                    nh.Save(@"Template\Application\AddInvoke", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
 
-                    nh.Save(@"Template\Application\AddListInvoke",
-                        Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+                    nh.Save(@"Template\Application\AddListInvoke", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
 
-                    var hasOverride =
-                        File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                    var hasOverride = File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
 
                     if (!hasOverride)
-                        nh.Save(@"Template\Application\AddInvokeOverride",
-                            Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                        nh.Save(@"Template\Application\AddInvokeOverride", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
                 }
                 else
                 {
-                    nh.Save(@"Template\Application\Add",
-                        Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
+                    nh.Save(@"Template\Application\Add", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
 
-                    nh.Save(@"Template\Application\AddList",
-                        Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+                    nh.Save(@"Template\Application\AddList", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
 
-                    var hasOverride =
-                        File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                    var hasOverride = File.Exists(Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
 
                     if (!hasOverride)
-                        nh.Save(@"Template\Application\AddOverride",
-                            Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
+                        nh.Save(@"Template\Application\AddOverride", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.Override.cs"));
                 }
             }
 
@@ -275,75 +291,38 @@ public class GenerateExtensions
             {
                 if (database.Invoke)
                 {
-                    nh.Save(@"Template\Application\EditInvoke",
-                        Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.cs"));
+                    nh.Save(@"Template\Application\EditInvoke", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.cs"));
 
-                    var hasOverride = File.Exists(Path.Combine(path,
-                        $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
+                    var hasOverride = File.Exists(Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
 
                     if (!hasOverride)
-                        nh.Save(@"Template\Application\EditInvokeOverride",
-                            Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
+                        nh.Save(@"Template\Application\EditInvokeOverride", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
                 }
                 else
                 {
-                    nh.Save(@"Template\Application\Edit",
-                        Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.cs"));
+                    nh.Save(@"Template\Application\Edit", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.cs"));
 
-                    var hasOverride = File.Exists(Path.Combine(path,
-                        $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
+                    var hasOverride = File.Exists(Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
 
                     if (!hasOverride)
-                        nh.Save(@"Template\Application\EditOverride",
-                            Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
+                        nh.Save(@"Template\Application\EditOverride", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.Override.cs"));
                 }
             }
 
             if (!string.IsNullOrWhiteSpace(setting.GetName))
-                nh.Save(@"Template\Application\Get",
-                    Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}.cs"));
+                nh.Save(@"Template\Application\Get", Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
-            {
-                nh.Save(@"Template\Application\Page",
-                        Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.cs"));
-
-                var hasOverride = File.Exists(Path.Combine(path,
-                        $"{setting.PageName}{table.Name.ToCamelCase()}.Override.cs"));
-
-                if (!hasOverride)
-                    nh.Save(@"Template\Application\PageOverride",
-                        Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.Override.cs"));
-            }
+                nh.Save(@"Template\Application\Page", Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
-                nh.Save(@"Template\Application\Delete",
-                    Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
+                nh.Save(@"Template\Application\Delete", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
 
             if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
-                nh.Save(@"Template\Application\Enable",
-                    Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
+                nh.Save(@"Template\Application\Enable", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
 
             if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
-                nh.Save(@"Template\Application\Disable",
-                    Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
-        }
-
-        if (database.Invoke)
-        {
-            var hasBase = File.Exists(Path.Combine(applicatioPath, $"Base{setting.Application.Name}.cs"));
-
-            if (!hasBase)
-                nh.Save(@"Template\Application\BaseApplicationInvoke",
-                    Path.Combine(applicatioPath, $"Base{setting.Application.Name}.cs"));
-        }
-        else
-        {
-            var hasBase = File.Exists(Path.Combine(applicatioPath, $"Base{setting.Application.Name}.cs"));
-
-            if (!hasBase)
-                nh.Save(@"Template\Application\BaseApplication",
-                    Path.Combine(applicatioPath, $"Base{setting.Application.Name}.cs"));
+                nh.Save(@"Template\Application\Disable", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
         }
 
         var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
@@ -363,8 +342,7 @@ public class GenerateExtensions
     {
         if (string.IsNullOrWhiteSpace(setting.Data.Name)) return;
 
-        var dataPath = Path.Combine(root, setting.Data.Projrect,
-            $"{setting.ProjrectName}.{setting.Data.Name}");
+        var dataPath = Path.Combine(root, setting.Data.Projrect, $"{setting.ProjrectName}.{setting.Data.Name}");
 
         foreach (var table in database.Tables)
         {
@@ -372,8 +350,7 @@ public class GenerateExtensions
 
             logger.LogInformation($"Generate Data {table.Name.ToCamelCase()}");
 
-            var removeField = new List<string>
-                { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
+            var removeField = new List<string> { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
 
             var addField = table.Fields.Where(x => !removeField.Contains(x.Name.ToCamelCase())).ToList();
             var validatorFields = table.Fields.Where(x =>
@@ -407,71 +384,48 @@ public class GenerateExtensions
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
-                nh.Save(@"Template\Data\AddArgs",
-                    Path.Combine(path,
-                        $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Data\AddArgs", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
-                nh.Save(@"Template\Data\AddListArgs",
-                    Path.Combine(path,
-                        $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Data\AddListArgs", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
             }
 
             if (!string.IsNullOrWhiteSpace(setting.EditName))
-                nh.Save(@"Template\Data\EditArgs",
-                    Path.Combine(path,
-                        $"{setting.EditName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Data\EditArgs", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
-            if (!string.IsNullOrWhiteSpace(setting.AddName) | !string.IsNullOrWhiteSpace(setting.EditName))
+            if (!string.IsNullOrWhiteSpace(setting.AddName) || !string.IsNullOrWhiteSpace(setting.EditName))
             {
-                nh.Save(@"Template\Data\Validator",
-                    Path.Combine(path,
-                        $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.cs"));
+                nh.Save(@"Template\Data\Validator", Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.cs"));
 
-                var hasOverride = File.Exists(Path.Combine(path,
-                    $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.Override.cs"));
+                var hasOverride = File.Exists(Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.Override.cs"));
 
                 if (!hasOverride)
-                    nh.Save(@"Template\Data\ValidatorOverride",
-                        Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.Override.cs"));
+                    nh.Save(@"Template\Data\ValidatorOverride", Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ValidatorSuffix}.Override.cs"));
             }
 
             if (!string.IsNullOrWhiteSpace(setting.GetName))
-                nh.Save(@"Template\Data\GetArgs",
-                    Path.Combine(path,
-                        $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Data\GetArgs", Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
-                nh.Save(@"Template\Data\SearchArgs",
-                    Path.Combine(path,
-                        $"{setting.Data.SearchPrefix}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Data\SearchArgs", Path.Combine(path, $"{setting.Data.SearchPrefix}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.GetName) || !string.IsNullOrWhiteSpace(setting.PageName))
-                nh.Save(@"Template\Data\Result",
-                    Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ResultSuffix}.cs"));
+                nh.Save(@"Template\Data\Result", Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Data.ResultSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
-                nh.Save(@"Template\Data\DeleteArgs",
-                    Path.Combine(path,
-                        $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Data\DeleteArgs", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
-                nh.Save(@"Template\Data\EnableArgs",
-                    Path.Combine(path,
-                        $"{setting.EnableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Data\EnableArgs", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
-                nh.Save(@"Template\Data\DisableArgs",
-                    Path.Combine(path,
-                        $"{setting.DisableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Data\DisableArgs", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.HasName))
             {
-                var hasOverride = File.Exists(Path.Combine(path,
-                    $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
                 if (!hasOverride)
-                    nh.Save(@"Template\Data\HasArgs",
-                        Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
+                    nh.Save(@"Template\Data\HasArgs", Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
             }
         }
 
@@ -491,8 +445,7 @@ public class GenerateExtensions
     {
         if (string.IsNullOrWhiteSpace(setting.Domain.Name)) return;
 
-        var domainPath = Path.Combine(root, setting.ProjrectName,
-            $"{setting.ProjrectName}.{setting.Domain.Name}");
+        var domainPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Domain.Name}");
 
         foreach (var table in database.Tables)
         {
@@ -526,47 +479,39 @@ public class GenerateExtensions
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
                 nh.Save(@"Template\Domain\Add", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
-                nh.Save(@"Template\Domain\AddList",
-                    Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix} .cs"));
+                nh.Save(@"Template\Domain\AddList", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix} .cs"));
             }
 
             if (!string.IsNullOrWhiteSpace(setting.EditName))
-                nh.Save(@"Template\Domain\Edit",
-                    Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.cs"));
+                nh.Save(@"Template\Domain\Edit", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.GetName))
                 nh.Save(@"Template\Domain\Get", Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
-                nh.Save(@"Template\Domain\Page",
-                    Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.cs"));
+                nh.Save(@"Template\Domain\Page", Path.Combine(path, $"{setting.PageName}{table.Name.ToCamelCase()}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
-                nh.Save(@"Template\Domain\Delete",
-                    Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
+                nh.Save(@"Template\Domain\Delete", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.HasName))
             {
                 var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}.cs"));
 
                 if (!hasOverride)
-                    nh.Save(@"Template\Domain\Has",
-                        Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}.cs"));
+                    nh.Save(@"Template\Domain\Has", Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}.cs"));
 
-                var hasListOverride = File.Exists(Path.Combine(path,
-                    $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+                var hasListOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
 
                 if (!hasListOverride)
-                    nh.Save(@"Template\Domain\HasList",
-                        Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
+                    nh.Save(@"Template\Domain\HasList", Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Data.ListSuffix}.cs"));
             }
         }
 
         var hasCsproj = File.Exists(Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Domain\Csproj",
-                Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
+            nh.Save(@"Template\Domain\Csproj", Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
     }
 
     /// <summary>
@@ -612,50 +557,37 @@ public class GenerateExtensions
             nh.Put("HasId", hasId);
             nh.Put("HasStatus", hasStatus);
 
-            nh.Save(@"Template\Entity\Entity",
-                Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Entity.Suffix}.cs"));
+            nh.Save(@"Template\Entity\Entity", Path.Combine(path, $"{table.Name.ToCamelCase()}{setting.Entity.Suffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
-                nh.Save(@"Template\Entity\AddEntity",
-                    Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Entity.Suffix}.cs"));
+                nh.Save(@"Template\Entity\AddEntity", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Entity.Suffix}.cs"));
 
-                nh.Save(@"Template\Entity\AddEntityListArgs",
-                    Path.Combine(path,
-                        $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Entity.Suffix}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Entity\AddEntityListArgs", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}{setting.Entity.Suffix}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
             }
 
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
-                nh.Save(@"Template\Entity\DeleteEntity",
-                    Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Entity.Name}.cs"));
+                nh.Save(@"Template\Entity\DeleteEntity", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Entity.Name}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.PageName))
-                nh.Save(@"Template\Entity\SearchEntityArgs",
-                    Path.Combine(path,
-                        $"{setting.Data.SearchPrefix}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Entity\SearchEntityArgs", Path.Combine(path, $"{setting.Data.SearchPrefix}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.GetName))
-                nh.Save(@"Template\Entity\GetEntityArgs",
-                    Path.Combine(path,
-                        $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
+                nh.Save(@"Template\Entity\GetEntityArgs", Path.Combine(path, $"{setting.GetName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.HasName))
             {
-                var hasOverride = File.Exists(Path.Combine(path,
-                    $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+                var hasOverride = File.Exists(Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
 
                 if (!hasOverride)
-                    nh.Save(@"Template\Entity\HasEntityListArgs",
-                        Path.Combine(path,
-                            $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
+                    nh.Save(@"Template\Entity\HasEntityListArgs", Path.Combine(path, $"{setting.HasName}{table.Name.ToCamelCase()}{setting.Entity.Name}{setting.Data.ListSuffix}{setting.Data.ArgsSuffix}.cs"));
             }
         }
 
         var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Entity\Csproj",
-                Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
+            nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
     }
 
     /// <summary>

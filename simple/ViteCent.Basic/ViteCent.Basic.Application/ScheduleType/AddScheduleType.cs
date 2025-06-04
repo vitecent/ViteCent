@@ -20,13 +20,13 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入基础排班相关的数据结构
+// 引入基础排班相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
-// 引入部门信息相关的数据结构
+// 引入部门信息相关的数据参数
 using ViteCent.Auth.Data.BaseDepartment;
 
-// 引入基础排班相关的数据结构
+// 引入基础排班相关的数据参数
 using ViteCent.Basic.Data.ScheduleType;
 
 // 引入基础排班相关的模型
@@ -77,7 +77,7 @@ public partial class AddScheduleType(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 新增基础排班
@@ -90,8 +90,6 @@ public partial class AddScheduleType(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.ScheduleType.AddScheduleType");
-
-        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 

@@ -35,7 +35,7 @@ public class Program
     /// 2. 创建并配置微服务实例
     /// 3. 注册AutoMapper配置，用于对象映射
     /// 4. 注册AutoFac配置，实现依赖注入
-    /// 5. 异步启动微服务
+    /// 5. 启动微服务
     /// </remarks>
     public static async Task Main(string[] args)
     {

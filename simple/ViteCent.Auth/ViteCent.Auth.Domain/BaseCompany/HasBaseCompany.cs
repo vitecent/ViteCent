@@ -19,7 +19,7 @@ using ViteCent.Auth.Data.BaseCompany;
 // 公司实体类
 using ViteCent.Auth.Entity.BaseCompany;
 
-// 基础数据结构
+// 基础数据参数
 using ViteCent.Core.Data;
 
 // SqlSugar ORM基础类
@@ -51,7 +51,7 @@ public class HasBaseCompany(ILogger<HasBaseCompany> logger)
     /// <summary>
     /// 处理公司信息判重请求
     /// </summary>
-    /// <param name="request">包含待检查的公司ID、编码和名称的请求参数</param>
+    /// <param name="request">包含待检查的公司标识、编码和名称的请求参数</param>
     /// <param name="cancellationToken">取消令牌</param>
     /// <returns>判重结果，包含状态码和提示信息</returns>
     /// <remarks>
@@ -68,7 +68,7 @@ public class HasBaseCompany(ILogger<HasBaseCompany> logger)
         // 初始化查询对象
         var query = Client.Query<BaseCompanyEntity>();
 
-        // 如果提供了ID，排除当前记录（用于更新时的判重）
+        // 如果提供了标识，排除当前记录（用于更新时的判重）
         if (!string.IsNullOrWhiteSpace(request.Id))
             query.Where(x => x.Id != request.Id);
 
@@ -80,7 +80,7 @@ public class HasBaseCompany(ILogger<HasBaseCompany> logger)
         if (!string.IsNullOrWhiteSpace(request.Name))
             query.Where(x => x.Name == request.Name);
 
-        // 执行异步查询，获取匹配记录数
+        // 执行查询，获取匹配记录数
         var entity = await query.CountAsync(cancellationToken);
 
         // 如果存在匹配记录，返回错误结果

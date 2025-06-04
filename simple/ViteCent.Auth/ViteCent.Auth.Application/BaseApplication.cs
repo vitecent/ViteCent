@@ -37,7 +37,7 @@ namespace ViteCent.Auth.Application;
 /// 1. 检查各种基础实体的存在性和可用性
 /// 2. 支持单个和批量检查操作
 /// 3. 处理实体状态验证
-/// 4. 提供ID生成和用户信息初始化功能
+/// 4. 提供标识生成和用户信息初始化功能
 /// </remarks>
 public static class BaseApplication
 {
@@ -45,7 +45,7 @@ public static class BaseApplication
     /// 批量检查公司是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyIds">要检查的公司ID列表</param>
+    /// <param name="companyIds">要检查的公司标识列表</param>
     /// <returns>返回公司实体的分页结果，包含公司列表或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -64,8 +64,8 @@ public static class BaseApplication
             [
                 new SearchItem            // 查询条件项
                 {
-                    Field = "Id",         // 查询字段为ID
-                    Value = companyIds.ToJson(), // 将ID列表转换为JSON字符串
+                    Field = "Id",         // 查询字段为标识
+                    Value = companyIds.ToJson(), // 将标识列表转换为JSON字符串
                     Method = SearchEnum.In // 使用IN查询方式
                 }
             ]
@@ -78,12 +78,12 @@ public static class BaseApplication
         if (companys.Count == 0)
             return new PageResult<BaseCompanyEntity>(500, $"公司{companyIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的公司ID列表
+        // 获取查询结果中的公司标识列表
         var _companyIds = companys.Select(y => y.Id).ToList();
-        // 查找是否有未找到的公司ID
+        // 查找是否有未找到的公司标识
         var _companyId = companyIds.FirstOrDefault(x => !_companyIds.Contains(x));
 
-        // 如果存在未找到的公司ID，返回错误信息
+        // 如果存在未找到的公司标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_companyId))
             return new PageResult<BaseCompanyEntity>(500, $"公司{_companyId}不存在");
 
@@ -105,7 +105,7 @@ public static class BaseApplication
     /// 检查单个公司是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyId">要检查的公司ID</param>
+    /// <param name="companyId">要检查的公司标识</param>
     /// <returns>返回公司实体的数据结果，包含公司信息或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -141,8 +141,8 @@ public static class BaseApplication
     /// 批量检查部门是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="departmentIds">要检查的部门ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="departmentIds">要检查的部门标识列表</param>
     /// <returns>返回部门实体的分页结果，包含部门列表或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -192,8 +192,8 @@ public static class BaseApplication
     /// 检查单个部门是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="departmentId">要检查的部门ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="departmentId">要检查的部门标识</param>
     /// <returns>返回部门实体的数据结果，包含部门信息或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -204,7 +204,7 @@ public static class BaseApplication
         string companyId,
         string departmentId)
     {
-        // 验证部门ID是否为空
+        // 验证部门标识是否为空
         if (string.IsNullOrWhiteSpace(departmentId))
             return new DataResult<BaseDepartmentEntity>();
 
@@ -237,10 +237,10 @@ public static class BaseApplication
     /// 批量检查操作权限是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="systemIds">系统ID列表</param>
-    /// <param name="resourceIds">资源ID列表</param>
-    /// <param name="operationIds">要检查的操作ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="systemIds">系统标识列表</param>
+    /// <param name="resourceIds">资源标识列表</param>
+    /// <param name="operationIds">要检查的操作标识列表</param>
     /// <returns>返回操作实体的分页结果，包含操作列表或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -261,19 +261,19 @@ public static class BaseApplication
             Args = []
         };
 
-        // 添加公司ID筛选条件
+        // 添加公司标识筛选条件
         if (companyIds.Count > 0)
             searchOperationArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
-        // 添加系统ID筛选条件
+        // 添加系统标识筛选条件
         if (systemIds.Count > 0)
             searchOperationArgs.AddArgs("SystemId", systemIds.ToJson(), SearchEnum.In);
 
-        // 添加资源ID筛选条件
+        // 添加资源标识筛选条件
         if (resourceIds.Count > 0)
             searchOperationArgs.AddArgs("ResourceId", resourceIds.ToJson(), SearchEnum.In);
 
-        // 添加操作ID筛选条件
+        // 添加操作标识筛选条件
         if (operationIds.Count > 0)
             searchOperationArgs.AddArgs("Id", operationIds.ToJson(), SearchEnum.In);
 
@@ -284,12 +284,12 @@ public static class BaseApplication
         if (operations.Count == 0)
             return new PageResult<BaseOperationEntity>(500, $"操作{operationIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的操作ID列表
+        // 获取查询结果中的操作标识列表
         var _operationIds = operations.Select(y => y.Id).ToList();
-        // 查找是否有未找到的操作ID
+        // 查找是否有未找到的操作标识
         var _operationId = operationIds.FirstOrDefault(x => !_operationIds.Contains(x));
 
-        // 如果存在未找到的操作ID，返回错误信息
+        // 如果存在未找到的操作标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_operationId))
             return new PageResult<BaseOperationEntity>(500, $"操作{_operationId}不存在");
 
@@ -311,10 +311,10 @@ public static class BaseApplication
     /// 检查单个操作权限是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="systemId">系统ID</param>
-    /// <param name="resourceId">资源ID</param>
-    /// <param name="operationId">要检查的操作ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="systemId">系统标识</param>
+    /// <param name="resourceId">资源标识</param>
+    /// <param name="operationId">要检查的操作标识</param>
     /// <returns>返回操作实体的数据结果，包含操作信息或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -327,7 +327,7 @@ public static class BaseApplication
         string resourceId,
         string operationId)
     {
-        // 验证操作ID是否为空
+        // 验证操作标识是否为空
         if (string.IsNullOrWhiteSpace(operationId))
             return new DataResult<BaseOperationEntity>();
 
@@ -362,8 +362,8 @@ public static class BaseApplication
     /// 批量检查职位是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="positionIds">要检查的职位ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="positionIds">要检查的职位标识列表</param>
     /// <returns>返回职位实体的分页结果，包含职位列表或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -382,11 +382,11 @@ public static class BaseApplication
             Args = []
         };
 
-        // 添加公司ID筛选条件
+        // 添加公司标识筛选条件
         if (companyIds.Count > 0)
             searchPositionArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
-        // 添加职位ID筛选条件
+        // 添加职位标识筛选条件
         if (positionIds.Count > 0)
             searchPositionArgs.AddArgs("Id", positionIds.ToJson(), SearchEnum.In);
 
@@ -397,12 +397,12 @@ public static class BaseApplication
         if (positions.Count == 0)
             return new PageResult<BasePositionEntity>(500, $"职位{positionIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的职位ID列表
+        // 获取查询结果中的职位标识列表
         var _positionIds = positions.Select(y => y.Id).ToList();
-        // 查找是否有未找到的职位ID
+        // 查找是否有未找到的职位标识
         var _positionId = positionIds.FirstOrDefault(x => !_positionIds.Contains(x));
 
-        // 如果存在未找到的职位ID，返回错误信息
+        // 如果存在未找到的职位标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_positionId))
             return new PageResult<BasePositionEntity>(500, $"职位{_positionId}不存在");
 
@@ -424,8 +424,8 @@ public static class BaseApplication
     /// 检查单个职位是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="positionId">要检查的职位ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="positionId">要检查的职位标识</param>
     /// <returns>返回职位实体的数据结果，包含职位信息或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -436,7 +436,7 @@ public static class BaseApplication
         string companyId,
         string positionId)
     {
-        // 验证职位ID是否为空
+        // 验证职位标识是否为空
         if (string.IsNullOrWhiteSpace(positionId))
             return new DataResult<BasePositionEntity>();
 
@@ -469,9 +469,9 @@ public static class BaseApplication
     /// 批量检查资源是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="systemIds">系统ID列表</param>
-    /// <param name="resourceIds">要检查的资源ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="systemIds">系统标识列表</param>
+    /// <param name="resourceIds">要检查的资源标识列表</param>
     /// <returns>返回资源实体的分页结果，包含资源列表或错误消息</returns>
     /// <remarks>
     /// 该方法会检查：
@@ -491,15 +491,15 @@ public static class BaseApplication
             Args = []
         };
 
-        // 添加公司ID筛选条件
+        // 添加公司标识筛选条件
         if (companyIds.Count > 0)
             searchResourceArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
-        // 添加系统ID筛选条件
+        // 添加系统标识筛选条件
         if (systemIds.Count > 0)
             searchResourceArgs.AddArgs("SystemId", systemIds.ToJson(), SearchEnum.In);
 
-        // 添加资源ID筛选条件
+        // 添加资源标识筛选条件
         if (resourceIds.Count > 0)
             searchResourceArgs.AddArgs("Id", resourceIds.ToJson(), SearchEnum.In);
 
@@ -510,12 +510,12 @@ public static class BaseApplication
         if (resources.Count == 0)
             return new PageResult<BaseResourceEntity>(500, $"资源{resourceIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的资源ID列表
+        // 获取查询结果中的资源标识列表
         var _resourceIds = resources.Select(y => y.Id).ToList();
-        // 查找是否有未找到的资源ID
+        // 查找是否有未找到的资源标识
         var _resourceId = resourceIds.FirstOrDefault(x => !_resourceIds.Contains(x));
 
-        // 如果存在未找到的资源ID，返回错误信息
+        // 如果存在未找到的资源标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_resourceId))
             return new PageResult<BaseResourceEntity>(500, $"资源{_resourceId}不存在");
 
@@ -537,16 +537,16 @@ public static class BaseApplication
     /// 检查资源是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="systemId">系统ID</param>
-    /// <param name="resourceId">资源ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="systemId">系统标识</param>
+    /// <param name="resourceId">资源标识</param>
     /// <returns>返回资源实体的数据结果，包含资源信息或错误消息</returns>
     public static async Task<DataResult<BaseResourceEntity>> CheckResource(this IMediator mediator,
         string companyId,
         string systemId,
         string resourceId)
     {
-        // 验证资源ID是否为空
+        // 验证资源标识是否为空
         if (string.IsNullOrWhiteSpace(resourceId))
             return new DataResult<BaseResourceEntity>();
 
@@ -580,8 +580,8 @@ public static class BaseApplication
     /// 批量检查角色是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="roleIds">角色ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="roleIds">角色标识列表</param>
     /// <returns>返回角色实体的分页结果，包含角色列表或错误消息</returns>
     public static async Task<PageResult<BaseRoleEntity>> CheckRoles(this IMediator mediator,
         List<string> companyIds,
@@ -595,11 +595,11 @@ public static class BaseApplication
             Args = []
         };
 
-        // 添加公司ID筛选条件
+        // 添加公司标识筛选条件
         if (companyIds.Count > 0)
             searchRoleArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
-        // 添加角色ID筛选条件
+        // 添加角色标识筛选条件
         if (roleIds.Count > 0)
             searchRoleArgs.AddArgs("Id", roleIds.ToJson(), SearchEnum.In);
 
@@ -610,12 +610,12 @@ public static class BaseApplication
         if (roles.Count == 0)
             return new PageResult<BaseRoleEntity>(500, $"角色{roleIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的角色ID列表
+        // 获取查询结果中的角色标识列表
         var _roleIds = roles.Select(y => y.Id).ToList();
-        // 查找是否有未找到的角色ID
+        // 查找是否有未找到的角色标识
         var _roleId = roleIds.FirstOrDefault(x => !_roleIds.Contains(x));
 
-        // 如果存在未找到的角色ID，返回错误信息
+        // 如果存在未找到的角色标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_roleId))
             return new PageResult<BaseRoleEntity>(500, $"角色{_roleId}不存在");
 
@@ -637,14 +637,14 @@ public static class BaseApplication
     /// 检查单个角色是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="roleId">角色ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="roleId">角色标识</param>
     /// <returns>返回角色实体的数据结果，包含角色信息或错误消息</returns>
     public static async Task<DataResult<BaseRoleEntity>> CheckRole(this IMediator mediator,
         string companyId,
         string roleId)
     {
-        // 验证角色ID是否为空
+        // 验证角色标识是否为空
         if (string.IsNullOrWhiteSpace(roleId))
             return new DataResult<BaseRoleEntity>();
 
@@ -677,8 +677,8 @@ public static class BaseApplication
     /// 批量检查系统是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="systemIds">系统ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="systemIds">系统标识列表</param>
     /// <returns>返回系统实体的分页结果，包含系统列表或错误消息</returns>
     public static async Task<PageResult<BaseSystemEntity>> CheckSystems(this IMediator mediator,
         List<string> companyIds,
@@ -692,11 +692,11 @@ public static class BaseApplication
             Args = []
         };
 
-        // 添加公司ID筛选条件
+        // 添加公司标识筛选条件
         if (companyIds.Count > 0)
             searchSystemArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
-        // 添加系统ID筛选条件
+        // 添加系统标识筛选条件
         if (systemIds.Count > 0)
             searchSystemArgs.AddArgs("Id", systemIds.ToJson(), SearchEnum.In);
 
@@ -707,12 +707,12 @@ public static class BaseApplication
         if (systems.Count == 0)
             return new PageResult<BaseSystemEntity>(500, $"系统{systemIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的系统ID列表
+        // 获取查询结果中的系统标识列表
         var _systemIds = systems.Select(y => y.Id).ToList();
-        // 查找是否有未找到的系统ID
+        // 查找是否有未找到的系统标识
         var _systemId = systemIds.FirstOrDefault(x => !_systemIds.Contains(x));
 
-        // 如果存在未找到的系统ID，返回错误信息
+        // 如果存在未找到的系统标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_systemId))
             return new PageResult<BaseSystemEntity>(500, $"系统{_systemId}不存在");
 
@@ -734,14 +734,14 @@ public static class BaseApplication
     /// 检查单个系统是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="systemId">系统ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="systemId">系统标识</param>
     /// <returns>返回系统实体的数据结果，包含系统信息或错误消息</returns>
     public static async Task<DataResult<BaseSystemEntity>> CheckSystem(this IMediator mediator,
         string companyId,
         string systemId)
     {
-        // 验证系统ID是否为空
+        // 验证系统标识是否为空
         if (string.IsNullOrWhiteSpace(systemId))
             return new DataResult<BaseSystemEntity>();
 
@@ -774,9 +774,9 @@ public static class BaseApplication
     /// 批量检查用户是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyIds">公司ID列表</param>
-    /// <param name="departmentIds">部门ID列表</param>
-    /// <param name="userIds">用户ID列表</param>
+    /// <param name="companyIds">公司标识列表</param>
+    /// <param name="departmentIds">部门标识列表</param>
+    /// <param name="userIds">用户标识列表</param>
     /// <returns>返回用户实体的分页结果，包含用户列表或错误消息</returns>
     public static async Task<PageResult<BaseUserEntity>> CheckUsers(this IMediator mediator,
         List<string> companyIds,
@@ -791,15 +791,15 @@ public static class BaseApplication
             Args = []
         };
 
-        // 根据公司ID筛选用户
+        // 根据公司标识筛选用户
         if (userIds.Count == 0)
             searchUserArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
 
-        // 根据部门ID筛选用户
+        // 根据部门标识筛选用户
         if (companyIds.Count == 0)
             searchUserArgs.AddArgs("DepartmentId", departmentIds.ToJson(), SearchEnum.In);
 
-        // 根据用户ID筛选用户
+        // 根据用户标识筛选用户
         if (departmentIds.Count == 0)
             searchUserArgs.AddArgs("Id", userIds.ToJson(), SearchEnum.In);
 
@@ -810,12 +810,12 @@ public static class BaseApplication
         if (users.Count == 0)
             return new PageResult<BaseUserEntity>(500, $"用户{userIds.FirstOrDefault()}不存在");
 
-        // 获取查询结果中的用户ID列表
+        // 获取查询结果中的用户标识列表
         var _userIds = users.Select(y => y.Id).ToList();
-        // 查找是否有未找到的用户ID
+        // 查找是否有未找到的用户标识
         var _userId = userIds.FirstOrDefault(x => !_userIds.Contains(x));
 
-        // 如果存在未找到的用户ID，返回错误信息
+        // 如果存在未找到的用户标识，返回错误信息
         if (!string.IsNullOrWhiteSpace(_userId))
             return new PageResult<BaseUserEntity>(500, $"用户{_userId}不存在");
 
@@ -837,16 +837,16 @@ public static class BaseApplication
     /// 检查单个用户是否存在且可用
     /// </summary>
     /// <param name="mediator">中介者接口，用于发送请求</param>
-    /// <param name="companyId">公司ID</param>
-    /// <param name="departmentId">部门ID</param>
-    /// <param name="userId">用户ID</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="departmentId">部门标识</param>
+    /// <param name="userId">用户标识</param>
     /// <returns>返回用户实体的数据结果，包含用户信息或错误消息</returns>
     public static async Task<DataResult<BaseUserEntity>> CheckUser(this IMediator mediator,
         string companyId,
         string departmentId,
         string userId)
     {
-        // 验证用户ID是否为空
+        // 验证用户标识是否为空
         if (string.IsNullOrWhiteSpace(userId))
             return new DataResult<BaseUserEntity>();
 
@@ -877,17 +877,17 @@ public static class BaseApplication
     }
 
     /// <summary>
-    /// 获取下一个ID值
+    /// 获取下一个标识值
     /// </summary>
     /// <param name="cache">缓存接口</param>
-    /// <param name="companyId">公司ID</param>
+    /// <param name="companyId">公司标识</param>
     /// <param name="table">表名</param>
-    /// <returns>返回生成的下一个ID值</returns>
+    /// <returns>返回生成的下一个标识值</returns>
     public static async Task<string> GetIdAsync(this IBaseCache cache,
         string companyId,
         string table)
     {
-        // 通过缓存接口获取下一个ID值 使用NextIdentifyArg构造参数，包含公司ID和表名
+        // 通过缓存接口获取下一个标识值 使用NextIdentifyArg构造参数，包含公司标识和表名
         return await cache.NextIdentity(new NextIdentifyArg
         {
             CompanyId = companyId,

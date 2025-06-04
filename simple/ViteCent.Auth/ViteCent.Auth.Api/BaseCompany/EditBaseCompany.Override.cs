@@ -17,7 +17,10 @@ using ViteCent.Core.Data;
 
 namespace ViteCent.Auth.Api.BaseCompany;
 
-/// <summary> 编辑公司信息接口拓展 </summary> 该部分类主要负责处理编辑公司信息时的自定义逻辑 </remarks>
+/// <summary>
+/// 编辑公司信息接口拓展
+/// </summary>
+/// <remarks>该部分类主要负责处理编辑公司信息时的自定义逻辑</remarks>
 public partial class EditBaseCompany
 {
     /// <summary>

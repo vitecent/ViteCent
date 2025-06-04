@@ -20,16 +20,16 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入补卡申请相关的数据结构
+// 引入补卡申请相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
-// 引入部门信息相关的数据结构
+// 引入部门信息相关的数据参数
 using ViteCent.Auth.Data.BaseDepartment;
 
-// 引入用户信息相关的数据结构
+// 引入用户信息相关的数据参数
 using ViteCent.Auth.Data.BaseUser;
 
-// 引入补卡申请相关的数据结构
+// 引入补卡申请相关的数据参数
 using ViteCent.Basic.Data.RepairSchedule;
 
 // 引入补卡申请相关的模型
@@ -82,7 +82,7 @@ public partial class AddRepairSchedule(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 新增补卡申请
@@ -95,8 +95,6 @@ public partial class AddRepairSchedule(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.RepairSchedule.AddRepairSchedule");
-
-        user = httpContextAccessor.InitUser();
 
         var companyId = user?.Company?.Id ?? string.Empty;
 

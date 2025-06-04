@@ -50,7 +50,7 @@ using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
 using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
 #end
 
-// 引入$!{Table.Description}相关的数据结构
+// 引入$!{Table.Description}相关的数据参数
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
@@ -246,7 +246,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// <param name="topic">事件主题，表示操作类型（新增、修改、删除等）</param>
     /// <param name="entity">公司模型信息</param>
     /// <param name="cancellationToken">取消令牌</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     /// <remarks>
     /// 该方法用于处理$!{Table.Description}变更后的事件通知
     /// 目前为预留方法，暂无具体实现

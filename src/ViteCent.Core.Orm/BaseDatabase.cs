@@ -1,7 +1,7 @@
 ﻿namespace ViteCent.Core.Orm;
 
 /// <summary>
-/// 数据库定义类，用于描述数据库的整体结构信息
+/// 数据库定义类，用于描述数据库的整体参数信息
 /// </summary>
 public class BaseDataBase
 {

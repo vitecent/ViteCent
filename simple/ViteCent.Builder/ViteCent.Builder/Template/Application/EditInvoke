@@ -21,46 +21,46 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 #if($HasCompanyId)
 
-// 引入公司相关的数据结构
+// 引入公司相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
 
-// 引入部门相关的数据结构
+// 引入部门相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasOperationId)
 
-// 引入操作相关的数据结构
+// 引入操作相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseOperation;
 #end
 #if($HasPositionId)
 
-// 引入职位相关的数据结构
+// 引入职位相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasResourceId)
 
-// 引入资源相关的数据结构
+// 引入资源相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseResource;
 #end
 #if($HasRoleId)
 
-// 引入角色相关的数据结构
+// 引入角色相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseRole;
 #end
 #if($HasUserId)
 
-// 引入用户相关的数据结构
+// 引入用户相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 #if($HasSystemId)
 
-// 引入核心相关的数据结构
+// 引入核心相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseSystem;
 #end
 
-// 引入$!{Table.Description}相关的数据结构
+// 引入$!{Table.Description}相关的数据参数
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
@@ -149,7 +149,7 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑$!{Table.Description}
@@ -162,8 +162,6 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.EditName}$!{Table.CamelCaseName}");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await OverrideHandle(request, cancellationToken);
 

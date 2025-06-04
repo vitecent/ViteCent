@@ -16,7 +16,7 @@ using MediatR;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入公司信息相关的数据结构
+// 引入公司信息相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
 // 引入公司信息相关的数据模型
@@ -42,14 +42,14 @@ namespace ViteCent.Auth.Application.BaseCompany;
 /// 3. 触发相关事件通知
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录操作日志</param>
-/// <param name="mapper">对象映射器，用于结构和模型对象之间的转换</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
 /// <param name="mediator">中介者，用于处理命令和查询</param>
 public class DeleteBaseCompany(
     // 注入日志记录器
     ILogger<DeleteBaseCompany> logger,
     // 注入映射器接口
     IMapper mapper,
-    IMediator mediator) 
+    IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<DeleteBaseCompanyArgs, BaseResult>
 {
@@ -78,7 +78,7 @@ public class DeleteBaseCompany(
         // 查询要删除的公司信息模型
         var entity = await mediator.Send(getArgs, cancellationToken);
 
-        / 如果公司信息不存在，返回错误结果
+        // 如果公司信息不存在，返回错误结果
         if (entity is null)
             return new BaseResult(500, "公司信息不存在");
 

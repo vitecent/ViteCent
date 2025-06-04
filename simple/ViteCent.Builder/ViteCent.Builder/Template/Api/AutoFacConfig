@@ -68,7 +68,7 @@ public partial class $!{Setting.Api.FacName} : Module
         var assemblies = new List<Assembly>();
 
         // 定义需要扫描的dll文件匹配模式
-        // *Application.dll：应用程序集，包含应用服务、结构对象和业务逻辑实现
+        // *Application.dll：应用程序集，包含应用服务、参数对象和业务逻辑实现
         // *Domain.dll：领域程序集，包含领域模型、领域服务和领域事件
         var dlls = new List<string>
         {

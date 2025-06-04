@@ -21,7 +21,10 @@ using ViteCent.Core.Data;
 
 namespace ViteCent.Auth.Api.BaseSystem;
 
-/// <summary> 编辑系统信息接口拓展 </summary> 该部分类主要负责处理编辑公司信息时的自定义逻辑 </remarks>
+/// <summary>
+/// 编辑系统信息接口拓展
+/// </summary>
+/// <remarks>该部分类主要负责处理编辑公司信息时的自定义逻辑</remarks>
 public partial class EditBaseSystem
 {
     /// <summary>
@@ -33,7 +36,6 @@ public partial class EditBaseSystem
     internal static void OverrideInvoke(EditBaseSystemArgs args, BaseUserInfo user)
     {
         // 设置公司标识
-
         if (string.IsNullOrEmpty(args.CompanyId))
             args.CompanyId = user?.Company?.Id ?? string.Empty;
     }

@@ -1,7 +1,7 @@
 ﻿namespace ViteCent.Core.Orm;
 
 /// <summary>
-/// 数据表定义类，用于描述数据库表的结构信息
+/// 数据表定义类，用于描述数据库表的参数信息
 /// </summary>
 public class BaseTable
 {

@@ -17,7 +17,7 @@ namespace ViteCent.Files.Api.FileApi;
 public class UploadFile(IConfiguration configuration) : BaseFileApi<IFormFile, BaseResult>
 {
     /// <summary>
-    /// 处理文件上传的异步方法
+    /// 处理文件上传的方法
     /// </summary>
     /// <param name="file">上传的文件对象，包含文件内容和元数据</param>
     /// <returns>返回上传结果，成功返回文件相对路径，失败返回错误信息</returns>

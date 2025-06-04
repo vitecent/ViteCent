@@ -25,10 +25,10 @@ public class BaseGatewayMiddlewar(
     IConfiguration configuration)
 {
     /// <summary>
-    /// 处理HTTP请求的异步方法
+    /// 处理HTTP请求的方法
     /// </summary>
     /// <param name="context">当前HTTP请求的上下文信息</param>
-    /// <returns>表示异步操作的任务</returns>
+    /// <returns>任务</returns>
     public async Task InvokeAsync(HttpContext context)
     {
         var logger = new BaseLogger(typeof(BaseGatewayMiddlewar));

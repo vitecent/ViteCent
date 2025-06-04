@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入日志信息相关的数据结构
+// 引入日志信息相关的数据参数
 using ViteCent.Auth.Data.BaseLogs;
 
 // 引入日志信息相关的数据模型
@@ -58,7 +58,7 @@ public partial class EditBaseLogs(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑日志信息
@@ -70,8 +70,6 @@ public partial class EditBaseLogs(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseLogs.EditBaseLogs");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await OverrideHandle(request, cancellationToken);
 

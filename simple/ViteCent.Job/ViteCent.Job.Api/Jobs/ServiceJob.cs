@@ -25,7 +25,7 @@ public class ServiceJob(
     /// 执行服务发现任务 从注册中心获取最新的服务列表，并将其更新到缓存中，设置1分钟的过期时间
     /// </summary>
     /// <param name="context">作业执行上下文，包含作业的相关信息</param>
-    /// <returns>异步任务</returns>
+    /// <returns>任务</returns>
     public async Task Execute(IJobExecutionContext context)
     {
         logger.LogInformation($"ServiceJob : {DateTime.Now:yyyy-MM-dd HH:mm:ss}");

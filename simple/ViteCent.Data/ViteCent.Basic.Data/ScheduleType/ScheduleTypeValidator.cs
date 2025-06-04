@@ -8,6 +8,7 @@
 
 #region 引入命名空间
 
+// 引入 FluentValidation 核心
 using FluentValidation;
 
 #endregion 引入命名空间
@@ -21,16 +22,24 @@ namespace ViteCent.Basic.Data.ScheduleType;
 public partial class ScheduleTypeValidator : AbstractValidator<AddScheduleTypeArgs>
 {
     /// <summary>
-    /// 验证参数
+    /// 验证基础排班
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     public ScheduleTypeValidator(bool validate = false)
     {
+        // 验证参数不能为空
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
+
+        // 验证公司标识不能为空
         RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+
+        // 验证部门标识不能为空
         RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
+
+        // 验证名称不能为空
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
 
+        // 调用扩展方法进行额外验证
         OverrideValidator(validate);
     }
 }

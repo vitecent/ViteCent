@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // 引入基础数据传输对象
-using ViteCent.Basic.Application;
 
 // 引入基础日志数据传输对象
 using ViteCent.Basic.Data.BaseLogs;
@@ -88,7 +87,7 @@ public class FirstSchedule(
         if (string.IsNullOrEmpty(args.DepartmentId))
             args.DepartmentId = user?.Department?.Id ?? string.Empty; ;
 
-        // 创建取消令牌，用于支持异步操作的取消
+        // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
         // 创建日志参数对象，用于记录操作日志

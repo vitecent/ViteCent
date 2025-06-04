@@ -87,7 +87,7 @@ public class GetBaseRolePermission(
         if (!string.IsNullOrWhiteSpace(request.OperationId))
             query.Where(x => x.OperationId == request.OperationId);
 
-        // 执行异步查询，返回第一条匹配记录
+        // 执行查询，返回第一条匹配记录
         return await query.FirstAsync(cancellationToken);
     }
 }

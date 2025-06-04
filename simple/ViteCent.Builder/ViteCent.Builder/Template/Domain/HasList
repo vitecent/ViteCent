@@ -13,7 +13,7 @@ using MediatR;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入$!{Table.Description}相关的数据结构
+// 引入$!{Table.Description}相关的数据参数
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
@@ -142,7 +142,7 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
             query.Where(x => request.OperationIds.Contains(x.OperationId));
 
 #end
-        // 执行异步查询，获取匹配记录数
+        // 执行查询，获取匹配记录数
         var entity = await query.CountAsync(cancellationToken);
 
         // 如果存在匹配记录，返回错误结果

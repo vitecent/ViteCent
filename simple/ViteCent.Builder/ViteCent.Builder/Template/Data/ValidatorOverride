@@ -7,6 +7,7 @@
 
 #region 引入命名空间
 
+// 引入 FluentValidation 核心
 using FluentValidation;
 
 #endregion 引入命名空间
@@ -19,9 +20,9 @@ namespace $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : AbstractValidator<$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}>
 {
     /// <summary>
-    /// 验证参数
+    /// 验证$!{Table.Description}
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     private void OverrideValidator(bool validate = false)
     {
     }

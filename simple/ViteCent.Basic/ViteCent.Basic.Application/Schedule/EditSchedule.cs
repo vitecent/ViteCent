@@ -20,16 +20,16 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入公司相关的数据结构
+// 引入公司相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
-// 引入部门相关的数据结构
+// 引入部门相关的数据参数
 using ViteCent.Auth.Data.BaseDepartment;
 
-// 引入用户相关的数据结构
+// 引入用户相关的数据参数
 using ViteCent.Auth.Data.BaseUser;
 
-// 引入排班信息相关的数据结构
+// 引入排班信息相关的数据参数
 using ViteCent.Basic.Data.Schedule;
 
 // 引入排班信息相关的数据模型
@@ -76,7 +76,7 @@ public partial class EditSchedule(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑排班信息
@@ -89,8 +89,6 @@ public partial class EditSchedule(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.EditSchedule");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await OverrideHandle(request, cancellationToken);
 

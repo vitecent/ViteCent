@@ -31,7 +31,7 @@ public class BaseUserInfo
     public BaseDepartmentInfo Department { get; set; } = new();
 
     /// <summary>
-    /// 用户唯一标识，系统内部使用的唯一ID
+    /// 用户唯一标识，系统内部使用的唯一标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
 

@@ -21,26 +21,26 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 #if($HasCompanyId)
 
-// 引入公司相关的数据结构
+// 引入公司相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
 
-// 引入部门相关的数据结构
+// 引入部门相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
 
-// 引入职位相关的数据结构
+// 引入职位相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasUserId)
 
-// 引入用户相关的数据结构
+// 引入用户相关的数据参数
 using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 
-// 引入$!{Table.Description}相关的数据结构
+// 引入$!{Table.Description}相关的数据参数
 using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的模型
@@ -117,7 +117,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 批量新增$!{Table.Description}

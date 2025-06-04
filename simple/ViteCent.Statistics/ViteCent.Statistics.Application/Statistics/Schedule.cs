@@ -36,7 +36,7 @@ public class Schedule(
     /// 执行考勤统计计算
     /// </summary>
     /// <param name="request">统计请求参数，包含统计类型（年/月）和日期信息</param>
-    /// <param name="cancellationToken">取消令牌，用于支持异步操作的取消</param>
+    /// <param name="cancellationToken">取消令牌，用于支持操作的取消</param>
     /// <returns>返回包含统计结果的数据结果对象</returns>
     /// <remarks>
     /// 处理流程：

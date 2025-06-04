@@ -32,7 +32,7 @@ public class Schedule(ILogger<Schedule> logger)
     /// <summary>
     /// 处理考勤统计请求
     /// </summary>
-    /// <param name="request">统计请求参数，包含公司ID、部门ID、岗位ID、查询关键字、统计时间范围等</param>
+    /// <param name="request">统计请求参数，包含公司标识、部门标识、岗位标识、查询关键字、统计时间范围等</param>
     /// <param name="cancellationToken">取消操作的令牌</param>
     /// <returns>返回考勤统计结果，包含每个用户在不同班次的出勤次数和工时统计</returns>
     public async Task<DataResult<ScheduleStatisticsResult>> Handle(StatisticsScheduleStatisticsEntityArgs request,

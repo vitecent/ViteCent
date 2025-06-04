@@ -89,7 +89,7 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
-    /// 异步提交所有待执行的数据库命令
+    /// 提交所有待执行的数据库命令
     /// </summary>
     /// <returns>返回操作结果，包含状态码和错误信息（如果有）</returns>
     public async Task<BaseResult> CommitAsync()
@@ -271,7 +271,7 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
-    /// 异步执行分页查询
+    /// 执行分页查询
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
     /// <param name="args">查询参数，包含分页、排序等信息</param>

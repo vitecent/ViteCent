@@ -14,13 +14,10 @@ using MediatR;
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础数据结构
-using ViteCent.Basic.Application;
-
-// 引入职位信息相关的数据结构
+// 引入职位信息相关的数据参数
 using ViteCent.Basic.Data.BasePost;
 
-// 引入基础日志数据结构
+// 引入基础日志数据参数
 using ViteCent.Basic.Data.BaseLogs;
 
 // 引入核心
@@ -153,7 +150,7 @@ public class AddBasePostList(
             return new BaseResult(500, "职位信息重复");
         }
 
-        // 创建数据验证器，用于支持异步操作的取消
+        // 创建数据验证器，用于支持操作的取消
         var validator = new BasePostValidator();
 
         // 验证每个职位信息的有效性

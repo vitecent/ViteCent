@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // 引入基础数据传输对象
-using ViteCent.Basic.Application;
 
 // 引入岗位位信息相关的数据传输对象
 using ViteCent.Basic.Data.BasePost;
