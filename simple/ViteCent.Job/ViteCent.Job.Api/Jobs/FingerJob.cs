@@ -1,7 +1,7 @@
 ﻿#region
 
 using Quartz;
-using ViteCent.Auth.Data.Schedule;
+using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core.Cache;
 using ViteCent.Core.Enums;

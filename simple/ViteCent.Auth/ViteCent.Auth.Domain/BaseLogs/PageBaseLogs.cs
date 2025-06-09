@@ -35,7 +35,7 @@ namespace ViteCent.Auth.Domain.BaseLogs;
 /// <param name="logger">日志记录器，用于记录处理过程中的关键信息</param>
 public class PageBaseLogs(
     // 注入日志记录器
-    ILogger<PageBaseLogs> logger) 
+    ILogger<PageBaseLogs> logger)
     // 继承基类，指定查询参数和返回结果类型
     : BaseDomain<BaseLogsEntity>, IRequestHandler<SearchBaseLogsEntityArgs, List<BaseLogsEntity>>
 {

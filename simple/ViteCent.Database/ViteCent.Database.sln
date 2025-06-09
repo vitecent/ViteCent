@@ -1,0 +1,49 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{02773004-A5E1-4FF4-B388-B74E63E1B922}") = "ViteCent.Database.Api", "ViteCent.Database.Api\ViteCent.Database.Api.csproj", "{B5B35957-5070-4AD1-A6C9-33B76D1C8EC2}"
+EndProject
+Project("{02773004-A5E1-4FF4-B388-B74E63E1B922}") = "ViteCent.Database.Application", "ViteCent.Database.Application\ViteCent.Database.Application.csproj", "{BE08336A-4889-4A1F-9B57-95310B34FBE3}"
+EndProject
+Project("{02773004-A5E1-4FF4-B388-B74E63E1B922}") = "ViteCent.Database.Domain", "ViteCent.Database.Domain\ViteCent.Database.Domain.csproj", "{A9493754-A1D3-4F0A-81EE-411D3F6C1A3B}"
+EndProject
+Project("{02773004-A5E1-4FF4-B388-B74E63E1B922}") = "ViteCent.Database.Entity", "ViteCent.Database.Entity\ViteCent.Database.Entity.csproj", "{15B26FF9-535E-4B22-AFB9-586546DBDCEC}"
+EndProject
+Project("{02773004-A5E1-4FF4-B388-B74E63E1B922}") = "ViteCent.Database.Data", "..\ViteCent.Data\ViteCent.Database.Data\ViteCent.Database.Data.csproj", "{4D2E2FBD-9669-42A7-B9CD-54A7DA73C595}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5B35957-5070-4AD1-A6C9-33B76D1C8EC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5B35957-5070-4AD1-A6C9-33B76D1C8EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5B35957-5070-4AD1-A6C9-33B76D1C8EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5B35957-5070-4AD1-A6C9-33B76D1C8EC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE08336A-4889-4A1F-9B57-95310B34FBE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE08336A-4889-4A1F-9B57-95310B34FBE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE08336A-4889-4A1F-9B57-95310B34FBE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE08336A-4889-4A1F-9B57-95310B34FBE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9493754-A1D3-4F0A-81EE-411D3F6C1A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9493754-A1D3-4F0A-81EE-411D3F6C1A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9493754-A1D3-4F0A-81EE-411D3F6C1A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9493754-A1D3-4F0A-81EE-411D3F6C1A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15B26FF9-535E-4B22-AFB9-586546DBDCEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B26FF9-535E-4B22-AFB9-586546DBDCEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B26FF9-535E-4B22-AFB9-586546DBDCEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B26FF9-535E-4B22-AFB9-586546DBDCEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D2E2FBD-9669-42A7-B9CD-54A7DA73C595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D2E2FBD-9669-42A7-B9CD-54A7DA73C595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D2E2FBD-9669-42A7-B9CD-54A7DA73C595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D2E2FBD-9669-42A7-B9CD-54A7DA73C595}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {{02773004-A5E1-4FF4-B388-B74E63E1B922}}
+	EndGlobalSection
+EndGlobal

@@ -35,7 +35,7 @@ namespace ViteCent.Auth.Domain.BasePosition;
 /// <param name="logger">日志记录器，用于记录处理过程中的关键信息</param>
 public class PageBasePosition(
     // 注入日志记录器
-    ILogger<PageBasePosition> logger) 
+    ILogger<PageBasePosition> logger)
     // 继承基类，指定查询参数和返回结果类型
     : BaseDomain<BasePositionEntity>, IRequestHandler<SearchBasePositionEntityArgs, List<BasePositionEntity>>
 {

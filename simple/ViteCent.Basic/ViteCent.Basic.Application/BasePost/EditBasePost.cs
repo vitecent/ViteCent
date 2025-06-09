@@ -119,8 +119,7 @@ public partial class EditBasePost(
         if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
-        if (request.Times is not null)
-            entity.Times = request.Times;
+        entity.Times = request.Times;
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;

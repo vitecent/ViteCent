@@ -106,7 +106,7 @@ public class BasePostEntity : BaseEntity, IRequest<BaseResult>
     /// 上班时间
     /// </summary>
     [SugarColumn(ColumnName = "times")]
-    public string? Times { get; set; }
+    public string Times { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\ViteCent.Data\ViteCent.Auth.Data\ViteCent.Auth.Data.csproj" />
+		<ProjectReference Include="..\..\ViteCent.Data\ViteCent.Database.Data\ViteCent.Database.Data.csproj" />
+		<ProjectReference Include="..\ViteCent.Database.Entity\ViteCent.Database.Entity.csproj" />
+	</ItemGroup>
+</Project>

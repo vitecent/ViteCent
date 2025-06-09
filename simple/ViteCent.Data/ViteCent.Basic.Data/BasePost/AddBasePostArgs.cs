@@ -66,5 +66,5 @@ public class AddBasePostArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 上班时间
     /// </summary>
-    public string? Times { get; set; }
+    public string Times { get; set; } = string.Empty;
 }

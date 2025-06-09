@@ -76,7 +76,7 @@ public class BasePostResult
     /// <summary>
     /// 上班时间
     /// </summary>
-    public string? Times { get; set; }
+    public string Times { get; set; } = string.Empty;
 
     /// <summary>
     /// 修改人

@@ -1,10 +1,10 @@
-﻿#region
+﻿#region 引入命名空间
 
 using ViteCent.Core.Data;
 
-#endregion
+#endregion 引入命名空间
 
-namespace ViteCent.Files.Api.Data;
+namespace ViteCent.Fiels.Data;
 
 /// <summary>
 /// 获取文件参数类，用于文件相关操作的参数传递

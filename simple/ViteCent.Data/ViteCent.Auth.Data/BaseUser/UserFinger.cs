@@ -1,4 +1,4 @@
-﻿namespace ViteCent.Auth.Data.Schedule;
+﻿namespace ViteCent.Auth.Data.BaseUser;
 
 /// <summary>
 /// </summary>
