@@ -11,7 +11,7 @@ namespace ViteCent.Basic.Data.Schedule;
 /// 上班参数
 /// </summary>
 [Serializable]
-public class FirstScheduleArgs : BaseArgs, IRequest<BaseResult>
+public class SignScheduleArgs : BaseArgs, IRequest<BaseResult>
 {
     /// <summary>
     /// 公司标识

@@ -44,9 +44,7 @@ public class HasSchedule(ILogger<HasSchedule> logger)
         if (!string.IsNullOrWhiteSpace(request.UserId))
             query.Where(x => x.UserId == request.UserId);
 
-        query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+        query.Where(x => x.SceduleTimes >= request.StartTime && x.SceduleTimes <= request.EndTime);
 
         var entity = await query.CountAsync(cancellationToken);
 

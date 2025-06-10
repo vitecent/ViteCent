@@ -117,26 +117,20 @@ public partial class EditSchedule(
         if (request.DepartmentName is not null)
             entity.DepartmentName = request.DepartmentName;
 
-        entity.EndTime = request.EndTime;
-
-        if (request.FirstTime.HasValue)
-            entity.FirstTime = request.FirstTime.Value;
-
-        if (request.LastTime.HasValue)
-            entity.LastTime = request.LastTime.Value;
-
         entity.PostId = request.PostId;
 
         if (request.PostName is not null)
             entity.PostName = request.PostName;
 
-        entity.StartTime = request.StartTime;
+        entity.SceduleTimes = request.SceduleTimes;
+
+        if (request.SignTimes is not null)
+            entity.SignTimes = request.SignTimes;
 
         if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
-        if (request.Times is not null)
-            entity.Times = request.Times;
+        entity.Times = request.Times;
 
         entity.TypeId = request.TypeId;
 

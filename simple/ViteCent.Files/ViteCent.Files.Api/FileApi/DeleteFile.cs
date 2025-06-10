@@ -39,6 +39,6 @@ public class DeleteFile : BaseApi<GetFileArgs, BaseResult>
         BaseFile.Delete($"{root}/{args.Path}");
 
         // 删除成功，返回空字符串
-        return new BaseResult(string.Empty);
+        return new BaseResult();
     }
 }

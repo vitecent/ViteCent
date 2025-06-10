@@ -21,9 +21,8 @@ public class PageResult<T> : BaseResult
     /// <param name="limit">每页记录数</param>
     /// <param name="total">总记录数</param>
     /// <param name="rows">数据集合</param>
-    /// <param name="message">返回消息</param>
-    public PageResult(int offset, int limit, int total, List<T> rows, string message = "")
-        : base(message)
+    public PageResult(int offset, int limit, int total, List<T> rows)
+        : base(string.Empty)
     {
         Offset = offset;
         Limit = limit;

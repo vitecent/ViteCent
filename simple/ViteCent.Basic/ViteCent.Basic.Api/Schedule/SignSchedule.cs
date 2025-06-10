@@ -46,9 +46,9 @@ namespace ViteCent.Basic.Api.Schedule;
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
 [Route("Schedule")]
-public class FirstSchedule(
+public class SignSchedule(
     // 注入日志记录器
-    ILogger<FirstSchedule> logger,
+    ILogger<SignSchedule> logger,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,
     // 注入中介者接口
@@ -56,7 +56,7 @@ public class FirstSchedule(
     // 注入缓存接口
     IBaseCache cache)
     // 继承基类，指定查询参数和返回结果类型
-    : BaseApi<FirstScheduleArgs, BaseResult>
+    : BaseApi<SignScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -73,11 +73,11 @@ public class FirstSchedule(
     // 权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Basic", "Schedule", "Edit" })]
     // 设置路由名称
-    [Route("First")]
-    public override async Task<BaseResult> InvokeAsync(FirstScheduleArgs args)
+    [Route("Sign")]
+    public override async Task<BaseResult> InvokeAsync(SignScheduleArgs args)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.FirstSchedule");
+        logger.LogInformation("Invoke ViteCent.Basic.Api.Schedule.SignSchedule");
 
         // 设置公司标识
         if (string.IsNullOrEmpty(args.CompanyId))
@@ -102,13 +102,13 @@ public class FirstSchedule(
             ResourceId = string.Empty,
             ResourceName = "Schedule",
             OperationId = string.Empty,
-            OperationName = "First",
-            Description = "上班打卡",
+            OperationName = "Sign",
+            Description = "打卡",
             Args = args.ToJson()
         };
 
         // 创建数据验证器
-        var validator = new FirstScheduleValidator();
+        var validator = new SignScheduleValidator();
 
         // 验证排班信息的有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

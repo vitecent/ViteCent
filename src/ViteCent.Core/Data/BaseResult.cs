@@ -10,7 +10,6 @@ public class BaseResult
     /// </summary>
     public BaseResult()
     {
-        Success = true;
     }
 
     /// <summary>
@@ -19,7 +18,6 @@ public class BaseResult
     /// <param name="content">返回的消息内容</param>
     public BaseResult(string content)
     {
-        Success = true;
         Message = content;
     }
 
@@ -30,8 +28,8 @@ public class BaseResult
     /// <param name="message">错误消息内容</param>
     public BaseResult(int code, string message)
     {
-        Success = false;
         Code = code;
+        Success = code == 200;
         Message = message;
     }
 
@@ -48,5 +46,5 @@ public class BaseResult
     /// <summary>
     /// 操作是否成功
     /// </summary>
-    public bool Success { get; set; }
+    public bool Success { get; set; } = true;
 }

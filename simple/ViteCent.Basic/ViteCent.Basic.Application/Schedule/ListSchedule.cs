@@ -58,10 +58,9 @@ public class ListSchedule(
 
         var companyIds = rows.Select(x => x.CompanyId).Distinct().ToList();
         var departmentIds = rows.Select(x => x.DepartmentId).Distinct().ToList();
-        var positionIds = rows.Select(x => x.PostId).Distinct().ToList();
         var userIds = rows.Select(x => x.UserId).Distinct().ToList();
 
-        var users = await userInvoke.CheckUsers(companyIds, departmentIds, positionIds, userIds,
+        var users = await userInvoke.CheckUsers(companyIds, departmentIds, [], userIds,
             user?.Token ?? string.Empty);
 
         if (!users.Success)
@@ -73,8 +72,6 @@ public class ListSchedule(
 
             if (userInfo is not null)
             {
-                userInfo.PostId = item.PositionId;
-                userInfo.PostName = item.PositionName;
                 userInfo.Description = item.Description;
             }
         }

@@ -36,8 +36,8 @@ public partial class BasePostValidator : AbstractValidator<AddBasePostArgs>
         // 验证名称不能为空
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
 
-        // 验证上班时间不能为空
-        RuleFor(x => x.Times).NotNull().NotEmpty().WithMessage("上班时间不能为空");
+        // 验证上班时段不能为空
+        RuleFor(x => x.Times).NotNull().NotEmpty().WithMessage("上班时段不能为空");
 
         // 调用扩展方法进行额外验证
         OverrideValidator(validate);

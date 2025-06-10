@@ -99,8 +99,8 @@ public class PreAddScheduleList(
                     UserName = user.RealName,
                     TypeName = "副班",
                     PostName = item.Job,
-                    StartTime = DateTime.Parse($"{item.Date} 00:00:00"),
-                    EndTime = DateTime.Parse($"{item.Date} 23:59:59"),
+                    Times = "",
+                    SceduleTimes = DateTime.Parse($"{item.Date}"),
                     Status = (int)ScheduleEnum.None
                 };
 
@@ -139,8 +139,8 @@ public class PreAddScheduleList(
             CompanyIds = companyIds,
             DepartmentIds = departmentIds,
             UserIds = userIds,
-            StartTime = request.Items.Min(x => x.StartTime),
-            EndTime = request.Items.Max(x => x.EndTime)
+            StartTime = request.Items.Min(x => x.SceduleTimes),
+            EndTime = request.Items.Max(x => x.SceduleTimes)
         };
 
         var delete = await mediator.Send(deleteScheduleArgs, cancellationToken);

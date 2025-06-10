@@ -23,12 +23,11 @@ public partial class AutoMapperConfig : BaseMapperConfig
     private void OverrideMap()
     {
         CreateMap<ListScheduleArgs, SearchScheduleEntityArgs>();
-        CreateMap<ScheduleEntity, UserScheduleResult>();
-
-        CreateMap<FirstScheduleArgs, GetScheduleEntityArgs>();
-        CreateMap<LastScheduleArgs, GetScheduleEntityArgs>();
+        CreateMap<ScheduleEntity, UserScheduleResult>().ForMember(x => x.Job, c => c.MapFrom(y => y.PostName));
         CreateMap<ShiftScheduleTopicArgs, GetScheduleEntityArgs>();
         CreateMap<AddShiftScheduleArgs, GetScheduleEntityArgs>();
         CreateMap<EditShiftScheduleArgs, GetScheduleEntityArgs>();
+        CreateMap<SignScheduleArgs, GetScheduleEntityArgs>();
+
     }
 }

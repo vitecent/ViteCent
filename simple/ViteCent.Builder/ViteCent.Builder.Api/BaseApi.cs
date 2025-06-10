@@ -41,13 +41,6 @@ public class BaseApi
                 SmallName = "vitecent_basic",
                 ServiceName = "Basic",
                 ServicePort = 8010
-            },
-            new()
-            {
-                Name = "ViteCent.Database",
-                SmallName = "vitecent_database",
-                ServiceName = "Database",
-                ServicePort = 8050
             }
         };
 

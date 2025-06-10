@@ -36,14 +36,14 @@ public partial class ScheduleValidator : AbstractValidator<AddScheduleArgs>
         // 验证部门标识不能为空
         RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
 
-        // 验证结束时间不能为空
-        RuleFor(x => x.EndTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("结束时间不能为空");
-
         // 验证岗位标识不能为空
         RuleFor(x => x.PostId).NotNull().NotEmpty().WithMessage("岗位标识不能为空");
 
-        // 验证开始时间不能为空
-        RuleFor(x => x.StartTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("开始时间不能为空");
+        // 验证排班时间不能为空
+        RuleFor(x => x.SceduleTimes).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("排班时间不能为空");
+
+        // 验证上班时间不能为空
+        RuleFor(x => x.Times).NotNull().NotEmpty().WithMessage("上班时间不能为空");
 
         // 验证班次标识不能为空
         RuleFor(x => x.TypeId).NotNull().NotEmpty().WithMessage("班次标识不能为空");

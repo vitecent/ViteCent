@@ -26,15 +26,15 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="departmentInvoke"></param>
 /// <param name="userInvoke"></param>
 /// <param name="httpContextAccessor"></param>
-public partial class LastSchedule(
-    ILogger<LastSchedule> logger,
+public partial class SignSchedule(
+    ILogger<SignSchedule> logger,
     IMapper mapper,
     IMediator mediator,
     IBaseInvoke<GetBaseCompanyArgs, DataResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<GetBaseDepartmentArgs, DataResult<BaseDepartmentResult>> departmentInvoke,
     IBaseInvoke<GetBaseUserArgs, DataResult<BaseUserResult>> userInvoke,
     IHttpContextAccessor httpContextAccessor)
-    : IRequestHandler<LastScheduleArgs, BaseResult>
+    : IRequestHandler<SignScheduleArgs, BaseResult>
 {
     /// <summary>
     /// 用户信息
@@ -47,9 +47,9 @@ public partial class LastSchedule(
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<BaseResult> Handle(LastScheduleArgs request, CancellationToken cancellationToken)
+    public async Task<BaseResult> Handle(SignScheduleArgs request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.LastSchedule");
+        logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.SignSchedule");
 
         user = httpContextAccessor.InitUser();
 
@@ -70,8 +70,7 @@ public partial class LastSchedule(
         if (!result.Success)
             return result;
 
-        entity.LastTime = DateTime.Now;
-        entity.Status = (int)ScheduleEnum.Last;
+        entity.Status = (int)ScheduleEnum.First;
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
         entity.DataVersion = DateTime.Now;

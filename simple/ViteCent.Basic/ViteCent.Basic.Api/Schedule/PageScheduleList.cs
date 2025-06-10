@@ -70,7 +70,6 @@ public class PageScheduleList(
 
         var companyId = user?.Company?.Id ?? string.Empty;
         var departmentId = user?.Department?.Id ?? string.Empty;
-        var positionId = user?.Position?.Id ?? string.Empty;
 
         var searchPositionArgs = new SearchBasePostArgs
         {
@@ -82,16 +81,6 @@ public class PageScheduleList(
                 {
                     Field = "CompanyId",
                     Value = companyId
-                },
-                new SearchItem
-                {
-                    Field = "DepartmentId",
-                    Value = departmentId
-                },
-                new SearchItem
-                {
-                    Field = "PositionId",
-                    Value = positionId
                 },
                 new SearchItem
                 {
@@ -114,6 +103,7 @@ public class PageScheduleList(
             {
                 var _item = new PreAddScheduleArgs
                 {
+                    PostId = item.Id,
                     Job = item.Name,
                     Date = date.ToString("yyyy-MM-dd")
                 };
@@ -142,18 +132,13 @@ public class PageScheduleList(
                 },
                 new SearchItem
                 {
-                    Field = "PositionId",
-                    Value = positionId
-                },
-                new SearchItem
-                {
-                    Field = "StartTime",
+                    Field = "SceduleTimes",
                     Value = args.StartTime.ToString("yyyy-MM-dd HH:mm:ss"),
                     Method = SearchEnum.GreaterThanOrEqual
                 },
                 new SearchItem
                 {
-                    Field = "EndTime",
+                    Field = "SceduleTimes",
                     Value = args.EndTime.ToString("yyyy-MM-dd HH:mm:ss"),
                     Method = SearchEnum.LessThanOrEqual
                 }
@@ -166,8 +151,9 @@ public class PageScheduleList(
         if (rows.Success && rows.Rows.Count > 0)
             foreach (var item in items)
             {
-                var _row = rows.Rows.Where(x => x.StartTime.ToString("yyyy-MM-dd") == item.Date && x.PostName == item.Job).OrderBy(x => x.Id).ToList();
+                var _row = rows.Rows.Where(x => x.SceduleTimes.ToString("yyyy-MM-dd") == item.Date && x.PostName == item.Job).OrderBy(x => x.Id).ToList();
 
+                item.UserId = string.Join(",", _row.Select(x => x.UserId).Distinct().ToList());
                 item.Name = string.Join(",", _row.Select(x => x.UserName).Distinct().ToList());
                 item.Shift = string.Join(",", _row.Select(x => x.TypeName).Distinct().ToList());
             }

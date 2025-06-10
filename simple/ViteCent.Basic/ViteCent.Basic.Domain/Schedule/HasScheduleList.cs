@@ -56,9 +56,7 @@ public class HasScheduleList(ILogger<HasScheduleList> logger)
         if (request.UserIds.Count > 0)
             query.Where(x => request.UserIds.Contains(x.UserId));
 
-        query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+        query.Where(x => x.SceduleTimes >= request.StartTime && x.SceduleTimes <= request.EndTime);
 
         var entity = await query.CountAsync(cancellationToken);
 

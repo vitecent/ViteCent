@@ -29,7 +29,7 @@ public class FileExist : BaseApi<GetFileArgs, BaseResult>
         {
             var root = $"{Environment.CurrentDirectory}/wwwroot";
 
-            if (System.IO.File.Exists($"{root}/{args.Path}")) return new BaseResult(string.Empty);
+            if (System.IO.File.Exists($"{root}/{args.Path}")) return new BaseResult();
 
             return new BaseResult(404, $"文件{args.Path}不存在");
         });

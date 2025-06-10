@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
+using ViteCent.Auth.Data.BaseDictionary;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Core;
 using ViteCent.Core.Cache;
@@ -410,5 +411,64 @@ public static class BaseAppliction
         user.Token = token;
 
         return user;
+    }
+
+    /// <summary>
+    /// 检查单个字典的有效性
+    /// </summary>
+    /// <param name="dictionaryInvoke">字典服务调用接口</param>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="key">字典标识</param>
+    /// <param name="token">认证令牌</param>
+    /// <returns>返回字典信息的数据结果，如果字典不存在或已禁用则返回相应的错误信息</returns>
+    public static async Task<PageResult<BaseDictionaryResult>> GetDictionary(
+        this IBaseInvoke<SearchBaseDictionaryArgs, PageResult<BaseDictionaryResult>> dictionaryInvoke,
+        string companyId, string key, string token)
+    {
+        if (string.IsNullOrWhiteSpace(key))
+            return new PageResult<BaseDictionaryResult>();
+
+        var searchDictionaryArgs = new SearchBaseDictionaryArgs
+        {
+            Offset = 1,
+            Limit = int.MaxValue,
+            Args =
+            [
+                new SearchItem
+                {
+                    Field = "Name",
+                    Value = key,
+                    Method = SearchEnum.Like,
+                    Group = "Key"
+                },
+                new SearchItem
+                {
+                    Field = "Code",
+                    Value = key,
+                    Method = SearchEnum.Like,
+                    Group = "Key"
+                },
+                new SearchItem
+                {
+                    Field = "Status",
+                    Value = ((int)YesNoEnum.Yes).ToString(),
+                    Method = SearchEnum.Equal
+                },
+            ]
+        };
+
+        if (!string.IsNullOrWhiteSpace(companyId))
+            searchDictionaryArgs.AddArgs("CompanyId", companyId, SearchEnum.Equal);
+
+        var dictionary =
+            await dictionaryInvoke.InvokePostAsync("Auth", "/BaseDictionary/Page", searchDictionaryArgs, token);
+
+        if (!dictionary.Success)
+            return dictionary;
+
+        if (dictionary.Rows is null)
+            return new PageResult<BaseDictionaryResult>(500, "字典不存在");
+
+        return dictionary;
     }
 }

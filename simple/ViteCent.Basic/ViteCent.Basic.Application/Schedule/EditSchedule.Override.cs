@@ -72,34 +72,34 @@ public partial class EditSchedule
 
         request.UserName = hasUser?.Data?.RealName;
 
-        var hasLeaveArgs = new HasUserLeaveEntityArgs
-        {
-            CompanyId = request.CompanyId,
-            DepartmentId = request.DepartmentId,
-            UserId = request.UserId,
-            StartTime = request.StartTime,
-            EndTime = request.EndTime
-        };
+        //var hasLeaveArgs = new HasUserLeaveEntityArgs
+        //{
+        //    CompanyId = request.CompanyId,
+        //    DepartmentId = request.DepartmentId,
+        //    UserId = request.UserId,
+        //    StartTime = request.SceduleTimes,
+        //    EndTime = request.SceduleTimes
+        //};
 
-        var hasLeave = await mediator.Send(hasLeaveArgs, cancellationToken);
+        //var hasLeave = await mediator.Send(hasLeaveArgs, cancellationToken);
 
-        if (hasLeave.Success)
-            return new BaseResult(500, "用户已请假");
+        //if (hasLeave.Success)
+        //    return new BaseResult(500, "用户已请假");
 
-        var hasRestArgs = new HasUserRestEntityArgs
-        {
-            CompanyId = request.CompanyId,
-            DepartmentId = request.DepartmentId,
-            UserId = request.UserId,
-            StartTime = request.StartTime,
-            EndTime = request.EndTime,
-            Status = UserRestEnum.Pass
-        };
+        //var hasRestArgs = new HasUserRestEntityArgs
+        //{
+        //    CompanyId = request.CompanyId,
+        //    DepartmentId = request.DepartmentId,
+        //    UserId = request.UserId,
+        //    StartTime = request.SceduleTimes,
+        //    EndTime = request.SceduleTimes,
+        //    Status = UserRestEnum.Pass
+        //};
 
-        var hasRest = await mediator.Send(hasRestArgs, cancellationToken);
+        //var hasRest = await mediator.Send(hasRestArgs, cancellationToken);
 
-        if (hasRest.Success)
-            return new BaseResult(500, "用户已调休");
+        //if (hasRest.Success)
+        //    return new BaseResult(500, "用户已调休");
 
         var hasArgs = new HasScheduleEntityArgs
         {
@@ -107,8 +107,8 @@ public partial class EditSchedule
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
             UserId = request.UserId,
-            StartTime = request.StartTime,
-            EndTime = request.EndTime
+            StartTime = request.SceduleTimes,
+            EndTime = request.SceduleTimes
         };
 
         return await mediator.Send(hasArgs, cancellationToken);

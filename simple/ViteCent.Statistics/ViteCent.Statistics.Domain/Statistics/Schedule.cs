@@ -3,8 +3,10 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ViteCent.Auth.Entity.BaseUser;
+using ViteCent.Basic.Data.BasePost;
 using ViteCent.Basic.Data.Schedule;
 using ViteCent.Basic.Data.ScheduleType;
+using ViteCent.Basic.Entity.BasePost;
 using ViteCent.Basic.Entity.Schedule;
 using ViteCent.Basic.Entity.ScheduleType;
 using ViteCent.Core.Data;
@@ -45,8 +47,10 @@ public class Schedule(ILogger<Schedule> logger)
             Data = new ScheduleStatisticsResult()
         };
 
+
         var authClient = new SqlSugarFactory("ViteCent.Auth");
 
+        // 用户
         var userQuery = authClient.Query<BaseUserEntity>()
             .Where(x => x.Status == (int)StatusEnum.Enable && x.IsSuper != (int)YesNoEnum.Yes);
 
@@ -62,41 +66,40 @@ public class Schedule(ILogger<Schedule> logger)
         if (!string.IsNullOrWhiteSpace(request.Query))
             userQuery = userQuery.Where(x => x.RealName.Contains(request.Query));
 
-        var items = await userQuery.Select(x => new StatisticsScheduleStatisticsResultItem
+        var users = await userQuery.Select(x => new StatisticsScheduleStatisticsResultItem
         {
             Name = x.RealName,
             Values = new List<List<double>>()
         }).ToListAsync(cancellationToken);
 
-        if (items.Count == 0)
+        if (users.Count == 0)
             return result;
 
-        result.Data.Items = items;
+        result.Data.Items = users;
 
         var basicClient = new SqlSugarFactory("ViteCent.Basic");
 
-        var jobQuery = basicClient.Query<ScheduleTypeEntity>();
+        //岗位
+        var postQuery = basicClient.Query<BasePostEntity>();
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            jobQuery = jobQuery.Where(x => x.CompanyId == request.CompanyId);
+            postQuery = postQuery.Where(x => x.CompanyId == request.CompanyId);
 
-        if (!string.IsNullOrWhiteSpace(request.DepartmentId))
-            jobQuery = jobQuery.Where(x => x.DepartmentId == request.DepartmentId);
+        postQuery = postQuery.OrderByDescending(x => x.CreateTime);
 
-        jobQuery = jobQuery.OrderByDescending(x => x.CreateTime);
-
-        var scheduleTypes = await jobQuery.Select(x => new ScheduleTypeResult
+        var posts = await postQuery.Select(x => new BasePostResult
         {
             Name = x.Name
         }).ToListAsync(cancellationToken);
 
-        if (scheduleTypes.Count == 0)
+        if (posts.Count == 0)
             return result;
 
-        var jobs = scheduleTypes.Select(x => x.Name).ToList();
+        var jobs = posts.Select(x => x.Name).ToList();
 
         result.Data.Jobs.AddRange(jobs);
 
+        //排班
         var query = basicClient.Query<ScheduleEntity>().Where(x => jobs.Contains(x.TypeName));
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
@@ -105,16 +108,13 @@ public class Schedule(ILogger<Schedule> logger)
         if (!string.IsNullOrWhiteSpace(request.DepartmentId))
             query = query.Where(x => x.DepartmentId == request.DepartmentId);
 
-        query.Where(x => (x.StartTime >= request.StartTime && x.StartTime <= request.EndTime) ||
-                         (x.EndTime >= request.StartTime && x.EndTime <= request.EndTime) ||
-                         (x.StartTime <= request.StartTime && x.EndTime >= request.EndTime));
+        query.Where(x => x.SceduleTimes >= request.StartTime && x.SceduleTimes <= request.EndTime);
 
         var list = await query.Select(x => new ScheduleResult
         {
             TypeName = x.TypeName,
             UserName = x.UserName,
-            FirstTime = x.FirstTime,
-            LastTime = x.LastTime
+            SignTimes = x.SignTimes,
         }).ToListAsync(cancellationToken);
 
         if (list.Count == 0)
@@ -124,6 +124,7 @@ public class Schedule(ILogger<Schedule> logger)
             foreach (var job in result.Data.Jobs)
             {
                 var datas = list.Where(x => x.UserName == item.Name && x.PostName == job).ToList();
+
                 if (datas.Count == 0)
                 {
                     item.Values.Add([0, 0]);
@@ -150,6 +151,8 @@ public class Schedule(ILogger<Schedule> logger)
     /// </returns>
     private static List<double> GetData(List<ScheduleResult> datas)
     {
+        var now = DateTime.Now.Date;
+
         var result = new List<double>
         {
             datas.Count
@@ -158,8 +161,38 @@ public class Schedule(ILogger<Schedule> logger)
         var diff = 0D;
 
         foreach (var item in datas)
-            if (item.FirstTime.HasValue && item.LastTime.HasValue && item.LastTime >= item.FirstTime)
-                diff += (item.LastTime.Value - item.FirstTime.Value).TotalHours;
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(item.SignTimes))
+                {
+                    var arrays = item.SignTimes.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                    foreach (var array in arrays)
+                    {
+                        var times = array.Split('-', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                        if (times.Count != 2)
+                            continue;
+
+                        var start = $"{now:yyyy-MM-dd} {times[0]}:00";
+                        var end = $"{now:yyyy-MM-dd} {times[1]}:59";
+
+                        if (DateTime.TryParse(start, out var startTime) && DateTime.TryParse(end, out var endTime))
+                            if (startTime > endTime)
+                            {
+                                endTime = endTime.AddDays(1);
+
+                                diff += (endTime - startTime).TotalHours;
+                            }
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                continue;
+            }
+
 
         diff = Math.Round(diff, 2, MidpointRounding.AwayFromZero);
 

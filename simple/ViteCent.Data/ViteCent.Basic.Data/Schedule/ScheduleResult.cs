@@ -49,24 +49,9 @@ public class ScheduleResult
     public string? DepartmentName { get; set; }
 
     /// <summary>
-    /// 结束时间
-    /// </summary>
-    public DateTime EndTime { get; set; }
-
-    /// <summary>
-    /// 上班时间
-    /// </summary>
-    public DateTime? FirstTime { get; set; }
-
-    /// <summary>
     /// 标识
     /// </summary>
     public string Id { get; set; } = string.Empty;
-
-    /// <summary>
-    /// 下班时间
-    /// </summary>
-    public DateTime? LastTime { get; set; }
 
     /// <summary>
     /// 岗位标识
@@ -79,9 +64,14 @@ public class ScheduleResult
     public string? PostName { get; set; }
 
     /// <summary>
-    /// 开始时间
+    /// 排班时间
     /// </summary>
-    public DateTime StartTime { get; set; }
+    public DateTime SceduleTimes { get; set; }
+
+    /// <summary>
+    /// 打卡时间
+    /// </summary>
+    public string? SignTimes { get; set; }
 
     /// <summary>
     /// 状态
@@ -91,7 +81,7 @@ public class ScheduleResult
     /// <summary>
     /// 上班时间
     /// </summary>
-    public string? Times { get; set; }
+    public string Times { get; set; } = string.Empty;
 
     /// <summary>
     /// 班次标识

@@ -73,28 +73,10 @@ public class ScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string? DepartmentName { get; set; }
 
     /// <summary>
-    /// 结束时间
-    /// </summary>
-    [SugarColumn(ColumnName = "endTime")]
-    public DateTime EndTime { get; set; }
-
-    /// <summary>
-    /// 上班时间
-    /// </summary>
-    [SugarColumn(ColumnName = "firstTime")]
-    public DateTime? FirstTime { get; set; }
-
-    /// <summary>
     /// 标识
     /// </summary>
     [SugarColumn(ColumnName = "id", IsPrimaryKey = true)]
     public string Id { get; set; } = string.Empty;
-
-    /// <summary>
-    /// 下班时间
-    /// </summary>
-    [SugarColumn(ColumnName = "lastTime")]
-    public DateTime? LastTime { get; set; }
 
     /// <summary>
     /// 岗位标识
@@ -109,10 +91,16 @@ public class ScheduleEntity : BaseEntity, IRequest<BaseResult>
     public string? PostName { get; set; }
 
     /// <summary>
-    /// 开始时间
+    /// 排班时间
     /// </summary>
-    [SugarColumn(ColumnName = "startTime")]
-    public DateTime StartTime { get; set; }
+    [SugarColumn(ColumnName = "sceduleTimes")]
+    public DateTime SceduleTimes { get; set; }
+
+    /// <summary>
+    /// 打卡时间
+    /// </summary>
+    [SugarColumn(ColumnName = "signTimes")]
+    public string? SignTimes { get; set; }
 
     /// <summary>
     /// 状态
@@ -124,7 +112,7 @@ public class ScheduleEntity : BaseEntity, IRequest<BaseResult>
     /// 上班时间
     /// </summary>
     [SugarColumn(ColumnName = "times")]
-    public string? Times { get; set; }
+    public string Times { get; set; } = string.Empty;
 
     /// <summary>
     /// 班次标识

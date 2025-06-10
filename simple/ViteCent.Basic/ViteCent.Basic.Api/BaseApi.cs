@@ -2,10 +2,12 @@
 
 using MediatR;
 using System.Security.Claims;
+using ViteCent.Auth.Data.BaseDictionary;
 using ViteCent.Basic.Data.BaseLogs;
 using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
+using ViteCent.Core.Web;
 
 #endregion
 

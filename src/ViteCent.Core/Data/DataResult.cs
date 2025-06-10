@@ -18,9 +18,8 @@ public class DataResult<T> : BaseResult
     /// 初始化一个带有数据和消息内容的成功返回结果实例
     /// </summary>
     /// <param name="data">返回的数据内容</param>
-    /// <param name="message">返回的消息内容</param>
-    public DataResult(T data, string message = "")
-        : base(message)
+    public DataResult(T data)
+        : base(string.Empty)
     {
         Data = data;
     }

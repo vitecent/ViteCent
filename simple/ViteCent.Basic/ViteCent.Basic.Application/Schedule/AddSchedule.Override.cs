@@ -9,10 +9,10 @@ using MediatR;
 using ViteCent.Auth.Data.BaseCompany;
 using ViteCent.Auth.Data.BaseDepartment;
 using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Basic.Data.BasePost;
 using ViteCent.Basic.Data.Schedule;
-using ViteCent.Basic.Data.UserLeave;
-using ViteCent.Basic.Data.UserRest;
 using ViteCent.Basic.Entity.Schedule;
+using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 using ViteCent.Core.Web;
@@ -96,13 +96,105 @@ public partial class AddSchedule
             foreach (var data in items) data.UserName = item.RealName;
         }
 
+        //处理职位可打卡时间
+        var postNames = request.Items.Select(x => x.PostName).Distinct().ToList();
+
+        var searchPostArgs = new SearchBasePostArgs()
+        {
+            Offset = 1,
+            Limit = int.MaxValue,
+            Args =
+            [
+                new SearchItem()
+                {
+                    Field = "Name",
+                    Method = SearchEnum.In,
+                    Value = postNames.ToJson()
+                },
+                new SearchItem()
+                {
+                    Field = "Status",
+                    Method = SearchEnum.Equal,
+                    Value = ((int)StatusEnum.Enable).ToString()
+                }
+            ]
+        };
+
+        if (companyIds.Count > 0)
+            searchPostArgs.AddArgs("CompanyId", companyIds.ToJson(), SearchEnum.In);
+
+        var posts = await mediator.Send(searchPostArgs, cancellationToken);
+
+        if (!posts.Success)
+            return posts;
+
+        if (posts.Rows.Count == 0)
+            return new BaseResult(500, "职位不存在");
+
+        var timeArgs = new GetScheduleTimeArgs();
+
+        var scheduleTimes = await mediator.Send(timeArgs, cancellationToken);
+
+        if (!scheduleTimes.Success)
+            return scheduleTimes;
+
+        if (scheduleTimes.Rows.Count == 0)
+            return new BaseResult(500, "打卡时段不存在");
+
+        var timesArray = scheduleTimes.Rows.ToArray();
+
+        foreach (var item in request.Items)
+        {
+            var post = posts.Rows.FirstOrDefault(x => x.Name == item.PostName);
+
+            if (post is null)
+                return new BaseResult(500, $"职位{item.PostName}不存在");
+
+            if (string.IsNullOrWhiteSpace(post.Times))
+                return new BaseResult(500, $"职位{item.PostName}打卡时段不能为空");
+
+            var timeList = new List<string>();
+            var indexs = new List<int>();
+
+            try
+            {
+                indexs = post.Times.Split(",", StringSplitOptions.RemoveEmptyEntries).Distinct().OrderBy(x => x).Select(x => int.Parse(x)).ToList();
+            }
+            catch (Exception)
+            {
+                return new BaseResult(500, $"职位{item.PostName}打卡时段解析失败");
+            }
+
+            foreach (var index in indexs)
+            {
+                try
+                {
+                    var time = timesArray[index];
+
+                    if (time is not null)
+                        timeList.Add(time.Times);
+                }
+                catch (Exception)
+                {
+                    return new BaseResult(500, $"职位{item.PostName}打卡时段{index}不存在");
+                }
+            }
+
+            var times = string.Empty;
+
+            if (timeList.Count != 0)
+                times = string.Join(",", timeList);
+
+            item.Times = times;
+        }
+
         var hasListArgs = new HasScheduleEntityListArgs
         {
             CompanyIds = companyIds,
             DepartmentIds = departmentIds,
             UserIds = userIds,
-            StartTime = request.Items.Min(x => x.StartTime),
-            EndTime = request.Items.Max(x => x.EndTime)
+            StartTime = request.Items.Min(x => x.SceduleTimes),
+            EndTime = request.Items.Max(x => x.SceduleTimes)
         };
 
         return await mediator.Send(hasListArgs, cancellationToken);
@@ -164,42 +256,42 @@ public partial class AddSchedule
 
         request.UserName = hasUser?.Data?.RealName;
 
-        var hasLeaveArgs = new HasUserLeaveEntityArgs
-        {
-            CompanyId = request.CompanyId,
-            DepartmentId = request.DepartmentId,
-            UserId = request.UserId,
-            StartTime = request.StartTime,
-            EndTime = request.EndTime
-        };
+        //var hasLeaveArgs = new HasUserLeaveEntityArgs
+        //{
+        //    CompanyId = request.CompanyId,
+        //    DepartmentId = request.DepartmentId,
+        //    UserId = request.UserId,
+        //    StartTime = request.SceduleTimes,
+        //    EndTime = request.SceduleTimes
+        //};
 
-        var hasLeave = await mediator.Send(hasLeaveArgs, cancellationToken);
+        //var hasLeave = await mediator.Send(hasLeaveArgs, cancellationToken);
 
-        if (hasLeave.Success)
-            return new BaseResult(500, "用户已请假");
+        //if (hasLeave.Success)
+        //    return new BaseResult(500, "用户已请假");
 
-        var hasRestArgs = new HasUserRestEntityArgs
-        {
-            CompanyId = request.CompanyId,
-            DepartmentId = request.DepartmentId,
-            UserId = request.UserId,
-            StartTime = request.StartTime,
-            EndTime = request.EndTime,
-            Status = UserRestEnum.Pass
-        };
+        //var hasRestArgs = new HasUserRestEntityArgs
+        //{
+        //    CompanyId = request.CompanyId,
+        //    DepartmentId = request.DepartmentId,
+        //    UserId = request.UserId,
+        //    StartTime = request.SceduleTimes,
+        //    EndTime = request.SceduleTimes,
+        //    Status = UserRestEnum.Pass
+        //};
 
-        var hasRest = await mediator.Send(hasRestArgs, cancellationToken);
+        //var hasRest = await mediator.Send(hasRestArgs, cancellationToken);
 
-        if (hasRest.Success)
-            return new BaseResult(500, "用户已调休");
+        //if (hasRest.Success)
+        //    return new BaseResult(500, "用户已调休");
 
         var hasArgs = new HasScheduleEntityArgs
         {
             CompanyId = request.CompanyId,
             DepartmentId = request.DepartmentId,
             UserId = request.UserId,
-            StartTime = request.StartTime,
-            EndTime = request.EndTime
+            StartTime = request.SceduleTimes,
+            EndTime = request.SceduleTimes
         };
 
         return await mediator.Send(hasArgs, cancellationToken);
