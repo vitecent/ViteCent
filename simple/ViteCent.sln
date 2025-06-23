@@ -91,7 +91,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteCent.Statistics.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteCent.Statistics.Data", "ViteCent.Data\ViteCent.Statistics.Data\ViteCent.Statistics.Data.csproj", "{C187DD4D-DA4F-4CE2-DE1D-F51C6B2F7D10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteCent.Fiels.Data", "ViteCent.Data\ViteCent.Fiels.Data\ViteCent.Fiels.Data.csproj", "{6A0780DC-D5C4-2D9F-7F83-48AB70C5D46A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteCent.Files.Data", "ViteCent.Data\ViteCent.Fiels.Data\ViteCent.Files.Data.csproj", "{6A0780DC-D5C4-2D9F-7F83-48AB70C5D46A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViteCent.Builder.Api", "ViteCent.Builder\ViteCent.Builder.Api\ViteCent.Builder.Api.csproj", "{5A9546C9-2938-A9D8-420A-7E85415D9BDF}"
 EndProject

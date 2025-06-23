@@ -7,7 +7,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://192.168.0.53:8020",
+      "applicationUrl": "http://localhost:8020",
       "dotnetRunMessages": true
     }
   }

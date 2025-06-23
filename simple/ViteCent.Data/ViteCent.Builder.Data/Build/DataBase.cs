@@ -7,6 +7,9 @@ using ViteCent.Core.Orm;
 
 namespace ViteCent.Builder.Data.Build;
 
+/// <summary>
+/// 
+/// </summary>
 public class DataBase : BaseDataBase
 {
     /// <summary>
@@ -31,11 +34,11 @@ public class DataBase : BaseDataBase
 
     /// <summary>
     /// </summary>
-    public string Server { get; set; } = "192.168.0.9";
+    public string Server { get; set; } = "192.168.0.115";
 
     /// <summary>
     /// </summary>
-    public string ServiceAddress { get; set; } = "192.168.0.53";
+    public string ServiceAddress { get; set; } = "localhost";
 
     /// <summary>
     /// </summary>

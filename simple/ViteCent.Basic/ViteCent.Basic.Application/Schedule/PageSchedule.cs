@@ -54,13 +54,19 @@ public class PageSchedule(
     : IRequestHandler<SearchScheduleArgs, PageResult<ScheduleResult>>
 {
     // <summary>
-    /// 处理排班信息分页查询请求 </summary> <remarks> 该方法实现了IRequestHandler接口的Handle方法，主要功能包括：
+    /// 处理排班信息分页查询请求
+    /// </summary>
+    /// <remarks>
+    /// 该方法实现了IRequestHandler接口的Handle方法，主要功能包括：
     /// 1. 记录方法调用日志
     /// 2. 将请求参数转换为模型查询参数
     /// 3. 执行分页查询操作
     /// 4. 转换查询结果为响应参数
-    /// 5. 构造并返回分页结果 </remarks> <param name="request">分页查询请求参数</param> <param
-    /// name="cancellationToken">取消令牌</param> <returns>返回分页查询结果，包含排班信息列表</returns>
+    /// 5. 构造并返回分页结果
+    /// </remarks>
+    /// <param name="request">分页查询请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>返回分页查询结果，包含排班信息列表</returns>
     public async Task<PageResult<ScheduleResult>> Handle(SearchScheduleArgs request,
         CancellationToken cancellationToken)
     {

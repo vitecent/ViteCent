@@ -1,5 +1,8 @@
 ﻿namespace ViteCent.Builder.Data.Build;
 
+/// <summary>
+/// 
+/// </summary>
 public class ApplicationSetting
 {
     /// <summary>

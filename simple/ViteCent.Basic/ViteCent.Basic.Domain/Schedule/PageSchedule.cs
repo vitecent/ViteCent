@@ -24,10 +24,15 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Basic.Domain.Schedule;
 
 // <summary>
-/// 排班信息分页查询领域服务 </summary> <remarks> 该类负责处理排班信息的分页查询请求，主要功能包括：
+/// 排班信息分页查询领域服务
+/// </summary>
+/// <remarks>
+/// 该类负责处理排班信息的分页查询请求，主要功能包括：
 /// 1. 接收并处理分页查询参数
 /// 2. 调用基础设施层执行分页查询
-/// 3. 返回符合条件的排班信息列表 </remarks> <param name="logger">日志记录器，用于记录处理过程中的关键信息</param>
+/// 3. 返回符合条件的排班信息列表
+/// </remarks>
+/// <param name="logger">日志记录器，用于记录处理过程中的关键信息</param>
 public class PageSchedule(
     // 注入日志记录器
     ILogger<PageSchedule> logger)

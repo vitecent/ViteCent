@@ -11,7 +11,7 @@
  Target Server Version : 80042 (8.0.42)
  File Encoding         : 65001
 
- Date: 09/06/2025 09:27:48
+ Date: 10/06/2025 11:15:03
 */
 
 SET NAMES utf8mb4;
@@ -50,6 +50,10 @@ CREATE TABLE `base_logs`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '日志信息' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
+-- Records of base_logs
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for base_post
 -- ----------------------------
 DROP TABLE IF EXISTS `base_post`;
@@ -61,7 +65,7 @@ CREATE TABLE `base_post`  (
   `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名称',
   `abbreviation` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '简称',
   `description` varchar(5000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '简介',
-  `times` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '上班时间',
+  `times` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '上班时段',
   `color` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '颜色',
   `creator` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `createTime` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -73,6 +77,17 @@ CREATE TABLE `base_post`  (
   INDEX `name`(`name` ASC) USING BTREE,
   INDEX `companyId`(`companyId` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '职位信息' ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of base_post
+-- ----------------------------
+INSERT INTO `base_post` VALUES ('20250610000001', '1', NULL, 'ZhiHuiSuoBan', '指挥所班', NULL, NULL, '0,1,2,3', '#FF0000', '管理员', '2025-06-10 10:12:10', '管理员', '2025-06-10 10:15:23', '2025-06-10 10:15:23', 1);
+INSERT INTO `base_post` VALUES ('20250610000002', '1', NULL, 'ZhiHuiBan', '指挥班', NULL, NULL, '0,1,2,3', '#FF0000', '管理员', '2025-06-10 10:12:25', '管理员', '2025-06-10 10:15:26', '2025-06-10 10:15:26', 1);
+INSERT INTO `base_post` VALUES ('20250610000003', '1', NULL, 'TongHangBan', '通航班', NULL, NULL, '0,1,2,3', '#FF0000', '管理员', '2025-06-10 10:12:46', '管理员', '2025-06-10 10:15:28', '2025-06-10 10:15:28', 1);
+INSERT INTO `base_post` VALUES ('20250610000004', '1', NULL, 'JiHuaBan', '计划班', NULL, NULL, '0,2', '#FF0000', '管理员', '2025-06-10 10:13:14', '管理员', '2025-06-10 10:15:31', '2025-06-10 10:15:31', 1);
+INSERT INTO `base_post` VALUES ('20250610000005', '1', NULL, 'JianKongBan', '监控班', NULL, NULL, '1,2', '#FF0000', '管理员', '2025-06-10 10:13:32', '管理员', '2025-06-10 10:15:33', '2025-06-10 10:15:33', 1);
+INSERT INTO `base_post` VALUES ('20250610000006', '1', NULL, 'FuBan', '副班', NULL, NULL, '0,2,3,4', '#FF0000', '管理员', '2025-06-10 10:13:54', '管理员', '2025-06-10 10:15:35', '2025-06-10 10:15:35', 1);
+INSERT INTO `base_post` VALUES ('20250610000007', '1', NULL, 'ZhuBan', '主班', NULL, NULL, '0,2', '#FF0000', '管理员', '2025-06-10 10:14:11', '管理员', '2025-06-10 10:15:37', '2025-06-10 10:15:37', 1);
 
 -- ----------------------------
 -- Table structure for repair_schedule
@@ -103,6 +118,10 @@ CREATE TABLE `repair_schedule`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '补卡申请' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
+-- Records of repair_schedule
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for schedule
 -- ----------------------------
 DROP TABLE IF EXISTS `schedule`;
@@ -118,11 +137,9 @@ CREATE TABLE `schedule`  (
   `typeName` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '班次名称',
   `userId` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '用户标识',
   `userName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户名称',
-  `times` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '上班时间',
-  `startTime` datetime NOT NULL COMMENT '开始时间',
-  `endTime` datetime NOT NULL COMMENT '结束时间',
-  `firstTime` datetime NULL DEFAULT NULL COMMENT '上班时间',
-  `lastTime` datetime NULL DEFAULT NULL COMMENT '下班时间',
+  `sceduleTimes` datetime NOT NULL COMMENT '排班时间',
+  `times` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '上班时间',
+  `signTimes` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '打卡时间',
   `creator` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建人',
   `createTime` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updater` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '修改人',
@@ -134,6 +151,10 @@ CREATE TABLE `schedule`  (
   INDEX `userId`(`userId` ASC) USING BTREE,
   INDEX `departmentId`(`departmentId` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '排班信息' ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of schedule
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for schedule_type
@@ -158,6 +179,10 @@ CREATE TABLE `schedule_type`  (
   INDEX `companyId`(`companyId` ASC) USING BTREE,
   INDEX `departmentId`(`departmentId` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '基础排班' ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of schedule_type
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for shift_schedule
@@ -197,6 +222,10 @@ CREATE TABLE `shift_schedule`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '换班申请' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
+-- Records of shift_schedule
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for user_leave
 -- ----------------------------
 DROP TABLE IF EXISTS `user_leave`;
@@ -223,6 +252,10 @@ CREATE TABLE `user_leave`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '请假申请' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
+-- Records of user_leave
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for user_rest
 -- ----------------------------
 DROP TABLE IF EXISTS `user_rest`;
@@ -247,5 +280,9 @@ CREATE TABLE `user_rest`  (
   INDEX `departmentId`(`departmentId` ASC) USING BTREE,
   INDEX `companyId`(`companyId` ASC) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '调休申请' ROW_FORMAT = COMPACT;
+
+-- ----------------------------
+-- Records of user_rest
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -6,7 +6,7 @@ public class ApiSetting
 {
     /// <summary>
     /// </summary>
-    public string Cache { get; set; } = "192.168.0.9:6379,password=123456,defaultDatabase=1";
+    public string Cache { get; set; } = "192.168.0.115:6379,password=123456,defaultDatabase=1";
 
     /// <summary>
     /// </summary>
@@ -42,9 +42,9 @@ public class ApiSetting
 
     /// <summary>
     /// </summary>
-    public string Register { get; set; } = "http://192.168.0.9:8500";
+    public string Register { get; set; } = "http://192.168.0.115:8500";
 
     /// <summary>
     /// </summary>
-    public string Trace { get; set; } = "http://192.168.0.9:9411/api/v2/spans";
+    public string Trace { get; set; } = "http://192.168.0.115:9411/api/v2/spans";
 }
