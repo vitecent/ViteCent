@@ -16,10 +16,10 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <summary>
 /// 重置密码仓储
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="cache"></param>
-/// <param name="mediator"></param>
-/// <param name="httpContextAccessor"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="cache">缓存器，用于处理缓存信息</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 public class ResetPasword(
     ILogger<ResetPasword> logger,
     IBaseCache cache,
@@ -34,9 +34,9 @@ public class ResetPasword(
     /// <summary>
     /// 重置密码
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseResult> Handle(ResetPaswordArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.ResetPasword");

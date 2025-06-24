@@ -32,9 +32,9 @@ public partial class AddBasePost
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="args"></param>
-    /// <param name="user"></param>
-    /// <returns></returns>
+    /// <param name="args">请求参数</param>
+    /// <param name="user">用户信息</param>
+    /// <returns>处理结果</returns>
     internal static void OverrideInvoke(AddBasePostArgs args, BaseUserInfo user)
     {
         args.Status = (int)StatusEnum.Enable;

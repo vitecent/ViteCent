@@ -62,4 +62,9 @@ public class AddScheduleTypeArgs : BaseArgs, IRequest<BaseResult>
     /// 名称
     /// </summary>
     public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    public int? Sort { get; set; }
 }

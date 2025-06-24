@@ -16,11 +16,27 @@ using ViteCent.Statistics.Data.Statistics;
 
 namespace ViteCent.Statistics.Domain.Statistics;
 
+/// <summary>
+/// 考勤统计服务类
+/// </summary>
+/// <remarks>
+/// 该服务负责处理考勤统计相关的业务逻辑，包括：
+/// 1. 根据条件筛选用户信息
+/// 2. 获取考勤班次类型
+/// 3. 统计每个用户在不同班次的考勤数据
+/// </remarks>
+/// <param name="logger">日志记录器</param>
 public class Schedule(ILogger<Schedule> logger)
     : IRequestHandler<StatisticsScheduleStatisticsEntityArgs, DataResult<ScheduleStatisticsResult>>
 {
+    /// <summary>
+    /// 处理考勤统计请求
+    /// </summary>
+    /// <param name="request">统计请求参数，包含公司标识、部门标识、岗位标识、查询关键字、统计时间范围等</param>
+    /// <param name="cancellationToken">取消操作的令牌</param>
+    /// <returns>返回考勤统计结果，包含每个用户在不同班次的出勤次数和工时统计</returns>
     public async Task<DataResult<ScheduleStatisticsResult>> Handle(StatisticsScheduleStatisticsEntityArgs request,
-CancellationToken cancellationToken)
+        CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Statistics.Domain.Statistics.Schedule");
 
@@ -31,8 +47,9 @@ CancellationToken cancellationToken)
 
         var authClient = new SqlSugarFactory("ViteCent.Auth");
 
+        // 用户
         var userQuery = authClient.Query<BaseUserEntity>()
-    .Where(x => x.Status == (int)StatusEnum.Enable && x.IsSuper != (int)YesNoEnum.Yes);
+            .Where(x => x.Status == (int)StatusEnum.Enable && x.IsSuper != (int)YesNoEnum.Yes);
 
         if (!string.IsNullOrWhiteSpace(request.CompanyId))
             userQuery = userQuery.Where(x => x.CompanyId == request.CompanyId);
@@ -120,6 +137,15 @@ CancellationToken cancellationToken)
         return result;
     }
 
+    /// <summary>
+    /// 计算考勤数据统计结果
+    /// </summary>
+    /// <param name="datas">考勤记录列表</param>
+    /// <returns>
+    /// 返回包含出勤次数和工时的统计数据列表：
+    /// - 第一个元素为出勤次数
+    /// - 第二个元素为总工时（小时）
+    /// </returns>
     private static List<double> GetData(List<ScheduleResult> datas)
     {
         var now = DateTime.Now.Date;
@@ -146,12 +172,12 @@ CancellationToken cancellationToken)
                         var end = $"{now:yyyy-MM-dd} {times[1]}:59";
 
                         if (DateTime.TryParse(start, out var startTime) && DateTime.TryParse(end, out var endTime))
-                        {
                             if (startTime > endTime)
+                            {
                                 endTime = endTime.AddDays(1);
 
-                            diff += (endTime - startTime).TotalHours;
-                        }
+                                diff += (endTime - startTime).TotalHours;
+                            }
                     }
                 }
             }

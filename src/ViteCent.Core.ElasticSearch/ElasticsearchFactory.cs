@@ -148,7 +148,7 @@ public class ElasticsearchFactory : IElasticsearch
         Action<SortOptionsDescriptor<T>>? Sort = null) where T : class, new()
     {
         var response = await client.SearchAsync<T>(s => s
-            .Index(index)
+            .Indices(index)
             .From((pageNumber - 1) * pageSize)
             .Size(pageSize)
             .Query(q => Query?.Invoke(q))
@@ -166,7 +166,7 @@ public class ElasticsearchFactory : IElasticsearch
     /// <returns>包含所有文档的分页结果对象</returns>
     public async Task<PageResult<T>> SearchDocumentsAsync<T>(string index) where T : class, new()
     {
-        var response = await client.SearchAsync<T>(s => { s.Index(index); });
+        var response = await client.SearchAsync<T>(s => { s.Indices(index); });
 
         if (!response.IsValidResponse) throw new Exception($"Search Failed {response.DebugInformation}");
 

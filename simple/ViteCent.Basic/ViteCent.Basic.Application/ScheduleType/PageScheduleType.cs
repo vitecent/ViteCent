@@ -46,14 +46,14 @@ namespace ViteCent.Basic.Application.ScheduleType;
 public class PageScheduleType(
     // 注入日志记录器
     ILogger<PageScheduleType> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<SearchScheduleTypeArgs, PageResult<ScheduleTypeResult>>
 {
-    // <summary>
+    /// <summary>
     /// 处理基础排班分页查询请求
     /// </summary>
     /// <remarks>

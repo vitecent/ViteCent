@@ -9,10 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-#if($DataBase.Invoke)
-		<ProjectReference Include="..\..\\${Setting.Data.Projrect}\\$!{DataBase.InvokeProjrect}.${Setting.Data.Name}\\$!{DataBase.InvokeProjrect}.${Setting.Data.Name}.csproj" />
+#if($Setting.Database.Invoke)
+		<ProjectReference Include="..\..\\${Setting.Data.Projrect}\\$!{Setting.Database.InvokeProjrect}.${Setting.Data.Name}\\$!{Setting.Database.InvokeProjrect}.${Setting.Data.Name}.csproj" />
 #end
-		<ProjectReference Include="..\..\\${Setting.Data.Projrect}\\$!{DataBase.Name}.${Setting.Data.Name}\\$!{DataBase.Name}.${Setting.Data.Name}.csproj" />
-		<ProjectReference Include="..\\$!{DataBase.Name}.${Setting.Entity.Name}\\$!{DataBase.Name}.${Setting.Entity.Name}.csproj" />
+		<ProjectReference Include="..\..\\${Setting.Data.Projrect}\\$!{Setting.Database.Name}.${Setting.Data.Name}\\$!{Setting.Database.Name}.${Setting.Data.Name}.csproj" />
+		<ProjectReference Include="..\\$!{Setting.Database.Name}.${Setting.Entity.Name}\\$!{Setting.Database.Name}.${Setting.Entity.Name}.csproj" />
 	</ItemGroup>
 </Project>

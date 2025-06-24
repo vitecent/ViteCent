@@ -17,7 +17,7 @@ public partial class ScheduleTypeValidator : AbstractValidator<AddScheduleTypeAr
 {
     /// <summary>
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     private void OverrideValidator(bool validate)
     {
         var scheduleTypes = new List<int>

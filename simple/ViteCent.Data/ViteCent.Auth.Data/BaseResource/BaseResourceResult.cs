@@ -74,6 +74,11 @@ public class BaseResourceResult
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
+    /// 排序
+    /// </summary>
+    public int? Sort { get; set; }
+
+    /// <summary>
     /// 状态
     /// </summary>
     public int? Status { get; set; }

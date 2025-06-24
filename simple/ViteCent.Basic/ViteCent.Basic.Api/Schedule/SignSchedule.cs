@@ -36,12 +36,11 @@ namespace ViteCent.Basic.Api.Schedule;
 /// <summary>
 /// 上班打卡接口
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="httpContextAccessor"></param>
-/// <param name="mediator"></param>
-/// <param name="cache"></param>
-// 标记为API接口
-[ApiController]
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="cache">缓存器，用于处理缓存信息</param>
+[ApiController] // 标记为 Api 接口
 // 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
@@ -51,9 +50,9 @@ public class SignSchedule(
     ILogger<SignSchedule> logger,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator,
-    // 注入缓存接口
+    // 注入缓存器
     IBaseCache cache)
     // 继承基类，指定查询参数和返回结果类型
     : BaseApi<SignScheduleArgs, BaseResult>
@@ -66,10 +65,9 @@ public class SignSchedule(
     /// <summary>
     /// 上班打卡
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    // 标记为POST请求
-    [HttpPost]
+    /// <param name="args">请求参数</param>
+    /// <returns>打卡结果</returns>
+    [HttpPost] // 标记为POST请求
     // 权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Basic", "Schedule", "Edit" })]
     // 设置路由名称

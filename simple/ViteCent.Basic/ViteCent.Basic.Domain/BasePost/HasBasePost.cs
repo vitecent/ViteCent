@@ -21,7 +21,7 @@ namespace ViteCent.Basic.Domain.BasePost;
 /// <summary>
 /// 职位信息判重领域
 /// </summary>
-/// <param name="logger"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
 public class HasBasePost(
     ILogger<HasBasePost> logger)
     : BaseDomain<BasePostEntity>, IRequestHandler<HasBasePostEntityArgs, BaseResult>
@@ -29,14 +29,14 @@ public class HasBasePost(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Basic";
+    public override string Database => "ViteCent.Basic";
 
     /// <summary>
     /// 职位信息判重
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseResult> Handle(HasBasePostEntityArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.BasePost.HasBasePost");

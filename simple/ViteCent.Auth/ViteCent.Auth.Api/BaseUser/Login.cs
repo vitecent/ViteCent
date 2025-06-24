@@ -30,16 +30,15 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// <summary>
 /// 登录接口
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mediator"></param>
-// 标记为 API 接口
-[ApiController]
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+[ApiController] // 标记为 API 接口
 // 设置路由前缀
 [Route("BaseUser")]
 public class Login(
     // 注入日志记录器
     ILogger<Login> logger,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : BaseApi<LoginArgs, DataResult<LoginResult>>
@@ -47,10 +46,9 @@ public class Login(
     /// <summary>
     /// 登录
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    // 标记为 POST 请求
-    [HttpPost]
+    /// <param name="args">请求参数</param>
+    /// <returns>登录结果</returns>
+    [HttpPost] // 标记为 POST 请求
     // 设置路由名称
     [Route("Login")]
     public override async Task<DataResult<LoginResult>> InvokeAsync(LoginArgs args)

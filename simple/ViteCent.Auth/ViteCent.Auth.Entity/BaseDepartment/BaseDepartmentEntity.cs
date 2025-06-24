@@ -121,6 +121,12 @@ public class BaseDepartmentEntity : BaseEntity, IRequest<BaseResult>
     public string? ParentId { get; set; }
 
     /// <summary>
+    /// 排序
+    /// </summary>
+    [SugarColumn(ColumnName = "sort")]
+    public int? Sort { get; set; }
+
+    /// <summary>
     /// 状态
     /// </summary>
     [SugarColumn(ColumnName = "status")]

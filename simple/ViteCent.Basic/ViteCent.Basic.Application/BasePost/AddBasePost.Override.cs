@@ -26,12 +26,12 @@ public partial class AddBasePost
 {
     /// <summary>
     /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="request"></param>
-    /// <param name="user"></param>
-    /// <param name="companyInvoke"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="mediator">中介者，用于发送查询请求</param>
+    /// <param name="request">请求参数</param>
+    /// <param name="user">用户信息</param>
+    /// <param name="companyInvoke">公司信息访问对象</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     internal static async Task<BaseResult> OverrideHandle(IMediator mediator,
         AddBasePostListArgs request,
         BaseUserInfo user,
@@ -71,11 +71,11 @@ public partial class AddBasePost
 
     /// <summary>
     /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="topic"></param>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="mediator">中介者，用于发送查询请求</param>
+    /// <param name="topic">话题</param>
+    /// <param name="entity">数据库模型</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     internal static async Task OverrideTopic(IMediator mediator,
         TopicEnum topic,
         BasePostEntity entity,
@@ -87,9 +87,9 @@ public partial class AddBasePost
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<BaseResult> OverrideHandle(AddBasePostArgs request,
         CancellationToken cancellationToken)
     {

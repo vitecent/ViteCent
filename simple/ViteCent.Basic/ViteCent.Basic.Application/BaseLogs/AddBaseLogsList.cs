@@ -14,7 +14,7 @@ using AutoMapper;
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
 
-// 引入 ASP.NET Core MVC 核心功能
+// 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Http;
 
 // 引入 Microsoft.Extensions.Logging 用于日志记录
@@ -32,7 +32,7 @@ using ViteCent.Basic.Data.BaseLogs;
 // 引入日志信息相关的模型
 using ViteCent.Basic.Entity.BaseLogs;
 
-// 引入缓存接口
+// 引入缓存器
 using ViteCent.Core.Cache;
 
 // 引入核心数据类型
@@ -51,21 +51,21 @@ namespace ViteCent.Basic.Application.BaseLogs;
 /// <summary>
 /// 批量新增日志信息应用
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="cache"></param>
-/// <param name="mapper"></param>
-/// <param name="mediator"></param>
-/// <param name="companyInvoke"></param>
-/// <param name="departmentInvoke"></param>
-/// <param name="httpContextAccessor"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="cache">缓存器，用于处理缓存信息</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="companyInvoke">公司信息访问对象</param>
+/// <param name="departmentInvoke">部门信息访问对象</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 public class AddBaseLogsList(
     // 注入日志记录器
     ILogger<AddBaseLogsList> logger,
-    // 注入缓存接口
+    // 注入缓存器
     IBaseCache cache,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator,
     IBaseInvoke<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>> companyInvoke,
     IBaseInvoke<SearchBaseDepartmentArgs, PageResult<BaseDepartmentResult>> departmentInvoke,
@@ -82,9 +82,9 @@ public class AddBaseLogsList(
     /// <summary>
     /// 批量新增日志信息
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseResult> Handle(AddBaseLogsListArgs request,
         CancellationToken cancellationToken)
     {

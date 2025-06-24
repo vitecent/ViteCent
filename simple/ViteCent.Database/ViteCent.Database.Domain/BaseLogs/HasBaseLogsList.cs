@@ -28,7 +28,7 @@ using ViteCent.Database.Entity.BaseLogs;
 
 namespace ViteCent.Database.Domain.BaseLogs;
 
-// <summary>
+/// <summary>
 /// 批量日志信息判重处理类 </summary> <remarks> 该类用于处理批量日志信息的判重逻辑，包括：
 /// 1. 检查日志信息编码是否重复
 /// 2. 检查日志信息名称是否重复
@@ -42,7 +42,7 @@ public class HasBaseLogsList(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Database";
+    public override string Database => "ViteCent.Database";
 
     /// <summary>
     /// 处理批量日志信息判重请求

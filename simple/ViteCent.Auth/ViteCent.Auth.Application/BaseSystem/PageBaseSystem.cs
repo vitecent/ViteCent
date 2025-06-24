@@ -46,14 +46,14 @@ namespace ViteCent.Auth.Application.BaseSystem;
 public class PageBaseSystem(
     // 注入日志记录器
     ILogger<PageBaseSystem> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<SearchBaseSystemArgs, PageResult<BaseSystemResult>>
 {
-    // <summary>
+    /// <summary>
     /// 处理系统信息分页查询请求
     /// </summary>
     /// <remarks>

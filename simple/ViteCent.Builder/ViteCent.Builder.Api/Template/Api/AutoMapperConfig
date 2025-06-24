@@ -10,12 +10,12 @@
 
 #foreach($Table in $Tables)
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 #end
 #foreach($Table in $Tables)
 // 引入$!{Table.Description}相关的数据模型对象
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 #end
 // 引入 Web 核心
@@ -23,14 +23,14 @@ using ViteCent.Core.Web;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Api.Name};
+namespace $!{Setting.Database.Name}.$!{Setting.Api.Name};
 
 /// <summary>
 /// AutoMapper对象映射配置类
 /// </summary>
 /// <remarks>
-/// 该类负责配置$!{DataBase.Name}模块中所有需要的对象映射关系，主要功能包括：
-/// 1. $!{DataBase.Name}请求参数与模型参数之间的映射
+/// 该类负责配置$!{Setting.Database.Name}模块中所有需要的对象映射关系，主要功能包括：
+/// 1. $!{Setting.Database.Name}请求参数与模型参数之间的映射
 /// 2. 继承自BaseMapperConfig基类，实现自动化的对象映射配置
 /// </remarks>
 public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
@@ -60,12 +60,12 @@ public partial class $!{Setting.Api.MapperName} : BaseMapperConfig
         CreateMap<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 
 #end
-#if($DataBase.Invoke == false && $HasStatus && $Setting.DisableName != "")
+#if($Setting.Database.Invoke == false && $HasStatus && $Setting.DisableName != "")
         // 禁用对象映射配置
         CreateMap<$!{Setting.DisableName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 
 #end
-#if($DataBase.Invoke == false && $HasStatus && $Setting.EnableName != "")
+#if($Setting.Database.Invoke == false && $HasStatus && $Setting.EnableName != "")
         // 启用对象映射配置
         CreateMap<$!{Setting.EnableName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix}, $!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>();
 

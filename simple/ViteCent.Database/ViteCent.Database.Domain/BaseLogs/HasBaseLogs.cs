@@ -48,7 +48,7 @@ public class HasBaseLogs(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Database";
+    public override string Database => "ViteCent.Database";
 
     /// <summary>
     /// 处理日志信息判重请求

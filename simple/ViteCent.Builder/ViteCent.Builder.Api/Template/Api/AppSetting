@@ -11,17 +11,17 @@
   "Register": "$!{Setting.Api.Register}",
   "Trace": "$!{Setting.Api.Trace}",
   "Service": {
-    "Name": "$!{DataBase.ServiceName}",
-    "Port": "$!{DataBase.ServicePort}",
-    "Address": "$!{DataBase.ServiceAddress}"
+    "Name": "$!{Setting.Api.ServiceName}",
+    "Port": "$!{Setting.Api.ServicePort}",
+    "Address": "$!{Setting.Api.ServiceAddress}"
   },
-  "DataBase": [
+  "Database": [
     {
-      "Type": "$!{DataBase.Type}",
-      "Name": "$!{DataBase.Name}",
-      "Master": "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;",
+      "Type": "$!{Setting.Database.Type}",
+      "Name": "$!{Setting.Database.Name}",
+      "Master": "Server=$!{Setting.Database.Server};Port=$!{Setting.Database.Port};DataBase=$!{Setting.Database.SmallName};Persistsecurityinfo=True;User=$!{Setting.Database.User};Password=$!{Setting.Database.Password};SslMode=none;CharSet=utf8;",
       "Slaves": [
-        "Server=$!{DataBase.Server};Port=$!{DataBase.Port};DataBase=$!{DataBase.SmallName};Persistsecurityinfo=True;User=$!{DataBase.User};Password=$!{DataBase.Password};SslMode=none;CharSet=utf8;"
+        "Server=$!{Setting.Database.Server};Port=$!{Setting.Database.Port};DataBase=$!{Setting.Database.SmallName};Persistsecurityinfo=True;User=$!{Setting.Database.User};Password=$!{Setting.Database.Password};SslMode=none;CharSet=utf8;"
       ]
     }
   ],

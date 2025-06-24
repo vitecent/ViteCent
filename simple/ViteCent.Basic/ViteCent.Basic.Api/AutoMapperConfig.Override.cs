@@ -28,6 +28,5 @@ public partial class AutoMapperConfig : BaseMapperConfig
         CreateMap<AddShiftScheduleArgs, GetScheduleEntityArgs>();
         CreateMap<EditShiftScheduleArgs, GetScheduleEntityArgs>();
         CreateMap<SignScheduleArgs, GetScheduleEntityArgs>();
-
     }
 }

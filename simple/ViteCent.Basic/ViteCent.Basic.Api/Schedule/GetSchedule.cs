@@ -10,7 +10,7 @@
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
 
-// 引入 ASP.NET Core MVC 核心功能
+// 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
 // 引入排班信息相关的数据参数
@@ -41,9 +41,8 @@ namespace ViteCent.Basic.Api.Schedule;
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录接口的操作日志</param>
 /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
-/// <param name="mediator">中介者接口，用于发送查询请求</param>
-// 标记为API接口
-[ApiController]
+/// <param name="mediator">中介者，用于发送查询请求</param>
+[ApiController] // 标记为 Api 接口
 // 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
@@ -53,7 +52,7 @@ public partial class GetSchedule(
     ILogger<GetSchedule> logger,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : BaseApi<GetScheduleArgs, DataResult<ScheduleResult>>
@@ -75,8 +74,7 @@ public partial class GetSchedule(
     /// </remarks>
     /// <param name="args">查询参数，包含获取排班信息所需的条件</param>
     /// <returns>返回包含排班信息的数据结果对象</returns>
-    // 标记为POST请求
-    [HttpPost]
+    [HttpPost] // 标记为 Post 请求
     // 权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Basic", "Schedule", "Get" })]
     // 设置路由名称

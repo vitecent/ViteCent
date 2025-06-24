@@ -15,7 +15,7 @@ using Module = Autofac.Module;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Api.Name};
+namespace $!{Setting.Database.Name}.$!{Setting.Api.Name};
 
 /// <summary>
 /// AutoFac依赖注入配置类拓展
@@ -25,7 +25,7 @@ public partial class $!{Setting.Api.FacName} : Module
     /// <summary>
     /// 加载依赖注入配置
     /// </summary>
-    /// <param name="builder"></param>
+    /// <param name="builder">容器构建器，用于注册类型到IoC容器</param>
     private void OverrideLoad(ContainerBuilder builder)
     {
     }

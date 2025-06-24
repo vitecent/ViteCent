@@ -19,7 +19,7 @@ using Module = Autofac.Module;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Api.Name};
+namespace $!{Setting.Database.Name}.$!{Setting.Api.Name};
 
 /// <summary>
 /// AutoFac依赖注入配置类

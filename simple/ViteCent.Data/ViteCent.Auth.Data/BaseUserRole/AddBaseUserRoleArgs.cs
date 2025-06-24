@@ -24,11 +24,6 @@ namespace ViteCent.Auth.Data.BaseUserRole;
 public class AddBaseUserRoleArgs : BaseArgs, IRequest<BaseResult>
 {
     /// <summary>
-    /// 颜色
-    /// </summary>
-    public string? Color { get; set; }
-
-    /// <summary>
     /// 公司标识
     /// </summary>
     public string CompanyId { get; set; } = string.Empty;

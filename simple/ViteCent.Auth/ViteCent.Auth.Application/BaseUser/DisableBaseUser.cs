@@ -14,7 +14,7 @@ using AutoMapper;
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
 
-// 引入 ASP.NET Core MVC 核心功能
+// 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Http;
 
 // 引入 Microsoft.Extensions.Logging 用于日志记录
@@ -49,14 +49,14 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// </remarks>
 /// <param name="logger">日志记录器，用于记录处理过程中的关键信息</param>
 /// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
-/// <param name="mediator">中介者接口，用于处理命令和查询</param>
+/// <param name="mediator">中介者，用于处理命令和查询</param>
 /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 public partial class DisableBaseUser(
     // 注入日志记录器
     ILogger<DisableBaseUser> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor)

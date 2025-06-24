@@ -41,7 +41,7 @@ public class GetBaseSystem(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Auth";
+    public override string Database => "ViteCent.Auth";
 
     /// <summary>
     /// 处理获取系统信息的请求

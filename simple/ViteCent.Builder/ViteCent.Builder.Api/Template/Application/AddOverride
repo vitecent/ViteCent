@@ -12,49 +12,49 @@ using MediatR;
 #if($HasCompanyId)
 
 // 引入$!{Table.Description}相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseCompany;
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
 
 // 引入部门信息相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseDepartment;
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.BaseDepartment;
 #end
 #if($HasOperationId)
 
 // 引入操作信息相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseOperation;
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.BaseOperation;
 #end
 #if($HasPositionId)
 
 // 引入职位信息相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BasePosition;
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.BasePosition;
 #end
 #if($HasResourceId)
 
 // 引入资源信息相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseResource;
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.BaseResource;
 #end
 #if($HasRoleId)
 
 // 引入角色信息相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseRole;
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.BaseRole;
 #end
 #if($HasUserId)
 
 // 引入用户信息相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseUser;
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.BaseUser;
 #end
 #if($HasSystemId)
 
 // 引入核心信息相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.BaseSystem;
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.BaseSystem;
 #end
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入核心
 using ViteCent.Core;
@@ -67,7 +67,7 @@ using ViteCent.Core.Enums;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 新增$!{Table.Description}应用服务的扩展部分类
@@ -243,7 +243,7 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// 处理$!{Table.Description}变更的事件通知
     /// </summary>
     /// <param name="mediator">中介者，用于处理命令和查询</param>
-    /// <param name="topic">事件主题，表示操作类型（新增、修改、删除等）</param>
+    /// <param name="topic">事件主题，标识操作类型（新增、修改、删除等）</param>
     /// <param name="entity">公司模型信息</param>
     /// <param name="cancellationToken">取消令牌</param>
     /// <returns>任务</returns>

@@ -20,7 +20,7 @@ namespace ViteCent.Auth.Entity.BaseCompany;
 /// <summary>
 /// 批量公司信息判重参数实体类
 /// </summary>
-/// <remarks>该类用于批量检查公司信息是否存在重复数据 继承自BaseArgs基类，实现IRequest接口以支持MediatR中介者模式 返回类型为BaseResult，用于表示判重结果</remarks>
+/// <remarks>该类用于批量检查公司信息是否存在重复数据 继承自BaseArgs基类，实现IRequest接口以支持MediatR中介者模式 返回类型为BaseResult，用于标识判重结果</remarks>
 [Serializable] // 标记类可序列化，支持对象的序列化和反序列化操作
 public class HasBaseCompanyEntityListArgs : BaseArgs, IRequest<BaseResult>
 {

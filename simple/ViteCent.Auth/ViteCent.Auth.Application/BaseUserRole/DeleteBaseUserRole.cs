@@ -47,7 +47,7 @@ namespace ViteCent.Auth.Application.BaseUserRole;
 public class DeleteBaseUserRole(
     // 注入日志记录器
     ILogger<DeleteBaseUserRole> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型

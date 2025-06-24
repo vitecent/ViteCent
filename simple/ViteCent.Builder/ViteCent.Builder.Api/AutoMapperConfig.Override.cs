@@ -8,6 +8,8 @@
 #region 引入命名空间
 
 // 引入 Web 核心
+using ViteCent.Builder.Data.Build;
+using ViteCent.Core.Orm;
 using ViteCent.Core.Web;
 
 #endregion 引入命名空间
@@ -24,5 +26,8 @@ public partial class AutoMapperConfig : BaseMapperConfig
     /// </summary>
     private void OverrideMap()
     {
+        CreateMap<BaseTableInfo, Table>();
+        CreateMap<BaseFieldInfo, Field>();
+        CreateMap<DatabaseSetting, BaseDatabaseInfo>();
     }
 }

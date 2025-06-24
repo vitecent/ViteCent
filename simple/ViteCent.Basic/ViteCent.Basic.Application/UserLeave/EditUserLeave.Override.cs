@@ -19,9 +19,9 @@ public partial class EditUserLeave
 {
     /// <summary>
     /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="entity">数据库模型</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<BaseResult> OverrideHandle(UserLeaveEntity entity, CancellationToken cancellationToken)
     {
         if (entity.Status != (int)UserLeaveEnum.Apply)
@@ -32,9 +32,9 @@ public partial class EditUserLeave
 
     /// <summary>
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<BaseResult> OverrideHandle(EditUserLeaveArgs request, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;

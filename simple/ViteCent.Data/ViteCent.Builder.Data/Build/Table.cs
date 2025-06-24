@@ -9,7 +9,7 @@ namespace ViteCent.Builder.Data.Build;
 
 /// <summary>
 /// </summary>
-public class Table : BaseTable
+public class Table : BaseTableInfo
 {
     /// <summary>
     /// </summary>

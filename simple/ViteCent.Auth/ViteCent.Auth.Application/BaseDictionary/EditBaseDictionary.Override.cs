@@ -24,9 +24,9 @@ public partial class EditBaseDictionary
     /// <summary>
     /// 验证字典信息
     /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="entity">数据库模型</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<BaseResult> OverrideHandle(BaseDictionaryEntity entity, CancellationToken cancellationToken)
     {
         return await Task.FromResult(new BaseResult());
@@ -35,9 +35,9 @@ public partial class EditBaseDictionary
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<BaseResult> OverrideHandle(EditBaseDictionaryArgs request, CancellationToken cancellationToken)
     {
         var companyId = user?.Company?.Id ?? string.Empty;

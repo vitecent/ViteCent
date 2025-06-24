@@ -33,8 +33,8 @@ namespace ViteCent.Basic.Api.Schedule;
 /// 获取排班时间接口
 /// </summary>
 /// <param name="logger">日志记录器，用于记录接口的操作日志</param>
-/// <param name="mediator">中介者接口，用于发送查询请求</param>
-// 标记为API接口
+/// <param name="mediator">中介者，用于发送查询请求</param>
+// 标记为 Api 接口
 [ApiController]
 // 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
@@ -43,12 +43,11 @@ namespace ViteCent.Basic.Api.Schedule;
 public partial class GetScheduleTime(
     // 注入日志记录器
     ILogger<GetScheduleTime> logger,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : BaseApi<GetScheduleTimeArgs, PageResult<ScheduleTimeResult>>
 {
-
     /// <summary>
     /// 获取排班时间
     /// </summary>

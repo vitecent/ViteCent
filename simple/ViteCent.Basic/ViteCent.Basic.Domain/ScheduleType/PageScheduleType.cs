@@ -23,7 +23,7 @@ using ViteCent.Core.Orm.SqlSugar;
 
 namespace ViteCent.Basic.Domain.ScheduleType;
 
-// <summary>
+/// <summary>
 /// 基础排班分页查询领域服务
 /// </summary>
 /// <remarks>
@@ -42,7 +42,7 @@ public class PageScheduleType(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Basic";
+    public override string Database => "ViteCent.Basic";
 
     /// <summary>
     /// 处理基础排班分页查询请求

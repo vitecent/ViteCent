@@ -28,11 +28,11 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <summary>
 /// 登录仓储
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="cache"></param>
-/// <param name="mapper"></param>
-/// <param name="mediator"></param>
-/// <param name="configuration"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="cache">缓存器，用于处理缓存信息</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="configuration">配置信息</param>
 public class Login(
     ILogger<Login> logger,
     IBaseCache cache,
@@ -43,9 +43,9 @@ public class Login(
     /// <summary>
     /// 登录
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<DataResult<LoginResult>> Handle(LoginArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.Login");
@@ -166,10 +166,10 @@ public class Login(
 
     /// <summary>
     /// </summary>
-    /// <param name="ids"></param>
-    /// <param name="userInfo"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="ids">标识</param>
+    /// <param name="userInfo">用户信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task GetOperation(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
         var args = new SearchBaseOperationArgs
@@ -208,11 +208,11 @@ public class Login(
 
     /// <summary>
     /// </summary>
-    /// <param name="ids"></param>
-    /// <param name="userInfo"></param>
-    /// <param name="operations"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="ids">标识</param>
+    /// <param name="userInfo">用户信息</param>
+    /// <param name="operations">操作信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task GetResource(List<string> ids, BaseUserInfo userInfo, List<BaseOperationResult> operations,
         CancellationToken cancellationToken)
     {
@@ -252,10 +252,10 @@ public class Login(
 
     /// <summary>
     /// </summary>
-    /// <param name="ids"></param>
-    /// <param name="userInfo"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="ids">标识</param>
+    /// <param name="userInfo">用户信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task GetRole(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
         var args = new SearchBaseRoleArgs
@@ -294,10 +294,10 @@ public class Login(
 
     /// <summary>
     /// </summary>
-    /// <param name="ids"></param>
-    /// <param name="userInfo"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="ids">标识</param>
+    /// <param name="userInfo">用户信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task GetRolePermission(List<string> ids, BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
         var args = new SearchBaseRolePermissionArgs
@@ -336,12 +336,12 @@ public class Login(
 
     /// <summary>
     /// </summary>
-    /// <param name="ids"></param>
-    /// <param name="userInfo"></param>
-    /// <param name="operations"></param>
-    /// <param name="resources"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="ids">标识</param>
+    /// <param name="userInfo">用户信息</param>
+    /// <param name="operations">操作信息</param>
+    /// <param name="resources">资源信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task GetSystem(List<string> ids, BaseUserInfo userInfo, List<BaseOperationResult> operations,
         List<BaseResourceResult> resources, CancellationToken cancellationToken)
     {
@@ -424,9 +424,9 @@ public class Login(
 
     /// <summary>
     /// </summary>
-    /// <param name="userInfo"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="userInfo">用户信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task GetUserRole(BaseUserInfo userInfo, CancellationToken cancellationToken)
     {
         var args = new SearchBaseUserRoleArgs

@@ -18,7 +18,7 @@ public partial class AutoFacConfig : Module
 {
     /// <summary>
     /// </summary>
-    /// <param name="builder"></param>
+    /// <param name="builder">容器构建器，用于注册类型到IoC容器</param>
     private void OverrideLoad(ContainerBuilder builder)
     {
     }

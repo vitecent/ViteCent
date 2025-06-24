@@ -23,7 +23,7 @@ using ViteCent.Core.Orm.SqlSugar;
 
 namespace ViteCent.Auth.Domain.BaseCompany;
 
-// <summary>
+/// <summary>
 /// 公司信息分页查询领域服务
 /// </summary>
 /// <remarks>
@@ -42,7 +42,7 @@ public class PageBaseCompany(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Auth";
+    public override string Database => "ViteCent.Auth";
 
     /// <summary>
     /// 处理公司信息分页查询请求

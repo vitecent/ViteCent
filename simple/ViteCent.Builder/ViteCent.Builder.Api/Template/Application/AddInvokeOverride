@@ -12,29 +12,29 @@ using MediatR;
 #if($HasCompanyId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
+using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
 
 // 引入部门信息相关的数据参数
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
+using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
 
 // 引入职位信息相关的数据参数
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
+using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasUserId)
 
 // 引入用户信息相关的数据参数
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
+using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入核心
 using ViteCent.Core;
@@ -50,7 +50,7 @@ using ViteCent.Core.Web;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 新增$!{Table.Description}应用拓展
@@ -59,23 +59,23 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 {
     /// <summary>
     /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="request"></param>
-    /// <param name="user"></param>
+    /// <param name="mediator">中介者，用于发送查询请求</param>
+    /// <param name="request">请求参数</param>
+    /// <param name="user">用户信息</param>
 #if($HasCompanyId)
-    /// <param name="companyInvoke"></param>
+    /// <param name="companyInvoke">公司信息访问对象</param>
 #end
 #if($HasDepartmentId)
-    /// <param name="departmentInvoke"></param>
+    /// <param name="departmentInvoke">部门信息访问对象</param>
 #end
 #if($HasPositionId)
-    /// <param name="positionInvoke"></param>
+    /// <param name="positionInvoke">职位信息访问对象</param>
 #end
 #if($HasUserId)
-    /// <param name="userInvoke"></param>
+    /// <param name="userInvoke">用户信息访问对象</param>
 #end
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     internal static async Task<BaseResult> OverrideHandle(IMediator mediator,
         $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request,
         BaseUserInfo user,
@@ -215,11 +215,11 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
 
     /// <summary>
     /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="topic"></param>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="mediator">中介者，用于发送查询请求</param>
+    /// <param name="topic">话题</param>
+    /// <param name="entity">数据库模型</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     internal static async Task OverrideTopic(IMediator mediator,
         TopicEnum topic,
         $!{Table.CamelCaseName}$!{Setting.Entity.Name} entity,
@@ -231,9 +231,9 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<BaseResult> OverrideHandle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request,
         CancellationToken cancellationToken)
     {

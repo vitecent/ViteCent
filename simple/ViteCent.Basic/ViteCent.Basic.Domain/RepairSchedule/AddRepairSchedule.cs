@@ -29,11 +29,7 @@ namespace ViteCent.Basic.Domain.RepairSchedule;
 /// <summary>
 /// 新增补卡申请领域服务类
 /// </summary>
-/// <remarks>
-/// 该类负责处理单个补卡申请的新增操作
-/// 继承自 BaseDomain 基类并实现 IRequestHandler 接口
-/// 通过依赖注入方式接收日志记录器，用于记录操作日志
-/// </remarks>
+/// <remarks>该类负责处理单个补卡申请的新增操作 继承自 BaseDomain 基类并实现 IRequestHandler 接口 通过依赖注入方式接收日志记录器，用于记录操作日志</remarks>
 /// <param name="logger">日志记录器实例</param>
 public class AddRepairSchedule(
     // 注入日志记录器
@@ -44,15 +40,12 @@ public class AddRepairSchedule(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Basic";
+    public override string Database => "ViteCent.Basic";
 
     /// <summary>
     /// 处理新增补卡申请的请求
     /// </summary>
-    /// <remarks>
-    /// 实现 IRequestHandler 接口的 Handle 方法
-    /// 记录操作日志并调用基类的 AddAsync 方法执行新增操作
-    /// </remarks>
+    /// <remarks>实现 IRequestHandler 接口的 Handle 方法 记录操作日志并调用基类的 AddAsync 方法执行新增操作</remarks>
     /// <param name="request">包含要新增的补卡申请的请求模型</param>
     /// <param name="cancellationToken">取消令牌</param>
     /// <returns>返回新增操作的结果</returns>

@@ -19,7 +19,7 @@ public partial class BaseRoleValidator : AbstractValidator<AddBaseRoleArgs>
 {
     /// <summary>
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     private void OverrideValidator(bool validate = false)
     {
         RuleFor(x => x.Code).NotNull().NotEmpty().WithMessage("编码不能为空");

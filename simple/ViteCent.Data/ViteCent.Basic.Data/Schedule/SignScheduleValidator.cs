@@ -7,12 +7,10 @@ using FluentValidation;
 namespace ViteCent.Basic.Data.Schedule;
 
 /// <summary>
-/// 
 /// </summary>
 public class SignScheduleValidator : AbstractValidator<SignScheduleArgs>
 {
     /// <summary>
-    /// 
     /// </summary>
     public SignScheduleValidator()
     {

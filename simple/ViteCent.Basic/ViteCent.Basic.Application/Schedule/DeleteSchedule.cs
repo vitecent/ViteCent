@@ -47,7 +47,7 @@ namespace ViteCent.Basic.Application.Schedule;
 public class DeleteSchedule(
     // 注入日志记录器
     ILogger<DeleteSchedule> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型

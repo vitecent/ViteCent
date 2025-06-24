@@ -14,16 +14,16 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
-// <summary>
+/// <summary>
 /// $!{Table.Description}分页查询领域服务
 /// </summary>
 /// <remarks>
@@ -42,7 +42,7 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "$!{DataBase.Name}";
+    public override string Database => "$!{Setting.Database.Name}";
 
     /// <summary>
     /// 处理$!{Table.Description}分页查询请求
@@ -60,7 +60,7 @@ public class $!{Setting.PageName}$!{Table.CamelCaseName}(
         CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.PageName}$!{Table.CamelCaseName}");
 
         // 调用基类的分页查询方法并返回结果
         return await base.PageAsync(request);

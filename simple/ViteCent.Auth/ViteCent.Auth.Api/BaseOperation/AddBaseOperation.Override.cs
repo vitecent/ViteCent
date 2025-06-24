@@ -20,9 +20,9 @@ public partial class AddBaseOperation
 {
     /// <summary>
     /// </summary>
-    /// <param name="args"></param>
-    /// <param name="user"></param>
-    /// <returns></returns>
+    /// <param name="args">请求参数</param>
+    /// <param name="user">用户信息</param>
+    /// <returns>处理结果</returns>
     internal static void OverrideInvoke(AddBaseOperationArgs args, BaseUserInfo user)
     {
         args.Status = (int)StatusEnum.Enable;

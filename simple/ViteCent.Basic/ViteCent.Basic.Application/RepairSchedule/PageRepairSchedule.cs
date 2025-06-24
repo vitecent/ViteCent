@@ -46,14 +46,14 @@ namespace ViteCent.Basic.Application.RepairSchedule;
 public class PageRepairSchedule(
     // 注入日志记录器
     ILogger<PageRepairSchedule> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<SearchRepairScheduleArgs, PageResult<RepairScheduleResult>>
 {
-    // <summary>
+    /// <summary>
     /// 处理补卡申请分页查询请求
     /// </summary>
     /// <remarks>

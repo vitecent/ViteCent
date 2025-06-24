@@ -14,17 +14,17 @@ using AutoMapper;
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
 
-// 引入 ASP.NET Core MVC 核心功能
+// 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Http;
 
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -34,7 +34,7 @@ using ViteCent.Core.Enums;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 启用$!{Table.Description}处理器
@@ -54,9 +54,9 @@ namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}
 public partial class $!{Setting.EnableName}$!{Table.CamelCaseName}(
     // 注入日志记录器
     ILogger<$!{Setting.EnableName}$!{Table.CamelCaseName}> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor)
@@ -86,7 +86,7 @@ public partial class $!{Setting.EnableName}$!{Table.CamelCaseName}(
     public async Task<BaseResult> Handle($!{Setting.EnableName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.EnableName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.EnableName}$!{Table.CamelCaseName}");
 
         // 将请求参数转换为模型查询参数
         var args = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);

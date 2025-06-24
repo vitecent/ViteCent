@@ -48,6 +48,10 @@ public class Setting : BaseArgs
 
     /// <summary>
     /// </summary>
+    public DatabaseSetting Database { get; set; } = new();
+
+    /// <summary>
+    /// </summary>
     public string GetName { get; set; } = "Get";
 
     /// <summary>

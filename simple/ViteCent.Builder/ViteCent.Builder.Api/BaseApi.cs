@@ -1,192 +1,185 @@
-﻿using AutoMapper;
+﻿#region 引入命名空间
+
+using AutoMapper;
 using ViteCent.Builder.Data.Build;
 using ViteCent.Core;
 using ViteCent.Core.Orm;
 using ViteCent.Core.Orm.SqlSugar;
 
+#endregion 引入命名空间
+
 namespace ViteCent.Builder.Api;
 
 /// <summary>
 /// </summary>
-public class BaseApi
+public static class BaseApi
 {
     /// <summary>
     /// </summary>
-    private readonly BaseLogger logger;
+    private static readonly BaseLogger logger;
 
     /// <summary>
     /// </summary>
-    public BaseApi()
+    static BaseApi()
     {
         logger = new BaseLogger(typeof(BaseApi));
     }
 
     /// <summary>
     /// </summary>
-    /// <returns></returns>
-    public static async Task<List<DataBase>> GetDataBase()
+    /// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
+    /// <param name="setting">设置信息</param>
+    /// <returns>处理结果</returns>
+    public static async Task GetDatabase(this IMapper mapper,
+        Setting setting)
     {
-        var databases = new List<DataBase>
+        var database = mapper.Map<BaseDatabaseInfo>(setting.Database);
+
+        var configuration = database.GetConfiguration();
+
+        var factoryConfig = new FactoryConfig
         {
-            new()
-            {
-                Name = "ViteCent.Auth",
-                SmallName = "vitecent_auth",
-                ServiceName = "Auth",
-                ServicePort = 8000
-            },
-            new()
-            {
-                Name = "ViteCent.Basic",
-                SmallName = "vitecent_basic",
-                ServiceName = "Basic",
-                ServicePort = 8010
-            }
+            DbType = setting.Database.Type,
+            Name = setting.Database.Name,
+            Master = configuration,
+            Slaves =
+            [
+                configuration
+            ]
         };
 
-        var config = new MapperConfiguration(configuration =>
+        var client = new SqlSugarFactory(factoryConfig);
+
+        var baseTables = await client.GetTables();
+
+        var tables = mapper.Map<List<Table>>(baseTables);
+
+        setting.Database.Tables = tables.OrderBy(x => x.CamelCaseName).ToList();
+
+        foreach (var table in tables)
         {
-            configuration.CreateMap<BaseTable, Table>();
-            configuration.CreateMap<BaseField, Field>();
-        });
+            table.CamelCaseName = table.Name.ToCamelCase();
 
-        foreach (var database in databases)
-        {
-            var client = new SqlSugarFactory(database.Name);
+            var baseFields = await client.GetFields(table.Name);
 
-            var baseTables = await client.GetTables();
+            var fields = mapper.Map<List<Field>>(baseFields);
 
-            var tables = new Mapper(config).Map<List<Table>>(baseTables);
-
-            database.Tables = tables.OrderBy(x => x.CamelCaseName).ToList();
-
-            foreach (var table in tables)
+            foreach (var field in fields)
             {
-                table.CamelCaseName = table.Name.ToCamelCase();
+                field.CamelCaseName = field.Name.ToCamelCase();
+                field.DataType = field.Type.Replace("varchar", "string")
+                    .Replace("nvarchar", "string")
+                    .Replace("sql_variant", "string")
+                    .Replace("text", "string")
+                    .Replace("char", "string")
+                    .Replace("ntext", "string")
+                    .Replace("hierarchyid", "string")
+                    .Replace("bit", "bool")
+                    .Replace("datetime", "DateTime")
+                    .Replace("datetime2", "DateTime")
+                    .Replace("date", "DateTime")
+                    .Replace("time", "DateTime")
+                    .Replace("smalldatetime", "DateTime")
+                    .Replace("DateTimestamp", "DateTime")
+                    .Replace("tinyint", "byte")
+                    .Replace("bigint", "long")
+                    .Replace("longstring", "long")
+                    .Replace("single", "decimal")
+                    .Replace("money", "decimal")
+                    .Replace("numeric", "decimal")
+                    .Replace("smallmoney", "decimal")
+                    .Replace("float", "decimal")
+                    .Replace("real", "float")
+                    .Replace("smallint", "short")
+                    .Replace("uniqueidentifier", "Guid")
+                    .Replace("smallmoney", "decimal");
 
-                var baseFields = await client.GetFields(table.Name);
+                if (field.Nullable)
+                    field.DataType = $"{field.DataType}?";
 
-                var fields = new Mapper(config).Map<List<Field>>(baseFields);
+                if (field.Length > 0)
+                    field.ColumnLength = $", Length = {field.Length}";
 
-                foreach (var field in fields)
-                {
-                    field.CamelCaseName = field.Name.ToCamelCase();
-                    field.DataType = field.Type.Replace("varchar", "string")
-                        .Replace("nvarchar", "string")
-                        .Replace("sql_variant", "string")
-                        .Replace("text", "string")
-                        .Replace("char", "string")
-                        .Replace("ntext", "string")
-                        .Replace("hierarchyid", "string")
-                        .Replace("bit", "bool")
-                        .Replace("datetime", "DateTime")
-                        .Replace("datetime2", "DateTime")
-                        .Replace("date", "DateTime")
-                        .Replace("time", "DateTime")
-                        .Replace("smalldatetime", "DateTime")
-                        .Replace("DateTimestamp", "DateTime")
-                        .Replace("tinyint", "byte")
-                        .Replace("bigint", "long")
-                        .Replace("longstring", "long")
-                        .Replace("single", "decimal")
-                        .Replace("money", "decimal")
-                        .Replace("numeric", "decimal")
-                        .Replace("smallmoney", "decimal")
-                        .Replace("float", "decimal")
-                        .Replace("real", "float")
-                        .Replace("smallint", "short")
-                        .Replace("uniqueidentifier", "Guid")
-                        .Replace("smallmoney", "decimal");
+                if (!string.IsNullOrWhiteSpace(field.Type))
+                    field.ColumnType = $", ColumnDataType = \"{field.Type}\"";
 
-                    if (field.Nullable)
-                        field.DataType = $"{field.DataType}?";
+                if (!string.IsNullOrWhiteSpace(field.Description))
+                    field.ColumnDescription = $", ColumnDescription = \"{field.Description}\"";
 
-                    if (field.Length > 0)
-                        field.ColumnLength = $", Length = {field.Length}";
+                if (field.PrimaryKey)
+                    field.ColumnPrimaryKey = ", IsPrimaryKey = true";
 
-                    if (!string.IsNullOrWhiteSpace(field.Type))
-                        field.ColumnType = $", ColumnDataType = \"{field.Type}\"";
+                if (field.Nullable)
+                    field.ColumnNullable = ", IsNullable = true";
 
-                    if (!string.IsNullOrWhiteSpace(field.Description))
-                        field.ColumnDescription = $", ColumnDescription = \"{field.Description}\"";
+                if (field.Identity)
+                    field.ColumnIdentity = ", IsIdentity = true";
 
-                    if (field.PrimaryKey)
-                        field.ColumnPrimaryKey = ", IsPrimaryKey = true";
-
-                    if (field.Nullable)
-                        field.ColumnNullable = ", IsNullable = true";
-
-                    if (field.Identity)
-                        field.ColumnIdentity = ", IsIdentity = true";
-
-                    field.Default = field.DataType == "string" ? " = string.Empty;" : string.Empty;
-                }
-
-                table.Fields = [.. fields.OrderBy(x => x.CamelCaseName)];
+                field.Default = field.DataType == "string" ? " = string.Empty;" : string.Empty;
             }
-        }
 
-        return databases;
+            table.Fields = [.. fields.OrderBy(x => x.CamelCaseName)];
+        }
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="databases"></param>
-    /// <param name="setting"></param>
-    public void GenerateCode(List<DataBase> databases, Setting setting)
+    /// <param name="setting">设置信息</param>
+    public static async Task BuildCode(this Setting setting)
     {
-        foreach (var database in databases)
-        {
-            setting.ProjrectName = database.Name;
-            setting.Guid = Guid.NewGuid().ToString().ToUpper();
-            setting.Data.Guid = Guid.NewGuid().ToString().ToUpper();
-            setting.Entity.Guid = Guid.NewGuid().ToString().ToUpper();
-            setting.Api.Guid = Guid.NewGuid().ToString().ToUpper();
-            setting.Application.Guid = Guid.NewGuid().ToString().ToUpper();
-            setting.Domain.Guid = Guid.NewGuid().ToString().ToUpper();
+        if (string.IsNullOrWhiteSpace(setting.ProjrectName))
+            setting.ProjrectName = setting.Database.CamelCaseName;
 
-            var root = Path.Combine(setting.Root, setting.SolutionName, setting.SrcName);
+        setting.Guid = Guid.NewGuid().ToString().ToUpper();
+        setting.Data.Guid = Guid.NewGuid().ToString().ToUpper();
+        setting.Entity.Guid = Guid.NewGuid().ToString().ToUpper();
+        setting.Api.Guid = Guid.NewGuid().ToString().ToUpper();
+        setting.Application.Guid = Guid.NewGuid().ToString().ToUpper();
+        setting.Domain.Guid = Guid.NewGuid().ToString().ToUpper();
 
-            logger.LogInformation($"Root {root}");
+        var root = Path.Combine(setting.Root, setting.SolutionName, setting.SrcName);
 
-            var dir = Directory.GetCurrentDirectory();
-            var nh = new NVelocityExpand(dir);
+        logger.LogInformation($"Root {root}");
 
-            nh.Put("Version", "9.0.4");
-            nh.Put("DataBase", database);
-            nh.Put("Setting", setting);
+        var dir = Directory.GetCurrentDirectory();
+        var nh = new NVelocityExpand(dir);
 
-            GenerateData(setting, root, database, nh);
+        nh.Put("Version", "9.0.4");
+        nh.Put("Setting", setting);
 
-            GenerateEntity(setting, root, database, nh);
+        setting.BuildData(root, nh);
 
-            GenerateApi(setting, root, database, nh);
+        setting.BuildEntity(root, nh);
 
-            GenerateApplication(setting, root, database, nh);
+        setting.BuildApi(root, nh);
 
-            GenerateDomain(setting, root, database, nh);
+        setting.BuildApplication(root, nh);
 
-            GenerateSolution(setting, root, database, nh);
-        }
+        setting.BuildDomain(root, nh);
+
+        setting.BuildSolution(root, nh);
+
+        await Task.CompletedTask;
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="setting"></param>
-    /// <param name="root"></param>
-    /// <param name="database"></param>
-    /// <param name="nh"></param>
-    private void GenerateApi(Setting setting, string root, DataBase database, NVelocityExpand nh)
+    /// <param name="setting">设置信息</param>
+    /// <param name="root">路径信息</param>
+    /// <param name="nh">模板引擎</param>
+    private static void BuildApi(this Setting setting,
+        string root,
+        NVelocityExpand nh)
     {
         if (string.IsNullOrWhiteSpace(setting.Api.Name)) return;
 
         var apiPth = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Api.Name}");
 
-        foreach (var table in database.Tables)
+        foreach (var table in setting.Database.Tables)
         {
             var path = Path.Combine(apiPth, table.Name.ToCamelCase());
 
-            logger.LogInformation($"Generate Api {table.Name.ToCamelCase()}");
+            logger.LogInformation($"Build Api {table.Name.ToCamelCase()}");
 
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
             var hasDepartmentId = table.Fields.Any(x => x.Name.ToCamelCase() == "DepartmentId");
@@ -198,6 +191,7 @@ public class BaseApi
             var hasOperationId = table.Fields.Any(x => x.Name.ToCamelCase() == "OperationId");
             var hasId = table.Fields.Any(x => x.Name.ToCamelCase() == "Id");
             var hasStatus = table.Fields.Any(x => x.Name.ToCamelCase() == "Status");
+            var hasSort = table.Fields.Any(x => x.Name.ToCamelCase() == "Sort");
             var hasLog = table.CamelCaseName != "BaseLogs";
 
             nh.Put("Table", table);
@@ -211,6 +205,7 @@ public class BaseApi
             nh.Put("HasOperationId", hasOperationId);
             nh.Put("HasId", hasId);
             nh.Put("HasStatus", hasStatus);
+            nh.Put("HasSort", hasSort);
             nh.Put("HasLog", hasLog);
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
@@ -265,7 +260,7 @@ public class BaseApi
                     nh.Save(@"Template\Api\DeleteOverride", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.Override.cs"));
             }
 
-            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
             {
                 nh.Save(@"Template\Api\Enable", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
 
@@ -275,7 +270,7 @@ public class BaseApi
                     nh.Save(@"Template\Api\EnableOverride", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.Override.cs"));
             }
 
-            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
             {
                 nh.Save(@"Template\Api\Disable", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
 
@@ -286,7 +281,7 @@ public class BaseApi
             }
         }
 
-        nh.Put("Tables", database.Tables);
+        nh.Put("Tables", setting.Database.Tables);
 
         nh.Save(@"Template\Api\Appsetting", Path.Combine(apiPth, "appsettings.json"));
         nh.Save(@"Template\Api\AppsettingDevelopment", Path.Combine(apiPth, "appsettings.Development.json"));
@@ -315,29 +310,31 @@ public class BaseApi
         nh.Save(@"Template\Api\Dockerfile", Path.Combine(apiPth, "Dockerfile"));
         nh.Save(@"Template\Api\Program", Path.Combine(apiPth, "Program.cs"));
 
-        var hasCsproj = File.Exists(Path.Combine(apiPth, $"{database.Name}.{setting.Api.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(apiPth, $"{setting.ProjrectName}.{setting.Api.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Api\Csproj", Path.Combine(apiPth, $"{database.Name}.{setting.Api.Name}.csproj"));
+            nh.Save(@"Template\Api\Csproj", Path.Combine(apiPth, $"{setting.ProjrectName}.{setting.Api.Name}.csproj"));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="setting"></param>
-    /// <param name="root"></param>
-    /// <param name="database"></param>
-    /// <param name="nh"></param>
-    private void GenerateApplication(Setting setting, string root, DataBase database, NVelocityExpand nh)
+    /// <param name="setting">设置信息</param>
+    /// <param name="root">路径信息</param>
+    /// <param name="nh">模板引擎</param>
+    private static void BuildApplication(this Setting
+        setting,
+        string root,
+        NVelocityExpand nh)
     {
         if (string.IsNullOrWhiteSpace(setting.Application.Name)) return;
 
         var applicatioPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Application.Name}");
 
-        foreach (var table in database.Tables)
+        foreach (var table in setting.Database.Tables)
         {
             var path = Path.Combine(applicatioPath, table.Name.ToCamelCase());
 
-            logger.LogInformation($"Generate Application {table.Name.ToCamelCase()}");
+            logger.LogInformation($"Build Application {table.Name.ToCamelCase()}");
 
             var removeField = new List<string> { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
 
@@ -372,7 +369,7 @@ public class BaseApi
 
             if (!string.IsNullOrWhiteSpace(setting.AddName))
             {
-                if (database.Invoke)
+                if (setting.Application.Invoke)
                 {
                     nh.Save(@"Template\Application\AddInvoke", Path.Combine(path, $"{setting.AddName}{table.Name.ToCamelCase()}.cs"));
 
@@ -398,7 +395,7 @@ public class BaseApi
 
             if (!string.IsNullOrWhiteSpace(setting.EditName))
             {
-                if (database.Invoke)
+                if (setting.Application.Invoke)
                 {
                     nh.Save(@"Template\Application\EditInvoke", Path.Combine(path, $"{setting.EditName}{table.Name.ToCamelCase()}.cs"));
 
@@ -427,37 +424,38 @@ public class BaseApi
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Application\Delete", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
 
-            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
                 nh.Save(@"Template\Application\Enable", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
 
-            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
                 nh.Save(@"Template\Application\Disable", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
         }
 
-        var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{setting.ProjrectName}.{setting.Application.Name}.csproj"));
 
         if (!hasCsproj)
             nh.Save(@"Template\Application\Csproj",
-                Path.Combine(applicatioPath, $"{database.Name}.{setting.Application.Name}.csproj"));
+                Path.Combine(applicatioPath, $"{setting.ProjrectName}.{setting.Application.Name}.csproj"));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="setting"></param>
-    /// <param name="root"></param>
-    /// <param name="database"></param>
-    /// <param name="nh"></param>
-    private void GenerateData(Setting setting, string root, DataBase database, NVelocityExpand nh)
+    /// <param name="setting">设置信息</param>
+    /// <param name="root">路径信息</param>
+    /// <param name="nh">模板引擎</param>
+    private static void BuildData(this Setting setting,
+        string root,
+        NVelocityExpand nh)
     {
         if (string.IsNullOrWhiteSpace(setting.Data.Name)) return;
 
         var dataPath = Path.Combine(root, setting.Data.Projrect, $"{setting.ProjrectName}.{setting.Data.Name}");
 
-        foreach (var table in database.Tables)
+        foreach (var table in setting.Database.Tables)
         {
             var path = Path.Combine(dataPath, table.Name.ToCamelCase());
 
-            logger.LogInformation($"Generate Data {table.Name.ToCamelCase()}");
+            logger.LogInformation($"Build Data {table.Name.ToCamelCase()}");
 
             var removeField = new List<string> { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
 
@@ -523,10 +521,10 @@ public class BaseApi
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Data\DeleteArgs", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
-            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
                 nh.Save(@"Template\Data\EnableArgs", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
-            if (!database.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
                 nh.Save(@"Template\Data\DisableArgs", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.HasName))
@@ -538,29 +536,30 @@ public class BaseApi
             }
         }
 
-        var hasCsproj = File.Exists(Path.Combine(dataPath, $"{database.Name}.{setting.Data.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(dataPath, $"{setting.ProjrectName}.{setting.Data.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Data\Csproj", Path.Combine(dataPath, $"{database.Name}.{setting.Data.Name}.csproj"));
+            nh.Save(@"Template\Data\Csproj", Path.Combine(dataPath, $"{setting.ProjrectName}.{setting.Data.Name}.csproj"));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="setting"></param>
-    /// <param name="root"></param>
-    /// <param name="database"></param>
-    /// <param name="nh"></param>
-    private void GenerateDomain(Setting setting, string root, DataBase database, NVelocityExpand nh)
+    /// <param name="setting">设置信息</param>
+    /// <param name="root">路径信息</param>
+    /// <param name="nh">模板引擎</param>
+    private static void BuildDomain(this Setting setting,
+        string root,
+        NVelocityExpand nh)
     {
         if (string.IsNullOrWhiteSpace(setting.Domain.Name)) return;
 
         var domainPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Domain.Name}");
 
-        foreach (var table in database.Tables)
+        foreach (var table in setting.Database.Tables)
         {
             var path = Path.Combine(domainPath, table.Name.ToCamelCase());
 
-            logger.LogInformation($"Generate Domain {table.Name.ToCamelCase()}");
+            logger.LogInformation($"Build Domain {table.Name.ToCamelCase()}");
 
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
             var hasDepartmentId = table.Fields.Any(x => x.Name.ToCamelCase() == "DepartmentId");
@@ -617,27 +616,28 @@ public class BaseApi
             }
         }
 
-        var hasCsproj = File.Exists(Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(domainPath, $"{setting.ProjrectName}.{setting.Domain.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Domain\Csproj", Path.Combine(domainPath, $"{database.Name}.{setting.Domain.Name}.csproj"));
+            nh.Save(@"Template\Domain\Csproj", Path.Combine(domainPath, $"{setting.ProjrectName}.{setting.Domain.Name}.csproj"));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="setting"></param>
-    /// <param name="root"></param>
-    /// <param name="database"></param>
-    /// <param name="nh"></param>
-    private void GenerateEntity(Setting setting, string root, DataBase database, NVelocityExpand nh)
+    /// <param name="setting">设置信息</param>
+    /// <param name="root">路径信息</param>
+    /// <param name="nh">模板引擎</param>
+    private static void BuildEntity(this Setting setting,
+        string root,
+        NVelocityExpand nh)
     {
         if (string.IsNullOrWhiteSpace(setting.Entity.Name)) return;
 
         var entifyPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Entity.Name}");
 
-        logger.LogInformation($"Generate Entity {entifyPath}");
+        logger.LogInformation($"Build Entity {entifyPath}");
 
-        foreach (var table in database.Tables)
+        foreach (var table in setting.Database.Tables)
         {
             var path = Path.Combine(entifyPath, table.Name.ToCamelCase());
 
@@ -693,29 +693,30 @@ public class BaseApi
             }
         }
 
-        var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{setting.ProjrectName}.{setting.Entity.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{database.Name}.{setting.Entity.Name}.csproj"));
+            nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{setting.ProjrectName}.{setting.Entity.Name}.csproj"));
     }
 
     /// <summary>
     /// </summary>
-    /// <param name="setting"></param>
-    /// <param name="root"></param>
-    /// <param name="database"></param>
-    /// <param name="nh"></param>
-    private void GenerateSolution(Setting setting, string root, DataBase database, NVelocityExpand nh)
+    /// <param name="setting">设置信息</param>
+    /// <param name="root">路径信息</param>
+    /// <param name="nh">模板引擎</param>
+    private static void BuildSolution(this Setting setting,
+        string root,
+        NVelocityExpand nh)
     {
-        if (string.IsNullOrWhiteSpace(database.Name)) return;
+        if (string.IsNullOrWhiteSpace(setting.ProjrectName)) return;
 
         var path = Path.Combine(root, setting.ProjrectName);
 
-        logger.LogInformation($"Generate Solution {path}");
+        logger.LogInformation($"Build Solution {path}");
 
         var hasSolution = File.Exists(Path.Combine(path, $"{setting.ProjrectName}.sln"));
 
         if (!hasSolution)
-            nh.Save(@"Template\Sln", Path.Combine(path, $"{database.Name}.sln"));
+            nh.Save(@"Template\Sln", Path.Combine(path, $"{setting.ProjrectName}.sln"));
     }
 }

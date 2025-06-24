@@ -2,12 +2,10 @@
 
 using MediatR;
 using System.Security.Claims;
-using ViteCent.Auth.Data.BaseDictionary;
 using ViteCent.Basic.Data.BaseLogs;
 using ViteCent.Core;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
-using ViteCent.Core.Web;
 
 #endregion
 
@@ -19,12 +17,15 @@ public static class BaseApi
 {
     /// <summary>
     /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="args"></param>
-    /// <param name="message"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    public static async Task LogError(this IMediator mediator, AddBaseLogsArgs args, string message, CancellationToken cancellationToken)
+    /// <param name="mediator">中介者，用于发送查询请求</param>
+    /// <param name="args">请求参数</param>
+    /// <param name="message">信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
+    public static async Task LogError(this IMediator mediator,
+        AddBaseLogsArgs args,
+        string message,
+        CancellationToken cancellationToken)
     {
         var logger = new BaseLogger(typeof(BaseApi));
 
@@ -43,11 +44,13 @@ public static class BaseApi
 
     /// <summary>
     /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="args"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    public static async Task LogSuccess(this IMediator mediator, AddBaseLogsArgs args, CancellationToken cancellationToken)
+    /// <param name="mediator">中介者，用于发送查询请求</param>
+    /// <param name="args">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
+    public static async Task LogSuccess(this IMediator mediator,
+        AddBaseLogsArgs args,
+        CancellationToken cancellationToken)
     {
         var logger = new BaseLogger(typeof(BaseApi));
 
@@ -66,8 +69,8 @@ public static class BaseApi
     /// <summary>
     /// 获取用户信息
     /// </summary>
-    /// <param name="httpContextAccessor"></param>
-    /// <returns></returns>
+    /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
+    /// <returns>处理结果</returns>
     public static BaseUserInfo InitUser(this IHttpContextAccessor httpContextAccessor)
     {
         // 创建用户信息对象

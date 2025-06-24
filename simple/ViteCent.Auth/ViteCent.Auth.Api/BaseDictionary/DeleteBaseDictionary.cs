@@ -10,7 +10,7 @@
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
 
-// 引入 ASP.NET Core MVC 核心功能
+// 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
 // 引入字典信息相关的数据参数
@@ -45,11 +45,10 @@ namespace ViteCent.Auth.Api.BaseDictionary;
 /// 3. 处理删除字典信息的请求
 /// 4. 返回操作结果
 /// </remarks>
-/// <param name="logger">用于记录接口的操作日志</param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
 /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
-/// <param name="mediator">用于发送命令请求</param>
-// 标记为 API 接口
-[ApiController]
+/// <param name="mediator">中介者，用于发送查询请求</param>
+[ApiController] // 标记为 Api 接口
 // 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
 // 设置路由前缀
@@ -81,8 +80,7 @@ public partial class DeleteBaseDictionary(
     /// </remarks>
     /// <param name="args">删除字典信息的参数</param>
     /// <returns>返回删除操作的结果</returns>
-    // 标记为 POST 请求
-    [HttpPost]
+    [HttpPost] // 标记为 Post 请求
     // 使用权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Auth", "BaseDictionary", "Delete" })]
     // 设置路由名称

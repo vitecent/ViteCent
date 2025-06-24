@@ -20,7 +20,7 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
 {
     /// <summary>
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     private void OverrideValidator(bool validate = false)
     {
         RuleFor(x => x.Username).Length(4, 12).WithMessage("用户名4-12个字符");
@@ -40,7 +40,7 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
             .WithMessage("身份证号格式错误");
         RuleFor(x => x.Birthday).Must(x => x < DateTime.Now && x > DateTime.MinValue).When(x => x.Birthday.HasValue)
             .WithMessage("生日格式错误");
-        RuleFor(x => x).Must(x => x.IdCard.GetIdAsyncCardBirthday() == x.Birthday?.ToString("yyyy-MM-dd"))
+        RuleFor(x => x).Must(x => x.IdCard?.GetIdAsyncCardBirthday() == x.Birthday?.ToString("yyyy-MM-dd"))
             .When(x => !string.IsNullOrWhiteSpace(x.IdCard) && x.Birthday.HasValue).WithMessage("身份证号和出生日期不匹配");
 
         RuleFor(x => x.Phone).Matches(BaseConst.Mobile).When(x => !string.IsNullOrWhiteSpace(x.Phone))

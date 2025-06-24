@@ -12,7 +12,7 @@ namespace ViteCent.Job.Api.Jobs;
 /// <summary>
 /// 服务发现作业 用于定期从注册中心获取最新的服务列表，并更新到缓存中，以便其他服务能够及时获取可用的服务信息
 /// </summary>
-/// <param name="cache">缓存接口，用于存储服务列表信息</param>
+/// <param name="cache">缓存器，用于存储服务列表信息</param>
 /// <param name="register">服务注册接口，用于从注册中心获取服务列表</param>
 /// <param name="logger">日志记录器，用于记录作业执行过程中的信息</param>
 public class ServiceJob(

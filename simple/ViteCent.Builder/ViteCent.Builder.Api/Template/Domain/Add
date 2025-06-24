@@ -14,7 +14,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -24,7 +24,7 @@ using ViteCent.Core.Orm.SqlSugar;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 新增$!{Table.Description}领域服务类
@@ -44,7 +44,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "$!{DataBase.Name}";
+    public override string Database => "$!{Setting.Database.Name}";
 
     /// <summary>
     /// 处理新增$!{Table.Description}的请求
@@ -59,7 +59,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}(
     public async Task<BaseResult> Handle($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name} request, CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}");
 
         // 调用基类的新增方法执行实际的新增操作
         return await base.AddAsync(request);

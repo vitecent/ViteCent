@@ -16,7 +16,6 @@ public static class Log4NetExtensions
     /// 添加Log4Net日志服务到依赖注入容器
     /// </summary>
     /// <param name="services">服务集合</param>
-    /// <returns>无返回值</returns>
     public static void AddLog4Net(this IServiceCollection services)
     {
         services.AddLogging(configuration =>

@@ -14,9 +14,9 @@ namespace ViteCent.Auth.Application.BaseUser;
 /// <summary>
 /// 初始化仓储
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mediator"></param>
-/// <param name="mapper"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
 public class Initialize(
     ILogger<Initialize> logger,
     IMediator mediator,
@@ -25,9 +25,9 @@ public class Initialize(
     /// <summary>
     /// 初始化
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseResult> Handle(InitializeArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.BaseUser.Initialize");

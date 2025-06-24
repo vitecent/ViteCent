@@ -46,14 +46,14 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 public class PageBaseRolePermission(
     // 注入日志记录器
     ILogger<PageBaseRolePermission> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<SearchBaseRolePermissionArgs, PageResult<BaseRolePermissionResult>>
 {
-    // <summary>
+    /// <summary>
     /// 处理角色权限分页查询请求
     /// </summary>
     /// <remarks>

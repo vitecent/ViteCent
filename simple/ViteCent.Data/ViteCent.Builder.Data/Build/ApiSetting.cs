@@ -22,6 +22,18 @@ public class ApiSetting
 
     /// <summary>
     /// </summary>
+    public string ServiceAddress { get; set; } = "192.168.0.115";
+
+    /// <summary>
+    /// </summary>
+    public string ServiceName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public int ServicePort { get; set; }
+
+    /// <summary>
+    /// </summary>
     public string JwtAudience { get; set; } = "Cent";
 
     /// <summary>

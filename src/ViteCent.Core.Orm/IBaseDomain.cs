@@ -16,7 +16,7 @@ public interface IBaseDomain<T> where T : IBaseEntity, new()
     /// <summary>
     /// 获取数据库名称
     /// </summary>
-    string DataBaseName { get; }
+    string Database { get; }
 
     /// <summary>
     /// 添加单个实体

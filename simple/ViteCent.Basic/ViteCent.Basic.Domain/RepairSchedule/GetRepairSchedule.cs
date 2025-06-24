@@ -41,7 +41,7 @@ public class GetRepairSchedule(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Basic";
+    public override string Database => "ViteCent.Basic";
 
     /// <summary>
     /// 处理获取补卡申请的请求

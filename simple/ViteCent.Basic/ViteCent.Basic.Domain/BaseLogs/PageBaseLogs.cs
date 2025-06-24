@@ -23,7 +23,7 @@ using ViteCent.Core.Orm.SqlSugar;
 
 namespace ViteCent.Basic.Domain.BaseLogs;
 
-// <summary>
+/// <summary>
 /// 日志信息分页查询领域服务
 /// </summary>
 /// <remarks>
@@ -42,7 +42,7 @@ public class PageBaseLogs(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Basic";
+    public override string Database => "ViteCent.Basic";
 
     /// <summary>
     /// 处理日志信息分页查询请求

@@ -23,7 +23,7 @@ public partial class BaseDictionaryValidator : AbstractValidator<AddBaseDictiona
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     private void OverrideValidator(bool validate = false)
     {
         RuleFor(x => x.Code).NotNull().NotEmpty().WithMessage("编码不能为空");

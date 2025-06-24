@@ -43,7 +43,7 @@ public class HasBaseCompanyList(ILogger<HasBaseCompanyList> logger)
     /// 数据库名称
     /// </summary>
     /// <remarks>指定当前领域模型使用的数据库名称 用于在多数据库环境中确定操作的目标数据库</remarks>
-    public override string DataBaseName => "ViteCent.Auth";
+    public override string Database => "ViteCent.Auth";
 
     /// <summary>
     /// 处理批量公司信息判重请求

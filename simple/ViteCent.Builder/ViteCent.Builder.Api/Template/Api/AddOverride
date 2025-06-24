@@ -8,7 +8,7 @@
 #region 引入命名空间
 
 // 引入$!{Table.Description}信息相关的数据参数
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 #if($HasCompanyId||$HasDepartmentId||$HasPositionId)
 
 // 引入核心
@@ -23,7 +23,7 @@ using ViteCent.Core.Data;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 新增$!{Table.Description}接口拓展
@@ -36,9 +36,9 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="args"></param>
-    /// <param name="user"></param>
-    /// <returns></returns>
+    /// <param name="args">请求参数</param>
+    /// <param name="user">用户信息</param>
+    /// <returns>处理结果</returns>
     internal static void OverrideInvoke($!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args, BaseUserInfo user)
     {
 #if($HasCompanyId)

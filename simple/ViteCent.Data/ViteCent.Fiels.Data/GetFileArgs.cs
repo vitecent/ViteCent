@@ -12,7 +12,7 @@ namespace ViteCent.Fiels.Data;
 public class GetFileArgs : BaseArgs
 {
     /// <summary>
-    /// 文件路径，表示要获取的文件在系统中的相对路径
+    /// 文件路径，标识要获取的文件在系统中的相对路径
     /// </summary>
     public string Path { get; set; } = string.Empty;
 }

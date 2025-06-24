@@ -30,36 +30,48 @@ using ViteCent.Core.Web.Filter;
 namespace ViteCent.Basic.Api.Schedule;
 
 /// <summary>
+/// 接口
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="httpContextAccessor"></param>
-/// <param name="userInvoke"></param>
-/// <param name="mediator"></param>
-[ApiController]
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
+/// <param name="userInvoke">用户信息访问对象</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+[ApiController] // 标记为 Api 接口
+// 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
+// 设置路由前缀
 [Route("Schedule")]
 public class PreAddScheduleList(
+    // 注入日志记录器
     ILogger<AddSchedule> logger,
+    // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,
     IBaseInvoke<SearchBaseUserArgs, PageResult<BaseUserResult>> userInvoke,
+    // 注入中介者
     IMediator mediator)
+    // 继承基类，指定查询参数和返回结果类型
     : BaseListApi<List<PreAddScheduleArgs>, BaseResult>
 {
     /// <summary>
+    /// 用户信息
     /// </summary>
     private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    [HttpPost]
+    /// <param name="args">请求参数</param>
+    /// <returns>处理结果</returns>
+    [HttpPost] // 标记为POST请求
+    // 权限验证过滤器，验证用户是否有权限访问该接口
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Basic", "Schedule", "Add" })]
+    // 设置路由名称
     [Route("PreAddList")]
     public override async Task<BaseResult> InvokeAsync(List<PreAddScheduleArgs> args)
     {
+        // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Api.Schedu.PreAddList");
 
+        // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
         var items = new List<AddScheduleArgs>();
@@ -148,6 +160,7 @@ public class PreAddScheduleList(
         if (!delete.Success)
             return delete;
 
+        // 通过中介者发送命令并返回结果
         return await mediator.Send(request, cancellationToken);
     }
 }

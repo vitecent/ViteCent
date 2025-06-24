@@ -33,59 +33,26 @@ public class SqlSugarFactory : IFactory
     /// <summary>
     /// 初始化SqlSugar数据库操作工厂类的新实例
     /// </summary>
-    /// <param name="dataBase">数据库连接配置名称</param>
+    /// <param name="database">数据库连接配置名称</param>
     /// <param name="log">是否启用SQL日志记录，默认为true</param>
-    public SqlSugarFactory(string dataBase, bool log = true)
+    public SqlSugarFactory(string database, bool log = true)
     {
         logger = new BaseLogger(typeof(SqlSugarFactory));
 
-        var configuration = FactoryConfigExtensions.GetConfig(dataBase);
+        var configuration = database.GetConfig();
 
-        var slaves = new List<SlaveConnectionConfig>();
+        client = GetSqlSugarClient(configuration, log);
+    }
 
-        configuration.Slaves.ForEach(slave =>
-        {
-            slaves.Add(new SlaveConnectionConfig { HitRate = 10, ConnectionString = slave });
-        });
+    /// <summary>
+    /// </summary>
+    /// <param name="configuration">配置信息</param>
+    /// <param name="log"></param>
+    public SqlSugarFactory(FactoryConfig configuration, bool log = true)
+    {
+        logger = new BaseLogger(typeof(SqlSugarFactory));
 
-        client = new SqlSugarClient(new ConnectionConfig
-        {
-            ConnectionString = configuration.Master,
-            SlaveConnectionConfigs = slaves,
-            DbType = GetDbType(configuration.DbType),
-            InitKeyType = InitKeyType.Attribute,
-            IsAutoCloseConnection = true
-        });
-
-        client.Ado.CommandTimeOut = 30;
-
-        if (log)
-            client.Aop.OnLogExecuted = (text, parameter) =>
-            {
-                var types = new List<System.Data.DbType>
-                {
-                    System.Data.DbType.Int16,
-                    System.Data.DbType.Int32,
-                    System.Data.DbType.Int64,
-                    System.Data.DbType.Decimal,
-                    System.Data.DbType.Double,
-                    System.Data.DbType.Single,
-                    System.Data.DbType.UInt16,
-                    System.Data.DbType.UInt32,
-                    System.Data.DbType.UInt64,
-                    System.Data.DbType.VarNumeric
-                };
-
-                foreach (var p in parameter)
-                    if (types.Contains(p.DbType))
-                        text = text.Replace(p.ParameterName, p.Value is null ? "" : p.Value.ToString());
-                    else
-                        text = text.Replace(p.ParameterName, $"'{p.Value ?? default!}'");
-
-                var sql = $"Time: {client.Ado.SqlExecutionTime.TotalMilliseconds} ms, SQL:{text}";
-
-                logger.LogInformation(sql);
-            };
+        client = GetSqlSugarClient(configuration, log);
     }
 
     /// <summary>
@@ -201,13 +168,13 @@ public class SqlSugarFactory : IFactory
     /// <param name="tableName">表名</param>
     /// <param name="cache">是否使用缓存，默认为false</param>
     /// <returns>返回字段信息列表</returns>
-    public async Task<List<BaseField>> GetFields(string tableName, bool cache = false)
+    public async Task<List<BaseFieldInfo>> GetFields(string tableName, bool cache = false)
     {
         var fields = client.DbMaintenance.GetColumnInfosByTableName(tableName, cache);
 
         var config = new MapperConfiguration(configuration =>
         {
-            configuration.CreateMap<DbColumnInfo, BaseField>()
+            configuration.CreateMap<DbColumnInfo, BaseFieldInfo>()
                 .ForMember(x => x.Default, y => y.MapFrom(z => z.DefaultValue))
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.ColumnDescription))
                 .ForMember(x => x.Identity, y => y.MapFrom(z => z.IsIdentity))
@@ -217,7 +184,7 @@ public class SqlSugarFactory : IFactory
                 .ForMember(x => x.Type, y => y.MapFrom(z => z.DataType));
         });
 
-        var result = new Mapper(config).Map<List<BaseField>>(fields);
+        var result = new Mapper(config).Map<List<BaseFieldInfo>>(fields);
 
         return await Task.FromResult(result);
     }
@@ -227,13 +194,13 @@ public class SqlSugarFactory : IFactory
     /// </summary>
     /// <param name="cache">是否使用缓存，默认为false</param>
     /// <returns>返回数据表信息列表</returns>
-    public async Task<List<BaseTable>> GetTables(bool cache = false)
+    public async Task<List<BaseTableInfo>> GetTables(bool cache = false)
     {
         var tables = client.DbMaintenance.GetTableInfoList(cache);
 
-        var config = new MapperConfiguration(configuration => { configuration.CreateMap<DbTableInfo, BaseTable>(); });
+        var config = new MapperConfiguration(configuration => { configuration.CreateMap<DbTableInfo, BaseTableInfo>(); });
 
-        var result = new Mapper(config).Map<List<BaseTable>>(tables);
+        var result = new Mapper(config).Map<List<BaseTableInfo>>(tables);
 
         return await Task.FromResult(result);
     }
@@ -404,5 +371,61 @@ public class SqlSugarFactory : IFactory
             "HANA" => DbType.HANA,
             _ => DbType.Custom
         };
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="configuration">配置信息</param>
+    /// <param name="log"></param>
+    /// <returns>处理结果</returns>
+    private SqlSugarClient GetSqlSugarClient(FactoryConfig configuration, bool log = true)
+    {
+        var slaves = new List<SlaveConnectionConfig>();
+
+        configuration.Slaves.ForEach(slave =>
+        {
+            slaves.Add(new SlaveConnectionConfig { HitRate = 10, ConnectionString = slave });
+        });
+
+        var client = new SqlSugarClient(new ConnectionConfig
+        {
+            ConnectionString = configuration.Master,
+            SlaveConnectionConfigs = slaves,
+            DbType = GetDbType(configuration.DbType),
+            InitKeyType = InitKeyType.Attribute,
+            IsAutoCloseConnection = true
+        });
+
+        client.Ado.CommandTimeOut = 30;
+
+        if (log)
+            client.Aop.OnLogExecuted = (text, parameter) =>
+            {
+                var types = new List<System.Data.DbType>
+                {
+                    System.Data.DbType.Int16,
+                    System.Data.DbType.Int32,
+                    System.Data.DbType.Int64,
+                    System.Data.DbType.Decimal,
+                    System.Data.DbType.Double,
+                    System.Data.DbType.Single,
+                    System.Data.DbType.UInt16,
+                    System.Data.DbType.UInt32,
+                    System.Data.DbType.UInt64,
+                    System.Data.DbType.VarNumeric
+                };
+
+                foreach (var p in parameter)
+                    if (types.Contains(p.DbType))
+                        text = text.Replace(p.ParameterName, p.Value is null ? "" : p.Value.ToString());
+                    else
+                        text = text.Replace(p.ParameterName, $"'{p.Value ?? default!}'");
+
+                var sql = $"Time: {this.client.Ado.SqlExecutionTime.TotalMilliseconds} ms, SQL:{text}";
+
+                logger.LogInformation(sql);
+            };
+
+        return client;
     }
 }

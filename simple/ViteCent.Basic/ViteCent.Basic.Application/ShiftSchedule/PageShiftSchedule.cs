@@ -46,14 +46,14 @@ namespace ViteCent.Basic.Application.ShiftSchedule;
 public class PageShiftSchedule(
     // 注入日志记录器
     ILogger<PageShiftSchedule> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<SearchShiftScheduleArgs, PageResult<ShiftScheduleResult>>
 {
-    // <summary>
+    /// <summary>
     /// 处理换班申请分页查询请求
     /// </summary>
     /// <remarks>

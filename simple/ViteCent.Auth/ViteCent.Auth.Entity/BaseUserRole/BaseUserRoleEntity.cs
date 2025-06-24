@@ -31,12 +31,6 @@ namespace ViteCent.Auth.Entity.BaseUserRole;
 public class BaseUserRoleEntity : BaseEntity, IRequest<BaseResult>
 {
     /// <summary>
-    /// 颜色
-    /// </summary>
-    [SugarColumn(ColumnName = "color")]
-    public string? Color { get; set; }
-
-    /// <summary>
     /// 公司标识
     /// </summary>
     [SugarColumn(ColumnName = "companyId")]

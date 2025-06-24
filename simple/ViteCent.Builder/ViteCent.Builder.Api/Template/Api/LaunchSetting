@@ -1,13 +1,13 @@
 ﻿{
   "profiles": {
-    "$!{DataBase.Name}": {
+    "$!{Setting.ProjrectName}": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "openapi/v1.json",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://$!{DataBase.ServiceAddress}:$!{DataBase.ServicePort}",
+      "applicationUrl": "http://localhost:$!{Setting.Api.ServicePort}",
       "dotnetRunMessages": true
     }
   }

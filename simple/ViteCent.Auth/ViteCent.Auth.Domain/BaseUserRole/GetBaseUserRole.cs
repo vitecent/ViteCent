@@ -41,7 +41,7 @@ public class GetBaseUserRole(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Auth";
+    public override string Database => "ViteCent.Auth";
 
     /// <summary>
     /// 处理获取用户角色的请求

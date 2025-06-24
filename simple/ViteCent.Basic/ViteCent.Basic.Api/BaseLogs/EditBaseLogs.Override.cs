@@ -30,9 +30,9 @@ public partial class EditBaseLogs
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="args"></param>
-    /// <param name="user"></param>
-    /// <returns></returns>
+    /// <param name="args">请求参数</param>
+    /// <param name="user">用户信息</param>
+    /// <returns>处理结果</returns>
     private static void OverrideInvoke(EditBaseLogsArgs args, BaseUserInfo user)
     {
     }

@@ -26,12 +26,15 @@ public partial class PageRepairSchedule
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="args"></param>
-    /// <param name="user"></param>
-    /// <returns></returns>
+    /// <param name="args">请求参数</param>
+    /// <param name="user">用户信息</param>
+    /// <returns>处理结果</returns>
     private static void OverrideInvoke(SearchRepairScheduleArgs args, BaseUserInfo user)
     {
         // 添加公司标识查询条件，用于数据权限控制
         args.AddCompanyId(user);
+
+        //添加 Sort 倒序排序
+        args.AddOrder("Sort");
     }
 }

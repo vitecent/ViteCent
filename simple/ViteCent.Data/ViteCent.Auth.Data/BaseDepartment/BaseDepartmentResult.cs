@@ -89,6 +89,11 @@ public class BaseDepartmentResult
     public string? ParentId { get; set; }
 
     /// <summary>
+    /// 排序
+    /// </summary>
+    public int? Sort { get; set; }
+
+    /// <summary>
     /// 状态
     /// </summary>
     public int? Status { get; set; }

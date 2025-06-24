@@ -15,10 +15,10 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <summary>
 /// 处理换班信息
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mapper"></param>
-/// <param name="mediator"></param>
-/// <param name="httpContextAccessor"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 public class ShiftScheduleTopic(
     ILogger<ShiftScheduleTopic> logger,
     IMapper mapper,
@@ -33,9 +33,9 @@ public class ShiftScheduleTopic(
     /// <summary>
     /// 处理换班信息
     /// </summary>
-    /// <param name="notification"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="notification">通知信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task Handle(ShiftScheduleTopicArgs notification, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.ShiftScheduleTopic");

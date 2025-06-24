@@ -26,7 +26,7 @@ using ViteCent.Core.Orm.SqlSugar;
 
 namespace ViteCent.Auth.Domain.BaseRole;
 
-// <summary>
+/// <summary>
 /// 编辑角色信息领域服务类
 /// </summary>
 /// <remarks>
@@ -44,9 +44,9 @@ public class EditBaseRole(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Auth";
+    public override string Database => "ViteCent.Auth";
 
-    // <summary>
+    /// <summary>
     /// 处理编辑角色信息的请求
     /// </summary>
     /// <param name="request">包含更新信息的角色信息模型</param>

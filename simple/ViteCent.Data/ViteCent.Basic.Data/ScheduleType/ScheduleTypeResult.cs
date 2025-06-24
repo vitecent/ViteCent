@@ -74,6 +74,11 @@ public class ScheduleTypeResult
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
+    /// 排序
+    /// </summary>
+    public int? Sort { get; set; }
+
+    /// <summary>
     /// 修改人
     /// </summary>
     public string? Updater { get; set; }

@@ -14,9 +14,9 @@ namespace ViteCent.Auth.Api.BaseRolePermission;
 /// <summary>
 /// 获取所有权限接口
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="httpContextAccessor"></param>
-/// <param name="mediator"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
 [ApiController]
 [ServiceFilter(typeof(BaseLoginFilter))]
 [Route("BaseRolePermission")]
@@ -33,8 +33,8 @@ public class GetAllPermission(
     /// <summary>
     /// 获取角色权限
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
+    /// <param name="args">请求参数</param>
+    /// <returns>处理结果</returns>
     [HttpPost]
     [TypeFilter(typeof(BaseAuthFilter), Arguments = new object[] { "Auth", "BaseRolePermission", "Get" })]
     [Route("All")]

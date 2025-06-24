@@ -13,7 +13,7 @@ using AutoMapper;
 // 引入 MediatR 用于实现中介者模式
 using MediatR;
 
-// 引入 ASP.NET Core MVC 核心功能
+// 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Http;
 
 // 引入 Microsoft.Extensions.Logging 用于日志记录
@@ -49,9 +49,9 @@ namespace ViteCent.Basic.Application.UserRest;
 public class GetUserRest(
     // 注入日志记录器
     ILogger<GetUserRest> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor)

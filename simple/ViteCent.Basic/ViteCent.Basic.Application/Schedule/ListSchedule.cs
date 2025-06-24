@@ -17,11 +17,11 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <summary>
 /// 排班信息分页仓储
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mapper"></param>
-/// <param name="mediator"></param>
-/// <param name="httpContextAccessor"></param>
-/// <param name="userInvoke"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
+/// <param name="userInvoke">用户信息访问对象</param>
 public class ListSchedule(
     ILogger<ListSchedule> logger,
     IMapper mapper,
@@ -38,9 +38,9 @@ public class ListSchedule(
     /// <summary>
     /// 排班信息分页
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<PageResult<UserScheduleResult>> Handle(ListScheduleArgs request,
         CancellationToken cancellationToken)
     {

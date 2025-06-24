@@ -13,19 +13,19 @@ namespace ViteCent.Basic.Domain.UserRest;
 
 /// <summary>
 /// </summary>
-/// <param name="logger"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
 public class HasUserRest(ILogger<HasUserRest> logger)
     : BaseDomain<UserRestEntity>, IRequestHandler<HasUserRestEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
-    public override string DataBaseName => "ViteCent.Basic";
+    public override string Database => "ViteCent.Basic";
 
     /// <summary>
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseResult> Handle(HasUserRestEntityArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.UserRest.HasUserRest");

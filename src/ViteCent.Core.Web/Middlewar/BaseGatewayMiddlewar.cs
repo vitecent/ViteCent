@@ -16,7 +16,7 @@ namespace ViteCent.Core.Web.Middlewar;
 /// </summary>
 /// <param name="next">请求处理管道中的下一个中间件</param>
 /// <param name="httpClient">HTTP客户端工厂，用于创建HTTP请求</param>
-/// <param name="cache">缓存接口，用于存储和获取服务注册信息</param>
+/// <param name="cache">缓存器，用于存储和获取服务注册信息</param>
 /// <param name="configuration">配置接口，用于获取系统配置信息</param>
 public class BaseGatewayMiddlewar(
     RequestDelegate next,

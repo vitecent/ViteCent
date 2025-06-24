@@ -17,7 +17,7 @@ public partial class UserLeaveValidator : AbstractValidator<AddUserLeaveArgs>
 {
     /// <summary>
     /// </summary>
-    /// <param name="validate"></param>
+    /// <param name="validate">是否验证</param>
     private void OverrideValidator(bool validate)
     {
         var status = new List<int> { (int)UserLeaveEnum.Apply, (int)UserLeaveEnum.Pass, (int)UserLeaveEnum.NoPass };

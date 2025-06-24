@@ -61,7 +61,6 @@ public class UserScheduleResult
     public string SignTimes = string.Empty;
 
     /// <summary>
-    /// 
     /// </summary>
     public string Times { get; set; } = string.Empty;
 }

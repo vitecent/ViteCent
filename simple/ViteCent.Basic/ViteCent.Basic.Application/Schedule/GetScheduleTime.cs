@@ -15,7 +15,6 @@ using Microsoft.Extensions.Logging;
 // 引入排班时间相关的数据模型
 using ViteCent.Auth.Data.BaseDictionary;
 
-
 // 引入排班时间相关的数据参数
 using ViteCent.Basic.Data.Schedule;
 
@@ -36,13 +35,13 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
 /// <param name="mediator">中介者，用于发送查询请求</param>
 /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
-/// <param name="dictionaryInvoke"></param>
+/// <param name="dictionaryInvoke">字典信息访问对象</param>
 public class GetScheduleTime(
     // 注入日志记录器
     ILogger<GetSchedule> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,

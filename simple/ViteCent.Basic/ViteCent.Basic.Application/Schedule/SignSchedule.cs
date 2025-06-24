@@ -19,13 +19,13 @@ namespace ViteCent.Basic.Application.Schedule;
 /// <summary>
 /// 编辑排班信息仓储
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mapper"></param>
-/// <param name="mediator"></param>
-/// <param name="companyInvoke"></param>
-/// <param name="departmentInvoke"></param>
-/// <param name="userInvoke"></param>
-/// <param name="httpContextAccessor"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="companyInvoke">公司信息访问对象</param>
+/// <param name="departmentInvoke">部门信息访问对象</param>
+/// <param name="userInvoke">用户信息访问对象</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 public partial class SignSchedule(
     ILogger<SignSchedule> logger,
     IMapper mapper,
@@ -44,9 +44,9 @@ public partial class SignSchedule(
     /// <summary>
     /// 编辑排班信息
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseResult> Handle(SignScheduleArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.SignSchedule");

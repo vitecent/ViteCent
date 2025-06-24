@@ -13,11 +13,11 @@ using MediatR;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入日志信息相关的数据模型
-using ViteCent.Database.Entity.BaseLogs;
-
 // 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
+
+// 引入日志信息相关的数据模型
+using ViteCent.Database.Entity.BaseLogs;
 
 #endregion 引入命名空间
 
@@ -41,7 +41,7 @@ public class GetBaseLogs(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Database";
+    public override string Database => "ViteCent.Database";
 
     /// <summary>
     /// 处理获取日志信息的请求

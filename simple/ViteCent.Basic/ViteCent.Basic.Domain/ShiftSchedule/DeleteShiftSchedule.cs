@@ -29,10 +29,7 @@ namespace ViteCent.Basic.Domain.ShiftSchedule;
 /// <summary>
 /// 删除换班申请领域服务类
 /// </summary>
-/// <remarks>
-/// 该类负责处理换班申请的删除操作，继承自 BaseDomain 基类并实现 IRequestHandler 接口
-/// 通过依赖注入方式接收日志记录器，用于记录操作日志
-/// </remarks>
+/// <remarks>该类负责处理换班申请的删除操作，继承自 BaseDomain 基类并实现 IRequestHandler 接口 通过依赖注入方式接收日志记录器，用于记录操作日志</remarks>
 /// <param name="logger">日志记录器实例</param>
 public class DeleteShiftSchedule(
     // 注入日志记录器
@@ -42,15 +39,12 @@ public class DeleteShiftSchedule(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Basic";
+    public override string Database => "ViteCent.Basic";
 
     /// <summary>
     /// 处理删除换班申请的请求
     /// </summary>
-    /// <remarks>
-    /// 实现 IRequestHandler 接口的 Handle 方法
-    /// 记录操作日志并调用基类的 DeleteAsync 方法执行实际的删除操作
-    /// </remarks>
+    /// <remarks>实现 IRequestHandler 接口的 Handle 方法 记录操作日志并调用基类的 DeleteAsync 方法执行实际的删除操作</remarks>
     /// <param name="request">包含要删除的换班申请的请求模型</param>
     /// <param name="cancellationToken">取消令牌</param>
     /// <returns>返回删除操作的结果</returns>

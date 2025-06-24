@@ -15,7 +15,7 @@ namespace ViteCent.Job.Api.Jobs;
 /// 指纹数据采集作业 用于定期从数据库获取已启用用户的指纹模板信息，并更新到缓存中，以便其他服务能够及时获取最新的指纹数据
 /// </summary>
 /// <param name="logger">日志记录器，用于记录作业执行过程中的信息</param>
-/// <param name="cache">缓存接口，用于存储指纹数据列表</param>
+/// <param name="cache">缓存器，用于存储指纹数据列表</param>
 public class FingerJob(
     ILogger<ServiceJob> logger,
     IBaseCache cache)

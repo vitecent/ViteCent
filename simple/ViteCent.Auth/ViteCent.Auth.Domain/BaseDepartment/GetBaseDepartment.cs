@@ -41,7 +41,7 @@ public class GetBaseDepartment(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Auth";
+    public override string Database => "ViteCent.Auth";
 
     /// <summary>
     /// 处理获取部门信息的请求

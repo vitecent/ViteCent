@@ -14,10 +14,10 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -27,9 +27,9 @@ using ViteCent.Core.Orm.SqlSugar;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
-// <summary>
+/// <summary>
 /// 批量$!{Table.Description}判重处理类
 /// </summary>
 /// <remarks>
@@ -48,7 +48,7 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "$!{DataBase.Name}";
+    public override string Database => "$!{Setting.Database.Name}";
 
     /// <summary>
     /// 处理批量$!{Table.Description}判重请求
@@ -65,7 +65,7 @@ public class $!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
     public async Task<BaseResult> Handle($!{Setting.HasName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ListSuffix}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{DataBase.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.HasName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.HasName}$!{Table.CamelCaseName}");
 
         // 初始化查询对象
         var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();

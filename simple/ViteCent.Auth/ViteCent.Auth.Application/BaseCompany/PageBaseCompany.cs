@@ -46,14 +46,14 @@ namespace ViteCent.Auth.Application.BaseCompany;
 public class PageBaseCompany(
     // 注入日志记录器
     ILogger<PageBaseCompany> logger,
-    // 注入映射器接口
+    // 注入对象映射器
     IMapper mapper,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : IRequestHandler<SearchBaseCompanyArgs, PageResult<BaseCompanyResult>>
 {
-    // <summary>
+    /// <summary>
     /// 处理公司信息分页查询请求
     /// </summary>
     /// <remarks>

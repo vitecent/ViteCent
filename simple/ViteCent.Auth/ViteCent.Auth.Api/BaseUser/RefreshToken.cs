@@ -32,11 +32,10 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// <summary>
 /// 刷新Token接口
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="httpContextAccessor"></param>
-/// <param name="mediator"></param>
-// 标记为 API 接口
-[ApiController]
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+[ApiController] // 标记为 API 接口
 // 设置路由前缀
 [Route("BaseUser")]
 public class RefreshToken(
@@ -44,7 +43,7 @@ public class RefreshToken(
     ILogger<RefreshToken> logger,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,
-    // 注入中介者接口
+    // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
     : BaseApi<RefreshTokenArgs, DataResult<RefreshTokenResult>>
@@ -57,10 +56,9 @@ public class RefreshToken(
     /// <summary>
     /// 刷新Token
     /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    // 标记为 POST 请求
-    [HttpPost]
+    /// <param name="args">请求参数</param>
+    /// <returns>处理结果</returns>
+    [HttpPost] // 标记为 POST 请求
     // 设置路由名称
     [Route("RefreshToken")]
     public override async Task<DataResult<RefreshTokenResult>> InvokeAsync(RefreshTokenArgs args)

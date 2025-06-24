@@ -12,7 +12,7 @@ using MediatR;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 获取$!{Table.Description}模型参数

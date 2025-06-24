@@ -9,7 +9,7 @@ namespace ViteCent.Builder.Data.Build;
 
 /// <summary>
 /// </summary>
-public class Field : BaseField
+public class Field : BaseFieldInfo
 {
     /// <summary>
     /// </summary>

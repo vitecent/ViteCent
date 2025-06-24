@@ -20,19 +20,19 @@ namespace ViteCent.Auth.Domain.BaseDepartment;
 
 /// <summary>
 /// </summary>
-/// <param name="logger"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
 public class HasBaseDepartment(ILogger<HasBaseDepartment> logger) : BaseDomain<BaseDepartmentEntity>,
     IRequestHandler<HasBaseDepartmentEntityArgs, BaseResult>
 {
     /// <summary>
     /// </summary>
-    public override string DataBaseName => "ViteCent.Auth";
+    public override string Database => "ViteCent.Auth";
 
     /// <summary>
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseResult> Handle(HasBaseDepartmentEntityArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseDepartment.HasBaseDepartment");

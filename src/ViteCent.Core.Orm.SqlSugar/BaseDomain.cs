@@ -23,13 +23,13 @@ public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
     /// </summary>
     protected BaseDomain()
     {
-        Client = new SqlSugarFactory(DataBaseName);
+        Client = new SqlSugarFactory(Database);
     }
 
     /// <summary>
     /// 获取数据库名称
     /// </summary>
-    public abstract string DataBaseName { get; }
+    public abstract string Database { get; }
 
     /// <summary>
     /// 添加单个实体

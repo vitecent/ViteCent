@@ -18,9 +18,9 @@ namespace ViteCent.Auth.Application.BaseRolePermission;
 /// <summary>
 /// 获取所有权限仓储
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="mediator"></param>
-/// <param name="httpContextAccessor"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
 public class GetAllPermission(
     ILogger<GetAllPermission> logger,
     IMediator mediator,
@@ -34,9 +34,9 @@ public class GetAllPermission(
     /// <summary>
     /// 获取所有权限
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<DataResult<AllPermissionResult>> Handle(GetAllPermissionArgs request,
         CancellationToken cancellationToken)
     {
@@ -62,11 +62,11 @@ public class GetAllPermission(
 
     /// <summary>
     /// </summary>
-    /// <param name="companyId"></param>
-    /// <param name="systems"></param>
-    /// <param name="resources"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="systems">系统信息</param>
+    /// <param name="resources">资源信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<List<BaseSystemInfo>> GetOperation(string companyId, List<BaseSystemResult> systems,
         List<BaseResourceResult> resources, CancellationToken cancellationToken)
     {
@@ -153,10 +153,10 @@ public class GetAllPermission(
 
     /// <summary>
     /// </summary>
-    /// <param name="companyId"></param>
-    /// <param name="systems"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="systems">系统信息</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<List<BaseSystemInfo>> GetResource(string companyId, List<BaseSystemResult> systems,
         CancellationToken cancellationToken)
     {
@@ -196,9 +196,9 @@ public class GetAllPermission(
 
     /// <summary>
     /// </summary>
-    /// <param name="companyId"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="companyId">公司标识</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<List<BaseSystemInfo>> GetSystem(string companyId, CancellationToken cancellationToken)
     {
         var args = new SearchBaseSystemArgs

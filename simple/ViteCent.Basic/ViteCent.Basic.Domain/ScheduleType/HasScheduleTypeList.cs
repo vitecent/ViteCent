@@ -20,21 +20,21 @@ namespace ViteCent.Basic.Domain.ScheduleType;
 /// <summary>
 /// 批量基础排班判重
 /// </summary>
-/// <param name="logger"></param>
+/// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
 public class HasScheduleTypeList(ILogger<HasScheduleTypeList> logger) : BaseDomain<ScheduleTypeEntity>,
     IRequestHandler<HasScheduleTypeEntityListArgs, BaseResult>
 {
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string DataBaseName => "ViteCent.Basic";
+    public override string Database => "ViteCent.Basic";
 
     /// <summary>
     /// 批量基础排班判重
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseResult> Handle(HasScheduleTypeEntityListArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.ScheduleType.HasScheduleType");

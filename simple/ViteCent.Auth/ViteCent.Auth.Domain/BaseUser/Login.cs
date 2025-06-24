@@ -14,13 +14,13 @@ public class Login : BaseDomain<BaseUserEntity>, IRequestHandler<LoginEntityArgs
 {
     /// <summary>
     /// </summary>
-    public override string DataBaseName => "ViteCent.Auth";
+    public override string Database => "ViteCent.Auth";
 
     /// <summary>
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     public async Task<BaseUserEntity> Handle(LoginEntityArgs request, CancellationToken cancellationToken)
     {
         return await base.GetAsync(x => x.Username == request.Username && x.Password == request.Password);

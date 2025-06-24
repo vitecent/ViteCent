@@ -9,7 +9,7 @@ namespace ViteCent.Core.Orm;
 /// <summary>
 /// 数据库配置管理工具类，用于管理和访问数据库连接配置信息
 /// </summary>
-public class FactoryConfigExtensions
+public static class FactoryConfigExtensions
 {
     /// <summary>
     /// 数据库配置集合，存储所有已注册的数据库配置信息
@@ -27,7 +27,7 @@ public class FactoryConfigExtensions
     /// <param name="key">配置名称</param>
     /// <returns>返回匹配的数据库配置信息，如果未找到则抛出异常</returns>
     /// <exception cref="Exception">当参数key为空或配置不存在时抛出异常</exception>
-    public static FactoryConfig GetConfig(string key)
+    public static FactoryConfig GetConfig(this string key)
     {
         if (string.IsNullOrWhiteSpace(key)) throw new Exception("参数key不能为空");
 
@@ -41,36 +41,36 @@ public class FactoryConfigExtensions
     /// </summary>
     /// <param name="configuration">配置信息对象，包含数据库连接相关配置</param>
     /// <exception cref="Exception">当配置文件缺少必要的数据库配置信息时抛出异常</exception>
-    public static void SetConfig(IConfiguration configuration)
+    public static void SetConfig(this IConfiguration configuration)
     {
         var logger = new BaseLogger(typeof(FactoryConfigExtensions));
 
-        var dataBase = configuration.GetSection("DataBase") ?? throw new Exception("Appsettings Must Be DataBase");
+        var database = configuration.GetSection("Database") ?? throw new Exception("Appsettings Must Be Database");
 
-        var dataBaseCount = dataBase.GetChildren().Count();
+        var count = database.GetChildren().Count();
 
-        for (var i = 0; i < dataBaseCount; i++)
+        for (var i = 0; i < count; i++)
         {
-            var name = configuration[$"DataBase:{i}:Name"];
+            var name = configuration[$"Database:{i}:Name"];
 
-            if (string.IsNullOrWhiteSpace(name)) throw new Exception("DataBase.Name");
+            if (string.IsNullOrWhiteSpace(name)) throw new Exception("Database.Name");
 
-            logger.LogInformation($"DataBase Name {i} ：{name}");
+            logger.LogInformation($"Database Name {i} ：{name}");
 
-            var type = configuration[$"DataBase:{i}:Type"];
+            var type = configuration[$"Database:{i}:Type"];
 
-            if (string.IsNullOrWhiteSpace(type)) throw new Exception("DataBase.Type");
+            if (string.IsNullOrWhiteSpace(type)) throw new Exception("Database.Type");
 
-            logger.LogInformation($"DataBase Type {i} ：{type}");
+            logger.LogInformation($"Database Type {i} ：{type}");
 
-            var master = configuration[$"DataBase:{i}:Master"];
+            var master = configuration[$"Database:{i}:Master"];
 
-            if (string.IsNullOrWhiteSpace(master)) throw new Exception("DataBase.Master");
+            if (string.IsNullOrWhiteSpace(master)) throw new Exception("Database.Master");
 
-            logger.LogInformation($"DataBase Master {i} ：{master}");
+            logger.LogInformation($"Database Master {i} ：{master}");
 
             if (IsEncrypt(configuration))
-                master = Decrypt(master, configuration);
+                master = configuration.Decrypt(master);
 
             var factoryConfig = new FactoryConfig
             {
@@ -80,7 +80,7 @@ public class FactoryConfigExtensions
                 Slaves = []
             };
 
-            var slave = configuration.GetSection($"DataBase:{i}:Slaves");
+            var slave = configuration.GetSection($"Database:{i}:Slaves");
 
             if (slave is not null)
             {
@@ -88,14 +88,14 @@ public class FactoryConfigExtensions
 
                 for (var j = 0; j < slaveCount; j++)
                 {
-                    var value = configuration[$"DataBase:{i}:Slaves:{j}"];
+                    var value = configuration[$"Database:{i}:Slaves:{j}"];
 
-                    if (string.IsNullOrWhiteSpace(value)) throw new Exception("DataBase.Slaves");
+                    if (string.IsNullOrWhiteSpace(value)) throw new Exception("Database.Slaves");
 
                     if (IsEncrypt(configuration))
-                        value = Decrypt(value, configuration);
+                        value = configuration.Decrypt(value);
 
-                    logger.LogInformation($"DataBase Slaves {i} ：{value}");
+                    logger.LogInformation($"Database Slaves {i} ：{value}");
 
                     factoryConfig.Slaves.Add(value);
                 }
@@ -130,7 +130,7 @@ public class FactoryConfigExtensions
     /// <param name="configuration">包含解密配置信息的配置对象</param>
     /// <returns>解密后的数据库连接字符串</returns>
     /// <exception cref="Exception">当解密类型不支持或配置信息不完整时抛出异常</exception>
-    private static string Decrypt(string input, IConfiguration configuration)
+    private static string Decrypt(this IConfiguration configuration, string input)
     {
         var type = configuration["Encrypt:Type"] ?? string.Empty;
 
@@ -161,7 +161,7 @@ public class FactoryConfigExtensions
     /// </summary>
     /// <param name="configuration">配置信息对象</param>
     /// <returns>如果启用加密返回true，否则返回false</returns>
-    private static bool IsEncrypt(IConfiguration configuration)
+    private static bool IsEncrypt(this IConfiguration configuration)
     {
         var _switch = configuration["Encrypt:Switch"] ?? string.Empty;
 
@@ -171,5 +171,316 @@ public class FactoryConfigExtensions
             return false;
 
         return true;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    public static string GetConfiguration(this BaseDatabaseInfo database)
+    {
+        return database.Type switch
+        {
+            "MySql" => GetMySqlConfiguration(database),
+            "SqlServer" => GetSqlServerConfiguration(database),
+            "Sqlite" => GetSqliteConfiguration(database),
+            "Oracle" => GetOracleConfiguration(database),
+            "PostgreSQL" => GetPostgreSQLConfiguration(database),
+            "Dm" => GetDmConfiguration(database),
+            "Kdbndp" => GetKdbndpConfiguration(database),
+            "Oscar" => GetOscarConfiguration(database),
+            "MySqlConnector" => GetMySqlConnectorConfiguration(database),
+            "Access" => GetAccessConfiguration(database),
+            "OpenGauss" => GetOpenGaussConfiguration(database),
+            "QuestDB" => GetQuestDBConfiguration(database),
+            "HG" => GetHGConfiguration(database),
+            "ClickHouse" => GetClickHouseConfiguration(database),
+            "GBase" => GetGBaseConfiguration(database),
+            "Odbc" => GetOdbcConfiguration(database),
+            "OceanBaseForOracle" => GetOceanBaseForOracleConfiguration(database),
+            "TDengine" => GetTDengineConfiguration(database),
+            "GaussDB" => GetGaussDBConfiguration(database),
+            "OceanBase" => GetOceanBaseConfiguration(database),
+            "Tidb" => GetTidbConfiguration(database),
+            "Vastbase" => GetVastbaseConfiguration(database),
+            "PolarDB" => GetPolarDBConfiguration(database),
+            "Doris" => GetDorisConfiguration(database),
+            "Xugu" => GetXuguConfiguration(database),
+            "GoldenDB" => GetGoldenDBConfiguration(database),
+            "TDSQLForPGODBC" => GetTDSQLForPGODBCConfiguration(database),
+            "TDSQL" => GetTDSQLConfiguration(database),
+            "HANA" => GetHANAConfiguration(database),
+            _ => GetCustomConfiguration(database)
+        };
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetCustomConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetHANAConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetTDSQLConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetTDSQLForPGODBCConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetGoldenDBConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetXuguConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetDorisConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetPolarDBConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetVastbaseConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetTidbConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetOceanBaseConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetGaussDBConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetTDengineConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetOceanBaseForOracleConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetOdbcConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetGBaseConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetClickHouseConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetHGConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetQuestDBConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetOpenGaussConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetAccessConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetMySqlConnectorConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetOscarConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetKdbndpConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetDmConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetPostgreSQLConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetOracleConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetSqliteConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetSqlServerConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <param name="database">数据库信息</param>
+    /// <returns>处理结果</returns>
+    private static string GetMySqlConfiguration(this BaseDatabaseInfo database)
+    {
+        return string.Empty;
     }
 }

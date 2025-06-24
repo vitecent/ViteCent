@@ -9,36 +9,36 @@
 #if($HasCompanyId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
+using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
+using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
+using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasUserId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
+using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{DataBase.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{DataBase.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
 #endregion 引入命名空间
 
-namespace $!{DataBase.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}应用拓展
@@ -48,9 +48,9 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
     /// <summary>
     /// 验证$!{Table.Description}
     /// </summary>
-    /// <param name="entity"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="entity">数据库模型</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<BaseResult> OverrideHandle($!{Table.CamelCaseName}$!{Setting.Entity.Name} entity,
         CancellationToken cancellationToken)
     {
@@ -60,9 +60,9 @@ public partial class $!{Setting.EditName}$!{Table.CamelCaseName}
     /// <summary>
     /// 验证参数
     /// </summary>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="request">请求参数</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>处理结果</returns>
     private async Task<BaseResult> OverrideHandle($!{Setting.EditName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request,
         CancellationToken cancellationToken)
     {
