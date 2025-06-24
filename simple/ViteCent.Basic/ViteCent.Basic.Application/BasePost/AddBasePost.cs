@@ -72,7 +72,7 @@ public partial class AddBasePost(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 新增职位信息
@@ -102,7 +102,7 @@ public partial class AddBasePost(
 
         entity.Creator = user?.Name ?? string.Empty;
         entity.CreateTime = DateTime.Now;
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         var result = await mediator.Send(entity, cancellationToken);
 

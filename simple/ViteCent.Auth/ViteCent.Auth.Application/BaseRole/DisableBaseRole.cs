@@ -66,7 +66,7 @@ public partial class DisableBaseRole(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 处理禁用角色信息的请求
@@ -109,7 +109,7 @@ public partial class DisableBaseRole(
         // 更新修改时间
         entity.UpdateTime = DateTime.Now;
         // 更新数据版本
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         // 通过中介者模式发送更新请求
         var result = await mediator.Send(entity, cancellationToken);

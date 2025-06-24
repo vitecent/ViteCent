@@ -61,7 +61,7 @@ public class GetShiftSchedule(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 处理获取换班申请的请求

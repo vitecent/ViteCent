@@ -21,7 +21,12 @@ public class BaseTableInfo
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// 编码
+    /// 编码，用于标识该表的唯一编码或标识符
     /// </summary>
     public string? Code { get; set; }
+
+    /// <summary>
+    /// 分表类型，标识该表的分表策略或方式
+    /// </summary>
+    public string SplitType { get; set; } = "None";
 }

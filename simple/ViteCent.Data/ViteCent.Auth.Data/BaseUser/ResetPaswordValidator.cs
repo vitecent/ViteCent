@@ -14,11 +14,12 @@ public class ResetPaswordValidator : AbstractValidator<ResetPaswordArgs>
 {
     /// <summary>
     /// </summary>
-    public ResetPaswordValidator()
+    /// <param name="validate">是否验证</param>
+    public ResetPaswordValidator(bool validate = true)
     {
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 
-        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().When(x => validate).WithMessage("公司标识不能为空");
         RuleFor(x => x.UserId).NotNull().NotEmpty().WithMessage("用户标识不能为空");
 
         RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("密码不能为空");

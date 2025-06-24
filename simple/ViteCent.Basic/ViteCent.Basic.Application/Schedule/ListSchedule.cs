@@ -33,7 +33,7 @@ public class ListSchedule(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 排班信息分页
@@ -45,8 +45,6 @@ public class ListSchedule(
         CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.ListSchedule");
-
-        user = httpContextAccessor.InitUser();
 
         var args = mapper.Map<SearchScheduleEntityArgs>(request);
 

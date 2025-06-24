@@ -77,7 +77,7 @@ public class AddBaseLogsList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 批量新增日志信息
@@ -91,7 +91,7 @@ public class AddBaseLogsList(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.BaseLogs.AddBaseLogsList");
 
-        user = httpContextAccessor.InitUser();
+        
 
         var check = await AddBaseLogs.OverrideHandle(mediator, request, user, companyInvoke, departmentInvoke, cancellationToken);
 
@@ -115,7 +115,7 @@ public class AddBaseLogsList(
             entity.Id = await cache.GetIdAsync(companyId, "BaseLogs");
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.DataVersion = DateTime.Now;
+            entity.Version = DateTime.Now;
 
             entitys.Items.Add(entity);
         }

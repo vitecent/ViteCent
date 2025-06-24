@@ -60,8 +60,8 @@ public class BuildCode(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Builder.Api.Build.BuildCode");
 
-        // 获取数据库向信息
-        await mapper.GetDatabase(args);
+        // 获取数据库信息
+        await mapper.InitArgs(args);
 
         // 生成代码
         await args.BuildCode();

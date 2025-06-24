@@ -30,7 +30,7 @@ public class Schedule(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 执行考勤统计计算
@@ -51,7 +51,7 @@ public class Schedule(
     {
         logger.LogInformation("Invoke ViteCent.Statistics.Application.Statistics.Schedule");
 
-        user = httpContextAccessor.InitUser();
+        
 
         var now = DateTime.Now;
 

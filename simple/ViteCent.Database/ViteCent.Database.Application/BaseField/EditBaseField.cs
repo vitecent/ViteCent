@@ -66,7 +66,7 @@ public partial class EditBaseField(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 编辑表字段信息
@@ -213,7 +213,7 @@ public partial class EditBaseField(
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         var result = await mediator.Send(entity, cancellationToken);
 

@@ -29,7 +29,7 @@ public class GetAllPermission(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 获取所有权限
@@ -42,7 +42,7 @@ public class GetAllPermission(
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.AllPermission.GetAllPermission");
 
-        user = httpContextAccessor.InitUser();
+        
 
         var companyId = user?.Company?.Id ?? string.Empty;
 

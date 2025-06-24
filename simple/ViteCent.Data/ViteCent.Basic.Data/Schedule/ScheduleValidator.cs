@@ -25,16 +25,16 @@ public partial class ScheduleValidator : AbstractValidator<AddScheduleArgs>
     /// 验证排班信息
     /// </summary>
     /// <param name="validate">是否验证</param>
-    public ScheduleValidator(bool validate = false)
+    public ScheduleValidator(bool validate = true)
     {
         // 验证参数不能为空
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 
         // 验证公司标识不能为空
-        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().When(x => validate).WithMessage("公司标识不能为空");
 
         // 验证部门标识不能为空
-        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
+        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().When(x => validate).WithMessage("部门标识不能为空");
 
         // 验证岗位标识不能为空
         RuleFor(x => x.PostId).NotNull().NotEmpty().WithMessage("岗位标识不能为空");

@@ -76,7 +76,7 @@ public partial class EditSchedule(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 编辑排班信息
@@ -146,7 +146,7 @@ public partial class EditSchedule(
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         var result = await mediator.Send(entity, cancellationToken);
 

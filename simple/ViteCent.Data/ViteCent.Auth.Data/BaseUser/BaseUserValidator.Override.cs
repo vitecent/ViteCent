@@ -21,12 +21,12 @@ public partial class BaseUserValidator : AbstractValidator<AddBaseUserArgs>
     /// <summary>
     /// </summary>
     /// <param name="validate">是否验证</param>
-    private void OverrideValidator(bool validate = false)
+    private void OverrideValidator(bool validate = true)
     {
         RuleFor(x => x.Username).Length(4, 12).WithMessage("用户名4-12个字符");
         RuleFor(x => x.Username).Matches(BaseConst.PositiveEnglish).WithMessage("用户名只支持数字、字母");
 
-        if (!validate)
+        if (validate)
         {
             RuleFor(x => x.Password).NotNull().NotEmpty().WithMessage("密码不能为空");
             RuleFor(x => x.Password).Length(6, 16).WithMessage("密码6-16个字符");

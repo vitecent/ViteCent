@@ -14,7 +14,7 @@ using ViteCent.Auth.Data.BaseRolePermission;
 using ViteCent.Auth.Data.BaseSystem;
 using ViteCent.Auth.Data.BaseUser;
 using ViteCent.Auth.Data.BaseUserRole;
-using ViteCent.Auth.Domain.BaseUser;
+using ViteCent.Auth.Entity.BaseUser;
 using ViteCent.Core;
 using ViteCent.Core.Authorize.Jwt;
 using ViteCent.Core.Cache;

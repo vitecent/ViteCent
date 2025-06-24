@@ -3,6 +3,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ViteCent.Auth.Data.BaseUser;
+using ViteCent.Auth.Entity.BaseUser;
+using ViteCent.Core;
+using ViteCent.Core.Cache;
 using ViteCent.Core.Data;
 using ViteCent.Core.Web.Api;
 using ViteCent.Core.Web.Filter;
@@ -16,6 +19,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// </summary>
 /// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
 /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
+/// <param name="cache">缓存器，用于处理缓存信息</param>
 /// <param name="mediator">中介者，用于发送查询请求</param>
 [ApiController] // 标记为 API 接口
 // 使用登录过滤器，确保用户已登录
@@ -27,6 +31,8 @@ public class ResetPasword(
     ILogger<ResetPasword> logger,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,
+    // 注入缓存器
+    IBaseCache cache,
     // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
@@ -59,13 +65,40 @@ public class ResetPasword(
         var validator = new ResetPaswordValidator();
 
         // 验证重置密码参数的有效性
-        var result = await validator.ValidateAsync(args, cancellationToken);
+        var check = await validator.ValidateAsync(args, cancellationToken);
 
         // 如果验证失败，返回错误信息
-        if (!result.IsValid)
-            return new BaseResult(500, result.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
+        if (!check.IsValid)
+            return new BaseResult(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
 
-        // 通过中介者发送命令并返回结果
-        return await mediator.Send(args);
+        var companyId = user?.Company?.Id ?? string.Empty;
+
+        if (string.IsNullOrWhiteSpace(companyId))
+            companyId = args.CompanyId;
+
+        var request = new GetBaseUserEntityArgs
+        {
+            Id = args.UserId,
+            CompanyId = companyId
+        };
+
+        var entity = await mediator.Send(request, cancellationToken);
+
+        if (entity is null)
+            return new DataResult<LoginResult>(500, "用户不存在");
+
+        args.Password = $"{entity.Username}{args.Password}{BaseConst.Salf}".EncryptMD5();
+
+        entity.Password = args.Password;
+        entity.Updater = user?.Name ?? string.Empty;
+        entity.UpdateTime = DateTime.Now;
+        entity.Version = DateTime.Now;
+
+        var result = await mediator.Send(entity, cancellationToken);
+
+        cache.DeleteKey($"User{user?.Id}");
+        cache.DeleteKey($"UserInfo{user?.Id}");
+
+        return result;
     }
 }

@@ -64,7 +64,7 @@ public class AddBaseSystemList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 新增系统信息
@@ -101,7 +101,7 @@ public class AddBaseSystemList(
 
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.DataVersion = DateTime.Now;
+            entity.Version = DateTime.Now;
 
             entitys.Items.Add(entity);
         }

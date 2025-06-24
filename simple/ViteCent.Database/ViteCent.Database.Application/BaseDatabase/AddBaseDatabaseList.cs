@@ -72,7 +72,7 @@ public class AddBaseDatabaseList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 批量新增数据库信息
@@ -86,7 +86,7 @@ public class AddBaseDatabaseList(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Database.Application.BaseDatabase.AddBaseDatabaseList");
 
-        user = httpContextAccessor.InitUser();
+        
 
         var check = await AddBaseDatabase.OverrideHandle(mediator, request, user, companyInvoke, cancellationToken);
 
@@ -110,7 +110,7 @@ public class AddBaseDatabaseList(
             entity.Id = await cache.GetIdAsync(companyId, "BaseDatabase");
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.DataVersion = DateTime.Now;
+            entity.Version = DateTime.Now;
 
             entitys.Items.Add(entity);
         }

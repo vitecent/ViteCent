@@ -72,7 +72,7 @@ public partial class AddBaseTable(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 新增数据表信息
@@ -102,7 +102,7 @@ public partial class AddBaseTable(
 
         entity.Creator = user?.Name ?? string.Empty;
         entity.CreateTime = DateTime.Now;
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         var result = await mediator.Send(entity, cancellationToken);
 

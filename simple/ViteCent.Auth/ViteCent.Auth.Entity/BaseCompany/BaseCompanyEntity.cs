@@ -70,24 +70,24 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
     /// 创建时间
     /// </summary>
     [SugarColumn(ColumnName = "createTime")]
-    public DateTime? CreateTime { get; set; }
+    public DateTime CreateTime { get; set; }
 
     /// <summary>
     /// 创建人
     /// </summary>
-    [SugarColumn(ColumnName = "creator")]
+    [SugarColumn(ColumnName = "creator", IsNullable = true)]
     public string? Creator { get; set; }
 
     /// <summary>
     /// 数据版本
     /// </summary>
-    [SugarColumn(ColumnName = "dataVersion")]
-    public DateTime DataVersion { get; set; }
+    [SugarColumn(ColumnName = "version", IsEnableUpdateVersionValidation = true)]
+    public DateTime Version { get; set; }
 
     /// <summary>
     /// 简介
     /// </summary>
-    [SugarColumn(ColumnName = "description")]
+    [SugarColumn(ColumnName = "description", IsNullable = true)]
     public string? Description { get; set; }
 
     /// <summary>
@@ -165,13 +165,13 @@ public class BaseCompanyEntity : BaseEntity, IRequest<BaseResult>
     /// <summary>
     /// 状态
     /// </summary>
-    [SugarColumn(ColumnName = "status")]
+    [SugarColumn(ColumnName = "status", IsNullable = true)]
     public int? Status { get; set; }
 
     /// <summary>
     /// 修改人
     /// </summary>
-    [SugarColumn(ColumnName = "updater")]
+    [SugarColumn(ColumnName = "updater", IsNullable = true)]
     public string? Updater { get; set; }
 
     /// <summary>

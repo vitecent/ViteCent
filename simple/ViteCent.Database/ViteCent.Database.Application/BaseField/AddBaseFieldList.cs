@@ -72,7 +72,7 @@ public class AddBaseFieldList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 批量新增表字段信息
@@ -86,7 +86,7 @@ public class AddBaseFieldList(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Database.Application.BaseField.AddBaseFieldList");
 
-        user = httpContextAccessor.InitUser();
+        
 
         var check = await AddBaseField.OverrideHandle(mediator, request, user, companyInvoke, cancellationToken);
 
@@ -110,7 +110,7 @@ public class AddBaseFieldList(
             entity.Id = await cache.GetIdAsync(companyId, "BaseField");
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.DataVersion = DateTime.Now;
+            entity.Version = DateTime.Now;
 
             entitys.Items.Add(entity);
         }

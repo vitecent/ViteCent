@@ -18,6 +18,9 @@ namespace $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseNa
 /// 新增$!{Table.Description}模型
 /// </summary>
 [Serializable]
+#if(Table.SplitType != "None")
+[SplitTable(SplitType.$!{Table.SplitType})]
+#end
 [SugarTable("$!{Table.Name}")]
 public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Entity.Name} : $!{Table.CamelCaseName}$!{Setting.Entity.Name}
 {

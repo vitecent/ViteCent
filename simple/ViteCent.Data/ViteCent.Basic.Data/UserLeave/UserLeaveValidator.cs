@@ -25,16 +25,16 @@ public partial class UserLeaveValidator : AbstractValidator<AddUserLeaveArgs>
     /// 验证请假申请
     /// </summary>
     /// <param name="validate">是否验证</param>
-    public UserLeaveValidator(bool validate = false)
+    public UserLeaveValidator(bool validate = true)
     {
         // 验证参数不能为空
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 
         // 验证公司标识不能为空
-        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().When(x => validate).WithMessage("公司标识不能为空");
 
         // 验证部门标识不能为空
-        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
+        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().When(x => validate).WithMessage("部门标识不能为空");
 
         // 验证结束时间不能为空
         RuleFor(x => x.EndTime).Must(x => x > DateTime.MinValue && x < DateTime.MaxValue).WithMessage("结束时间不能为空");

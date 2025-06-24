@@ -23,7 +23,7 @@ public partial class BaseFieldValidator : AbstractValidator<AddBaseFieldArgs>
     /// 验证表字段信息
     /// </summary>
     /// <param name="validate">是否验证</param>
-    private void OverrideValidator(bool validate = false)
+    private void OverrideValidator(bool validate = true)
     {
     }
 }

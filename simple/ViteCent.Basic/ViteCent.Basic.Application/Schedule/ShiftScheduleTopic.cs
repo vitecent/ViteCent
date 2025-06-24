@@ -28,7 +28,7 @@ public class ShiftScheduleTopic(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 处理换班信息
@@ -39,8 +39,6 @@ public class ShiftScheduleTopic(
     public async Task Handle(ShiftScheduleTopicArgs notification, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.ShiftScheduleTopic");
-
-        user = httpContextAccessor.InitUser();
 
         var args = mapper.Map<GetScheduleEntityArgs>(notification);
         args.Id = notification.ScheduleId;
@@ -61,7 +59,7 @@ public class ShiftScheduleTopic(
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         await mediator.Send(entity, cancellationToken);
     }

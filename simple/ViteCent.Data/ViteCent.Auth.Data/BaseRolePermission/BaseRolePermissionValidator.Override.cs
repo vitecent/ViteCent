@@ -19,7 +19,7 @@ public partial class BaseRolePermissionValidator : AbstractValidator<AddBaseRole
     /// <summary>
     /// </summary>
     /// <param name="validate">是否验证</param>
-    private void OverrideValidator(bool validate = false)
+    private void OverrideValidator(bool validate = true)
     {
         var status = new List<int> { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
 

@@ -42,4 +42,12 @@ public class Field : BaseFieldInfo
     /// <summary>
     /// </summary>
     public string DataType { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string EnableUpdateVersionValidation { get; set; } = string.Empty;
+
+    /// <summary>
+    /// </summary>
+    public string ColumnName { get; set; } = string.Empty;
 }

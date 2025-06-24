@@ -23,7 +23,7 @@ public partial class BasePostValidator : AbstractValidator<AddBasePostArgs>
     /// 验证参数
     /// </summary>
     /// <param name="validate">是否验证</param>
-    private void OverrideValidator(bool validate = false)
+    private void OverrideValidator(bool validate = true)
     {
         var status = new List<int> { (int)StatusEnum.Enable, (int)StatusEnum.Disable };
 

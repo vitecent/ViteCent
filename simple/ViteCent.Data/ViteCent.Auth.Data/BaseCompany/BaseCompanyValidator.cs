@@ -25,7 +25,7 @@ public partial class BaseCompanyValidator : AbstractValidator<AddBaseCompanyArgs
     /// 验证公司信息
     /// </summary>
     /// <param name="validate">是否验证</param>
-    public BaseCompanyValidator(bool validate = false)
+    public BaseCompanyValidator(bool validate = true)
     {
         // 验证参数不能为空
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");

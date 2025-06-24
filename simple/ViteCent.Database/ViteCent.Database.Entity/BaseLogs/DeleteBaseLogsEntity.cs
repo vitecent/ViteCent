@@ -18,7 +18,8 @@ namespace ViteCent.Database.Entity.BaseLogs;
 /// 删除日志信息模型
 /// </summary>
 [Serializable]
-[SugarTable("base_logs")]
+[SplitTable(SplitType.Year)]
+[SugarTable("base_logs_{year}{month}{day}")]
 public class DeleteBaseLogsEntity : BaseLogsEntity
 {
 }

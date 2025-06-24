@@ -39,7 +39,7 @@ public partial class SignSchedule(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = new();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑排班信息
@@ -50,8 +50,6 @@ public partial class SignSchedule(
     public async Task<BaseResult> Handle(SignScheduleArgs request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.SignSchedule");
-
-        user = httpContextAccessor.InitUser();
 
         var check = await OverrideHandle(request, cancellationToken);
 
@@ -73,7 +71,7 @@ public partial class SignSchedule(
         entity.Status = (int)ScheduleEnum.First;
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         return await mediator.Send(entity, cancellationToken);
     }

@@ -82,7 +82,7 @@ public class AddScheduleList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 批量新增排班信息
@@ -96,7 +96,7 @@ public class AddScheduleList(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.Schedule.AddScheduleList");
 
-        user = httpContextAccessor.InitUser();
+        
 
         var check = await AddSchedule.OverrideHandle(mediator, request, user, companyInvoke, departmentInvoke, userInvoke, cancellationToken);
 
@@ -120,7 +120,7 @@ public class AddScheduleList(
             entity.Id = await cache.GetIdAsync(companyId, "Schedule");
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.DataVersion = DateTime.Now;
+            entity.Version = DateTime.Now;
 
             entitys.Items.Add(entity);
         }

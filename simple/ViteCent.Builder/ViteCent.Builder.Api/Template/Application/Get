@@ -71,7 +71,7 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
 #end
     /// <summary>

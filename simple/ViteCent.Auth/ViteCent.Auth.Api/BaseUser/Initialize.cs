@@ -1,6 +1,7 @@
 ﻿#region
 
 // 引入 MediatR 用于实现中介者模式
+using AutoMapper;
 using MediatR;
 
 // 引入 ASP.NET Core MVC 核心功能
@@ -17,6 +18,7 @@ using ViteCent.Core;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
+using ViteCent.Core.Enums;
 
 // 引入核心接口基类
 using ViteCent.Core.Web.Api;
@@ -31,6 +33,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// 初始化接口
 /// </summary>
 /// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
+/// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
 /// <param name="mediator">中介者，用于发送查询请求</param>
 [ApiController] // 标记为 API 接口
 // 设置路由前缀
@@ -38,6 +41,8 @@ namespace ViteCent.Auth.Api.BaseUser;
 public class Initialize(
     // 注入日志记录器
     ILogger<Initialize> logger,
+    // 注入对象映射器
+    IMapper mapper,
     // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
@@ -82,17 +87,27 @@ public class Initialize(
             Args = args.ToJson()
         };
 
-        // 通过中介者发送命令并返回结果
-        var result = await mediator.Send(args, cancellationToken);
+        var addArgs = mapper.Map<AddBaseUserArgs>(args);
+        addArgs.IsSuper = (int)YesNoEnum.Yes;
 
-        // 记录失败操作日志
-        if (!result.Success)
-            await mediator.LogError(logsArgs, result.Message, cancellationToken);
+        var validator = new BaseUserValidator(false);
 
-        // 记录成功操作日志
-        await mediator.LogSuccess(logsArgs, cancellationToken);
+        var result = await validator.ValidateAsync(addArgs, cancellationToken);
 
-        // 返回操作结果
-        return result;
+        if (!result.IsValid)
+        {
+            var message = string.Join(",", result.Errors.Select(x => x.ErrorMessage));
+
+            return new BaseResult(500, message);
+        }
+
+        var chackArgs = new PreInitializeArgs();
+
+        var check = await mediator.Send(chackArgs, cancellationToken);
+
+        if (!check.Data.Flag)
+            return new BaseResult(500, "系统已初始化");
+
+        return await mediator.Send(addArgs, cancellationToken);
     }
 }

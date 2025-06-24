@@ -46,17 +46,27 @@ public class BaseFieldInfo
     public string Type { get; set; } = string.Empty;
 
     /// <summary>
-    /// 编码
+    /// 编码，用于标识该字段的唯一编码或标识符
     /// </summary>
     public string? Code { get; set; }
 
     /// <summary>
-    /// 是否索引
+    /// 是否索引，标识该字段是否被索引以提高查询性能
     /// </summary>
-    public int? Index { get; set; }
+    public bool Index { get; set; }
 
     /// <summary>
-    /// 是否唯一
+    /// 是否唯一，标识该字段的值在表中是否必须唯一
     /// </summary>
-    public int? Unique { get; set; }
+    public bool Unique { get; set; }
+
+    /// <summary>
+    /// 是否分表字段，标识该字段是否用于数据分表
+    /// </summary>
+    public bool SplitField { get; set; }
+
+    /// <summary>
+    /// 是否版本字段，标识该字段是否用于版本控制
+    /// </summary>
+    public bool VersionField { get; set; }
 }

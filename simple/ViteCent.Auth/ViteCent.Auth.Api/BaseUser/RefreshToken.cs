@@ -16,6 +16,7 @@ using ViteCent.Auth.Data.BaseUser;
 
 // 引入核心
 using ViteCent.Core;
+using ViteCent.Core.Cache;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -34,6 +35,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// </summary>
 /// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
 /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
+/// <param name="cache">缓存器，用于处理缓存信息</param>
 /// <param name="mediator">中介者，用于发送查询请求</param>
 [ApiController] // 标记为 API 接口
 // 设置路由前缀
@@ -43,6 +45,8 @@ public class RefreshToken(
     ILogger<RefreshToken> logger,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,
+    // 注入缓存器
+    IBaseCache cache,
     // 注入中介者
     IMediator mediator)
     // 继承基类，指定查询参数和返回结果类型
@@ -102,17 +106,24 @@ public class RefreshToken(
             return new DataResult<RefreshTokenResult>(500, check.Errors.FirstOrDefault()?.ErrorMessage ?? string.Empty);
         }
 
-        // 通过中介者发送命令并返回结果
-        var result = await mediator.Send(args, cancellationToken);
+        var loginArgs = new LoginArgs();
 
-        // 记录失败操作日志
-        if (!result.Success)
-            await mediator.LogError(logsArgs, result.Message, cancellationToken);
+        if (cache.HasKey($"User{args.RefreshToken}"))
+            loginArgs = cache.GetString<LoginArgs>($"User{args.RefreshToken}");
 
-        // 记录成功操作日志
-        await mediator.LogSuccess(logsArgs, cancellationToken);
+        var login = await mediator.Send(loginArgs, cancellationToken);
 
-        // 返回操作结果
+        if (!login.Success)
+            return new DataResult<RefreshTokenResult>(login.Code, login.Message);
+
+        var result = new DataResult<RefreshTokenResult>
+        {
+            Data = new RefreshTokenResult
+            {
+                Token = login.Data.Token
+            }
+        };
+
         return result;
     }
 }

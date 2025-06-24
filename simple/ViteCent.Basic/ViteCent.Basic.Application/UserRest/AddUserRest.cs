@@ -82,7 +82,7 @@ public partial class AddUserRest(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 新增调休申请
@@ -112,7 +112,7 @@ public partial class AddUserRest(
 
         entity.Creator = user?.Name ?? string.Empty;
         entity.CreateTime = DateTime.Now;
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         var result = await mediator.Send(entity, cancellationToken);
 

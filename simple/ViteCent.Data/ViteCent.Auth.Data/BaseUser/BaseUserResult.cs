@@ -41,7 +41,7 @@ public class BaseUserResult
     /// <summary>
     /// 创建时间
     /// </summary>
-    public DateTime? CreateTime { get; set; }
+    public DateTime CreateTime { get; set; }
 
     /// <summary>
     /// 创建人
@@ -51,7 +51,7 @@ public class BaseUserResult
     /// <summary>
     /// 数据版本
     /// </summary>
-    public DateTime DataVersion { get; set; }
+    public DateTime Version { get; set; }
 
     /// <summary>
     /// 部门标识

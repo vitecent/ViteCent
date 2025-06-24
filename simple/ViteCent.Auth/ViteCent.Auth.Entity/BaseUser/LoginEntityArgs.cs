@@ -1,11 +1,10 @@
 ﻿#region
 
 using MediatR;
-using ViteCent.Auth.Entity.BaseUser;
 
 #endregion
 
-namespace ViteCent.Auth.Domain.BaseUser;
+namespace ViteCent.Auth.Entity.BaseUser;
 
 /// <summary>
 /// </summary>

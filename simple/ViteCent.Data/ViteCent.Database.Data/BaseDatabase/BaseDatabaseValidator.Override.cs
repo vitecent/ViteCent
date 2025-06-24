@@ -23,7 +23,7 @@ public partial class BaseDatabaseValidator : AbstractValidator<AddBaseDatabaseAr
     /// 验证数据库信息
     /// </summary>
     /// <param name="validate">是否验证</param>
-    private void OverrideValidator(bool validate = false)
+    private void OverrideValidator(bool validate = true)
     {
     }
 }

@@ -25,7 +25,7 @@ public partial class BaseDatabaseValidator : AbstractValidator<AddBaseDatabaseAr
     /// 验证数据库信息
     /// </summary>
     /// <param name="validate">是否验证</param>
-    public BaseDatabaseValidator(bool validate = false)
+    public BaseDatabaseValidator(bool validate = true)
     {
         // 验证参数不能为空
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
@@ -34,7 +34,7 @@ public partial class BaseDatabaseValidator : AbstractValidator<AddBaseDatabaseAr
         RuleFor(x => x.CharSet).NotNull().NotEmpty().WithMessage("编码不能为空");
 
         // 验证公司标识不能为空
-        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().When(x => validate).WithMessage("公司标识不能为空");
 
         // 验证名称不能为空
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");

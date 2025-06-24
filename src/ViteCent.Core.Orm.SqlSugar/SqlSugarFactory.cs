@@ -74,24 +74,35 @@ public class SqlSugarFactory : IFactory
                     switch (x.CommandType)
                     {
                         case CommandEnum.Insert:
-                            client.Insertable(x.Entity).ExecuteCommand();
+                            client.Insertable(x.Entity)
+                                //.SplitTable()
+                                .ExecuteCommand();
                             break;
 
                         case CommandEnum.Update:
                             if (x.DataType == DataEnum.Entity)
-                                client.Updateable(x.Entity).IgnoreColumns(true)
-                                    .IsEnableUpdateVersionValidation().ExecuteCommand();
+                                client.Updateable(x.Entity)
+                                    .IgnoreColumns(true)
+                                    .IsEnableUpdateVersionValidation()
+                                    //.SplitTable()
+                                    .ExecuteCommand();
                             else
                                 client.Updateable(x.Entity).UpdateColumns(x.Where)
-                                    .IgnoreColumns(ignoreAllNullColumns: true).IsEnableUpdateVersionValidation()
+                                    .IgnoreColumns(ignoreAllNullColumns: true)
+                                    .IsEnableUpdateVersionValidation()
+                                    //.SplitTable()
                                     .ExecuteCommand();
                             break;
 
                         case CommandEnum.Delete:
                             if (x.DataType == DataEnum.Entity)
-                                client.Deleteable(x.Entity).ExecuteCommand();
+                                client.Deleteable(x.Entity)
+                                    //.SplitTable()
+                                    .ExecuteCommand();
                             else
-                                client.Deleteable(x.Where).ExecuteCommand();
+                                client.Deleteable(x.Where)
+                                    .SplitTable()
+                                    .ExecuteCommand();
                             break;
                     }
             });

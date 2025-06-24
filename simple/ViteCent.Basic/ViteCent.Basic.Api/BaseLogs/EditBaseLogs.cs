@@ -92,8 +92,8 @@ public partial class EditBaseLogs(
         // 创建取消令牌，用于支持操作的取消
         var cancellationToken = new CancellationToken();
 
-        // 创建数据验证器，true参数标识启用编辑模式的验证规则
-        var validator = new BaseLogsValidator(true);
+        // 创建数据验证器
+        var validator = new BaseLogsValidator();
 
         // 验证参数有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

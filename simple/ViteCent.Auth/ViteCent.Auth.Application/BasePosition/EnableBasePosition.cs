@@ -66,7 +66,7 @@ public partial class EnableBasePosition(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private BaseUserInfo user = httpContextAccessor.InitUser();
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
 
     /// <summary>
     /// 处理启用职位信息的请求
@@ -109,7 +109,7 @@ public partial class EnableBasePosition(
         // 设置更新时间
         entity.UpdateTime = DateTime.Now;
         // 更新数据版本
-        entity.DataVersion = DateTime.Now;
+        entity.Version = DateTime.Now;
 
         // 保存更新后的职位信息
         var result = await mediator.Send(entity, cancellationToken);

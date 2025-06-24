@@ -30,37 +30,17 @@ public static class BaseApi
     /// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
     /// <param name="setting">设置信息</param>
     /// <returns>处理结果</returns>
-    public static async Task GetDatabase(this IMapper mapper,
+    public static async Task InitArgs(this IMapper mapper,
         Setting setting)
     {
-        var database = mapper.Map<BaseDatabaseInfo>(setting.Database);
-
-        var configuration = database.GetConfiguration();
-
-        var factoryConfig = new FactoryConfig
-        {
-            DbType = setting.Database.Type,
-            Name = setting.Database.Name,
-            Master = configuration,
-            Slaves =
-            [
-                configuration
-            ]
-        };
-
-        var client = new SqlSugarFactory(factoryConfig);
-
-        var baseTables = await client.GetTables();
-
-        var tables = mapper.Map<List<Table>>(baseTables);
-
-        setting.Database.Tables = tables.OrderBy(x => x.CamelCaseName).ToList();
-
-        foreach (var table in tables)
+        foreach (var table in setting.Database.Tables)
         {
             table.CamelCaseName = table.Name.ToCamelCase();
 
-            var baseFields = await client.GetFields(table.Name);
+            if (table.SplitType != "None")
+                table.Name += "_{year}{month}{day}";
+
+            var baseFields = table.Fields;
 
             var fields = mapper.Map<List<Field>>(baseFields);
 
@@ -94,6 +74,8 @@ public static class BaseApi
                     .Replace("uniqueidentifier", "Guid")
                     .Replace("smallmoney", "decimal");
 
+                field.ColumnName = $"ColumnName = \"{field.Name}\"";
+
                 if (field.Nullable)
                     field.DataType = $"{field.DataType}?";
 
@@ -115,11 +97,16 @@ public static class BaseApi
                 if (field.Identity)
                     field.ColumnIdentity = ", IsIdentity = true";
 
+                if (field.VersionField)
+                    field.EnableUpdateVersionValidation = ", IsEnableUpdateVersionValidation = true";
+
                 field.Default = field.DataType == "string" ? " = string.Empty;" : string.Empty;
             }
 
             table.Fields = [.. fields.OrderBy(x => x.CamelCaseName)];
         }
+
+        await Task.CompletedTask;
     }
 
     /// <summary>
@@ -336,7 +323,7 @@ public static class BaseApi
 
             logger.LogInformation($"Build Application {table.Name.ToCamelCase()}");
 
-            var removeField = new List<string> { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
+            var removeField = new List<string> { "Id", "Version", "Creator", "CreateTime", "Updater", "UpdateTime" };
 
             var editField = table.Fields.Where(x => !removeField.Contains(x.Name.ToCamelCase())).ToList();
             var hasCompanyId = table.Fields.Any(x => x.Name.ToCamelCase() == "CompanyId");
@@ -457,7 +444,7 @@ public static class BaseApi
 
             logger.LogInformation($"Build Data {table.Name.ToCamelCase()}");
 
-            var removeField = new List<string> { "Id", "DataVersion", "Creator", "CreateTime", "Updater", "UpdateTime" };
+            var removeField = new List<string> { "Id", "Version", "Creator", "CreateTime", "Updater", "UpdateTime" };
 
             var addField = table.Fields.Where(x => !removeField.Contains(x.Name.ToCamelCase())).ToList();
             var validatorFields = table.Fields.Where(x =>

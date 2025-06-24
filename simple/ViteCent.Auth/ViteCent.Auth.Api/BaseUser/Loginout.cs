@@ -1,7 +1,6 @@
 ﻿#region
 
 // 引入 MediatR 用于实现中介者模式
-using MediatR;
 
 // 引入 ASP.NET Core MVC 核心功能
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +15,7 @@ using ViteCent.Auth.Data.BaseUser;
 
 // 引入核心
 using ViteCent.Core;
+using ViteCent.Core.Cache;
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -35,7 +35,7 @@ namespace ViteCent.Auth.Api.BaseUser;
 /// </summary>
 /// <param name="logger">日志记录器，用于记录处理器的操作日志</param>
 /// <param name="httpContextAccessor">HTTP上下文访问器，用于获取当前用户信息</param>
-/// <param name="mediator">中介者，用于发送查询请求</param>
+/// <param name="cache">缓存器，用于处理缓存信息</param>
 [ApiController] // 标记为 API 接口
 // 使用登录过滤器，确保用户已登录
 [ServiceFilter(typeof(BaseLoginFilter))]
@@ -46,8 +46,8 @@ public class Loginout(
     ILogger<Loginout> logger,
     // 注入HTTP上下文访问器
     IHttpContextAccessor httpContextAccessor,
-    // 注入中介者
-    IMediator mediator)
+    // 注入缓存器
+    IBaseCache cache)
     // 继承基类，指定查询参数和返回结果类型
     : BaseApi<LoginoutArgs, BaseResult>
 {
@@ -69,9 +69,6 @@ public class Loginout(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Auth.Api.BaseUser.Loginout");
 
-        // 创建取消令牌，用于支持操作的取消
-        var cancellationToken = new CancellationToken();
-
         // 创建日志参数对象，用于记录操作日志
         var logsArgs = new AddBaseLogsArgs()
         {
@@ -89,17 +86,12 @@ public class Loginout(
             Args = args.ToJson()
         };
 
-        // 通过中介者发送命令并返回结果
-        var result = await mediator.Send(args, cancellationToken);
+        if (user is not null)
+        {
+            cache.DeleteKey($"User{user.Id}");
+            cache.DeleteKey($"UserInfo{user?.Id}");
+        }
 
-        // 记录失败操作日志
-        if (!result.Success)
-            await mediator.LogError(logsArgs, result.Message, cancellationToken);
-
-        // 记录成功操作日志
-        await mediator.LogSuccess(logsArgs, cancellationToken);
-
-        // 返回操作结果
-        return result;
+        return await Task.FromResult(new BaseResult());
     }
 }

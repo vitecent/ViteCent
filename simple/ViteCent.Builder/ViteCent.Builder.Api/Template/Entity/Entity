@@ -27,6 +27,9 @@ namespace $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseNa
 /// $!{Table.Description}模型
 /// </summary>
 [Serializable]
+#if(Table.SplitType != "None")
+[SplitTable(SplitType.$!{Table.SplitType})]
+#end
 [SugarTable("$!{Table.Name}")]
 public class $!{Table.CamelCaseName}$!{Setting.Entity.Name} : $!{BaseName}, IRequest<BaseResult>
 {
@@ -35,7 +38,10 @@ public class $!{Table.CamelCaseName}$!{Setting.Entity.Name} : $!{BaseName}, IReq
     /// <summary>
     /// $!{Field.Description}
     /// </summary>
-    [SugarColumn(ColumnName = "$!{Field.Name}"$!{Field.ColumnPrimaryKey})]
+#if(Field.SplitField)
+    [SplitField]
+#end
+    [SugarColumn($!{Field.ColumnName}$!{Field.ColumnType}$!{Field.ColumnLength}$!{Field.ColumnNullable}$!{Field.ColumnPrimaryKey}$!{Field.ColumnIdentity}$!{Field.ColumnDescription}$!{field.EnableUpdateVersionValidation})]
     public $!{Field.DataType} $!{Field.CamelCaseName} { get; set; }$!{Field.Default}
 #set($Index = $Index + 1)
 #if($Index < $Fields.Count)

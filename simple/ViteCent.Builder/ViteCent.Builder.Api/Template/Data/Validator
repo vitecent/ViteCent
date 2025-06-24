@@ -25,7 +25,7 @@ public partial class $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix} : A
     /// 验证$!{Table.Description}
     /// </summary>
     /// <param name="validate">是否验证</param>
-    public $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}(bool validate = false)
+    public $!{Table.CamelCaseName}$!{Setting.Data.ValidatorSuffix}(bool validate = true)
     {
         // 验证参数不能为空
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");

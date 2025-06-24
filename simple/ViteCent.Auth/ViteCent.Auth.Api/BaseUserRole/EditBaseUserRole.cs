@@ -115,8 +115,8 @@ public partial class EditBaseUserRole(
             Args = args.ToJson()
         };
 
-        // 创建数据验证器，true参数标识启用编辑模式的验证规则
-        var validator = new BaseUserRoleValidator(true);
+        // 创建数据验证器
+        var validator = new BaseUserRoleValidator();
 
         // 验证参数有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

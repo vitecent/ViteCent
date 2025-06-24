@@ -22,7 +22,7 @@ public partial class BaseLogsValidator : AbstractValidator<AddBaseLogsArgs>
     /// 验证参数
     /// </summary>
     /// <param name="validate">是否验证</param>
-    private void OverrideValidator(bool validate = false)
+    private void OverrideValidator(bool validate = true)
     {
     }
 }

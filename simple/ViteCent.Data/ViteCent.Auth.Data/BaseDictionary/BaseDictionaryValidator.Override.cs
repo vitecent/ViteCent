@@ -24,7 +24,7 @@ public partial class BaseDictionaryValidator : AbstractValidator<AddBaseDictiona
     /// 验证参数
     /// </summary>
     /// <param name="validate">是否验证</param>
-    private void OverrideValidator(bool validate = false)
+    private void OverrideValidator(bool validate = true)
     {
         RuleFor(x => x.Code).NotNull().NotEmpty().WithMessage("编码不能为空");
         RuleFor(x => x.Code).Length(1, 50).WithMessage("编码1-50个字符");

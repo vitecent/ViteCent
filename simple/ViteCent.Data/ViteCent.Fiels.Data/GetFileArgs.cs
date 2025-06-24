@@ -4,7 +4,7 @@ using ViteCent.Core.Data;
 
 #endregion 引入命名空间
 
-namespace ViteCent.Fiels.Data;
+namespace ViteCent.Files.Data;
 
 /// <summary>
 /// 获取文件参数类，用于文件相关操作的参数传递
