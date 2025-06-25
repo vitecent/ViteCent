@@ -19,7 +19,7 @@ namespace ViteCent.Basic.Entity.BaseLogs;
 /// </summary>
 [Serializable]
 [SplitTable(SplitType.Year)]
-[SugarTable("base_logs_{year}{month}{day}")]
+[SugarTable("base_logs")]
 public class DeleteBaseLogsEntity : BaseLogsEntity
 {
 }

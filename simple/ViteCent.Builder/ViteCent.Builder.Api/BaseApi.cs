@@ -30,17 +30,40 @@ public static class BaseApi
     /// <param name="mapper">对象映射器，用于参数和模型对象之间的转换</param>
     /// <param name="setting">设置信息</param>
     /// <returns>处理结果</returns>
-    public static async Task InitArgs(this IMapper mapper,
+    public static async Task GetDatabase(this IMapper mapper,
         Setting setting)
     {
-        foreach (var table in setting.Database.Tables)
+        var database = mapper.Map<BaseDatabaseInfo>(setting.Database);
+
+        var configuration = database.GetConfiguration();
+
+        var factoryConfig = new FactoryConfig
+        {
+            DbType = setting.Database.Type,
+            Name = setting.Database.Name,
+            Master = configuration,
+            Slaves =
+            [
+                configuration
+            ]
+        };
+
+        var client = new SqlSugarFactory(factoryConfig);
+
+        var baseTables = await client.GetTables();
+
+        var tables = mapper.Map<List<Table>>(baseTables);
+
+        setting.Database.Tables = tables.OrderBy(x => x.CamelCaseName).ToList();
+
+        foreach (var table in tables)
         {
             table.CamelCaseName = table.Name.ToCamelCase();
 
-            if (table.SplitType != "None")
-                table.Name += "_{year}{month}{day}";
+            if (table.Name == "base_logs")
+                table.SplitType = "Year";
 
-            var baseFields = table.Fields;
+            var baseFields = await client.GetFields(table.Name);
 
             var fields = mapper.Map<List<Field>>(baseFields);
 
@@ -97,16 +120,21 @@ public static class BaseApi
                 if (field.Identity)
                     field.ColumnIdentity = ", IsIdentity = true";
 
-                if (field.VersionField)
-                    field.EnableUpdateVersionValidation = ", IsEnableUpdateVersionValidation = true";
-
                 field.Default = field.DataType == "string" ? " = string.Empty;" : string.Empty;
+
+                if (field.Name == "createTime" && table.SplitType != "None")
+                    field.SplitField = true;
+
+                if (field.Name == "version")
+                {
+					field.VersionField = true;
+					field.EnableUpdateVersionValidation = ", IsEnableUpdateVersionValidation = true";
+				}
+				
             }
 
             table.Fields = [.. fields.OrderBy(x => x.CamelCaseName)];
         }
-
-        await Task.CompletedTask;
     }
 
     /// <summary>
@@ -114,9 +142,6 @@ public static class BaseApi
     /// <param name="setting">设置信息</param>
     public static async Task BuildCode(this Setting setting)
     {
-        if (string.IsNullOrWhiteSpace(setting.ProjrectName))
-            setting.ProjrectName = setting.Database.CamelCaseName;
-
         setting.Guid = Guid.NewGuid().ToString().ToUpper();
         setting.Data.Guid = Guid.NewGuid().ToString().ToUpper();
         setting.Entity.Guid = Guid.NewGuid().ToString().ToUpper();
@@ -160,7 +185,7 @@ public static class BaseApi
     {
         if (string.IsNullOrWhiteSpace(setting.Api.Name)) return;
 
-        var apiPth = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Api.Name}");
+        var apiPth = Path.Combine(root, setting.ProjrectName, $"{setting.Database.CamelCaseName}.{setting.Api.Name}");
 
         foreach (var table in setting.Database.Tables)
         {
@@ -247,7 +272,7 @@ public static class BaseApi
                     nh.Save(@"Template\Api\DeleteOverride", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.Override.cs"));
             }
 
-            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+            if (setting.Application.Invoke == false && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
             {
                 nh.Save(@"Template\Api\Enable", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
 
@@ -257,7 +282,7 @@ public static class BaseApi
                     nh.Save(@"Template\Api\EnableOverride", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.Override.cs"));
             }
 
-            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+            if (setting.Application.Invoke == false && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
             {
                 nh.Save(@"Template\Api\Disable", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
 
@@ -297,10 +322,10 @@ public static class BaseApi
         nh.Save(@"Template\Api\Dockerfile", Path.Combine(apiPth, "Dockerfile"));
         nh.Save(@"Template\Api\Program", Path.Combine(apiPth, "Program.cs"));
 
-        var hasCsproj = File.Exists(Path.Combine(apiPth, $"{setting.ProjrectName}.{setting.Api.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(apiPth, $"{setting.Database.CamelCaseName}.{setting.Api.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Api\Csproj", Path.Combine(apiPth, $"{setting.ProjrectName}.{setting.Api.Name}.csproj"));
+            nh.Save(@"Template\Api\Csproj", Path.Combine(apiPth, $"{setting.Database.CamelCaseName}.{setting.Api.Name}.csproj"));
     }
 
     /// <summary>
@@ -315,7 +340,7 @@ public static class BaseApi
     {
         if (string.IsNullOrWhiteSpace(setting.Application.Name)) return;
 
-        var applicatioPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Application.Name}");
+        var applicatioPath = Path.Combine(root, setting.ProjrectName, $"{setting.Database.CamelCaseName}.{setting.Application.Name}");
 
         foreach (var table in setting.Database.Tables)
         {
@@ -411,18 +436,18 @@ public static class BaseApi
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Application\Delete", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}.cs"));
 
-            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+            if (setting.Application.Invoke == false && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
                 nh.Save(@"Template\Application\Enable", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}.cs"));
 
-            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+            if (setting.Application.Invoke == false && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
                 nh.Save(@"Template\Application\Disable", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}.cs"));
         }
 
-        var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{setting.ProjrectName}.{setting.Application.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(applicatioPath, $"{setting.Database.CamelCaseName}.{setting.Application.Name}.csproj"));
 
         if (!hasCsproj)
             nh.Save(@"Template\Application\Csproj",
-                Path.Combine(applicatioPath, $"{setting.ProjrectName}.{setting.Application.Name}.csproj"));
+                Path.Combine(applicatioPath, $"{setting.Database.CamelCaseName}.{setting.Application.Name}.csproj"));
     }
 
     /// <summary>
@@ -436,7 +461,7 @@ public static class BaseApi
     {
         if (string.IsNullOrWhiteSpace(setting.Data.Name)) return;
 
-        var dataPath = Path.Combine(root, setting.Data.Projrect, $"{setting.ProjrectName}.{setting.Data.Name}");
+        var dataPath = Path.Combine(root, setting.Data.Projrect, $"{setting.Database.CamelCaseName}.{setting.Data.Name}");
 
         foreach (var table in setting.Database.Tables)
         {
@@ -508,10 +533,10 @@ public static class BaseApi
             if (!string.IsNullOrWhiteSpace(setting.DeleteName))
                 nh.Save(@"Template\Data\DeleteArgs", Path.Combine(path, $"{setting.DeleteName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
-            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
+            if (setting.Application.Invoke == false && hasStatus && !string.IsNullOrWhiteSpace(setting.EnableName))
                 nh.Save(@"Template\Data\EnableArgs", Path.Combine(path, $"{setting.EnableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
-            if (!setting.Application.Invoke && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
+            if (setting.Application.Invoke == false && hasStatus && !string.IsNullOrWhiteSpace(setting.DisableName))
                 nh.Save(@"Template\Data\DisableArgs", Path.Combine(path, $"{setting.DisableName}{table.Name.ToCamelCase()}{setting.Data.ArgsSuffix}.cs"));
 
             if (!string.IsNullOrWhiteSpace(setting.HasName))
@@ -523,10 +548,10 @@ public static class BaseApi
             }
         }
 
-        var hasCsproj = File.Exists(Path.Combine(dataPath, $"{setting.ProjrectName}.{setting.Data.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(dataPath, $"{setting.Database.CamelCaseName}.{setting.Data.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Data\Csproj", Path.Combine(dataPath, $"{setting.ProjrectName}.{setting.Data.Name}.csproj"));
+            nh.Save(@"Template\Data\Csproj", Path.Combine(dataPath, $"{setting.Database.CamelCaseName}.{setting.Data.Name}.csproj"));
     }
 
     /// <summary>
@@ -540,7 +565,7 @@ public static class BaseApi
     {
         if (string.IsNullOrWhiteSpace(setting.Domain.Name)) return;
 
-        var domainPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Domain.Name}");
+        var domainPath = Path.Combine(root, setting.ProjrectName, $"{setting.Database.CamelCaseName}.{setting.Domain.Name}");
 
         foreach (var table in setting.Database.Tables)
         {
@@ -603,10 +628,10 @@ public static class BaseApi
             }
         }
 
-        var hasCsproj = File.Exists(Path.Combine(domainPath, $"{setting.ProjrectName}.{setting.Domain.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(domainPath, $"{setting.Database.CamelCaseName}.{setting.Domain.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Domain\Csproj", Path.Combine(domainPath, $"{setting.ProjrectName}.{setting.Domain.Name}.csproj"));
+            nh.Save(@"Template\Domain\Csproj", Path.Combine(domainPath, $"{setting.Database.CamelCaseName}.{setting.Domain.Name}.csproj"));
     }
 
     /// <summary>
@@ -620,7 +645,7 @@ public static class BaseApi
     {
         if (string.IsNullOrWhiteSpace(setting.Entity.Name)) return;
 
-        var entifyPath = Path.Combine(root, setting.ProjrectName, $"{setting.ProjrectName}.{setting.Entity.Name}");
+        var entifyPath = Path.Combine(root, setting.ProjrectName, $"{setting.Database.CamelCaseName}.{setting.Entity.Name}");
 
         logger.LogInformation($"Build Entity {entifyPath}");
 
@@ -680,10 +705,10 @@ public static class BaseApi
             }
         }
 
-        var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{setting.ProjrectName}.{setting.Entity.Name}.csproj"));
+        var hasCsproj = File.Exists(Path.Combine(entifyPath, $"{setting.Database.CamelCaseName}.{setting.Entity.Name}.csproj"));
 
         if (!hasCsproj)
-            nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{setting.ProjrectName}.{setting.Entity.Name}.csproj"));
+            nh.Save(@"Template\Entity\Csproj", Path.Combine(entifyPath, $"{setting.Database.CamelCaseName}.{setting.Entity.Name}.csproj"));
     }
 
     /// <summary>
@@ -695,15 +720,15 @@ public static class BaseApi
         string root,
         NVelocityExpand nh)
     {
-        if (string.IsNullOrWhiteSpace(setting.ProjrectName)) return;
+        if (string.IsNullOrWhiteSpace(setting.Database.CamelCaseName)) return;
 
         var path = Path.Combine(root, setting.ProjrectName);
 
         logger.LogInformation($"Build Solution {path}");
 
-        var hasSolution = File.Exists(Path.Combine(path, $"{setting.ProjrectName}.sln"));
+        var hasSolution = File.Exists(Path.Combine(path, $"{setting.Database.CamelCaseName}.sln"));
 
         if (!hasSolution)
-            nh.Save(@"Template\Sln", Path.Combine(path, $"{setting.ProjrectName}.sln"));
+            nh.Save(@"Template\Sln", Path.Combine(path, $"{setting.Database.CamelCaseName}.sln"));
     }
 }

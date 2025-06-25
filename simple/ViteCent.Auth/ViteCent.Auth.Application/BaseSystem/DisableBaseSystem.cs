@@ -66,7 +66,7 @@ public partial class DisableBaseSystem(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 处理禁用系统信息的请求

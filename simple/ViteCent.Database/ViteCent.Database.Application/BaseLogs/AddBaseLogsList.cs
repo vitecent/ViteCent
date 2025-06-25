@@ -26,6 +26,12 @@ using ViteCent.Auth.Data.BaseCompany;
 // 引入部门相关的数据参数
 using ViteCent.Auth.Data.BaseDepartment;
 
+// 引入日志信息相关的数据参数
+using ViteCent.Database.Data.BaseLogs;
+
+// 引入日志信息相关的模型
+using ViteCent.Database.Entity.BaseLogs;
+
 // 引入缓存器
 using ViteCent.Core.Cache;
 
@@ -37,12 +43,6 @@ using ViteCent.Core.Enums;
 
 // 引入 Web 核心
 using ViteCent.Core.Web;
-
-// 引入日志信息相关的数据参数
-using ViteCent.Database.Data.BaseLogs;
-
-// 引入日志信息相关的模型
-using ViteCent.Database.Entity.BaseLogs;
 
 #endregion 引入命名空间
 
@@ -77,7 +77,7 @@ public class AddBaseLogsList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 批量新增日志信息
@@ -90,8 +90,6 @@ public class AddBaseLogsList(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Database.Application.BaseLogs.AddBaseLogsList");
-
-        
 
         var check = await AddBaseLogs.OverrideHandle(mediator, request, user, companyInvoke, departmentInvoke, cancellationToken);
 

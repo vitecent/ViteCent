@@ -12,13 +12,13 @@ using SqlSugar;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}模型
 /// </summary>
 [Serializable]
-#if(Table.SplitType != "None")
+#if($Table.SplitType != "None")
 [SplitTable(SplitType.$!{Table.SplitType})]
 #end
 [SugarTable("$!{Table.Name}")]

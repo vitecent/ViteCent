@@ -66,7 +66,7 @@ public partial class EditBasePost(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑职位信息

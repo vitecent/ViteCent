@@ -29,7 +29,10 @@ namespace ViteCent.Basic.Domain.ScheduleType;
 /// <summary>
 /// 删除基础排班领域服务类
 /// </summary>
-/// <remarks>该类负责处理基础排班的删除操作，继承自 BaseDomain 基类并实现 IRequestHandler 接口 通过依赖注入方式接收日志记录器，用于记录操作日志</remarks>
+/// <remarks>
+/// 该类负责处理基础排班的删除操作，继承自 BaseDomain 基类并实现 IRequestHandler 接口
+/// 通过依赖注入方式接收日志记录器，用于记录操作日志
+/// </remarks>
 /// <param name="logger">日志记录器实例</param>
 public class DeleteScheduleType(
     // 注入日志记录器
@@ -44,7 +47,10 @@ public class DeleteScheduleType(
     /// <summary>
     /// 处理删除基础排班的请求
     /// </summary>
-    /// <remarks>实现 IRequestHandler 接口的 Handle 方法 记录操作日志并调用基类的 DeleteAsync 方法执行实际的删除操作</remarks>
+    /// <remarks>
+    /// 实现 IRequestHandler 接口的 Handle 方法
+    /// 记录操作日志并调用基类的 DeleteAsync 方法执行实际的删除操作
+    /// </remarks>
     /// <param name="request">包含要删除的基础排班的请求模型</param>
     /// <param name="cancellationToken">取消令牌</param>
     /// <returns>返回删除操作的结果</returns>

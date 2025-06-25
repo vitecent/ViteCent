@@ -12,6 +12,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\ViteCent.Core.Web\ViteCent.Core.Web.csproj" />
-		<ProjectReference Include="..\\$!{Setting.Database.Name}.$!{Setting.Application.Name}\\$!{Setting.Database.Name}.$!{Setting.Application.Name}.csproj" />
+		<ProjectReference Include="..\\$!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}\\$!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.csproj" />
 	</ItemGroup>
 </Project>

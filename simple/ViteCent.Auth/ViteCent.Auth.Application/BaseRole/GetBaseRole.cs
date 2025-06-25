@@ -61,7 +61,7 @@ public class GetBaseRole(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 处理获取角色信息的请求

@@ -22,29 +22,29 @@ using Microsoft.Extensions.Logging;
 #if($HasCompanyId)
 
 // 引入公司相关的数据参数
-using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
+using $!{Setting.Application.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
 
 // 引入部门相关的数据参数
-using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
+using $!{Setting.Application.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
 
 // 引入职位相关的数据参数
-using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
+using $!{Setting.Application.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasUserId)
 
 // 引入用户相关的数据参数
-using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
+using $!{Setting.Application.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的模型
-using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 #if($HasId)
 
 // 引入缓存器
@@ -62,7 +62,7 @@ using ViteCent.Core.Web;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 批量新增$!{Table.Description}应用
@@ -117,7 +117,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 批量新增$!{Table.Description}
@@ -129,7 +129,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}");
+        logger.LogInformation("Invoke $!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}");
 
         var check = await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideHandle(mediator, request, user$!{CompanyInvoke}$!{DepartmentInvoke}$!{PositionInvoke}$!{UserInvoke}, cancellationToken);
 

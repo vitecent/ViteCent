@@ -13,14 +13,14 @@ using MediatR;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
+// 引入数据表信息相关的数据模型
+using ViteCent.Database.Entity.BaseTable;
+
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
 // 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
-
-// 引入数据表信息相关的数据模型
-using ViteCent.Database.Entity.BaseTable;
 
 #endregion 引入命名空间
 
@@ -29,7 +29,11 @@ namespace ViteCent.Database.Domain.BaseTable;
 /// <summary>
 /// 批量新增数据表信息领域服务类
 /// </summary>
-/// <remarks>该类负责处理批量新增数据表信息的业务逻辑 继承自 BaseDomain 基类并实现 IRequestHandler 接口 通过依赖注入方式接收日志记录器，用于记录操作日志</remarks>
+/// <remarks>
+/// 该类负责处理批量新增数据表信息的业务逻辑
+/// 继承自 BaseDomain 基类并实现 IRequestHandler 接口
+/// 通过依赖注入方式接收日志记录器，用于记录操作日志
+/// </remarks>
 /// <param name="logger">日志记录器实例</param>
 public class AddBaseTableList(
     // 注入日志记录器
@@ -44,7 +48,10 @@ public class AddBaseTableList(
     /// <summary>
     /// 处理批量新增数据表信息的请求
     /// </summary>
-    /// <remarks>实现 IRequestHandler 接口的 Handle 方法 记录操作日志并调用基类的 AddAsync 方法执行批量新增操作</remarks>
+    /// <remarks>
+    /// 实现 IRequestHandler 接口的 Handle 方法
+    /// 记录操作日志并调用基类的 AddAsync 方法执行批量新增操作
+    /// </remarks>
     /// <param name="request">包含要新增的数据表信息列表的请求参数</param>
     /// <param name="cancellationToken">取消令牌</param>
     /// <returns>返回批量新增操作的结果</returns>

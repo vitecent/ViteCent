@@ -9,36 +9,36 @@
 #if($HasCompanyId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
+using $!{Setting.Application.InvokeProjrect}.$!{Setting.Data.Name}.BaseCompany;
 #end
 #if($HasDepartmentId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
+using $!{Setting.Application.InvokeProjrect}.$!{Setting.Data.Name}.BaseDepartment;
 #end
 #if($HasPositionId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
+using $!{Setting.Application.InvokeProjrect}.$!{Setting.Data.Name}.BasePosition;
 #end
 #if($HasUserId)
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
+using $!{Setting.Application.InvokeProjrect}.$!{Setting.Data.Name}.BaseUser;
 #end
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}应用拓展

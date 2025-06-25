@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "$!{Setting.ProjrectName}": {
+    "$!{Setting.Database.CamelCaseName}": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "openapi/v1.json",

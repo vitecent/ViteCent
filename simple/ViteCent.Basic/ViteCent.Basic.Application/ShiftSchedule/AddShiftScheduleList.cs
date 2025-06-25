@@ -82,7 +82,7 @@ public class AddShiftScheduleList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 批量新增换班申请
@@ -95,8 +95,6 @@ public class AddShiftScheduleList(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.ShiftSchedule.AddShiftScheduleList");
-
-        
 
         var check = await AddShiftSchedule.OverrideHandle(mediator, request, user, companyInvoke, departmentInvoke, userInvoke, cancellationToken);
 

@@ -26,17 +26,12 @@ public class ScheduleResult
     /// <summary>
     /// 创建时间
     /// </summary>
-    public DateTime CreateTime { get; set; }
+    public DateTime? CreateTime { get; set; }
 
     /// <summary>
     /// 创建人
     /// </summary>
     public string? Creator { get; set; }
-
-    /// <summary>
-    /// 数据版本
-    /// </summary>
-    public DateTime Version { get; set; }
 
     /// <summary>
     /// 部门标识
@@ -117,4 +112,9 @@ public class ScheduleResult
     /// 用户名称
     /// </summary>
     public string? UserName { get; set; }
+
+    /// <summary>
+    /// 数据版本
+    /// </summary>
+    public DateTime Version { get; set; }
 }

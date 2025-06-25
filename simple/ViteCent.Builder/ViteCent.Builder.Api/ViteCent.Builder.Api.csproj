@@ -11,6 +11,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Template\Domain\HasList~RF44758ea9.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\..\src\ViteCent.Core.Web\ViteCent.Core.Web.csproj" />
 		<ProjectReference Include="..\..\ViteCent.Data\ViteCent.Builder.Data\ViteCent.Builder.Data.csproj" />
 	</ItemGroup>

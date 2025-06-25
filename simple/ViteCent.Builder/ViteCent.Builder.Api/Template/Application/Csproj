@@ -13,12 +13,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-#if($Setting.Database.Invoke)
+#if($Setting.Application.Invoke)
 		<ProjectReference Include="..\..\..\src\ViteCent.Core.Web\ViteCent.Core.Web.csproj" />
 #else
 		<ProjectReference Include="..\..\..\src\ViteCent.Core.Authorize.Jwt\ViteCent.Core.Authorize.Jwt.csproj" />
 #end
 		<ProjectReference Include="..\..\..\src\ViteCent.Core.Cache\ViteCent.Core.Cache.csproj" />
-		<ProjectReference Include="..\..\\$!{Setting.Database.Name}\\$!{Setting.Database.Name}.${Setting.Domain.Name}\\$!{Setting.Database.Name}.${Setting.Domain.Name}.csproj" />
+		<ProjectReference Include="..\..\\$!{Setting.Database.CamelCaseName}\\$!{Setting.Database.CamelCaseName}.${Setting.Domain.Name}\\$!{Setting.Database.CamelCaseName}.${Setting.Domain.Name}.csproj" />
 	</ItemGroup>
 </Project>

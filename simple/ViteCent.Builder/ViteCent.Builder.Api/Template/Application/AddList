@@ -21,10 +21,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 #if($HasId)
 
 // 引入缓存器
@@ -39,7 +39,7 @@ using ViteCent.Core.Enums;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 新增$!{Table.Description}应用
@@ -70,7 +70,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 新增$!{Table.Description}
@@ -82,7 +82,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
         CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}");
+        logger.LogInformation("Invoke $!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffix}");
 
         var check = await $!{Setting.AddName}$!{Table.CamelCaseName}.OverrideHandle(mediator, request, user, cancellationToken);
 

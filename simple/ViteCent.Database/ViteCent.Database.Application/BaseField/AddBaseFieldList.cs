@@ -23,6 +23,12 @@ using Microsoft.Extensions.Logging;
 // 引入公司相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
+// 引入表字段信息相关的数据参数
+using ViteCent.Database.Data.BaseField;
+
+// 引入表字段信息相关的模型
+using ViteCent.Database.Entity.BaseField;
+
 // 引入缓存器
 using ViteCent.Core.Cache;
 
@@ -34,12 +40,6 @@ using ViteCent.Core.Enums;
 
 // 引入 Web 核心
 using ViteCent.Core.Web;
-
-// 引入表字段信息相关的数据参数
-using ViteCent.Database.Data.BaseField;
-
-// 引入表字段信息相关的模型
-using ViteCent.Database.Entity.BaseField;
 
 #endregion 引入命名空间
 
@@ -72,7 +72,7 @@ public class AddBaseFieldList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 批量新增表字段信息
@@ -85,8 +85,6 @@ public class AddBaseFieldList(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Database.Application.BaseField.AddBaseFieldList");
-
-        
 
         var check = await AddBaseField.OverrideHandle(mediator, request, user, companyInvoke, cancellationToken);
 

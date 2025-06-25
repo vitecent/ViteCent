@@ -15,7 +15,7 @@ using Module = Autofac.Module;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Api.Name};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name};
 
 /// <summary>
 /// AutoFac依赖注入配置类拓展

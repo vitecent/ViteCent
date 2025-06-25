@@ -36,17 +36,12 @@ public class ScheduleTypeResult
     /// <summary>
     /// 创建时间
     /// </summary>
-    public DateTime CreateTime { get; set; }
+    public DateTime? CreateTime { get; set; }
 
     /// <summary>
     /// 创建人
     /// </summary>
     public string? Creator { get; set; }
-
-    /// <summary>
-    /// 数据版本
-    /// </summary>
-    public DateTime Version { get; set; }
 
     /// <summary>
     /// 部门标识
@@ -87,4 +82,9 @@ public class ScheduleTypeResult
     /// 修改时间
     /// </summary>
     public DateTime? UpdateTime { get; set; }
+
+    /// <summary>
+    /// 数据版本
+    /// </summary>
+    public DateTime Version { get; set; }
 }

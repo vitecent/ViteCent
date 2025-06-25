@@ -15,7 +15,7 @@ using ViteCent.Core.Data;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 搜索$!{Table.Description}模型参数

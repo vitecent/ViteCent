@@ -18,10 +18,10 @@
   "Database": [
     {
       "Type": "$!{Setting.Database.Type}",
-      "Name": "$!{Setting.Database.Name}",
-      "Master": "Server=$!{Setting.Database.Server};Port=$!{Setting.Database.Port};DataBase=$!{Setting.Database.SmallName};Persistsecurityinfo=True;User=$!{Setting.Database.User};Password=$!{Setting.Database.Password};SslMode=none;CharSet=utf8;",
+      "Name": "$!{Setting.Database.CamelCaseName}",
+      "Master": "Server=$!{Setting.Database.Server};Port=$!{Setting.Database.Port};DataBase=$!{Setting.Database.Name};Persistsecurityinfo=True;User=$!{Setting.Database.User};Password=$!{Setting.Database.Password};SslMode=none;CharSet=utf8;",
       "Slaves": [
-        "Server=$!{Setting.Database.Server};Port=$!{Setting.Database.Port};DataBase=$!{Setting.Database.SmallName};Persistsecurityinfo=True;User=$!{Setting.Database.User};Password=$!{Setting.Database.Password};SslMode=none;CharSet=utf8;"
+        "Server=$!{Setting.Database.Server};Port=$!{Setting.Database.Port};DataBase=$!{Setting.Database.Name};Persistsecurityinfo=True;User=$!{Setting.Database.User};Password=$!{Setting.Database.Password};SslMode=none;CharSet=utf8;"
       ]
     }
   ],

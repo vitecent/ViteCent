@@ -31,7 +31,7 @@ public partial class BaseRolePermissionValidator : AbstractValidator<AddBaseRole
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 
         // 验证公司标识不能为空
-        RuleFor(x => x.CompanyId).NotNull().NotEmpty().When(x => validate).WithMessage("公司标识不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
 
         // 验证操作标识不能为空
         RuleFor(x => x.OperationId).NotNull().NotEmpty().WithMessage("操作标识不能为空");

@@ -82,7 +82,7 @@ public class AddUserLeaveList(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 批量新增请假申请
@@ -95,8 +95,6 @@ public class AddUserLeaveList(
     {
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Application.UserLeave.AddUserLeaveList");
-
-        
 
         var check = await AddUserLeave.OverrideHandle(mediator, request, user, companyInvoke, departmentInvoke, userInvoke, cancellationToken);
 

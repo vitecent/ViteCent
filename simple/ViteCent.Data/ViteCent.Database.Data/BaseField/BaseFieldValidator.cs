@@ -31,7 +31,7 @@ public partial class BaseFieldValidator : AbstractValidator<AddBaseFieldArgs>
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 
         // 验证公司标识不能为空
-        RuleFor(x => x.CompanyId).NotNull().NotEmpty().When(x => validate).WithMessage("公司标识不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
 
         // 验证长度不能为空
         RuleFor(x => x.Length).GreaterThan(0).WithMessage("长度不能为空");

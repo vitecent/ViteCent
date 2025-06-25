@@ -31,10 +31,10 @@ public partial class BaseUserRoleValidator : AbstractValidator<AddBaseUserRoleAr
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 
         // 验证公司标识不能为空
-        RuleFor(x => x.CompanyId).NotNull().NotEmpty().When(x => validate).WithMessage("公司标识不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
 
         // 验证部门标识不能为空
-        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().When(x => validate).WithMessage("部门标识不能为空");
+        RuleFor(x => x.DepartmentId).NotNull().NotEmpty().WithMessage("部门标识不能为空");
 
         // 验证角色标识不能为空
         RuleFor(x => x.RoleId).NotNull().NotEmpty().WithMessage("角色标识不能为空");

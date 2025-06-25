@@ -19,14 +19,14 @@ using Microsoft.AspNetCore.Http;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入核心数据类型
-using ViteCent.Core.Data;
-
 // 引入日志信息相关的数据参数
 using ViteCent.Database.Data.BaseLogs;
 
 // 引入日志信息相关的数据模型
 using ViteCent.Database.Entity.BaseLogs;
+
+// 引入核心数据类型
+using ViteCent.Core.Data;
 
 #endregion 引入命名空间
 
@@ -61,7 +61,7 @@ public class GetBaseLogs(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 处理获取日志信息的请求

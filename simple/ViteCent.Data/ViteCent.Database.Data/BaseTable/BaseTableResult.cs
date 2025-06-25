@@ -41,17 +41,12 @@ public class BaseTableResult
     /// <summary>
     /// 创建时间
     /// </summary>
-    public DateTime CreateTime { get; set; }
+    public DateTime? CreateTime { get; set; }
 
     /// <summary>
     /// 创建人
     /// </summary>
     public string? Creator { get; set; }
-
-    /// <summary>
-    /// 数据版本
-    /// </summary>
-    public DateTime Version { get; set; }
 
     /// <summary>
     /// 简介
@@ -74,6 +69,11 @@ public class BaseTableResult
     public int? Sort { get; set; }
 
     /// <summary>
+    /// 分表类型
+    /// </summary>
+    public string SplitType { get; set; } = string.Empty;
+
+    /// <summary>
     /// 状态
     /// </summary>
     public int? Status { get; set; }
@@ -87,4 +87,9 @@ public class BaseTableResult
     /// 修改时间
     /// </summary>
     public DateTime? UpdateTime { get; set; }
+
+    /// <summary>
+    /// 数据版本
+    /// </summary>
+    public DateTime Version { get; set; }
 }

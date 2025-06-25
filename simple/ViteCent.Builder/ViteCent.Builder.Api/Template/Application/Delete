@@ -17,10 +17,10 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -30,7 +30,7 @@ using ViteCent.Core.Enums;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}的应用服务类
@@ -70,7 +70,7 @@ public class $!{Setting.DeleteName}$!{Table.CamelCaseName}(
     public async Task<BaseResult> Handle($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
         // 将删除请求参数映射为查询参数
         var getArgs = mapper.Map<$!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix}>(request);

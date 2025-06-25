@@ -14,7 +14,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 // 引入核心数据类型
 using ViteCent.Core.Data;
@@ -27,7 +27,7 @@ using ViteCent.Core.Web.Filter;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 获取$!{Table.Description}接口
@@ -82,7 +82,7 @@ public partial class $!{Setting.GetName}$!{Table.CamelCaseName}(
     public override async Task<DataResult<$!{Table.CamelCaseName}$!{Setting.Data.ResultSuffix}>> InvokeAsync($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
 
         // 重写调用方法
         OverrideInvoke(args, user);

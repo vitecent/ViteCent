@@ -13,11 +13,11 @@ using MediatR;
 // 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础日志数据参数
-using ViteCent.Auth.Data.BaseLogs;
-
 // 引入系统信息相关的数据参数
 using ViteCent.Auth.Data.BaseSystem;
+
+// 引入基础日志数据参数
+using ViteCent.Auth.Data.BaseLogs;
 
 // 引入核心
 using ViteCent.Core;
@@ -116,7 +116,7 @@ public partial class EditBaseSystem(
         };
 
         // 创建数据验证器
-        var validator = new BaseSystemValidator();
+        var validator = new BaseSystemValidator(true);
 
         // 验证参数有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

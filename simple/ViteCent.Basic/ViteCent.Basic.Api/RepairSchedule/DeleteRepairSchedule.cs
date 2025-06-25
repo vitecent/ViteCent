@@ -13,11 +13,11 @@ using MediatR;
 // 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础日志数据参数
-using ViteCent.Basic.Data.BaseLogs;
-
 // 引入补卡申请相关的数据参数
 using ViteCent.Basic.Data.RepairSchedule;
+
+// 引入基础日志数据参数
+using ViteCent.Basic.Data.BaseLogs;
 
 // 引入核心
 using ViteCent.Core;

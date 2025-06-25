@@ -445,7 +445,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetPostgreSQLConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Host={database.Server};Username=postgres;Password=123456;Database=gisdb;Pooling=false;";
     }
 
     /// <summary>
@@ -454,7 +454,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetOracleConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"User Id={database.User};Password={database.Password};Data Source={database.Name};";
     }
 
     /// <summary>
@@ -472,7 +472,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetSqlServerConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Data Source={database.Server};Initial Catalog={database.Name};User ID={database.User};Password={database.Password};MultipleActiveResultSets=true";
     }
 
     /// <summary>
@@ -481,6 +481,6 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetMySqlConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};Port={database.Port};DataBase={database.Name};User={database.User};Password={database.Password};CharSet={database.CharSet};Persistsecurityinfo=True;SslMode=none;allowPublicKeyRetrieval=True;";
     }
 }

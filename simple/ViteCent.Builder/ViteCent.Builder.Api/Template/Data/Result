@@ -5,7 +5,7 @@
  * **********************************
  */
 
-namespace $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// $!{Table.Description}

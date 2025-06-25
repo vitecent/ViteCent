@@ -116,7 +116,7 @@ public partial class EditBaseDepartment(
         };
 
         // 创建数据验证器
-        var validator = new BaseDepartmentValidator();
+        var validator = new BaseDepartmentValidator(true);
 
         // 验证参数有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

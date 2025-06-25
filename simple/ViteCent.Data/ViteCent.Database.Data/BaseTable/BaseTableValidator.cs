@@ -31,10 +31,13 @@ public partial class BaseTableValidator : AbstractValidator<AddBaseTableArgs>
         RuleFor(x => x).NotNull().WithMessage("参数不能为空");
 
         // 验证公司标识不能为空
-        RuleFor(x => x.CompanyId).NotNull().NotEmpty().When(x => validate).WithMessage("公司标识不能为空");
+        RuleFor(x => x.CompanyId).NotNull().NotEmpty().WithMessage("公司标识不能为空");
 
         // 验证名称不能为空
         RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("名称不能为空");
+
+        // 验证分表类型不能为空
+        RuleFor(x => x.SplitType).NotNull().NotEmpty().WithMessage("分表类型不能为空");
 
         // 调用扩展方法进行额外验证
         OverrideValidator(validate);

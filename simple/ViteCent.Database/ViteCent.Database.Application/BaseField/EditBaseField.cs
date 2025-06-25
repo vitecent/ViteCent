@@ -23,6 +23,12 @@ using Microsoft.Extensions.Logging;
 // 引入公司相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
+// 引入表字段信息相关的数据参数
+using ViteCent.Database.Data.BaseField;
+
+// 引入表字段信息相关的数据模型
+using ViteCent.Database.Entity.BaseField;
+
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
@@ -31,12 +37,6 @@ using ViteCent.Core.Enums;
 
 // 引入 Web 核心
 using ViteCent.Core.Web;
-
-// 引入表字段信息相关的数据参数
-using ViteCent.Database.Data.BaseField;
-
-// 引入表字段信息相关的数据模型
-using ViteCent.Database.Entity.BaseField;
 
 #endregion 引入命名空间
 
@@ -66,7 +66,7 @@ public partial class EditBaseField(
     /// <summary>
     /// 用户信息
     /// </summary>
-    private readonly BaseUserInfo user = httpContextAccessor.InitUser(); 
+    private readonly BaseUserInfo user = httpContextAccessor.InitUser();
 
     /// <summary>
     /// 编辑表字段信息
@@ -193,6 +193,9 @@ public partial class EditBaseField(
         if (request.Sort.HasValue)
             entity.Sort = request.Sort.Value;
 
+        if (request.SplitField.HasValue)
+            entity.SplitField = request.SplitField.Value;
+
         if (request.Status.HasValue)
             entity.Status = request.Status.Value;
 
@@ -210,6 +213,9 @@ public partial class EditBaseField(
 
         if (request.Unique.HasValue)
             entity.Unique = request.Unique.Value;
+
+        if (request.VersionField.HasValue)
+            entity.VersionField = request.VersionField.Value;
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;

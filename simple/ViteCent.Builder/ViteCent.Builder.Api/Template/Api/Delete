@@ -14,11 +14,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // 引入$!{Table.Description}相关的数据参数
-using $!{Setting.Database.Name}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Data.Name}.$!{Table.CamelCaseName};
 #if($HasLog)
 
 // 引入基础日志数据参数
-using $!{Setting.Database.Name}.$!{Setting.Data.Name}.BaseLogs;
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Data.Name}.BaseLogs;
 
 // 引入核心
 using ViteCent.Core;
@@ -35,7 +35,7 @@ using ViteCent.Core.Web.Filter;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 删除$!{Table.Description}接口
@@ -90,7 +90,7 @@ public partial class $!{Setting.DeleteName}$!{Table.CamelCaseName}(
     public override async Task<BaseResult> InvokeAsync($!{Setting.DeleteName}$!{Table.CamelCaseName}$!{Setting.Data.ArgsSuffix} args)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}.$!{Table.CamelCaseName}.$!{Setting.DeleteName}$!{Table.CamelCaseName}");
 
         // 重写调用方法
         OverrideInvoke(args, user);

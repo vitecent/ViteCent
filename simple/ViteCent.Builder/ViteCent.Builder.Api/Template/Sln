@@ -4,23 +4,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 #if($Setting.Api.Name != "")
-Project("{$!{Setting.Guid}}") = "$!{Setting.Database.Name}.$!{Setting.Api.Name}", "$!{Setting.Database.Name}.$!{Setting.Api.Name}\\$!{Setting.Database.Name}.$!{Setting.Api.Name}.csproj", "{$!{Setting.Api.Guid}}"
+Project("{$!{Setting.Guid}}") = "$!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}", "$!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}\\$!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}.csproj", "{$!{Setting.Api.Guid}}"
 EndProject
 #end
 #if($Setting.Application.Name != "")
-Project("{$!{Setting.Guid}}") = "$!{Setting.Database.Name}.$!{Setting.Application.Name}", "$!{Setting.Database.Name}.$!{Setting.Application.Name}\\$!{Setting.Database.Name}.$!{Setting.Application.Name}.csproj", "{$!{Setting.Application.Guid}}"
+Project("{$!{Setting.Guid}}") = "$!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}", "$!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}\\$!{Setting.Database.CamelCaseName}.$!{Setting.Application.Name}.csproj", "{$!{Setting.Application.Guid}}"
 EndProject
 #end
 #if($Setting.Domain.Name != "")
-Project("{$!{Setting.Guid}}") = "$!{Setting.Database.Name}.${Setting.Domain.Name}", "$!{Setting.Database.Name}.${Setting.Domain.Name}\\$!{Setting.Database.Name}.${Setting.Domain.Name}.csproj", "{$!{Setting.Domain.Guid}}"
+Project("{$!{Setting.Guid}}") = "$!{Setting.Database.CamelCaseName}.${Setting.Domain.Name}", "$!{Setting.Database.CamelCaseName}.${Setting.Domain.Name}\\$!{Setting.Database.CamelCaseName}.${Setting.Domain.Name}.csproj", "{$!{Setting.Domain.Guid}}"
 EndProject
 #end
 #if($Setting.Entity.Name != "")
-Project("{$!{Setting.Guid}}") = "$!{Setting.Database.Name}.${Setting.Entity.Name}", "$!{Setting.Database.Name}.${Setting.Entity.Name}\\$!{Setting.Database.Name}.${Setting.Entity.Name}.csproj", "{$!{Setting.Entity.Guid}}"
+Project("{$!{Setting.Guid}}") = "$!{Setting.Database.CamelCaseName}.${Setting.Entity.Name}", "$!{Setting.Database.CamelCaseName}.${Setting.Entity.Name}\\$!{Setting.Database.CamelCaseName}.${Setting.Entity.Name}.csproj", "{$!{Setting.Entity.Guid}}"
 EndProject
 #end
 #if($Setting.Data.Name != "")
-Project("{$!{Setting.Guid}}") = "$!{Setting.Database.Name}.${Setting.Data.Name}", "..\\${Setting.Data.Projrect}\\$!{Setting.Database.Name}.${Setting.Data.Name}\\$!{Setting.Database.Name}.${Setting.Data.Name}.csproj", "{$!{Setting.Data.Guid}}"
+Project("{$!{Setting.Guid}}") = "$!{Setting.Database.CamelCaseName}.${Setting.Data.Name}", "..\\${Setting.Data.Projrect}\\$!{Setting.Database.CamelCaseName}.${Setting.Data.Name}\\$!{Setting.Database.CamelCaseName}.${Setting.Data.Name}.csproj", "{$!{Setting.Data.Guid}}"
 EndProject
 #end
 Global

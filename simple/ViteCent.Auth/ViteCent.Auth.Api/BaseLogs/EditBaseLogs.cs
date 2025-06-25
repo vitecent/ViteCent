@@ -93,7 +93,7 @@ public partial class EditBaseLogs(
         var cancellationToken = new CancellationToken();
 
         // 创建数据验证器
-        var validator = new BaseLogsValidator();
+        var validator = new BaseLogsValidator(true);
 
         // 验证参数有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

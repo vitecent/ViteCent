@@ -29,7 +29,11 @@ namespace ViteCent.Auth.Domain.BaseSystem;
 /// <summary>
 /// 新增系统信息领域服务类
 /// </summary>
-/// <remarks>该类负责处理单个系统信息的新增操作 继承自 BaseDomain 基类并实现 IRequestHandler 接口 通过依赖注入方式接收日志记录器，用于记录操作日志</remarks>
+/// <remarks>
+/// 该类负责处理单个系统信息的新增操作
+/// 继承自 BaseDomain 基类并实现 IRequestHandler 接口
+/// 通过依赖注入方式接收日志记录器，用于记录操作日志
+/// </remarks>
 /// <param name="logger">日志记录器实例</param>
 public class AddBaseSystem(
     // 注入日志记录器
@@ -45,7 +49,10 @@ public class AddBaseSystem(
     /// <summary>
     /// 处理新增系统信息的请求
     /// </summary>
-    /// <remarks>实现 IRequestHandler 接口的 Handle 方法 记录操作日志并调用基类的 AddAsync 方法执行新增操作</remarks>
+    /// <remarks>
+    /// 实现 IRequestHandler 接口的 Handle 方法
+    /// 记录操作日志并调用基类的 AddAsync 方法执行新增操作
+    /// </remarks>
     /// <param name="request">包含要新增的系统信息的请求模型</param>
     /// <param name="cancellationToken">取消令牌</param>
     /// <returns>返回新增操作的结果</returns>

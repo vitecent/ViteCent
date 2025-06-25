@@ -64,6 +64,11 @@ public class AddBaseTableArgs : BaseArgs, IRequest<BaseResult>
     public int? Sort { get; set; }
 
     /// <summary>
+    /// 分表类型
+    /// </summary>
+    public string SplitType { get; set; } = string.Empty;
+
+    /// <summary>
     /// 状态
     /// </summary>
     public int? Status { get; set; }

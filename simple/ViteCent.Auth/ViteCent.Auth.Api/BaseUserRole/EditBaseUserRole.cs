@@ -13,11 +13,11 @@ using MediatR;
 // 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础日志数据参数
-using ViteCent.Auth.Data.BaseLogs;
-
 // 引入用户角色相关的数据参数
 using ViteCent.Auth.Data.BaseUserRole;
+
+// 引入基础日志数据参数
+using ViteCent.Auth.Data.BaseLogs;
 
 // 引入核心
 using ViteCent.Core;
@@ -116,7 +116,7 @@ public partial class EditBaseUserRole(
         };
 
         // 创建数据验证器
-        var validator = new BaseUserRoleValidator();
+        var validator = new BaseUserRoleValidator(true);
 
         // 验证参数有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

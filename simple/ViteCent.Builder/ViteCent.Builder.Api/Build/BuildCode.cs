@@ -61,7 +61,7 @@ public class BuildCode(
         logger.LogInformation("Invoke ViteCent.Builder.Api.Build.BuildCode");
 
         // 获取数据库信息
-        await mapper.InitArgs(args);
+        await mapper.GetDatabase(args);
 
         // 生成代码
         await args.BuildCode();

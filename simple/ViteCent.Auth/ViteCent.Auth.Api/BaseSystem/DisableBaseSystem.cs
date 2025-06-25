@@ -13,11 +13,11 @@ using MediatR;
 // 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入基础日志数据参数
-using ViteCent.Auth.Data.BaseLogs;
-
 // 引入系统信息相关的数据参数
 using ViteCent.Auth.Data.BaseSystem;
+
+// 引入基础日志数据参数
+using ViteCent.Auth.Data.BaseLogs;
 
 // 引入核心
 using ViteCent.Core;

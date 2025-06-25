@@ -41,17 +41,12 @@ public class BaseDictionaryResult
     /// <summary>
     /// 创建时间
     /// </summary>
-    public DateTime CreateTime { get; set; }
+    public DateTime? CreateTime { get; set; }
 
     /// <summary>
     /// 创建人
     /// </summary>
     public string? Creator { get; set; }
-
-    /// <summary>
-    /// 数据版本
-    /// </summary>
-    public DateTime Version { get; set; }
 
     /// <summary>
     /// 简介
@@ -102,4 +97,9 @@ public class BaseDictionaryResult
     /// 内容
     /// </summary>
     public string Value { get; set; } = string.Empty;
+
+    /// <summary>
+    /// 数据版本
+    /// </summary>
+    public DateTime Version { get; set; }
 }

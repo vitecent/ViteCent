@@ -13,6 +13,12 @@ using MediatR;
 // 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
+// 引入数据库信息相关的数据参数
+using ViteCent.Database.Data.BaseDatabase;
+
+// 引入基础日志数据参数
+using ViteCent.Database.Data.BaseLogs;
+
 // 引入核心
 using ViteCent.Core;
 
@@ -24,12 +30,6 @@ using ViteCent.Core.Web.Api;
 
 // 引入核心过滤器
 using ViteCent.Core.Web.Filter;
-
-// 引入数据库信息相关的数据参数
-using ViteCent.Database.Data.BaseDatabase;
-
-// 引入基础日志数据参数
-using ViteCent.Database.Data.BaseLogs;
 
 #endregion 引入命名空间
 
@@ -116,7 +116,7 @@ public partial class EditBaseDatabase(
         };
 
         // 创建数据验证器
-        var validator = new BaseDatabaseValidator();
+        var validator = new BaseDatabaseValidator(true);
 
         // 验证参数有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

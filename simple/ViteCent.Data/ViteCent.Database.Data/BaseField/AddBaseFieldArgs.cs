@@ -31,7 +31,7 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 新增是否可见
     /// </summary>
-    public int? Add { get; set; }
+    public byte? Add { get; set; }
 
     /// <summary>
     /// 新增排序
@@ -71,7 +71,7 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 详情是否可见
     /// </summary>
-    public int? Detail { get; set; }
+    public byte? Detail { get; set; }
 
     /// <summary>
     /// 详情排序
@@ -86,7 +86,7 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 编辑是否可见
     /// </summary>
-    public int? Edit { get; set; }
+    public byte? Edit { get; set; }
 
     /// <summary>
     /// 编辑排序
@@ -101,7 +101,7 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 导出是否可见
     /// </summary>
-    public int? Export { get; set; }
+    public byte? Export { get; set; }
 
     /// <summary>
     /// 导出排序
@@ -116,12 +116,12 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 是否自增
     /// </summary>
-    public int? Identity { get; set; }
+    public byte? Identity { get; set; }
 
     /// <summary>
     /// 导入是否可见
     /// </summary>
-    public int? Import { get; set; }
+    public byte? Import { get; set; }
 
     /// <summary>
     /// 导入排序
@@ -146,7 +146,7 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 下拉是否可见
     /// </summary>
-    public int? List { get; set; }
+    public byte? List { get; set; }
 
     /// <summary>
     /// 下拉排序
@@ -166,12 +166,12 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 是否主键
     /// </summary>
-    public int? PrimaryKey { get; set; }
+    public byte? PrimaryKey { get; set; }
 
     /// <summary>
     /// 打印是否可见
     /// </summary>
-    public int? Print { get; set; }
+    public byte? Print { get; set; }
 
     /// <summary>
     /// 打印排序
@@ -189,6 +189,11 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     public int? Sort { get; set; }
 
     /// <summary>
+    /// 是否分表字段
+    /// </summary>
+    public byte? SplitField { get; set; }
+
+    /// <summary>
     /// 状态
     /// </summary>
     public int? Status { get; set; }
@@ -196,7 +201,7 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 列表是否可见
     /// </summary>
-    public int? Table { get; set; }
+    public byte? Table { get; set; }
 
     /// <summary>
     /// 列表排序
@@ -216,5 +221,10 @@ public class AddBaseFieldArgs : BaseArgs, IRequest<BaseResult>
     /// <summary>
     /// 是否唯一
     /// </summary>
-    public int? Unique { get; set; }
+    public byte? Unique { get; set; }
+
+    /// <summary>
+    /// 是否版本字段
+    /// </summary>
+    public byte? VersionField { get; set; }
 }

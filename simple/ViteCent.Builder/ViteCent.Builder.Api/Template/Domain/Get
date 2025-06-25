@@ -14,14 +14,14 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 
 // 引入$!{Table.Description}相关的数据模型
-using $!{Setting.Database.Name}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
+using $!{Setting.Database.CamelCaseName}.$!{Setting.Entity.Name}.$!{Table.CamelCaseName};
 
 // 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
 
 #endregion 引入命名空间
 
-namespace $!{Setting.Database.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
+namespace $!{Setting.Database.CamelCaseName}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName};
 
 /// <summary>
 /// 获取$!{Table.Description}领域服务类
@@ -41,7 +41,7 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public override string Database => "$!{Setting.Database.Name}";
+    public override string Database => "$!{Setting.Database.CamelCaseName}";
 
     /// <summary>
     /// 处理获取$!{Table.Description}的请求
@@ -58,7 +58,7 @@ public class $!{Setting.GetName}$!{Table.CamelCaseName}(
     public async Task<$!{Table.CamelCaseName}$!{Setting.Entity.Name}> Handle($!{Setting.GetName}$!{Table.CamelCaseName}$!{Setting.Entity.Name}$!{Setting.Data.ArgsSuffix} request, CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试
-        logger.LogInformation("Invoke $!{Setting.Database.Name}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
+        logger.LogInformation("Invoke $!{Setting.Database.CamelCaseName}.$!{Setting.Domain.Name}.$!{Table.CamelCaseName}.$!{Setting.GetName}$!{Table.CamelCaseName}");
 
         // 初始化查询对象
         var query = Client.Query<$!{Table.CamelCaseName}$!{Setting.Entity.Name}>();

@@ -12,6 +12,6 @@ WORKDIR /app
 COPY ./publish .
 
 # 设置容器启动时要执行的命令
-# 使用dotnet命令运行$!{DataBase.Name}.$!{Setting.Api.Name}.dll
+# 使用dotnet命令运行$!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}.dll
 # ENTRYPOINT指令确保容器像可执行程序一样运行
-ENTRYPOINT ["dotnet", "$!{DataBase.Name}.$!{Setting.Api.Name}.dll"]
+ENTRYPOINT ["dotnet", "$!{Setting.Database.CamelCaseName}.$!{Setting.Api.Name}.dll"]

@@ -27,10 +27,15 @@ using ViteCent.Core.Orm.SqlSugar;
 namespace ViteCent.Auth.Domain.BaseCompany;
 
 /// <summary>
-/// 编辑公司信息领域服务类 </summary> <remarks> 该类负责处理编辑公司信息的业务逻辑，包括：
+/// 编辑公司信息领域服务类
+/// </summary>
+/// <remarks>
+/// 该类负责处理编辑公司信息的业务逻辑，包括：
 /// 1. 记录操作日志
 /// 2. 调用基类方法更新公司信息
-/// 3. 返回操作结果 </remarks> <param name="logger">日志记录器实例</param>
+/// 3. 返回操作结果
+/// </remarks>
+/// <param name="logger">日志记录器实例</param>
 public class EditBaseCompany(
     // 注入日志记录器
     ILogger<EditBaseCompany> logger)
@@ -42,11 +47,17 @@ public class EditBaseCompany(
     public override string Database => "ViteCent.Auth";
 
     /// <summary>
-    /// 处理编辑公司信息的请求 </summary> <param name="request">包含更新信息的公司信息模型</param> <param
-    /// name="cancellationToken">取消令牌</param> <returns>操作结果，包含状态码和提示信息</returns> <remarks> 该方法执行以下步骤：
+    /// 处理编辑公司信息的请求
+    /// </summary>
+    /// <param name="request">包含更新信息的公司信息模型</param>
+    /// <param name="cancellationToken">取消令牌</param>
+    /// <returns>操作结果，包含状态码和提示信息</returns>
+    /// <remarks>
+    /// 该方法执行以下步骤：
     /// 1. 记录方法调用日志
     /// 2. 调用基类的EditAsync方法执行更新操作
-    /// 3. 返回更新结果 </remarks>
+    /// 3. 返回更新结果
+    /// </remarks>
     public async Task<BaseResult> Handle(BaseCompanyEntity request, CancellationToken cancellationToken)
     {
         // 记录方法调用日志，便于追踪和调试

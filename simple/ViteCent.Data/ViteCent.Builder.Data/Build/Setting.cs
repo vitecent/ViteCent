@@ -68,7 +68,7 @@ public class Setting : BaseArgs
 
     /// <summary>
     /// </summary>
-    public string ProjrectName { get; set; } = "ViteCent";
+    public string ProjrectName { get; set; } = "ViteVent";
 
     /// <summary>
     /// </summary>
