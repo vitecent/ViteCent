@@ -40,38 +40,7 @@ public class HasBaseLogsList(
     {
         logger.LogInformation("Invoke ViteCent.Basic.Domain.BaseLogs.HasBaseLogs");
 
-        var query = Client.Query<BaseLogsEntity>();
-
-        request.CompanyIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-
-        if (request.CompanyIds.Count > 0)
-            query.Where(x => request.CompanyIds.Contains(x.Id));
-
-        request.DepartmentIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-
-        if (request.DepartmentIds.Count > 0)
-            query.Where(x => request.DepartmentIds.Contains(x.DepartmentId));
-
-        request.SystemIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-
-        if (request.SystemIds.Count > 0)
-            query.Where(x => request.SystemIds.Contains(x.SystemId));
-
-        request.ResourceIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-
-        if (request.ResourceIds.Count > 0)
-            query.Where(x => request.ResourceIds.Contains(x.ResourceId));
-
-        request.OperationIds.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-
-        if (request.OperationIds.Count > 0)
-            query.Where(x => request.OperationIds.Contains(x.OperationId));
-
-        var entity = await query.CountAsync(cancellationToken);
-
-        if (entity > 0)
-            return new BaseResult(500, "职位信息重复");
-
-        return new BaseResult();
+        // 日志无需重复判断
+        return await Task.FromResult(new BaseResult());
     }
 }

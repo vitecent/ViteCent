@@ -13,9 +13,6 @@ using MediatR;
 // 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入数据表信息相关的数据参数
-using ViteCent.Database.Data.BaseTable;
-
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
@@ -24,6 +21,9 @@ using ViteCent.Core.Web.Api;
 
 // 引入核心过滤器
 using ViteCent.Core.Web.Filter;
+
+// 引入数据表信息相关的数据参数
+using ViteCent.Database.Data.BaseTable;
 
 #endregion 引入命名空间
 

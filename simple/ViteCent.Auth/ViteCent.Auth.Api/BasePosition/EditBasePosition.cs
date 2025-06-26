@@ -13,11 +13,11 @@ using MediatR;
 // 引入 Asp.Net Core Mvc 核心功能
 using Microsoft.AspNetCore.Mvc;
 
-// 引入职位信息相关的数据参数
-using ViteCent.Auth.Data.BasePosition;
-
 // 引入基础日志数据参数
 using ViteCent.Auth.Data.BaseLogs;
+
+// 引入职位信息相关的数据参数
+using ViteCent.Auth.Data.BasePosition;
 
 // 引入核心
 using ViteCent.Core;

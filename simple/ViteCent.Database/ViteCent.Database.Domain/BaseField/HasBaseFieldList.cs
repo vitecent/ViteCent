@@ -29,10 +29,15 @@ using ViteCent.Database.Entity.BaseField;
 namespace ViteCent.Database.Domain.BaseField;
 
 /// <summary>
-/// 批量表字段信息判重处理类 </summary> <remarks> 该类用于处理批量表字段信息的判重逻辑，包括：
+/// 批量表字段信息判重处理类
+/// </summary>
+/// <remarks>
+/// 该类用于处理批量表字段信息的判重逻辑，包括：
 /// 1. 检查表字段信息编码是否重复
 /// 2. 检查表字段信息名称是否重复
-/// 3. 返回判重结果 </remarks> <param name="logger">日志记录器实例</param>
+/// 3. 返回判重结果
+/// </remarks>
+/// <param name="logger">日志记录器实例</param>
 public class HasBaseFieldList(
     // 注入日志记录器
     ILogger<HasBaseFieldList> logger)

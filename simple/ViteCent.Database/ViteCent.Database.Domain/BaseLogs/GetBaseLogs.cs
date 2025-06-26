@@ -13,11 +13,11 @@ using MediatR;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入日志信息相关的数据模型
-using ViteCent.Database.Entity.BaseLogs;
-
 // 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
+
+// 引入日志信息相关的数据模型
+using ViteCent.Database.Entity.BaseLogs;
 
 #endregion 引入命名空间
 
@@ -88,6 +88,6 @@ public class GetBaseLogs(
             query.Where(x => x.OperationId == request.OperationId);
 
         // 执行查询，返回第一条匹配记录
-        return await query.FirstAsync(cancellationToken);
+        return await query.SplitTable().FirstAsync(cancellationToken);
     }
 }

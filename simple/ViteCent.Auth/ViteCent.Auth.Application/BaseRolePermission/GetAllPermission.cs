@@ -42,8 +42,6 @@ public class GetAllPermission(
     {
         logger.LogInformation("Invoke ViteCent.Auth.Application.AllPermission.GetAllPermission");
 
-        
-
         var companyId = user?.Company?.Id ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(companyId))

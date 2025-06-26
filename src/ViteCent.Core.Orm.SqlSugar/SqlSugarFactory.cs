@@ -2,7 +2,6 @@
 
 using AutoMapper;
 using SqlSugar;
-using System.Linq.Expressions;
 using ViteCent.Core.Data;
 using ViteCent.Core.Enums;
 
@@ -19,11 +18,6 @@ public class SqlSugarFactory : IFactory
     /// SqlSugar数据库操作客户端实例
     /// </summary>
     private readonly SqlSugarClient client = default!;
-
-    /// <summary>
-    /// 待执行的数据库命令列表
-    /// </summary>
-    private readonly List<Command> commands = [];
 
     /// <summary>
     /// 日志记录器实例
@@ -53,114 +47,6 @@ public class SqlSugarFactory : IFactory
         logger = new BaseLogger(typeof(SqlSugarFactory));
 
         client = GetSqlSugarClient(configuration, log);
-    }
-
-    /// <summary>
-    /// 提交所有待执行的数据库命令
-    /// </summary>
-    /// <returns>返回操作结果，包含状态码和错误信息（如果有）</returns>
-    public async Task<BaseResult> CommitAsync()
-    {
-        if (commands.Count <= 0) return new BaseResult();
-
-        client.BeginTran();
-        try
-        {
-            commands.ForEach(x =>
-            {
-                if (x.DataType == DataEnum.SQL)
-                    client.Ado.ExecuteCommand(x.SQL, x.Parameters);
-                else
-                    switch (x.CommandType)
-                    {
-                        case CommandEnum.Insert:
-                            client.Insertable(x.Entity)
-                                //.SplitTable()
-                                .ExecuteCommand();
-                            break;
-
-                        case CommandEnum.Update:
-                            if (x.DataType == DataEnum.Entity)
-                                client.Updateable(x.Entity)
-                                    .IgnoreColumns(true)
-                                    .IsEnableUpdateVersionValidation()
-                                    //.SplitTable()
-                                    .ExecuteCommand();
-                            else
-                                client.Updateable(x.Entity).UpdateColumns(x.Where)
-                                    .IgnoreColumns(ignoreAllNullColumns: true)
-                                    .IsEnableUpdateVersionValidation()
-                                    //.SplitTable()
-                                    .ExecuteCommand();
-                            break;
-
-                        case CommandEnum.Delete:
-                            if (x.DataType == DataEnum.Entity)
-                                client.Deleteable(x.Entity)
-                                    //.SplitTable()
-                                    .ExecuteCommand();
-                            else
-                                client.Deleteable(x.Where)
-                                    .SplitTable()
-                                    .ExecuteCommand();
-                            break;
-                    }
-            });
-
-            client.CommitTran();
-
-            await Task.CompletedTask;
-        }
-        catch (Exception e)
-        {
-            client.RollbackTran();
-            logger.LogError(e, e.Message);
-            return new BaseResult(500, e.Message);
-        }
-
-        return new BaseResult();
-    }
-
-    /// <summary>
-    /// 根据条件删除指定类型的数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="where">删除条件表达式</param>
-    public void Delete<T>(Expression<Func<T, bool>> where) where T : class, new()
-    {
-        commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Where, Where = where });
-    }
-
-    /// <summary>
-    /// 删除指定的实体数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="entity">要删除的实体对象</param>
-    public void Delete<T>(T entity) where T : class, new()
-    {
-        commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Entity, Entity = entity });
-    }
-
-    /// <summary>
-    /// 批量删除实体数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="entitys">要删除的实体对象列表</param>
-    public void Delete<T>(List<T> entitys) where T : class, new()
-    {
-        commands.Add(new Command { CommandType = CommandEnum.Delete, DataType = DataEnum.Entity, Entity = entitys });
-    }
-
-    /// <summary>
-    /// 使用SQL语句删除数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="sql">删除SQL语句</param>
-    /// <param name="parameters">SQL参数对象</param>
-    public void Delete<T>(string sql, object parameters = default!) where T : class, new()
-    {
-        commands.Add(new Command
-        { CommandType = CommandEnum.Delete, DataType = DataEnum.SQL, SQL = sql, Parameters = parameters });
     }
 
     /// <summary>
@@ -217,38 +103,6 @@ public class SqlSugarFactory : IFactory
     }
 
     /// <summary>
-    /// 插入单个实体数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="entity">要插入的实体对象</param>
-    public void Insert<T>(T entity) where T : class, new()
-    {
-        commands.Add(new Command { CommandType = CommandEnum.Insert, DataType = DataEnum.Entity, Entity = entity });
-    }
-
-    /// <summary>
-    /// 批量插入实体数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="entitys">要插入的实体对象列表</param>
-    public void Insert<T>(List<T> entitys) where T : class, new()
-    {
-        commands.Add(new Command { CommandType = CommandEnum.Insert, DataType = DataEnum.Entity, Entity = entitys });
-    }
-
-    /// <summary>
-    /// 使用SQL语句插入数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="sql">插入SQL语句</param>
-    /// <param name="parameters">SQL参数对象</param>
-    public void Insert<T>(string sql, object parameters = default!) where T : class, new()
-    {
-        commands.Add(new Command
-        { CommandType = CommandEnum.Insert, DataType = DataEnum.SQL, SQL = sql, Parameters = parameters });
-    }
-
-    /// <summary>
     /// 执行分页查询
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
@@ -284,62 +138,6 @@ public class SqlSugarFactory : IFactory
     public ISugarQueryable<T> Query<T>() where T : class, new()
     {
         return client.Queryable<T>();
-    }
-
-    /// <summary>
-    /// 更新单个实体数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="entity">要更新的实体对象</param>
-    public void Update<T>(T entity) where T : class, new()
-    {
-        commands.Add(new Command { CommandType = CommandEnum.Update, DataType = DataEnum.Entity, Entity = entity });
-    }
-
-    /// <summary>
-    /// 更新实体的指定列
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="entity">要更新的实体对象</param>
-    /// <param name="columns">要更新的列选择器表达式</param>
-    public void Update<T>(T entity, Expression<Func<T, object>> columns) where T : class, new()
-    {
-        commands.Add(new Command
-        { CommandType = CommandEnum.Update, DataType = DataEnum.Where, Entity = entity, Where = columns });
-    }
-
-    /// <summary>
-    /// 批量更新实体数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="entitys">要更新的实体对象列表</param>
-    public void Update<T>(List<T> entitys) where T : class, new()
-    {
-        commands.Add(new Command { CommandType = CommandEnum.Update, DataType = DataEnum.Entity, Entity = entitys });
-    }
-
-    /// <summary>
-    /// 批量更新实体的指定列
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="entitys">要更新的实体对象列表</param>
-    /// <param name="columns">要更新的列选择器表达式</param>
-    public void Update<T>(List<T> entitys, Expression<Func<T, object>> columns) where T : class, new()
-    {
-        commands.Add(new Command
-        { CommandType = CommandEnum.Update, DataType = DataEnum.Where, Entity = entitys, Where = columns });
-    }
-
-    /// <summary>
-    /// 使用SQL语句更新数据
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    /// <param name="sql">更新SQL语句</param>
-    /// <param name="parameters">SQL参数对象</param>
-    public void Update<T>(string sql, object parameters = default!) where T : class, new()
-    {
-        commands.Add(new Command
-        { CommandType = CommandEnum.Update, DataType = DataEnum.SQL, SQL = sql, Parameters = parameters });
     }
 
     /// <summary>
@@ -438,5 +236,113 @@ public class SqlSugarFactory : IFactory
             };
 
         return client;
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    public IInsertable<T> Insert<T>(T entity) where T : BaseEntity, new()
+    {
+        return client.Insertable(entity);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    public IInsertable<T> Insert<T>(List<T> entitys) where T : BaseEntity, new()
+    {
+        return client.Insertable(entitys);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    public IUpdateable<T> Update<T>(T entity) where T : BaseEntity, new()
+    {
+        return client.Updateable(entity)
+            .IgnoreColumns(ignoreAllNullColumns: true)
+            .IsEnableUpdateVersionValidation();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    public IUpdateable<T> Update<T>(List<T> entitys) where T : BaseEntity, new()
+    {
+        return client.Updateable(entitys)
+            .IgnoreColumns(ignoreAllNullColumns: true)
+            .IsEnableUpdateVersionValidation();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public IUpdateable<T> Update<T>() where T : BaseEntity, new()
+    {
+        return client.Updateable<T>()
+            .IgnoreColumns(ignoreAllNullColumns: true)
+            .IsEnableUpdateVersionValidation();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <returns></returns>
+    public async Task BeginTranAsync()
+    {
+        await client.BeginTranAsync();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <returns></returns>
+    public async Task CommitTranAsync()
+    {
+        await client.CommitTranAsync();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <returns></returns>
+    public async Task RollbackTranAsync()
+    {
+        await client.RollbackTranAsync();
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="entitys"></param>
+    /// <returns></returns>
+    public IDeleteable<T> Delete<T>(List<T> entitys) where T : BaseEntity, new()
+    {
+        return client.Deleteable(entitys);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    public IDeleteable<T> Delete<T>(T entity) where T : BaseEntity, new()
+    {
+        return client.Deleteable(entity);
+    }
+
+    /// <summary>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public IDeleteable<T> Delete<T>() where T : BaseEntity, new()
+    {
+        return client.Deleteable<T>();
     }
 }

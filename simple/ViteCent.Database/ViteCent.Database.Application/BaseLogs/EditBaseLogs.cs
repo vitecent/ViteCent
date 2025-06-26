@@ -35,12 +35,6 @@ using ViteCent.Auth.Data.BaseResource;
 // 引入核心相关的数据参数
 using ViteCent.Auth.Data.BaseSystem;
 
-// 引入日志信息相关的数据参数
-using ViteCent.Database.Data.BaseLogs;
-
-// 引入日志信息相关的数据模型
-using ViteCent.Database.Entity.BaseLogs;
-
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
@@ -49,6 +43,12 @@ using ViteCent.Core.Enums;
 
 // 引入 Web 核心
 using ViteCent.Core.Web;
+
+// 引入日志信息相关的数据参数
+using ViteCent.Database.Data.BaseLogs;
+
+// 引入日志信息相关的数据模型
+using ViteCent.Database.Entity.BaseLogs;
 
 #endregion 引入命名空间
 

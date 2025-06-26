@@ -13,14 +13,14 @@ using MediatR;
 // 引入 Microsoft.Extensions.Logging 用于日志记录
 using Microsoft.Extensions.Logging;
 
-// 引入日志信息相关的数据模型
-using ViteCent.Database.Entity.BaseLogs;
-
 // 引入核心数据类型
 using ViteCent.Core.Data;
 
 // 引入ORM基础设施
 using ViteCent.Core.Orm.SqlSugar;
+
+// 引入日志信息相关的数据模型
+using ViteCent.Database.Entity.BaseLogs;
 
 #endregion 引入命名空间
 
@@ -63,7 +63,18 @@ public class EditBaseLogs(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Database.Domain.BaseLogs.EditBaseLogs");
 
-        // 调用基类方法执行更新操作并返回结果
-        return await base.EditAsync(request);
+        try
+        {
+            // 执行分表编辑操作
+            await Client.Update(request).SplitTable().ExecuteCommandAsync();
+        }
+        catch (Exception e)
+        {
+            // 返回操作失败结果，包含错误信息
+            return new BaseResult(500, e.Message);
+        }
+
+        //返回操作成功结果
+        return new BaseResult();
     }
 }

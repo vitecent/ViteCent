@@ -88,6 +88,6 @@ public class GetBaseLogs(
             query.Where(x => x.OperationId == request.OperationId);
 
         // 执行查询，返回第一条匹配记录
-        return await query.FirstAsync(cancellationToken);
+        return await query.SplitTable().FirstAsync(cancellationToken);
     }
 }

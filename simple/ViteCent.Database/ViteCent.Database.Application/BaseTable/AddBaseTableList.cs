@@ -23,12 +23,6 @@ using Microsoft.Extensions.Logging;
 // 引入公司相关的数据参数
 using ViteCent.Auth.Data.BaseCompany;
 
-// 引入数据表信息相关的数据参数
-using ViteCent.Database.Data.BaseTable;
-
-// 引入数据表信息相关的模型
-using ViteCent.Database.Entity.BaseTable;
-
 // 引入缓存器
 using ViteCent.Core.Cache;
 
@@ -40,6 +34,12 @@ using ViteCent.Core.Enums;
 
 // 引入 Web 核心
 using ViteCent.Core.Web;
+
+// 引入数据表信息相关的数据参数
+using ViteCent.Database.Data.BaseTable;
+
+// 引入数据表信息相关的模型
+using ViteCent.Database.Entity.BaseTable;
 
 #endregion 引入命名空间
 

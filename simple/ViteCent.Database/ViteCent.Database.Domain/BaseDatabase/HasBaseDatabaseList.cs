@@ -29,10 +29,15 @@ using ViteCent.Database.Entity.BaseDatabase;
 namespace ViteCent.Database.Domain.BaseDatabase;
 
 /// <summary>
-/// 批量数据库信息判重处理类 </summary> <remarks> 该类用于处理批量数据库信息的判重逻辑，包括：
+/// 批量数据库信息判重处理类
+/// </summary>
+/// <remarks>
+/// 该类用于处理批量数据库信息的判重逻辑，包括：
 /// 1. 检查数据库信息编码是否重复
 /// 2. 检查数据库信息名称是否重复
-/// 3. 返回判重结果 </remarks> <param name="logger">日志记录器实例</param>
+/// 3. 返回判重结果
+/// </remarks>
+/// <param name="logger">日志记录器实例</param>
 public class HasBaseDatabaseList(
     // 注入日志记录器
     ILogger<HasBaseDatabaseList> logger)

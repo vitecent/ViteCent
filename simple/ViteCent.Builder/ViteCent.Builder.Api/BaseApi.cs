@@ -127,10 +127,9 @@ public static class BaseApi
 
                 if (field.Name == "version")
                 {
-					field.VersionField = true;
-					field.EnableUpdateVersionValidation = ", IsEnableUpdateVersionValidation = true";
-				}
-				
+                    field.VersionField = true;
+                    field.EnableUpdateVersionValidation = ", IsEnableUpdateVersionValidation = true";
+                }
             }
 
             table.Fields = [.. fields.OrderBy(x => x.CamelCaseName)];

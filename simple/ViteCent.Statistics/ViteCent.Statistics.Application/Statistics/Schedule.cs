@@ -51,8 +51,6 @@ public class Schedule(
     {
         logger.LogInformation("Invoke ViteCent.Statistics.Application.Statistics.Schedule");
 
-        
-
         var now = DateTime.Now;
 
         var args = mapper.Map<StatisticsScheduleStatisticsEntityArgs>(request);

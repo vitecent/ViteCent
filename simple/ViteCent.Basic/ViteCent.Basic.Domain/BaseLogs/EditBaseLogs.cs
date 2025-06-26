@@ -63,7 +63,18 @@ public class EditBaseLogs(
         // 记录方法调用日志，便于追踪和调试
         logger.LogInformation("Invoke ViteCent.Basic.Domain.BaseLogs.EditBaseLogs");
 
-        // 调用基类方法执行更新操作并返回结果
-        return await base.EditAsync(request);
+        try
+        {
+            // 执行分表编辑操作
+            await Client.Update(request).SplitTable().ExecuteCommandAsync();
+        }
+        catch (Exception e)
+        {
+            // 返回操作失败结果，包含错误信息
+            return new BaseResult(500, e.Message);
+        }
+
+        //返回操作成功结果
+        return new BaseResult();
     }
 }

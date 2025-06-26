@@ -8,7 +8,8 @@
 
 #region 引入命名空间
 
-// 引入数据库信息相关的数据参数
+// 引入数据库信息相关的数据参数 引入 Web 核心
+using ViteCent.Core.Web;
 using ViteCent.Database.Data.BaseDatabase;
 
 // 引入表字段信息相关的数据参数
@@ -31,9 +32,6 @@ using ViteCent.Database.Entity.BaseLogs;
 
 // 引入数据表信息相关的数据模型对象
 using ViteCent.Database.Entity.BaseTable;
-
-// 引入 Web 核心
-using ViteCent.Core.Web;
 
 #endregion 引入命名空间
 

@@ -41,31 +41,7 @@ public class HasBaseLogs(
     {
         logger.LogInformation("Invoke ViteCent.Auth.Domain.BaseLogs.HasBaseLogs");
 
-        var query = Client.Query<BaseLogsEntity>();
-
-        if (!string.IsNullOrWhiteSpace(request.Id))
-            query.Where(x => x.Id != request.Id);
-
-        if (!string.IsNullOrWhiteSpace(request.CompanyId))
-            query.Where(x => x.CompanyId == request.CompanyId);
-
-        if (!string.IsNullOrWhiteSpace(request.DepartmentId))
-            query.Where(x => x.DepartmentId == request.DepartmentId);
-
-        if (!string.IsNullOrWhiteSpace(request.SystemId))
-            query.Where(x => x.SystemId == request.SystemId);
-
-        if (!string.IsNullOrWhiteSpace(request.ResourceId))
-            query.Where(x => x.ResourceId == request.ResourceId);
-
-        if (!string.IsNullOrWhiteSpace(request.OperationId))
-            query.Where(x => x.OperationId == request.OperationId);
-
-        var entity = await query.CountAsync(cancellationToken);
-
-        if (entity > 0)
-            return new BaseResult(500, "职位信息重复");
-
-        return new BaseResult();
+        // 日志无需重复判断
+        return await Task.FromResult(new BaseResult());
     }
 }
