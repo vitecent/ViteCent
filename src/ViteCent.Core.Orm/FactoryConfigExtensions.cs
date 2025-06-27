@@ -220,7 +220,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetCustomConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -229,7 +229,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetHANAConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -238,7 +238,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetTDSQLConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -247,7 +247,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetTDSQLForPGODBCConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -256,7 +256,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetGoldenDBConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -265,7 +265,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetXuguConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -274,7 +274,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetDorisConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -283,7 +283,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetPolarDBConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -292,7 +292,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetVastbaseConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -301,7 +301,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetTidbConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -310,7 +310,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetOceanBaseConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -319,7 +319,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetGaussDBConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -328,7 +328,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetTDengineConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -337,7 +337,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetOceanBaseForOracleConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -346,7 +346,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetOdbcConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -355,7 +355,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetGBaseConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -364,7 +364,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetClickHouseConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -373,7 +373,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetHGConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -382,7 +382,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetQuestDBConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -391,7 +391,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetOpenGaussConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -400,7 +400,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetAccessConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -409,7 +409,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetMySqlConnectorConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -418,7 +418,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetOscarConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -427,7 +427,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetKdbndpConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -436,7 +436,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetDmConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
@@ -463,7 +463,7 @@ public static class FactoryConfigExtensions
     /// <returns>处理结果</returns>
     private static string GetSqliteConfiguration(this BaseDatabaseInfo database)
     {
-        return string.Empty;
+        return $"Server={database.Server};User Id={database.User};Password={database.Password};DATABASE={database.Name}";
     }
 
     /// <summary>
