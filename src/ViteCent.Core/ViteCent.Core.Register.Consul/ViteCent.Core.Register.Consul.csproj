@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+		<ApplicationIcon>favicon.ico</ApplicationIcon>
+		<Title>ViteCent</Title>
+		<Description>ViteCent</Description>
+		<Copyright>ViteCent</Copyright>
+		<PackageProjectUrl>https://github.com/vitecent</PackageProjectUrl>
+		<PackageIcon>favicon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/vitecent</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ViteCent</PackageTags>
+		<PackageReleaseNotes>ViteCent</PackageReleaseNotes>
+		<AssemblyVersion>9.0.4</AssemblyVersion>
+		<FileVersion>9.0.4</FileVersion>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="favicon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\..\favicon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Consul" Version="1.7.14.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ViteCent.Core.Cache\ViteCent.Core.Cache.csproj" />
+		<ProjectReference Include="..\ViteCent.Core.Register\ViteCent.Core.Register.csproj" />
+	</ItemGroup>
+
+</Project>
