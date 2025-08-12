@@ -108,7 +108,7 @@ public class AddBaseFieldList(
             entity.Id = await cache.GetIdAsync(companyId, "BaseField");
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.Version = DateTime.Now;
+            
 
             entitys.Items.Add(entity);
         }

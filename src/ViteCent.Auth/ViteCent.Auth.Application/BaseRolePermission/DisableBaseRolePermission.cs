@@ -108,8 +108,8 @@ public partial class DisableBaseRolePermission(
         entity.Updater = user?.Name ?? string.Empty;
         // 更新修改时间
         entity.UpdateTime = DateTime.Now;
-        // 更新数据版本
-        entity.Version = DateTime.Now;
+       
+        
 
         // 通过中介者模式发送更新请求
         var result = await mediator.Send(entity, cancellationToken);

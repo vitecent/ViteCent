@@ -98,7 +98,7 @@ public class AddBaseCompanyList(
 
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.Version = DateTime.Now;
+            
 
             entitys.Items.Add(entity);
         }

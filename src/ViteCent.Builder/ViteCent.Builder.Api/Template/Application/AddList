@@ -111,7 +111,7 @@ public class $!{Setting.AddName}$!{Table.CamelCaseName}$!{Setting.Data.ListSuffi
 
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.Version = DateTime.Now;
+            
 
             entitys.Items.Add(entity);
         }

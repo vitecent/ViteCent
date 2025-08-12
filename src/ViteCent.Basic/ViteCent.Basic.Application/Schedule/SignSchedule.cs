@@ -71,7 +71,7 @@ public partial class SignSchedule(
         entity.Status = (int)ScheduleEnum.First;
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
-        entity.Version = DateTime.Now;
+        
 
         return await mediator.Send(entity, cancellationToken);
     }

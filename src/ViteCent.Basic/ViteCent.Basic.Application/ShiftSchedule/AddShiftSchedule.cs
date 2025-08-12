@@ -112,7 +112,7 @@ public partial class AddShiftSchedule(
 
         entity.Creator = user?.Name ?? string.Empty;
         entity.CreateTime = DateTime.Now;
-        entity.Version = DateTime.Now;
+        
 
         var result = await mediator.Send(entity, cancellationToken);
 

@@ -59,7 +59,7 @@ public class ShiftScheduleTopic(
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
-        entity.Version = DateTime.Now;
+        
 
         await mediator.Send(entity, cancellationToken);
     }

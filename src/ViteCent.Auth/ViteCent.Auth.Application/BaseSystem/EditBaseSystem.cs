@@ -115,7 +115,7 @@ public partial class EditBaseSystem(
 
         entity.Updater = user?.Name ?? string.Empty;
         entity.UpdateTime = DateTime.Now;
-        entity.Version = DateTime.Now;
+        
 
         var result = await mediator.Send(entity, cancellationToken);
 

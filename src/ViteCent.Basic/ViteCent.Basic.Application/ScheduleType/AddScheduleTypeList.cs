@@ -113,7 +113,7 @@ public class AddScheduleTypeList(
             entity.Id = await cache.GetIdAsync(companyId, "ScheduleType");
             entity.Creator = user?.Name ?? string.Empty;
             entity.CreateTime = DateTime.Now;
-            entity.Version = DateTime.Now;
+            
 
             entitys.Items.Add(entity);
         }

@@ -95,27 +95,6 @@ public class BaseAuthFilter(
             return;
         }
 
-        var cahceToken = string.Empty;
-
-        if (cache.HasKey($"User{user.Id}"))
-            cahceToken = cache.GetString<string>($"User{user.Id}");
-
-        if (string.IsNullOrWhiteSpace(cahceToken) || token != cahceToken)
-        {
-            logger.LogInformation($"{user.Name} InvokeAsync {System}:{Resource}:{Operation} Not Cache");
-
-            context.Result = result;
-
-            return;
-        }
-
-        var flagExpires = int.TryParse(configuration["Jwt:Expires"] ?? default!, out var expires);
-
-        if (!flagExpires || expires < 1) expires = 24;
-
-        cache.SetKeyExpire($"User{user.Id}", TimeSpan.FromHours(expires));
-        cache.SetKeyExpire($"UserInfo{user.Id}", TimeSpan.FromHours(expires));
-
         if (user?.IsSuper != (int)YesNoEnum.Yes)
             if (!IsAUth(user, System, Resource, Operation))
             {

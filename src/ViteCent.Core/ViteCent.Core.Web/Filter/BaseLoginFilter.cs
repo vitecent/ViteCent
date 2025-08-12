@@ -61,24 +61,5 @@ public class BaseLoginFilter(IBaseCache cache, IConfiguration configuration) : A
             context.Result = result;
             return;
         }
-
-        var cahceToken = string.Empty;
-
-        if (cache.HasKey($"User{user.Id}"))
-            cahceToken = cache.GetString<string>($"User{user.Id}");
-
-        if (string.IsNullOrWhiteSpace(cahceToken) || token != cahceToken)
-        {
-            context.Result = result;
-        }
-        else
-        {
-            var flagExpires = int.TryParse(configuration["Jwt:Expires"] ?? default!, out var expires);
-
-            if (!flagExpires || expires < 1) expires = 24;
-
-            cache.SetKeyExpire($"User{user.Id}", TimeSpan.FromHours(expires));
-            cache.SetKeyExpire($"UserInfo{user.Id}", TimeSpan.FromHours(expires));
-        }
     }
 }

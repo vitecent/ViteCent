@@ -108,8 +108,8 @@ public partial class EnableBaseUserRole(
         entity.Updater = user?.Name ?? string.Empty;
         // 设置更新时间
         entity.UpdateTime = DateTime.Now;
-        // 更新数据版本
-        entity.Version = DateTime.Now;
+       
+        
 
         // 保存更新后的用户角色
         var result = await mediator.Send(entity, cancellationToken);
