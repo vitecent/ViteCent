@@ -59,7 +59,7 @@ public abstract class BaseDomain<T> : IBaseDomain<T> where T : BaseEntity, new()
     {
         try
         {
-            var flag = await Client.Delete(entitys).ExecuteCommandAsync();
+            var flag = await Client.Insert(entitys).ExecuteCommandAsync();
         }
         catch (Exception e)
         {

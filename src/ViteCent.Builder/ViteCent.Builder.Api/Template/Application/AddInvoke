@@ -149,7 +149,8 @@ public partial class $!{Setting.AddName}$!{Table.CamelCaseName}(
         entity.Id = await cache.GetIdAsync(companyId, "$!{Table.CamelCaseName}");
 #end
 
-        entity.Creator = user?.Name ?? string.Empty;
+        entity.Creator = user?.Name ?? string.Empty; 
+        entity.Version = DateTime.Now;
         entity.CreateTime = DateTime.Now;
         
 

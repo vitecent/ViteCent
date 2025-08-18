@@ -93,8 +93,8 @@ public partial class AddBaseRole(
         entity.Id = await cache.GetIdAsync(companyId, "BaseRole");
 
         entity.Creator = user?.Name ?? string.Empty;
+        entity.Version = DateTime.Now;
         entity.CreateTime = DateTime.Now;
-        
 
         var result = await mediator.Send(entity, cancellationToken);
 

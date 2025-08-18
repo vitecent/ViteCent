@@ -100,8 +100,8 @@ public class AddBaseUserList(
             entity.Id = await cache.GetIdAsync(companyId, "BaseUser");
 
             entity.Creator = user?.Name ?? string.Empty;
+            entity.Version = DateTime.Now;
             entity.CreateTime = DateTime.Now;
-            
 
             entitys.Items.Add(entity);
         }

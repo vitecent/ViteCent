@@ -93,8 +93,8 @@ public partial class AddBasePosition(
         entity.Id = await cache.GetIdAsync(companyId, "BasePosition");
 
         entity.Creator = user?.Name ?? string.Empty;
+        entity.Version = DateTime.Now;
         entity.CreateTime = DateTime.Now;
-        
 
         var result = await mediator.Send(entity, cancellationToken);
 

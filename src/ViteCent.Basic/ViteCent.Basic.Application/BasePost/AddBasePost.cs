@@ -101,8 +101,8 @@ public partial class AddBasePost(
         entity.Id = await cache.GetIdAsync(companyId, "BasePost");
 
         entity.Creator = user?.Name ?? string.Empty;
+        entity.Version = DateTime.Now;
         entity.CreateTime = DateTime.Now;
-        
 
         var result = await mediator.Send(entity, cancellationToken);
 

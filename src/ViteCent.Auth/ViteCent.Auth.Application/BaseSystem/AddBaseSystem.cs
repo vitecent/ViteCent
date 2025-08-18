@@ -93,8 +93,8 @@ public partial class AddBaseSystem(
         entity.Id = await cache.GetIdAsync(companyId, "BaseSystem");
 
         entity.Creator = user?.Name ?? string.Empty;
+        entity.Version = DateTime.Now;
         entity.CreateTime = DateTime.Now;
-        
 
         var result = await mediator.Send(entity, cancellationToken);
 

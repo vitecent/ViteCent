@@ -93,8 +93,8 @@ public partial class AddBaseResource(
         entity.Id = await cache.GetIdAsync(companyId, "BaseResource");
 
         entity.Creator = user?.Name ?? string.Empty;
+        entity.Version = DateTime.Now;
         entity.CreateTime = DateTime.Now;
-        
 
         var result = await mediator.Send(entity, cancellationToken);
 

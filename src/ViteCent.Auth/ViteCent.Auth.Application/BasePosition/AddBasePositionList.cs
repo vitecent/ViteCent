@@ -100,8 +100,8 @@ public class AddBasePositionList(
             entity.Id = await cache.GetIdAsync(companyId, "BasePosition");
 
             entity.Creator = user?.Name ?? string.Empty;
+            entity.Version = DateTime.Now;
             entity.CreateTime = DateTime.Now;
-            
 
             entitys.Items.Add(entity);
         }

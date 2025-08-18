@@ -111,8 +111,8 @@ public partial class AddUserRest(
         entity.Id = await cache.GetIdAsync(companyId, "UserRest");
 
         entity.Creator = user?.Name ?? string.Empty;
+        entity.Version = DateTime.Now;
         entity.CreateTime = DateTime.Now;
-        
 
         var result = await mediator.Send(entity, cancellationToken);
 

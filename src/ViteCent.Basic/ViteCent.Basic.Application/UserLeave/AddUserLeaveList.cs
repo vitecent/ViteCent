@@ -117,8 +117,8 @@ public class AddUserLeaveList(
 
             entity.Id = await cache.GetIdAsync(companyId, "UserLeave");
             entity.Creator = user?.Name ?? string.Empty;
+            entity.Version = DateTime.Now;
             entity.CreateTime = DateTime.Now;
-            
 
             entitys.Items.Add(entity);
         }

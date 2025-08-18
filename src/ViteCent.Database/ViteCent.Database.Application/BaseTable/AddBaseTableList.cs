@@ -107,8 +107,8 @@ public class AddBaseTableList(
 
             entity.Id = await cache.GetIdAsync(companyId, "BaseTable");
             entity.Creator = user?.Name ?? string.Empty;
+            entity.Version = DateTime.Now;
             entity.CreateTime = DateTime.Now;
-            
 
             entitys.Items.Add(entity);
         }

@@ -100,8 +100,8 @@ public class AddBaseRoleList(
             entity.Id = await cache.GetIdAsync(companyId, "BaseRole");
 
             entity.Creator = user?.Name ?? string.Empty;
+            entity.Version = DateTime.Now;
             entity.CreateTime = DateTime.Now;
-            
 
             entitys.Items.Add(entity);
         }

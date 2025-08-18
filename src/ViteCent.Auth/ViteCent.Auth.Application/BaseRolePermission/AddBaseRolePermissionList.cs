@@ -100,8 +100,8 @@ public class AddBaseRolePermissionList(
             entity.Id = await cache.GetIdAsync(companyId, "BaseRolePermission");
 
             entity.Creator = user?.Name ?? string.Empty;
+            entity.Version = DateTime.Now;
             entity.CreateTime = DateTime.Now;
-            
 
             entitys.Items.Add(entity);
         }

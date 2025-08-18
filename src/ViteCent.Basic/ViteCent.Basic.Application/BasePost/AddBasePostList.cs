@@ -106,9 +106,10 @@ public class AddBasePostList(
             var entity = mapper.Map<AddBasePostEntity>(item);
 
             entity.Id = await cache.GetIdAsync(companyId, "BasePost");
+
             entity.Creator = user?.Name ?? string.Empty;
+            entity.Version = DateTime.Now;
             entity.CreateTime = DateTime.Now;
-            
 
             entitys.Items.Add(entity);
         }

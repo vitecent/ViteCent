@@ -111,8 +111,8 @@ public partial class AddShiftSchedule(
         entity.Id = await cache.GetIdAsync(companyId, "ShiftSchedule");
 
         entity.Creator = user?.Name ?? string.Empty;
+        entity.Version = DateTime.Now;
         entity.CreateTime = DateTime.Now;
-        
 
         var result = await mediator.Send(entity, cancellationToken);
 

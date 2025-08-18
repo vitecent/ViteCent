@@ -116,7 +116,7 @@ public partial class EditBaseUser(
         };
 
         // 创建数据验证器
-        var validator = new BaseUserValidator(true);
+        var validator = new BaseUserValidator(false);
 
         // 验证参数有效性
         var check = await validator.ValidateAsync(args, cancellationToken);

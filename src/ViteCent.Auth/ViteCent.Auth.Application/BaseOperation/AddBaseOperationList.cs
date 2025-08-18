@@ -100,8 +100,8 @@ public class AddBaseOperationList(
             entity.Id = await cache.GetIdAsync(companyId, "BaseOperation");
 
             entity.Creator = user?.Name ?? string.Empty;
+            entity.Version = DateTime.Now;
             entity.CreateTime = DateTime.Now;
-            
 
             entitys.Items.Add(entity);
         }
