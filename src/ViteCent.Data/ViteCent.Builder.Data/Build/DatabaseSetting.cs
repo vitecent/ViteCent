@@ -27,7 +27,7 @@ public class DatabaseSetting
 
     /// <summary>
     /// </summary>
-    public string Server { get; set; } = "192.168.0.11";
+    public string Server { get; set; } = "192.168.0.8";
 
     /// <summary>
     /// </summary>

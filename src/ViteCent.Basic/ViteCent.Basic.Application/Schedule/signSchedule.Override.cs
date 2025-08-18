@@ -22,11 +22,14 @@ public partial class SignSchedule
         var siginTime = DateTime.Now;
         var now = siginTime.Date;
         var time = string.Empty;
+        var whiteTime = new List<string>();
+        var lastTime = string.Empty;
 
         //可以打卡的时间
         if (string.IsNullOrWhiteSpace(entity.Times))
             return new BaseResult(500, "打卡时间格式错误");
 
+        //08:30-11:45,11:45-15:00,15:00-18:00,18:00-22:30
         var arrays = entity.Times.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
         if (arrays.Count == 0)
@@ -34,6 +37,7 @@ public partial class SignSchedule
 
         foreach (var array in arrays)
         {
+            //08:30-11:45
             var times = array.Split('-', StringSplitOptions.RemoveEmptyEntries).ToList();
 
             if (times.Count != 2)
@@ -51,10 +55,19 @@ public partial class SignSchedule
             if (start > end)
                 end = end.AddDays(1);
 
-            if (siginTime >= start && siginTime <= end)
+            if (string.IsNullOrWhiteSpace(time))
+                if (siginTime >= start && siginTime <= end)
+                {
+                    time = array;
+                    whiteTime.Add(array);
+
+                    lastTime = times[1];
+                }
+
+            if (!string.IsNullOrWhiteSpace(time) && times[0] == lastTime)
             {
-                time = array;
-                break;
+                whiteTime.Add(array);
+                lastTime = times[1];
             }
         }
 
@@ -69,7 +82,8 @@ public partial class SignSchedule
         if (signTimes.Any(x => x == time))
             return new BaseResult(500, "重复打卡");
 
-        signTimes.Add(time);
+        signTimes.AddRange(whiteTime);
+        signTimes = [.. signTimes.OrderBy(x => x).Distinct()];
 
         entity.SignTimes = string.Join(",", signTimes);
 
